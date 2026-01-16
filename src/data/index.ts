@@ -106,4 +106,6 @@ const sarnaLenData = {
   'adjustments-characteristics-stonefolk': adjustmentsCharacteristicsStonefolk,
 };
 
+export type StaticData = typeof sarnaLenData;
+
 export default sarnaLenData;

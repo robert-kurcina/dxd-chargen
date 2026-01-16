@@ -1,12 +1,14 @@
 [
-  { "d66": "1-10", "rank": "A", "ageGroup": "Child" },
+  { "d66": "-", "rank": "C", "ageGroup": "Infant" },
+  { "d66": "-", "rank": "B", "ageGroup": "Toddler" },
+  { "d66": "-", "rank": "A", "ageGroup": "Child" },
   { "d66": "11-12", "rank": "0", "ageGroup": "Youth" },
-  { "d66": "13-20", "rank": "1", "ageGroup": "Early Teen" },
+  { "d66": "13-16", "rank": "1", "ageGroup": "Early Teen" },
   { "d66": "21-22", "rank": "2", "ageGroup": "Teenager" },
-  { "d66": "23-40", "rank": "3", "ageGroup": "Young Adult" },
+  { "d66": "23-36", "rank": "3", "ageGroup": "Young Adult" },
   { "d66": "41-54", "rank": "4", "ageGroup": "Adult" },
   { "d66": "55", "rank": "5", "ageGroup": "Mature" },
-  { "d66": "56-60", "rank": "6", "ageGroup": "Middle Age" },
+  { "d66": "56", "rank": "6", "ageGroup": "Middle Age" },
   { "d66": "61-64", "rank": "7", "ageGroup": "Elder" },
   { "d66": "65", "rank": "8", "ageGroup": "Aged" },
   { "d66": "66", "rank": "9", "ageGroup": "Venerable" }
