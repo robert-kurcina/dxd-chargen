@@ -51,3 +51,85 @@ export function d66Lookup(d66Value: number, table: TableRow[]): TableRow | undef
   }
   return undefined;
 }
+
+/**
+ * Checks if a trait string represents a disability (i.e., is wrapped in square brackets).
+ * @param trait The full trait string (e.g., "[Coward X]").
+ * @returns True if the trait is a disability.
+ */
+export function isDisability(trait: string): boolean {
+  return trait.trim().startsWith('[') && trait.trim().endsWith(']');
+}
+
+/**
+ * Parses a complex talent or trait string into its constituent parts.
+ * Handles asterisks, trait names, levels (implicit or explicit), specializations, and disability markers.
+ * e.g., "***[Hatred 2 > Elves]" -> { name: "Hatred", level: 2, specialization: "Elves", isDisability: true, asterisks: 3 }
+ * @param fullTraitString The talent or trait string to parse.
+ * @returns An object containing the parsed components of the trait.
+ */
+export function parseTalent(fullTraitString: string): {
+  name: string;
+  level: number;
+  specialization: string | null;
+  isDisability: boolean;
+  asterisks: number;
+} {
+  let traitStr = fullTraitString.trim();
+
+  // 1. Count and remove leading asterisks
+  let asterisks = 0;
+  while (traitStr.startsWith('*')) {
+    asterisks++;
+    traitStr = traitStr.substring(1);
+  }
+
+  // 2. Check for disability and remove brackets for parsing
+  const disability = isDisability(traitStr);
+  if (disability) {
+    traitStr = traitStr.substring(1, traitStr.length - 1);
+  }
+
+  // 3. Separate specialization
+  const specializationParts = traitStr.split(' > ');
+  const mainPart = specializationParts[0];
+  const specialization = specializationParts.length > 1 ? specializationParts[1].trim() : null;
+
+  // 4. Extract level and name from the main part
+  const levelMatch = mainPart.match(/\s+(\d+)$/);
+  let level = 1; // Default level is 1
+  let name: string;
+
+  if (levelMatch) {
+    level = parseInt(levelMatch[1], 10);
+    // Remove the level from the name part
+    name = mainPart.substring(0, levelMatch.index).trim();
+  } else {
+    // No explicit level, the whole mainPart is the name
+    name = mainPart.trim();
+  }
+
+  return {
+    name,
+    level,
+    specialization,
+    isDisability: disability,
+    asterisks,
+  };
+}
+
+/**
+ * Parses a simple trait string (without asterisks) into its components.
+ * This is a convenience wrapper around parseTalent.
+ * @param traitString The trait string to parse.
+ * @returns An object containing the parsed components.
+ */
+export function parseTrait(traitString: string): {
+  name: string;
+  level: number;
+  specialization: string | null;
+  isDisability: boolean;
+} {
+    const { name, level, specialization, isDisability } = parseTalent(traitString);
+    return { name, level, specialization, isDisability };
+}
