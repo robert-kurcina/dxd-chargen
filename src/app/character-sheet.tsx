@@ -81,9 +81,9 @@ export default function CharacterSheet() {
                 <div
                   key={attr.name}
                   className={cn(
-                    "text-center text-sm font-bold border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
+                    "text-center font-headline text-lg border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
                     {
-                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'POW', 'SIZ'].includes(attr.name)
                     }
                   )}
                 >
@@ -96,9 +96,9 @@ export default function CharacterSheet() {
                 <div
                   key={i}
                   className={cn(
-                    "h-10 flex items-center justify-center font-bold text-sm border-r border-gray-300",
+                    "h-20 flex items-center justify-center font-bold text-3xl border-r border-gray-300",
                     {
-                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'POW', 'SIZ'].includes(attr.name)
                     }
                   )}
                 >
@@ -113,7 +113,7 @@ export default function CharacterSheet() {
                   className={cn(
                     "h-6 flex items-center justify-center text-sm border-r border-gray-300",
                      {
-                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'POW', 'SIZ'].includes(attr.name)
                     }
                   )}
                 >
