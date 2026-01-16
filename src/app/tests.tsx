@@ -16,9 +16,12 @@ export default function Tests({ data }: { data: StaticData }) {
     const foundAgeGroup = d66Lookup(roll, data.ageGroups);
     setAgeGroup(foundAgeGroup);
   };
-  
-  const talentString = '***Foo 5';
-  const parsedTalent = parseTalent(talentString);
+
+  const talentString1 = '***Foo 5';
+  const parsedTalent1 = parseTalent(talentString1);
+
+  const talentString2 = '*Bar 3 > Baz';
+  const parsedTalent2 = parseTalent(talentString2);
 
   return (
     <div className="space-y-8 mt-4">
@@ -52,7 +55,7 @@ export default function Tests({ data }: { data: StaticData }) {
           )}
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Talent Parser Demo</CardTitle>
@@ -63,14 +66,27 @@ export default function Tests({ data }: { data: StaticData }) {
           </p>
           <div className="mt-4 p-4 border rounded-md bg-gray-50">
             <p className="font-semibold">
-              Input String: <span className="font-mono text-primary">{talentString}</span>
+              Input String: <span className="font-mono text-primary">{talentString1}</span>
             </p>
             <div className="mt-2">
               <p>
                 <strong>Parsed Output:</strong>
               </p>
               <pre className="mt-2 text-xs bg-gray-100 p-2 rounded-md overflow-x-auto">
-                {JSON.stringify(parsedTalent, null, 2)}
+                {JSON.stringify(parsedTalent1, null, 2)}
+              </pre>
+            </div>
+          </div>
+          <div className="mt-4 p-4 border rounded-md bg-gray-50">
+            <p className="font-semibold">
+              Input String: <span className="font-mono text-primary">{talentString2}</span>
+            </p>
+            <div className="mt-2">
+              <p>
+                <strong>Parsed Output:</strong>
+              </p>
+              <pre className="mt-2 text-xs bg-gray-100 p-2 rounded-md overflow-x-auto">
+                {JSON.stringify(parsedTalent2, null, 2)}
               </pre>
             </div>
           </div>
