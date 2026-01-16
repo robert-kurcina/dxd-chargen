@@ -1,7 +1,10 @@
 import CharacterSheet from './character-sheet';
 import sampleData from '@/data/character-sample.json';
 import emptyData from '@/data/character-empty.json';
+import sarnaLenData from '@/data/sarna-len-data.json';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Worksheet from './worksheet';
+import Info from './info';
 
 export default function CharacterSheetPage() {
   return (
@@ -22,16 +25,10 @@ export default function CharacterSheetPage() {
           <CharacterSheet characterData={sampleData} />
         </TabsContent>
         <TabsContent value="worksheet">
-          <div className="mt-4 p-4 border rounded-md">
-            <h2 className="text-xl font-bold">Worksheet</h2>
-            <p>This is the worksheet tab content.</p>
-          </div>
+          <Worksheet data={sarnaLenData} />
         </TabsContent>
         <TabsContent value="info">
-          <div className="mt-4 p-4 border rounded-md">
-            <h2 className="text-xl font-bold">Info</h2>
-            <p>This is the info tab content.</p>
-          </div>
+          <Info data={sarnaLenData} />
         </TabsContent>
       </Tabs>
     </main>
