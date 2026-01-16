@@ -192,11 +192,11 @@ export default function CharacterSheet() {
             <h3 className="font-bold mb-2 text-lg text-[18px]">Performance</h3>
             <div className="space-y-2 text-[14px]">
               {characterData.performance.map(({ name, value }) => (
-                <div key={name} className="flex items-center justify-between text-sm">
-                  <span>{name}</span>
+                <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
                   </div>
+                  <span>{name}</span>
                 </div>
               ))}
             </div>
@@ -205,11 +205,11 @@ export default function CharacterSheet() {
             <h3 className="font-bold mb-2 text-lg text-[18px]">Concerns</h3>
             <div className="space-y-2 text-[14px]">
               {characterData.concerns.map(({ name, value }) => (
-                <div key={name} className="flex items-center justify-between text-sm">
-                  <span>{name}</span>
+                <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
                   </div>
+                  <span>{name}</span>
                 </div>
               ))}
             </div>
@@ -218,11 +218,11 @@ export default function CharacterSheet() {
             <h3 className="font-bold mb-2 text-lg text-[18px]">Miscellaneous</h3>
             <div className="space-y-2 text-[14px]">
               {characterData.miscellaneous.map(({ name, value }) => (
-                <div key={name} className="flex items-center justify-between text-sm">
-                  <span>{name}</span>
+                <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
                   </div>
+                  <span>{name}</span>
                 </div>
               ))}
             </div>
@@ -231,11 +231,11 @@ export default function CharacterSheet() {
             <h3 className="font-bold mb-2 text-lg text-[18px]">Combat</h3>
             <div className="space-y-2 text-[14px]">
               {characterData.combat.map(({ name, value }) => (
-                <div key={name} className="flex items-center justify-between text-sm">
-                  <span>{name}</span>
+                <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
                   </div>
+                  <span>{name}</span>
                 </div>
               ))}
             </div>
