@@ -1,0 +1,8 @@
+[
+  { "level": "0", "title": "Novice" },
+  { "level": "1-4", "title": "Early Game" },
+  { "level": "5-8", "title": "Middle Game" },
+  { "level": "9-12", "title": "Late Game" },
+  { "level": "13-16", "title": "Legendary Game" },
+  { "level": "17-20", "title": "Epic Game" }
+]

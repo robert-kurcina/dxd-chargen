@@ -1,0 +1,7 @@
+[
+  { "keyword": "Atheist", "description": "Do not believe in any higher mystical or magic being. Gnostics and Theists have great prejudice against Atheists and so Atheists tend to keep quiet especially until pressed to rationalize a fantastic event, or to resist conversion by Theists.", "isDeity": false },
+  { "keyword": "Agnostic", "description": "Do not believe that any of the Deities are truly gods but are willing to convert if information appears. These tend to avoid arguments and integrate well with Theists.", "isDeity": false },
+  { "keyword": "Gnostic", "description": "Believe that higher powers exist beyond the known deities, and this can be discovered through meditation and education. They always look for evidence, and dislike all other beliefs.", "isDeity": false },
+  { "keyword": "Theist", "description": "Must pick a Deity from a list which will vary by Region because such beings are local to a Citystate and many have been embodied into avatars. Theists tend to argue, abuse, and war among themselves if the Deities between them are contradictory or in opposition.", "isDeity": true },
+  { "keyword": "Deist", "description": "Believe that there is a higher being above the known deities. This would be Kaythria, the Core-mind, or “Being beyond the Veil” and other such names. Deists are ridiculed by all Theists.", "isDeity": false }
+]

@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "Boron", "region": "Northlands", "neighbors": ["Sarekun", "Restan"] },
+  { "id": 2, "name": "Palten", "region": "Emerald", "neighbors": ["Sarekun", "Djorkan", "Vashtur"] },
+  { "id": 3, "name": "Sarekun", "region": "Highlands", "neighbors": ["Boron", "Palten", "Western", "Many Rivers", "Restan"] },
+  { "id": 4, "name": "Vashtur", "region": "Southlands", "neighbors": ["Djorkan", "Galsathil", "Palten"] },
+  { "id": 5, "name": "Djorkan", "region": "Eastlands", "neighbors": ["Palten", "Vashtur", "Restan"] },
+  { "id": 6, "name": "Western", "region": "Westlands", "neighbors": ["Many Rivers", "Pazkani", "Drusi", "Sarekun"] }
+]

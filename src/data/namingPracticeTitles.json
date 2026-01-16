@@ -1,0 +1,13 @@
+[
+  { "#": "0", "Guild": "Page", "Order": "Initiate", "Temple": "Initiate", "Tradition": "Recruit" },
+  { "#": "1", "Guild": "Apprentice", "Order": "Apprentice", "Temple": "Acolyte", "Tradition": "Soldier" },
+  { "#": "2", "Guild": "3rd Crafter", "Order": "Arcanist", "Temple": "Cleric", "Tradition": "Corporal" },
+  { "#": "3", "Guild": "2nd Crafter", "Order": "Senior Arcanist", "Temple": "Elder", "Tradition": "Sergeant" },
+  { "#": "4", "Guild": "1st Crafter", "Order": "Genera", "Temple": "Priest", "Tradition": "Lieutenant" },
+  { "#": "5", "Guild": "3rd Keeper", "Order": "Specialist", "Temple": "Templar", "Tradition": "Captain" },
+  { "#": "6", "Guild": "2nd Keeper", "Order": "Magus", "Temple": "Appointed", "Tradition": "Major" },
+  { "#": "7", "Guild": "1st Keeper", "Order": "High Magus", "Temple": "Benefex", "Tradition": "Commander" },
+  { "#": "8", "Guild": "Master", "Order": "Novice Adept", "Temple": "Exemplar", "Tradition": "Field General" },
+  { "#": "9", "Guild": "High Master", "Order": "Master Adept", "Temple": "Visionary", "Tradition": "Staff General" },
+  { "#": "10", "Guild": "Gr. master", "Order": "Grand Adept", "Temple": "Avatarin", "Tradition": "High General" }
+]

@@ -1,7 +1,7 @@
 import CharacterSheet from './character-sheet';
 import sampleData from '@/data/character-sample.json';
 import emptyData from '@/data/character-empty.json';
-import sarnaLenData from '@/data/sarna-len-data.json';
+import sarnaLenData from '@/data';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Worksheet from './worksheet';
 import Info from './info';

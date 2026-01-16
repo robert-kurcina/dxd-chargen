@@ -1,0 +1,13 @@
+[
+  { "name": "Aquorica", "economicStatus": "Average", "environs": ["River", "Swamp", "Forest", "Hills"] },
+  { "name": "Boral", "economicStatus": "Impoverished", "environs": ["Badlands", "Plains", "Hills", "River"] },
+  { "name": "Corom", "economicStatus": "Affluent", "environs": ["Coastal", "River", "Swamp", "Jungle"] },
+  { "name": "Indel", "economicStatus": "Impoverished", "environs": ["Grasslands", "Plains", "Woods", "Mountains"] },
+  { "name": "Paelon", "economicStatus": "Rising", "environs": ["Mountains", "Badlands", "Hills", "Coastal"] },
+  { "name": "Paltesh", "economicStatus": "Impoverished", "environs": ["Coastal", "River", "Forest", "Hills"] },
+  { "name": "Quaghk", "economicStatus": "Average", "environs": ["Plains", "Forest", "Marsh", "River"] },
+  { "name": "Quel", "economicStatus": "Impoverished", "environs": ["River", "Swamp", "Jungle", "Marsh"] },
+  { "name": "Riaton", "economicStatus": "Affluent", "environs": ["River", "Coastal", "Forest", "Swamp"] },
+  { "name": "Sarken", "economicStatus": "Rising, Affluent", "environs": ["Desert", "Badlands", "Mountains", "Plains"] },
+  { "name": "Stagin", "economicStatus": "Impoverished", "environs": ["Coastal", "Woods", "Desert", "River"] }
+]

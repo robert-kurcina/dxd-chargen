@@ -1,0 +1,13 @@
+[
+  { "trade": "Cleric", "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, PRE 10+", "namingPractice": "Temple", "specializations": ["Hermit", "Shaman", "Cloistered", "Physician", "Guardian"], "per1000": 200 },
+  { "trade": "Knight", "candidacy": "PRE + POW + STR + FOR >= 28, and CCA, RCA, POW 10+", "namingPractice": "Temple", "specializations": ["Templar", "Royal", "Free", "Death"], "per1000": 120 },
+  { "trade": "Mariner", "candidacy": "PRE + POW + STR + FOR >= 28, and POW 10+", "namingPractice": "Tradition", "specializations": ["Voyager", "Sailor", "Privateer", "Pirate"], "per1000": 600 },
+  { "trade": "Ranger", "candidacy": "CCA + RCA + REF + INT >= 28, and REF, PRE 10+", "namingPractice": "Order", "specializations": ["Wanderer", "Beastfriend", "Bardic", "Scout"], "per1000": 550 },
+  { "trade": "Rogue", "candidacy": "CCA + RCA + REF + INT >= 28, and REF 10+", "namingPractice": "Guild", "specializations": ["Vagabond", "Thief", "Spy", "Goon", "Assassin"], "per1000": 450 },
+  { "trade": "Warrior", "candidacy": "PRE + POW + STR + FOR >= 28, and CCA or RCA or STR 10+", "namingPractice": "Tradition", "specializations": ["Soldier", "Archer", "Engineer", "Rider"], "per1000": 650 },
+  { "trade": "Wizard", "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, INT 10+", "namingPractice": "Order", "specializations": ["Spellbinder", "Warmage", "Alchemist", "Illusionist", "Summoner", "Artificer", "Necromancer"], "per1000": 180 },
+  { "trade": "Academic", "candidacy": "INT + KNO + POW >= 28, and INT, KNO 10+", "namingPractice": "Order", "specializations": [], "per1000": 150 },
+  { "trade": "Entertainer", "candidacy": "INT + REF + PRE >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 350 },
+  { "trade": "Service", "candidacy": "INT + KNO + POW >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 150 },
+  { "trade": "Rabble", "candidacy": "Any", "namingPractice": "-", "specializations": [], "per1000": 1000 }
+]

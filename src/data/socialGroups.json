@@ -1,0 +1,13 @@
+[
+  { "rank": 0, "group": "Peasant" },
+  { "rank": 1, "group": "Low Commoner" },
+  { "rank": 2, "group": "Mid Commoner" },
+  { "rank": 3, "group": "Landed or High Commoner" },
+  { "rank": 4, "group": "Aristocrat" },
+  { "rank": 5, "group": "Lesser Noble" },
+  { "rank": 6, "group": "Noble" },
+  { "rank": 7, "group": "Lesser Royal" },
+  { "rank": 8, "group": "Royal" },
+  { "rank": 9, "group": "Monarch" },
+  { "rank": 10, "group": "Emperor" }
+]

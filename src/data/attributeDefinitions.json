@@ -1,0 +1,34 @@
+[
+  {
+    "groupName": "Combat Attributes",
+    "attributes": [
+      { "name": "Close Combat Ability", "abbreviation": "CCA", "description": "Ability to hit or avoid being hit in Close Combat." },
+      { "name": "Range Combat Ability", "abbreviation": "RCA", "description": "Ability to accurately hit a target at range." },
+      { "name": "Reflexes", "abbreviation": "REF", "description": "Initiative in Combat, for Detecting things, stealth, avoid being hit during Range Combat, and ability to disengage from Close Combat." }
+    ]
+  },
+  {
+    "groupName": "Psychological Attributes",
+    "attributes": [
+      { "name": "Intellect", "abbreviation": "INT", "description": "Learning, finding, or investigating." },
+      { "name": "Knowledge", "abbreviation": "KNO", "description": "Lore, knowledge, memorization, maximum skills, creativity in general." },
+      { "name": "Presence", "abbreviation": "PRE", "description": "Empathy, maturity, influence, emotions, negotiate, leadership, grace, and charisma." },
+      { "name": "Willpower", "abbreviation": "POW", "description": "Discipline and Morale tests. Resistance to overwhelming emotions. Control oneself." }
+    ]
+  },
+  {
+    "groupName": "Physical Attributes",
+    "attributes": [
+      { "name": "Strength", "abbreviation": "STR", "description": "Damage bonus for physical attacks, pushing/pulling/throwing/jumping, wrestling, breaking/bending things." },
+      { "name": "Fortitude", "abbreviation": "FOR", "description": "Resist Injury. Resist afflictions such as from poison, bleeding, illness, nausea. Resist sleep. Ability to exceed physical limits." },
+      { "name": "Move", "abbreviation": "MOV", "description": "How fast a character may move during each Combat Turn. Agility. Mobility." },
+      { "name": "Size", "abbreviation": "SIZ", "description": "The Index of Weight of the character in pounds on the Universal table." }
+    ]
+  },
+  {
+    "groupName": "Magic Attributes",
+    "attributes": [
+      { "name": "Zed", "abbreviation": "ZED", "description": "Ability to use Magic and general ability to alter probabilities. Also known as “Luck”." }
+    ]
+  }
+]

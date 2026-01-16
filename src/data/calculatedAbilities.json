@@ -1,0 +1,47 @@
+[
+  {
+    "groupName": "Ranks",
+    "abilities": [
+      { "name": "Character Level", "description": "Grows with character progression by the accumulation of Experience Points and normally ranges from 1 to 12, with most Player-characters limited to 10." },
+      { "name": "Trade Rank", "description": "Comes with a title according to the organization to which a character belongs." },
+      { "name": "Social Rank", "description": "Based on background. Most characters are Commoners at Rank zero but some can be Lords, Counts, Marks, Princesses, Queens, or Emperor, etc." },
+      { "name": "Wealth Rank", "description": "Based on background." }
+    ]
+  },
+  {
+    "groupName": "Performance",
+    "abilities": [
+      { "name": "Endurance", "description": "Ability to ignore Fatigue and Weariness" },
+      { "name": "Resilience", "description": "Ability to ignore Stress" },
+      { "name": "Resistance", "description": "Ability to ignore Rads" },
+      { "name": "Hitpoints", "description": "Represents zeal, and ability to avoid Damage. Protects Bodypoints." },
+      { "name": "Bodypoints", "description": "Represents how much bodily Injury can be had before a character will die." },
+      { "name": "Gasp Limit", "description": "How long a character can hold its breath." },
+      { "name": "Sleep Limit", "description": "How long before needing to sleep." },
+      { "name": "Manapool", "description": "How much mana available for magic." },
+      { "name": "Favor Dice", "description": "Acquired by worship of a Deity. Increases with the Character Level [ PML ]." }
+    ]
+  },
+  {
+    "groupName": "Capabilities",
+    "abilities": [
+      { "name": "Physicality", "description": "The physical solidness of the character." },
+      { "name": "Recovery", "description": "How quickly to recover lost Hitpoints." },
+      { "name": "Movement Ability", "description": "Varies by Stature, SIZ, and STR" },
+      { "name": "Throwing Ability", "description": "Varies by STR and weight thrown" },
+      { "name": "Carrying Ability", "description": "Varies by STR and SIZ." },
+      { "name": "Cellburn", "description": "How much extra mana can be added to a Spell, Magic Item, or Action." },
+      { "name": "Stature", "description": "Character's height modifier." },
+      { "name": "Build", "description": "Character's body build modifier." }
+    ]
+  },
+  {
+    "groupName": "Managed Concerns",
+    "abilities": [
+      { "name": "Fatigue", "description": "Energy and effort, physical resource. Recovers quickly. Affects Endurance." },
+      { "name": "Weariness", "description": "Long-term energy and effort. Recovers by resting and sleeping. Affects Endurance." },
+      { "name": "Stress", "description": "Energy and effort, psychological resource. Recover by rest. Affects by Resilience." },
+      { "name": "Rads", "description": "Acquired from exposure to radiation and to magic. Dangerous. Affects Resistance." }
+    ]
+  }
+]

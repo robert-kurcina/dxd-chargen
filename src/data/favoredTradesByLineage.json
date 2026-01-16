@@ -1,0 +1,56 @@
+{
+  "Humaniki": {
+    "Human": {
+      "Sondgarat": { "Warrior": 650, "Mariner": 600, "Ranger": 550, "Rogue": 450, "Entertainer": 350, "Cleric": 200, "Wizard": 180, "Academic": 150, "Service": 150, "Knight": 120, "Rabble": 1000 },
+      "Quaggik": { "Warrior": 700, "Mariner": 620, "Ranger": 500, "Rogue": 400, "Entertainer": 300, "Cleric": 250, "Wizard": 220, "Academic": 180, "Service": 180, "Knight": 150, "Rabble": 1000 },
+      "Vasikha": { "Warrior": 680, "Mariner": 650, "Ranger": 580, "Rogue": 480, "Entertainer": 380, "Cleric": 220, "Wizard": 200, "Academic": 170, "Service": 170, "Knight": 140, "Rabble": 1000 },
+      "Drusian": { "Warrior": 550, "Mariner": 500, "Ranger": 520, "Rogue": 420, "Entertainer": 400, "Cleric": 300, "Wizard": 280, "Academic": 250, "Service": 250, "Knight": 100, "Rabble": 1000 },
+      "Auldfar": { "Warrior": 800, "Mariner": 750, "Ranger": 400, "Rogue": 300, "Entertainer": 200, "Cleric": 100, "Wizard": 80, "Academic": 50, "Service": 50, "Knight": 200, "Rabble": 1000 },
+      "Baminat": { "Warrior": 600, "Mariner": 550, "Ranger": 550, "Rogue": 500, "Entertainer": 450, "Cleric": 280, "Wizard": 250, "Academic": 200, "Service": 200, "Knight": 180, "Rabble": 1000 },
+      "Heidelan": { "Warrior": 720, "Mariner": 680, "Ranger": 500, "Rogue": 450, "Entertainer": 300, "Cleric": 150, "Wizard": 120, "Academic": 100, "Service": 100, "Knight": 180, "Rabble": 1000 },
+      "Restani": { "Warrior": 400, "Mariner": 350, "Ranger": 450, "Rogue": 350, "Entertainer": 420, "Cleric": 400, "Wizard": 450, "Academic": 400, "Service": 400, "Knight": 50, "Rabble": 1000 }
+    },
+    "Alef": {
+      "Akrunai": { "Warrior": 650, "Mariner": 620, "Ranger": 650, "Rogue": 550, "Entertainer": 450, "Cleric": 300, "Wizard": 280, "Academic": 250, "Service": 250, "Knight": 180, "Rabble": 1000 },
+      "Vanyrai": { "Warrior": 450, "Mariner": 400, "Ranger": 600, "Rogue": 500, "Entertainer": 500, "Cleric": 450, "Wizard": 500, "Academic": 450, "Service": 450, "Knight": 80, "Rabble": 1000 },
+      "Huaczwyk": { "Warrior": 600, "Mariner": 580, "Ranger": 620, "Rogue": 520, "Entertainer": 480, "Cleric": 350, "Wizard": 400, "Academic": 350, "Service": 350, "Knight": 150, "Rabble": 1000 }
+    },
+    "Drauf": {
+      "Ferrite": { "Warrior": 900, "Mariner": 850, "Ranger": 400, "Rogue": 300, "Entertainer": 150, "Cleric": 100, "Wizard": 50, "Academic": 80, "Service": 80, "Knight": 300, "Rabble": 1000 },
+      "Thanekon": { "Warrior": 880, "Mariner": 820, "Ranger": 500, "Rogue": 400, "Entertainer": 250, "Cleric": 150, "Wizard": 100, "Academic": 120, "Service": 120, "Knight": 280, "Rabble": 1000 },
+      "Exnoran": { "Warrior": 850, "Mariner": 800, "Ranger": 550, "Rogue": 450, "Entertainer": 300, "Cleric": 200, "Wizard": 150, "Academic": 180, "Service": 180, "Knight": 250, "Rabble": 1000 },
+      "Gemalite": { "Warrior": 750, "Mariner": 700, "Ranger": 650, "Rogue": 600, "Entertainer": 350, "Cleric": 100, "Wizard": 80, "Academic": 50, "Service": 50, "Knight": 200, "Rabble": 1000 }
+    },
+    "Klenari": {
+      "Jarmaran": { "Warrior": 550, "Mariner": 500, "Ranger": 650, "Rogue": 600, "Entertainer": 550, "Cleric": 300, "Wizard": 350, "Academic": 300, "Service": 300, "Knight": 100, "Rabble": 1000 },
+      "Stepmir": { "Warrior": 500, "Mariner": 450, "Ranger": 750, "Rogue": 700, "Entertainer": 500, "Cleric": 200, "Wizard": 250, "Academic": 200, "Service": 200, "Knight": 80, "Rabble": 1000 },
+      "Farleen": { "Warrior": 600, "Mariner": 550, "Ranger": 700, "Rogue": 650, "Entertainer": 520, "Cleric": 250, "Wizard": 300, "Academic": 250, "Service": 250, "Knight": 120, "Rabble": 1000 }
+    },
+    "Babbita": {
+      "Indelan": { "Warrior": 400, "Mariner": 350, "Ranger": 700, "Rogue": 650, "Entertainer": 400, "Cleric": 100, "Wizard": 150, "Academic": 100, "Service": 100, "Knight": 50, "Rabble": 1000 },
+      "Coromite": { "Warrior": 450, "Mariner": 400, "Ranger": 720, "Rogue": 680, "Entertainer": 450, "Cleric": 120, "Wizard": 180, "Academic": 120, "Service": 120, "Knight": 60, "Rabble": 1000 },
+      "Ankilati": { "Warrior": 500, "Mariner": 450, "Ranger": 750, "Rogue": 700, "Entertainer": 420, "Cleric": 80, "Wizard": 120, "Academic": 80, "Service": 80, "Knight": 80, "Rabble": 1000 }
+    },
+    "Gnoan": {
+      "Gilvanar": { "Warrior": 500, "Mariner": 450, "Ranger": 650, "Rogue": 600, "Entertainer": 200, "Cleric": 100, "Wizard": 150, "Academic": 100, "Service": 100, "Knight": 80, "Rabble": 1000 },
+      "Eyravite": { "Warrior": 600, "Mariner": 550, "Ranger": 700, "Rogue": 650, "Entertainer": 150, "Cleric": 150, "Wizard": 200, "Academic": 150, "Service": 150, "Knight": 150, "Rabble": 1000 },
+      "Dulndran": { "Warrior": 550, "Mariner": 500, "Ranger": 680, "Rogue": 620, "Entertainer": 180, "Cleric": 120, "Wizard": 180, "Academic": 120, "Service": 120, "Knight": 100, "Rabble": 1000 }
+    },
+    "Cherigili": {
+      "Restanoi": { "Warrior": 800, "Mariner": 900, "Ranger": 500, "Rogue": 400, "Entertainer": 450, "Cleric": 300, "Wizard": 350, "Academic": 300, "Service": 300, "Knight": 200, "Rabble": 1000 },
+      "Quaggian": { "Warrior": 850, "Mariner": 880, "Ranger": 550, "Rogue": 450, "Entertainer": 480, "Cleric": 350, "Wizard": 400, "Academic": 350, "Service": 350, "Knight": 250, "Rabble": 1000 }
+    }
+  },
+  "Kriketai": {
+    "Kriket": {
+      "Umber": { "Warrior": 700, "Mariner": 650, "Ranger": 800, "Rogue": 750, "Entertainer": 100, "Cleric": 50, "Wizard": 80, "Academic": 50, "Service": 50, "Knight": 150, "Rabble": 1000 },
+      "Carnelian": { "Warrior": 750, "Mariner": 700, "Ranger": 850, "Rogue": 800, "Entertainer": 150, "Cleric": 80, "Wizard": 120, "Academic": 80, "Service": 80, "Knight": 180, "Rabble": 1000 }
+    }
+  },
+  "Stonefolk": {
+    "Stonefolk": {
+      "Plains": { "Warrior": 500, "Mariner": 400, "Ranger": 600, "Rogue": 500, "Entertainer": 300, "Cleric": 700, "Wizard": 750, "Academic": 800, "Service": 800, "Knight": 100, "Rabble": 1000 },
+      "Mountains": { "Warrior": 600, "Mariner": 500, "Ranger": 550, "Rogue": 450, "Entertainer": 250, "Cleric": 750, "Wizard": 800, "Academic": 850, "Service": 850, "Knight": 150, "Rabble": 1000 }
+    }
+  }
+}

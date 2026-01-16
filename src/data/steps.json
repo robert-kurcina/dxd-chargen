@@ -1,0 +1,51 @@
+[
+  {
+    "title": "ASSIGN INTRINSICS",
+    "value": "intrinsics",
+    "disabled": false,
+    "substeps": [
+      { "title": "Assign Demographics", "value": "background-2", "disabled": false, "content": "Content for demographics will go here." },
+      { "title": "Assign Attributes", "value": "intrinsics-2", "disabled": false, "content": "Content for attributes will go here." },
+      { "title": "Assign Trade and Specialization", "value": "intrinsics-3", "disabled": false, "content": "Content for trade and specialization will go here." },
+      { "title": "Assign Zed", "value": "intrinsics-4", "disabled": true, "content": "Content for zed will go here." }
+    ]
+  },
+  {
+    "title": "ASSIGN BACKGROUND",
+    "value": "background",
+    "disabled": false,
+    "substeps": [
+      { "title": "Assign Starting Region & Settlement", "value": "background-1", "disabled": false, "content": "Content for starting region and settlement will go here." },
+      { "title": "Assign Heritage", "value": "background-3", "disabled": false, "content": "Content for heritage will go here." },
+      { "title": "Assign Social Rank", "value": "background-4", "disabled": false, "content": "Content for social rank will go here." },
+      { "title": "Assign Personality", "value": "background-5", "disabled": false, "content": "Content for personality will go here." },
+      { "title": "Assign Tragedy Seed", "value": "background-6", "disabled": false, "content": "Content for tragedy seed will go here." },
+      { "title": "Assign Disabilities", "value": "background-7", "disabled": false, "content": "Content for disabilities will go here." },
+      { "title": "Assign Belief & Worship", "value": "background-8", "disabled": false, "content": "Content for belief and worship will go here." }
+    ]
+  },
+  {
+    "title": "ASSIGN PROFICIENCIES",
+    "value": "proficiencies",
+    "disabled": true,
+    "substeps": [
+      { "title": "Assign Character Level", "value": "proficiencies-1", "disabled": true, "content": "Content for character level will go here." },
+      { "title": "Assign Skills, Abilities, and Talents", "value": "proficiencies-2", "disabled": true, "content": "Content for skills, abilities, and talents will go here." },
+      { "title": "Assign Additional Skills", "value": "proficiencies-3", "disabled": true, "content": "Content for additional skills will go here." },
+      { "title": "Assign Languages", "value": "proficiencies-4", "disabled": true, "content": "Content for languages will go here." },
+      { "title": "Assign Height and Weight", "value": "proficiencies-5", "disabled": true, "content": "Content for height and weight will go here." },
+      { "title": "Assign Ability Metrics", "value": "proficiencies-6", "disabled": true, "content": "Content for ability metrics will go here." }
+    ]
+  },
+  {
+    "title": "ASSIGN UTILITIES",
+    "value": "utilities",
+    "disabled": true,
+    "substeps": [
+      { "title": "Assign Spells", "value": "utilities-1", "disabled": true, "content": "Content for spells will go here." },
+      { "title": "Assign Starting Gear", "value": "utilities-2", "disabled": true, "content": "Content for starting gear will go here." },
+      { "title": "Assign Magic Items", "value": "utilities-3", "disabled": true, "content": "Content for magic items will go here." },
+      { "title": "Assign Name", "value": "utilities-4", "disabled": true, "content": "Content for name will go here." }
+    ]
+  }
+]

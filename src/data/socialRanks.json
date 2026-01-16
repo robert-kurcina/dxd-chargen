@@ -1,0 +1,11 @@
+[
+  { "society": "Peasant", "socialRank": 0, "titles": ["-"] },
+  { "society": "Slumfolk", "socialRank": 1, "titles": ["-"] },
+  { "society": "Townsfolk", "socialRank": 1, "titles": ["-"] },
+  { "society": "Cityfolk", "socialRank": 1, "titles": ["-"] },
+  { "society": "Landed", "socialRank": 3, "titles": ["Lord or Lady"] },
+  { "society": "Aristocrats", "socialRank": 4, "titles": ["Lord or Lady"] },
+  { "society": "Nobles", "socialRank": 5, "titles": ["Baron or Baroness", "Earl or Countess", "Count or Countess", "Prince or Princess"] },
+  { "society": "Royalty", "socialRank": 7, "titles": ["Prince or Princess", "Duke or Duchess", "King or Queen"] },
+  { "society": "Imperial", "socialRank": 8, "titles": ["Autarch"] }
+]
