@@ -6,7 +6,7 @@ import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
 
 const HistorySection = ({ title, content }: { title: string; content: string }) => (
-  <p>
+  <p className="text-sm">
     <span className="font-bold">{title};</span> {content}
   </p>
 );
@@ -22,13 +22,13 @@ export default function CharacterSheet() {
       <div className="border border-gray-300 p-4 max-w-4xl mx-auto bg-white shadow-lg">
         <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
           <div className="w-full md:w-2/3">
-            <p className="text-sm text-gray-500">Name</p>
-            <div className="border-2 border-transparent h-12 text-xl mb-4">
+            <p className="text-lg text-gray-500">Name</p>
+            <div className="border-2 border-transparent h-12 mb-4">
               <p className="text-2xl font-bold">{characterData.name}</p>
-              <p className="text-lg">[{characterData.properName}]</p>
+              <p className="text-sm">[{characterData.properName}]</p>
             </div>
-            <p className="text-sm text-gray-500">Details</p>
-            <div className="border-2 border-transparent h-auto text-lg">
+            <p className="text-lg text-gray-500">Details</p>
+            <div className="border-2 border-transparent h-auto text-sm">
               <p>{characterData.details.environ}</p>
               <p>{characterData.details.species}</p>
               <p>{characterData.details.bio}</p>
@@ -56,7 +56,7 @@ export default function CharacterSheet() {
         <section className="mb-4">
           <h2 className="font-bold mb-2 text-lg">Character Level (PML)</h2>
           <div className="border border-gray-300 p-2 flex items-center justify-end">
-            <div className="flex items-center space-x-1 md:space-x-2 text-gray-700 text-xs md:text-sm">
+            <div className="flex items-center space-x-1 md:space-x-2 text-gray-700 text-sm">
               {Array.from({ length: 12 }, (_, i) => (
                 <span
                   key={i}
@@ -81,7 +81,7 @@ export default function CharacterSheet() {
                 <div
                   key={attr.name}
                   className={cn(
-                    "text-center text-xs font-bold border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
+                    "text-center text-sm font-bold border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
                     {
                       'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
                     }
@@ -96,7 +96,7 @@ export default function CharacterSheet() {
                 <div
                   key={i}
                   className={cn(
-                    "h-10 flex items-center justify-center font-bold text-xl border-r border-gray-300",
+                    "h-10 flex items-center justify-center font-bold text-sm border-r border-gray-300",
                     {
                       'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
                     }
@@ -122,7 +122,7 @@ export default function CharacterSheet() {
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-12 text-center text-xs font-bold text-white">
+          <div className="grid grid-cols-12 text-center text-sm font-bold text-white">
             <div className="col-span-3 bg-red-600 p-1">COMBAT</div>
             <div className="col-span-4 bg-blue-500 p-1">PSYCHOLOGICAL</div>
             <div className="col-span-4 bg-green-500 p-1">PHYSICALS</div>
@@ -135,32 +135,32 @@ export default function CharacterSheet() {
             <h2 className="font-bold mb-2 text-lg">Background</h2>
             <div className="space-y-3">
               <div>
-                <p className="text-sm text-gray-500 mb-1">Profession</p>
-                <div className="text-lg">
+                <p className="text-lg text-gray-500 mb-1">Profession</p>
+                <div className="text-sm">
                   {characterData.background.profession.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
-                <p className="text-sm text-gray-500 mb-1">Settlement</p>
-                <div className="text-lg">
+                <p className="text-lg text-gray-500 mb-1">Settlement</p>
+                <div className="text-sm">
                   {characterData.background.settlement.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
-                <p className="text-sm text-gray-500 mb-1">Religion</p>
-                <div className="text-lg">
+                <p className="text-lg text-gray-500 mb-1">Religion</p>
+                <div className="text-sm">
                    {characterData.background.religion.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
-                <p className="text-sm text-gray-500 mb-1">Personality</p>
-                <div className="text-lg">
+                <p className="text-lg text-gray-500 mb-1">Personality</p>
+                <div className="text-sm">
                   <p>{characterData.background.personality}</p>
                 </div>
               </div>
               <div>
-                <p className="text-sm text-gray-500 mb-1">Notable Features</p>
-                <div className="text-lg">
+                <p className="text-lg text-gray-500 mb-1">Notable Features</p>
+                <div className="text-sm">
                   {characterData.background.notableFeatures.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
@@ -181,7 +181,7 @@ export default function CharacterSheet() {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <h3 className="font-bold mb-2">Performance</h3>
+            <h3 className="font-bold mb-2 text-lg">Performance</h3>
             <div className="space-y-2">
               {characterData.performance.map(({ name, value }) => (
                 <div key={name} className="flex items-center justify-between text-sm">
@@ -194,7 +194,7 @@ export default function CharacterSheet() {
             </div>
           </div>
           <div>
-            <h3 className="font-bold mb-2">Concerns</h3>
+            <h3 className="font-bold mb-2 text-lg">Concerns</h3>
             <div className="space-y-2">
               {characterData.concerns.map(({ name, value }) => (
                 <div key={name} className="flex items-center justify-between text-sm">
@@ -207,7 +207,7 @@ export default function CharacterSheet() {
             </div>
           </div>
           <div>
-            <h3 className="font-bold mb-2">Miscellaneous</h3>
+            <h3 className="font-bold mb-2 text-lg">Miscellaneous</h3>
             <div className="space-y-2">
               {characterData.miscellaneous.map(({ name, value }) => (
                 <div key={name} className="flex items-center justify-between text-sm">
@@ -220,7 +220,7 @@ export default function CharacterSheet() {
             </div>
           </div>
           <div>
-            <h3 className="font-bold mb-2">Combat</h3>
+            <h3 className="font-bold mb-2 text-lg">Combat</h3>
             <div className="space-y-2">
               {characterData.combat.map(({ name, value }) => (
                 <div key={name} className="flex items-center justify-between text-sm">
