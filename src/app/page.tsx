@@ -131,7 +131,7 @@ export default function CharacterForgePage() {
                     </div>
                     <div>
                       <p className="font-bold text-lg">{ATTRIBUTES[attr]}</p>
-                      <p className="font-headline text-4xl font-semibold text-accent">{attributes[attr]}</p>
+                      <p className="font-headline text-4xl font-semibold text-muted-foreground">{attributes[attr]}</p>
                     </div>
                   </div>
                 ))}
@@ -207,7 +207,7 @@ export default function CharacterForgePage() {
                     {!isSuggesting && aiTalents.length > 0 &&
                       aiTalents.map((talent, index) => (
                         <div key={index} className={cn("flex items-start space-x-2 p-2 rounded-md hover:bg-secondary/50", "animate-in fade-in-0 slide-in-from-bottom-2 duration-300")} style={{ animationDelay: `${index * 100}ms`}}>
-                          <Icons.ChevronRight className="h-5 w-5 mt-0.5 text-accent flex-shrink-0" />
+                          <Icons.ChevronRight className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
                           <p className="text-sm">{talent}</p>
                         </div>
                       ))}
