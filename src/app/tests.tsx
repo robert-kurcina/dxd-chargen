@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { D66, d66Lookup } from '@/lib/dice';
+import { D66, d66Lookup, parseTalent } from '@/lib/dice';
 import type { StaticData } from '@/data';
 
 export default function Tests({ data }: { data: StaticData }) {
@@ -16,6 +16,9 @@ export default function Tests({ data }: { data: StaticData }) {
     const foundAgeGroup = d66Lookup(roll, data.ageGroups);
     setAgeGroup(foundAgeGroup);
   };
+  
+  const talentString = '***Foo 5';
+  const parsedTalent = parseTalent(talentString);
 
   return (
     <div className="space-y-8 mt-4">
@@ -47,6 +50,30 @@ export default function Tests({ data }: { data: StaticData }) {
               )}
             </div>
           )}
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle>Talent Parser Demo</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Demonstrating how the `parseTalent` function handles a complex talent string.
+          </p>
+          <div className="mt-4 p-4 border rounded-md bg-gray-50">
+            <p className="font-semibold">
+              Input String: <span className="font-mono text-primary">{talentString}</span>
+            </p>
+            <div className="mt-2">
+              <p>
+                <strong>Parsed Output:</strong>
+              </p>
+              <pre className="mt-2 text-xs bg-gray-100 p-2 rounded-md overflow-x-auto">
+                {JSON.stringify(parsedTalent, null, 2)}
+              </pre>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
