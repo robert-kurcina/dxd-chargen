@@ -4,27 +4,27 @@
     "stature": 75,
     "build": 10,
     "body": 14,
-    "traits": "Forage. Brawn 5. Grit 2. Sturdy. Detect 2. Swim 4. v-Compass. v-Sensors. Aquatic 3. Amphibious. Adaptation > Marine. Survival 2 > Coastal. Survival 2 > Submarine. Survival > Trench. Survival > Marine."
+    "talents": "Forage. Brawn 5. Grit 2. Sturdy. Detect 2. Swim 4. v-Compass. v-Sensors. Aquatic 3. Amphibious. Adaptation > Marine. Survival 2 > Coastal. Survival 2 > Submarine. Survival > Trench. Survival > Marine."
   },
   {
     "lineage": "Restani",
     "stature": 0,
     "build": 2,
     "body": 0,
-    "traits": "Grit."
+    "talents": "Grit."
   },
   {
     "lineage": "Quaggian",
     "stature": 0,
     "build": 0,
     "body": 0,
-    "traits": "Detect."
+    "talents": "Detect."
   },
   {
     "lineage": "female",
     "stature": -5,
     "build": 0,
     "body": 0,
-    "traits": ""
+    "talents": ""
   }
 ]

@@ -398,6 +398,82 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
   );
 };
 
+const TraitsCard = ({ data }: { data: any[] }) => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const categories = useMemo(() => {
+    const categorySet = new Set<string>();
+    data.forEach(item => categorySet.add(item.category));
+    return Array.from(categorySet).sort();
+  }, [data]);
+
+  const filteredData = useMemo(() => {
+    if (selectedCategory === 'all') {
+      return data;
+    }
+    return data.filter(item => item.category === selectedCategory);
+  }, [data, selectedCategory]);
+
+  const headers = [
+    'trait', 'interimTime', 'category', 'isDisability', 'im', 'isPsychology',
+    'isVirtuosity', 'isSkill', 'isGenetic', 'isAsset', 'isIntrinsic'
+  ];
+  
+  const headerTitles: Record<string, string> = {
+    trait: 'Trait',
+    interimTime: 'Interim Time',
+    category: 'Category',
+    isDisability: 'Disability?',
+    im: 'IM',
+    isPsychology: 'Psychology?',
+    isVirtuosity: 'Virtuosity?',
+    isSkill: 'Skill?',
+    isGenetic: 'Genetic?',
+    isAsset: 'Asset?',
+    isIntrinsic: 'Intrinsic?'
+  };
+
+
+  return (
+    <Card className="bg-white">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle>Traits</CardTitle>
+        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter by Category..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Categories</SelectItem>
+            {categories.map((category) => (
+              <SelectItem key={category} value={category}>{category}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {headers.map(header => <TableHead key={header}>{headerTitles[header]}</TableHead>)}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredData.map((row, index) => (
+              <TableRow key={index}>
+                {headers.map(header => (
+                   <TableCell key={header}>
+                     {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
+                   </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: any }) {
@@ -469,7 +545,7 @@ export default function Info({ data }: { data: any }) {
       <SimpleTableCard title="Social Ranks" data={socialRanks} />
       <SpeciesCard data={species} />
       <SimpleTableCard title="Tragedy Seeds" data={tragedySeeds} />
-      <SimpleTableCard title="Traits" data={traits} />
+      <TraitsCard data={traits} />
       <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
     </div>
   );
