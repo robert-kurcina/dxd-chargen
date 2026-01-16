@@ -1,117 +1,134 @@
-'use client';
-
-import React, { useState, useEffect, useMemo, useTransition } from 'react';
-import {
-  ATTRIBUTES,
-  SKILLS,
-  type Attribute,
-} from '@/lib/character-data';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Icons } from '@/components/icons';
-
-type AttributesState = Record<Attribute, number>;
-
-const initialAttributes: AttributesState = (Object.keys(ATTRIBUTES) as Attribute[]).reduce(
-  (acc, key) => {
-    acc[key] = 5;
-    return acc;
-  },
-  {} as AttributesState
-);
-
-export default function CharacterForgePage() {
-  const [attributes, setAttributes] = useState<AttributesState>(initialAttributes);
-  const [isGenerating, startAttributeTransition] = useTransition();
-  const [key, setKey] = useState(0);
-
-  const handleGenerateAttributes = () => {
-    startAttributeTransition(() => {
-      const newAttributes = { ...attributes };
-      for (const attr in newAttributes) {
-        newAttributes[attr as Attribute] = Math.floor(Math.random() * 10) + 1;
-      }
-      setAttributes(newAttributes);
-      setKey(prev => prev + 1); // For re-triggering animations
-    });
-  };
-
-  useEffect(() => {
-    handleGenerateAttributes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const derivedData = useMemo(() => {
-    const skills = Object.entries(SKILLS).reduce((acc, [skill, { attribute }]) => {
-      acc[skill] = Math.floor(attributes[attribute] / 2);
-      return acc;
-    }, {} as Record<string, number>);
-
-    return { skills };
-  }, [attributes]);
-
+export default function CharacterSheetPage() {
   return (
-    <div className="min-h-screen w-full bg-background font-body">
-      <header className="text-center py-16 md:py-20">
-        <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary drop-shadow-md">
-          Sarna Len Character Forge
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto">
-          Forge your next RPG character with a dash of randomness.
-        </p>
-      </header>
+    <div className="bg-white text-black p-4 md:p-8 font-sans">
+      <div className="border border-gray-300 p-4 max-w-4xl mx-auto">
+        {/* Header Section */}
+        <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
+          <div className="w-full md:w-2/3">
+            <p className="text-sm text-gray-500">Name</p>
+            <div className="border-2 border-red-500 h-12 flex items-center justify-center text-red-500 font-bold text-xl mb-4">
+              1
+            </div>
+            <p className="text-sm text-gray-500">Details</p>
+            <div className="border-2 border-red-500 h-8 flex items-center justify-center text-red-500 font-bold text-lg">
+              2
+            </div>
+          </div>
+          <div className="w-full md:w-1/3">
+            <p className="text-sm text-center text-gray-500">Portrait</p>
+            <div className="border-2 border-red-500 bg-gray-200 h-48 flex items-center justify-center text-red-500 font-bold text-2xl">
+              3
+            </div>
+          </div>
+        </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="flex justify-center mb-8">
-          <Button size="lg" onClick={handleGenerateAttributes} disabled={isGenerating}>
-            {isGenerating ? (
-              <Icons.Loader className="animate-spin" />
-            ) : (
-              <Icons.Dices />
-            )}
-            Generate Attributes
-          </Button>
-        </div>
+        {/* Character Level */}
+        <section className="mb-4">
+          <h2 className="font-bold mb-2 text-lg">Character Level</h2>
+          <div className="border-2 border-red-500 p-2 flex items-center justify-between text-red-500 font-bold text-lg">
+            4
+            <div className="flex items-center space-x-1 md:space-x-2 text-gray-700 text-xs md:text-sm">
+              {Array.from({ length: 12 }, (_, i) => (
+                <span key={i} className="flex items-center justify-center border border-gray-400 rounded-full h-6 w-6 md:h-8 md:w-8">
+                  {i + 1}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        <div className="space-y-8">
-            <Card className="overflow-hidden shadow-lg" key={`attributes-${key}`}>
-              <CardHeader>
-                <CardTitle className="font-headline text-3xl">Attributes</CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                {(Object.keys(ATTRIBUTES) as Attribute[]).map(attr => (
-                  <div
-                    key={attr}
-                    className="flex items-center space-x-4 animate-in fade-in-50 slide-in-from-bottom-2 duration-500"
-                  >
-                    <div className="p-3 bg-secondary rounded-lg">
-                      {React.createElement(Icons[ATTRIBUTES[attr]], { className: 'h-6 w-6 text-primary' })}
-                    </div>
-                    <div>
-                      <p className="font-bold text-lg">{ATTRIBUTES[attr]}</p>
-                      <p className="font-headline text-4xl font-semibold text-muted-foreground">{attributes[attr]}</p>
+        {/* Attributes */}
+        <section className="mb-4">
+          <h2 className="font-bold mb-1 text-lg">Attributes</h2>
+          <div className="border border-gray-400">
+            <div className="grid grid-cols-12">
+              {['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'SIZ', 'ZED'].map((attr) => (
+                <div key={attr} className="text-center text-xs font-bold border-r border-gray-300 p-1 bg-gray-100">
+                  {attr}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-12 border-t border-gray-400">
+              {Array.from({ length: 12 }, (_, i) => (
+                <div key={i} className="border-2 border-red-500 h-10 flex items-center justify-center text-red-500 font-bold text-lg border-t-0 border-l-0">
+                  {i + 5}
+                </div>
+              ))}
+            </div>
+          </div>
+           <div className="grid grid-cols-12 text-center text-xs font-bold text-white">
+              <div className="col-span-3 bg-red-600 p-1">COMBAT</div>
+              <div className="col-span-3 bg-blue-500 p-1">PSYCHOLOGICAL</div>
+              <div className="col-span-4 bg-green-500 p-1">PHYSICALS</div>
+              <div className="col-span-2 bg-purple-500 p-1">MAGIC</div>
+          </div>
+        </section>
+
+        {/* Background and History */}
+        <section className="flex flex-col md:flex-row mb-4 gap-4">
+          <div className="w-full md:w-1/2">
+            <h2 className="font-bold mb-2 text-lg">Background</h2>
+            <div className="space-y-3">
+              {[
+                { label: 'Profession', field: 17 },
+                { label: 'Settlement', field: 18 },
+                { label: 'Religion', field: 19 },
+                { label: 'Personality', field: 20 },
+                { label: 'Notable Features', field: 21 },
+              ].map(({ label, field }) => (
+                <div key={field}>
+                  <p className="text-sm text-gray-500 mb-1">{label}</p>
+                  <div className="border-2 border-red-500 h-8 flex items-center justify-center text-red-500 font-bold text-lg">
+                    {field}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col">
+            <h2 className="font-bold mb-2 text-lg">History & Notes</h2>
+            <div className="border-2 border-red-500 flex-grow min-h-[240px] flex items-center justify-center text-red-500 font-bold text-2xl">
+              22
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom Four Columns */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { title: 'Performance', fields: [
+              { name: 'Hitpoints', id: 23 }, { name: 'Bodypoints', id: 24 }, { name: 'Recovery Rate', id: 25 },
+              { name: 'Endurance', id: 26 }, { name: 'Resilience', id: 27 }, { name: 'Resistance', id: 28 }
+            ]},
+            { title: 'Concerns', fields: [
+              { name: 'Superficial', id: 29 }, { name: 'Injury', id: 30 }, { name: 'Fatigue', id: 31 },
+              { name: 'Weariness', id: 32 }, { name: 'Stress', id: 33 }, { name: 'Rads', id: 34 }
+            ]},
+            { title: 'Miscellaneous', fields: [
+              { name: 'Wealth Rank', id: 35 }, { name: 'Social Rank', id: 36 }, { name: 'Trade Rank', id: 37 },
+              { name: 'Favor Dice', id: 38 }, { name: 'Cellburn Limit', id: 39 }, { name: 'Manapool', id: 40 }
+            ]},
+            { title: 'Combat', fields: [
+              { name: 'Actions', id: 41 }, { name: 'Melee Attack', id: 42 }, { name: 'Melee Defend', id: 43 },
+              { name: 'Range Attack', id: 44 }, { name: 'Range Defend', id: 45 }, { name: 'Max Advantage', id: 46 }
+            ]}
+          ].map(({ title, fields }) => (
+            <div key={title}>
+              <h3 className="font-bold mb-2">{title}</h3>
+              <div className="space-y-2">
+                {fields.map(({ name, id }) => (
+                  <div key={id} className="flex items-center justify-between text-sm">
+                    <span>{name}</span>
+                    <div className="border-2 border-red-500 w-8 h-8 flex items-center justify-center shrink-0 text-red-500 font-bold">
+                      {id}
                     </div>
                   </div>
                 ))}
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden shadow-lg" key={`skills-${key}`}>
-              <CardHeader>
-                <CardTitle className="font-headline text-3xl">Skills</CardTitle>
-                <CardDescription>Derived from your attributes (Attribute / 2)</CardDescription>
-              </CardHeader>
-              <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
-                {Object.entries(derivedData.skills).map(([skill, value]) => (
-                  <div key={skill} className="flex justify-between items-baseline animate-in fade-in-50 slide-in-from-bottom-2 duration-700">
-                    <span className="text-foreground/90">{skill}</span>
-                    <span className="font-bold text-lg text-primary">{value}</span>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-        </div>
-      </main>
+              </div>
+            </div>
+          ))}
+        </section>
+      </div>
     </div>
   );
 }

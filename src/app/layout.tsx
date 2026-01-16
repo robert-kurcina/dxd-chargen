@@ -3,8 +3,8 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Sarna Len Character Forge',
-  description: 'Forge your next RPG character with the power of AI',
+  title: 'Sarna Len Character Sheet',
+  description: 'Your character sheet for the Sarna Len RPG.',
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-body antialiased min-h-screen">
+      <body className="font-body antialiased min-h-screen bg-gray-100">
         {children}
         <Toaster />
       </body>
