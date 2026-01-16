@@ -96,7 +96,7 @@ export default function CharacterSheet() {
                 <div
                   key={i}
                   className={cn(
-                    "h-20 flex items-center justify-center font-bold text-3xl border-r border-gray-300",
+                    "h-10 flex items-center justify-center font-bold text-3xl border-r border-gray-300",
                     {
                       'border-r-2 border-black': ['REF', 'POW', 'SIZ'].includes(attr.name)
                     }
