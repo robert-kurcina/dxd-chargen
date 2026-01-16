@@ -82,7 +82,7 @@ export default function Info({ data }: { data: any }) {
   } = data;
 
   return (
-    <div className="mt-4 p-4 border rounded-md max-h-[80vh] overflow-y-auto">
+    <div className="mt-4 p-4 border rounded-md">
       <h2 className="text-xl font-bold mb-4">Game Information</h2>
 
       <div className="mb-8">
