@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import characterData from '@/data/character-sample.json';
+import { Icons } from '@/components/icons';
+import { cn } from '@/lib/utils';
 
 const HistorySection = ({ title, content }: { title: string; content: string }) => (
   <p>
@@ -11,12 +13,11 @@ const HistorySection = ({ title, content }: { title: string; content: string }) 
 
 export default function CharacterSheet() {
   const portrait = PlaceHolderImages.find((img) => img.id === 'character-portrait');
-  const backgroundArt = PlaceHolderImages.find((img) => img.id === 'character-sheet-background');
 
   return (
     <div
       className="text-black p-4 md:p-8 font-sans bg-cover bg-center"
-      style={{ backgroundImage: backgroundArt ? `url(${backgroundArt.imageUrl})` : 'none' }}
+      style={{ backgroundImage: `url(https://images.unsplash.com/photo-1579281783472-3b13411b415f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJjaG1lbnQlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTcxNDcwODc5N3ww&ixlib=rb-4.1.0&q=80&w=1080)` }}
     >
       <div className="border border-gray-300 p-4 max-w-4xl mx-auto bg-white shadow-lg">
         <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
@@ -35,8 +36,7 @@ export default function CharacterSheet() {
             </div>
           </div>
           <div className="w-full md:w-1/3">
-            <p className="text-sm text-center text-gray-500">Portrait</p>
-            <div className="border-2 border-gray-300 bg-gray-200 h-60 md:h-auto md:aspect-[960/810] flex items-center justify-center">
+            <div className="border-4 border-black bg-gray-200 h-60 md:h-auto md:aspect-[960/810] flex items-center justify-center">
               {portrait ? (
                 <Image
                   src={portrait.imageUrl}
@@ -55,19 +55,17 @@ export default function CharacterSheet() {
 
         <section className="mb-4">
           <h2 className="font-bold mb-2 text-lg">Character Level (PML)</h2>
-          <div className="border border-gray-300 p-2 flex items-center justify-between">
-            <span className="font-bold text-2xl">{characterData.level}</span>
+          <div className="border border-gray-300 p-2 flex items-center justify-end">
             <div className="flex items-center space-x-1 md:space-x-2 text-gray-700 text-xs md:text-sm">
               {Array.from({ length: 12 }, (_, i) => (
                 <span
                   key={i}
-                  className={`flex items-center justify-center border border-gray-400 rounded-full h-6 w-6 md:h-8 md:w-8 ${
-                    characterData.level === i + 1
-                      ? 'bg-yellow-300 font-bold'
-                      : ''
-                  }`}
+                  className="relative flex items-center justify-center border border-gray-400 rounded-full h-6 w-6 md:h-8 md:w-8"
                 >
-                  {i + 1}
+                  {characterData.level === i + 1 && (
+                    <Icons.Star className="absolute w-full h-full p-0.5" />
+                  )}
+                   <span className="relative">{i + 1}</span>
                 </span>
               ))}
             </div>
@@ -81,8 +79,14 @@ export default function CharacterSheet() {
               {characterData.attributes.map((attr) => (
                 <div
                   key={attr.name}
-                  className="text-center text-xs font-bold border-r border-gray-300 p-1 bg-gray-100"
+                  className={cn(
+                    "text-center text-xs font-bold border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
+                    {
+                      'border-r-2 border-black': ['REF', 'KNO', 'SIZ'].includes(attr.name)
+                    }
+                  )}
                 >
+                  {attr.name === 'FOR' && <Icons.Affinity className="h-4 w-4 mb-1" />}
                   {attr.name}
                 </div>
               ))}
@@ -91,7 +95,12 @@ export default function CharacterSheet() {
               {characterData.attributes.map((attr, i) => (
                 <div
                   key={i}
-                  className="h-10 flex items-center justify-center font-bold text-xl border-r border-gray-300"
+                  className={cn(
+                    "h-10 flex items-center justify-center font-bold text-xl border-r border-gray-300",
+                    {
+                      'border-r-2 border-black': ['REF', 'KNO', 'SIZ'].includes(attr.name)
+                    }
+                  )}
                 >
                   {attr.value}
                 </div>
@@ -101,7 +110,12 @@ export default function CharacterSheet() {
               {characterData.attributes.map((attr, i) => (
                 <div
                   key={i}
-                  className="h-8 flex items-center justify-center text-sm border-r border-gray-300"
+                  className={cn(
+                    "h-6 flex items-center justify-center text-sm border-r border-gray-300",
+                     {
+                      'border-r-2 border-black': ['REF', 'KNO', 'SIZ'].includes(attr.name)
+                    }
+                  )}
                 >
                   {attr.modifier}
                 </div>
@@ -110,9 +124,9 @@ export default function CharacterSheet() {
           </div>
           <div className="grid grid-cols-12 text-center text-xs font-bold text-white">
             <div className="col-span-3 bg-red-600 p-1">COMBAT</div>
-            <div className="col-span-3 bg-blue-500 p-1">PSYCHOLOGICAL</div>
+            <div className="col-span-4 bg-blue-500 p-1">PSYCHOLOGICAL</div>
             <div className="col-span-4 bg-green-500 p-1">PHYSICALS</div>
-            <div className="col-span-2 bg-purple-500 p-1">MAGIC</div>
+            <div className="col-span-1 bg-purple-500 p-1">MAGIC</div>
           </div>
         </section>
 
