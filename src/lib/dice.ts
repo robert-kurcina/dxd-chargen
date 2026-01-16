@@ -1,3 +1,5 @@
+import type { StaticData } from "@/data";
+
 /**
  * Rolls a single 6-sided die.
  * @returns A random number between 1 and 6.
@@ -132,4 +134,140 @@ export function parseTrait(traitString: string): {
 } {
     const { name, level, specialization, isDisability } = parseTalent(traitString);
     return { name, level, specialization, isDisability };
+}
+
+/**
+ * Converts a string Age Rank (like 'A', 'B', 'C', '5') into its numeric equivalent.
+ * @param rank The string rank.
+ * @returns The numeric rank value.
+ */
+export function getAgeRankValue(rank: string): number {
+    switch (rank.toUpperCase()) {
+        case 'A': return -1;
+        case 'B': return -2;
+        case 'C': return -3;
+        default: return parseInt(rank, 10);
+    }
+}
+
+/**
+ * Finds the Age Rank for a given Age Group from the data table.
+ * @param ageGroup The age group string (e.g., "Early Teen").
+ * @param ageGroups The ageGroups data table.
+ * @returns The corresponding rank string, or undefined.
+ */
+export function getAgeRank(ageGroup: string, ageGroups: StaticData['ageGroups']): string | undefined {
+    const entry = ageGroups.find(g => g.ageGroup.toLowerCase() === ageGroup.toLowerCase());
+    return entry?.rank;
+}
+
+/**
+ * Finds the Age Group for a given Age Rank from the data table.
+ * @param ageRank The age rank (e.g., 5 or "5").
+ * @param ageGroups The ageGroups data table.
+ * @returns The corresponding age group string, or undefined.
+ */
+export function getAgeGroup(ageRank: number | string, ageGroups: StaticData['ageGroups']): string | undefined {
+    const rankStr = String(ageRank);
+    const entry = ageGroups.find(g => g.rank === rankStr);
+    return entry?.ageGroup;
+}
+
+
+/**
+ * Parses a maturity string which can contain Age Group and/or Profession Rank.
+ * e.g. "Youth[0] or Genera[4]"
+ * @param maturityString The string to parse.
+ * @param data The static data containing ageGroups and namingPracticeTitles.
+ * @returns An object with numeric ageRank and professionRank.
+ */
+export function parseMaturityString(maturityString: string, data: { ageGroups: StaticData['ageGroups'], namingPracticeTitles: StaticData['namingPracticeTitles'] }): { ageRank: number, professionRank: number } {
+    const result = { ageRank: 0, professionRank: 0 };
+    if (!maturityString || maturityString.trim() === '') return result;
+
+    const parts = maturityString.split(' or ');
+
+    for (const part of parts) {
+        const trimmedPart = part.trim();
+        const rankMatch = trimmedPart.match(/\[(.+?)\]/);
+        const name = trimmedPart.replace(/\[.+?\]/, '').trim();
+
+        // Is it an Age Group?
+        const ageRankByName = data.ageGroups.find(g => g.ageGroup.toLowerCase() === name.toLowerCase())?.rank;
+        if (ageRankByName) {
+            if (rankMatch) {
+                result.ageRank = getAgeRankValue(rankMatch[1]);
+            } else {
+                result.ageRank = getAgeRankValue(ageRankByName);
+            }
+        }
+        
+        // Is it a Profession Title?
+        const profRankByName = data.namingPracticeTitles.find(
+            p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
+        );
+
+        if (profRankByName) {
+             if (rankMatch) {
+                result.professionRank = parseInt(rankMatch[1], 10);
+            } else {
+                result.professionRank = parseInt(profRankByName['#'], 10);
+            }
+        }
+    }
+
+    return result;
+}
+
+
+/**
+ * Calculates the highest maturity difference between a character and a talent's requirement.
+ * @param characterMaturity The character's age and profession ranks.
+ * @param talentMaturity The talent's required age and profession ranks.
+ * @returns The highest difference value.
+ */
+export function calculateMaturityDifference(
+    characterMaturity: { ageRank: number, professionRank: number },
+    talentMaturity: { ageRank: number, professionRank: number }
+): number {
+    const ageDiff = characterMaturity.ageRank - talentMaturity.ageRank;
+    const profDiff = characterMaturity.professionRank - talentMaturity.professionRank;
+    
+    return Math.max(ageDiff, profDiff);
+}
+
+
+/**
+ * Adjusts a talent's level based on asterisks and a maturity difference.
+ * @param talentString The full talent string (e.g., "***Foo 5").
+ * @param maturityDifference The calculated difference to apply to the asterisks.
+ * @returns The adjusted talent string, or an empty string if the talent is disqualified.
+ */
+export function adjustTalentByMaturity(talentString: string, maturityDifference: number): string {
+    const parsed = parseTalent(talentString);
+
+    let newAsterisks = parsed.asterisks - maturityDifference;
+    if (newAsterisks < 0) {
+        newAsterisks = 0; 
+    }
+    
+    const newLevel = parsed.level - newAsterisks;
+    
+    if (newLevel <= 0) {
+        return ''; // Talent is disqualified
+    }
+    
+    // Reconstruct the string
+    let result = parsed.name;
+    if (newLevel > 1) {
+        result += ` ${newLevel}`;
+    }
+    if (parsed.specialization) {
+        result += ` > ${parsed.specialization}`;
+    }
+    if (parsed.isDisability) {
+        result = `[${result}]`;
+    }
+
+    return result;
 }
