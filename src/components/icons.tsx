@@ -19,8 +19,11 @@ const AffinityIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const StarIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" stroke="black" strokeWidth="1" {...props}>
-    <path fill="yellow" d="M12,17.27L18.18,21L16.74,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.26,13.97L5.82,21L12,17.27Z" />
+  <svg viewBox="0 0 40 38" {...props} strokeWidth="0.5" stroke="black">
+    <path d="M20,2 L25.16,13.88 L38.04,14.69 L28.3,23.1 L30.9,35.81 L20,29.35 L9.1,35.81 L11.7,23.1 L1.96,14.69 L14.84,13.88 Z" fill="#FFC700"/>
+    <ellipse cx="20" cy="12" rx="2.5" ry="4" fill="white" opacity="0.9" stroke="none" />
+    <ellipse cx="29" cy="18" rx="2.5" ry="1.5" fill="white" opacity="0.7" stroke="none" transform="rotate(30 29 18)" />
+    <ellipse cx="11" cy="18" rx="2.5" ry="1.5" fill="white" opacity="0.7" stroke="none" transform="rotate(-30 11 18)" />
   </svg>
 );
 

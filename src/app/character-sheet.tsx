@@ -63,7 +63,7 @@ export default function CharacterSheet() {
                   className="relative flex items-center justify-center border border-gray-400 rounded-full h-6 w-6 md:h-8 md:w-8"
                 >
                   {characterData.level === i + 1 && (
-                    <Icons.Star className="absolute w-full h-full p-0.5" />
+                    <Icons.Star className="absolute w-full h-full" />
                   )}
                    <span className="relative">{i + 1}</span>
                 </span>
@@ -82,7 +82,7 @@ export default function CharacterSheet() {
                   className={cn(
                     "text-center text-xs font-bold border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
                     {
-                      'border-r-2 border-black': ['REF', 'KNO', 'SIZ'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ'].includes(attr.name)
                     }
                   )}
                 >
@@ -98,7 +98,7 @@ export default function CharacterSheet() {
                   className={cn(
                     "h-10 flex items-center justify-center font-bold text-xl border-r border-gray-300",
                     {
-                      'border-r-2 border-black': ['REF', 'KNO', 'SIZ'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ'].includes(attr.name)
                     }
                   )}
                 >
@@ -113,7 +113,7 @@ export default function CharacterSheet() {
                   className={cn(
                     "h-6 flex items-center justify-center text-sm border-r border-gray-300",
                      {
-                      'border-r-2 border-black': ['REF', 'KNO', 'SIZ'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ'].includes(attr.name)
                     }
                   )}
                 >
