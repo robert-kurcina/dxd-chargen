@@ -4,19 +4,11 @@ import React, { useState, useEffect, useMemo, useTransition } from 'react';
 import {
   ATTRIBUTES,
   SKILLS,
-  SOCIAL_RANKS,
-  BASE_TALENTS,
   type Attribute,
 } from '@/lib/character-data';
-import { getTalentSuggestions } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useToast } from '@/hooks/use-toast';
 import { Icons } from '@/components/icons';
-import { cn } from '@/lib/utils';
 
 type AttributesState = Record<Attribute, number>;
 
@@ -30,12 +22,8 @@ const initialAttributes: AttributesState = (Object.keys(ATTRIBUTES) as Attribute
 
 export default function CharacterForgePage() {
   const [attributes, setAttributes] = useState<AttributesState>(initialAttributes);
-  const [aiTalents, setAiTalents] = useState<string[]>([]);
   const [isGenerating, startAttributeTransition] = useTransition();
-  const [isSuggesting, startSuggestionTransition] = useTransition();
   const [key, setKey] = useState(0);
-
-  const { toast } = useToast();
 
   const handleGenerateAttributes = () => {
     startAttributeTransition(() => {
@@ -54,42 +42,13 @@ export default function CharacterForgePage() {
   }, []);
 
   const derivedData = useMemo(() => {
-    const total = Object.values(attributes).reduce((sum, val) => sum + val, 0);
-
     const skills = Object.entries(SKILLS).reduce((acc, [skill, { attribute }]) => {
       acc[skill] = Math.floor(attributes[attribute] / 2);
       return acc;
     }, {} as Record<string, number>);
 
-    const socialRank =
-      SOCIAL_RANKS.find(rank => total >= rank.threshold) || SOCIAL_RANKS[SOCIAL_RANKS.length - 1];
-
-    const baseTalents = Object.entries(BASE_TALENTS)
-      .filter(([, { attribute, threshold }]) => attributes[attribute] >= threshold)
-      .map(([talent]) => talent);
-
-    return { skills, socialRank, baseTalents };
+    return { skills };
   }, [attributes]);
-
-  const handleSuggestTalents = async () => {
-    startSuggestionTransition(async () => {
-      setAiTalents([]);
-      const result = await getTalentSuggestions({
-        attributes,
-        skills: derivedData.skills,
-      });
-
-      if (result.error) {
-        toast({
-          variant: 'destructive',
-          title: 'AI Suggestion Failed',
-          description: result.error,
-        });
-      } else if (result.talents) {
-        setAiTalents(result.talents);
-      }
-    });
-  };
 
   return (
     <div className="min-h-screen w-full bg-background font-body">
@@ -98,11 +57,11 @@ export default function CharacterForgePage() {
           Sarna Len Character Forge
         </h1>
         <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto">
-          Forge your next RPG character with a dash of randomness and a spark of AI creativity.
+          Forge your next RPG character with a dash of randomness.
         </p>
       </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-7xl">
+      <main className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="flex justify-center mb-8">
           <Button size="lg" onClick={handleGenerateAttributes} disabled={isGenerating}>
             {isGenerating ? (
@@ -114,8 +73,7 @@ export default function CharacterForgePage() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 space-y-8">
+        <div className="space-y-8">
             <Card className="overflow-hidden shadow-lg" key={`attributes-${key}`}>
               <CardHeader>
                 <CardTitle className="font-headline text-3xl">Attributes</CardTitle>
@@ -152,75 +110,6 @@ export default function CharacterForgePage() {
                 ))}
               </CardContent>
             </Card>
-          </div>
-
-          <div className="space-y-8">
-            <Card className="shadow-lg" key={`rank-${key}`}>
-              <CardHeader className="text-center animate-in fade-in-50 slide-in-from-bottom-2 duration-500">
-                <p className="text-sm font-medium text-muted-foreground">Social Rank</p>
-                <CardTitle className="font-headline text-4xl text-primary">{derivedData.socialRank.name}</CardTitle>
-                <CardDescription>{derivedData.socialRank.description}</CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="font-headline text-3xl">Talents</CardTitle>
-                <CardDescription>Special abilities for your character.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <h4 className="font-bold mb-2">Base Talents</h4>
-                  <div className="flex flex-wrap gap-2" key={`base-talents-${key}`}>
-                    {derivedData.baseTalents.length > 0 ? (
-                      derivedData.baseTalents.map(talent => (
-                        <Badge key={talent} variant="secondary" className="animate-in fade-in duration-1000">
-                          {talent}
-                        </Badge>
-                      ))
-                    ) : (
-                      <p className="text-sm text-muted-foreground">None at this level.</p>
-                    )}
-                  </div>
-                </div>
-                <Separator />
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="font-bold">AI Suggestions</h4>
-                    <Button variant="outline" size="sm" onClick={handleSuggestTalents} disabled={isSuggesting}>
-                      {isSuggesting ? (
-                        <Icons.Loader className="animate-spin" />
-                      ) : (
-                        <Icons.Sparkles />
-                      )}
-                      Suggest
-                    </Button>
-                  </div>
-                  <div className="space-y-2">
-                    {isSuggesting && (
-                      <>
-                        <Skeleton className="h-5 w-3/4" />
-                        <Skeleton className="h-5 w-1/2" />
-                        <Skeleton className="h-5 w-2/3" />
-                      </>
-                    )}
-                    {!isSuggesting && aiTalents.length > 0 &&
-                      aiTalents.map((talent, index) => (
-                        <div key={index} className={cn("flex items-start space-x-2 p-2 rounded-md hover:bg-secondary/50", "animate-in fade-in-0 slide-in-from-bottom-2 duration-300")} style={{ animationDelay: `${index * 100}ms`}}>
-                          <Icons.ChevronRight className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
-                          <p className="text-sm">{talent}</p>
-                        </div>
-                      ))}
-                    {!isSuggesting && aiTalents.length === 0 && (
-                      <p className="text-sm text-muted-foreground p-2">
-                        Click "Suggest" to get AI-powered talent ideas.
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </main>
     </div>

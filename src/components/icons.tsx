@@ -5,8 +5,6 @@ import {
   Shield,
   Eye,
   Smile,
-  ChevronRight,
-  Sparkles,
   Loader2,
   Dices,
 } from 'lucide-react';
@@ -18,8 +16,6 @@ export const Icons = {
   Willpower: Shield,
   Perception: Eye,
   Charisma: Smile,
-  ChevronRight,
-  Sparkles,
   Loader: Loader2,
   Dices,
 };
