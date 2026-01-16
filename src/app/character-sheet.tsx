@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import characterData from '@/data/character-sample.json';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
 
@@ -11,7 +10,7 @@ const HistorySection = ({ title, content }: { title: string; content: string }) 
   </p>
 );
 
-export default function CharacterSheet() {
+export default function CharacterSheet({ characterData }: { characterData: any }) {
   const portrait = PlaceHolderImages.find((img) => img.id === 'character-portrait');
   const star = PlaceHolderImages.find((img) => img.id === 'star-icon');
   const affinity = PlaceHolderImages.find((img) => img.id === 'affinity-icon');
@@ -30,7 +29,7 @@ export default function CharacterSheet() {
               <p className="text-sm text-[14px]">[{characterData.properName}]</p>
             </div>
             <p className="text-lg text-gray-500 mb-1 text-[18px]">Details</p>
-            <div className="border-2 border-transparent h-auto text-sm text-[14px] pl-[10px]">
+            <div className="text-sm text-[14px] pl-[10px]">
               <p>{characterData.details.environ}</p>
               <p>{characterData.details.species}</p>
               <p>{characterData.details.bio}</p>
@@ -95,7 +94,7 @@ export default function CharacterSheet() {
           <div className="relative border border-gray-300">
             <div>
               <div className="grid grid-cols-12">
-                {characterData.attributes.map((attr) => (
+                {characterData.attributes.map((attr:any) => (
                   <div
                     key={attr.name}
                     className="text-center font-sans text-gray-500 flex flex-col justify-end items-center bg-white"
@@ -105,7 +104,7 @@ export default function CharacterSheet() {
                 ))}
               </div>
               <div className="grid grid-cols-12 border-t-2 border-gray-400">
-                {characterData.attributes.map((attr, i) => (
+                {characterData.attributes.map((attr:any, i:number) => (
                   <div
                     key={i}
                     className="h-10 flex items-center justify-center font-bold text-3xl border-r border-gray-300 text-[1.875rem]"
@@ -115,7 +114,7 @@ export default function CharacterSheet() {
                 ))}
               </div>
               <div className="grid grid-cols-12 border-t border-gray-300 bg-gray-50">
-                {characterData.attributes.map((attr, i) => (
+                {characterData.attributes.map((attr:any, i:number) => (
                   <div
                     key={i}
                     className="flex items-center justify-center text-sm border-r border-gray-300 h-[1.5rem]"
@@ -139,25 +138,25 @@ export default function CharacterSheet() {
         </section>
 
         <section className="flex flex-col md:flex-row mb-4 gap-4">
-          <div className="w-full md:w-1/2">
+          <div className="w-full">
             <h2 className="font-bold mb-2 text-lg text-[18px]">Background</h2>
             <div className="space-y-3">
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Profession</p>
                 <div className="text-sm text-[14px] pl-[10px]">
-                  {characterData.background.profession.map((line, i) => <p key={i}>{line}</p>)}
+                  {characterData.background.profession.map((line:string, i:number) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Settlement</p>
                 <div className="text-sm text-[14px] pl-[10px]">
-                  {characterData.background.settlement.map((line, i) => <p key={i}>{line}</p>)}
+                  {characterData.background.settlement.map((line:string, i:number) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Religion</p>
                 <div className="text-sm text-[14px] pl-[10px]">
-                   {characterData.background.religion.map((line, i) => <p key={i}>{line}</p>)}
+                   {characterData.background.religion.map((line:string, i:number) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
@@ -169,14 +168,14 @@ export default function CharacterSheet() {
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Notable Features</p>
                 <div className="text-sm text-[14px] pl-[10px]">
-                  {characterData.background.notableFeatures.map((line, i) => <p key={i}>{line}</p>)}
+                  {characterData.background.notableFeatures.map((line:string, i:number) => <p key={i}>{line}</p>)}
                 </div>
               </div>
             </div>
           </div>
           <div className="w-full flex flex-col">
             <h2 className="font-bold mb-2 text-lg text-[18px]">History & Notes</h2>
-            <div className="border border-gray-300 p-2 flex-grow min-h-[240px] text-sm space-y-2 text-[14px]">
+            <div className="border border-gray-300 p-2 flex-grow min-h-[240px] text-sm space-y-2 text-[14px] pl-[10px]">
               <HistorySection title="Equipment" content={characterData.history.equipment} />
               <HistorySection title="Weapons" content={characterData.history.weapons} />
               <HistorySection title="Armor" content={characterData.history.armor} />
@@ -191,7 +190,7 @@ export default function CharacterSheet() {
           <div>
             <h3 className="font-bold mb-2 text-lg text-[18px]">Performance</h3>
             <div className="space-y-2 text-[14px]">
-              {characterData.performance.map(({ name, value }) => (
+              {characterData.performance.map(({ name, value }:{name:string, value: number}) => (
                 <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
@@ -204,7 +203,7 @@ export default function CharacterSheet() {
           <div>
             <h3 className="font-bold mb-2 text-lg text-[18px]">Concerns</h3>
             <div className="space-y-2 text-[14px]">
-              {characterData.concerns.map(({ name, value }) => (
+              {characterData.concerns.map(({ name, value }:{name:string, value: number}) => (
                 <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
@@ -217,7 +216,7 @@ export default function CharacterSheet() {
           <div>
             <h3 className="font-bold mb-2 text-lg text-[18px]">Miscellaneous</h3>
             <div className="space-y-2 text-[14px]">
-              {characterData.miscellaneous.map(({ name, value }) => (
+              {characterData.miscellaneous.map(({ name, value }:{name:string, value: number}) => (
                 <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}
@@ -230,7 +229,7 @@ export default function CharacterSheet() {
           <div>
             <h3 className="font-bold mb-2 text-lg text-[18px]">Combat</h3>
             <div className="space-y-2 text-[14px]">
-              {characterData.combat.map(({ name, value }) => (
+              {characterData.combat.map(({ name, value }:{name:string, value: string}) => (
                 <div key={name} className="flex items-center gap-3 text-sm">
                   <div className="border border-gray-400 w-10 h-8 flex items-center justify-center shrink-0 font-bold">
                     {value}

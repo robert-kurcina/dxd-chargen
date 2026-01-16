@@ -1,0 +1,72 @@
+{
+  "name": "",
+  "properName": "",
+  "details": {
+    "environ": "",
+    "species": "",
+    "bio": "",
+    "physique": ""
+  },
+  "level": 0,
+  "attributes": [
+    { "name": "CCA", "value": 0, "modifier": "" },
+    { "name": "RCA", "value": 0, "modifier": "" },
+    { "name": "REF", "value": 0, "modifier": "" },
+    { "name": "INT", "value": 0, "modifier": "" },
+    { "name": "KNO", "value": 0, "modifier": "" },
+    { "name": "PRE", "value": 0, "modifier": "" },
+    { "name": "POW", "value": 0, "modifier": "" },
+    { "name": "STR", "value": 0, "modifier": "" },
+    { "name": "FOR", "value": 0, "modifier": "" },
+    { "name": "MOV", "value": 0, "modifier": "" },
+    { "name": "SIZ", "value": 0, "modifier": "" },
+    { "name": "ZED", "value": 0, "modifier": "" }
+  ],
+  "background": {
+    "profession": [],
+    "settlement": [],
+    "religion": [],
+    "personality": "",
+    "notableFeatures": []
+  },
+  "history": {
+    "equipment": "",
+    "weapons": "",
+    "armor": "",
+    "magicItems": "",
+    "skills": "",
+    "languages": ""
+  },
+  "performance": [
+    { "name": "Hitpoints", "value": 0 },
+    { "name": "Bodypoints", "value": 0 },
+    { "name": "Recovery Rate", "value": 0 },
+    { "name": "Endurance", "value": 0 },
+    { "name": "Resilience", "value": 0 },
+    { "name": "Resistance", "value": 0 }
+  ],
+  "concerns": [
+    { "name": "Superficial", "value": 0 },
+    { "name": "Injury", "value": 0 },
+    { "name": "Fatigue", "value": 0 },
+    { "name": "Weariness", "value": 0 },
+    { "name": "Stress", "value": 0 },
+    { "name": "Rads", "value": 0 }
+  ],
+  "miscellaneous": [
+    { "name": "Wealth Rank", "value": 0 },
+    { "name": "Social Rank", "value": 0 },
+    { "name": "Trade Rank", "value": 0 },
+    { "name": "Favor Dice", "value": 0 },
+    { "name": "Cellburn Limit", "value": 0 },
+    { "name": "Manapool", "value": 0 }
+  ],
+  "combat": [
+    { "name": "Actions", "value": "+0" },
+    { "name": "Melee Attack", "value": "+0" },
+    { "name": "Melee Defend", "value": "+0" },
+    { "name": "Range Attack", "value": "+0" },
+    { "name": "Range Defend", "value": "+0" },
+    { "name": "Max Advantage", "value": "+0" }
+  ]
+}
