@@ -98,7 +98,7 @@ export default function CharacterSheet() {
                 {characterData.attributes.map((attr) => (
                   <div
                     key={attr.name}
-                    className="text-center font-headline text-lg border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10"
+                    className="text-center font-sans text-lg border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10"
                   >
                     {attr.name}
                   </div>
