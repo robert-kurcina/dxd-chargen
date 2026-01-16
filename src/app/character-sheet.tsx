@@ -11,10 +11,14 @@ const HistorySection = ({ title, content }: { title: string; content: string }) 
 
 export default function CharacterSheet() {
   const portrait = PlaceHolderImages.find((img) => img.id === 'character-portrait');
+  const backgroundArt = PlaceHolderImages.find((img) => img.id === 'character-sheet-background');
 
   return (
-    <div className="bg-white text-black p-4 md:p-8 font-sans">
-      <div className="border border-gray-300 p-4 max-w-4xl mx-auto">
+    <div
+      className="text-black p-4 md:p-8 font-sans bg-cover bg-center"
+      style={{ backgroundImage: backgroundArt ? `url(${backgroundArt.imageUrl})` : 'none' }}
+    >
+      <div className="border border-gray-300 p-4 max-w-4xl mx-auto bg-white shadow-lg">
         <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
           <div className="w-full md:w-2/3">
             <p className="text-sm text-gray-500">Name</p>
