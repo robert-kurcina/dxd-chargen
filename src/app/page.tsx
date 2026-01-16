@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useTransition } from 'react';
-import Image from 'next/image';
 import {
   ATTRIBUTES,
   SKILLS,
@@ -17,7 +16,6 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import { Icons } from '@/components/icons';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 
 type AttributesState = Record<Attribute, number>;
@@ -38,8 +36,6 @@ export default function CharacterForgePage() {
   const [key, setKey] = useState(0);
 
   const { toast } = useToast();
-
-  const heroImage = PlaceHolderImages.find(img => img.id === 'character-forge-hero');
 
   const handleGenerateAttributes = () => {
     startAttributeTransition(() => {
@@ -96,27 +92,14 @@ export default function CharacterForgePage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-background font-body">
-      <header className="relative h-60 md:h-80 w-full">
-        {heroImage && (
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            data-ai-hint={heroImage.imageHint}
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-          <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary drop-shadow-md">
-            Sarna Len Character Forge
-          </h1>
-          <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-2xl">
-            Forge your next RPG character with a dash of randomness and a spark of AI creativity.
-          </p>
-        </div>
+    <div className="min-h-screen w-full bg-background font-body">
+      <header className="text-center py-16 md:py-20">
+        <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary drop-shadow-md">
+          Sarna Len Character Forge
+        </h1>
+        <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto">
+          Forge your next RPG character with a dash of randomness and a spark of AI creativity.
+        </p>
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-7xl">
