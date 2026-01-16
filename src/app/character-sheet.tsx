@@ -25,12 +25,12 @@ export default function CharacterSheet() {
         <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
           <div className="w-full md:w-2/3">
             <p className="text-lg text-gray-500 mb-1 text-[18px]">Name</p>
-            <div className="border-2 border-transparent h-12 mb-4">
+            <div className="border-2 border-transparent h-12 mb-4 pl-[10px]">
               <p className="text-2xl font-bold">{characterData.name}</p>
               <p className="text-sm text-[14px]">[{characterData.properName}]</p>
             </div>
             <p className="text-lg text-gray-500 mb-1 text-[18px]">Details</p>
-            <div className="border-2 border-transparent h-auto text-sm text-[14px]">
+            <div className="border-2 border-transparent h-auto text-sm text-[14px] pl-[10px]">
               <p>{characterData.details.environ}</p>
               <p>{characterData.details.species}</p>
               <p>{characterData.details.bio}</p>
@@ -92,13 +92,13 @@ export default function CharacterSheet() {
               style={{ top: '-0.5rem', left: 'calc(100% * 8.5 / 12 - 1.25rem)' }}
             />
           )}
-          <div className="relative">
-            <div className="border border-gray-300">
+          <div className="relative border border-gray-300">
+            <div>
               <div className="grid grid-cols-12">
                 {characterData.attributes.map((attr) => (
                   <div
                     key={attr.name}
-                    className="text-center font-sans text-lg border-r border-gray-300 bg-white text-gray-500 flex flex-col justify-end items-center"
+                    className="text-center font-sans text-gray-500 flex flex-col justify-end items-center bg-white"
                   >
                     {attr.name}
                   </div>
@@ -144,31 +144,31 @@ export default function CharacterSheet() {
             <div className="space-y-3">
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Profession</p>
-                <div className="text-sm text-[14px]">
+                <div className="text-sm text-[14px] pl-[10px]">
                   {characterData.background.profession.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Settlement</p>
-                <div className="text-sm text-[14px]">
+                <div className="text-sm text-[14px] pl-[10px]">
                   {characterData.background.settlement.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Religion</p>
-                <div className="text-sm text-[14px]">
+                <div className="text-sm text-[14px] pl-[10px]">
                    {characterData.background.religion.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Personality</p>
-                <div className="text-sm text-[14px]">
+                <div className="text-sm text-[14px] pl-[10px]">
                   <p>{characterData.background.personality}</p>
                 </div>
               </div>
               <div>
                 <p className="text-lg text-gray-500 mb-1 text-[18px]">Notable Features</p>
-                <div className="text-sm text-[14px]">
+                <div className="text-sm text-[14px] pl-[10px]">
                   {characterData.background.notableFeatures.map((line, i) => <p key={i}>{line}</p>)}
                 </div>
               </div>
