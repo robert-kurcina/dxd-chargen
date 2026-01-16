@@ -93,7 +93,7 @@ export default function CharacterSheet() {
             />
           )}
           <div className="relative">
-            <div className="border border-gray-400">
+            <div className="border border-gray-300">
               <div className="grid grid-cols-12">
                 {characterData.attributes.map((attr) => (
                   <div
@@ -104,7 +104,7 @@ export default function CharacterSheet() {
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-12 border-t border-gray-400">
+              <div className="grid grid-cols-12 border-t-2 border-gray-400">
                 {characterData.attributes.map((attr, i) => (
                   <div
                     key={i}
@@ -174,7 +174,7 @@ export default function CharacterSheet() {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex flex-col">
+          <div className="w-full flex flex-col">
             <h2 className="font-bold mb-2 text-lg text-[18px]">History & Notes</h2>
             <div className="border border-gray-300 p-2 flex-grow min-h-[240px] text-sm space-y-2 text-[14px]">
               <HistorySection title="Equipment" content={characterData.history.equipment} />
