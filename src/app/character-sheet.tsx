@@ -72,8 +72,9 @@ export default function CharacterSheet() {
           </div>
         </section>
 
-        <section className="mb-4">
+        <section className="relative mb-4">
           <h2 className="font-bold mb-1 text-lg">Attributes</h2>
+          <Icons.Affinity className="absolute h-8 w-8 text-black" style={{ top: '-0.5rem', left: 'calc(100% * 8.5 / 12 - 1rem)' }}/>
           <div className="border border-gray-400">
             <div className="grid grid-cols-12">
               {characterData.attributes.map((attr) => (
@@ -82,11 +83,10 @@ export default function CharacterSheet() {
                   className={cn(
                     "text-center text-xs font-bold border-r border-gray-300 p-1 bg-gray-100 flex flex-col justify-end items-center h-10",
                     {
-                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
                     }
                   )}
                 >
-                  {attr.name === 'FOR' && <Icons.Affinity className="h-4 w-4 mb-1" />}
                   {attr.name}
                 </div>
               ))}
@@ -98,7 +98,7 @@ export default function CharacterSheet() {
                   className={cn(
                     "h-10 flex items-center justify-center font-bold text-xl border-r border-gray-300",
                     {
-                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
                     }
                   )}
                 >
@@ -113,7 +113,7 @@ export default function CharacterSheet() {
                   className={cn(
                     "h-6 flex items-center justify-center text-sm border-r border-gray-300",
                      {
-                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ'].includes(attr.name)
+                      'border-r-2 border-black': ['REF', 'KNO', 'POW', 'SIZ', 'STR'].includes(attr.name)
                     }
                   )}
                 >
