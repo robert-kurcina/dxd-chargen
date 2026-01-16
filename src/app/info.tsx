@@ -266,7 +266,6 @@ export default function Info({ data }: { data: any }) {
     culturalHeritage,
     environHeritage,
     societalHeritage,
-    adjustments,
     namingPracticeTitles,
     notableFeatures,
     physicalBlemishes,
@@ -304,7 +303,6 @@ export default function Info({ data }: { data: any }) {
       <SimpleTableCard title="Cultural Heritage" data={culturalHeritage} />
       <SimpleTableCard title="Environ Heritage" data={environHeritage} />
       <SimpleTableCard title="Societal Heritage" data={societalHeritage} />
-      <SimpleTableCard title="Adjustments" data={adjustments} />
       <SimpleTableCard title="Naming Practice Titles" data={namingPracticeTitles} />
       <SimpleTableCard title="Notable Features" data={notableFeatures} />
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>

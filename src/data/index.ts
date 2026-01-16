@@ -17,7 +17,6 @@ import favoredTradesByLineage from './favoredTradesByLineage.json';
 import culturalHeritage from './culturalHeritage.json';
 import environHeritage from './environHeritage.json';
 import societalHeritage from './societalHeritage.json';
-import adjustments from './adjustments.json';
 import namingPracticeTitles from './namingPracticeTitles.json';
 import notableFeatures from './notableFeatures.json';
 import physicalBlemishes from './physicalBlemishes.json';
@@ -54,7 +53,6 @@ const sarnaLenData = {
   culturalHeritage,
   environHeritage,
   societalHeritage,
-  adjustments,
   namingPracticeTitles,
   notableFeatures,
   physicalBlemishes,
