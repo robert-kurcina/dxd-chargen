@@ -1,0 +1,86 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "stature": 50,
+    "build": 0,
+    "body": 0,
+    "traits": "Brawn. ***v-Zedsurge 4."
+  },
+  {
+    "lineage": "Auldfar",
+    "stature": 3,
+    "build": 1,
+    "body": 1,
+    "traits": "***[Zucked 2]. Brawn 2. Quick. ***Steadfast 2. **Grit 3."
+  },
+  {
+    "lineage": "Baminat",
+    "stature": -1,
+    "build": 0,
+    "body": 0,
+    "traits": "[Fanatic > Bamina]. *[Believer > Bamina]. **[Insufferable]."
+  },
+  {
+    "lineage": "Drusian",
+    "stature": 0,
+    "build": 0,
+    "body": 0,
+    "traits": "v-Zedsurge 2."
+  },
+  {
+    "lineage": "Heidelan",
+    "stature": 0,
+    "build": 1,
+    "body": 1,
+    "traits": "[Fanatic > Heidel]. Brawn. Deity 2 > Heidel. **[Believer > Heidel]. [Strange > Unsettling]."
+  },
+  {
+    "lineage": "Quaggik",
+    "stature": 2,
+    "build": 1,
+    "body": 0,
+    "traits": "Brawn. Survival (Forest). **Politics 2 > Qualg. Martialist."
+  },
+  {
+    "lineage": "Restani",
+    "stature": 0,
+    "build": 1,
+    "body": 0,
+    "traits": "**[Zucked]. Sneaky. *** v-Steadfast 3. *v-Compass 2."
+  },
+  {
+    "lineage": "Sondgarat",
+    "stature": 0,
+    "build": -1,
+    "body": 0,
+    "traits": "Discipline. **[Doubt]. **[Solitary 2]."
+  },
+  {
+    "lineage": "Vasikha",
+    "stature": 0,
+    "build": -1,
+    "body": 0,
+    "traits": "Navigation."
+  },
+  {
+    "lineage": "Eniyaski",
+    "stature": 0,
+    "build": -2,
+    "body": 1,
+    "traits": "***[Empathy 2]."
+  },
+  {
+    "lineage": "Pazkharan",
+    "stature": 0,
+    "build": 0,
+    "body": 0,
+    "traits": "**Deity X > Kahuzid."
+  },
+  {
+    "lineage": "female",
+    "stature": -5,
+    "build": 0,
+    "body": 1,
+    "traits": "Discipline."
+  }
+]

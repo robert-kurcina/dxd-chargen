@@ -1,0 +1,72 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "cca": 0,
+    "rca": 3,
+    "ref": 1,
+    "int": 0,
+    "kno": 1,
+    "pre": 2,
+    "pow": 0,
+    "str": -1,
+    "for": -1,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "Akrunai",
+    "cca": 1,
+    "rca": 1,
+    "ref": 0,
+    "int": 1,
+    "kno": 1,
+    "pre": 0,
+    "pow": 1,
+    "str": 0,
+    "for": 3,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "Huaczwyk",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 0,
+    "pow": 0,
+    "str": 0,
+    "for": 1,
+    "mov": 0,
+    "zed": 3
+  },
+  {
+    "lineage": "Vanyrai",
+    "cca": 0,
+    "rca": 1,
+    "ref": 0,
+    "int": 2,
+    "kno": 1,
+    "pre": 0,
+    "pow": 2,
+    "str": -1,
+    "for": 0,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "female",
+    "cca": -1,
+    "rca": -1,
+    "ref": 1,
+    "int": 0,
+    "kno": 0,
+    "pre": 1,
+    "pow": 0,
+    "str": -1,
+    "for": 0,
+    "mov": 0,
+    "zed": 1
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "stature": 38,
+    "build": -2,
+    "body": 0,
+    "traits": "[Pack]. ***Leap 2. *Bite 2. [Strange 3 > Aesthetics]. Nightvision 4. v-Compass 3. Survival 2 > Plains. Claws."
+  },
+  {
+    "lineage": "Ankilati",
+    "stature": -1,
+    "build": 0,
+    "body": -1,
+    "traits": "Leap 2. **Sprint 4. **[Zucked]. Sneaky. Detect 2. Pounce. Nimble."
+  },
+  {
+    "lineage": "Coromite",
+    "stature": -10,
+    "build": 5,
+    "body": 0,
+    "traits": "Sneaky 2. **v-Slippery 2. **Prestidigitation 2. Detect 3. *Bite."
+  },
+  {
+    "lineage": "Indelan",
+    "stature": 1,
+    "build": 1,
+    "body": 1,
+    "traits": "Discipline. **[Solitary 4]. Leap 2 Sneaky 3. Detect. **Bite 3. *Claws 2."
+  },
+  {
+    "lineage": "female",
+    "stature": -1,
+    "build": -2,
+    "body": -1,
+    "traits": "[Zucked]."
+  },
+  {
+    "lineage": "Child [A]",
+    "stature": 0,
+    "build": 3,
+    "body": 1,
+    "traits": ""
+  },
+  {
+    "lineage": "Youth [0]",
+    "stature": 0,
+    "build": 2,
+    "body": 0,
+    "traits": ""
+  },
+  {
+    "lineage": "Early Teen [1]",
+    "stature": 0,
+    "build": 1,
+    "body": 0,
+    "traits": ""
+  }
+]

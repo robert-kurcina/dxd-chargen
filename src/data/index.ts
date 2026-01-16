@@ -32,6 +32,24 @@ import tragedySeeds from './tragedySeeds.json';
 import traits from './traits.json';
 import wealthTitles from './wealthTitles.json';
 import steps from './steps.json';
+import adjustmentsAttributesAlef from './adjustments-attributes-alef.json';
+import adjustmentsCharacteristicsAlef from './adjustments-characteristics-alef.json';
+import adjustmentsAttributesBabbita from './adjustments-attributes-babbita.json';
+import adjustmentsCharacteristicsBabbita from './adjustments-characteristics-babbita.json';
+import adjustmentsAttributesCherigili from './adjustments-attributes-cherigili.json';
+import adjustmentsCharacteristicsCherigili from './adjustments-characteristics-cherigili.json';
+import adjustmentsAttributesDrauf from './adjustments-attributes-drauf.json';
+import adjustmentsCharacteristicsDrauf from './adjustments-characteristics-drauf.json';
+import adjustmentsAttributesGnoan from './adjustments-attributes-gnoan.json';
+import adjustmentsCharacteristicsGnoan from './adjustments-characteristics-gnoan.json';
+import adjustmentsAttributesHuman from './adjustments-attributes-human.json';
+import adjustmentsCharacteristicsHuman from './adjustments-characteristics-human.json';
+import adjustmentsAttributesKlenari from './adjustments-attributes-klenari.json';
+import adjustmentsCharacteristicsKlenari from './adjustments-characteristics-klenari.json';
+import adjustmentsAttributesKriket from './adjustments-attributes-kriket.json';
+import adjustmentsCharacteristicsKriket from './adjustments-characteristics-kriket.json';
+import adjustmentsAttributesStonefolk from './adjustments-attributes-stonefolk.json';
+import adjustmentsCharacteristicsStonefolk from './adjustments-characteristics-stonefolk.json';
 
 const sarnaLenData = {
   ageBrackets,
@@ -68,6 +86,24 @@ const sarnaLenData = {
   traits,
   wealthTitles,
   steps,
+  'adjustments-attributes-alef': adjustmentsAttributesAlef,
+  'adjustments-characteristics-alef': adjustmentsCharacteristicsAlef,
+  'adjustments-attributes-babbita': adjustmentsAttributesBabbita,
+  'adjustments-characteristics-babbita': adjustmentsCharacteristicsBabbita,
+  'adjustments-attributes-cherigili': adjustmentsAttributesCherigili,
+  'adjustments-characteristics-cherigili': adjustmentsCharacteristicsCherigili,
+  'adjustments-attributes-drauf': adjustmentsAttributesDrauf,
+  'adjustments-characteristics-drauf': adjustmentsCharacteristicsDrauf,
+  'adjustments-attributes-gnoan': adjustmentsAttributesGnoan,
+  'adjustments-characteristics-gnoan': adjustmentsCharacteristicsGnoan,
+  'adjustments-attributes-human': adjustmentsAttributesHuman,
+  'adjustments-characteristics-human': adjustmentsCharacteristicsHuman,
+  'adjustments-attributes-klenari': adjustmentsAttributesKlenari,
+  'adjustments-characteristics-klenari': adjustmentsCharacteristicsKlenari,
+  'adjustments-attributes-kriket': adjustmentsAttributesKriket,
+  'adjustments-characteristics-kriket': adjustmentsCharacteristicsKriket,
+  'adjustments-attributes-stonefolk': adjustmentsAttributesStonefolk,
+  'adjustments-characteristics-stonefolk': adjustmentsCharacteristicsStonefolk,
 };
 
 export default sarnaLenData;

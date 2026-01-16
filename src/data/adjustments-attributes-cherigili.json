@@ -1,0 +1,58 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": -1,
+    "kno": 0,
+    "pre": 2,
+    "pow": 2,
+    "str": 4,
+    "for": 3,
+    "mov": -3,
+    "zed": -2
+  },
+  {
+    "lineage": "Restani",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 2,
+    "kno": 0,
+    "pre": 0,
+    "pow": 0,
+    "str": 0,
+    "for": 0,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "Quaggian",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 0,
+    "pow": 1,
+    "str": 0,
+    "for": 1,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "female",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 1,
+    "pow": 0,
+    "str": 1,
+    "for": 0,
+    "mov": 5,
+    "zed": 0
+  }
+]

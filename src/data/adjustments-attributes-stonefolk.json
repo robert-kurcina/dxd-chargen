@@ -1,0 +1,58 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "cca": -3,
+    "rca": -3,
+    "ref": 0,
+    "int": 4,
+    "kno": 4,
+    "pre": -1,
+    "pow": 4,
+    "str": -3,
+    "for": 4,
+    "mov": 2,
+    "zed": -9
+  },
+  {
+    "lineage": "Plains",
+    "cca": 0,
+    "rca": 0,
+    "ref": 1,
+    "int": 0,
+    "kno": 0,
+    "pre": 0,
+    "pow": 0,
+    "str": 0,
+    "for": 0,
+    "mov": 1,
+    "zed": 0
+  },
+  {
+    "lineage": "Mountains",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 2,
+    "pre": 0,
+    "pow": 0,
+    "str": 1,
+    "for": 0,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "female",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 1,
+    "pow": 0,
+    "str": 1,
+    "for": 0,
+    "mov": 0,
+    "zed": 0
+  }
+]

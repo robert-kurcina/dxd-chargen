@@ -1,0 +1,72 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "cca": 2,
+    "rca": 2,
+    "ref": 3,
+    "int": 0,
+    "kno": 0,
+    "pre": -2,
+    "pow": -4,
+    "str": -4,
+    "for": 5,
+    "mov": 1,
+    "zed": -4
+  },
+  {
+    "lineage": "Dulndran",
+    "cca": 0,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 0,
+    "pow": 1,
+    "str": 1,
+    "for": 1,
+    "mov": 1,
+    "zed": -1
+  },
+  {
+    "lineage": "Eyravite",
+    "cca": 3,
+    "rca": 0,
+    "ref": 0,
+    "int": 0,
+    "kno": 1,
+    "pre": 0,
+    "pow": 1,
+    "str": 0,
+    "for": 0,
+    "mov": 0,
+    "zed": 0
+  },
+  {
+    "lineage": "Gilvanar",
+    "cca": 0,
+    "rca": 1,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 0,
+    "pow": 0,
+    "str": 0,
+    "for": 0,
+    "mov": 0,
+    "zed": 2
+  },
+  {
+    "lineage": "female",
+    "cca": 1,
+    "rca": 1,
+    "ref": 0,
+    "int": 0,
+    "kno": 0,
+    "pre": 2,
+    "pow": 0,
+    "str": -1,
+    "for": 0,
+    "mov": 0,
+    "zed": 3
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "lineage": "BASE-LINE",
+    "stature": 48,
+    "build": -2,
+    "body": 0,
+    "traits": "Nightvision 2. Survival. **Claws. [Strange 2 > Disarming]."
+  },
+  {
+    "lineage": "Akrunai",
+    "stature": 0,
+    "build": 0,
+    "body": 0,
+    "traits": "**v-Compass. **Tracking."
+  },
+  {
+    "lineage": "Huaczwyk",
+    "stature": 2,
+    "build": 1,
+    "body": 1,
+    "traits": "[Addict > Lead]. *v-Fear 2. v-Zedsurge 3. [Strange > Unsettling]."
+  },
+  {
+    "lineage": "Vanyrai",
+    "stature": 5,
+    "build": 1,
+    "body": 1,
+    "traits": "v-Compass. **v-Zedsurge 2."
+  },
+  {
+    "lineage": "female",
+    "stature": -2,
+    "build": -2,
+    "body": -1,
+    "traits": "Detect."
+  },
+  {
+    "lineage": "male",
+    "stature": 0,
+    "build": 0,
+    "body": 0,
+    "traits": "[Strange > Distrust]."
+  }
+]

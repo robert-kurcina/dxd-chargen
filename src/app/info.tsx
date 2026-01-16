@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -243,6 +243,101 @@ const SpeciesCard = ({ data }: { data: any[] }) => (
     </Card>
 );
 
+const AdjustmentsCard = ({ data }: { data: any }) => {
+  const [selectedFilter, setSelectedFilter] = useState('all');
+
+  const { adjustmentKeys, ancestries } = useMemo(() => {
+    const keys = Object.keys(data).filter(k => k.startsWith('adjustments-'));
+    const ancestrySet = new Set<string>();
+    keys.forEach(key => {
+      const parts = key.split('-');
+      if (parts.length === 3) {
+        ancestrySet.add(parts[2]);
+      }
+    });
+    return {
+      adjustmentKeys: keys,
+      ancestries: Array.from(ancestrySet),
+    };
+  }, [data]);
+
+  const filteredKeys = useMemo(() => {
+    if (selectedFilter === 'all') {
+      return adjustmentKeys;
+    }
+    if (selectedFilter === 'attributes') {
+      return adjustmentKeys.filter(k => k.includes('-attributes-'));
+    }
+    if (selectedFilter === 'characteristics') {
+      return adjustmentKeys.filter(k => k.includes('-characteristics-'));
+    }
+    // It's an ancestry filter
+    return adjustmentKeys.filter(k => k.endsWith(`-${selectedFilter}`));
+  }, [selectedFilter, adjustmentKeys]);
+
+  const getTitle = (key: string) => {
+    const parts = key.split('-');
+    if (parts.length === 3) {
+      const type = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+      const ancestry = parts[2].charAt(0).toUpperCase() + parts[2].slice(1);
+      return `${ancestry} - ${type}`;
+    }
+    return key;
+  };
+
+  return (
+    <Card className="bg-white">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle>Adjustments</CardTitle>
+        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter by..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="attributes">Attributes</SelectItem>
+            <SelectItem value="characteristics">Characteristics</SelectItem>
+            {ancestries.map(ancestry => (
+              <SelectItem key={ancestry} value={ancestry}>
+                {ancestry.charAt(0).toUpperCase() + ancestry.slice(1)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {filteredKeys.map(key => {
+          const tableData = data[key];
+          if (!tableData || tableData.length === 0) return null;
+          const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
+
+          return (
+            <div key={key}>
+              <h4 className="font-bold text-md mb-2">{getTitle(key)}</h4>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    {headers.map((header) => <TableHead key={header}>{header}</TableHead>)}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {tableData.map((row: any, index: number) => (
+                    <TableRow key={index}>
+                      {headers.map((header) => (
+                        <TableCell key={header}>{row[header]}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          );
+        })}
+      </CardContent>
+    </Card>
+  );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: any }) {
@@ -285,6 +380,7 @@ export default function Info({ data }: { data: any }) {
 
   return (
     <div className="space-y-8 mt-4">
+      <AdjustmentsCard data={data} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
       <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} />
       <SimpleTableCard title="Characteristic Modifiers" data={characteristicModifiers} />
