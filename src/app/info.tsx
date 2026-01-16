@@ -338,6 +338,66 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
   );
 };
 
+const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; environ: any[]; societal: any[] }) => {
+  const [selectedFilter, setSelectedFilter] = useState('all');
+
+  const HeritageTable = ({ title, data }: { title: string; data: any[] }) => (
+    <div>
+      {selectedFilter === 'all' && <h4 className="font-bold text-md mb-2">{title}</h4>}
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Entry</TableHead>
+            <TableHead>Talents</TableHead>
+            <TableHead>Skill Points</TableHead>
+            <TableHead>Wealth</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {data.map((row: any, index: number) => (
+            <TableRow key={index}>
+              <TableCell>{row.entry}</TableCell>
+              <TableCell>{row.talents}</TableCell>
+              <TableCell>{row.skillPoints}</TableCell>
+              <TableCell>{row.wealth}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+
+  return (
+    <Card className="bg-white">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle>Heritage</CardTitle>
+        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter by..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="cultural">Cultural</SelectItem>
+            <SelectItem value="environ">Environ</SelectItem>
+            <SelectItem value="societal">Societal</SelectItem>
+          </SelectContent>
+        </Select>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
+          <HeritageTable title="Cultural Heritage" data={cultural} />
+        )}
+        {(selectedFilter === 'all' || selectedFilter === 'environ') && (
+          <HeritageTable title="Environ Heritage" data={environ} />
+        )}
+        {(selectedFilter === 'all' || selectedFilter === 'societal') && (
+          <HeritageTable title="Societal Heritage" data={societal} />
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: any }) {
@@ -396,9 +456,7 @@ export default function Info({ data }: { data: any }) {
       <ListCard title="Economic Statuses" data={economicStatuses} />
       <SimpleTableCard title="Empires" data={empires} />
       <ListCard title="Environs" data={environs} />
-      <SimpleTableCard title="Cultural Heritage" data={culturalHeritage} />
-      <SimpleTableCard title="Environ Heritage" data={environHeritage} />
-      <SimpleTableCard title="Societal Heritage" data={societalHeritage} />
+      <HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} />
       <SimpleTableCard title="Naming Practice Titles" data={namingPracticeTitles} />
       <SimpleTableCard title="Notable Features" data={notableFeatures} />
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
