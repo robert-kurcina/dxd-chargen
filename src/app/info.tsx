@@ -358,7 +358,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
           <TableRow className="border-b-2 border-black">
             <TableHead className="font-bold text-lg h-8">Entry</TableHead>
             <TableHead className="font-bold text-lg h-8">Talents</TableHead>
-            <TableHead className="font-bold text-lg h-8">Skill Points</TableHead>
+            <TableHead className="font-bold text-lg h-8">Cost</TableHead>
             <TableHead className="font-bold text-lg h-8">Wealth</TableHead>
           </TableRow>
         </TableHeader>
@@ -367,7 +367,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
             <TableRow key={index}>
               <TableCell className="py-2 pl-4 font-bold">{row.entry}</TableCell>
               <TableCell className="py-2 pl-4">{row.talents}</TableCell>
-              <TableCell className="py-2 pl-4">{row.skillPoints}</TableCell>
+              <TableCell className="py-2 pl-4">{row.cost}</TableCell>
               <TableCell className="py-2 pl-4">{row.wealth}</TableCell>
             </TableRow>
           ))}

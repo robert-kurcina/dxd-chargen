@@ -1,12 +1,12 @@
 [
-  { "entry": "Nomadic", "talents": "*Navigation 2. *Riding 2. Surefooted. *Swim. *Barter 3. **Hunter. *Pathfinder. **Leadership 2.", "skillPoints": 17, "wealth": -5 },
-  { "entry": "Wildling", "talents": "Navigation. Surefooted. Sneaky. **Mob. **Hunter. Forage. *Tracking. Domus 2 > Trapping.", "skillPoints": 17, "wealth": -6 },
-  { "entry": "Warrior", "talents": "Grit. Brawn. Riding. **Warfare 2. Hunter. *Martialist. Domus > Martial. Expert > Any. *Trained > Any.", "skillPoints": 17, "wealth": 0 },
-  { "entry": "Performer", "talents": "**Suss 3. ***Perform 4. **Seduction 2. *Domus 2 > Employer. Gossip 2.", "skillPoints": 17, "wealth": 2 },
-  { "entry": "Merchant", "talents": "*Barter 2. *Wares 3. *Studies. ***Domus 2 > Trader.", "skillPoints": 17, "wealth": 6 },
-  { "entry": "Services", "talents": "Implore. *Labor 3 > Service. ***Lore 3 > Service. *Medic. *Studies. *Domus 2 > Employer. Gossip 2.", "skillPoints": 17, "wealth": -2 },
-  { "entry": "Crafting", "talents": "*Suss. Craft 3. *Domus 2 > Shopkeeper. *Barter 2. **Implore 3.", "skillPoints": 17, "wealth": 4 },
-  { "entry": "Fishing", "talents": "*Swim 3. Navigation 2. **Barter 2. Fishing 2. *Domus 3 > Fisher. **Trapmaster.", "skillPoints": 17, "wealth": 0 },
-  { "entry": "Herding", "talents": "Husbandry. **Riding 3. *Navigation 2. ***Domus 4 > Herder.", "skillPoints": 17, "wealth": 0 },
-  { "entry": "Farming", "talents": "*Sturdy. Riding. Greenthumb. Forage. Barter. *Brawn. **Domus > Farming. *Husbandry.", "skillPoints": 17, "wealth": 0 }
+  { "entry": "Nomadic", "talents": "*Navigation 2. *Riding 2. Surefooted. *Swim. *Barter 3. **Hunter. *Pathfinder. **Leadership 2.", "cost": 17, "wealth": -5 },
+  { "entry": "Wildling", "talents": "Navigation. Surefooted. Sneaky. **Mob. **Hunter. Forage. *Tracking. Domus 2 > Trapping.", "cost": 17, "wealth": -6 },
+  { "entry": "Warrior", "talents": "Grit. Brawn. Riding. **Warfare 2. Hunter. *Martialist. Domus > Martial. Expert > Any. *Trained > Any.", "cost": 17, "wealth": 0 },
+  { "entry": "Performer", "talents": "**Suss 3. ***Perform 4. **Seduction 2. *Domus 2 > Employer. Gossip 2.", "cost": 17, "wealth": 2 },
+  { "entry": "Merchant", "talents": "*Barter 2. *Wares 3. *Studies. ***Domus 2 > Trader.", "cost": 17, "wealth": 6 },
+  { "entry": "Services", "talents": "Implore. *Labor 3 > Service. ***Lore 3 > Service. *Medic. *Studies. *Domus 2 > Employer. Gossip 2.", "cost": 17, "wealth": -2 },
+  { "entry": "Crafting", "talents": "*Suss. Craft 3. *Domus 2 > Shopkeeper. *Barter 2. **Implore 3.", "cost": 17, "wealth": 4 },
+  { "entry": "Fishing", "talents": "*Swim 3. Navigation 2. **Barter 2. Fishing 2. *Domus 3 > Fisher. **Trapmaster.", "cost": 17, "wealth": 0 },
+  { "entry": "Herding", "talents": "Husbandry. **Riding 3. *Navigation 2. ***Domus 4 > Herder.", "cost": 17, "wealth": 0 },
+  { "entry": "Farming", "talents": "*Sturdy. Riding. Greenthumb. Forage. Barter. *Brawn. **Domus > Farming. *Husbandry.", "cost": 17, "wealth": 0 }
 ]
