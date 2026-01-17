@@ -34,7 +34,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -71,7 +71,7 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -94,7 +94,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>{title}</CardTitle>
         <Select value={selectedKey} onValueChange={setSelectedKey}>
           <SelectTrigger className="w-[180px]">
@@ -159,7 +159,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
 // Special card for attribute definitions
 const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Attribute Definitions</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -195,7 +195,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
 // Special card for calculated abilities
 const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Calculated Abilities</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -228,7 +228,7 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
 // Special card for Species
 const SpeciesCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Species</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -291,7 +291,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>Adjustments</CardTitle>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[180px]">
@@ -378,7 +378,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>Heritage</CardTitle>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[180px]">
@@ -439,7 +439,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>Traits</CardTitle>
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-[180px]">
@@ -480,7 +480,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 
 const EmpiresCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Empires</CardTitle>
       </CardHeader>
       <CardContent>
@@ -510,7 +510,7 @@ const EmpiresCard = ({ data }: { data: any[] }) => (
 
 const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Naming Practice Titles</CardTitle>
       </CardHeader>
       <CardContent>
@@ -542,7 +542,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
 
 const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeeds: any[], randomPersonItemDeity: any[] }) => (
     <Card className="bg-white">
-        <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
+        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
             <CardTitle>Tragedy Seeds</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
