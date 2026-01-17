@@ -1,30 +1,31 @@
+
 [
   {
     "lineage": "BASE-LINE",
     "stature": 18,
     "build": 8,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "[Zucked 5][Strange 5]. Brawn 2. Armor 3. Grit. Mob. Leap. Sensors. v-Adaptation 2 > Heat. v-Adaptation > Humidity."
   },
   {
     "lineage": "Umber",
     "stature": 0,
     "build": 1,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "Survival 2 > Grassland. Brawn."
   },
   {
     "lineage": "Carnelian",
     "stature": 0,
     "build": 0,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "Survival 4 > Desert. Leap."
   },
   {
     "lineage": "female",
     "stature": 1,
     "build": 1,
-    "body": -1,
+    "bodypoints": -1,
     "talents": "Forage 2."
   }
 ]

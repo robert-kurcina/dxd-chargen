@@ -1,37 +1,38 @@
+
 [
   {
     "lineage": "BASE-LINE",
     "stature": 22,
     "build": 7,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "[Enemies > Gnoan]. *[Insufferable > Gnoans]. Nightvision > Infravision. Survival 3 > Mountains. ****Bite 2. *Claws. *Sneaky 2. *Robust 2. Detect 3. v-Adaptation 2 > Heat."
   },
   {
     "lineage": "Dulndran",
     "stature": 1,
     "build": 0,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "Tracking. **Leap 2. **Bite 3. **Pounce 2. ****[Violent 3]. [Strange 4] > Unsettling. [Strange 4] > Aesthetics."
   },
   {
     "lineage": "Eyravite",
     "stature": 0,
     "build": 0,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "*Grit 2. **Claws. Robust. *Nightvision 2 > Infravision. [Strange 3] > Unsettling. [Strange 5] > Aesthetics."
   },
   {
     "lineage": "Gilvanar",
     "stature": 0,
     "build": 1,
-    "body": 1,
+    "bodypoints": 1,
     "talents": "***Discipline 2. Detect. [Strange 3] > Unsettling. [Strange 2] > Aesthetics."
   },
   {
     "lineage": "female",
     "stature": -3,
     "build": 1,
-    "body": 0,
+    "bodypoints": 0,
     "talents": "Discipline."
   }
 ]

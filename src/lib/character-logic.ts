@@ -1,5 +1,6 @@
 import type { StaticData } from "@/data";
 import { D6, D66, d66Lookup } from "./dice";
+import { findKeyCaseInsensitive } from "./utils";
 
 
 /**
@@ -344,7 +345,7 @@ export function lookupTragedyKeyword(keyword: string, d66Roll: number, table: St
     return { raw: unknown, resolved: unknown, details: '' };
   }
 
-  const matchingKey = Object.keys(row).find(key => key.toLowerCase() === keyword.toLowerCase());
+  const matchingKey = findKeyCaseInsensitive(row, keyword);
 
   if (matchingKey) {
     const rawValue = row[matchingKey];

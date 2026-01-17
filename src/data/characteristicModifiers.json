@@ -1,15 +1,16 @@
+
 [
-  { "group": "Infant", "rank": "C", "stature": -35, "build": 8, "body": -5, "disads": 0, "resilience": 8 },
-  { "group": "Toddler", "rank": "B", "stature": -30, "build": 6, "body": -4, "disads": 0, "resilience": 5 },
-  { "group": "Child", "rank": "A", "stature": -20, "build": 4, "body": -3, "disads": 0, "resilience": 3 },
-  { "group": "Youth", "rank": "0", "stature": -12, "build": 3, "body": -2, "disads": 0, "resilience": 2 },
-  { "group": "Early Teen", "rank": "1", "stature": -4, "build": 2, "body": -1, "disads": 0, "resilience": 1 },
-  { "group": "Teenager", "rank": "2", "stature": -3, "build": 1, "body": 0, "disads": 0, "resilience": 0 },
-  { "group": "Young Adult", "rank": "3", "stature": 0, "build": -1, "body": 0, "disads": 0, "resilience": 0 },
-  { "group": "Adult", "rank": "4", "stature": 0, "build": 0, "body": 0, "disads": 1, "resilience": 0 },
-  { "group": "Mature", "rank": "5", "stature": 0, "build": 0, "body": 0, "disads": 1, "resilience": 0 },
-  { "group": "Middle Age", "rank": "6", "stature": 0, "build": 0, "body": -1, "disads": 1, "resilience": 0 },
-  { "group": "Elder", "rank": "7", "stature": 0, "build": -1, "body": -1, "disads": 2, "resilience": 0 },
-  { "group": "Aged", "rank": "8", "stature": 0, "build": -2, "body": -2, "disads": 3, "resilience": 1 },
-  { "group": "Venerable", "rank": "9", "stature": -1, "build": -4, "body": -3, "disads": 4, "resilience": 2 }
+  { "group": "Infant", "rank": "C", "stature": -35, "build": 8, "bodypoints": -5, "disads": 0, "resilience": 8 },
+  { "group": "Toddler", "rank": "B", "stature": -30, "build": 6, "bodypoints": -4, "disads": 0, "resilience": 5 },
+  { "group": "Child", "rank": "A", "stature": -20, "build": 4, "bodypoints": -3, "disads": 0, "resilience": 3 },
+  { "group": "Youth", "rank": "0", "stature": -12, "build": 3, "bodypoints": -2, "disads": 0, "resilience": 2 },
+  { "group": "Early Teen", "rank": "1", "stature": -4, "build": 2, "bodypoints": -1, "disads": 0, "resilience": 1 },
+  { "group": "Teenager", "rank": "2", "stature": -3, "build": 1, "bodypoints": 0, "disads": 0, "resilience": 0 },
+  { "group": "Young Adult", "rank": "3", "stature": 0, "build": -1, "bodypoints": 0, "disads": 0, "resilience": 0 },
+  { "group": "Adult", "rank": "4", "stature": 0, "build": 0, "bodypoints": 0, "disads": 1, "resilience": 0 },
+  { "group": "Mature", "rank": "5", "stature": 0, "build": 0, "bodypoints": 0, "disads": 1, "resilience": 0 },
+  { "group": "Middle Age", "rank": "6", "stature": 0, "build": 0, "bodypoints": -1, "disads": 1, "resilience": 0 },
+  { "group": "Elder", "rank": "7", "stature": 0, "build": -1, "bodypoints": -1, "disads": 2, "resilience": 0 },
+  { "group": "Aged", "rank": "8", "stature": 0, "build": -2, "bodypoints": -2, "disads": 3, "resilience": 1 },
+  { "group": "Venerable", "rank": "9", "stature": -1, "build": -4, "bodypoints": -3, "disads": 4, "resilience": 2 }
 ]
