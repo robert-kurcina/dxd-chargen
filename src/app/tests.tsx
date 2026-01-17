@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { 
   D6,
   D66, 
@@ -41,16 +42,20 @@ const TestCase = ({ title, result, expected, pass }: { title: string, result: an
 );
 
 // Component for a group of tests
-const TestSuite = ({ title, children } : { title: string, children: React.ReactNode }) => (
+const TestSuite = ({ title, children, value }: { title: string; children: React.ReactNode; value: string }) => (
     <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {children}
-        </CardContent>
-      </Card>
-)
+      <AccordionItem value={value} className="border-b-0">
+        <AccordionTrigger className="w-full p-6 hover:no-underline">
+          <CardTitle className="flex-1 text-left">{title}</CardTitle>
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className="px-6 pb-6 pt-0 space-y-4">
+            {children}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Card>
+  );
 
 const D66LookupTest = ({ title, tableData }: { title: string; tableData: any[]; }) => {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -353,8 +358,8 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   return (
-    <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
-      <TestSuite title="Number Suffix Formatting Tests">
+    <Accordion type="multiple" defaultValue={['get-scalar-tests']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+      <TestSuite title="Number Suffix Formatting Tests" value="number-suffix-tests">
         <p className="text-sm text-muted-foreground p-4 -mb-4">
             Tests for formatting and parsing numbers with K/M suffixes.
         </p>
@@ -370,7 +375,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
 
-      <TestSuite title="Dice Roller Demo">
+      <TestSuite title="Dice Roller Demo" value="dice-roller-demo">
           <p className="text-sm text-muted-foreground">
             Click the button to roll a D66 and look up the corresponding age group from the data table.
           </p>
@@ -396,7 +401,7 @@ export default function Tests({ data }: { data: StaticData }) {
           )}
       </TestSuite>
 
-      <TestSuite title="isDisability Function Tests">
+      <TestSuite title="isDisability Function Tests" value="is-disability-tests">
         {isDisabilityTests.map((test, i) => {
             const result = isDisability(test.input);
             const pass = result === test.expected;
@@ -404,7 +409,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
       
-      <TestSuite title="Talent Parser Demo">
+      <TestSuite title="Talent Parser Demo" value="talent-parser-demo">
           <div className="mt-4 p-4 border rounded-md bg-gray-50">
             <p className="font-semibold">
               Input String: <span className="font-mono text-primary">{talentString1}</span>
@@ -433,7 +438,7 @@ export default function Tests({ data }: { data: StaticData }) {
           </div>
       </TestSuite>
 
-      <TestSuite title="getAgeRankValue Function Tests">
+      <TestSuite title="getAgeRankValue Function Tests" value="get-age-rank-value-tests">
         {getAgeRankValueTests.map((test, i) => {
             const result = getAgeRankValue(test.input as string);
             const pass = result === test.expected;
@@ -441,7 +446,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
 
-      <TestSuite title="Age Rank/Group Converters">
+      <TestSuite title="Age Rank/Group Converters" value="age-rank-group-converters">
         {ageRankGroupTests.map((test, i) => {
             const result = test.func === 'getAgeRank' ? getAgeRank(test.input as string, data.ageGroups) : getAgeGroup(test.input, data.ageGroups);
             const pass = result === test.expected;
@@ -449,7 +454,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
       
-      <TestSuite title="parseMaturityString Function Tests">
+      <TestSuite title="parseMaturityString Function Tests" value="parse-maturity-string-tests">
         {parseMaturityStringTests.map((test, i) => {
             const result = parseMaturityString(test.input, data);
             const pass = JSON.stringify(result) === JSON.stringify(test.expected);
@@ -457,7 +462,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
       
-      <TestSuite title="calculateMaturityDifference Function Tests">
+      <TestSuite title="calculateMaturityDifference Function Tests" value="calculate-maturity-difference-tests">
         {calculateMaturityDifferenceTests.map((test, i) => {
             const result = calculateMaturityDifference(test.char, test.talent);
             const pass = result === test.expected;
@@ -465,7 +470,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
       
-      <TestSuite title="adjustTalentByMaturity Function Tests">
+      <TestSuite title="adjustTalentByMaturity Function Tests" value="adjust-talent-by-maturity-tests">
         {adjustTalentByMaturityTests.map((test, i) => {
             const result = adjustTalentByMaturity(test.talent, test.diff);
             const pass = result === test.expected;
@@ -473,7 +478,7 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
 
-      <TestSuite title="Skillpoint Cost Calculation Tests">
+      <TestSuite title="Skillpoint Cost Calculation Tests" value="skillpoint-cost-tests">
           <p className="text-sm text-muted-foreground p-4 -mb-4">
               Tests the calculation of skillpoint costs for various changes.
           </p>
@@ -489,7 +494,7 @@ export default function Tests({ data }: { data: StaticData }) {
           })}
       </TestSuite>
       
-      <TestSuite title="Age Generation Tests">
+      <TestSuite title="Age Generation Tests" value="age-generation-tests">
         <p className="text-sm text-muted-foreground p-4 -mb-4">
           Click the buttons to generate a random age within the expected range for the given species and age group.
         </p>
@@ -499,14 +504,14 @@ export default function Tests({ data }: { data: StaticData }) {
         <AgeGenerationTest species="Cherigili" ageGroup="Venerable" data={data} expectedRange="80-84" />
       </TestSuite>
 
-      <TestSuite title="D66 Lookup Tests">
+      <TestSuite title="D66 Lookup Tests" value="d66-lookup-tests">
         <D66AndD6LookupTest title="Descriptors" tableData={data.descriptors} />
         <D66LookupTest title="Disabilities" tableData={data.disabilities} />
         <D66AndD6LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
         <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
       </TestSuite>
 
-      <TestSuite title="getScalar Function Tests">
+      <TestSuite title="getScalar Function Tests" value="get-scalar-tests">
           <p className="text-sm text-muted-foreground p-4 -mb-4">
               Tests the calculation of scalar values from any arbitrary index based on the Universal Table's logarithmic pattern.
           </p>
@@ -517,9 +522,9 @@ export default function Tests({ data }: { data: StaticData }) {
           })}
       </TestSuite>
 
-      <TestSuite title="Tragedy Seed Tests">
+      <TestSuite title="Tragedy Seed Tests" value="tragedy-seed-tests">
           <TragedySeedTest data={data} />
       </TestSuite>
-    </div>
+    </Accordion>
   );
 }
