@@ -1,0 +1,25 @@
+
+[
+  { "index": 0, "lbs": 0.02, "kg": 0.01, "cost": "1", "value": "1", "distance": 1, "yards": 1, "feet": 3, "miles": 0.000568 },
+  { "index": 1, "lbs": 0.04, "kg": 0.02, "cost": "2", "value": "2", "distance": 2, "yards": 2, "feet": 6, "miles": 0.001136 },
+  { "index": 2, "lbs": 0.07, "kg": 0.03, "cost": "3", "value": "3", "distance": 3, "yards": 3, "feet": 9, "miles": 0.001704 },
+  { "index": 3, "lbs": 0.1, "kg": 0.05, "cost": "5", "value": "5", "distance": 5, "yards": 5, "feet": 15, "miles": 0.00284 },
+  { "index": 4, "lbs": 0.2, "kg": 0.1, "cost": "10", "value": "10", "distance": 10, "yards": 10, "feet": 30, "miles": 0.00568 },
+  { "index": 5, "lbs": 0.4, "kg": 0.2, "cost": "20", "value": "20", "distance": 20, "yards": 20, "feet": 60, "miles": 0.01136 },
+  { "index": 6, "lbs": 0.7, "kg": 0.3, "cost": "35", "value": "35", "distance": 35, "yards": 35, "feet": 105, "miles": 0.01988 },
+  { "index": 7, "lbs": 1, "kg": 0.5, "cost": "50", "value": "50", "distance": 50, "yards": 50, "feet": 150, "miles": 0.0284 },
+  { "index": 8, "lbs": 2, "kg": 1, "cost": "100", "value": "100", "distance": 100, "yards": 100, "feet": 300, "miles": 0.0568 },
+  { "index": 9, "lbs": 4, "kg": 2, "cost": "200", "value": "200", "distance": 200, "yards": 200, "feet": 600, "miles": 0.1136 },
+  { "index": 10, "lbs": 7, "kg": 3, "cost": "350", "value": "350", "distance": 350, "yards": 350, "feet": 1050, "miles": 0.1988 },
+  { "index": 11, "lbs": 10, "kg": 5, "cost": "500", "value": "500", "distance": 500, "yards": 500, "feet": 1500, "miles": 0.284 },
+  { "index": 12, "lbs": 20, "kg": 10, "cost": "1000", "value": "1000", "distance": 1000, "yards": 1000, "feet": 3000, "miles": 0.568 },
+  { "index": 13, "lbs": 40, "kg": 20, "cost": "2000", "value": "2000", "distance": 2000, "yards": 2000, "feet": 6000, "miles": 1.136 },
+  { "index": 14, "lbs": 70, "kg": 30, "cost": "3500", "value": "3500", "distance": 3500, "yards": 3500, "feet": 10500, "miles": 1.988 },
+  { "index": 15, "lbs": 100, "kg": 50, "cost": "5000", "value": "5000", "distance": 5000, "yards": 5000, "feet": 15000, "miles": 2.84 },
+  { "index": 16, "lbs": 200, "kg": 100, "cost": "10000", "value": "10000", "distance": 10000, "yards": 10000, "feet": 30000, "miles": 5.68 },
+  { "index": 17, "lbs": 400, "kg": 200, "cost": "20000", "value": "20000", "distance": 20000, "yards": 20000, "feet": 60000, "miles": 11.36 },
+  { "index": 18, "lbs": 700, "kg": 300, "cost": "35000", "value": "35000", "distance": 35000, "yards": 35000, "feet": 105000, "miles": 19.88 },
+  { "index": 19, "lbs": 1000, "kg": 500, "cost": "50000", "value": "50000", "distance": 50000, "yards": 50000, "feet": 150000, "miles": 28.4 },
+  { "index": 20, "lbs": 2000, "kg": 1000, "cost": "100000", "value": "100000", "distance": 100000, "yards": 100000, "feet": 300000, "miles": 56.8 },
+  { "index": 21, "lbs": 4000, "kg": 2000, "cost": "200000", "value": "200000", "distance": 200000, "yards": 200000, "feet": 600000, "miles": 113.6 }
+]

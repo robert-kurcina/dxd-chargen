@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useMemo, useState } from 'react';
@@ -22,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import type { StaticData } from '@/data';
 import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost } from '@/lib/character-logic';
 
@@ -31,14 +32,12 @@ const isNumber = (value: any): boolean => {
     const s = String(value).trim();
     if (s === '') return false;
     
-    // Allow negative numbers, but not ranges like "1-4"
-    if (s.includes('-') && s.lastIndexOf('-') > 0) return false; // More than one dash, not a number
-    if (s.includes('-') && s.length > 1 && s.lastIndexOf('-') === 0) { // Starts with dash
-         return !isNaN(Number(s));
+    // Check for ranges like '11-16'. If a dash exists and it's not the first character, it's not a simple number.
+    if (s.includes('-') && s.lastIndexOf('-') > 0) {
+        return false;
     }
-    
-    // Not a negative number, check if it's just a number
-    return !isNaN(Number(s));
+
+    return !isNaN(parseNumberWithSuffix(s));
 };
 
 
@@ -712,6 +711,64 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
 );
 }
 
+const UniversalTableCard = ({ title, data }: { title: string; data: any[] }) => {
+  if (!data || data.length === 0) return null;
+  const tableHeaders = Object.keys(
+    data.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+  );
+
+  const numericHeaders = useMemo(() => {
+    const numeric = new Set<string>();
+    if (!data.length) return numeric;
+
+    for (const header of tableHeaders) {
+      if (data.every(row => {
+        const value = row[header];
+        return value === null || value === undefined || value === '' || isNumber(value);
+      })) {
+        numeric.add(header);
+      }
+    }
+    return numeric;
+  }, [data, tableHeaders]);
+
+  const columnsToFormat = ['lbs', 'kg', 'cost', 'value', 'distance', 'yards', 'feet', 'miles'];
+
+  return (
+    <Card className="bg-white">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow className="border-b-2 border-black">
+              {tableHeaders.map((header) => (
+                <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((row, index) => (
+              <TableRow key={index}>
+                {tableHeaders.map((header, headerIndex) => (
+                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
+                    {columnsToFormat.includes(header.toLowerCase())
+                      ? formatNumberWithSuffix(row[header])
+                      : (typeof row[header] === 'boolean'
+                        ? String(row[header])
+                        : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A')}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: StaticData }) {
@@ -751,6 +808,7 @@ export default function Info({ data }: { data: StaticData }) {
     traits,
     wealthTitles,
     steps,
+    universalTable,
   } = data;
 
   return (
@@ -785,6 +843,7 @@ export default function Info({ data }: { data: StaticData }) {
       <SpeciesCard data={species} />
       <TragedySeedsCard tragedySeeds={tragedySeeds} randomPersonItemDeity={data.randomPersonItemDeity} />
       <TraitsCard data={traits} />
+      <UniversalTableCard title="Universal Table" data={universalTable} />
       <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
     </div>
   );

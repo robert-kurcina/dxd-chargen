@@ -1,3 +1,4 @@
+
 import ageBrackets from './ageBrackets.json';
 import attributeModifiers from './attributeModifiers.json';
 import characteristicModifiers from './characteristicModifiers.json';
@@ -33,6 +34,7 @@ import tragedySeeds from './tragedySeeds.json';
 import traits from './traits.json';
 import wealthTitles from './wealthTitles.json';
 import steps from './steps.json';
+import universalTable from './universal-table.json';
 import adjustmentsAttributesAlef from './adjustments-attributes-alef.json';
 import adjustmentsCharacteristicsAlef from './adjustments-characteristics-alef.json';
 import adjustmentsAttributesBabbita from './adjustments-attributes-babbita.json';
@@ -88,6 +90,7 @@ const sarnaLenData = {
   traits,
   wealthTitles,
   steps,
+  universalTable,
   'adjustments-attributes-alef': adjustmentsAttributesAlef,
   'adjustments-characteristics-alef': adjustmentsCharacteristicsAlef,
   'adjustments-attributes-babbita': adjustmentsAttributesBabbita,
