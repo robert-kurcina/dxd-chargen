@@ -20,21 +20,23 @@ export default function CharacterSheetPage() {
             <TabsTrigger value="info">Info</TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="overview">
-          <CharacterSheet characterData={emptyData} />
-        </TabsContent>
-        <TabsContent value="sample">
-          <CharacterSheet characterData={sampleData} />
-        </TabsContent>
-        <TabsContent value="worksheet">
-          <Worksheet data={sarnaLenData} />
-        </TabsContent>
-        <TabsContent value="tests">
-          <Tests data={sarnaLenData} />
-        </TabsContent>
-        <TabsContent value="info">
-          <Info data={sarnaLenData} />
-        </TabsContent>
+        <div className="grid [grid-template-areas:stack]">
+          <TabsContent value="overview" className="[grid-area:stack]">
+            <CharacterSheet characterData={emptyData} />
+          </TabsContent>
+          <TabsContent value="sample" className="[grid-area:stack]">
+            <CharacterSheet characterData={sampleData} />
+          </TabsContent>
+          <TabsContent value="worksheet" className="[grid-area:stack]">
+            <Worksheet data={sarnaLenData} />
+          </TabsContent>
+          <TabsContent value="tests" className="[grid-area:stack]">
+            <Tests data={sarnaLenData} />
+          </TabsContent>
+          <TabsContent value="info" className="[grid-area:stack]">
+            <Info data={sarnaLenData} />
+          </TabsContent>
+        </div>
       </Tabs>
     </main>
   );
