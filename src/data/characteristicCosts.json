@@ -1,0 +1,22 @@
+[
+  {
+    "Characteristic": "Stature",
+    "Cost": 1
+  },
+  {
+    "Characteristic": "Build",
+    "Cost": 1
+  },
+  {
+    "Characteristic": "Bodypoints",
+    "Cost": 5
+  },
+  {
+    "Characteristic": "Disads",
+    "Cost": 1
+  },
+  {
+    "Characteristic": "Resilience",
+    "Cost": 1
+  }
+]

@@ -4,7 +4,7 @@
   { "d66": "13", "feature": "Graceful", "attributes": "+2 REF", "characteristics": "", "Bonus": "", "other": "" },
   { "d66": "14", "feature": "Wise beyond years", "attributes": "+2 KNO, +1 INT", "characteristics": "", "Bonus": "", "other": "" },
   { "d66": "15", "feature": "Quick of wit", "attributes": "+2 INT, +1 REF", "characteristics": "", "Bonus": "", "other": "" },
-  { "d66": "16", "feature": "Rugged Build", "attributes": "+2 FOR", "characteristics": "+1 Body", "Bonus": "", "other": "" },
+  { "d66": "16", "feature": "Rugged Build", "attributes": "+2 FOR", "characteristics": "+1 Bodypoints", "Bonus": "", "other": "" },
   { "d66": "21", "feature": "Unerring Aim", "attributes": "+2 RCA", "characteristics": "", "Bonus": "", "other": "" },
   { "d66": "22", "feature": "Bravest of All", "attributes": "+2 POW", "characteristics": "", "Bonus": "", "other": "" },
   { "d66": "23", "feature": "Mageborn Locus", "attributes": "+3 ZED", "characteristics": "", "Bonus": "+1 [Enemies]", "other": "" },

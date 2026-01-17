@@ -607,6 +607,7 @@ export default function Info({ data }: { data: any }) {
     ageBrackets,
     attributeModifiers,
     characteristicModifiers,
+    characteristicCosts,
     ageGroups,
     attributeArrays,
     attributeDefinitions,
@@ -645,6 +646,7 @@ export default function Info({ data }: { data: any }) {
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
       <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} />
       <SimpleTableCard title="Characteristic Modifiers" data={characteristicModifiers} />
+      <SimpleTableCard title="Characteristic Costs" data={characteristicCosts} />
       <SimpleTableCard title="Age Groups" data={ageGroups} />
       <FilterableTableCard title="Attribute Arrays" data={attributeArrays} />
       <AttributeDefinitionsCard data={attributeDefinitions} />

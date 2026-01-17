@@ -6,6 +6,7 @@ import attributeArrays from './attributeArrays.json';
 import attributeDefinitions from './attributeDefinitions.json';
 import beliefs from './beliefs.json';
 import calculatedAbilities from './calculatedAbilities.json';
+import characteristicCosts from './characteristicCosts.json';
 import citystates from './citystates.json';
 import deities from './deities.json';
 import descriptors from './descriptors.json';
@@ -60,6 +61,7 @@ const sarnaLenData = {
   attributeDefinitions,
   beliefs,
   calculatedAbilities,
+  characteristicCosts,
   citystates,
   deities,
   descriptors,
