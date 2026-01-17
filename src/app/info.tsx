@@ -24,6 +24,17 @@ import {
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 
+const isNumber = (value: any): boolean => {
+  if (typeof value === 'boolean' || value === null || Array.isArray(value)) return false;
+  const s = String(value).trim();
+  if (s === '') return false;
+  // Check if it's a range like "1-4"
+  if (s.includes('-') && s.split('-').length === 2 && !isNaN(Number(s.split('-')[0])) && !isNaN(Number(s.split('-')[1]))) {
+      return false;
+  }
+  return !isNaN(Number(s));
+};
+
 const formatHeader = (header: string) => {
   if (header.toUpperCase() === header && header.length > 1) return header;
   if (header.toLowerCase() === 'd66') return 'D66';
@@ -83,7 +94,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
             {sortedData.map((row, index) => (
               <TableRow key={index}>
                 {tableHeaders.map((header, headerIndex) => (
-                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
+                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
                     {typeof row[header] === 'boolean'
                       ? String(row[header])
                       : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A'}
@@ -176,7 +187,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
                         {sortedTableData.map((row: any, index: number) => (
                         <TableRow key={index}>
                             {headers.map((header, headerIndex) => (
-                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
+                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
                                 {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
                             </TableCell>
                             ))}
@@ -225,7 +236,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => {
                         <TableCell className="py-2 px-2 font-bold">{attr.name}</TableCell>
                         <TableCell className="py-2 px-2">{attr.abbreviation}</TableCell>
                         <TableCell className="py-2 px-2">{attr.description}</TableCell>
-                        <TableCell className="py-2 px-2">{attr.im}</TableCell>
+                        <TableCell className="py-2 px-2 text-right">{attr.im}</TableCell>
                     </TableRow>
                     ))}
                 </TableBody>
@@ -397,7 +408,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {sortedTableData.map((row: any, index: number) => (
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
-                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
+                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
                            {row[header]}
                         </TableCell>
                       ))}
@@ -441,8 +452,8 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
                     <TableRow key={index}>
                     <TableCell className="py-2 px-2 font-bold">{row.entry}</TableCell>
                     <TableCell className="py-2 px-2">{row.talents}</TableCell>
-                    <TableCell className="py-2 px-2">{row.wealth}</TableCell>
-                    <TableCell className="py-2 px-2">{row.cost}</TableCell>
+                    <TableCell className="py-2 px-2 text-right">{row.wealth}</TableCell>
+                    <TableCell className="py-2 px-2 text-right">{row.cost}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
@@ -543,7 +554,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
             {filteredData.map((row, index) => (
               <TableRow key={index}>
                 {headers.map((header, headerIndex) => (
-                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
+                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
                      {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
                    </TableCell>
                 ))}
@@ -577,7 +588,7 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
             <TableBody>
                 {sortedData.map((row: any, index: number) => (
                 <TableRow key={index}>
-                    <TableCell className="py-2 px-2 font-bold">{row.id}</TableCell>
+                    <TableCell className="py-2 px-2 font-bold text-right">{row.id}</TableCell>
                     <TableCell className="py-2 px-2">{row.name}</TableCell>
                     <TableCell className="py-2 px-2">{row.region}</TableCell>
                     <TableCell className="py-2 px-2">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
@@ -611,7 +622,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
           <TableBody>
             {sortedData.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="py-2 px-2 font-bold">{row['Rank']}</TableCell>
+                <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isNumber(row['Rank'])})}>{row['Rank']}</TableCell>
                 <TableCell className="py-2 px-2">{row.Guild}</TableCell>
                 <TableCell className="py-2 px-2">{row.Order}</TableCell>
                 <TableCell className="py-2 px-2">{row.Temple}</TableCell>
@@ -647,7 +658,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                     <TableBody>
                         {sortedTragedySeeds.map((row: any, index: number) => (
                             <TableRow key={index}>
-                                <TableCell className="py-2 px-2 font-bold">{row.d66}</TableCell>
+                                <TableCell className="py-2 px-2 font-bold text-right">{row.d66}</TableCell>
                                 <TableCell className="py-2 px-2">{row.seed}</TableCell>
                             </TableRow>
                         ))}
@@ -669,7 +680,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                     <TableBody>
                         {sortedRandom.map((row: any, index: number) => (
                         <TableRow key={index}>
-                            <TableCell className="py-2 px-2 font-bold">{row.d66}</TableCell>
+                            <TableCell className="py-2 px-2 font-bold text-right">{row.d66}</TableCell>
                             <TableCell className="py-2 px-2">{row.Person}</TableCell>
                             <TableCell className="py-2 px-2">{row.Item}</TableCell>
                             <TableCell className="py-2 px-2">{row.Citystate}</TableCell>
