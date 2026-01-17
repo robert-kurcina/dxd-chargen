@@ -163,7 +163,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
         } 
         
         const profRankByName = data.namingPracticeTitles.find(
-            p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
+            (p) => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
         );
 
         if (profRankByName) {
@@ -244,12 +244,15 @@ export function formatPositiveNumber(num: number): string {
 }
 
 /**
- * Parses an Interim Multiple (IM) string to extract its numeric value.
- * e.g., "IM 5x" -> 5
- * @param imString The IM string to parse.
+ * Parses an Interim Multiple (IM) string or number to extract its numeric value.
+ * e.g., "IM 5x" -> 5 or 5 -> 5
+ * @param imString The IM value to parse.
  * @returns The numeric value of the IM, or 0 if parsing fails.
  */
-export function parseIM(imString: string): number {
+export function parseIM(imString: string | number): number {
+  if (typeof imString === 'number') {
+    return imString;
+  }
   if (!imString) return 0;
   const match = imString.match(/(\d+)/);
   return match ? parseInt(match[1], 10) : 0;
