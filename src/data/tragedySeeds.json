@@ -4,7 +4,7 @@
   { "d66": "13", "seed": "(Person) betrayed Noble (Person) of (Citystate)" },
   { "d66": "14", "seed": "(Person) betrayed romance of (Self)" },
   { "d66": "15", "seed": "(Person) betrayed Temple of (Deity)" },
-  { "d66": "16", "seed": "(Person) Crippled by (Event and Member)" },
+  { "d66": "16", "seed": "(Person) Crippled by (Person) because of (Item)" },
   { "d66": "21", "seed": "(Person) Enslaved at (Citystate)" },
   { "d66": "22", "seed": "(Person) had Business Failure at (Citystate)" },
   { "d66": "23", "seed": "(Person) Killed by Criminal" },
