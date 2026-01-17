@@ -75,6 +75,21 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
 
   const sortedData = sortTable(data, tableHeaders[0]);
 
+  const numericHeaders = useMemo(() => {
+    const numeric = new Set<string>();
+    if (!sortedData.length) return numeric;
+
+    for (const header of tableHeaders) {
+      if (sortedData.every(row => {
+        const value = row[header];
+        return value === null || value === undefined || value === '' || isNumber(value);
+      })) {
+        numeric.add(header);
+      }
+    }
+    return numeric;
+  }, [sortedData, tableHeaders]);
+
 
   return (
     <Card className="bg-white">
@@ -86,7 +101,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
           <TableHeader>
             <TableRow className="border-b-2 border-black">
               {tableHeaders.map((header) => (
-                <TableHead key={header} className="font-bold text-lg h-8 px-2">{formatHeader(header)}</TableHead>
+                <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
@@ -94,7 +109,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
             {sortedData.map((row, index) => (
               <TableRow key={index}>
                 {tableHeaders.map((header, headerIndex) => (
-                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
+                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
                     {typeof row[header] === 'boolean'
                       ? String(row[header])
                       : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A'}
@@ -174,20 +189,28 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
               (tableData as any[]).reduce((acc, curr) => ({ ...acc, ...curr }), {})
             );
             const sortedTableData = sortTable(tableData, headers[0]);
+            
+            const numericHeaders = new Set<string>();
+            for (const h of headers) {
+                if (sortedTableData.every(r => r[h] === null || r[h] === undefined || r[h] === '' || isNumber(r[h]))) {
+                    numericHeaders.add(h);
+                }
+            }
+
             return (
               <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
                 {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                        {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{formatHeader(header)}</TableHead>)}
+                        {headers.map((header) => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>)}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {sortedTableData.map((row: any, index: number) => (
                         <TableRow key={index}>
                             {headers.map((header, headerIndex) => (
-                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
+                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
                                 {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
                             </TableCell>
                             ))}
@@ -227,7 +250,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => {
                     <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
                     <TableHead className="font-bold text-lg h-8 px-2">Abbreviation</TableHead>
                     <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
-                    <TableHead className="font-bold text-lg h-8 px-2">IM</TableHead>
+                    <TableHead className="font-bold text-lg h-8 px-2 text-right">IM</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -391,9 +414,14 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
           const tableData = data[key];
           if (!tableData || tableData.length === 0) return null;
           const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
-          const isAttributeTable = key.includes('-attributes-');
           const sortedTableData = sortTable(tableData, headers[0]);
-
+          
+          const numericHeaders = new Set<string>();
+          for (const h of headers) {
+              if (sortedTableData.every(r => r[h] === null || r[h] === undefined || r[h] === '' || isNumber(r[h]))) {
+                  numericHeaders.add(h);
+              }
+          }
 
           return (
             <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
@@ -401,14 +429,14 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
               <Table>
                 <TableHeader>
                   <TableRow className="border-b-2 border-black">
-                    {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{formatHeader(header)}</TableHead>)}
+                    {headers.map((header) => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>)}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {sortedTableData.map((row: any, index: number) => (
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
-                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
+                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
                            {row[header]}
                         </TableCell>
                       ))}
@@ -443,8 +471,8 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
                     <TableRow className="border-b-2 border-black">
                         <TableHead className="font-bold text-lg h-8 px-2">Entry</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Talents</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2">Wealth</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2">Cost</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2 text-right">Wealth</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2 text-right">Cost</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -525,6 +553,21 @@ const TraitsCard = ({ data }: { data: any[] }) => {
     im: 'IM',
     Key: 'Key'
   };
+  
+  const numericHeaders = useMemo(() => {
+    const numeric = new Set<string>();
+    if (!filteredData.length) return numeric;
+    
+    for (const header of headers) {
+        if (filteredData.every(row => {
+            const value = row[header];
+            return value === null || value === undefined || value === '' || isNumber(value);
+        })) {
+            numeric.add(header);
+        }
+    }
+    return numeric;
+  }, [filteredData, headers]);
 
 
   return (
@@ -547,14 +590,14 @@ const TraitsCard = ({ data }: { data: any[] }) => {
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-black">
-              {headers.map(header => <TableHead key={header} className="font-bold text-lg h-8 px-2">{headerTitles[header]}</TableHead>)}
+              {headers.map(header => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{headerTitles[header]}</TableHead>)}
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredData.map((row, index) => (
               <TableRow key={index}>
                 {headers.map((header, headerIndex) => (
-                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': isNumber(row[header]) })}>
+                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
                      {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
                    </TableCell>
                 ))}
@@ -579,7 +622,7 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
             <Table>
             <TableHeader>
                 <TableRow className="border-b-2 border-black">
-                <TableHead className="font-bold text-lg h-8 px-2">D6</TableHead>
+                <TableHead className="font-bold text-lg h-8 px-2 text-right">D6</TableHead>
                 <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
                 <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
                 <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
@@ -603,6 +646,7 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
 
 const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
     const sortedData = sortTable(data, 'Rank');
+    const isRankNumeric = sortedData.every(r => isNumber(r['Rank']));
     return (
     <Card className="bg-white">
       <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
@@ -612,7 +656,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-black">
-              <TableHead className="font-bold text-lg h-8 px-2">Rank</TableHead>
+              <TableHead className={cn("font-bold text-lg h-8 px-2", { "text-right": isRankNumeric })}>Rank</TableHead>
               <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
               <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
               <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
@@ -622,7 +666,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
           <TableBody>
             {sortedData.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isNumber(row['Rank'])})}>{row['Rank']}</TableCell>
+                <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isRankNumeric })}>{row['Rank']}</TableCell>
                 <TableCell className="py-2 px-2">{row.Guild}</TableCell>
                 <TableCell className="py-2 px-2">{row.Order}</TableCell>
                 <TableCell className="py-2 px-2">{row.Temple}</TableCell>
@@ -651,7 +695,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                            <TableHead className="font-bold text-lg h-8 px-2">D66</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2 text-right">D66</TableHead>
                             <TableHead className="font-bold text-lg h-8 px-2">Seed</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -670,7 +714,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                        <TableHead className="font-bold text-lg h-8 px-2">D66</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2 text-right">D66</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Person</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Item</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Citystate</TableHead>
