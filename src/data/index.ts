@@ -32,6 +32,7 @@ import socialRanks from './socialRanks.json';
 import species from './species.json';
 import tragedySeeds from './tragedySeeds.json';
 import traits from './traits.json';
+import universalTable from './universal-table.json';
 import wealthTitles from './wealthTitles.json';
 import steps from './steps.json';
 import adjustmentsAttributesAlef from './adjustments-attributes-alef.json';
@@ -87,6 +88,7 @@ const sarnaLenData = {
   species,
   tragedySeeds,
   traits,
+  universalTable,
   wealthTitles,
   steps,
   'adjustments-attributes-alef': adjustmentsAttributesAlef,

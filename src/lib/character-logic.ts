@@ -1,3 +1,4 @@
+
 import type { StaticData } from "@/data";
 import { D6, D66, d66Lookup } from "./dice";
 import { findKeyCaseInsensitive } from "./utils";
@@ -518,4 +519,25 @@ export function calculateBonusSkillpointCost(bonusString: string, data: StaticDa
     }
     
     return totalCost;
+}
+
+/**
+ * Calculates a scalar value from the Universal Table for any given index.
+ * The table follows a repeating logarithmic pattern.
+ * @param index The index to calculate the scalar for.
+ * @returns The calculated scalar value.
+ */
+export function getScalar(index: number): number {
+  const baseScalars = [10, 12, 15, 20, 25, 30, 40, 50, 60, 80];
+  
+  // The remainder determines which base scalar to use.
+  // The `+ 10` handles negative indices correctly for the modulo operator.
+  const remainder = (index % 10 + 10) % 10;
+  
+  // The quotient determines the power of 10 to apply.
+  const quotient = Math.floor(index / 10);
+  
+  const baseValue = baseScalars[remainder];
+  
+  return baseValue * Math.pow(10, quotient);
 }

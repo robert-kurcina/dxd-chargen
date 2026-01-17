@@ -133,7 +133,7 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
 // Component for data that is an object of arrays, with a filter
 const FilterableTableCard = ({ title, data }: { title: string; data: Record<string, any[]> }) => {
   const [selectedKey, setSelectedKey] = useState('all');
-  const keys = Object.keys(data).sort((a,b) => a.localeCompare(b));
+  const keys = Object.keys(data);
   const itemsToShow = selectedKey === 'all' ? keys : [selectedKey];
 
   return (
@@ -329,8 +329,8 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
       }
     });
     return {
-      adjustmentKeys: keys.sort((a,b) => a.localeCompare(b)),
-      ancestries: Array.from(ancestrySet).sort((a,b) => a.localeCompare(b)),
+      adjustmentKeys: keys,
+      ancestries: Array.from(ancestrySet),
     };
   }, [data]);
 
@@ -429,6 +429,21 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   const HeritageTable = ({ title, data, wealthClamp }: { title: string; data: any[], wealthClamp: number }) => {
     const tableData = data;
+    const numericHeaders = useMemo(() => {
+        const numeric = new Set<string>();
+        const headers = ['wealth', 'cost'];
+        if (!tableData.length) return numeric;
+        for (const header of headers) {
+            if (tableData.every(row => {
+                const value = row[header];
+                return value === null || value === undefined || value === '' || isNumber(value);
+            })) {
+                numeric.add(header);
+            }
+        }
+        return numeric;
+    }, [tableData]);
+
 
     return (
         <div>
@@ -443,8 +458,8 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
                     <TableRow className="border-b-2 border-black">
                         <TableHead className="font-bold text-lg h-8 px-2">Entry</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Talents</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2 text-right">Wealth</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2 text-right">Cost</TableHead>
+                        <TableHead className={cn("font-bold text-lg h-8 px-2", {'text-right': numericHeaders.has('wealth')})}>Wealth</TableHead>
+                        <TableHead className={cn("font-bold text-lg h-8 px-2", {'text-right': numericHeaders.has('cost')})}>Cost</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -452,8 +467,8 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
                     <TableRow key={index}>
                     <TableCell className="py-2 px-2 font-bold">{row.entry}</TableCell>
                     <TableCell className="py-2 px-2">{row.talents}</TableCell>
-                    <TableCell className="py-2 px-2 text-right">{row.wealth}</TableCell>
-                    <TableCell className="py-2 px-2 text-right">{row.cost}</TableCell>
+                    <TableCell className={cn("py-2 px-2", {'text-right': numericHeaders.has('wealth')})}>{row.wealth}</TableCell>
+                    <TableCell className={cn("py-2 px-2", {'text-right': numericHeaders.has('cost')})}>{row.cost}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
@@ -711,6 +726,49 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
 );
 }
 
+const UniversalTableCard = ({ data }: { data: any[] }) => {
+  const columns: any[][] = [[], [], [], []];
+  
+  // Split data into four columns. 20 items per column.
+  const itemsPerColumn = Math.ceil(data.length / 4);
+  data.forEach((item, index) => {
+    const columnIndex = Math.floor(index / itemsPerColumn);
+    if (columns[columnIndex]) {
+      columns[columnIndex].push(item);
+    }
+  });
+
+  return (
+    <Card className="bg-white">
+      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardTitle>Universal Table</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8">
+          {columns.map((column, colIndex) => (
+            <Table key={colIndex}>
+              <TableHeader>
+                <TableRow className="border-b-2 border-black">
+                  <TableHead className="font-bold text-lg h-8 px-2 text-right">Index</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2 text-right">Scalar</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {column.map((row, rowIndex) => (
+                  <TableRow key={rowIndex}>
+                    <TableCell className="py-2 px-2 text-right font-bold">{row.Index}</TableCell>
+                    <TableCell className="py-2 px-2 text-right">{row.Scalar}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: StaticData }) {
@@ -723,6 +781,7 @@ export default function Info({ data }: { data: StaticData }) {
     attributeDefinitions,
     beliefs,
     calculatedAbilities,
+    characteristicCosts,
     citystates,
     deities,
     descriptors,
@@ -747,6 +806,7 @@ export default function Info({ data }: { data: StaticData }) {
     species,
     tragedySeeds,
     traits,
+    universalTable,
     wealthTitles,
     steps,
   } = data;
@@ -783,6 +843,7 @@ export default function Info({ data }: { data: StaticData }) {
       <SpeciesCard data={species} />
       <TragedySeedsCard tragedySeeds={tragedySeeds} randomPersonItemDeity={data.randomPersonItemDeity} />
       <TraitsCard data={traits} />
+      <UniversalTableCard data={universalTable} />
       <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
     </div>
   );

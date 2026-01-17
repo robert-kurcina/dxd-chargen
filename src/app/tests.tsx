@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -24,7 +25,8 @@ import {
   parseTragedyTemplate,
   lookupTragedyKeyword,
   calculateAttributeSkillpointCost,
-  calculateBonusSkillpointCost
+  calculateBonusSkillpointCost,
+  getScalar,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn, formatNumberWithSuffix, parseNumberWithSuffix } from '@/lib/utils';
@@ -336,6 +338,19 @@ export default function Tests({ data }: { data: StaticData }) {
     { input: "-5 k", expected: -5000 },
   ];
 
+  // Test data for getScalar
+  const getScalarTests = [
+      { index: 0, expected: 10 },
+      { index: 9, expected: 80 },
+      { index: 10, expected: 100 },
+      { index: 20, expected: 1000 },
+      { index: 30, expected: 10000 },
+      { index: -1, expected: 8 },
+      { index: -10, expected: 1 },
+      { index: -11, expected: 0.8 },
+      { index: -20, expected: 0.1 },
+      { index: 59, expected: 8000000 },
+  ];
 
   return (
     <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
@@ -489,6 +504,17 @@ export default function Tests({ data }: { data: StaticData }) {
         <D66LookupTest title="Disabilities" tableData={data.disabilities} />
         <D66AndD6LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
         <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
+      </TestSuite>
+
+      <TestSuite title="getScalar Function Tests">
+          <p className="text-sm text-muted-foreground p-4 -mb-4">
+              Tests the calculation of scalar values from any arbitrary index based on the Universal Table's logarithmic pattern.
+          </p>
+          {getScalarTests.map((test, i) => {
+              const result = getScalar(test.index);
+              const pass = result === test.expected;
+              return <TestCase key={`scalar-${i}`} title={`getScalar(${test.index})`} result={result} expected={test.expected} pass={pass} />;
+          })}
       </TestSuite>
 
       <TestSuite title="Tragedy Seed Tests">
