@@ -1,87 +1,98 @@
-
 [
   {
     "lineage": "BASE-LINE",
     "stature": 50,
     "build": 0,
     "bodypoints": 0,
-    "talents": "Brawn. ***v-Zedsurge 4."
+    "talents": "Brawn. ***v-Zedsurge 4.",
+    "cost": 0
   },
   {
     "lineage": "Auldfar",
     "stature": 3,
     "build": 1,
     "bodypoints": 1,
-    "talents": "***[Zucked 2]. Brawn 2. Quick. ***Steadfast 2. **Grit 3."
+    "talents": "***[Zucked 2]. Brawn 2. Quick. ***Steadfast 2. **Grit 3.",
+    "cost": 9
   },
   {
     "lineage": "Baminat",
     "stature": -1,
     "build": 0,
     "bodypoints": 0,
-    "talents": "[Fanatic > Bamina]. *[Believer > Bamina]. **[Insufferable]."
+    "talents": "[Fanatic > Bamina]. *[Believer > Bamina]. **[Insufferable].",
+    "cost": -1
   },
   {
     "lineage": "Drusian",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "v-Zedsurge 2."
+    "talents": "v-Zedsurge 2.",
+    "cost": 0
   },
   {
     "lineage": "Heidelan",
     "stature": 0,
     "build": 1,
     "bodypoints": 1,
-    "talents": "[Fanatic > Heidel]. Brawn. Deity 2 > Heidel. **[Believer > Heidel]. [Strange > Unsettling]."
+    "talents": "[Fanatic > Heidel]. Brawn. Deity 2 > Heidel. **[Believer > Heidel]. [Strange > Unsettling].",
+    "cost": 6
   },
   {
     "lineage": "Quaggik",
     "stature": 2,
     "build": 1,
     "bodypoints": 0,
-    "talents": "Brawn. Survival (Forest). **Politics 2 > Qualg. Martialist."
+    "talents": "Brawn. Survival (Forest). **Politics 2 > Qualg. Martialist.",
+    "cost": 3
   },
   {
     "lineage": "Restani",
     "stature": 0,
     "build": 1,
     "bodypoints": 0,
-    "talents": "**[Zucked]. Sneaky. *** v-Steadfast 3. *v-Compass 2."
+    "talents": "**[Zucked]. Sneaky. *** v-Steadfast 3. *v-Compass 2.",
+    "cost": 1
   },
   {
     "lineage": "Sondgarat",
     "stature": 0,
     "build": -1,
     "bodypoints": 0,
-    "talents": "Discipline. **[Doubt]. **[Solitary 2]."
+    "talents": "Discipline. **[Doubt]. **[Solitary 2].",
+    "cost": -1
   },
   {
     "lineage": "Vasikha",
     "stature": 0,
     "build": -1,
     "bodypoints": 0,
-    "talents": "Navigation."
+    "talents": "Navigation.",
+    "cost": -1
   },
   {
     "lineage": "Eniyaski",
     "stature": 0,
     "build": -2,
     "bodypoints": 1,
-    "talents": "***[Empathy 2]."
+    "talents": "***[Empathy 2].",
+    "cost": 3
   },
   {
     "lineage": "Pazkharan",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "**Deity X > Kahuzid."
+    "talents": "**Deity X > Kahuzid.",
+    "cost": 0
   },
   {
     "lineage": "female",
     "stature": -5,
     "build": 0,
     "bodypoints": 1,
-    "talents": "Discipline."
+    "talents": "Discipline.",
+    "cost": 0
   }
 ]

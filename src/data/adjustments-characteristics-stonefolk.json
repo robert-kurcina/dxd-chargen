@@ -1,45 +1,50 @@
-
 [
   {
     "lineage": "BASE-LINE",
     "stature": 33,
     "build": 23,
     "bodypoints": 13,
-    "talents": "[Zucked]. [Lumbering 3]. Brawn 5. Sturdy 5. Armor 3. Grit 3. v-Rocktaste 5. v-Sensors 3. v-Adaptation 3 > { Cold, Humidity, Heat, Hunger }."
+    "talents": "[Zucked]. [Lumbering 3]. Brawn 5. Sturdy 5. Armor 3. Grit 3. v-Rocktaste 5. v-Sensors 3. v-Adaptation 3 > { Cold, Humidity, Heat, Hunger }.",
+    "cost": 71
   },
   {
     "lineage": "Plains",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "Survival 5 > Plains."
+    "talents": "Survival 5 > Plains.",
+    "cost": 0
   },
   {
     "lineage": "Mountains",
     "stature": 0,
     "build": 4,
     "bodypoints": 0,
-    "talents": "Survival 5 > Mountains."
+    "talents": "Survival 5 > Mountains.",
+    "cost": 4
   },
   {
     "lineage": "female",
     "stature": 0,
     "build": -1,
     "bodypoints": -1,
-    "talents": "v-Rocktaste."
+    "talents": "v-Rocktaste.",
+    "cost": -6
   },
   {
     "lineage": "Child [A]",
     "stature": 10,
     "build": 5,
     "bodypoints": 0,
-    "talents": ""
+    "talents": "",
+    "cost": 15
   },
   {
     "lineage": "Youth [0]",
     "stature": 5,
     "build": 2,
     "bodypoints": 0,
-    "talents": ""
+    "talents": "",
+    "cost": 7
   }
 ]

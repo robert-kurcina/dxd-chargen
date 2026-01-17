@@ -1,59 +1,66 @@
-
 [
   {
     "lineage": "BASE-LINE",
     "stature": 40,
     "build": 7,
     "bodypoints": 0,
-    "talents": "****Brawn 3. Surefooted. **[Strange 3 > Distrust]. v-Compass. Athletics."
+    "talents": "****Brawn 3. Surefooted. **[Strange 3 > Distrust]. v-Compass. Athletics.",
+    "cost": -3
   },
   {
     "lineage": "Exnoran",
     "stature": 0,
     "build": 0,
     "bodypoints": 1,
-    "talents": "Detect. Survival > Desert. [Belligerent 2]. **Brawn 3."
+    "talents": "Detect. Survival > Desert. [Belligerent 2]. **Brawn 3.",
+    "cost": 5
   },
   {
     "lineage": "Ferrite",
     "stature": 0,
     "build": 4,
     "bodypoints": 0,
-    "talents": "v-Rocktaste > any Region."
+    "talents": "v-Rocktaste > any Region.",
+    "cost": 4
   },
   {
     "lineage": "Gemalite",
     "stature": -2,
     "build": -1,
     "bodypoints": -1,
-    "talents": "*[Physiopathy 2 > Bio-Aura]. Tracking. Sprint. Evasive. *Nimble. Pounce. ***Slippery 3."
+    "talents": "*[Physiopathy 2 > Bio-Aura]. Tracking. Sprint. Evasive. *Nimble. Pounce. ***Slippery 3.",
+    "cost": -8
   },
   {
     "lineage": "Thanekon",
     "stature": 0,
     "build": 2,
     "bodypoints": 2,
-    "talents": "**[Reckless 2]. Brawn. Nightvision > Infravision."
+    "talents": "**[Reckless 2]. Brawn. Nightvision > Infravision.",
+    "cost": 12
   },
   {
     "lineage": "female",
     "stature": -3,
     "build": -3,
     "bodypoints": -1,
-    "talents": "Detect."
+    "talents": "Detect.",
+    "cost": -11
   },
   {
     "lineage": "Child [A]",
     "stature": 0,
     "build": 3,
     "bodypoints": 2,
-    "talents": ""
+    "talents": "",
+    "cost": 13
   },
   {
     "lineage": "Youth [1]",
     "stature": 0,
     "build": 1,
     "bodypoints": 1,
-    "talents": ""
+    "talents": "",
+    "cost": 6
   }
 ]

@@ -1,22 +1,27 @@
 [
   {
     "characteristic": "Stature",
+    "base-line": 50,
     "cost": 1
   },
   {
     "characteristic": "Build",
+    "base-line": 0,
     "cost": 1
   },
   {
     "characteristic": "Bodypoints",
+    "base-line": 0,
     "cost": 5
   },
   {
     "characteristic": "Disads",
+    "base-line": 0,
     "cost": 1
   },
   {
     "characteristic": "Resilience",
+    "base-line": 0,
     "cost": 1
   }
 ]

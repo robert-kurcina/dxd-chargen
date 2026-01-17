@@ -1,59 +1,66 @@
-
 [
   {
     "lineage": "BASE-LINE",
     "stature": 38,
     "build": -2,
     "bodypoints": 0,
-    "talents": "[Pack]. ***Leap 2. *Bite 2. [Strange 3 > Aesthetics]. Nightvision 4. v-Compass 3. Survival 2 > Plains. Claws."
+    "talents": "[Pack]. ***Leap 2. *Bite 2. [Strange 3 > Aesthetics]. Nightvision 4. v-Compass 3. Survival 2 > Plains. Claws.",
+    "cost": -14
   },
   {
     "lineage": "Ankilati",
     "stature": -1,
     "build": 0,
     "bodypoints": -1,
-    "talents": "Leap 2. **Sprint 4. **[Zucked]. Sneaky. Detect 2. Pounce. Nimble."
+    "talents": "Leap 2. **Sprint 4. **[Zucked]. Sneaky. Detect 2. Pounce. Nimble.",
+    "cost": -6
   },
   {
     "lineage": "Coromite",
     "stature": -10,
     "build": 5,
     "bodypoints": 0,
-    "talents": "Sneaky 2. **v-Slippery 2. **Prestidigitation 2. Detect 3. *Bite."
+    "talents": "Sneaky 2. **v-Slippery 2. **Prestidigitation 2. Detect 3. *Bite.",
+    "cost": -5
   },
   {
     "lineage": "Indelan",
     "stature": 1,
     "build": 1,
     "bodypoints": 1,
-    "talents": "Discipline. **[Solitary 4]. Leap 2 Sneaky 3. Detect. **Bite 3. *Claws 2."
+    "talents": "Discipline. **[Solitary 4]. Leap 2 Sneaky 3. Detect. **Bite 3. *Claws 2.",
+    "cost": 7
   },
   {
     "lineage": "female",
     "stature": -1,
     "build": -2,
     "bodypoints": -1,
-    "talents": "[Zucked]."
+    "talents": "[Zucked].",
+    "cost": -8
   },
   {
     "lineage": "Child [A]",
     "stature": 0,
     "build": 3,
     "bodypoints": 1,
-    "talents": ""
+    "talents": "",
+    "cost": 8
   },
   {
     "lineage": "Youth [0]",
     "stature": 0,
     "build": 2,
     "bodypoints": 0,
-    "talents": ""
+    "talents": "",
+    "cost": 2
   },
   {
     "lineage": "Early Teen [1]",
     "stature": 0,
     "build": 1,
     "bodypoints": 0,
-    "talents": ""
+    "talents": "",
+    "cost": 1
   }
 ]

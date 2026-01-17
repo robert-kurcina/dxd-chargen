@@ -1,45 +1,50 @@
-
 [
   {
     "lineage": "BASE-LINE",
     "stature": 48,
     "build": -2,
     "bodypoints": 0,
-    "talents": "Nightvision 2. Survival. **Claws. [Strange 2 > Disarming]."
+    "talents": "Nightvision 2. Survival. **Claws. [Strange 2 > Disarming].",
+    "cost": -4
   },
   {
     "lineage": "Akrunai",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "**v-Compass. **Tracking."
+    "talents": "**v-Compass. **Tracking.",
+    "cost": 0
   },
   {
     "lineage": "Huaczwyk",
     "stature": 2,
     "build": 1,
     "bodypoints": 1,
-    "talents": "[Addict > Lead]. *v-Fear 2. v-Zedsurge 3. [Strange > Unsettling]."
+    "talents": "[Addict > Lead]. *v-Fear 2. v-Zedsurge 3. [Strange > Unsettling].",
+    "cost": 8
   },
   {
     "lineage": "Vanyrai",
     "stature": 5,
     "build": 1,
     "bodypoints": 1,
-    "talents": "v-Compass. **v-Zedsurge 2."
+    "talents": "v-Compass. **v-Zedsurge 2.",
+    "cost": 11
   },
   {
     "lineage": "female",
     "stature": -2,
     "build": -2,
     "bodypoints": -1,
-    "talents": "Detect."
+    "talents": "Detect.",
+    "cost": -9
   },
   {
     "lineage": "male",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "[Strange > Distrust]."
+    "talents": "[Strange > Distrust].",
+    "cost": 0
   }
 ]

@@ -1,45 +1,50 @@
-
 [
   {
     "lineage": "BASE-LINE",
     "stature": 25,
     "build": 6,
     "bodypoints": 0,
-    "talents": "Sneaky 2. Detect 3. Nightvision 2. *[Strange 3 > Disarming]."
+    "talents": "Sneaky 2. Detect 3. Nightvision 2. *[Strange 3 > Disarming].",
+    "cost": -19
   },
   {
     "lineage": "Farleen",
     "stature": 0,
     "build": 1,
     "bodypoints": 1,
-    "talents": "[Fanatic > Farl]. Sneaky."
+    "talents": "[Fanatic > Farl]. Sneaky.",
+    "cost": 6
   },
   {
     "lineage": "Jarmaran",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "Navigation 2."
+    "talents": "Navigation 2.",
+    "cost": 0
   },
   {
     "lineage": "Stepmir",
     "stature": 0,
     "build": -3,
     "bodypoints": 0,
-    "talents": "[Zucked]. **Expert 3 > Throwing Knives."
+    "talents": "[Zucked]. **Expert 3 > Throwing Knives.",
+    "cost": -3
   },
   {
     "lineage": "female",
     "stature": -2,
     "build": -1,
     "bodypoints": -1,
-    "talents": "[Zucked]. Forage."
+    "talents": "[Zucked]. Forage.",
+    "cost": -8
   },
   {
     "lineage": "Child [A]",
     "stature": 0,
     "build": 2,
     "bodypoints": 1,
-    "talents": ""
+    "talents": "",
+    "cost": 7
   }
 ]
