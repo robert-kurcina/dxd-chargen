@@ -108,7 +108,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-12">
         {itemsToShow.map(key => {
             const tableData = data[key];
             if (!tableData || tableData.length === 0) return null;
@@ -162,7 +162,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
       <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Attribute Definitions</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-12">
         {data.map((group: any) => (
           <div key={group.groupName}>
             <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
@@ -198,7 +198,7 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
       <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Calculated Abilities</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-12">
         {data.map((group: any) => (
           <div key={group.groupName}>
             <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
@@ -231,7 +231,7 @@ const SpeciesCard = ({ data }: { data: any[] }) => (
       <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Species</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-12">
         {data.map((specie: any) => (
           <div key={specie.name}>
             <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
@@ -309,7 +309,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-12">
         {filteredKeys.map(key => {
           const tableData = data[key];
           if (!tableData || tableData.length === 0) return null;
@@ -392,7 +392,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-12">
         {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
           <HeritageTable title="Cultural Heritage" data={cultural} />
         )}
@@ -545,7 +545,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
         <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
             <CardTitle>Tragedy Seeds</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-12">
              <div>
                 <h4 className="text-lg mb-2 font-sans">Template</h4>
                 <Table>
