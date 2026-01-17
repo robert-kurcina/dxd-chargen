@@ -23,7 +23,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { formatPositiveNumber } from '@/lib/dice';
+import { formatPositiveNumber } from '@/lib/character-logic';
 
 // Generic component for a simple table in a card
 const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[]; headers?: string[] }) => {

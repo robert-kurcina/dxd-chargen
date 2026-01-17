@@ -8,6 +8,8 @@ import {
   D66, 
   d66Lookup, 
   d6ColumnLookup,
+} from '@/lib/dice';
+import {
   parseTalent,
   isDisability,
   getAgeRankValue,
@@ -20,8 +22,10 @@ import {
   parseIM,
   resolveTragedySeed,
   parseTragedyTemplate,
-  lookupTragedyKeyword
-} from '@/lib/dice';
+  lookupTragedyKeyword,
+  calculateAttributeSkillpointCost,
+  calculateBonusSkillpointCost
+} from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
 
@@ -298,11 +302,17 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   // Test data for skillpoint cost calculation
-  const skillpointTests = [
+  const attributeCostTests = [
       { change: "+3 CCA", expected: 15 },
       { change: "-2 INT", expected: -14 },
       { change: "+2 SIZ, -1 ZED", expected: 5 },
   ];
+
+  const bonusCostTests = [
+    { notableFeature: 'Very Strong', bonus: "+1 Brawn", expected: 2},
+    { notableFeature: 'Seen Things', bonus: "+1 Grit, +1 Medic", expected: 5},
+    { notableFeature: 'Natural Climber', bonus: "+2 Climb", expected: 2},
+  ]
 
 
   return (
@@ -410,36 +420,19 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
 
-      <TestSuite title="Attribute Cost Calculation Tests">
+      <TestSuite title="Skillpoint Cost Calculation Tests">
           <p className="text-sm text-muted-foreground p-4 -mb-4">
-              Tests the calculation of skillpoint costs based on attribute changes and their Interim Multiple (IM) values.
+              Tests the calculation of skillpoint costs for various changes.
           </p>
-          {skillpointTests.map((test, i) => {
-              const getAttributeIM = (abbreviation: string): number => {
-                  for (const group of data.attributeDefinitions) {
-                      const attr = group.attributes.find((a: any) => a.abbreviation === abbreviation);
-                      if (attr && attr.im) {
-                          return parseIM(attr.im);
-                      }
-                  }
-                  return 0;
-              };
-
-              const changes = test.change.split(', ');
-              let totalCost = 0;
-
-              changes.forEach(change => {
-                  const parts = change.trim().split(' ');
-                  const modifier = parseInt(parts[0], 10);
-                  const attrAbbr = parts[1];
-                  
-                  const im = getAttributeIM(attrAbbr);
-                  totalCost += modifier * im;
-              });
-
+          {attributeCostTests.map((test, i) => {
+              const totalCost = calculateAttributeSkillpointCost(test.change, data);
               const pass = totalCost === test.expected;
-              
-              return <TestCase key={i} title={`Cost of ${test.change}`} result={totalCost} expected={test.expected} pass={pass} />;
+              return <TestCase key={i} title={`Attribute Cost of ${test.change}`} result={totalCost} expected={test.expected} pass={pass} />;
+          })}
+          {bonusCostTests.map((test, i) => {
+              const totalCost = calculateBonusSkillpointCost(test.bonus, data);
+              const pass = totalCost === test.expected;
+              return <TestCase key={i} title={`Bonus Cost for '${test.notableFeature}' (${test.bonus})`} result={totalCost} expected={test.expected} pass={pass} />;
           })}
       </TestSuite>
       
