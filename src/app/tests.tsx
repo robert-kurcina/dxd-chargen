@@ -27,7 +27,7 @@ import {
   calculateBonusSkillpointCost
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
-import { cn } from '@/lib/utils';
+import { cn, formatNumberWithSuffix, parseNumberWithSuffix } from '@/lib/utils';
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -314,9 +314,47 @@ export default function Tests({ data }: { data: StaticData }) {
     { notableFeature: 'Natural Climber', bonus: "+2 Climb", expected: 2},
   ]
 
+  // Test data for number formatting
+  const formatNumberTests = [
+    { input: 10, expected: "10" },
+    { input: 10000, expected: "10 K" },
+    { input: 10000000, expected: "10 M" },
+    { input: 12345, expected: "12.345 K" },
+    { input: 12345678, expected: "12.345678 M" },
+    { input: 999, expected: "999" },
+    { input: "1,234,567", expected: "1.234567 M" },
+    { input: -5000, expected: "-5 K" },
+  ];
+
+  const parseNumberTests = [
+    { input: "10", expected: 10 },
+    { input: "10 K", expected: 10000 },
+    { input: "10 M", expected: 10000000 },
+    { input: "12.345 K", expected: 12345 },
+    { input: "12.345678 M", expected: 12345678 },
+    { input: "999", expected: 999 },
+    { input: "-5 k", expected: -5000 },
+  ];
+
 
   return (
     <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
+      <TestSuite title="Number Suffix Formatting Tests">
+        <p className="text-sm text-muted-foreground p-4 -mb-4">
+            Tests for formatting and parsing numbers with K/M suffixes.
+        </p>
+        {formatNumberTests.map((test, i) => {
+            const result = formatNumberWithSuffix(test.input);
+            const pass = result === test.expected;
+            return <TestCase key={`format-${i}`} title={`formatNumberWithSuffix(${JSON.stringify(test.input)})`} result={result} expected={test.expected} pass={pass} />;
+        })}
+        {parseNumberTests.map((test, i) => {
+            const result = parseNumberWithSuffix(test.input);
+            const pass = result === test.expected;
+            return <TestCase key={`parse-${i}`} title={`parseNumberWithSuffix("${test.input}")`} result={result} expected={test.expected} pass={pass} />;
+        })}
+      </TestSuite>
+
       <TestSuite title="Dice Roller Demo">
           <p className="text-sm text-muted-foreground">
             Click the button to roll a D66 and look up the corresponding age group from the data table.
