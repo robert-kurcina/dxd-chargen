@@ -12,15 +12,13 @@ export default function CharacterSheetPage() {
     <main className="p-4 md:p-8">
       <Tabs defaultValue="overview" className="w-full">
         <div className="sticky top-0 z-10 bg-white py-2">
-          <div className="max-w-[960px] mx-auto">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="sample">Sample</TabsTrigger>
-              <TabsTrigger value="worksheet">Worksheet</TabsTrigger>
-              <TabsTrigger value="tests">Tests</TabsTrigger>
-              <TabsTrigger value="info">Info</TabsTrigger>
-            </TabsList>
-          </div>
+          <TabsList className="grid w-full max-w-[960px] mx-auto grid-cols-5">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="sample">Sample</TabsTrigger>
+            <TabsTrigger value="worksheet">Worksheet</TabsTrigger>
+            <TabsTrigger value="tests">Tests</TabsTrigger>
+            <TabsTrigger value="info">Info</TabsTrigger>
+          </TabsList>
         </div>
         <TabsContent value="overview">
           <CharacterSheet characterData={emptyData} />
