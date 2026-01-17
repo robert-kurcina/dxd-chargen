@@ -117,7 +117,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             if (isArrayOfPrimitives) {
                  return (
                     <div key={key}>
-                        {selectedKey === 'all' && <h4 className="font-bold text-md mb-2">{key}</h4>}
+                        {selectedKey === 'all' && <h4 className="font-bold text-md mb-2 font-sans">{key}</h4>}
                         <p className="text-sm">{(tableData as any[]).join(', ')}</p>
                     </div>
                  )
@@ -128,7 +128,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             );
             return (
               <div key={key}>
-                {selectedKey === 'all' && <h4 className="font-bold text-md mb-2">{key}</h4>}
+                {selectedKey === 'all' && <h4 className="font-bold text-md mb-2 font-sans">{key}</h4>}
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
@@ -314,7 +314,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
           return (
             <div key={key}>
-              <h4 className="font-bold text-md mb-2">{getTitle(key)}</h4>
+              <h4 className="font-bold text-md mb-2 font-sans">{getTitle(key)}</h4>
               <Table>
                 <TableHeader>
                   <TableRow className="border-b-2 border-black">
@@ -344,7 +344,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   const HeritageTable = ({ title, data }: { title: string; data: any[] }) => (
     <div>
-      {selectedFilter === 'all' && <h4 className="font-bold text-md mb-2">{title}</h4>}
+      {selectedFilter === 'all' && <h4 className="font-bold text-md mb-2 font-sans">{title}</h4>}
       <Table>
         <TableHeader>
           <TableRow className="border-b-2 border-black">
