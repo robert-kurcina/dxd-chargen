@@ -25,6 +25,15 @@ import {
 import { cn } from '@/lib/utils';
 import { formatPositiveNumber } from '@/lib/character-logic';
 
+const formatHeader = (header: string) => {
+  if (header.toUpperCase() === header && header.length > 1) return header;
+  if (header.toLowerCase() === 'd66') return 'D66';
+  if (header.toLowerCase() === 'd6') return 'D6';
+
+  const result = header.replace(/([A-Z])/g, " $1");
+  return result.charAt(0).toUpperCase() + result.slice(1);
+}
+
 // Generic component for a simple table in a card
 const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[]; headers?: string[] }) => {
   if (!data || data.length === 0) return null;
@@ -42,7 +51,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
           <TableHeader>
             <TableRow className="border-b-2 border-black">
               {tableHeaders.map((header) => (
-                <TableHead key={header} className="font-bold text-lg h-8 px-2">{header}</TableHead>
+                <TableHead key={header} className="font-bold text-lg h-8 px-2">{formatHeader(header)}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
@@ -133,7 +142,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                        {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{header}</TableHead>)}
+                        {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{formatHeader(header)}</TableHead>)}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -163,8 +172,8 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
         <CardTitle>Attribute Definitions</CardTitle>
       </CardHeader>
       <CardContent className="space-y-12">
-        {data.map((group: any) => (
-          <div key={group.groupName}>
+        {data.map((group: any, groupIndex: number) => (
+          <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
             <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
             <Table>
               <TableHeader>
@@ -199,8 +208,8 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
         <CardTitle>Calculated Abilities</CardTitle>
       </CardHeader>
       <CardContent className="space-y-12">
-        {data.map((group: any) => (
-          <div key={group.groupName}>
+        {data.map((group: any, groupIndex: number) => (
+          <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
             <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
             <Table>
               <TableHeader>
@@ -232,8 +241,8 @@ const SpeciesCard = ({ data }: { data: any[] }) => (
         <CardTitle>Species</CardTitle>
       </CardHeader>
       <CardContent className="space-y-12">
-        {data.map((specie: any) => (
-          <div key={specie.name}>
+        {data.map((specie: any, specieIndex: number) => (
+          <div key={specie.name}  className={specieIndex > 0 ? 'mt-12' : ''}>
             <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
             {specie.groups.map((group: any) => (
               <div key={group.name} className="ml-4 mb-2">
@@ -310,19 +319,19 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
         </Select>
       </CardHeader>
       <CardContent className="space-y-12">
-        {filteredKeys.map(key => {
+        {filteredKeys.map((key, keyIndex) => {
           const tableData = data[key];
           if (!tableData || tableData.length === 0) return null;
           const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
           const isAttributeTable = key.includes('-attributes-');
 
           return (
-            <div key={key}>
+            <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
               <h4 className="text-lg mb-2 font-sans">{getTitle(key)}</h4>
               <Table>
                 <TableHeader>
                   <TableRow className="border-b-2 border-black">
-                    {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{header}</TableHead>)}
+                    {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{formatHeader(header)}</TableHead>)}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -330,7 +339,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
-                          {isAttributeTable && header.toLowerCase() !== 'lineage' && typeof row[header] === 'number'
+                          {isAttributeTable && header.toLowerCase() !== 'lineage' && header.toLowerCase() !== 'cost' && typeof row[header] === 'number'
                             ? formatPositiveNumber(row[header])
                             : row[header]}
                         </TableCell>
@@ -397,10 +406,14 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
           <HeritageTable title="Cultural Heritage" data={cultural} />
         )}
         {(selectedFilter === 'all' || selectedFilter === 'environ') && (
-          <HeritageTable title="Environ Heritage" data={environ} />
+          <div className={selectedFilter === 'environ' ? '' : 'mt-12'}>
+            <HeritageTable title="Environ Heritage" data={environ} />
+          </div>
         )}
         {(selectedFilter === 'all' || selectedFilter === 'societal') && (
-          <HeritageTable title="Societal Heritage" data={societal} />
+          <div className={selectedFilter === 'societal' ? '' : 'mt-12'}>
+            <HeritageTable title="Societal Heritage" data={societal} />
+          </div>
         )}
       </CardContent>
     </Card>
@@ -487,10 +500,10 @@ const EmpiresCard = ({ data }: { data: any[] }) => (
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-black">
-              <TableHead className="font-bold text-lg h-8 px-2">d6</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">name</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">region</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">neighbors</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">D6</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -551,8 +564,8 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                            <TableHead className="font-bold text-lg h-8 px-2">d66</TableHead>
-                            <TableHead className="font-bold text-lg h-8 px-2">seed</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">D66</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Seed</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -565,12 +578,12 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                     </TableBody>
                 </Table>
              </div>
-             <div>
+             <div className="mt-12">
                 <h4 className="text-lg mb-2 font-sans">Random Person, Item, Deity, Citystate</h4>
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                        <TableHead className="font-bold text-lg h-8 px-2">d66</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">D66</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Person</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Item</TableHead>
                         <TableHead className="font-bold text-lg h-8 px-2">Citystate</TableHead>
