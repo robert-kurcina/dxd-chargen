@@ -409,8 +409,15 @@ export function calculateTraitSkillpointCost(traitString: string, data: StaticDa
     if (!traitString) return 0;
 
     const { name, level } = parseTrait(traitString);
-    const traitDefinition = data.traits.find(t => t.trait.toLowerCase().startsWith(name.toLowerCase()));
     
+    // Create a canonical key for lookup
+    const canonicalKey = (name.endsWith(' X') ? name : `${name} X`).toLowerCase();
+    
+    const traitDefinition = data.traits.find(t => {
+        const traitKey = t.Key.split(' > ')[0].toLowerCase();
+        return traitKey === canonicalKey;
+    });
+
     if (!traitDefinition) return 0;
     
     const imCost = parseIM(traitDefinition.im);
@@ -451,6 +458,37 @@ export function calculateAttributeSkillpointCost(attributesString: string, data:
 }
 
 /**
+ * Calculates the total skillpoint cost for a string of characteristic adjustments (e.g., "+1 Bodypoints").
+ * @param characteristicsString The string containing characteristic adjustments.
+ * @param data The static data containing characteristic costs.
+ * @returns The total calculated skillpoint cost.
+ */
+export function calculateCharacteristicSkillpointCost(characteristicsString: string, data: StaticData): number {
+    if (!characteristicsString) return 0;
+
+    let totalCost = 0;
+    const adjustments = characteristicsString.split(',').map(s => s.trim());
+
+    for (const adj of adjustments) {
+        const parts = adj.split(' ');
+        if (parts.length !== 2) continue;
+
+        const modifier = parseInt(parts[0], 10);
+        const charName = parts[1];
+
+        if (isNaN(modifier)) continue;
+
+        const charCostDef = data.characteristicCosts.find(c => c.characteristic.toLowerCase() === charName.toLowerCase());
+
+        if (charCostDef) {
+            totalCost += modifier * charCostDef.cost;
+        }
+    }
+    return totalCost;
+}
+
+
+/**
  * Calculates the total skillpoint cost for a string of bonus traits (e.g., "+1 Brawn, +2 Climb").
  * @param bonusString The string containing bonus traits.
  * @param data The static data containing the traits table.
@@ -463,18 +501,19 @@ export function calculateBonusSkillpointCost(bonusString: string, data: StaticDa
     const bonuses = bonusString.split(',').map(s => s.trim());
     
     for (const bonus of bonuses) {
-        const parts = bonus.split(' ');
-        if (parts.length < 2) continue;
-        
-        const modifierStr = parts[0];
-        const traitName = parts.slice(1).join(' ');
-        
-        const modifier = parseInt(modifierStr, 10);
+        // This regex handles cases like "+1 Brawn" and "+2 Detect > Sound"
+        const match = bonus.match(/([+-]?\d+)\s+(.*)/);
+        if (!match) continue;
+
+        const modifier = parseInt(match[1], 10);
+        const traitAndSpecialization = match[2];
+
         if (isNaN(modifier)) continue;
+
+        const singleLevelCost = calculateTraitSkillpointCost(traitAndSpecialization, data);
         
-        // The cost is calculated for each level, so we just pass the trait name with level 1 to the existing function
-        // and multiply by the modifier.
-        const singleLevelCost = calculateTraitSkillpointCost(`${traitName} 1`, data);
+        // calculateTraitSkillpointCost already returns cost for level 1 of the trait
+        // so we just multiply by the modifier
         totalCost += modifier * singleLevelCost;
     }
     
