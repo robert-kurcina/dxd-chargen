@@ -13,7 +13,8 @@ import {
   getAgeGroup,
   parseMaturityString,
   calculateMaturityDifference,
-  adjustTalentByMaturity
+  adjustTalentByMaturity,
+  getAgeInYears
 } from '@/lib/dice';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -68,6 +69,28 @@ const D66LookupTest = ({ title, tableData }: { title: string; tableData: any[]; 
           )}
         </div>
       )}
+    </div>
+  );
+};
+
+const AgeGenerationTest = ({ species, ageGroup, data, expectedRange }: { species: keyof StaticData['ageBrackets'], ageGroup: string, data: StaticData, expectedRange: string }) => {
+  const [generatedAge, setGeneratedAge] = useState<number | null>(null);
+
+  const handleGenerate = () => {
+    const age = getAgeInYears(species, ageGroup, data.ageBrackets, data.ageGroups);
+    setGeneratedAge(age);
+  };
+
+  return (
+    <div className="space-y-2 p-2 border-l-4">
+       <h3 className="font-semibold text-sm">Generate Age for {species} - {ageGroup}</h3>
+       <p className="font-mono text-xs">Expected Range: {expectedRange}</p>
+       <Button onClick={handleGenerate}>Generate</Button>
+       {generatedAge !== null && (
+         <p className="mt-2 font-mono text-xs">
+           Generated Age: <span className="text-primary font-bold">{generatedAge}</span>
+         </p>
+       )}
     </div>
   );
 };
@@ -249,6 +272,16 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
       
+      <TestSuite title="Age Generation Tests">
+        <p className="text-sm text-muted-foreground p-4 -mb-4">
+          Click the buttons to generate a random age within the expected range for the given species and age group.
+        </p>
+        <AgeGenerationTest species="Alef" ageGroup="Young Adult" data={data} expectedRange="24-35" />
+        <AgeGenerationTest species="Drauf" ageGroup="Child" data={data} expectedRange="6-11" />
+        <AgeGenerationTest species="Stonefolk" ageGroup="Venerable" data={data} expectedRange="400-449" />
+        <AgeGenerationTest species="Cherigili" ageGroup="Venerable" data={data} expectedRange="80-84" />
+      </TestSuite>
+
       <TestSuite title="D66 Lookup Tests">
         <D66LookupTest title="Descriptors" tableData={data.descriptors} />
         <D66LookupTest title="Disabilities" tableData={data.disabilities} />

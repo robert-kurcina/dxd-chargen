@@ -210,7 +210,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
                  if (rankMatch) {
                     result.professionRank = parseInt(rankMatch[1], 10);
                 } else {
-                    result.professionRank = parseInt(profRankByName['Rank'], 10);
+                    result.professionRank = parseInt(p['Rank'], 10);
                 }
             }
         }
@@ -282,4 +282,63 @@ export function formatPositiveNumber(num: number): string {
     return `+${num}`;
   }
   return String(num);
+}
+
+/**
+ * Generates a random age in years for a character based on their species and age group.
+ * @param speciesName The name of the character's species (e.g., "Alef").
+ * @param ageGroup The character's age group (e.g., "Young Adult").
+ * @param ageBrackets The ageBrackets data table.
+ * @param ageGroups The ageGroups data table.
+ * @returns A random integer representing the character's age in years.
+ */
+export function getAgeInYears(
+  speciesName: keyof StaticData['ageBrackets'],
+  ageGroup: string,
+  ageBrackets: StaticData['ageBrackets'],
+  ageGroups: StaticData['ageGroups']
+): number | null {
+  const speciesBrackets = ageBrackets[speciesName];
+  if (!speciesBrackets) {
+    return null; // Species not found
+  }
+
+  const currentRankStr = getAgeRank(ageGroup, ageGroups);
+  if (currentRankStr === undefined) {
+    return null; // Age group not found
+  }
+  
+  const currentBracket = speciesBrackets.find(b => b.rank === currentRankStr);
+  if (!currentBracket) {
+      return null;
+  }
+
+  const startAge = currentBracket.age;
+  let endAge: number;
+  
+  const currentRankValue = getAgeRankValue(currentRankStr);
+  
+  if (currentRankValue >= 9) {
+    // Handle the "Venerable" case (or any max rank)
+    const rank8Bracket = speciesBrackets.find(b => b.rank === '8');
+    if (!rank8Bracket) return startAge; // Should not happen with valid data
+    const difference = startAge - rank8Bracket.age;
+    endAge = startAge + difference;
+  } else {
+    // Find the next rank's bracket. We must find the numeric rank first.
+    const nextRankValue = currentRankValue + 1;
+    // Find the string representation of the next rank from the main ageGroups table
+    const nextRankStr = ageGroups.find(g => getAgeRankValue(g.rank) === nextRankValue)?.rank;
+
+    if (!nextRankStr) return startAge; // Should not happen
+    
+    const nextBracket = speciesBrackets.find(b => b.rank === nextRankStr);
+    if (!nextBracket) {
+        return startAge;
+    }
+    endAge = nextBracket.age;
+  }
+
+  // Return a random integer from startAge (inclusive) to endAge (exclusive)
+  return Math.floor(Math.random() * (endAge - startAge)) + startAge;
 }
