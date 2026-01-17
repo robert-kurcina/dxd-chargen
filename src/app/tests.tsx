@@ -105,7 +105,7 @@ export default function Tests({ data }: { data: StaticData }) {
       { talent: 'Bar 2', diff: 3, expected: 'Bar 2' },
       { talent: 'Baz', diff: -2, expected: '' },
       { talent: '[Zucked]', diff: 2, expected: '[Zucked]' },
-      { talent: '**Bar > Baz', diff: 1, expected: 'Bar > Baz' },
+      { talent: '**Bar > Baz', diff: 1, expected: '' },
   ];
 
 

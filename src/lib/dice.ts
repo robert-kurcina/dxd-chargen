@@ -192,7 +192,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
         const rankMatch = trimmedPart.match(/\[(.+?)\]/);
         const name = trimmedPart.replace(/\[.+?\]/, '').trim();
 
-        // Is it an Age Group?
+        // Is it an Age Group? Prioritize this match.
         const ageRankByName = data.ageGroups.find(g => g.ageGroup.toLowerCase() === name.toLowerCase())?.rank;
         if (ageRankByName) {
             if (rankMatch) {
@@ -200,18 +200,18 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
             } else {
                 result.ageRank = getAgeRankValue(ageRankByName);
             }
-        }
-        
-        // Is it a Profession Title?
-        const profRankByName = data.namingPracticeTitles.find(
-            p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
-        );
-
-        if (profRankByName) {
-             if (rankMatch) {
-                result.professionRank = parseInt(rankMatch[1], 10);
-            } else {
-                result.professionRank = parseInt(profRankByName['#'], 10);
+        } else { 
+            // Only if it's NOT an age group, check if it's a profession title
+            const profRankByName = data.namingPracticeTitles.find(
+                p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
+            );
+    
+            if (profRankByName) {
+                 if (rankMatch) {
+                    result.professionRank = parseInt(rankMatch[1], 10);
+                } else {
+                    result.professionRank = parseInt(profRankByName['#'], 10);
+                }
             }
         }
     }
