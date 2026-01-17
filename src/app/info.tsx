@@ -50,7 +50,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
             {data.map((row, index) => (
               <TableRow key={index}>
                 {tableHeaders.map((header, headerIndex) => (
-                  <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
+                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
                     {typeof row[header] === 'boolean'
                       ? String(row[header])
                       : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A'}
@@ -140,7 +140,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
                         {tableData.map((row: any, index: number) => (
                         <TableRow key={index}>
                             {headers.map((header, headerIndex) => (
-                            <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
+                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
                                 {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
                             </TableCell>
                             ))}
@@ -178,10 +178,10 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
               <TableBody>
                 {group.attributes.map((attr: any) => (
                   <TableRow key={attr.abbreviation}>
-                    <TableCell className="py-2 pl-4 font-bold">{attr.name}</TableCell>
-                    <TableCell className="py-2 pl-4">{attr.abbreviation}</TableCell>
-                    <TableCell className="py-2 pl-4">{attr.description}</TableCell>
-                    <TableCell className="py-2 pl-4">{attr.im}</TableCell>
+                    <TableCell className="py-2 px-2 font-bold">{attr.name}</TableCell>
+                    <TableCell className="py-2 px-2">{attr.abbreviation}</TableCell>
+                    <TableCell className="py-2 px-2">{attr.description}</TableCell>
+                    <TableCell className="py-2 px-2">{attr.im}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -212,8 +212,8 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
               <TableBody>
                 {group.abilities.map((ability: any) => (
                   <TableRow key={ability.name}>
-                    <TableCell className="py-2 pl-4 font-bold">{ability.name}</TableCell>
-                    <TableCell className="py-2 pl-4">{ability.description}</TableCell>
+                    <TableCell className="py-2 px-2 font-bold">{ability.name}</TableCell>
+                    <TableCell className="py-2 px-2">{ability.description}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -329,7 +329,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {tableData.map((row: any, index: number) => (
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
-                        <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
+                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
                           {isAttributeTable && header.toLowerCase() !== 'lineage' && typeof row[header] === 'number'
                             ? formatPositiveNumber(row[header])
                             : row[header]}
@@ -365,10 +365,10 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
         <TableBody>
           {data.map((row: any, index: number) => (
             <TableRow key={index}>
-              <TableCell className="py-2 pl-4 font-bold">{row.entry}</TableCell>
-              <TableCell className="py-2 pl-4">{row.talents}</TableCell>
-              <TableCell className="py-2 pl-4">{row.cost}</TableCell>
-              <TableCell className="py-2 pl-4">{row.wealth}</TableCell>
+              <TableCell className="py-2 px-2 font-bold">{row.entry}</TableCell>
+              <TableCell className="py-2 px-2">{row.talents}</TableCell>
+              <TableCell className="py-2 px-2">{row.cost}</TableCell>
+              <TableCell className="py-2 px-2">{row.wealth}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -464,7 +464,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
             {filteredData.map((row, index) => (
               <TableRow key={index}>
                 {headers.map((header, headerIndex) => (
-                   <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
+                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
                      {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
                    </TableCell>
                 ))}
@@ -496,10 +496,10 @@ const EmpiresCard = ({ data }: { data: any[] }) => (
           <TableBody>
             {data.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="py-2 pl-4 font-bold">{row.id}</TableCell>
-                <TableCell className="py-2 pl-4">{row.name}</TableCell>
-                <TableCell className="py-2 pl-4">{row.region}</TableCell>
-                <TableCell className="py-2 pl-4">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
+                <TableCell className="py-2 px-2 font-bold">{row.id}</TableCell>
+                <TableCell className="py-2 px-2">{row.name}</TableCell>
+                <TableCell className="py-2 px-2">{row.region}</TableCell>
+                <TableCell className="py-2 px-2">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -527,11 +527,11 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
           <TableBody>
             {data.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="py-2 pl-4 font-bold">{row['Rank']}</TableCell>
-                <TableCell className="py-2 pl-4">{row.Guild}</TableCell>
-                <TableCell className="py-2 pl-4">{row.Order}</TableCell>
-                <TableCell className="py-2 pl-4">{row.Temple}</TableCell>
-                <TableCell className="py-2 pl-4">{row.Tradition}</TableCell>
+                <TableCell className="py-2 px-2 font-bold">{row['Rank']}</TableCell>
+                <TableCell className="py-2 px-2">{row.Guild}</TableCell>
+                <TableCell className="py-2 px-2">{row.Order}</TableCell>
+                <TableCell className="py-2 px-2">{row.Temple}</TableCell>
+                <TableCell className="py-2 px-2">{row.Tradition}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -558,8 +558,8 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                     <TableBody>
                         {tragedySeeds.map((row: any, index: number) => (
                             <TableRow key={index}>
-                                <TableCell className="py-2 pl-4 font-bold">{row.d66}</TableCell>
-                                <TableCell className="py-2 pl-4">{row.seed}</TableCell>
+                                <TableCell className="py-2 px-2 font-bold">{row.d66}</TableCell>
+                                <TableCell className="py-2 px-2">{row.seed}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -580,11 +580,11 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                     <TableBody>
                         {randomPersonItemDeity.map((row: any, index: number) => (
                         <TableRow key={index}>
-                            <TableCell className="py-2 pl-4 font-bold">{row.d66}</TableCell>
-                            <TableCell className="py-2 pl-4">{row.Person}</TableCell>
-                            <TableCell className="py-2 pl-4">{row.Item}</TableCell>
-                            <TableCell className="py-2 pl-4">{row.Citystate}</TableCell>
-                            <TableCell className="py-2 pl-4">{row.Deity}</TableCell>
+                            <TableCell className="py-2 px-2 font-bold">{row.d66}</TableCell>
+                            <TableCell className="py-2 px-2">{row.Person}</TableCell>
+                            <TableCell className="py-2 px-2">{row.Item}</TableCell>
+                            <TableCell className="py-2 px-2">{row.Citystate}</TableCell>
+                            <TableCell className="py-2 px-2">{row.Deity}</TableCell>
                         </TableRow>
                         ))}
                     </TableBody>
