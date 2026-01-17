@@ -1,3 +1,4 @@
+
 [
   {
     "lineage": "BASE-LINE",
@@ -5,7 +6,7 @@
     "build": 10,
     "bodypoints": 14,
     "talents": "Forage. Brawn 5. Grit 2. Sturdy. Detect 2. Swim 4. v-Compass. v-Sensors. Aquatic 3. Amphibious. Adaptation > Marine. Survival 2 > Coastal. Survival 2 > Submarine. Survival > Trench. Survival > Marine.",
-    "cost": 105
+    "cost": 237
   },
   {
     "lineage": "Restani",
@@ -13,7 +14,7 @@
     "build": 2,
     "bodypoints": 0,
     "talents": "Grit.",
-    "cost": 2
+    "cost": 4
   },
   {
     "lineage": "Quaggian",
@@ -21,7 +22,7 @@
     "build": 0,
     "bodypoints": 0,
     "talents": "Detect.",
-    "cost": 0
+    "cost": 10
   },
   {
     "lineage": "female",
