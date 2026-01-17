@@ -16,6 +16,7 @@ import {
   adjustTalentByMaturity
 } from '@/lib/dice';
 import type { StaticData } from '@/data';
+import { cn } from '@/lib/utils';
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -37,6 +38,40 @@ const TestSuite = ({ title, children } : { title: string, children: React.ReactN
         </CardContent>
       </Card>
 )
+
+const D66LookupTest = ({ title, tableData }: { title: string; tableData: any[]; }) => {
+  const [d66Roll, setD66Roll] = useState<number | null>(null);
+  const [lookupResult, setLookupResult] = useState<any | null>(null);
+
+  const handleRoll = () => {
+    const roll = D66();
+    setD66Roll(roll);
+    const result = d66Lookup(roll, tableData);
+    setLookupResult(result);
+  };
+
+  return (
+    <div className="space-y-2">
+      <h3 className="font-semibold">{title}</h3>
+      <Button onClick={handleRoll}>Roll D66 for {title}</Button>
+      {d66Roll !== null && (
+        <div className="mt-2 p-2 border rounded-md bg-gray-50">
+          <p>
+            D66 Roll: <span className="font-mono text-primary">{d66Roll}</span>
+          </p>
+          {lookupResult ? (
+            <pre className="mt-2 text-xs bg-gray-100 p-2 rounded-md overflow-x-auto">
+              {JSON.stringify(lookupResult, null, 2)}
+            </pre>
+          ) : (
+            <p className="mt-2 text-destructive">No match found for this roll.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -214,6 +249,13 @@ export default function Tests({ data }: { data: StaticData }) {
         })}
       </TestSuite>
       
+      <TestSuite title="D66 Lookup Tests">
+        <D66LookupTest title="Descriptors" tableData={data.descriptors} />
+        <D66LookupTest title="Disabilities" tableData={data.disabilities} />
+        <D66LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
+        <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
+      </TestSuite>
+
     </div>
   );
 }

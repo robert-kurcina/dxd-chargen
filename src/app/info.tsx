@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 // Generic component for a simple table in a card
 const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[]; headers?: string[] }) => {
@@ -38,17 +39,17 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
       <CardContent>
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="border-b-2 border-black">
               {tableHeaders.map((header) => (
-                <TableHead key={header}>{header}</TableHead>
+                <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((row, index) => (
               <TableRow key={index}>
-                {tableHeaders.map((header) => (
-                  <TableCell key={header}>
+                {tableHeaders.map((header, headerIndex) => (
+                  <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
                     {typeof row[header] === 'boolean'
                       ? String(row[header])
                       : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A'}
@@ -130,15 +131,15 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
                 {selectedKey === 'all' && <h4 className="font-bold text-md mb-2">{key}</h4>}
                 <Table>
                     <TableHeader>
-                        <TableRow>
-                        {headers.map((header) => <TableHead key={header}>{header}</TableHead>)}
+                        <TableRow className="border-b-2 border-black">
+                        {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>)}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {tableData.map((row: any, index: number) => (
                         <TableRow key={index}>
-                            {headers.map((header) => (
-                            <TableCell key={header}>
+                            {headers.map((header, headerIndex) => (
+                            <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
                                 {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
                             </TableCell>
                             ))}
@@ -166,18 +167,18 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
             <h4 className="font-bold text-md mb-2">{group.groupName}</h4>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Abbreviation</TableHead>
-                  <TableHead>Description</TableHead>
+                <TableRow className="border-b-2 border-black">
+                  <TableHead className="font-bold text-lg h-8">Name</TableHead>
+                  <TableHead className="font-bold text-lg h-8">Abbreviation</TableHead>
+                  <TableHead className="font-bold text-lg h-8">Description</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {group.attributes.map((attr: any) => (
                   <TableRow key={attr.abbreviation}>
-                    <TableCell>{attr.name}</TableCell>
-                    <TableCell>{attr.abbreviation}</TableCell>
-                    <TableCell>{attr.description}</TableCell>
+                    <TableCell className="py-2 pl-4 font-bold">{attr.name}</TableCell>
+                    <TableCell className="py-2 pl-4">{attr.abbreviation}</TableCell>
+                    <TableCell className="py-2 pl-4">{attr.description}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -200,16 +201,16 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
             <h4 className="font-bold text-md mb-2">{group.groupName}</h4>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
+                <TableRow className="border-b-2 border-black">
+                  <TableHead className="font-bold text-lg h-8">Name</TableHead>
+                  <TableHead className="font-bold text-lg h-8">Description</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {group.abilities.map((ability: any) => (
                   <TableRow key={ability.name}>
-                    <TableCell>{ability.name}</TableCell>
-                    <TableCell>{ability.description}</TableCell>
+                    <TableCell className="py-2 pl-4 font-bold">{ability.name}</TableCell>
+                    <TableCell className="py-2 pl-4">{ability.description}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -316,15 +317,15 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
               <h4 className="font-bold text-md mb-2">{getTitle(key)}</h4>
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    {headers.map((header) => <TableHead key={header}>{header}</TableHead>)}
+                  <TableRow className="border-b-2 border-black">
+                    {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>)}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {tableData.map((row: any, index: number) => (
                     <TableRow key={index}>
-                      {headers.map((header) => (
-                        <TableCell key={header}>{row[header]}</TableCell>
+                      {headers.map((header, headerIndex) => (
+                        <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>{row[header]}</TableCell>
                       ))}
                     </TableRow>
                   ))}
@@ -346,20 +347,20 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
       {selectedFilter === 'all' && <h4 className="font-bold text-md mb-2">{title}</h4>}
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>Entry</TableHead>
-            <TableHead>Talents</TableHead>
-            <TableHead>Skill Points</TableHead>
-            <TableHead>Wealth</TableHead>
+          <TableRow className="border-b-2 border-black">
+            <TableHead className="font-bold text-lg h-8">Entry</TableHead>
+            <TableHead className="font-bold text-lg h-8">Talents</TableHead>
+            <TableHead className="font-bold text-lg h-8">Skill Points</TableHead>
+            <TableHead className="font-bold text-lg h-8">Wealth</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((row: any, index: number) => (
             <TableRow key={index}>
-              <TableCell>{row.entry}</TableCell>
-              <TableCell>{row.talents}</TableCell>
-              <TableCell>{row.skillPoints}</TableCell>
-              <TableCell>{row.wealth}</TableCell>
+              <TableCell className="py-2 pl-4 font-bold">{row.entry}</TableCell>
+              <TableCell className="py-2 pl-4">{row.talents}</TableCell>
+              <TableCell className="py-2 pl-4">{row.skillPoints}</TableCell>
+              <TableCell className="py-2 pl-4">{row.wealth}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -453,15 +454,15 @@ const TraitsCard = ({ data }: { data: any[] }) => {
       <CardContent>
         <Table>
           <TableHeader>
-            <TableRow>
-              {headers.map(header => <TableHead key={header}>{headerTitles[header]}</TableHead>)}
+            <TableRow className="border-b-2 border-black">
+              {headers.map(header => <TableHead key={header} className="font-bold text-lg h-8">{headerTitles[header]}</TableHead>)}
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredData.map((row, index) => (
               <TableRow key={index}>
-                {headers.map(header => (
-                   <TableCell key={header}>
+                {headers.map((header, headerIndex) => (
+                   <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
                      {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
                    </TableCell>
                 ))}
@@ -473,6 +474,69 @@ const TraitsCard = ({ data }: { data: any[] }) => {
     </Card>
   );
 };
+
+
+const EmpiresCard = ({ data }: { data: any[] }) => (
+    <Card className="bg-white">
+      <CardHeader>
+        <CardTitle>Empires</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow className="border-b-2 border-black">
+              <TableHead className="font-bold text-lg h-8">d6</TableHead>
+              <TableHead className="font-bold text-lg h-8">name</TableHead>
+              <TableHead className="font-bold text-lg h-8">region</TableHead>
+              <TableHead className="font-bold text-lg h-8">neighbors</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((row: any, index: number) => (
+              <TableRow key={index}>
+                <TableCell className="py-2 pl-4 font-bold">{row.id}</TableCell>
+                <TableCell className="py-2 pl-4">{row.name}</TableCell>
+                <TableCell className="py-2 pl-4">{row.region}</TableCell>
+                <TableCell className="py-2 pl-4">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+);
+
+const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
+    <Card className="bg-white">
+      <CardHeader>
+        <CardTitle>Naming Practice Titles</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow className="border-b-2 border-black">
+              <TableHead className="font-bold text-lg h-8">Rank</TableHead>
+              <TableHead className="font-bold text-lg h-8">Guild</TableHead>
+              <TableHead className="font-bold text-lg h-8">Order</TableHead>
+              <TableHead className="font-bold text-lg h-8">Temple</TableHead>
+              <TableHead className="font-bold text-lg h-8">Tradition</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((row: any, index: number) => (
+              <TableRow key={index}>
+                <TableCell className="py-2 pl-4 font-bold">{row['#']}</TableCell>
+                <TableCell className="py-2 pl-4">{row.Guild}</TableCell>
+                <TableCell className="py-2 pl-4">{row.Order}</TableCell>
+                <TableCell className="py-2 pl-4">{row.Temple}</TableCell>
+                <TableCell className="py-2 pl-4">{row.Tradition}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+);
 
 
 // Main Info component
@@ -530,10 +594,10 @@ export default function Info({ data }: { data: any }) {
       <SimpleTableCard title="Descriptors" data={descriptors} headers={['d66', '1,2', '3,4', '5,6']}/>
       <SimpleTableCard title="Disabilities" data={disabilities} />
       <ListCard title="Economic Statuses" data={economicStatuses} />
-      <SimpleTableCard title="Empires" data={empires} />
+      <EmpiresCard data={empires} />
       <ListCard title="Environs" data={environs} />
       <HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} />
-      <SimpleTableCard title="Naming Practice Titles" data={namingPracticeTitles} />
+      <NamingPracticeTitlesCard data={namingPracticeTitles} />
       <SimpleTableCard title="Notable Features" data={notableFeatures} />
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
       <SimpleTableCard title="PML Titles" data={pmlTitles} />
