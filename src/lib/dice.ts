@@ -55,6 +55,37 @@ export function d66Lookup(d66Value: number, table: TableRow[]): TableRow | undef
 }
 
 /**
+ * Given a row from a d66 table, it finds the correct value based on a d6 roll.
+ * It looks for column headers that are comma-separated numbers (e.g., "1,2,3" or "4,5,6").
+ * @param d6Value The D6 roll (1-6).
+ * @param row The row object from the d66 lookup.
+ * @returns The value from the column that the d6 roll falls into.
+ */
+export function d6ColumnLookup(d6Value: number, row: TableRow): string | undefined {
+  if (!row) {
+    return undefined;
+  }
+
+  for (const key in row) {
+    if (key === 'd66' || !row.hasOwnProperty(key)) {
+      continue;
+    }
+
+    const columnNumbers = key.split(',').map(n => parseInt(n.trim(), 10));
+
+    if (columnNumbers.some(isNaN)) {
+      continue; // Skip keys that are not number ranges
+    }
+
+    if (columnNumbers.includes(d6Value)) {
+      return row[key];
+    }
+  }
+
+  return undefined;
+}
+
+/**
  * Checks if a trait string represents a disability (i.e., is wrapped in square brackets).
  * @param trait The full trait string (e.g., "[Coward X]").
  * @returns True if the trait is a disability.
@@ -200,18 +231,20 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
             } else {
                 result.ageRank = getAgeRankValue(ageRankEntry.rank);
             }
-        } else { 
-            // Only if it's NOT an age group, check if it's a profession title
-            const profRankByName = data.namingPracticeTitles.find(
-                p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
-            );
-    
-            if (profRankByName) {
-                 if (rankMatch) {
-                    result.professionRank = parseInt(rankMatch[1], 10);
-                } else {
-                    result.professionRank = parseInt(profRankByName['#'], 10);
-                }
+            // If we found an age group, don't also look for a profession title with the same name
+            continue;
+        } 
+        
+        // Only if it's NOT an age group, check if it's a profession title
+        const profRankByName = data.namingPracticeTitles.find(
+            p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
+        );
+
+        if (profRankByName) {
+             if (rankMatch) {
+                result.professionRank = parseInt(rankMatch[1], 10);
+            } else {
+                result.professionRank = parseInt(profRankByName['Rank'], 10);
             }
         }
     }

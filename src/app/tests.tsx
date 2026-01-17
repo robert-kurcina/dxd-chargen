@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
+  D6,
   D66, 
   d66Lookup, 
+  d6ColumnLookup,
   parseTalent,
   isDisability,
   getAgeRankValue,
@@ -66,6 +68,60 @@ const D66LookupTest = ({ title, tableData }: { title: string; tableData: any[]; 
             </pre>
           ) : (
             <p className="mt-2 text-destructive">No match found for this roll.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const D66AndD6LookupTest = ({ title, tableData }: { title: string; tableData: any[]; }) => {
+  const [d66Roll, setD66Roll] = useState<number | null>(null);
+  const [d6Roll, setD6Roll] = useState<number | null>(null);
+  const [d66Result, setD66Result] = useState<any | null>(null);
+  const [finalResult, setFinalResult] = useState<any | null>(null);
+
+  const handleRoll = () => {
+    const d66 = D66();
+    const d6 = D6();
+    setD66Roll(d66);
+    setD6Roll(d6);
+
+    const row = d66Lookup(d66, tableData);
+    setD66Result(row);
+
+    if (row) {
+      const result = d6ColumnLookup(d6, row);
+      setFinalResult(result);
+    } else {
+      setFinalResult(null);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <h3 className="font-semibold">{title}</h3>
+      <Button onClick={handleRoll}>Roll for {title}</Button>
+      {d66Roll !== null && d6Roll !== null && (
+        <div className="mt-2 p-2 border rounded-md bg-gray-50">
+          <p>
+            D66 Roll: <span className="font-mono text-primary">{d66Roll}</span>
+          </p>
+          <p>
+            D6 Roll: <span className="font-mono text-primary">{d6Roll}</span>
+          </p>
+          {d66Result ? (
+            <>
+              <p>Row found:</p>
+              <pre className="mt-2 text-xs bg-gray-100 p-2 rounded-md overflow-x-auto">
+                {JSON.stringify(d66Result, null, 2)}
+              </pre>
+              <p className="mt-2">
+                Final Result: <span className="font-bold text-primary">{finalResult ?? 'N/A'}</span>
+              </p>
+            </>
+          ) : (
+            <p className="mt-2 text-destructive">No match found for this D66 roll.</p>
           )}
         </div>
       )}
@@ -283,9 +339,9 @@ export default function Tests({ data }: { data: StaticData }) {
       </TestSuite>
 
       <TestSuite title="D66 Lookup Tests">
-        <D66LookupTest title="Descriptors" tableData={data.descriptors} />
+        <D66AndD6LookupTest title="Descriptors" tableData={data.descriptors} />
         <D66LookupTest title="Disabilities" tableData={data.disabilities} />
-        <D66LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
+        <D66AndD6LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
         <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
       </TestSuite>
 
