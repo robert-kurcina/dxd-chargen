@@ -18,7 +18,9 @@ import {
   adjustTalentByMaturity,
   getAgeInYears,
   parseIM,
-  resolveTragedySeed
+  resolveTragedySeed,
+  parseTragedyTemplate,
+  lookupTragedyKeyword
 } from '@/lib/dice';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -157,20 +159,36 @@ const TragedySeedTest = ({ data }: { data: StaticData }) => {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
   const [template, setTemplate] = useState<string | null>(null);
   const [resolvedSeed, setResolvedSeed] = useState<string | null>(null);
+  const [resolutionSteps, setResolutionSteps] = useState<string[]>([]);
 
   const handleGenerate = () => {
     const roll = D66();
     const foundTemplate = d66Lookup(roll, data.tragedySeeds);
     
     if (foundTemplate && foundTemplate.seed) {
-      const resolved = resolveTragedySeed(foundTemplate.seed, data.randomPersonItemDeity);
+      let currentString = foundTemplate.seed;
+      const steps: string[] = [];
+      const keywords = parseTragedyTemplate(foundTemplate.seed);
+
+      for (const keyword of keywords) {
+          const keywordD66Roll = D66();
+          const lookupResult = lookupTragedyKeyword(keyword, keywordD66Roll, data.randomPersonItemDeity);
+          
+          steps.push(`(${keyword}) -> D66[${keywordD66Roll}] -> '${lookupResult.raw}' -> resolved to '${lookupResult.resolved}' ${lookupResult.details}`);
+          
+          const regex = new RegExp(`\\(${keyword}\\)`, 'i');
+          currentString = currentString.replace(regex, lookupResult.resolved);
+      }
+
       setD66Roll(roll);
       setTemplate(foundTemplate.seed);
-      setResolvedSeed(resolved);
+      setResolutionSteps(steps);
+      setResolvedSeed(currentString);
     } else {
       setD66Roll(roll);
       setTemplate("No template found for this roll.");
       setResolvedSeed(null);
+      setResolutionSteps([]);
     }
   };
 
@@ -186,6 +204,14 @@ const TragedySeedTest = ({ data }: { data: StaticData }) => {
           <p className="mt-2">
             Template: <span className="font-mono">{template}</span>
           </p>
+          {resolutionSteps.length > 0 && (
+             <div className="mt-2 text-xs">
+              <p className="font-semibold">Resolution Steps:</p>
+              <ul className="list-disc list-inside font-mono">
+                {resolutionSteps.map((step, index) => <li key={index}>{step}</li>)}
+              </ul>
+             </div>
+          )}
           {resolvedSeed && (
              <p className="mt-2">
               Resolved: <span className="font-bold text-primary">{resolvedSeed}</span>
@@ -229,6 +255,8 @@ export default function Tests({ data }: { data: StaticData }) {
       { input: 'C', expected: -3 },
       { input: '5', expected: 5 },
       { input: '0', expected: 0 },
+      { input: undefined, expected: 0 },
+      { input: null, expected: 0 },
   ];
 
   // Test data for getAgeRank and getAgeGroup
@@ -247,19 +275,20 @@ export default function Tests({ data }: { data: StaticData }) {
       { input: 'Youth or Major[6]', expected: { ageRank: 0, professionRank: 6 } },
       { input: '', expected: { ageRank: 0, professionRank: 0 } },
       { input: 'Teenager[2]', expected: { ageRank: 2, professionRank: 0 } },
+      { input: 'Elder[3]', expected: { ageRank: 3, professionRank: 0 } }, // "Elder" is Age Group, so it should take precedence
   ];
   
   // Test data for calculateMaturityDifference
   const calculateMaturityDifferenceTests = [
       { char: { ageRank: 7, professionRank: 4 }, talent: { ageRank: 0, professionRank: 4 }, expected: 7 },
-      { char: { ageRank: 2, professionRank: 1 }, talent: { ageRank: 3, professionRank: 5 }, expected: -1 },
+      { char: { ageRank: 2, professionRank: 1 }, talent: { ageRank: 3, professionRank: 5 }, expected: -1 }, // Should be max of (2-3=-1) and (1-5=-4) -> -1
       { char: { ageRank: 5, professionRank: 5 }, talent: { ageRank: 5, professionRank: 5 }, expected: 0 },
   ];
   
   // Test data for adjustTalentByMaturity
   const adjustTalentByMaturityTests = [
       { talent: '***Foo 5', diff: 4, expected: 'Foo 5' },
-      { talent: '***Foo 5', diff: 1, expected: 'Foo 3' },
+      { talent: '***Foo 5', diff: 1, expected: 'Foo 2' },
       { talent: '***Foo 5', diff: -1, expected: 'Foo' },
       { talent: '***Foo 5', diff: -3, expected: '' },
       { talent: 'Bar 2', diff: 3, expected: 'Bar 2' },
@@ -343,7 +372,7 @@ export default function Tests({ data }: { data: StaticData }) {
 
       <TestSuite title="getAgeRankValue Function Tests">
         {getAgeRankValueTests.map((test, i) => {
-            const result = getAgeRankValue(test.input);
+            const result = getAgeRankValue(test.input as string);
             const pass = result === test.expected;
             return <TestCase key={i} title={`Test ${i+1}: getAgeRankValue('${test.input}')`} result={result} expected={test.expected} pass={pass} />
         })}

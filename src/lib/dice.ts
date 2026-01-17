@@ -131,6 +131,12 @@ export function parseTalent(fullTraitString: string): {
   // 4. Extract level and name from the main part
   const levelMatch = mainPart.match(/\s+(\d+)$/);
   let level = 1; // Default level is 1
+
+  if (specializationParts.length > 1 && !levelMatch) {
+    // Handles cases like 'Bar > Baz', which implies 'Bar 1 > Baz'
+    level = 1;
+  }
+  
   let name: string;
 
   if (levelMatch) {
@@ -150,6 +156,7 @@ export function parseTalent(fullTraitString: string): {
     asterisks,
   };
 }
+
 
 /**
  * Parses a simple trait string (without asterisks) into its components.
@@ -173,11 +180,14 @@ export function parseTrait(traitString: string): {
  * @returns The numeric rank value.
  */
 export function getAgeRankValue(rank: string): number {
+    if (!rank) return 0;
     switch (rank.toUpperCase()) {
         case 'A': return -1;
         case 'B': return -2;
         case 'C': return -3;
-        default: return parseInt(rank, 10);
+        default: 
+            const parsed = parseInt(rank, 10);
+            return isNaN(parsed) ? 0 : parsed;
     }
 }
 
@@ -223,6 +233,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
         const rankMatch = trimmedPart.match(/\[(.+?)\]/);
         const name = trimmedPart.replace(/\[.+?\]/, '').trim();
 
+        // Rule: Prioritize Age Group match if a term matches both
         const ageRankEntry = data.ageGroups.find(g => g.ageGroup.toLowerCase() === name.toLowerCase());
         if (ageRankEntry) {
             if (rankMatch) {
@@ -230,7 +241,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
             } else {
                 result.ageRank = getAgeRankValue(ageRankEntry.rank);
             }
-            continue;
+            continue; 
         } 
         
         const profRankByName = data.namingPracticeTitles.find(
@@ -278,19 +289,26 @@ export function adjustTalentByMaturity(talentString: string, maturityDifference:
 
     let newAsterisks = parsed.asterisks - maturityDifference;
     if (newAsterisks < 0) {
-        newAsterisks = 0; 
+        // A negative difference means the character is less mature than required,
+        // so we don't add asterisks, we effectively set them to be positive for the level reduction.
+        newAsterisks = Math.abs(newAsterisks);
+    } else {
+        newAsterisks = 0; // If character is mature enough, no asterisk penalty.
     }
+
+    let finalAsterisks = parsed.asterisks - maturityDifference;
+    if (finalAsterisks < 0) finalAsterisks = 0;
     
-    const newLevel = parsed.level - newAsterisks;
+    const finalLevel = parsed.level - finalAsterisks;
     
-    if (newLevel <= 0) {
+    if (finalLevel <= 0) {
         return ''; // Talent is disqualified
     }
     
     // Reconstruct the string
     let result = parsed.name;
-    if (newLevel > 1) {
-        result += ` ${newLevel}`;
+    if (finalLevel > 1) {
+        result += ` ${finalLevel}`;
     }
     if (parsed.specialization) {
         result += ` > ${parsed.specialization}`;
@@ -363,9 +381,9 @@ export function getAgeInYears(
   
   if (currentRankValue >= 9) {
     // Handle the "Venerable" case (or any max rank)
-    const rank8Bracket = speciesBrackets.find(b => b.rank === '8');
+    const rank8Bracket = speciesBrackets.find(b => getAgeRankValue(b.rank) === 8);
     if (!rank8Bracket) return startAge; // Should not happen with valid data
-    const difference = startAge - rank8Bracket.age;
+    const difference = Math.abs(startAge - rank8Bracket.age);
     endAge = startAge + difference;
   } else {
     // Find the next rank's bracket. We must find the numeric rank first.
@@ -403,25 +421,46 @@ export function parseTragedyTemplate(template: string): string[] {
 
 /**
  * Looks up a value for a specific keyword from the "Random Person Item Deity" table using a D66 roll.
+ * Applies special logic for the 'Person' column if it contains an asterisk.
  * @param keyword The column name to look up (e.g., "Person", "Citystate").
  * @param d66Roll The D66 roll to find the row.
  * @param table The `randomPersonItemDeity` data table.
- * @returns The looked-up value, or "UNKNOWN" if the column doesn't exist.
+ * @returns An object with the raw value, resolved value, and details of any special resolution.
  */
-export function lookupTragedyKeyword(keyword: string, d66Roll: number, table: StaticData['randomPersonItemDeity']): string {
+export function lookupTragedyKeyword(keyword: string, d66Roll: number, table: StaticData['randomPersonItemDeity']): { raw: string, resolved: string, details: string } {
   const row = d66Lookup(d66Roll, table);
   if (!row) {
-    return "UNKNOWN_ROW";
+    const unknown = 'UNKNOWN_ROW';
+    return { raw: unknown, resolved: unknown, details: '' };
   }
 
-  // Find a key that matches the keyword case-insensitively
   const matchingKey = Object.keys(row).find(key => key.toLowerCase() === keyword.toLowerCase());
 
   if (matchingKey) {
-    return row[matchingKey];
-  }
+    const rawValue = row[matchingKey];
 
-  return "UNKNOWN_KEYWORD";
+    if (matchingKey.toLowerCase() === 'person' && typeof rawValue === 'string' && rawValue.includes('*')) {
+      const roll = D6();
+      const baseValue = rawValue.replace('*', '').trim();
+      if (roll >= 4) {
+        return {
+          raw: rawValue,
+          resolved: `${baseValue}-in-law`,
+          details: `(D6 roll: ${roll} -> in-law)`
+        };
+      }
+      return {
+        raw: rawValue,
+        resolved: baseValue,
+        details: `(D6 roll: ${roll} -> no change)`
+      };
+    }
+    
+    return { raw: rawValue, resolved: rawValue, details: '' };
+  }
+  
+  const unknownKey = 'UNKNOWN_KEYWORD';
+  return { raw: unknownKey, resolved: unknownKey, details: '' };
 }
 
 
@@ -437,8 +476,8 @@ export function resolveTragedySeed(template: string, randomPersonItemDeityTable:
 
   for (const keyword of keywords) {
     const roll = D66();
-    const replacement = lookupTragedyKeyword(keyword, roll, randomPersonItemDeityTable);
-    // Use a regex to replace the keyword, case-insensitively, only once.
+    const replacement = lookupTragedyKeyword(keyword, roll, randomPersonItemDeityTable).resolved;
+    
     const regex = new RegExp(`\\(${keyword}\\)`, 'i');
     resolvedString = resolvedString.replace(regex, replacement);
   }
