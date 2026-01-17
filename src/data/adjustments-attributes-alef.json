@@ -1,3 +1,4 @@
+
 [
   {
     "lineage": "BASE-LINE",
@@ -11,7 +12,8 @@
     "str": -1,
     "for": -1,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 16
   },
   {
     "lineage": "Akrunai",
@@ -25,7 +27,8 @@
     "str": 0,
     "for": 3,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 40
   },
   {
     "lineage": "Huaczwyk",
@@ -39,7 +42,8 @@
     "str": 0,
     "for": 1,
     "mov": 0,
-    "zed": 3
+    "zed": 3,
+    "cost": 21
   },
   {
     "lineage": "Vanyrai",
@@ -53,7 +57,8 @@
     "str": -1,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 23
   },
   {
     "lineage": "female",
@@ -67,6 +72,7 @@
     "str": -1,
     "for": 0,
     "mov": 0,
-    "zed": 1
+    "zed": 1,
+    "cost": 4
   }
 ]

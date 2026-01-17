@@ -1,3 +1,4 @@
+
 [
   {
     "lineage": "BASE-LINE",
@@ -11,7 +12,8 @@
     "str": 4,
     "for": 3,
     "mov": -3,
-    "zed": -2
+    "zed": -2,
+    "cost": 11
   },
   {
     "lineage": "Restani",
@@ -25,7 +27,8 @@
     "str": 0,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 14
   },
   {
     "lineage": "Quaggian",
@@ -39,7 +42,8 @@
     "str": 0,
     "for": 1,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 10
   },
   {
     "lineage": "female",
@@ -53,6 +57,7 @@
     "str": 1,
     "for": 0,
     "mov": 5,
-    "zed": 0
+    "zed": 0,
+    "cost": 48
   }
 ]

@@ -1,3 +1,4 @@
+
 [
   {
     "lineage": "BASE-LINE",
@@ -11,7 +12,8 @@
     "str": -3,
     "for": 1,
     "mov": 2,
-    "zed": -5
+    "zed": -5,
+    "cost": 24
   },
   {
     "lineage": "Ankilati",
@@ -25,7 +27,8 @@
     "str": -1,
     "for": 0,
     "mov": 1,
-    "zed": -1
+    "zed": -1,
+    "cost": 17
   },
   {
     "lineage": "Coromite",
@@ -39,7 +42,8 @@
     "str": 0,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 3
   },
   {
     "lineage": "Indelan",
@@ -53,7 +57,8 @@
     "str": 1,
     "for": 0,
     "mov": 1,
-    "zed": 0
+    "zed": 0,
+    "cost": 17
   },
   {
     "lineage": "female",
@@ -67,7 +72,8 @@
     "str": -1,
     "for": 0,
     "mov": 0,
-    "zed": -1
+    "zed": -1,
+    "cost": -12
   },
   {
     "lineage": "Child",
@@ -81,7 +87,8 @@
     "str": 0,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 0
   },
   {
     "lineage": "Youth",
@@ -95,7 +102,8 @@
     "str": 1,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 5
   },
   {
     "lineage": "Early Teen",
@@ -109,6 +117,7 @@
     "str": 0,
     "for": 0,
     "mov": 0,
-    "zed": -4
+    "zed": -4,
+    "cost": -7
   }
 ]

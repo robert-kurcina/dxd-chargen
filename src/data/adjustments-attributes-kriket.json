@@ -1,3 +1,4 @@
+
 [
   {
     "lineage": "BASE-LINE",
@@ -11,7 +12,8 @@
     "str": -3,
     "for": 0,
     "mov": 3,
-    "zed": -6
+    "zed": -6,
+    "cost": 22
   },
   {
     "lineage": "Umber",
@@ -25,7 +27,8 @@
     "str": 0,
     "for": 1,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 11
   },
   {
     "lineage": "Carnelian",
@@ -39,7 +42,8 @@
     "str": 1,
     "for": 0,
     "mov": 0,
-    "zed": 3
+    "zed": 3,
+    "cost": 23
   },
   {
     "lineage": "female",
@@ -53,6 +57,7 @@
     "str": 2,
     "for": 0,
     "mov": 0,
-    "zed": 4
+    "zed": 4,
+    "cost": 29
   }
 ]

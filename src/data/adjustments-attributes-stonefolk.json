@@ -1,3 +1,4 @@
+
 [
   {
     "lineage": "BASE-LINE",
@@ -11,7 +12,8 @@
     "str": -3,
     "for": 4,
     "mov": 2,
-    "zed": -9
+    "zed": -9,
+    "cost": 9
   },
   {
     "lineage": "Plains",
@@ -25,7 +27,8 @@
     "str": 0,
     "for": 0,
     "mov": 1,
-    "zed": 0
+    "zed": 0,
+    "cost": 17
   },
   {
     "lineage": "Mountains",
@@ -39,7 +42,8 @@
     "str": 1,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 11
   },
   {
     "lineage": "female",
@@ -53,6 +57,7 @@
     "str": 1,
     "for": 0,
     "mov": 0,
-    "zed": 0
+    "zed": 0,
+    "cost": 8
   }
 ]
