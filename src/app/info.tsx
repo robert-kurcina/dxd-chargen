@@ -118,7 +118,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
         </Select>
       </CardHeader>
       <CardContent className="space-y-12">
-        {itemsToShow.map(key => {
+        {itemsToShow.map((key, keyIndex) => {
             const tableData = data[key];
             if (!tableData || tableData.length === 0) return null;
             
@@ -126,7 +126,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             
             if (isArrayOfPrimitives) {
                  return (
-                    <div key={key}>
+                    <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
                         {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans">{key}</h4>}
                         <p className="text-sm">{(tableData as any[]).join(', ')}</p>
                     </div>
@@ -137,7 +137,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
               (tableData as any[]).reduce((acc, curr) => ({ ...acc, ...curr }), {})
             );
             return (
-              <div key={key}>
+              <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
                 {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans">{key}</h4>}
                 <Table>
                     <TableHeader>
@@ -339,7 +339,8 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
-                          {isAttributeTable && header.toLowerCase() !== 'lineage' && header.toLowerCase() !== 'cost' && typeof row[header] === 'number'
+                          {header.toLowerCase() === 'cost' ? row[header] : 
+                           isAttributeTable && header.toLowerCase() !== 'lineage' && typeof row[header] === 'number'
                             ? formatPositiveNumber(row[header])
                             : row[header]}
                         </TableCell>
@@ -367,8 +368,8 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
           <TableRow className="border-b-2 border-black">
             <TableHead className="font-bold text-lg h-8 px-2">Entry</TableHead>
             <TableHead className="font-bold text-lg h-8 px-2">Talents</TableHead>
-            <TableHead className="font-bold text-lg h-8 px-2">Cost</TableHead>
             <TableHead className="font-bold text-lg h-8 px-2">Wealth</TableHead>
+            <TableHead className="font-bold text-lg h-8 px-2">Cost</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -376,8 +377,8 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
             <TableRow key={index}>
               <TableCell className="py-2 px-2 font-bold">{row.entry}</TableCell>
               <TableCell className="py-2 px-2">{row.talents}</TableCell>
-              <TableCell className="py-2 px-2">{row.cost}</TableCell>
               <TableCell className="py-2 px-2">{row.wealth}</TableCell>
+              <TableCell className="py-2 px-2">{row.cost}</TableCell>
             </TableRow>
           ))}
         </TableBody>
