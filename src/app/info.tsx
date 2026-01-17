@@ -172,7 +172,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
                   <TableHead className="font-bold text-lg h-8">Name</TableHead>
                   <TableHead className="font-bold text-lg h-8">Abbreviation</TableHead>
                   <TableHead className="font-bold text-lg h-8">Description</TableHead>
-                  <TableHead className="font-bold text-lg h-8">IM Cost</TableHead>
+                  <TableHead className="font-bold text-lg h-8">IM</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
