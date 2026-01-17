@@ -11,7 +11,7 @@ export default function CharacterSheetPage() {
   return (
     <main className="p-4 md:p-8">
       <Tabs defaultValue="overview" className="w-full">
-        <div className="sticky top-0 z-10 bg-gray-100 py-2">
+        <div className="sticky top-0 z-10 bg-white py-2">
           <div className="max-w-[960px] mx-auto">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="overview">Overview</TabsTrigger>
