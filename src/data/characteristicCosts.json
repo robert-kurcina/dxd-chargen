@@ -1,3 +1,4 @@
+
 [
   {
     "characteristic": "Stature",
@@ -23,5 +24,16 @@
     "characteristic": "Resilience",
     "base-line": 0,
     "cost": 1
+  },
+  {
+    "characteristic": "Wealth",
+    "base-line": 0,
+    "cost": 1
+  },
+  {
+    "characteristic": "Social",
+    "base-line": 0,
+    "cost": 3
   }
 ]
+
