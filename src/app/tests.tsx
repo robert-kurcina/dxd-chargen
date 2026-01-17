@@ -16,7 +16,8 @@ import {
   parseMaturityString,
   calculateMaturityDifference,
   adjustTalentByMaturity,
-  getAgeInYears
+  getAgeInYears,
+  parseIM
 } from '@/lib/dice';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -222,6 +223,13 @@ export default function Tests({ data }: { data: StaticData }) {
       { talent: '**Bar > Baz', diff: 1, expected: '' },
   ];
 
+  // Test data for skillpoint cost calculation
+  const skillpointTests = [
+      { change: "+3 CCA", expected: 15 },
+      { change: "-2 INT", expected: -14 },
+      { change: "+2 SIZ, -1 ZED", expected: 5 },
+  ];
+
 
   return (
     <div className="space-y-8 mt-4">
@@ -326,6 +334,39 @@ export default function Tests({ data }: { data: StaticData }) {
             const pass = result === test.expected;
             return <TestCase key={i} title={`Test ${i+1}: adjustTalentByMaturity('${test.talent}', ${test.diff})`} result={result} expected={test.expected} pass={pass} />
         })}
+      </TestSuite>
+
+      <TestSuite title="Attribute Cost Calculation Tests">
+          <p className="text-sm text-muted-foreground p-4 -mb-4">
+              Tests the calculation of skillpoint costs based on attribute changes and their Interim Multiple (IM) values.
+          </p>
+          {skillpointTests.map((test, i) => {
+              const getAttributeIM = (abbreviation: string): number => {
+                  for (const group of data.attributeDefinitions) {
+                      const attr = group.attributes.find((a: any) => a.abbreviation === abbreviation);
+                      if (attr && attr.im) {
+                          return parseIM(attr.im);
+                      }
+                  }
+                  return 0;
+              };
+
+              const changes = test.change.split(', ');
+              let totalCost = 0;
+
+              changes.forEach(change => {
+                  const parts = change.trim().split(' ');
+                  const modifier = parseInt(parts[0], 10);
+                  const attrAbbr = parts[1];
+                  
+                  const im = getAttributeIM(attrAbbr);
+                  totalCost += modifier * im;
+              });
+
+              const pass = totalCost === test.expected;
+              
+              return <TestCase key={i} title={`Cost of ${test.change}`} result={totalCost} expected={test.expected} pass={pass} />;
+          })}
       </TestSuite>
       
       <TestSuite title="Age Generation Tests">

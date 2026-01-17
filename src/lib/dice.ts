@@ -318,6 +318,19 @@ export function formatPositiveNumber(num: number): string {
 }
 
 /**
+ * Parses an Interim Multiple (IM) string to extract its numeric value.
+ * e.g., "IM 5x" -> 5
+ * @param imString The IM string to parse.
+ * @returns The numeric value of the IM, or 0 if parsing fails.
+ */
+export function parseIM(imString: string): number {
+  if (!imString) return 0;
+  const match = imString.match(/(\d+)/);
+  return match ? parseInt(match[1], 10) : 0;
+}
+
+
+/**
  * Generates a random age in years for a character based on their species and age group.
  * @param speciesName The name of the character's species (e.g., "Alef").
  * @param ageGroup The character's age group (e.g., "Young Adult").

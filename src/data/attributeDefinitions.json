@@ -2,33 +2,33 @@
   {
     "groupName": "Combat Attributes",
     "attributes": [
-      { "name": "Close Combat Ability", "abbreviation": "CCA", "description": "Ability to hit or avoid being hit in Close Combat." },
-      { "name": "Range Combat Ability", "abbreviation": "RCA", "description": "Ability to accurately hit a target at range." },
-      { "name": "Reflexes", "abbreviation": "REF", "description": "Initiative in Combat, for Detecting things, stealth, avoid being hit during Range Combat, and ability to disengage from Close Combat." }
+      { "name": "Close Combat Ability", "abbreviation": "CCA", "description": "Ability to hit or avoid being hit in Close Combat.", "im": "IM 5×" },
+      { "name": "Range Combat Ability", "abbreviation": "RCA", "description": "Ability to accurately hit a target at range.", "im": "IM 3×" },
+      { "name": "Reflexes", "abbreviation": "REF", "description": "Initiative in Combat, for Detecting things, stealth, avoid being hit during Range Combat, and ability to disengage from Close Combat.", "im": "IM 9×" }
     ]
   },
   {
     "groupName": "Psychological Attributes",
     "attributes": [
-      { "name": "Intellect", "abbreviation": "INT", "description": "Learning, finding, or investigating." },
-      { "name": "Knowledge", "abbreviation": "KNO", "description": "Lore, knowledge, memorization, maximum skills, creativity in general." },
-      { "name": "Presence", "abbreviation": "PRE", "description": "Empathy, maturity, influence, emotions, negotiate, leadership, grace, and charisma." },
-      { "name": "Willpower", "abbreviation": "POW", "description": "Discipline and Morale tests. Resistance to overwhelming emotions. Control oneself." }
+      { "name": "Intellect", "abbreviation": "INT", "description": "Learning, finding, or investigating.", "im": "IM 7×" },
+      { "name": "Knowledge", "abbreviation": "KNO", "description": "Lore, knowledge, memorization, maximum skills, creativity in general.", "im": "IM 3×" },
+      { "name": "Presence", "abbreviation": "PRE", "description": "Empathy, maturity, influence, emotions, negotiate, leadership, grace, and charisma.", "im": "IM 3×" },
+      { "name": "Willpower", "abbreviation": "POW", "description": "Discipline and Morale tests. Resistance to overwhelming emotions. Control oneself.", "im": "IM 4×" }
     ]
   },
   {
     "groupName": "Physical Attributes",
     "attributes": [
-      { "name": "Strength", "abbreviation": "STR", "description": "Damage bonus for physical attacks, pushing/pulling/throwing/jumping, wrestling, breaking/bending things." },
-      { "name": "Fortitude", "abbreviation": "FOR", "description": "Resist Injury. Resist afflictions such as from poison, bleeding, illness, nausea. Resist sleep. Ability to exceed physical limits." },
-      { "name": "Move", "abbreviation": "MOV", "description": "How fast a character may move during each Combat Turn. Agility. Mobility." },
-      { "name": "Size", "abbreviation": "SIZ", "description": "The Index of Weight of the character in pounds on the Universal table." }
+      { "name": "Strength", "abbreviation": "STR", "description": "Damage bonus for physical attacks, pushing/pulling/throwing/jumping, wrestling, breaking/bending things.", "im": "IM 5×" },
+      { "name": "Fortitude", "abbreviation": "FOR", "description": "Resist Injury. Resist afflictions such as from poison, bleeding, illness, nausea. Resist sleep. Ability to exceed physical limits.", "im": "IM 6×" },
+      { "name": "Move", "abbreviation": "MOV", "description": "How fast a character may move during each Combat Turn. Agility. Mobility.", "im": "IM 8×" },
+      { "name": "Size", "abbreviation": "SIZ", "description": "The Index of Weight of the character in pounds on the Universal table.", "im": "IM 5×" }
     ]
   },
   {
     "groupName": "Magic Attributes",
     "attributes": [
-      { "name": "Zed", "abbreviation": "ZED", "description": "Ability to use Magic and general ability to alter probabilities. Also known as “Luck”." }
+      { "name": "Zed", "abbreviation": "ZED", "description": "Ability to use Magic and general ability to alter probabilities. Also known as “Luck”.", "im": "IM 5×" }
     ]
   }
 ]

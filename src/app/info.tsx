@@ -172,6 +172,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
                   <TableHead className="font-bold text-lg h-8">Name</TableHead>
                   <TableHead className="font-bold text-lg h-8">Abbreviation</TableHead>
                   <TableHead className="font-bold text-lg h-8">Description</TableHead>
+                  <TableHead className="font-bold text-lg h-8">IM Cost</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -180,6 +181,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
                     <TableCell className="py-2 pl-4 font-bold">{attr.name}</TableCell>
                     <TableCell className="py-2 pl-4">{attr.abbreviation}</TableCell>
                     <TableCell className="py-2 pl-4">{attr.description}</TableCell>
+                    <TableCell className="py-2 pl-4">{attr.im}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -531,7 +533,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
           <TableBody>
             {data.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="py-2 pl-4 font-bold">{row['#']}</TableCell>
+                <TableCell className="py-2 pl-4 font-bold">{row['Rank']}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Guild}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Order}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Temple}</TableCell>
