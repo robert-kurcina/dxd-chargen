@@ -1,16 +1,16 @@
 
 [
-  { "group": "Infant", "rank": "C", "CCA": -14, "RCA": -17, "REF": -12, "INT": -15, "KNO": -16, "PRE": -8, "POW": -17, "STR": -13, "FOR": -4, "MOV": -3, "ZED": -15, "cost": -662 },
-  { "group": "Toddler", "rank": "B", "CCA": -10, "RCA": -12, "REF": -7, "INT": -10, "KNO": -12, "PRE": -7, "POW": -12, "STR": -10, "FOR": -3, "MOV": -2, "ZED": -12, "cost": -486 },
-  { "group": "Child", "rank": "A", "CCA": -7, "RCA": -8, "REF": -3, "INT": -7, "KNO": -9, "PRE": -5, "POW": -8, "STR": -7, "FOR": -2, "MOV": -2, "ZED": -9, "cost": -306 },
-  { "group": "Youth", "rank": "0", "CCA": -5, "RCA": -5, "REF": -1, "INT": -4, "KNO": -7, "PRE": -2, "POW": -5, "STR": -5, "FOR": -1, "MOV": -1, "ZED": -6, "cost": -193 },
-  { "group": "Early Teen", "rank": "1", "CCA": -3, "RCA": -2, "REF": 0, "INT": -2, "KNO": -4, "PRE": -1, "POW": -3, "STR": -2, "FOR": 0, "MOV": 0, "ZED": -3, "cost": -89 },
-  { "group": "Teenager", "rank": "2", "CCA": -1, "RCA": 0, "REF": 1, "INT": 0, "KNO": -2, "PRE": 0, "POW": -1, "STR": -1, "FOR": 0, "MOV": 0, "ZED": -2, "cost": -21 },
-  { "group": "Young Adult", "rank": "3", "CCA": 0, "RCA": 0, "REF": 0, "INT": 0, "KNO": 0, "PRE": 0, "POW": 0, "STR": 0, "FOR": 0, "MOV": 0, "ZED": -1, "cost": -5 },
-  { "group": "Adult", "rank": "4", "CCA": 0, "RCA": 0, "REF": 0, "INT": 0, "KNO": 0, "PRE": 0, "POW": 0, "STR": 0, "FOR": 0, "MOV": 0, "ZED": 0, "cost": 0 },
-  { "group": "Mature", "rank": "5", "CCA": 0, "RCA": 0, "REF": 0, "INT": 0, "KNO": 1, "PRE": 1, "POW": 0, "STR": 0, "FOR": 0, "MOV": 0, "ZED": 0, "cost": 6 },
-  { "group": "Middle Age", "rank": "6", "CCA": 0, "RCA": 0, "REF": -1, "INT": 0, "KNO": 2, "PRE": 0, "POW": 0, "STR": 0, "FOR": 0, "MOV": -1, "ZED": 0, "cost": -11 },
-  { "group": "Elder", "rank": "7", "CCA": -1, "RCA": -1, "REF": -1, "INT": 0, "KNO": 3, "PRE": -1, "POW": -1, "STR": -1, "FOR": -1, "MOV": -2, "ZED": 1, "cost": -32 },
-  { "group": "Aged", "rank": "8", "CCA": -2, "RCA": -2, "REF": -2, "INT": 0, "KNO": 4, "PRE": -2, "POW": 0, "STR": -2, "FOR": -2, "MOV": -3, "ZED": 2, "cost": -56 },
-  { "group": "Venerable", "rank": "9", "CCA": -3, "RCA": -3, "REF": -2, "INT": -1, "KNO": 5, "PRE": -2, "POW": 0, "STR": -2, "FOR": -3, "MOV": -4, "ZED": 3, "cost": -70 }
+  { "Group": "Infant", "Rank": "C", "CCA": -14, "RCA": -17, "REF": -12, "INT": -15, "KNO": -16, "PRE": -8, "POW": -17, "STR": -13, "FOR": -4, "MOV": -3, "ZED": -15, "Cost": -662 },
+  { "Group": "Toddler", "Rank": "B", "CCA": -10, "RCA": -12, "REF": -7, "INT": -10, "KNO": -12, "PRE": -7, "POW": -12, "STR": -10, "FOR": -3, "MOV": -2, "ZED": -12, "Cost": -486 },
+  { "Group": "Child", "Rank": "A", "CCA": -7, "RCA": -8, "REF": -3, "INT": -7, "KNO": -9, "PRE": -5, "POW": -8, "STR": -7, "FOR": -2, "MOV": -2, "ZED": -9, "Cost": -306 },
+  { "Group": "Youth", "Rank": "0", "CCA": -5, "RCA": -5, "REF": -1, "INT": -4, "KNO": -7, "PRE": -2, "POW": -5, "STR": -5, "FOR": -1, "MOV": -1, "ZED": -6, "Cost": -193 },
+  { "Group": "Early Teen", "Rank": "1", "CCA": -3, "RCA": -2, "REF": 0, "INT": -2, "KNO": -4, "PRE": -1, "POW": -3, "STR": -2, "FOR": 0, "MOV": 0, "ZED": -3, "Cost": -89 },
+  { "Group": "Teenager", "Rank": "2", "CCA": -1, "RCA": 0, "REF": 1, "INT": 0, "KNO": -2, "PRE": 0, "POW": -1, "STR": -1, "FOR": 0, "MOV": 0, "ZED": -2, "Cost": -21 },
+  { "Group": "Young Adult", "Rank": "3", "CCA": 0, "RCA": 0, "REF": 0, "INT": 0, "KNO": 0, "PRE": 0, "POW": 0, "STR": 0, "FOR": 0, "MOV": 0, "ZED": -1, "Cost": -5 },
+  { "Group": "Adult", "Rank": "4", "CCA": 0, "RCA": 0, "REF": 0, "INT": 0, "KNO": 0, "PRE": 0, "POW": 0, "STR": 0, "FOR": 0, "MOV": 0, "ZED": 0, "Cost": 0 },
+  { "Group": "Mature", "Rank": "5", "CCA": 0, "RCA": 0, "REF": 0, "INT": 0, "KNO": 1, "PRE": 1, "POW": 0, "STR": 0, "FOR": 0, "MOV": 0, "ZED": 0, "Cost": 6 },
+  { "Group": "Middle Age", "Rank": "6", "CCA": 0, "RCA": 0, "REF": -1, "INT": 0, "KNO": 2, "PRE": 0, "POW": 0, "STR": 0, "FOR": 0, "MOV": -1, "ZED": 0, "Cost": -11 },
+  { "Group": "Elder", "Rank": "7", "CCA": -1, "RCA": -1, "REF": -1, "INT": 0, "KNO": 3, "PRE": -1, "POW": -1, "STR": -1, "FOR": -1, "MOV": -2, "ZED": 1, "Cost": -32 },
+  { "Group": "Aged", "Rank": "8", "CCA": -2, "RCA": -2, "REF": -2, "INT": 0, "KNO": 4, "PRE": -2, "POW": 0, "STR": -2, "FOR": -2, "MOV": -3, "ZED": 2, "Cost": -56 },
+  { "Group": "Venerable", "Rank": "9", "CCA": -3, "RCA": -3, "REF": -2, "INT": -1, "KNO": 5, "PRE": -2, "POW": 0, "STR": -2, "FOR": -3, "MOV": -4, "ZED": 3, "Cost": -70 }
 ]
