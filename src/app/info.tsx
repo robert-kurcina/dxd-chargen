@@ -34,12 +34,12 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
 
   return (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-[76px] z-10 bg-white">
             <TableRow className="border-b-2 border-black">
               {tableHeaders.map((header) => (
                 <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>
@@ -71,7 +71,7 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -94,7 +94,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
 
   return (
     <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>{title}</CardTitle>
         <Select value={selectedKey} onValueChange={setSelectedKey}>
           <SelectTrigger className="w-[180px]">
@@ -129,9 +129,9 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             );
             return (
               <div key={key}>
-                {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans">{key}</h4>}
+                {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{key}</h4>}
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="sticky top-[124px] z-10 bg-white">
                         <TableRow className="border-b-2 border-black">
                         {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>)}
                         </TableRow>
@@ -159,15 +159,15 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
 // Special card for attribute definitions
 const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Attribute Definitions</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {data.map((group: any) => (
           <div key={group.groupName}>
-            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
+            <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{group.groupName}</h4>
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-[124px] z-10 bg-white">
                 <TableRow className="border-b-2 border-black">
                   <TableHead className="font-bold text-lg h-8">Name</TableHead>
                   <TableHead className="font-bold text-lg h-8">Abbreviation</TableHead>
@@ -195,15 +195,15 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
 // Special card for calculated abilities
 const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Calculated Abilities</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {data.map((group: any) => (
           <div key={group.groupName}>
-            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
+            <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{group.groupName}</h4>
             <Table>
-              <TableHeader>
+              <TableHeader className="sticky top-[124px] z-10 bg-white">
                 <TableRow className="border-b-2 border-black">
                   <TableHead className="font-bold text-lg h-8">Name</TableHead>
                   <TableHead className="font-bold text-lg h-8">Description</TableHead>
@@ -228,13 +228,13 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
 // Special card for Species
 const SpeciesCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Species</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {data.map((specie: any) => (
           <div key={specie.name}>
-            <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
+            <h3 className="font-bold text-lg mb-2 sticky top-[76px] z-10 bg-white py-2">{specie.name}</h3>
             {specie.groups.map((group: any) => (
               <div key={group.name} className="ml-4 mb-2">
                 <h4 className="font-semibold">{group.name}</h4>
@@ -291,7 +291,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>Adjustments</CardTitle>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[180px]">
@@ -318,9 +318,9 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
           return (
             <div key={key}>
-              <h4 className="text-lg mb-2 font-sans">{getTitle(key)}</h4>
+              <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{getTitle(key)}</h4>
               <Table>
-                <TableHeader>
+                <TableHeader className="sticky top-[124px] z-10 bg-white">
                   <TableRow className="border-b-2 border-black">
                     {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>)}
                   </TableRow>
@@ -352,9 +352,9 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   const HeritageTable = ({ title, data }: { title: string; data: any[] }) => (
     <div>
-      {selectedFilter === 'all' && <h4 className="text-lg mb-2 font-sans">{title}</h4>}
+      {selectedFilter === 'all' && <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{title}</h4>}
       <Table>
-        <TableHeader>
+        <TableHeader className="sticky top-[124px] z-10 bg-white">
           <TableRow className="border-b-2 border-black">
             <TableHead className="font-bold text-lg h-8">Entry</TableHead>
             <TableHead className="font-bold text-lg h-8">Talents</TableHead>
@@ -378,7 +378,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   return (
     <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>Heritage</CardTitle>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[180px]">
@@ -411,41 +411,35 @@ const TraitsCard = ({ data }: { data: any[] }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = useMemo(() => {
-    const categorySet = new Set<string>();
-    data.forEach(item => categorySet.add(item.category));
-    return Array.from(categorySet).sort();
-  }, [data]);
+    // These categories correspond to the boolean keys in the data
+    return ['Disability', 'Psychology', 'Virtuosity', 'Skill', 'Genetic', 'Asset', 'Intrinsic'];
+  }, []);
 
   const filteredData = useMemo(() => {
     if (selectedCategory === 'all') {
       return data;
     }
-    return data.filter(item => item.category === selectedCategory);
+    // Construct the boolean key, e.g., 'is' + 'Disability' -> 'isDisability'
+    const filterKey = `is${selectedCategory}`;
+    return data.filter(item => item[filterKey] === true);
   }, [data, selectedCategory]);
 
   const headers = [
-    'trait', 'interimTime', 'category', 'isDisability', 'im', 'isPsychology',
-    'isVirtuosity', 'isSkill', 'isGenetic', 'isAsset', 'isIntrinsic'
+    'trait', 'interimTime', 'category', 'im', 'Key'
   ];
   
   const headerTitles: Record<string, string> = {
     trait: 'Trait',
     interimTime: 'Interim Time',
     category: 'Category',
-    isDisability: 'Disability?',
     im: 'IM',
-    isPsychology: 'Psychology?',
-    isVirtuosity: 'Virtuosity?',
-    isSkill: 'Skill?',
-    isGenetic: 'Genetic?',
-    isAsset: 'Asset?',
-    isIntrinsic: 'Intrinsic?'
+    Key: 'Key'
   };
 
 
   return (
     <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="sticky top-0 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
         <CardTitle>Traits</CardTitle>
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-[180px]">
@@ -461,7 +455,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
       </CardHeader>
       <CardContent>
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-[76px] z-10 bg-white">
             <TableRow className="border-b-2 border-black">
               {headers.map(header => <TableHead key={header} className="font-bold text-lg h-8">{headerTitles[header]}</TableHead>)}
             </TableRow>
@@ -486,12 +480,12 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 
 const EmpiresCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Empires</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-[76px] z-10 bg-white">
             <TableRow className="border-b-2 border-black">
               <TableHead className="font-bold text-lg h-8">d6</TableHead>
               <TableHead className="font-bold text-lg h-8">name</TableHead>
@@ -516,12 +510,12 @@ const EmpiresCard = ({ data }: { data: any[] }) => (
 
 const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
     <Card className="bg-white">
-      <CardHeader>
+      <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Naming Practice Titles</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-[76px] z-10 bg-white">
             <TableRow className="border-b-2 border-black">
               <TableHead className="font-bold text-lg h-8">Rank</TableHead>
               <TableHead className="font-bold text-lg h-8">Guild</TableHead>
@@ -548,14 +542,14 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
 
 const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeeds: any[], randomPersonItemDeity: any[] }) => (
     <Card className="bg-white">
-        <CardHeader>
+        <CardHeader className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm">
             <CardTitle>Tragedy Seeds</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
              <div>
-                <h4 className="text-lg mb-2 font-sans">Template</h4>
+                <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">Template</h4>
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="sticky top-[124px] z-10 bg-white">
                         <TableRow className="border-b-2 border-black">
                             <TableHead className="font-bold text-lg h-8">d66</TableHead>
                             <TableHead className="font-bold text-lg h-8">seed</TableHead>
@@ -572,9 +566,9 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                 </Table>
              </div>
              <div>
-                <h4 className="text-lg mb-2 font-sans">Random Person, Item, Deity, Citystate</h4>
+                <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">Random Person, Item, Deity, Citystate</h4>
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="sticky top-[124px] z-10 bg-white">
                         <TableRow className="border-b-2 border-black">
                         <TableHead className="font-bold text-lg h-8">d66</TableHead>
                         <TableHead className="font-bold text-lg h-8">Person</TableHead>
@@ -644,8 +638,8 @@ export default function Info({ data }: { data: any }) {
     <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <AdjustmentsCard data={data} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
-      <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} />
-      <SimpleTableCard title="Characteristic Modifiers" data={characteristicModifiers} />
+      <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} headers={['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost']} />
+      <SimpleTableCard title="Characteristic Modifiers" data={characteristicModifiers} headers={['Group', 'Rank', 'Stature', 'Build', 'Bodypoints', 'Disads', 'Resilience', 'Cost']} />
       <SimpleTableCard title="Characteristic Costs" data={characteristicCosts} />
       <SimpleTableCard title="Age Groups" data={ageGroups} />
       <FilterableTableCard title="Attribute Arrays" data={attributeArrays} />
