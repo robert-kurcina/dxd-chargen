@@ -23,17 +23,23 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import type { StaticData } from '@/data';
+import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost } from '@/lib/character-logic';
 
 const isNumber = (value: any): boolean => {
   if (typeof value === 'boolean' || value === null || Array.isArray(value)) return false;
   const s = String(value).trim();
   if (s === '') return false;
-  // Check if it's a range like "1-4"
-  if (s.includes('-') && s.split('-').length === 2 && !isNaN(Number(s.split('-')[0])) && !isNaN(Number(s.split('-')[1]))) {
+  
+  // Check if it's a range like "1-4", but not a negative number like "-14"
+  const parts = s.split('-');
+  if (s.includes('-') && parts.length === 2 && parts.every(p => p.trim().length > 0) && !isNaN(Number(parts[0])) && !isNaN(Number(parts[1]))) {
       return false;
   }
+  
   return !isNaN(Number(s));
 };
+
 
 const formatHeader = (header: string) => {
   if (header.toUpperCase() === header && header.length > 1) return header;
@@ -82,6 +88,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
     for (const header of tableHeaders) {
       if (sortedData.every(row => {
         const value = row[header];
+        // The column is numeric if every value is either empty/null or a number.
         return value === null || value === undefined || value === '' || isNumber(value);
       })) {
         numeric.add(header);
@@ -192,7 +199,10 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             
             const numericHeaders = new Set<string>();
             for (const h of headers) {
-                if (sortedTableData.every(r => r[h] === null || r[h] === undefined || r[h] === '' || isNumber(r[h]))) {
+                if (sortedTableData.every(r => {
+                  const value = r[h];
+                  return value === null || value === undefined || value === '' || isNumber(value);
+                })) {
                     numericHeaders.add(h);
                 }
             }
@@ -418,7 +428,10 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
           
           const numericHeaders = new Set<string>();
           for (const h of headers) {
-              if (sortedTableData.every(r => r[h] === null || r[h] === undefined || r[h] === '' || isNumber(r[h]))) {
+              if (sortedTableData.every(r => {
+                const value = r[h];
+                return value === null || value === undefined || value === '' || isNumber(value)
+              })) {
                   numericHeaders.add(h);
               }
           }
@@ -437,7 +450,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                           {row[header]}
+                           {header.toLowerCase() === 'cost' && typeof row[header] === 'number' ? row[header] : row[header]}
                         </TableCell>
                       ))}
                     </TableRow>
@@ -741,7 +754,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
 
 
 // Main Info component
-export default function Info({ data }: { data: any }) {
+export default function Info({ data }: { data: StaticData }) {
   const {
     ageBrackets,
     attributeModifiers,
@@ -769,6 +782,7 @@ export default function Info({ data }: { data: any }) {
     pmlTitles,
     pointBuyCosts,
     professions,
+    randomPersonItemDeity,
     settlements,
     socialGroups,
     socialRanks,
