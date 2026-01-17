@@ -531,7 +531,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
           <TableBody>
             {data.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="py-2 pl-4 font-bold">{row['Rank']}</TableCell>
+                <TableCell className="py-2 pl-4 font-bold">{row['#']}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Guild}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Order}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Temple}</TableCell>

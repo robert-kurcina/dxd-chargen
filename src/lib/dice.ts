@@ -210,7 +210,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
                  if (rankMatch) {
                     result.professionRank = parseInt(rankMatch[1], 10);
                 } else {
-                    result.professionRank = parseInt(p['Rank'], 10);
+                    result.professionRank = parseInt(profRankByName['#'], 10);
                 }
             }
         }
