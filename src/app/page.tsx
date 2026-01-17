@@ -10,15 +10,17 @@ import Tests from './tests';
 export default function CharacterSheetPage() {
   return (
     <main className="p-4 md:p-8">
-      <Tabs defaultValue="overview" className="max-w-[960px] mx-auto">
+      <Tabs defaultValue="overview" className="w-full">
         <div className="sticky top-0 z-10 bg-gray-100 py-2">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="sample">Sample</TabsTrigger>
-            <TabsTrigger value="worksheet">Worksheet</TabsTrigger>
-            <TabsTrigger value="tests">Tests</TabsTrigger>
-            <TabsTrigger value="info">Info</TabsTrigger>
-          </TabsList>
+          <div className="max-w-[960px] mx-auto">
+            <TabsList className="grid w-full grid-cols-5">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="sample">Sample</TabsTrigger>
+              <TabsTrigger value="worksheet">Worksheet</TabsTrigger>
+              <TabsTrigger value="tests">Tests</TabsTrigger>
+              <TabsTrigger value="info">Info</TabsTrigger>
+            </TabsList>
+          </div>
         </div>
         <TabsContent value="overview">
           <CharacterSheet characterData={emptyData} />

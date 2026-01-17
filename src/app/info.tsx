@@ -641,7 +641,7 @@ export default function Info({ data }: { data: any }) {
   } = data;
 
   return (
-    <div className="space-y-8 mt-4">
+    <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <AdjustmentsCard data={data} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
       <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} />

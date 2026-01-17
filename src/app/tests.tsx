@@ -316,7 +316,7 @@ export default function Tests({ data }: { data: StaticData }) {
 
 
   return (
-    <div className="space-y-8 mt-4">
+    <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <TestSuite title="Dice Roller Demo">
           <p className="text-sm text-muted-foreground">
             Click the button to roll a D66 and look up the corresponding age group from the data table.

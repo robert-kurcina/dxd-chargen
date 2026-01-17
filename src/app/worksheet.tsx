@@ -4,7 +4,7 @@ import type { StaticData } from '@/data';
 
 export default function Worksheet({ data }: { data: StaticData }) {
   return (
-    <div className="space-y-8 mt-4">
+    <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <div className="p-4 border rounded-md">
         <h2 className="text-xl font-bold">Worksheet</h2>
         <p>
