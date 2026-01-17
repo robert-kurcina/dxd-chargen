@@ -20,7 +20,7 @@ export default function CharacterSheet({ characterData }: { characterData: any }
       className="text-black p-4 md:p-8 font-sans bg-cover bg-center"
       style={{ backgroundImage: `url(https://images.unsplash.com/photo-1579281783472-3b13411b415f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJjaG1lbnQlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTcxNDcwODc5N3ww&ixlib=rb-4.1.0&q=80&w=1080)` }}
     >
-      <div className="border border-gray-300 p-4 max-w-4xl mx-auto bg-white shadow-lg">
+      <div className="border border-gray-300 p-4 max-w-[960px] mx-auto bg-white shadow-lg">
         <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
           <div className="w-full md:w-2/3">
             <p className="text-lg text-gray-500 mb-1 text-[18px]">Name</p>
