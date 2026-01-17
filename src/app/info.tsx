@@ -23,6 +23,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import { formatPositiveNumber } from '@/lib/dice';
 
 // Generic component for a simple table in a card
 const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[]; headers?: string[] }) => {
@@ -164,7 +165,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
       <CardContent className="space-y-4">
         {data.map((group: any) => (
           <div key={group.groupName}>
-            <h4 className="text-md mb-2">{group.groupName}</h4>
+            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
             <Table>
               <TableHeader>
                 <TableRow className="border-b-2 border-black">
@@ -198,7 +199,7 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
       <CardContent className="space-y-4">
         {data.map((group: any) => (
           <div key={group.groupName}>
-            <h4 className="text-md mb-2">{group.groupName}</h4>
+            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
             <Table>
               <TableHeader>
                 <TableRow className="border-b-2 border-black">
@@ -311,6 +312,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
           const tableData = data[key];
           if (!tableData || tableData.length === 0) return null;
           const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
+          const isAttributeTable = key.includes('-attributes-');
 
           return (
             <div key={key}>
@@ -325,7 +327,11 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {tableData.map((row: any, index: number) => (
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
-                        <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>{row[header]}</TableCell>
+                        <TableCell key={header} className={cn('py-2 pl-4', { 'font-bold': headerIndex === 0 })}>
+                          {isAttributeTable && header.toLowerCase() !== 'lineage' && typeof row[header] === 'number'
+                            ? formatPositiveNumber(row[header])
+                            : row[header]}
+                        </TableCell>
                       ))}
                     </TableRow>
                   ))}
@@ -525,7 +531,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
           <TableBody>
             {data.map((row: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="py-2 pl-4 font-bold">{row['#']}</TableCell>
+                <TableCell className="py-2 pl-4 font-bold">{row['Rank']}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Guild}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Order}</TableCell>
                 <TableCell className="py-2 pl-4">{row.Temple}</TableCell>

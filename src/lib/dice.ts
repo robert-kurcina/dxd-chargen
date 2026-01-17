@@ -193,12 +193,12 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
         const name = trimmedPart.replace(/\[.+?\]/, '').trim();
 
         // Is it an Age Group? Prioritize this match.
-        const ageRankByName = data.ageGroups.find(g => g.ageGroup.toLowerCase() === name.toLowerCase())?.rank;
-        if (ageRankByName) {
+        const ageRankEntry = data.ageGroups.find(g => g.ageGroup.toLowerCase() === name.toLowerCase());
+        if (ageRankEntry) {
             if (rankMatch) {
                 result.ageRank = getAgeRankValue(rankMatch[1]);
             } else {
-                result.ageRank = getAgeRankValue(ageRankByName);
+                result.ageRank = getAgeRankValue(ageRankEntry.rank);
             }
         } else { 
             // Only if it's NOT an age group, check if it's a profession title
@@ -210,7 +210,7 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
                  if (rankMatch) {
                     result.professionRank = parseInt(rankMatch[1], 10);
                 } else {
-                    result.professionRank = parseInt(profRankByName['#'], 10);
+                    result.professionRank = parseInt(profRankByName['Rank'], 10);
                 }
             }
         }
@@ -270,4 +270,16 @@ export function adjustTalentByMaturity(talentString: string, maturityDifference:
     }
 
     return result;
+}
+
+/**
+ * Formats a number to include a leading '+' if it's positive.
+ * @param num The number to format.
+ * @returns A string representation of the number.
+ */
+export function formatPositiveNumber(num: number): string {
+  if (num > 0) {
+    return `+${num}`;
+  }
+  return String(num);
 }
