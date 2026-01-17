@@ -42,7 +42,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
           <TableHeader>
             <TableRow className="border-b-2 border-black">
               {tableHeaders.map((header) => (
-                <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>
+                <TableHead key={header} className="font-bold text-lg h-8 px-2">{header}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
@@ -129,11 +129,11 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             );
             return (
               <div key={key}>
-                {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{key}</h4>}
+                {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans">{key}</h4>}
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                        {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>)}
+                        {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{header}</TableHead>)}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -165,14 +165,14 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
       <CardContent className="space-y-4">
         {data.map((group: any) => (
           <div key={group.groupName}>
-            <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{group.groupName}</h4>
+            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
             <Table>
               <TableHeader>
                 <TableRow className="border-b-2 border-black">
-                  <TableHead className="font-bold text-lg h-8">Name</TableHead>
-                  <TableHead className="font-bold text-lg h-8">Abbreviation</TableHead>
-                  <TableHead className="font-bold text-lg h-8">Description</TableHead>
-                  <TableHead className="font-bold text-lg h-8">IM</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2">Abbreviation</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2">IM</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -201,12 +201,12 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
       <CardContent className="space-y-4">
         {data.map((group: any) => (
           <div key={group.groupName}>
-            <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{group.groupName}</h4>
+            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
             <Table>
               <TableHeader>
                 <TableRow className="border-b-2 border-black">
-                  <TableHead className="font-bold text-lg h-8">Name</TableHead>
-                  <TableHead className="font-bold text-lg h-8">Description</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                  <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -234,7 +234,7 @@ const SpeciesCard = ({ data }: { data: any[] }) => (
       <CardContent className="space-y-4">
         {data.map((specie: any) => (
           <div key={specie.name}>
-            <h3 className="font-bold text-lg mb-2 sticky top-[76px] z-10 bg-white py-2">{specie.name}</h3>
+            <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
             {specie.groups.map((group: any) => (
               <div key={group.name} className="ml-4 mb-2">
                 <h4 className="font-semibold">{group.name}</h4>
@@ -318,11 +318,11 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
           return (
             <div key={key}>
-              <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{getTitle(key)}</h4>
+              <h4 className="text-lg mb-2 font-sans">{getTitle(key)}</h4>
               <Table>
                 <TableHeader>
                   <TableRow className="border-b-2 border-black">
-                    {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8">{header}</TableHead>)}
+                    {headers.map((header) => <TableHead key={header} className="font-bold text-lg h-8 px-2">{header}</TableHead>)}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -352,14 +352,14 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   const HeritageTable = ({ title, data }: { title: string; data: any[] }) => (
     <div>
-      {selectedFilter === 'all' && <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">{title}</h4>}
+      {selectedFilter === 'all' && <h4 className="text-lg mb-2 font-sans">{title}</h4>}
       <Table>
         <TableHeader>
           <TableRow className="border-b-2 border-black">
-            <TableHead className="font-bold text-lg h-8">Entry</TableHead>
-            <TableHead className="font-bold text-lg h-8">Talents</TableHead>
-            <TableHead className="font-bold text-lg h-8">Cost</TableHead>
-            <TableHead className="font-bold text-lg h-8">Wealth</TableHead>
+            <TableHead className="font-bold text-lg h-8 px-2">Entry</TableHead>
+            <TableHead className="font-bold text-lg h-8 px-2">Talents</TableHead>
+            <TableHead className="font-bold text-lg h-8 px-2">Cost</TableHead>
+            <TableHead className="font-bold text-lg h-8 px-2">Wealth</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -457,7 +457,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-black">
-              {headers.map(header => <TableHead key={header} className="font-bold text-lg h-8">{headerTitles[header]}</TableHead>)}
+              {headers.map(header => <TableHead key={header} className="font-bold text-lg h-8 px-2">{headerTitles[header]}</TableHead>)}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -487,10 +487,10 @@ const EmpiresCard = ({ data }: { data: any[] }) => (
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-black">
-              <TableHead className="font-bold text-lg h-8">d6</TableHead>
-              <TableHead className="font-bold text-lg h-8">name</TableHead>
-              <TableHead className="font-bold text-lg h-8">region</TableHead>
-              <TableHead className="font-bold text-lg h-8">neighbors</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">d6</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">name</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">region</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">neighbors</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -517,11 +517,11 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-black">
-              <TableHead className="font-bold text-lg h-8">Rank</TableHead>
-              <TableHead className="font-bold text-lg h-8">Guild</TableHead>
-              <TableHead className="font-bold text-lg h-8">Order</TableHead>
-              <TableHead className="font-bold text-lg h-8">Temple</TableHead>
-              <TableHead className="font-bold text-lg h-8">Tradition</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Rank</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
+              <TableHead className="font-bold text-lg h-8 px-2">Tradition</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -547,12 +547,12 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
         </CardHeader>
         <CardContent className="space-y-4">
              <div>
-                <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">Template</h4>
+                <h4 className="text-lg mb-2 font-sans">Template</h4>
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                            <TableHead className="font-bold text-lg h-8">d66</TableHead>
-                            <TableHead className="font-bold text-lg h-8">seed</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">d66</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">seed</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -566,15 +566,15 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                 </Table>
              </div>
              <div>
-                <h4 className="text-lg mb-2 font-sans sticky top-[76px] z-10 bg-white py-2">Random Person, Item, Deity, Citystate</h4>
+                <h4 className="text-lg mb-2 font-sans">Random Person, Item, Deity, Citystate</h4>
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
-                        <TableHead className="font-bold text-lg h-8">d66</TableHead>
-                        <TableHead className="font-bold text-lg h-8">Person</TableHead>
-                        <TableHead className="font-bold text-lg h-8">Item</TableHead>
-                        <TableHead className="font-bold text-lg h-8">Citystate</TableHead>
-                        <TableHead className="font-bold text-lg h-8">Deity</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">d66</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Person</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Item</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Citystate</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Deity</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
