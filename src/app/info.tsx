@@ -34,12 +34,37 @@ const formatHeader = (header: string) => {
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
+const sortTable = (data: any[], key: string) => {
+    if (!data || data.length === 0) return [];
+    return [...data].sort((a, b) => {
+        const valA = a[key];
+        const valB = b[key];
+
+        if (typeof valA === 'number' && typeof valB === 'number') {
+            return valA - valB;
+        }
+        if (typeof valA === 'string' && typeof valB === 'string') {
+            const numA = parseInt(valA, 10);
+            const numB = parseInt(valB, 10);
+            if (!isNaN(numA) && !isNaN(numB) && String(numA) === valA && String(numB) === valB) {
+                return numA - numB;
+            }
+            return valA.localeCompare(valB);
+        }
+        // Fallback for mixed types or other types
+        return String(a[key]).localeCompare(String(b[key]));
+    });
+};
+
 // Generic component for a simple table in a card
 const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[]; headers?: string[] }) => {
   if (!data || data.length === 0) return null;
   const tableHeaders = headers ?? Object.keys(
     data.reduce((acc, curr) => ({ ...acc, ...curr }), {})
   );
+
+  const sortedData = sortTable(data, tableHeaders[0]);
+
 
   return (
     <Card className="bg-white">
@@ -56,7 +81,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((row, index) => (
+            {sortedData.map((row, index) => (
               <TableRow key={index}>
                 {tableHeaders.map((header, headerIndex) => (
                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
@@ -77,6 +102,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
 // Generic component for a list in a card
 const ListCard = ({ title, data }: { title: string; data: string[] }) => {
   if (!data || data.length === 0) return null;
+  const sortedData = [...data].sort((a,b) => a.localeCompare(b));
 
   return (
     <Card className="bg-white">
@@ -85,7 +111,7 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
       </CardHeader>
       <CardContent>
         <ul className="list-disc pl-5 space-y-1">
-          {data.map((item) => (
+          {sortedData.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
@@ -98,7 +124,7 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
 // Component for data that is an object of arrays, with a filter
 const FilterableTableCard = ({ title, data }: { title: string; data: Record<string, any[]> }) => {
   const [selectedKey, setSelectedKey] = useState('all');
-  const keys = Object.keys(data);
+  const keys = Object.keys(data).sort((a,b) => a.localeCompare(b));
   const itemsToShow = selectedKey === 'all' ? keys : [selectedKey];
 
   return (
@@ -125,10 +151,11 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             const isArrayOfPrimitives = typeof tableData[0] !== 'object';
             
             if (isArrayOfPrimitives) {
+                const sortedArray = [...tableData].sort((a,b) => String(a).localeCompare(String(b)));
                  return (
                     <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
-                        {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans">{key}</h4>}
-                        <p className="text-sm">{(tableData as any[]).join(', ')}</p>
+                        {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
+                        <p className="text-sm">{(sortedArray as any[]).join(', ')}</p>
                     </div>
                  )
             }
@@ -136,9 +163,10 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
             const headers = Object.keys(
               (tableData as any[]).reduce((acc, curr) => ({ ...acc, ...curr }), {})
             );
+            const sortedTableData = sortTable(tableData, headers[0]);
             return (
               <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
-                {selectedKey === 'all' && <h4 className="text-lg mb-2 font-sans">{key}</h4>}
+                {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b-2 border-black">
@@ -146,7 +174,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {tableData.map((row: any, index: number) => (
+                        {sortedTableData.map((row: any, index: number) => (
                         <TableRow key={index}>
                             {headers.map((header, headerIndex) => (
                             <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
@@ -166,95 +194,125 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
 }
 
 // Special card for attribute definitions
-const AttributeDefinitionsCard = ({ data }: { data: any[] }) => (
-    <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
-        <CardTitle>Attribute Definitions</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-12">
-        {data.map((group: any, groupIndex: number) => (
-          <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
-            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
-            <Table>
-              <TableHeader>
-                <TableRow className="border-b-2 border-black">
-                  <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
-                  <TableHead className="font-bold text-lg h-8 px-2">Abbreviation</TableHead>
-                  <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
-                  <TableHead className="font-bold text-lg h-8 px-2">IM</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {group.attributes.map((attr: any) => (
-                  <TableRow key={attr.abbreviation}>
-                    <TableCell className="py-2 px-2 font-bold">{attr.name}</TableCell>
-                    <TableCell className="py-2 px-2">{attr.abbreviation}</TableCell>
-                    <TableCell className="py-2 px-2">{attr.description}</TableCell>
-                    <TableCell className="py-2 px-2">{attr.im}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-);
+const AttributeDefinitionsCard = ({ data }: { data: any[] }) => {
+    const sortedData = useMemo(() => {
+        return data.map(group => ({
+            ...group,
+            attributes: sortTable(group.attributes, 'name')
+        })).sort((a, b) => a.groupName.localeCompare(b.groupName));
+    }, [data]);
+    
+    return (
+        <Card className="bg-white">
+        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+            <CardTitle>Attribute Definitions</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-12">
+            {sortedData.map((group: any, groupIndex: number) => (
+            <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
+                <h4 className="text-lg font-sans">{group.groupName}</h4>
+                <Table>
+                <TableHeader>
+                    <TableRow className="border-b-2 border-black">
+                    <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                    <TableHead className="font-bold text-lg h-8 px-2">Abbreviation</TableHead>
+                    <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
+                    <TableHead className="font-bold text-lg h-8 px-2">IM</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {group.attributes.map((attr: any) => (
+                    <TableRow key={attr.abbreviation}>
+                        <TableCell className="py-2 px-2 font-bold">{attr.name}</TableCell>
+                        <TableCell className="py-2 px-2">{attr.abbreviation}</TableCell>
+                        <TableCell className="py-2 px-2">{attr.description}</TableCell>
+                        <TableCell className="py-2 px-2">{attr.im}</TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </div>
+            ))}
+        </CardContent>
+        </Card>
+    );
+};
 
 // Special card for calculated abilities
-const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => (
-    <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
-        <CardTitle>Calculated Abilities</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-12">
-        {data.map((group: any, groupIndex: number) => (
-          <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
-            <h4 className="text-lg mb-2 font-sans">{group.groupName}</h4>
-            <Table>
-              <TableHeader>
-                <TableRow className="border-b-2 border-black">
-                  <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
-                  <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {group.abilities.map((ability: any) => (
-                  <TableRow key={ability.name}>
-                    <TableCell className="py-2 px-2 font-bold">{ability.name}</TableCell>
-                    <TableCell className="py-2 px-2">{ability.description}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-);
+const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => {
+    const sortedData = useMemo(() => {
+        return data.map(group => ({
+            ...group,
+            abilities: sortTable(group.abilities, 'name')
+        })).sort((a, b) => a.groupName.localeCompare(b.groupName));
+    }, [data]);
+
+    return (
+        <Card className="bg-white">
+        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+            <CardTitle>Calculated Abilities</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-12">
+            {sortedData.map((group: any, groupIndex: number) => (
+            <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
+                <h4 className="text-lg font-sans">{group.groupName}</h4>
+                <Table>
+                <TableHeader>
+                    <TableRow className="border-b-2 border-black">
+                    <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                    <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {group.abilities.map((ability: any) => (
+                    <TableRow key={ability.name}>
+                        <TableCell className="py-2 px-2 font-bold">{ability.name}</TableCell>
+                        <TableCell className="py-2 px-2">{ability.description}</TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </div>
+            ))}
+        </CardContent>
+        </Card>
+    )
+};
 
 
 // Special card for Species
-const SpeciesCard = ({ data }: { data: any[] }) => (
-    <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
-        <CardTitle>Species</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-12">
-        {data.map((specie: any, specieIndex: number) => (
-          <div key={specie.name}  className={specieIndex > 0 ? 'mt-12' : ''}>
-            <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
-            {specie.groups.map((group: any) => (
-              <div key={group.name} className="ml-4 mb-2">
-                <h4 className="font-semibold">{group.name}</h4>
-                <p className="ml-4 text-sm">{group.lineages.join(', ')}</p>
-              </div>
+const SpeciesCard = ({ data }: { data: any[] }) => {
+    const sortedData = useMemo(() => {
+        return data.map(specie => ({
+            ...specie,
+            groups: specie.groups.map((group:any) => ({
+                ...group,
+                lineages: [...group.lineages].sort((a,b) => a.localeCompare(b))
+            })).sort((a:any, b:any) => a.name.localeCompare(b.name))
+        })).sort((a,b) => a.name.localeCompare(b.name));
+    }, [data]);
+
+    return (
+        <Card className="bg-white">
+        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+            <CardTitle>Species</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-12">
+            {sortedData.map((specie: any, specieIndex: number) => (
+            <div key={specie.name}  className={specieIndex > 0 ? 'mt-12' : ''}>
+                <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
+                {specie.groups.map((group: any) => (
+                <div key={group.name} className="ml-4 mb-2">
+                    <h4 className="font-semibold">{group.name}</h4>
+                    <p className="ml-4 text-sm">{group.lineages.join(', ')}</p>
+                </div>
+                ))}
+            </div>
             ))}
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-);
+        </CardContent>
+        </Card>
+    )
+};
 
 const AdjustmentsCard = ({ data }: { data: any }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -269,8 +327,8 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
       }
     });
     return {
-      adjustmentKeys: keys,
-      ancestries: Array.from(ancestrySet),
+      adjustmentKeys: keys.sort((a,b) => a.localeCompare(b)),
+      ancestries: Array.from(ancestrySet).sort((a,b) => a.localeCompare(b)),
     };
   }, [data]);
 
@@ -324,10 +382,12 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
           if (!tableData || tableData.length === 0) return null;
           const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
           const isAttributeTable = key.includes('-attributes-');
+          const sortedTableData = sortTable(tableData, headers[0]);
+
 
           return (
             <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
-              <h4 className="text-lg mb-2 font-sans">{getTitle(key)}</h4>
+              <h4 className="text-lg font-sans">{getTitle(key)}</h4>
               <Table>
                 <TableHeader>
                   <TableRow className="border-b-2 border-black">
@@ -335,7 +395,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {tableData.map((row: any, index: number) => (
+                  {sortedTableData.map((row: any, index: number) => (
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
@@ -360,31 +420,40 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; environ: any[]; societal: any[] }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
-  const HeritageTable = ({ title, data }: { title: string; data: any[] }) => (
-    <div>
-      {selectedFilter === 'all' && <h4 className="text-lg mb-2 font-sans">{title}</h4>}
-      <Table>
-        <TableHeader>
-          <TableRow className="border-b-2 border-black">
-            <TableHead className="font-bold text-lg h-8 px-2">Entry</TableHead>
-            <TableHead className="font-bold text-lg h-8 px-2">Talents</TableHead>
-            <TableHead className="font-bold text-lg h-8 px-2">Wealth</TableHead>
-            <TableHead className="font-bold text-lg h-8 px-2">Cost</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((row: any, index: number) => (
-            <TableRow key={index}>
-              <TableCell className="py-2 px-2 font-bold">{row.entry}</TableCell>
-              <TableCell className="py-2 px-2">{row.talents}</TableCell>
-              <TableCell className="py-2 px-2">{row.wealth}</TableCell>
-              <TableCell className="py-2 px-2">{row.cost}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  );
+  const HeritageTable = ({ title, data, wealthOffset }: { title: string; data: any[], wealthOffset: number }) => {
+    const sortedData = sortTable(data, 'entry');
+
+    return (
+        <div>
+            {selectedFilter === 'all' && (
+                <>
+                    <h4 className="text-lg font-sans">{title}</h4>
+                    <p className="text-xs text-muted-foreground -mt-2 mb-2">Wealth Offset: {wealthOffset}</p>
+                </>
+            )}
+            <Table>
+                <TableHeader>
+                    <TableRow className="border-b-2 border-black">
+                        <TableHead className="font-bold text-lg h-8 px-2">Entry</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Talents</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Wealth</TableHead>
+                        <TableHead className="font-bold text-lg h-8 px-2">Cost</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                {sortedData.map((row: any, index: number) => (
+                    <TableRow key={index}>
+                    <TableCell className="py-2 px-2 font-bold">{row.entry}</TableCell>
+                    <TableCell className="py-2 px-2">{row.talents}</TableCell>
+                    <TableCell className="py-2 px-2">{row.wealth}</TableCell>
+                    <TableCell className="py-2 px-2">{row.cost}</TableCell>
+                    </TableRow>
+                ))}
+                </TableBody>
+            </Table>
+        </div>
+    );
+  };
 
   return (
     <Card className="bg-white">
@@ -404,16 +473,16 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
       </CardHeader>
       <CardContent className="space-y-12">
         {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
-          <HeritageTable title="Cultural Heritage" data={cultural} />
+          <HeritageTable title="Cultural Heritage" data={cultural} wealthOffset={0} />
         )}
         {(selectedFilter === 'all' || selectedFilter === 'environ') && (
           <div className={selectedFilter === 'environ' ? '' : 'mt-12'}>
-            <HeritageTable title="Environ Heritage" data={environ} />
+            <HeritageTable title="Environ Heritage" data={environ} wealthOffset={0} />
           </div>
         )}
         {(selectedFilter === 'all' || selectedFilter === 'societal') && (
           <div className={selectedFilter === 'societal' ? '' : 'mt-12'}>
-            <HeritageTable title="Societal Heritage" data={societal} />
+            <HeritageTable title="Societal Heritage" data={societal} wealthOffset={10} />
           </div>
         )}
       </CardContent>
@@ -425,17 +494,17 @@ const TraitsCard = ({ data }: { data: any[] }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = useMemo(() => {
-    // These categories correspond to the boolean keys in the data
     return ['Disability', 'Psychology', 'Virtuosity', 'Skill', 'Genetic', 'Asset', 'Intrinsic'];
   }, []);
 
   const filteredData = useMemo(() => {
+    let sorted = sortTable(data, 'trait');
+
     if (selectedCategory === 'all') {
-      return data;
+      return sorted;
     }
-    // Construct the boolean key, e.g., 'is' + 'Disability' -> 'isDisability'
     const filterKey = `is${selectedCategory}`;
-    return data.filter(item => item[filterKey] === true);
+    return sorted.filter(item => item[filterKey] === true);
   }, [data, selectedCategory]);
 
   const headers = [
@@ -492,37 +561,42 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 };
 
 
-const EmpiresCard = ({ data }: { data: any[] }) => (
-    <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
-        <CardTitle>Empires</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-2 border-black">
-              <TableHead className="font-bold text-lg h-8 px-2">D6</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((row: any, index: number) => (
-              <TableRow key={index}>
-                <TableCell className="py-2 px-2 font-bold">{row.id}</TableCell>
-                <TableCell className="py-2 px-2">{row.name}</TableCell>
-                <TableCell className="py-2 px-2">{row.region}</TableCell>
-                <TableCell className="py-2 px-2">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
-);
+const EmpiresCard = ({ data }: { data: any[] }) => {
+    const sortedData = sortTable(data, 'id');
+    return (
+        <Card className="bg-white">
+        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+            <CardTitle>Empires</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <Table>
+            <TableHeader>
+                <TableRow className="border-b-2 border-black">
+                <TableHead className="font-bold text-lg h-8 px-2">D6</TableHead>
+                <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
+                <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {sortedData.map((row: any, index: number) => (
+                <TableRow key={index}>
+                    <TableCell className="py-2 px-2 font-bold">{row.id}</TableCell>
+                    <TableCell className="py-2 px-2">{row.name}</TableCell>
+                    <TableCell className="py-2 px-2">{row.region}</TableCell>
+                    <TableCell className="py-2 px-2">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
+                </TableRow>
+                ))}
+            </TableBody>
+            </Table>
+        </CardContent>
+        </Card>
+    );
+};
 
-const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
+const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
+    const sortedData = sortTable(data, 'Rank');
+    return (
     <Card className="bg-white">
       <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
         <CardTitle>Naming Practice Titles</CardTitle>
@@ -539,7 +613,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((row: any, index: number) => (
+            {sortedData.map((row: any, index: number) => (
               <TableRow key={index}>
                 <TableCell className="py-2 px-2 font-bold">{row['Rank']}</TableCell>
                 <TableCell className="py-2 px-2">{row.Guild}</TableCell>
@@ -552,9 +626,14 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
         </Table>
       </CardContent>
     </Card>
-);
+    );
+};
 
-const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeeds: any[], randomPersonItemDeity: any[] }) => (
+const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeeds: any[], randomPersonItemDeity: any[] }) => {
+    const sortedTragedySeeds = sortTable(tragedySeeds, 'd66');
+    const sortedRandom = sortTable(randomPersonItemDeity, 'd66');
+
+    return (
     <Card className="bg-white">
         <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
             <CardTitle>Tragedy Seeds</CardTitle>
@@ -570,7 +649,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {tragedySeeds.map((row: any, index: number) => (
+                        {sortedTragedySeeds.map((row: any, index: number) => (
                             <TableRow key={index}>
                                 <TableCell className="py-2 px-2 font-bold">{row.d66}</TableCell>
                                 <TableCell className="py-2 px-2">{row.seed}</TableCell>
@@ -592,7 +671,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {randomPersonItemDeity.map((row: any, index: number) => (
+                        {sortedRandom.map((row: any, index: number) => (
                         <TableRow key={index}>
                             <TableCell className="py-2 px-2 font-bold">{row.d66}</TableCell>
                             <TableCell className="py-2 px-2">{row.Person}</TableCell>
@@ -607,6 +686,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
         </CardContent>
     </Card>
 );
+}
 
 
 // Main Info component
@@ -648,39 +728,56 @@ export default function Info({ data }: { data: any }) {
     steps,
   } = data;
 
+  const sortedAttributeModifiers = sortTable(attributeModifiers, 'Group');
+  const sortedCharacteristicModifiers = sortTable(characteristicModifiers, 'Group');
+  const sortedBeliefs = sortTable(beliefs, 'keyword');
+  const sortedCityStates = sortTable(citystates, 'name');
+  const sortedDeities = sortTable(deities, 'deity');
+  const sortedDescriptors = sortTable(descriptors, 'd66');
+  const sortedDisabilities = sortTable(disabilities, 'd66');
+  const sortedNotableFeatures = sortTable(notableFeatures, 'd66');
+  const sortedPhysicalBlemishes = sortTable(physicalBlemishes, 'd66');
+  const sortedPmlTitles = sortTable(pmlTitles, 'level');
+  const sortedPointBuyCosts = sortTable(pointBuyCosts, 'value');
+  const sortedProfessions = sortTable(professions, 'trade');
+  const sortedSocialGroups = sortTable(socialGroups, 'rank');
+  const sortedSocialRanks = sortTable(socialRanks, 'society');
+  const sortedWealthTitles = sortTable(wealthTitles, 'rank');
+
+
   return (
     <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <AdjustmentsCard data={data} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
-      <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} headers={['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost']} />
-      <SimpleTableCard title="Characteristic Modifiers" data={characteristicModifiers} headers={['Group', 'Rank', 'Stature', 'Build', 'Bodypoints', 'Disads', 'Resilience', 'Cost']} />
+      <SimpleTableCard title="Attribute Modifiers" data={sortedAttributeModifiers} headers={['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost']} />
+      <SimpleTableCard title="Characteristic Modifiers" data={sortedCharacteristicModifiers} headers={['Group', 'Rank', 'Stature', 'Build', 'Bodypoints', 'Disads', 'Resilience', 'Cost']} />
       <SimpleTableCard title="Characteristic Costs" data={characteristicCosts} />
       <SimpleTableCard title="Age Groups" data={ageGroups} />
       <FilterableTableCard title="Attribute Arrays" data={attributeArrays} />
       <AttributeDefinitionsCard data={attributeDefinitions} />
-      <SimpleTableCard title="Beliefs" data={beliefs} />
+      <SimpleTableCard title="Beliefs" data={sortedBeliefs} />
       <CalculatedAbilitiesCard data={calculatedAbilities} />
-      <SimpleTableCard title="City States" data={citystates} />
-      <SimpleTableCard title="Deities" data={deities} />
-      <SimpleTableCard title="Descriptors" data={descriptors} headers={['d66', '1,2', '3,4', '5,6']}/>
-      <SimpleTableCard title="Disabilities" data={disabilities} />
+      <SimpleTableCard title="City States" data={sortedCityStates} />
+      <SimpleTableCard title="Deities" data={sortedDeities} />
+      <SimpleTableCard title="Descriptors" data={sortedDescriptors} headers={['d66', '1,2', '3,4', '5,6']}/>
+      <SimpleTableCard title="Disabilities" data={sortedDisabilities} />
       <ListCard title="Economic Statuses" data={economicStatuses} />
       <EmpiresCard data={empires} />
       <ListCard title="Environs" data={environs} />
       <HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} />
       <NamingPracticeTitlesCard data={namingPracticeTitles} />
-      <SimpleTableCard title="Notable Features" data={notableFeatures} />
-      <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
-      <SimpleTableCard title="PML Titles" data={pmlTitles} />
-      <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
-      <SimpleTableCard title="Professions" data={professions} />
+      <SimpleTableCard title="Notable Features" data={sortedNotableFeatures} />
+      <SimpleTableCard title="Physical Blemishes" data={sortedPhysicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
+      <SimpleTableCard title="PML Titles" data={sortedPmlTitles} />
+      <SimpleTableCard title="Point Buy Costs" data={sortedPointBuyCosts} />
+      <SimpleTableCard title="Professions" data={sortedProfessions} />
       <FilterableTableCard title="Settlements" data={settlements} />
-      <SimpleTableCard title="Social Groups" data={socialGroups} />
-      <SimpleTableCard title="Social Ranks" data={socialRanks} />
+      <SimpleTableCard title="Social Groups" data={sortedSocialGroups} />
+      <SimpleTableCard title="Social Ranks" data={sortedSocialRanks} />
       <SpeciesCard data={species} />
       <TragedySeedsCard tragedySeeds={tragedySeeds} randomPersonItemDeity={data.randomPersonItemDeity} />
       <TraitsCard data={traits} />
-      <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
+      <SimpleTableCard title="Wealth Titles" data={sortedWealthTitles} />
     </div>
   );
 }
