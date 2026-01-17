@@ -1,20 +1,20 @@
 
 [
-  { "entry": "Tundra", "talents": "**Survival 2 > Tundra. **Navigation 2. **Hunter 2.", "cost": 10, "wealth": -2 },
-  { "entry": "Taiga", "talents": "Survival 2 > Taiga. Surefooted. Navigation. *Hunter.", "cost": 6, "wealth": -3 },
-  { "entry": "Badlands", "talents": "*Survival 2 > Badlands. Navigation 2. **Surefooted. Tracking.", "cost": 8, "wealth": -3 },
-  { "entry": "Mountain", "talents": "Brawn. *Surefooted. **Mountaineering. **Climb 3. Tracking.", "cost": 11, "wealth": 0 },
-  { "entry": "Deserts", "talents": "*Grit. *Navigation 2. **Survival 2 > Deserts", "cost": 11, "wealth": 1 },
-  { "entry": "Plains", "talents": "*Navigation 2. Barter. **Husbandry. ***Domus 2 > Herder.", "cost": 10, "wealth": 1 },
-  { "entry": "Jungle", "talents": "**Survival 3 > Jungle. Forage. *Climb 2.", "cost": 10, "wealth": 0 },
-  { "entry": "Savannah", "talents": "*Navigation 2. **Survival 2 > Savannah. ***Hunter 2.", "cost": 10, "wealth": 0 },
-  { "entry": "Hills", "talents": "*Riding. Husbandry. Forage. **Navigation. **Climb 2.", "cost": 11, "wealth": 1 },
-  { "entry": "Swamp", "talents": "*Wise. Swim. Survival > Swamp. *Steer 2 > Boat. **Fishing 3.", "cost": 8, "wealth": -2 },
-  { "entry": "Marsh", "talents": "**Barter 2. Surefooted. **Navigation 2. **Brawn. *Fishing 2.", "cost": 10, "wealth": -1 },
-  { "entry": "Coastal", "talents": "*Barter. Gossip. *Swim. *****Fishing 4. ****Navigation 2.", "cost": 6, "wealth": 2 },
-  { "entry": "River", "talents": "Suss. Barter. *Swim. *Steer 2 > Boat. ***Fishing 3.", "cost": 9, "wealth": 2 },
-  { "entry": "Forests", "talents": "***Hunter 2. ***Tracking 2. *Forage 2.", "cost": 9, "wealth": 1 },
-  { "entry": "Woods", "talents": "*Forage 2. *Survival > Woods. *Hunter.", "cost": 10, "wealth": 2 },
-  { "entry": "Grassland", "talents": "*Navigation 2. *Survival > Grassland. **Domus 2 > Herder. *Barter.", "cost": 11, "wealth": 0 }
+  { "entry": "Tundra", "talents": "**Survival 2 > Tundra. **Navigation 2. **Hunter 2.", "wealth": -2, "cost": 10 },
+  { "entry": "Taiga", "talents": "Survival 2 > Taiga. Surefooted. Navigation. *Hunter.", "wealth": -3, "cost": 6 },
+  { "entry": "Badlands", "talents": "*Survival 2 > Badlands. Navigation 2. **Surefooted. Tracking.", "wealth": -3, "cost": 8 },
+  { "entry": "Mountain", "talents": "Brawn. *Surefooted. **Mountaineering. **Climb 3. Tracking.", "wealth": 0, "cost": 11 },
+  { "entry": "Deserts", "talents": "*Grit. *Navigation 2. **Survival 2 > Deserts", "wealth": 1, "cost": 12 },
+  { "entry": "Plains", "talents": "*Navigation 2. Barter. **Husbandry. ***Domus 2 > Herder.", "wealth": 1, "cost": 11 },
+  { "entry": "Jungle", "talents": "**Survival 3 > Jungle. Forage. *Climb 2.", "wealth": 0, "cost": 10 },
+  { "entry": "Savannah", "talents": "*Navigation 2. **Survival 2 > Savannah. ***Hunter 2.", "wealth": 0, "cost": 10 },
+  { "entry": "Hills", "talents": "*Riding. Husbandry. Forage. **Navigation. **Climb 2.", "wealth": 1, "cost": 12 },
+  { "entry": "Swamp", "talents": "*Wise. Swim. Survival > Swamp. *Steer 2 > Boat. **Fishing 3.", "wealth": -2, "cost": 8 },
+  { "entry": "Marsh", "talents": "**Barter 2. Surefooted. **Navigation 2. **Brawn. *Fishing 2.", "wealth": -1, "cost": 10 },
+  { "entry": "Coastal", "talents": "*Barter. Gossip. *Swim. *****Fishing 4. ****Navigation 2.", "wealth": 2, "cost": 8 },
+  { "entry": "River", "talents": "Suss. Barter. *Swim. *Steer 2 > Boat. ***Fishing 3.", "wealth": 2, "cost": 11 },
+  { "entry": "Forests", "talents": "***Hunter 2. ***Tracking 2. *Forage 2.", "wealth": 1, "cost": 10 },
+  { "entry": "Woods", "talents": "*Forage 2. *Survival > Woods. *Hunter.", "wealth": 2, "cost": 12 },
+  { "entry": "Grassland", "talents": "*Navigation 2. *Survival > Grassland. **Domus 2 > Herder. *Barter.", "wealth": 0, "cost": 11 }
 ]
 

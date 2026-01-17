@@ -23,7 +23,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { formatPositiveNumber } from '@/lib/character-logic';
 
 const formatHeader = (header: string) => {
   if (header.toUpperCase() === header && header.length > 1) return header;
@@ -399,10 +398,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0 })}>
-                          {header.toLowerCase() === 'cost' ? row[header] : 
-                           isAttributeTable && header.toLowerCase() !== 'lineage' && typeof row[header] === 'number'
-                            ? formatPositiveNumber(row[header])
-                            : row[header]}
+                           {row[header]}
                         </TableCell>
                       ))}
                     </TableRow>
@@ -420,7 +416,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; environ: any[]; societal: any[] }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
-  const HeritageTable = ({ title, data, wealthOffset }: { title: string; data: any[], wealthOffset: number }) => {
+  const HeritageTable = ({ title, data, wealthClamp }: { title: string; data: any[], wealthClamp: number }) => {
     const sortedData = sortTable(data, 'entry');
 
     return (
@@ -428,7 +424,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
             {selectedFilter === 'all' && (
                 <>
                     <h4 className="text-lg font-sans">{title}</h4>
-                    <p className="text-xs text-muted-foreground -mt-2 mb-2">Wealth Offset: {wealthOffset}</p>
+                    <p className="text-xs text-muted-foreground -mt-2 mb-2">Wealth Clamp: {wealthClamp}</p>
                 </>
             )}
             <Table>
@@ -473,16 +469,16 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
       </CardHeader>
       <CardContent className="space-y-12">
         {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
-          <HeritageTable title="Cultural Heritage" data={cultural} wealthOffset={0} />
+          <HeritageTable title="Cultural Heritage" data={cultural} wealthClamp={0} />
         )}
         {(selectedFilter === 'all' || selectedFilter === 'environ') && (
           <div className={selectedFilter === 'environ' ? '' : 'mt-12'}>
-            <HeritageTable title="Environ Heritage" data={environ} wealthOffset={0} />
+            <HeritageTable title="Environ Heritage" data={environ} wealthClamp={0} />
           </div>
         )}
         {(selectedFilter === 'all' || selectedFilter === 'societal') && (
           <div className={selectedFilter === 'societal' ? '' : 'mt-12'}>
-            <HeritageTable title="Societal Heritage" data={societal} wealthOffset={10} />
+            <HeritageTable title="Societal Heritage" data={societal} wealthClamp={10} />
           </div>
         )}
       </CardContent>

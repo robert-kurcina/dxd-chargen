@@ -1,14 +1,14 @@
 
 [
-  { "entry": "Peasant", "talents": "*Suss 2. *Wise 2. Forage. *Discipline. **Mob. ***Implore 2. ***Politics 3.", "cost": 36, "wealth": 0 },
-  { "entry": "Slumfolk", "talents": "*Suss 3. *Barter 3. ***Gambling 4. **Mob. **Implore 2. ***Politics 2. **Pidgin > Barter. Service.", "cost": 40, "wealth": 4 },
-  { "entry": "Townsfolk", "talents": "Suss. *Read 2. Barter. *Politics. **Design. *Studies 2. **Artist 2.", "cost": 45, "wealth": 9 },
-  { "entry": "Cityfolk", "talents": "Read. *History. *Politics. Lore. Academics. **Studies 2.", "cost": 40, "wealth": 11 },
-  { "entry": "Tribal", "talents": "Suss. *Wise. Tactics. *Hunter 2. Forage. *Tracking. ***Politics 3. *Politics.", "cost": 34, "wealth": 4 },
-  { "entry": "Landed", "talents": "[***Coward 4][**Enemies]. Read. *History 2. *Connections 2. Title. Studies.", "cost": 14, "wealth": 13 },
-  { "entry": "Aristocrats", "talents": "[*Coward 2][*Enemies 2]. Read. *History 2. Gambling. Suss. ***Connections 2. *Peerage 2. **Riding. Title 2. **Studies 3.", "cost": 24, "wealth": 16 },
-  { "entry": "Nobles", "talents": "[*Paranoid 2]. [**Enemies 3]. Read. History. Military. **Peerage 3. *Leadership. *Riding 2. Politics. ***Connections 3. Title 3.", "cost": 22, "wealth": 18 },
-  { "entry": "Royalty", "talents": "[**Feeble 2][**Enemies 3]. **[Paranoid 3] *Fawn. *Primp. Leadership 2. ***Politics 2. Title 4. ***Peerage 3. ***Retinue. ***Connections 2. *Language > any High.", "cost": -20, "wealth": 21 },
-  { "entry": "Imperial", "talents": "**[Paranoid 3] **[Feeble] **[Enemies 4]. **Peerage 3. Read. **Leadership 2. ***Retinue. **Politics. ***Connections 2. **Title 5. *Language. History.", "cost": -4, "wealth": 24 }
+  { "entry": "Peasant", "talents": "*Suss 2. *Wise 2. Forage. *Discipline. **Mob. ***Implore 2. ***Politics 3.", "wealth": 0, "cost": 26 },
+  { "entry": "Slumfolk", "talents": "*Suss 3. *Barter 3. ***Gambling 4. **Mob. **Implore 2. ***Politics 2. **Pidgin > Barter. Service.", "wealth": 4, "cost": 30 },
+  { "entry": "Townsfolk", "talents": "Suss. *Read 2. Barter. *Politics. **Design. *Studies 2. **Artist 2.", "wealth": 9, "cost": 35 },
+  { "entry": "Cityfolk", "talents": "Read. *History. *Politics. Lore. Academics. **Studies 2.", "wealth": 11, "cost": 31 },
+  { "entry": "Tribal", "talents": "Suss. *Wise. Tactics. *Hunter 2. Forage. *Tracking. ***Politics 3. *Politics.", "wealth": 4, "cost": 24 },
+  { "entry": "Landed", "talents": "[***Coward 4][**Enemies]. Read. *History 2. *Connections 2. Title. Studies.", "wealth": 13, "cost": 17 },
+  { "entry": "Aristocrats", "talents": "[*Coward 2][*Enemies 2]. Read. *History 2. Gambling. Suss. ***Connections 2. *Peerage 2. **Riding. Title 2. **Studies 3.", "wealth": 16, "cost": 30 },
+  { "entry": "Nobles", "talents": "[*Paranoid 2]. [**Enemies 3]. Read. History. Military. **Peerage 3. *Leadership. *Riding 2. Politics. ***Connections 3. Title 3.", "wealth": 18, "cost": 30 },
+  { "entry": "Royalty", "talents": "[**Feeble 2][**Enemies 3]. **[Paranoid 3] *Fawn. *Primp. Leadership 2. ***Politics 2. Title 4. ***Peerage 3. ***Retinue. ***Connections 2. *Language > any High.", "wealth": 21, "cost": -9 },
+  { "entry": "Imperial", "talents": "**[Paranoid 3] **[Feeble] **[Enemies 4]. **Peerage 3. Read. **Leadership 2. ***Retinue. **Politics. ***Connections 2. **Title 5. *Language. History.", "wealth": 24, "cost": 10 }
 ]
 
