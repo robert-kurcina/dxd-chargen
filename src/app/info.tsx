@@ -546,6 +546,60 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => (
     </Card>
 );
 
+const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeeds: any[], randomPersonItemDeity: any[] }) => (
+    <Card className="bg-white">
+        <CardHeader>
+            <CardTitle>Tragedy Seeds</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+             <div>
+                <h4 className="text-lg mb-2 font-sans">Template</h4>
+                <Table>
+                    <TableHeader>
+                        <TableRow className="border-b-2 border-black">
+                            <TableHead className="font-bold text-lg h-8">d66</TableHead>
+                            <TableHead className="font-bold text-lg h-8">seed</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {tragedySeeds.map((row: any, index: number) => (
+                            <TableRow key={index}>
+                                <TableCell className="py-2 pl-4 font-bold">{row.d66}</TableCell>
+                                <TableCell className="py-2 pl-4">{row.seed}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+             </div>
+             <div>
+                <h4 className="text-lg mb-2 font-sans">Random Person, Item, Deity, Citystate</h4>
+                <Table>
+                    <TableHeader>
+                        <TableRow className="border-b-2 border-black">
+                        <TableHead className="font-bold text-lg h-8">d66</TableHead>
+                        <TableHead className="font-bold text-lg h-8">Person</TableHead>
+                        <TableHead className="font-bold text-lg h-8">Item</TableHead>
+                        <TableHead className="font-bold text-lg h-8">Citystate</TableHead>
+                        <TableHead className="font-bold text-lg h-8">Deity</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {randomPersonItemDeity.map((row: any, index: number) => (
+                        <TableRow key={index}>
+                            <TableCell className="py-2 pl-4 font-bold">{row.d66}</TableCell>
+                            <TableCell className="py-2 pl-4">{row.Person}</TableCell>
+                            <TableCell className="py-2 pl-4">{row.Item}</TableCell>
+                            <TableCell className="py-2 pl-4">{row.Citystate}</TableCell>
+                            <TableCell className="py-2 pl-4">{row.Deity}</TableCell>
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+             </div>
+        </CardContent>
+    </Card>
+);
+
 
 // Main Info component
 export default function Info({ data }: { data: any }) {
@@ -575,7 +629,6 @@ export default function Info({ data }: { data: any }) {
     pmlTitles,
     pointBuyCosts,
     professions,
-    randomPersonItemDeity,
     settlements,
     socialGroups,
     socialRanks,
@@ -610,13 +663,12 @@ export default function Info({ data }: { data: any }) {
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
       <SimpleTableCard title="PML Titles" data={pmlTitles} />
       <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
-      <SimpleTableCard title="Random Person Item Deity" data={randomPersonItemDeity} />
       <SimpleTableCard title="Professions" data={professions} />
       <FilterableTableCard title="Settlements" data={settlements} />
       <SimpleTableCard title="Social Groups" data={socialGroups} />
       <SimpleTableCard title="Social Ranks" data={socialRanks} />
       <SpeciesCard data={species} />
-      <SimpleTableCard title="Tragedy Seeds" data={tragedySeeds} />
+      <TragedySeedsCard tragedySeeds={tragedySeeds} randomPersonItemDeity={data.randomPersonItemDeity} />
       <TraitsCard data={traits} />
       <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
     </div>

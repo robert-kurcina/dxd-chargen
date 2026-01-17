@@ -223,7 +223,6 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
         const rankMatch = trimmedPart.match(/\[(.+?)\]/);
         const name = trimmedPart.replace(/\[.+?\]/, '').trim();
 
-        // Is it an Age Group? Prioritize this match.
         const ageRankEntry = data.ageGroups.find(g => g.ageGroup.toLowerCase() === name.toLowerCase());
         if (ageRankEntry) {
             if (rankMatch) {
@@ -231,11 +230,9 @@ export function parseMaturityString(maturityString: string, data: { ageGroups: S
             } else {
                 result.ageRank = getAgeRankValue(ageRankEntry.rank);
             }
-            // If we found an age group, don't also look for a profession title with the same name
             continue;
         } 
         
-        // Only if it's NOT an age group, check if it's a profession title
         const profRankByName = data.namingPracticeTitles.find(
             p => Object.values(p).some(val => typeof val === 'string' && val.toLowerCase() === name.toLowerCase())
         );
@@ -387,4 +384,64 @@ export function getAgeInYears(
 
   // Return a random integer from startAge (inclusive) to endAge (exclusive)
   return Math.floor(Math.random() * (endAge - startAge)) + startAge;
+}
+
+/**
+ * Parses a tragedy seed template string to extract keywords.
+ * Keywords are enclosed in parentheses, e.g., "(Person)". The keyword "Self" is ignored.
+ * @param template The template string, e.g., "(Person) Killed by (Event and Member)".
+ * @returns An array of keywords found in the template, excluding "Self".
+ */
+export function parseTragedyTemplate(template: string): string[] {
+  const matches = template.match(/\((.*?)\)/g);
+  if (!matches) {
+    return [];
+  }
+  // Remove parentheses and filter out "Self"
+  return matches.map(m => m.slice(1, -1)).filter(k => k.toLowerCase() !== 'self');
+}
+
+/**
+ * Looks up a value for a specific keyword from the "Random Person Item Deity" table using a D66 roll.
+ * @param keyword The column name to look up (e.g., "Person", "Citystate").
+ * @param d66Roll The D66 roll to find the row.
+ * @param table The `randomPersonItemDeity` data table.
+ * @returns The looked-up value, or "UNKNOWN" if the column doesn't exist.
+ */
+export function lookupTragedyKeyword(keyword: string, d66Roll: number, table: StaticData['randomPersonItemDeity']): string {
+  const row = d66Lookup(d66Roll, table);
+  if (!row) {
+    return "UNKNOWN_ROW";
+  }
+
+  // Find a key that matches the keyword case-insensitively
+  const matchingKey = Object.keys(row).find(key => key.toLowerCase() === keyword.toLowerCase());
+
+  if (matchingKey) {
+    return row[matchingKey];
+  }
+
+  return "UNKNOWN_KEYWORD";
+}
+
+
+/**
+ * Resolves a full tragedy seed template by looking up its keywords.
+ * @param template The template string to resolve.
+ * @param randomPersonItemDeityTable The data table for lookups.
+ * @returns The resolved string.
+ */
+export function resolveTragedySeed(template: string, randomPersonItemDeityTable: StaticData['randomPersonItemDeity']): string {
+  const keywords = parseTragedyTemplate(template);
+  let resolvedString = template;
+
+  for (const keyword of keywords) {
+    const roll = D66();
+    const replacement = lookupTragedyKeyword(keyword, roll, randomPersonItemDeityTable);
+    // Use a regex to replace the keyword, case-insensitively, only once.
+    const regex = new RegExp(`\\(${keyword}\\)`, 'i');
+    resolvedString = resolvedString.replace(regex, replacement);
+  }
+
+  return resolvedString;
 }

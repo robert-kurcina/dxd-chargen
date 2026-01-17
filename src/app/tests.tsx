@@ -17,7 +17,8 @@ import {
   calculateMaturityDifference,
   adjustTalentByMaturity,
   getAgeInYears,
-  parseIM
+  parseIM,
+  resolveTragedySeed
 } from '@/lib/dice';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -148,6 +149,50 @@ const AgeGenerationTest = ({ species, ageGroup, data, expectedRange }: { species
            Generated Age: <span className="text-primary font-bold">{generatedAge}</span>
          </p>
        )}
+    </div>
+  );
+};
+
+const TragedySeedTest = ({ data }: { data: StaticData }) => {
+  const [d66Roll, setD66Roll] = useState<number | null>(null);
+  const [template, setTemplate] = useState<string | null>(null);
+  const [resolvedSeed, setResolvedSeed] = useState<string | null>(null);
+
+  const handleGenerate = () => {
+    const roll = D66();
+    const foundTemplate = d66Lookup(roll, data.tragedySeeds);
+    
+    if (foundTemplate && foundTemplate.seed) {
+      const resolved = resolveTragedySeed(foundTemplate.seed, data.randomPersonItemDeity);
+      setD66Roll(roll);
+      setTemplate(foundTemplate.seed);
+      setResolvedSeed(resolved);
+    } else {
+      setD66Roll(roll);
+      setTemplate("No template found for this roll.");
+      setResolvedSeed(null);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <h3 className="font-semibold">Tragedy Seed Generator</h3>
+      <Button onClick={handleGenerate}>Generate Tragedy Seed</Button>
+      {d66Roll !== null && template !== null && (
+        <div className="mt-2 p-2 border rounded-md bg-gray-50">
+          <p>
+            D66 Roll: <span className="font-mono text-primary">{d66Roll}</span>
+          </p>
+          <p className="mt-2">
+            Template: <span className="font-mono">{template}</span>
+          </p>
+          {resolvedSeed && (
+             <p className="mt-2">
+              Resolved: <span className="font-bold text-primary">{resolvedSeed}</span>
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
@@ -386,6 +431,9 @@ export default function Tests({ data }: { data: StaticData }) {
         <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
       </TestSuite>
 
+      <TestSuite title="Tragedy Seed Tests">
+          <TragedySeedTest data={data} />
+      </TestSuite>
     </div>
   );
 }
