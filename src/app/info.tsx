@@ -1052,6 +1052,47 @@ const BeliefsAndDeitiesCard = ({ beliefs, deities }: { beliefs: any[], deities: 
     );
 };
 
+const SalaryByTradeRankCard = ({ data }: { data: any[] }) => {
+    const tableData = data;
+    const headers = ['Rank', 'Monthly', 'Daily', 'Wealth Rank'];
+
+    return (
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="salary-by-trade-rank" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Salary by Trade Rank</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6">
+                        <p className="text-sm text-muted-foreground mb-4">
+                            Monthly and Daily salaries are presented in units of silver pieces (sp).
+                        </p>
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="border-b-2 border-black">
+                                    {headers.map(header => (
+                                        <TableHead key={header} className="font-bold text-lg h-8 px-2 text-right">{header}</TableHead>
+                                    ))}
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {tableData.map((row: any, index: number) => (
+                                    <TableRow key={index}>
+                                        <TableCell className="py-2 px-2 text-right font-bold">{row['Rank']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row.Monthly}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row.Daily}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Wealth Rank']}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
+        </Card>
+    );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: StaticData }) {
@@ -1117,7 +1158,7 @@ export default function Info({ data }: { data: StaticData }) {
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
       <SimpleTableCard title="PML Titles" data={pmlTitles} />
       <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
-      <SimpleTableCard title="Salary by Trade Rank" data={salaryByTradeRank} />
+      <SalaryByTradeRankCard data={salaryByTradeRank} />
       <FilterableTableCard title="Settlements" data={settlements} />
       <SimpleTableCard title="Social Groups" data={socialGroups} />
       <SimpleTableCard title="Social Ranks" data={socialRanks} />
