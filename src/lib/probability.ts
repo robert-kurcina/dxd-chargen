@@ -1,3 +1,4 @@
+
 'use client';
 
 // Polynomial approximation for the error function erf(x)
@@ -52,12 +53,13 @@ const D2_MEAN = 7;
 const D2_VARIANCE = 35 / 6; // ~5.833
 
 /**
- * Calculates the probability of a single candidacy sub-condition being met.
- * @param condition A single part of the candidacy string, e.g., "INT + KNO >= 28" or "KNO, PRE 10+".
+ * Calculates the probability of a single, simple candidacy condition being met.
+ * This is the base case for the recursive expression evaluator.
+ * @param condition A simple condition string, e.g., "INT + KNO >= 28" or "KNO 10+".
  * @returns The probability (0 to 1) of this condition being true.
  */
 function calculateSubConditionProbability(condition: string): number {
-    // 1. Handle sum condition e.g. "INT + KNO + PRE + POW >= 28"
+    // 1. Handle sum condition e.g., "INT + KNO + PRE + POW >= 28"
     const sumMatch = condition.match(/^([\w\s\+]+?) >= (\d+)$/);
     if (sumMatch) {
         const attrsToSum = sumMatch[1].split('+').map(s => s.trim());
@@ -73,29 +75,51 @@ function calculateSubConditionProbability(condition: string): number {
         return 1 - normalCdf(targetSum - 0.5, mean, stdDev);
     }
     
-    // 2. Handle individual attribute condition e.g. "KNO, PRE 10+" OR "CCA or RCA or STR 10+"
-    const individualMatch = condition.match(/^([\w\s,or]+?) (\d+)\+$/);
+    // 2. Handle single individual attribute condition e.g., "KNO 10+"
+    const individualMatch = condition.match(/^(\w+) (\d+)\+$/);
     if (individualMatch) {
-        const attrListStr = individualMatch[1].trim();
         const targetValue = parseInt(individualMatch[2], 10);
-        
-        const probSingleAttr = D2_CUMULATIVE_PROB_GT_EQ[targetValue] ?? 0;
-
-        if (attrListStr.includes(' or ')) {
-            // OR condition: P(A or B or C) = 1 - P(not A and not B and not C)
-            const attrsToCheck = attrListStr.split(' or ').map(s => s.trim());
-            const probNotSingleAttr = 1 - probSingleAttr;
-            const probAllFail = Math.pow(probNotSingleAttr, attrsToCheck.length);
-            return 1 - probAllFail;
-        } else {
-            // AND condition: P(A and B and C) = P(A) * P(B) * P(C)
-            const attrsToCheck = attrListStr.split(',').map(s => s.trim());
-            return Math.pow(probSingleAttr, attrsToCheck.length);
-        }
+        return D2_CUMULATIVE_PROB_GT_EQ[targetValue] ?? 0;
     }
 
     throw new Error(`Invalid sub-condition format: "${condition}"`);
 }
+
+
+/**
+ * Pre-processes a candidacy string to expand shorthand notations into a full boolean expression.
+ * e.g., "A or B 10+" becomes "(A 10+ or B 10+)"
+ * e.g., "A, B 10+" becomes "(A 10+ and B 10+)"
+ * @param candidacyString The raw string from the data.
+ * @returns A standardized, well-formed boolean expression string.
+ */
+function preprocessCandidacyString(candidacyString: string): string {
+    // Regex to find patterns like "A, B 10+" or "A or B or C 10+"
+    // It requires at least two attributes in the list to trigger the expansion.
+    const shorthandRegex = /((?:\w+)(?:(?:, | or )\w+)+) (\d+\+)/g;
+
+    let preprocessed = candidacyString.replace(shorthandRegex, (match, p1_attrs, p2_req) => {
+        // This check prevents the regex from incorrectly matching parts of a sum expression.
+        if (candidacyString.includes('>=') && (match.includes('+') || match.includes('>='))) {
+            return match;
+        }
+
+        const operator = p1_attrs.includes(' or ') ? ' or ' : ' and ';
+        const separator = p1_attrs.includes(' or ') ? ' or ' : ', ';
+
+        const attrs = p1_attrs.split(separator).map(s => s.trim()).filter(Boolean);
+
+        const expanded = attrs.map(attr => `${attr} ${p2_req}`).join(operator);
+        return `(${expanded})`;
+    });
+
+    // Standardize the main separators
+    preprocessed = preprocessed.replace(/, and /g, ' and ');
+    preprocessed = preprocessed.replace(/, or /g, ' or ');
+
+    return preprocessed;
+}
+
 
 /**
  * Recursively evaluates a parsed candidacy expression.
@@ -113,8 +137,6 @@ function evaluateExpression(expr: string): number {
             if (expr[i] === '(') openParen++;
             if (expr[i] === ')') openParen--;
             if (openParen === 0) {
-                // Found a closing parenthesis for an inner group before the end.
-                // This means it's not fully wrapped, e.g. `(A) and (B)`
                 isFullyWrapped = false;
                 break;
             }
@@ -131,15 +153,13 @@ function evaluateExpression(expr: string): number {
         if (expr[i] === ')') parenCount++;
         if (expr[i] === '(') parenCount--;
         
-        // Using ' or ' to avoid matching 'or' inside words.
         if (parenCount === 0 && expr.substring(i).startsWith(' or ')) {
             const left = expr.substring(0, i);
             const right = expr.substring(i + ' or '.length);
             const pLeft = evaluateExpression(left);
             const pRight = evaluateExpression(right);
             if (pLeft === -1 || pRight === -1) return -1;
-            // P(A or B) = P(A) + P(B) - P(A and B)
-            // Since events are independent, P(A and B) = P(A) * P(B)
+            // P(A or B) = P(A) + P(B) - P(A and B) -> P(A) + P(B) - P(A)*P(B) for independent events
             return pLeft + pRight - (pLeft * pRight);
         }
     }
@@ -156,14 +176,13 @@ function evaluateExpression(expr: string): number {
             const pLeft = evaluateExpression(left);
             const pRight = evaluateExpression(right);
             if (pLeft === -1 || pRight === -1) return -1;
-            // P(A and B) = P(A) * P(B)
+            // P(A and B) = P(A) * P(B) for independent events
             return pLeft * pRight;
         }
     }
 
     // If no operators, it's a base condition.
     try {
-        // This function already handles the internal 'or' for individual attributes like "CCA or RCA 10+"
         return calculateSubConditionProbability(expr);
     } catch {
         return -1;
@@ -174,7 +193,7 @@ function evaluateExpression(expr: string): number {
 /**
  * Calculates the exact probability of a profession's candidacy expression being true.
  * Supports logical grouping with parentheses and 'and'/'or' operators.
- * @param candidacyString The expression from the professions data (e.g., "(INT + KNO >= 18) or (PRE + POW >= 18), and KNO 10+").
+ * @param candidacyString The expression from the professions data.
  * @returns The total probability (from 0 to 1), or -1 if the expression is invalid.
  */
 export function calculateCandidacyProbability(candidacyString: string): number {
@@ -185,12 +204,10 @@ export function calculateCandidacyProbability(candidacyString: string): number {
       return 1.0;
     }
 
-    // Standardize operators to simplify parsing
-    const standardizedExpr = candidacyString.replace(/, and /g, ' and ').replace(/, or /g, ' or ');
+    const processedExpr = preprocessCandidacyString(candidacyString);
 
     try {
-        const result = evaluateExpression(standardizedExpr);
-        // Ensure we don't return a value that looks valid but indicates an error
+        const result = evaluateExpression(processedExpr);
         return result === -1 ? -1 : result;
     } catch (error) {
         console.error("Candidacy parsing error:", error);
