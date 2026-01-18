@@ -702,45 +702,97 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
     );
 };
 
-const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
-    const tableData = data;
-    const isRankNumeric = tableData.every(r => isNumber(r['Rank']));
+const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[], titles: any[] }) => {
+    const professionsData = professions;
+    const titlesData = titles;
+    const isRankNumeric = titlesData.every(r => isNumber(r['Rank']));
+
+    const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per1000'];
+    const professionHeaderTitles: Record<string, string> = {
+        trade: 'Trade',
+        candidacy: 'Candidacy',
+        namingPractice: 'Naming Practice',
+        per1000: 'Likelihood (per 1000)',
+    };
+
+    const numericHeadersProfessions = useMemo(() => {
+        const numeric = new Set<string>();
+        if (!professionsData.length) return numeric;
+        const headers = ['per1000'];
+        for (const header of headers) {
+            if (professionsData.every(row => {
+                const value = row[header];
+                return value === null || value === undefined || value === '' || isNumber(value);
+            })) {
+                numeric.add(header);
+            }
+        }
+        return numeric;
+    }, [professionsData]);
+
     return (
         <Card className="bg-white overflow-hidden">
-            <AccordionItem value="naming-practice-titles" className="border-b-0">
+            <AccordionItem value="professions-and-titles" className="border-b-0">
                 <AccordionTrigger className="p-6 hover:no-underline">
-                    <CardTitle>Naming Practice Titles</CardTitle>
+                    <CardTitle>Professions &amp; Titles</CardTitle>
                 </AccordionTrigger>
                 <AccordionContent>
-                    <CardContent className="pt-6">
-                        <Table>
-                        <TableHeader>
-                            <TableRow className="border-b-2 border-black">
-                            <TableHead className={cn("font-bold text-lg h-8 px-2", { "text-right": isRankNumeric })}>Rank</TableHead>
-                            <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
-                            <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
-                            <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
-                            <TableHead className="font-bold text-lg h-8 px-2">Tradition</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {tableData.map((row: any, index: number) => (
-                            <TableRow key={index}>
-                                <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isRankNumeric })}>{row['Rank']}</TableCell>
-                                <TableCell className="py-2 px-2">{row.Guild}</TableCell>
-                                <TableCell className="py-2 px-2">{row.Order}</TableCell>
-                                <TableCell className="py-2 px-2">{row.Temple}</TableCell>
-                                <TableCell className="py-2 px-2">{row.Tradition}</TableCell>
-                            </TableRow>
-                            ))}
-                        </TableBody>
-                        </Table>
+                    <CardContent className="pt-6 space-y-12">
+                        <div>
+                            <h4 className="text-lg mb-2 font-sans">Professions</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        {professionHeaders.map(header => (
+                                            <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeadersProfessions.has(header) })}>{professionHeaderTitles[header]}</TableHead>
+                                        ))}
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {professionsData.map((row: any) => (
+                                        <TableRow key={row.trade}>
+                                            {professionHeaders.map((header, headerIndex) => (
+                                                 <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeadersProfessions.has(header) })}>
+                                                     {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
+                                                 </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div className="mt-12">
+                            <h4 className="text-lg mb-2 font-sans">Naming Practice Titles</h4>
+                             <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                    <TableHead className={cn("font-bold text-lg h-8 px-2", { "text-right": isRankNumeric })}>Rank</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Tradition</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {titlesData.map((row: any, index: number) => (
+                                    <TableRow key={index}>
+                                        <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isRankNumeric })}>{row['Rank']}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Guild}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Order}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Temple}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Tradition}</TableCell>
+                                    </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </CardContent>
                 </AccordionContent>
             </AccordionItem>
         </Card>
     );
 };
+
 
 const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeeds: any[], randomPersonItemDeity: any[] }) => {
     const tableDataTragedy = tragedySeeds;
@@ -967,12 +1019,11 @@ export default function Info({ data }: { data: StaticData }) {
       <EmpiresCard data={empires} />
       <ListCard title="Environs" data={environs} />
       <HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} />
-      <NamingPracticeTitlesCard data={namingPracticeTitles} />
+      <ProfessionsAndTitlesCard professions={professions} titles={namingPracticeTitles} />
       <SimpleTableCard title="Notable Features" data={notableFeatures} />
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
       <SimpleTableCard title="PML Titles" data={pmlTitles} />
       <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
-      <SimpleTableCard title="Professions" data={professions} />
       <FilterableTableCard title="Settlements" data={settlements} />
       <SimpleTableCard title="Social Groups" data={socialGroups} />
       <SimpleTableCard title="Social Ranks" data={socialRanks} />
