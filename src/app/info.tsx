@@ -334,6 +334,9 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
       ancestries: Array.from(ancestrySet),
     };
   }, [data]);
+  
+  const ageGroupLineageNames = useMemo(() => new Set(data.ageGroups.map((g: any) => g.ageGroup)), [data.ageGroups]);
+  const sexLineageNames = useMemo(() => new Set(['female', 'male']), []);
 
   const filteredKeys = useMemo(() => {
     if (selectedFilter === 'all') {
@@ -407,7 +410,10 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                 </TableHeader>
                 <TableBody>
                   {filteredTableData.map((row: any, index: number) => (
-                    <TableRow key={index} className={cn({ 'bg-muted': row.lineage === 'BASE-LINE' })}>
+                    <TableRow key={index} className={cn({
+                      'bg-muted': row.lineage === 'BASE-LINE',
+                      'bg-gray-200': ageGroupLineageNames.has(row.lineage.split(' ')[0]) || sexLineageNames.has(row.lineage.toLowerCase())
+                    })}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
                            {attributeColumns.has(header) && typeof row[header] === 'number'
