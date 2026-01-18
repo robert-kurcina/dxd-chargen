@@ -233,12 +233,12 @@ export function adjustTalentByMaturity(talentString: string, maturityDifference:
 }
 
 /**
- * Formats a number to include a leading '+' if it's positive.
+ * Formats a number to include a leading '+' if it's positive or zero.
  * @param num The number to format.
  * @returns A string representation of the number.
  */
 export function formatPositiveNumber(num: number): string {
-  if (num > 0) {
+  if (num >= 0) {
     return `+${num}`;
   }
   return String(num);
