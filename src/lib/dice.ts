@@ -10,6 +10,14 @@ export function D6(): number {
 }
 
 /**
+ * Rolls two 6-sided dice and sums them.
+ * @returns A random number between 2 and 12.
+ */
+export function D2(): number {
+  return D6() + D6();
+}
+
+/**
  * Rolls a D66 (two 6-sided dice, one for tens, one for units).
  * @returns A random number between 11 and 66 where the second digit is never greater than 6.
  */
