@@ -358,7 +358,7 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   return (
-    <Accordion type="multiple" defaultValue={['get-scalar-tests']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <Accordion type="multiple" defaultValue={['tragedy-seed-tests']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <TestSuite title="Number Suffix Formatting Tests" value="number-suffix-tests">
         <p className="text-sm text-muted-foreground p-4 -mb-4">
             Tests for formatting and parsing numbers with K/M suffixes.
@@ -505,6 +505,7 @@ export default function Tests({ data }: { data: StaticData }) {
       </TestSuite>
 
       <TestSuite title="D66 Lookup Tests" value="d66-lookup-tests">
+        <D66LookupTest title="Age Groups" tableData={data.ageGroups} />
         <D66AndD6LookupTest title="Descriptors" tableData={data.descriptors} />
         <D66LookupTest title="Disabilities" tableData={data.disabilities} />
         <D66AndD6LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
