@@ -319,6 +319,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
   const attributeColumns = new Set(['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED']);
+  const characteristicColumnsToFormat = new Set(['stature', 'build', 'bodypoints']);
 
   const { adjustmentKeys, ancestries } = useMemo(() => {
     const keys = Object.keys(data).filter(k => k.startsWith('adjustments-'));
@@ -423,7 +424,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                     })}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                           {attributeColumns.has(header) && typeof row[header] === 'number'
+                           {(attributeColumns.has(header) || characteristicColumnsToFormat.has(header)) && typeof row[header] === 'number'
                              ? formatPositiveNumber(row[header])
                              : row[header]}
                         </TableCell>
