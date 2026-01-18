@@ -9,6 +9,6 @@
   { "trade": "Wizard", "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, INT 10+", "namingPractice": "Order", "specializations": ["Spellbinder", "Warmage", "Alchemist", "Illusionist", "Summoner", "Artificer", "Necromancer"], "per1000": 15 },
   { "trade": "Academic", "candidacy": "INT + KNO + POW >= 28, and INT, KNO 10+", "namingPractice": "Order", "specializations": [], "per1000": 2 },
   { "trade": "Entertainer", "candidacy": "INT + REF + PRE >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 61 },
-  { "trade": "Service", "candidacy": "INT + KNO + POW >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 61 },
+  { "trade": "Service", "candidacy": "PRE + INT + KNO + POW >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 541 },
   { "trade": "Rabble", "candidacy": "Any", "namingPractice": "-", "specializations": [], "per1000": 1000 }
 ]
