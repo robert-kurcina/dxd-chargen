@@ -1083,6 +1083,7 @@ export default function Info({ data }: { data: StaticData }) {
     pointBuyCosts,
     professions,
     randomPersonItemDeity,
+    salaryByTradeRank,
     settlements,
     socialGroups,
     socialRanks,
@@ -1110,13 +1111,13 @@ export default function Info({ data }: { data: StaticData }) {
       <SimpleTableCard title="Disabilities" data={disabilities} />
       <ListCard title="Economic Statuses" data={economicStatuses} />
       <EmpiresCard data={empires} />
-      <ListCard title="Environs" data={environs} />
       <HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} />
       <ProfessionsAndTitlesCard professions={professions} titles={namingPracticeTitles} />
       <SimpleTableCard title="Notable Features" data={notableFeatures} />
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
       <SimpleTableCard title="PML Titles" data={pmlTitles} />
       <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
+      <SimpleTableCard title="Salary by Trade Rank" data={salaryByTradeRank} />
       <FilterableTableCard title="Settlements" data={settlements} />
       <SimpleTableCard title="Social Groups" data={socialGroups} />
       <SimpleTableCard title="Social Ranks" data={socialRanks} />
