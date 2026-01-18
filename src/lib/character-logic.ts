@@ -1,4 +1,5 @@
 
+
 import type { StaticData } from "@/data";
 import { ND6, D66, d66Lookup } from "./dice";
 import { findKeyCaseInsensitive } from "./utils";
@@ -812,17 +813,19 @@ export function generateSquad(data: StaticData, leaderRank: number, trade: strin
     return { leader, secondary, bands, totalMonthlySalary: totalSalary, memberCount };
 }
 
-export function generateGroup(data: StaticData, leaderRank: number, trade: string, numSpecialists: number): Group {
+export function generateGroup(data: StaticData, leaderRank: number, trade: string): Group {
     const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Group Leader' };
 
     let totalSalary = leader.salary?.monthlySalary ?? 0;
     let memberCount = 1;
     const specialists: Contractor[] = [];
     const squads: Squad[] = [];
+    
+    const numSpecialists = data.militaryHierarchy.group.specialistCount.min + Math.floor(Math.random() * (data.militaryHierarchy.group.specialistCount.max - data.militaryHierarchy.group.specialistCount.min + 1));
 
     for (let i = 0; i < numSpecialists; i++) {
         const specialistRank = Math.max(1, leaderRank - (ND6() - 1));
-        const specialist = { ...generateContractor(data, 'Any', specialistRank)!, role: 'Specialist' };
+        const specialist = { ...generateContractor(data, 'Any', specialistRank)!, role: 'Group Specialist' };
         specialists.push(specialist);
         totalSalary += specialist.salary?.monthlySalary ?? 0;
         memberCount++;
@@ -839,7 +842,7 @@ export function generateGroup(data: StaticData, leaderRank: number, trade: strin
     return { leader, specialists, squads, totalMonthlySalary: totalSalary, memberCount };
 }
 
-export function generateCompany(data: StaticData, leaderRank: number, trade: string, numSpecialists: number): Company {
+export function generateCompany(data: StaticData, leaderRank: number, trade: string): Company {
     const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Company Leader' };
     const secondaryRank = Math.max(1, leaderRank - 1);
     const secondary = { ...generateContractor(data, trade, secondaryRank)!, role: 'Company Secondary' };
@@ -848,22 +851,25 @@ export function generateCompany(data: StaticData, leaderRank: number, trade: str
     let memberCount = 2;
     const specialists: Contractor[] = [];
     const groups: Group[] = [];
-
-    for (let i = 0; i < numSpecialists; i++) {
-        const specialistRank = Math.max(1, leaderRank - ND6());
-        const specialist = { ...generateContractor(data, 'Any', specialistRank)!, role: 'Company Specialist' };
-        specialists.push(specialist);
-        totalSalary += specialist.salary?.monthlySalary ?? 0;
-        memberCount++;
-    }
     
     for (let i = 0; i < data.militaryHierarchy.company.groupCount; i++) {
         const groupLeaderRank = Math.max(1, leaderRank - (i + 1));
-        const numGroupSpecialists = ND6(1); // 1-6 specialists for sub-groups
-        const group = generateGroup(data, groupLeaderRank, trade, numGroupSpecialists);
+        const group = generateGroup(data, groupLeaderRank, trade);
         groups.push(group);
         totalSalary += group.totalMonthlySalary;
         memberCount += group.memberCount;
+    }
+
+    const maxGroupSpecialistRank = groups.length > 0 ? Math.max(0, ...groups.flatMap(g => g.specialists.map(s => s.tradeRank))) : 0;
+    const companySpecialistRank = Math.min(leaderRank - 1, maxGroupSpecialistRank + 1);
+    
+    const numSpecialists = data.militaryHierarchy.company.specialistCount.min + Math.floor(Math.random() * (data.militaryHierarchy.company.specialistCount.max - data.militaryHierarchy.company.specialistCount.min + 1));
+
+    for (let i = 0; i < numSpecialists; i++) {
+        const specialist = { ...generateContractor(data, 'Any', companySpecialistRank)!, role: 'Specialist' };
+        specialists.push(specialist);
+        totalSalary += specialist.salary?.monthlySalary ?? 0;
+        memberCount++;
     }
 
     return { leader, secondary, specialists, groups, totalMonthlySalary: totalSalary, memberCount };

@@ -609,7 +609,6 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
     const [unitSize, setUnitSize] = useState('Band');
     const [leaderRank, setLeaderRank] = useState(MIN_RANKS[unitSize]);
     const [trade, setTrade] = useState('Warrior');
-    const [numSpecialists, setNumSpecialists] = useState(ND6());
     
     const [generatedCompany, setGeneratedCompany] = useState<Company | null>(null);
     const [generatedGroup, setGeneratedGroup] = useState<Group | null>(null);
@@ -635,9 +634,9 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
         const rank = Math.max(MIN_RANKS[unitSize], leaderRank);
 
         if (unitSize === 'Company') {
-            setGeneratedCompany(generateCompany(data, rank, trade, numSpecialists));
+            setGeneratedCompany(generateCompany(data, rank, trade));
         } else if (unitSize === 'Group') {
-            setGeneratedGroup(generateGroup(data, rank, trade, numSpecialists));
+            setGeneratedGroup(generateGroup(data, rank, trade));
         } else if (unitSize === 'Squad') {
             setGeneratedSquad(generateSquad(data, rank, trade));
         } else {
@@ -785,6 +784,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
     };
     
     const RenderCompany = ({ company }: { company: Company }) => {
+        const specialistSalary = company.specialists.reduce((sum, s) => sum + (s.salary?.monthlySalary ?? 0), 0);
         return (
             <div className="mt-6 space-y-4">
                 <h2 className="font-bold text-3xl">Generated Company <span className="text-2xl font-normal text-muted-foreground">({company.memberCount} total members)</span></h2>
@@ -793,10 +793,32 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                     <TableBody>
                         <MemberRow member={company.leader} />
                         <MemberRow member={company.secondary} />
-                        {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
                     </TableBody>
                 </Table>
-                <Accordion type="multiple" className="space-y-4">
+
+                {company.specialists.length > 0 && (
+                    <Accordion type="single" collapsible className="w-full mt-4">
+                        <AccordionItem value="company-specialists" className="bg-gray-50/50 rounded-md border">
+                            <AccordionTrigger className="p-4 text-left hover:no-underline">
+                                <div className="flex flex-1 items-center justify-between">
+                                    <h5 className="font-semibold text-lg">Company Specialists ({company.specialists.length} members)</h5>
+                                    <span className="text-sm text-muted-foreground font-mono ml-4">{specialistSalary.toLocaleString()} sp / month</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="p-4 pt-0">
+                                <Table>
+                                    <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                                    <TableBody>
+                                        {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                                    </TableBody>
+                                </Table>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                )}
+
+
+                <Accordion type="multiple" className="space-y-4 !mt-4">
                     {company.groups.map((group, i) => <RenderGroup key={group.leader.id} group={group} index={i}/>)}
                 </Accordion>
                 <div className="mt-4 text-right font-bold text-xl">
@@ -808,7 +830,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
 
     return (
         <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                  <div className="space-y-2">
                     <Label>Unit Size</Label>
                     <Select value={unitSize} onValueChange={handleUnitSizeChange}>
@@ -831,10 +853,6 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>{trades.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
                     </Select>
-                </div>
-                 <div className="space-y-2">
-                    <Label># of Specialists</Label>
-                    <Input type="number" min="1" max="6" value={numSpecialists} onChange={(e) => setNumSpecialists(Math.max(1, Math.min(6, parseInt(e.target.value) || 1)))} disabled={unitSize === 'Band' || unitSize === 'Squad'} />
                 </div>
             </div>
             <Button onClick={handleGenerate}>Generate Unit</Button>

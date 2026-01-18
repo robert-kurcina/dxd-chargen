@@ -19,7 +19,7 @@
   "company": {
     "groupCount": 3,
     "specialistCount": {
-      "min": 1,
+      "min": 3,
       "max": 6
     },
     "leaderCount": 1,
