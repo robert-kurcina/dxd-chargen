@@ -412,10 +412,14 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {filteredTableData.map((row: any, index: number) => (
                     <TableRow key={index} className={cn({
                       'bg-muted': row.lineage === 'BASE-LINE',
-                      'bg-gray-100 hover:bg-gray-200': (() => {
+                       'bg-gray-100 hover:bg-gray-200': (() => {
                         const parsed = parseLineageString(row.lineage);
-                        return ageGroupLineageNames.has(parsed.name) || sexLineageNames.has(parsed.name.toLowerCase());
-                      })()
+                        return ageGroupLineageNames.has(parsed.name);
+                      })(),
+                      'bg-gray-300 hover:bg-gray-400': (() => {
+                        const parsed = parseLineageString(row.lineage);
+                        return sexLineageNames.has(parsed.name.toLowerCase());
+                      })(),
                     })}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
