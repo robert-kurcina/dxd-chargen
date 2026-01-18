@@ -59,8 +59,8 @@ const D2_VARIANCE = 35 / 6; // ~5.833
  * @returns The probability (0 to 1) of this condition being true.
  */
 function calculateSubConditionProbability(condition: string): number {
-    // 1. Handle sum condition e.g., "INT + KNO + PRE + POW >= 28"
-    const sumMatch = condition.trim().match(/^([\w\s\+]+?) >= (\d+)$/);
+    // 1. Handle sum condition e.g., "INT + KNO + PRE + POW >= 28" or "(INT + KNO) >= 28"
+    const sumMatch = condition.trim().match(/^\(?([\w\s\+]+?)\)? >= (\d+)$/);
     if (sumMatch) {
         const attrsToSum = sumMatch[1].split('+').map(s => s.trim());
         const numAttrs = attrsToSum.length;
@@ -94,14 +94,10 @@ function calculateSubConditionProbability(condition: string): number {
  * @returns A standardized, well-formed boolean expression string.
  */
 function preprocessCandidacyString(candidacyString: string): string {
-    // A single, more robust regex to find all "shorthand" parts.
-    // It finds a list of attributes followed by a requirement like "10+".
-    // It captures the attribute list and the requirement.
-    // The negative lookbehind `(?<!\+)` ensures we don't match something like `A + B 10+`
     const shorthandRegex = /((?:\w+(?:\s*,\s*|\s+or\s+))+?\w+)\s+(?<!\+)\s*(\d+\+)/g;
 
     let processed = candidacyString.replace(shorthandRegex, (match, attrList, requirement) => {
-        const hasOr = attrList.includes(' or ');
+        const hasOr = /\s+or\s+/.test(attrList);
         const separator = hasOr ? /\s+or\s+/ : /\s*,\s*/;
         const operator = hasOr ? ' or ' : ' and ';
         
@@ -114,7 +110,6 @@ function preprocessCandidacyString(candidacyString: string): string {
         return '(' + attrs.map(attr => `${attr.trim()} ${requirement}`).join(operator) + ')';
     });
 
-    // Final standardization of the main conjunction between large parts of the expression.
     return processed.replace(/,\s*and\s*/g, ' and ');
 }
 
@@ -127,7 +122,6 @@ function preprocessCandidacyString(candidacyString: string): string {
 function evaluateExpression(expr: string): number {
     expr = expr.trim();
 
-    // Base case: Handle fully wrapped expressions like `(A and B)`
     if (expr.startsWith('(') && expr.endsWith(')')) {
         let openParen = 1;
         let isFullyWrapped = true;
@@ -146,7 +140,6 @@ function evaluateExpression(expr: string): number {
 
     let parenCount = 0;
     
-    // Look for the rightmost lowest-precedence operator: 'or'.
     for (let i = expr.length - 1; i >= 0; i--) {
         if (expr[i] === ')') parenCount++;
         if (expr[i] === '(') parenCount--;
@@ -157,12 +150,10 @@ function evaluateExpression(expr: string): number {
             const pLeft = evaluateExpression(left);
             const pRight = evaluateExpression(right);
             if (pLeft === -1 || pRight === -1) return -1;
-            // P(A or B) = P(A) + P(B) - P(A and B) -> P(A) + P(B) - P(A)*P(B) for independent events
             return pLeft + pRight - (pLeft * pRight);
         }
     }
     
-    // Look for the rightmost higher-precedence operator: 'and'.
     parenCount = 0;
     for (let i = expr.length - 1; i >= 0; i--) {
         if (expr[i] === ')') parenCount++;
@@ -174,12 +165,10 @@ function evaluateExpression(expr: string): number {
             const pLeft = evaluateExpression(left);
             const pRight = evaluateExpression(right);
             if (pLeft === -1 || pRight === -1) return -1;
-            // P(A and B) = P(A) * P(B) for independent events
             return pLeft * pRight;
         }
     }
 
-    // If no operators, it's a base condition.
     try {
         return calculateSubConditionProbability(expr);
     } catch {
