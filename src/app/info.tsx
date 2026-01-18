@@ -412,7 +412,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {filteredTableData.map((row: any, index: number) => (
                     <TableRow key={index} className={cn({
                       'bg-muted': row.lineage === 'BASE-LINE',
-                      'bg-gray-200 hover:bg-gray-300': (() => {
+                      'bg-gray-100 hover:bg-gray-200': (() => {
                         const parsed = parseLineageString(row.lineage);
                         return ageGroupLineageNames.has(parsed.name) || sexLineageNames.has(parsed.name.toLowerCase());
                       })()
