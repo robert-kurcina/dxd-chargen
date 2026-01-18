@@ -270,68 +270,69 @@ const ND6Test = () => {
   );
 };
 
-const CandidacySimulationTest = ({ professions }: { professions: StaticData['professions'] }) => {
-    const [results, setResults] = useState<any[] | null>(null);
-    const [simulating, setSimulating] = useState(false);
+type ProfessionResult = {
+    trade: string;
+    candidacy: string;
+    namingPractice: string;
+    specializations: string[];
+    likelihood: number;
+    relativeShare: number;
+}
 
-    const runSimulation = () => {
-        setSimulating(true);
+const CandidacySimulationTest = ({ professions }: { professions: StaticData['professions'] }) => {
+    const [results, setResults] = useState<ProfessionResult[] | null>(null);
+    const [calculating, setCalculating] = useState(false);
+
+    const calculateProbabilities = () => {
+        setCalculating(true);
         // Use a timeout to prevent blocking the UI thread on a long-running task
         setTimeout(() => {
-            const simulationResults = professions.map(prof => {
-                const expectedProb = calculateCandidacyProbability(prof.candidacy);
-                const expected = Math.round(expectedProb * 1000);
-
-                if (prof.candidacy === 'Any') {
-                    return { ...prof, simulated: 1000, expected: 1000 };
-                }
-
-                let successCount = 0;
-                const iterations = 1000;
-                const attributesForCandidacy = ["CCA", "RCA", "REF", "INT", "KNO", "PRE", "POW", "STR", "FOR"];
-                
-                for (let i = 0; i < iterations; i++) {
-                    const randomAttributes: Record<string, number> = {};
-                    attributesForCandidacy.forEach(attr => {
-                        randomAttributes[attr] = ND6(2);
-                    });
-                    
-                    if (evaluateCandidacy(prof.candidacy, randomAttributes)) {
-                        successCount++;
-                    }
-                }
-                
-                return {
-                    ...prof,
-                    simulated: successCount,
-                    expected
-                };
+            const professionProbs = professions.map(prof => {
+                const prob = calculateCandidacyProbability(prof.candidacy);
+                return { ...prof, prob };
             });
-            setResults(simulationResults);
-            setSimulating(false);
+
+            const totalProb = professionProbs.reduce((sum, res) => sum + res.prob, 0);
+
+            const finalResults: ProfessionResult[] = professionProbs.map(res => ({
+                trade: res.trade,
+                candidacy: res.candidacy,
+                namingPractice: res.namingPractice,
+                specializations: res.specializations,
+                likelihood: Math.round(res.prob * 1000),
+                relativeShare: totalProb > 0 ? Math.round((res.prob / totalProb) * 1000) : 0,
+            }));
+            
+            setResults(finalResults);
+            setCalculating(false);
         }, 0);
     };
 
     return (
         <div className="space-y-4">
-            <Button onClick={runSimulation} disabled={simulating}>
-                {simulating ? <><Icons.Loader className="animate-spin" /> Simulating...</> : 'Run Simulation & Analysis'}
+            <p className="text-sm text-muted-foreground -mb-2">
+              This test calculates the probability of a character qualifying for each trade based on 2D6 attribute rolls.
+              <br />• <b>Likelihood</b>: The chance out of 1000 that a random character will qualify for that specific trade.
+              <br />• <b>Relative Share</b>: Of all the characters that qualify for *any* trade, this shows the distribution of trades they are likely to have.
+            </p>
+            <Button onClick={calculateProbabilities} disabled={calculating}>
+                {calculating ? <><Icons.Loader className="animate-spin" /> Calculating...</> : 'Calculate Probabilities'}
             </Button>
             {results && (
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead>Trade</TableHead>
-                            <TableHead className="text-right">Simulated (per 1000)</TableHead>
-                            <TableHead className="text-right">Expected (per 1000)</TableHead>
+                            <TableHead className="text-right">Likelihood (per 1000)</TableHead>
+                            <TableHead className="text-right">Relative Share (per 1000)</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {results.map(res => (
                               <TableRow key={res.trade}>
                                   <TableCell className="font-semibold">{res.trade}</TableCell>
-                                  <TableCell className="text-right">{res.simulated}</TableCell>
-                                  <TableCell className="text-right">{res.expected}</TableCell>
+                                  <TableCell className="text-right">{res.likelihood}</TableCell>
+                                  <TableCell className="text-right">{res.relativeShare}</TableCell>
                               </TableRow>
                         ))}
                     </TableBody>
@@ -467,9 +468,6 @@ export default function Tests({ data }: { data: StaticData }) {
   return (
     <Accordion type="multiple" defaultValue={['candidacy-simulation']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
-        <p className="text-sm text-muted-foreground -mb-2">
-          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 2D6. The 'Expected' column uses a mathematical approximation for comparison.
-        </p>
         <CandidacySimulationTest professions={data.professions} />
       </TestSuite>
 
