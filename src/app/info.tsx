@@ -153,24 +153,22 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
     <Card className="bg-white overflow-hidden">
         <AccordionItem value={title.toLowerCase().replace(/ /g, '-')} className="border-b-0">
             <AccordionTrigger className="p-6 hover:no-underline w-full">
-                <div className="flex flex-row items-center justify-between w-full">
-                    <CardTitle>{title}</CardTitle>
-                    <div onClick={(e) => e.stopPropagation()}>
-                        <Select value={selectedKey} onValueChange={setSelectedKey}>
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Filter by..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All</SelectItem>
-                                {keys.map((key) => (
-                                <SelectItem key={key} value={key}>{key}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div>
+                <CardTitle>{title}</CardTitle>
             </AccordionTrigger>
             <AccordionContent>
+                <div className="px-6 pb-6 border-b">
+                    <Select value={selectedKey} onValueChange={setSelectedKey}>
+                        <SelectTrigger className="w-[180px] ml-auto">
+                            <SelectValue placeholder="Filter by..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            {keys.map((key) => (
+                            <SelectItem key={key} value={key}>{key}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
                 <CardContent className="pt-6 space-y-12">
                     {itemsToShow.map((key, keyIndex) => {
                         const tableData = data[key];
@@ -401,11 +399,12 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
     <Card className="bg-white overflow-hidden">
       <AccordionItem value="adjustments" className="border-b-0">
         <AccordionTrigger className="p-6 hover:no-underline w-full">
-            <div className="flex flex-row items-center justify-between w-full">
-                <CardTitle>Adjustments</CardTitle>
-                <div onClick={(e) => e.stopPropagation()}>
+            <CardTitle>Adjustments</CardTitle>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div className="px-6 pb-6 border-b">
                 <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] ml-auto">
                         <SelectValue placeholder="Filter by..." />
                     </SelectTrigger>
                     <SelectContent>
@@ -419,10 +418,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                         ))}
                     </SelectContent>
                 </Select>
-                </div>
             </div>
-        </AccordionTrigger>
-        <AccordionContent>
             <CardContent className="pt-6 space-y-12">
                 {filteredKeys.map((key, keyIndex) => {
                 const tableData = data[key];
@@ -452,15 +448,15 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                         <TableBody>
                         {filteredTableData.map((row: any, index: number) => (
                             <TableRow key={index} className={cn({
-                            'bg-muted': row.lineage === 'BASE-LINE',
-                            'bg-gray-100 hover:bg-gray-200': (() => {
-                                const parsed = parseLineageString(row.lineage);
-                                return ageGroupLineageNames.has(parsed.name);
-                            })(),
-                            'bg-gray-300 hover:bg-gray-200': (() => {
-                                const parsed = parseLineageString(row.lineage);
-                                return sexLineageNames.has(parsed.name.toLowerCase());
-                            })(),
+                                'bg-gray-100': row.lineage === 'BASE-LINE',
+                                'bg-gray-200 hover:bg-gray-300': (() => {
+                                    const parsed = parseLineageString(row.lineage);
+                                    return ageGroupLineageNames.has(parsed.name);
+                                })(),
+                                'bg-gray-400 hover:bg-gray-300': (() => {
+                                    const parsed = parseLineageString(row.lineage);
+                                    return sexLineageNames.has(parsed.name.toLowerCase());
+                                })(),
                             })}>
                             {headers.map((header, headerIndex) => (
                                 <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
@@ -540,24 +536,22 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
     <Card className="bg-white overflow-hidden">
         <AccordionItem value="heritage" className="border-b-0">
             <AccordionTrigger className="p-6 hover:no-underline w-full">
-                <div className="flex flex-row items-center justify-between w-full">
-                    <CardTitle>Heritage</CardTitle>
-                    <div onClick={(e) => e.stopPropagation()}>
-                        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Filter by..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All</SelectItem>
-                            <SelectItem value="cultural">Cultural</SelectItem>
-                            <SelectItem value="environ">Environ</SelectItem>
-                            <SelectItem value="societal">Societal</SelectItem>
-                        </SelectContent>
-                        </Select>
-                    </div>
-                </div>
+                <CardTitle>Heritage</CardTitle>
             </AccordionTrigger>
             <AccordionContent>
+                <div className="px-6 pb-6 border-b">
+                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                    <SelectTrigger className="w-[180px] ml-auto">
+                        <SelectValue placeholder="Filter by..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        <SelectItem value="cultural">Cultural</SelectItem>
+                        <SelectItem value="environ">Environ</SelectItem>
+                        <SelectItem value="societal">Societal</SelectItem>
+                    </SelectContent>
+                    </Select>
+                </div>
                 <CardContent className="pt-6 space-y-12">
                     {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
                     <HeritageTable title="Cultural Heritage" data={cultural} wealthClamp={0} />
@@ -628,24 +622,22 @@ const TraitsCard = ({ data }: { data: any[] }) => {
     <Card className="bg-white overflow-hidden">
         <AccordionItem value="traits" className="border-b-0">
             <AccordionTrigger className="p-6 hover:no-underline w-full">
-                <div className="flex flex-row items-center justify-between w-full">
-                    <CardTitle>Traits</CardTitle>
-                    <div onClick={(e) => e.stopPropagation()}>
-                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Filter by Category..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All Categories</SelectItem>
-                            {categories.map((category) => (
-                            <SelectItem key={category} value={category}>{category}</SelectItem>
-                            ))}
-                        </SelectContent>
-                        </Select>
-                    </div>
-                </div>
+                <CardTitle>Traits</CardTitle>
             </AccordionTrigger>
             <AccordionContent>
+                <div className="px-6 pb-6 border-b">
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <SelectTrigger className="w-[180px] ml-auto">
+                        <SelectValue placeholder="Filter by Category..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Categories</SelectItem>
+                        {categories.map((category) => (
+                        <SelectItem key={category} value={category}>{category}</SelectItem>
+                        ))}
+                    </SelectContent>
+                    </Select>
+                </div>
                 <CardContent className="pt-6">
                     <Table>
                     <TableHeader>
