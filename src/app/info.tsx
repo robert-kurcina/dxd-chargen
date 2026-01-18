@@ -407,7 +407,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                 </TableHeader>
                 <TableBody>
                   {filteredTableData.map((row: any, index: number) => (
-                    <TableRow key={index}>
+                    <TableRow key={index} className={cn({ 'bg-muted': row.lineage === 'BASE-LINE' })}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
                            {attributeColumns.has(header) && typeof row[header] === 'number'
