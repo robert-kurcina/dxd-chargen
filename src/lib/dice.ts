@@ -1,20 +1,18 @@
+
 import type { StaticData } from "@/data";
 
 /**
- * Rolls a single 6-sided die.
- * @returns A random number between 1 and 6.
+ * Rolls a specified number of 6-sided dice and sums the results.
+ * @param numberOfDice The number of D6 to roll. Defaults to 1.
+ * @returns A random number representing the sum of the dice rolls.
  */
-export function D6(): number {
-  // Using Math.random() is fine here as it's for non-critical, client-side generation.
-  return Math.floor(Math.random() * 6) + 1;
-}
-
-/**
- * Rolls two 6-sided dice and sums them.
- * @returns A random number between 2 and 12.
- */
-export function D2(): number {
-  return D6() + D6();
+export function D6(numberOfDice: number = 1): number {
+  let sum = 0;
+  for (let i = 0; i < numberOfDice; i++) {
+    // Using Math.random() is fine here as it's for non-critical, client-side generation.
+    sum += Math.floor(Math.random() * 6) + 1;
+  }
+  return sum;
 }
 
 /**
