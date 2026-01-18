@@ -852,6 +852,60 @@ const UniversalTableCard = ({ data }: { data: any[] }) => {
   );
 };
 
+const BeliefsAndDeitiesCard = ({ beliefs, deities }: { beliefs: any[], deities: any[] }) => {
+    return (
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="beliefs-and-deities" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Beliefs &amp; Deities</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6 space-y-12">
+                        <div>
+                            <h4 className="text-lg mb-2 font-sans">Beliefs</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        <TableHead className="font-bold text-lg h-8 px-2">Keyword</TableHead>
+                                        <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {beliefs.map((row: any) => (
+                                        <TableRow key={row.keyword}>
+                                            <TableCell className="py-2 px-2 font-bold">{row.keyword}</TableCell>
+                                            <TableCell className="py-2 px-2">{row.description}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div className="mt-12">
+                            <h4 className="text-lg mb-2 font-sans">Deities</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        <TableHead className="font-bold text-lg h-8 px-2">Deity</TableHead>
+                                        <TableHead className="font-bold text-lg h-8 px-2">Domains</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {deities.map((row: any) => (
+                                        <TableRow key={row.deity}>
+                                            <TableCell className="py-2 px-2 font-bold">{row.deity}</TableCell>
+                                            <TableCell className="py-2 px-2">{Array.isArray(row.domains) ? row.domains.join(', ') : row.domains}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
+        </Card>
+    );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: StaticData }) {
@@ -904,10 +958,9 @@ export default function Info({ data }: { data: StaticData }) {
       <SimpleTableCard title="Age Groups" data={ageGroups} />
       <FilterableTableCard title="Attribute Arrays" data={attributeArrays} />
       <AttributeDefinitionsCard data={attributeDefinitions} />
-      <SimpleTableCard title="Beliefs" data={beliefs} />
+      <BeliefsAndDeitiesCard beliefs={beliefs} deities={deities} />
       <CalculatedAbilitiesCard data={calculatedAbilities} />
       <SimpleTableCard title="City States" data={citystates} />
-      <SimpleTableCard title="Deities" data={deities} />
       <SimpleTableCard title="Descriptors" data={descriptors} headers={['d66', '1,2', '3,4', '5,6']}/>
       <SimpleTableCard title="Disabilities" data={disabilities} />
       <ListCard title="Economic Statuses" data={economicStatuses} />
