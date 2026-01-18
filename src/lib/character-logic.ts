@@ -692,7 +692,6 @@ export function calculateSalary(trade: string, tradeRank: number, data: StaticDa
     const baseSalaryInfo = data.salaryByTradeRank.find(s => s.Rank === tradeRank);
     if (!baseSalaryInfo) return null;
     
-    // Ensure baseWealthRank is a number to prevent string concatenation.
     const baseWealthRank = Number(baseSalaryInfo['Wealth Rank']);
 
     const adjustmentInfo = data.salaryAdjustmentsByTrade.find(a => a.Trade.toLowerCase() === trade.toLowerCase());
@@ -714,9 +713,8 @@ export function calculateSalary(trade: string, tradeRank: number, data: StaticDa
         
         const adjustmentValue = adjustmentInfo[adjustmentColumn as keyof typeof adjustmentInfo];
         
-        // Ensure adjustmentValue is also treated as a number.
-        if (typeof adjustmentValue === 'number') {
-            adjustmentOffset = adjustmentValue;
+        if (typeof adjustmentValue === 'number' || typeof adjustmentValue === 'string') {
+            adjustmentOffset = Number(adjustmentValue);
         }
     }
 
