@@ -232,6 +232,100 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
   )
 }
 
+const AdjustmentsByAgeGroupCard = ({ attributeModifiers, characteristicModifiers }: { attributeModifiers: any[]; characteristicModifiers: any[] }) => {
+    const amData = attributeModifiers;
+    const amHeaders = ['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost'];
+    const amNumericHeaders = useMemo(() => {
+        const numeric = new Set<string>();
+        if (!amData.length) return numeric;
+        for (const header of amHeaders) {
+            if (amData.every(row => {
+                const value = row[header];
+                return value === null || value === undefined || value === '' || isNumber(value);
+            })) {
+                numeric.add(header);
+            }
+        }
+        return numeric;
+    }, [amData, amHeaders]);
+
+    const cmData = characteristicModifiers;
+    const cmHeaders = ['Group', 'Rank', 'Stature', 'Build', 'Bodypoints', 'Disads', 'Resilience', 'Cost'];
+    const cmNumericHeaders = useMemo(() => {
+        const numeric = new Set<string>();
+        if (!cmData.length) return numeric;
+        for (const header of cmHeaders) {
+            if (cmData.every(row => {
+                const value = row[header];
+                return value === null || value === undefined || value === '' || isNumber(value);
+            })) {
+                numeric.add(header);
+            }
+        }
+        return numeric;
+    }, [cmData, cmHeaders]);
+
+    return (
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="adjustments-by-age-group" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Adjustments by Age Group</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6 space-y-12">
+                        <div>
+                            <h4 className="text-lg mb-2 font-sans">Attributes</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        {amHeaders.map((header) => (
+                                            <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': amNumericHeaders.has(header) })}>{formatHeader(header)}</TableHead>
+                                        ))}
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {amData.map((row, index) => (
+                                        <TableRow key={index}>
+                                            {amHeaders.map((header, headerIndex) => (
+                                                <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': amNumericHeaders.has(header) })}>
+                                                    {row[header] ?? 'N/A'}
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div className="mt-12">
+                            <h4 className="text-lg mb-2 font-sans">Characteristics</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        {cmHeaders.map((header) => (
+                                            <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': cmNumericHeaders.has(header) })}>{formatHeader(header)}</TableHead>
+                                        ))}
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {cmData.map((row, index) => (
+                                        <TableRow key={index}>
+                                            {cmHeaders.map((header, headerIndex) => (
+                                                <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': cmNumericHeaders.has(header) })}>
+                                                    {row[header] ?? 'N/A'}
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
+        </Card>
+    );
+};
+
 // Special card for attribute definitions
 const AttributeDefinitionsCard = ({ data }: { data: any[] }) => {
     const cardData = data;
@@ -347,7 +441,7 @@ const SpeciesCard = ({ data }: { data: any[] }) => {
     )
 };
 
-const AdjustmentsCard = ({ data }: { data: any }) => {
+const AdjustmentsByLineageCard = ({ data }: { data: any }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
   const attributeColumns = new Set(['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED']);
@@ -397,9 +491,9 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
   return (
     <Card className="bg-white overflow-hidden">
-      <AccordionItem value="adjustments" className="border-b-0">
+      <AccordionItem value="adjustments-by-lineage" className="border-b-0">
         <AccordionTrigger className="p-6 hover:no-underline w-full">
-            <CardTitle>Adjustments</CardTitle>
+            <CardTitle>Adjustments by Lineage</CardTitle>
         </AccordionTrigger>
         <AccordionContent>
             <div className="px-6 pb-6 border-b">
@@ -1002,10 +1096,9 @@ export default function Info({ data }: { data: StaticData }) {
 
   return (
     <Accordion type="multiple" className="space-y-8 max-w-[960px] mx-auto">
-      <AdjustmentsCard data={data} />
+      <AdjustmentsByLineageCard data={data} />
+      <AdjustmentsByAgeGroupCard attributeModifiers={attributeModifiers} characteristicModifiers={characteristicModifiers} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
-      <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} headers={['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost']} />
-      <SimpleTableCard title="Characteristic Modifiers" data={characteristicModifiers} headers={['Group', 'Rank', 'Stature', 'Build', 'Bodypoints', 'Disads', 'Resilience', 'Cost']} />
       <SimpleTableCard title="Characteristic Costs" data={characteristicCosts} />
       <SimpleTableCard title="Age Groups" data={ageGroups} />
       <FilterableTableCard title="Attribute Arrays" data={attributeArrays} />
