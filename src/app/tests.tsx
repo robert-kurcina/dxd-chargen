@@ -293,7 +293,7 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
                 for (let i = 0; i < iterations; i++) {
                     const randomAttributes: Record<string, number> = {};
                     attributesForCandidacy.forEach(attr => {
-                        randomAttributes[attr] = ND6(3);
+                        randomAttributes[attr] = ND6(2);
                     });
                     
                     if (evaluateCandidacy(prof.candidacy, randomAttributes)) {
@@ -470,7 +470,7 @@ export default function Tests({ data }: { data: StaticData }) {
     <Accordion type="multiple" defaultValue={['candidacy-simulation']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
         <p className="text-sm text-muted-foreground -mb-2">
-          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 3D6. The 'Expected' column uses a mathematical approximation for comparison.
+          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 2D6. The 'Expected' column uses a mathematical approximation for comparison.
         </p>
         <CandidacySimulationTest professions={data.professions} />
       </TestSuite>
