@@ -23,6 +23,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion';
 import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import type { StaticData } from '@/data';
 import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost, formatPositiveNumber, parseLineageString } from '@/lib/character-logic';
@@ -75,34 +81,38 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
 
 
   return (
-    <Card className="bg-white">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-2 border-black">
-              {tableHeaders.map((header) => (
-                <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {tableData.map((row, index) => (
-              <TableRow key={index}>
-                {tableHeaders.map((header, headerIndex) => (
-                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                    {typeof row[header] === 'boolean'
-                      ? String(row[header])
-                      : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A'}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
+    <Card className="bg-white overflow-hidden">
+        <AccordionItem value={title.toLowerCase().replace(/ /g, '-')} className="border-b-0">
+            <AccordionTrigger className="p-6 hover:no-underline">
+                <CardTitle>{title}</CardTitle>
+            </AccordionTrigger>
+            <AccordionContent>
+                <CardContent className="pt-6">
+                    <Table>
+                    <TableHeader>
+                        <TableRow className="border-b-2 border-black">
+                        {tableHeaders.map((header) => (
+                            <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>
+                        ))}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {tableData.map((row, index) => (
+                        <TableRow key={index}>
+                            {tableHeaders.map((header, headerIndex) => (
+                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
+                                {typeof row[header] === 'boolean'
+                                ? String(row[header])
+                                : Array.isArray(row[header]) ? row[header].join(', ') : row[header] ?? 'N/A'}
+                            </TableCell>
+                            ))}
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                    </Table>
+                </CardContent>
+            </AccordionContent>
+        </AccordionItem>
     </Card>
   );
 };
@@ -113,17 +123,21 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
   const listData = data;
 
   return (
-    <Card className="bg-white">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul className="list-disc pl-5 space-y-1">
-          {listData.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </CardContent>
+    <Card className="bg-white overflow-hidden">
+        <AccordionItem value={title.toLowerCase().replace(/ /g, '-')} className="border-b-0">
+            <AccordionTrigger className="p-6 hover:no-underline">
+                <CardTitle>{title}</CardTitle>
+            </AccordionTrigger>
+            <AccordionContent>
+                <CardContent className="pt-6">
+                    <ul className="list-disc pl-5 space-y-1">
+                    {listData.map((item) => (
+                        <li key={item}>{item}</li>
+                    ))}
+                    </ul>
+                </CardContent>
+            </AccordionContent>
+        </AccordionItem>
     </Card>
   );
 };
@@ -136,78 +150,86 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
   const itemsToShow = selectedKey === 'all' ? keys : [selectedKey];
 
   return (
-    <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>{title}</CardTitle>
-        <Select value={selectedKey} onValueChange={setSelectedKey}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            {keys.map((key) => (
-              <SelectItem key={key} value={key}>{key}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent className="space-y-12">
-        {itemsToShow.map((key, keyIndex) => {
-            const tableData = data[key];
-            if (!tableData || tableData.length === 0) return null;
-            
-            const isArrayOfPrimitives = typeof tableData[0] !== 'object';
-            
-            if (isArrayOfPrimitives) {
-                const arrayData = tableData;
-                 return (
-                    <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
-                        {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
-                        <p className="text-sm">{(arrayData as any[]).join(', ')}</p>
+    <Card className="bg-white overflow-hidden">
+        <AccordionItem value={title.toLowerCase().replace(/ /g, '-')} className="border-b-0">
+            <AccordionTrigger className="p-6 hover:no-underline w-full">
+                <div className="flex flex-row items-center justify-between w-full">
+                    <CardTitle>{title}</CardTitle>
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <Select value={selectedKey} onValueChange={setSelectedKey}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Filter by..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All</SelectItem>
+                                {keys.map((key) => (
+                                <SelectItem key={key} value={key}>{key}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
-                 )
-            }
-            
-            const headers = Object.keys(
-              (tableData as any[]).reduce((acc, curr) => ({ ...acc, ...curr }), {})
-            );
-            const filteredTableData = tableData;
-            
-            const numericHeaders = new Set<string>();
-            for (const h of headers) {
-                if (filteredTableData.every(r => {
-                  const value = r[h];
-                  return value === null || value === undefined || value === '' || isNumber(value);
-                })) {
-                    numericHeaders.add(h);
-                }
-            }
+                </div>
+            </AccordionTrigger>
+            <AccordionContent>
+                <CardContent className="pt-6 space-y-12">
+                    {itemsToShow.map((key, keyIndex) => {
+                        const tableData = data[key];
+                        if (!tableData || tableData.length === 0) return null;
+                        
+                        const isArrayOfPrimitives = typeof tableData[0] !== 'object';
+                        
+                        if (isArrayOfPrimitives) {
+                            const arrayData = tableData;
+                            return (
+                                <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
+                                    {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
+                                    <p className="text-sm">{(arrayData as any[]).join(', ')}</p>
+                                </div>
+                            )
+                        }
+                        
+                        const headers = Object.keys(
+                        (tableData as any[]).reduce((acc, curr) => ({ ...acc, ...curr }), {})
+                        );
+                        const filteredTableData = tableData;
+                        
+                        const numericHeaders = new Set<string>();
+                        for (const h of headers) {
+                            if (filteredTableData.every(r => {
+                            const value = r[h];
+                            return value === null || value === undefined || value === '' || isNumber(value);
+                            })) {
+                                numericHeaders.add(h);
+                            }
+                        }
 
-            return (
-              <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
-                {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
-                <Table>
-                    <TableHeader>
-                        <TableRow className="border-b-2 border-black">
-                        {headers.map((header) => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>)}
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {filteredTableData.map((row: any, index: number) => (
-                        <TableRow key={index}>
-                            {headers.map((header, headerIndex) => (
-                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                                {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
-                            </TableCell>
-                            ))}
-                        </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-              </div>
-            )
-        })}
-      </CardContent>
+                        return (
+                        <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
+                            {selectedKey === 'all' && <h4 className="text-lg font-sans">{key}</h4>}
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                    {headers.map((header) => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>)}
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {filteredTableData.map((row: any, index: number) => (
+                                    <TableRow key={index}>
+                                        {headers.map((header, headerIndex) => (
+                                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
+                                            {Array.isArray(row[header]) ? row[header].join(', ') : row[header]}
+                                        </TableCell>
+                                        ))}
+                                    </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        )
+                    })}
+                </CardContent>
+            </AccordionContent>
+      </AccordionItem>
     </Card>
   )
 }
@@ -217,37 +239,41 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => {
     const cardData = data;
     
     return (
-        <Card className="bg-white">
-        <CardHeader>
-            <CardTitle>Attribute Definitions</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-12">
-            {cardData.map((group: any, groupIndex: number) => (
-            <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
-                <h4 className="text-lg font-sans">{group.groupName}</h4>
-                <Table>
-                <TableHeader>
-                    <TableRow className="border-b-2 border-black">
-                    <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
-                    <TableHead className="font-bold text-lg h-8 px-2">Abbreviation</TableHead>
-                    <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
-                    <TableHead className="font-bold text-lg h-8 px-2 text-right">IM</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {group.attributes.map((attr: any) => (
-                    <TableRow key={attr.abbreviation}>
-                        <TableCell className="py-2 px-2 font-bold">{attr.name}</TableCell>
-                        <TableCell className="py-2 px-2">{attr.abbreviation}</TableCell>
-                        <TableCell className="py-2 px-2">{attr.description}</TableCell>
-                        <TableCell className="py-2 px-2 text-right">{attr.im}</TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-                </Table>
-            </div>
-            ))}
-        </CardContent>
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="attribute-definitions" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Attribute Definitions</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6 space-y-12">
+                        {cardData.map((group: any, groupIndex: number) => (
+                        <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
+                            <h4 className="text-lg font-sans">{group.groupName}</h4>
+                            <Table>
+                            <TableHeader>
+                                <TableRow className="border-b-2 border-black">
+                                <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                                <TableHead className="font-bold text-lg h-8 px-2">Abbreviation</TableHead>
+                                <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
+                                <TableHead className="font-bold text-lg h-8 px-2 text-right">IM</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {group.attributes.map((attr: any) => (
+                                <TableRow key={attr.abbreviation}>
+                                    <TableCell className="py-2 px-2 font-bold">{attr.name}</TableCell>
+                                    <TableCell className="py-2 px-2">{attr.abbreviation}</TableCell>
+                                    <TableCell className="py-2 px-2">{attr.description}</TableCell>
+                                    <TableCell className="py-2 px-2 text-right">{attr.im}</TableCell>
+                                </TableRow>
+                                ))}
+                            </TableBody>
+                            </Table>
+                        </div>
+                        ))}
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
         </Card>
     );
 };
@@ -257,33 +283,37 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => {
     const cardData = data;
 
     return (
-        <Card className="bg-white">
-        <CardHeader>
-            <CardTitle>Calculated Abilities</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-12">
-            {cardData.map((group: any, groupIndex: number) => (
-            <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
-                <h4 className="text-lg font-sans">{group.groupName}</h4>
-                <Table>
-                <TableHeader>
-                    <TableRow className="border-b-2 border-black">
-                    <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
-                    <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {group.abilities.map((ability: any) => (
-                    <TableRow key={ability.name}>
-                        <TableCell className="py-2 px-2 font-bold">{ability.name}</TableCell>
-                        <TableCell className="py-2 px-2">{ability.description}</TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-                </Table>
-            </div>
-            ))}
-        </CardContent>
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="calculated-abilities" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Calculated Abilities</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6 space-y-12">
+                        {cardData.map((group: any, groupIndex: number) => (
+                        <div key={group.groupName} className={groupIndex > 0 ? 'mt-12' : ''}>
+                            <h4 className="text-lg font-sans">{group.groupName}</h4>
+                            <Table>
+                            <TableHeader>
+                                <TableRow className="border-b-2 border-black">
+                                <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                                <TableHead className="font-bold text-lg h-8 px-2">Description</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {group.abilities.map((ability: any) => (
+                                <TableRow key={ability.name}>
+                                    <TableCell className="py-2 px-2 font-bold">{ability.name}</TableCell>
+                                    <TableCell className="py-2 px-2">{ability.description}</TableCell>
+                                </TableRow>
+                                ))}
+                            </TableBody>
+                            </Table>
+                        </div>
+                        ))}
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
         </Card>
     )
 };
@@ -294,23 +324,27 @@ const SpeciesCard = ({ data }: { data: any[] }) => {
     const cardData = data;
 
     return (
-        <Card className="bg-white">
-        <CardHeader>
-            <CardTitle>Species</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-12">
-            {cardData.map((specie: any, specieIndex: number) => (
-            <div key={specie.name}  className={specieIndex > 0 ? 'mt-12' : ''}>
-                <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
-                {specie.groups.map((group: any) => (
-                <div key={group.name} className="ml-4 mb-2">
-                    <h4 className="font-semibold">{group.name}</h4>
-                    <p className="ml-4 text-sm">{group.lineages.join(', ')}</p>
-                </div>
-                ))}
-            </div>
-            ))}
-        </CardContent>
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="species" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Species</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6 space-y-12">
+                        {cardData.map((specie: any, specieIndex: number) => (
+                        <div key={specie.name}  className={specieIndex > 0 ? 'mt-12' : ''}>
+                            <h3 className="font-bold text-lg mb-2">{specie.name}</h3>
+                            {specie.groups.map((group: any) => (
+                            <div key={group.name} className="ml-4 mb-2">
+                                <h4 className="font-semibold">{group.name}</h4>
+                                <p className="ml-4 text-sm">{group.lineages.join(', ')}</p>
+                            </div>
+                            ))}
+                        </div>
+                        ))}
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
         </Card>
     )
 };
@@ -364,79 +398,87 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
   };
 
   return (
-    <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Adjustments</CardTitle>
-        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="attributes">Attributes</SelectItem>
-            <SelectItem value="characteristics">Characteristics</SelectItem>
-            {ancestries.map(ancestry => (
-              <SelectItem key={ancestry} value={ancestry}>
-                {ancestry.charAt(0).toUpperCase() + ancestry.slice(1)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent className="space-y-12">
-        {filteredKeys.map((key, keyIndex) => {
-          const tableData = data[key];
-          if (!tableData || tableData.length === 0) return null;
-          const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
-          const filteredTableData = tableData;
-          
-          const numericHeaders = new Set<string>();
-          for (const h of headers) {
-              if (filteredTableData.every(r => {
-                const value = r[h];
-                return value === null || value === undefined || value === '' || isNumber(value)
-              })) {
-                  numericHeaders.add(h);
-              }
-          }
-
-          return (
-            <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
-              <h4 className="text-lg font-sans">{getTitle(key)}</h4>
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-b-2 border-black">
-                    {headers.map((header) => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>)}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredTableData.map((row: any, index: number) => (
-                    <TableRow key={index} className={cn({
-                      'bg-muted': row.lineage === 'BASE-LINE',
-                       'bg-gray-100 hover:bg-gray-200': (() => {
-                        const parsed = parseLineageString(row.lineage);
-                        return ageGroupLineageNames.has(parsed.name);
-                      })(),
-                      'bg-gray-300 hover:bg-gray-400': (() => {
-                        const parsed = parseLineageString(row.lineage);
-                        return sexLineageNames.has(parsed.name.toLowerCase());
-                      })(),
-                    })}>
-                      {headers.map((header, headerIndex) => (
-                        <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                           {(attributeColumns.has(header) || characteristicColumnsToFormat.has(header)) && typeof row[header] === 'number'
-                             ? formatPositiveNumber(row[header])
-                             : row[header]}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+    <Card className="bg-white overflow-hidden">
+      <AccordionItem value="adjustments" className="border-b-0">
+        <AccordionTrigger className="p-6 hover:no-underline w-full">
+            <div className="flex flex-row items-center justify-between w-full">
+                <CardTitle>Adjustments</CardTitle>
+                <div onClick={(e) => e.stopPropagation()}>
+                <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Filter by..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        <SelectItem value="attributes">Attributes</SelectItem>
+                        <SelectItem value="characteristics">Characteristics</SelectItem>
+                        {ancestries.map(ancestry => (
+                        <SelectItem key={ancestry} value={ancestry}>
+                            {ancestry.charAt(0).toUpperCase() + ancestry.slice(1)}
+                        </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+                </div>
             </div>
-          );
-        })}
-      </CardContent>
+        </AccordionTrigger>
+        <AccordionContent>
+            <CardContent className="pt-6 space-y-12">
+                {filteredKeys.map((key, keyIndex) => {
+                const tableData = data[key];
+                if (!tableData || tableData.length === 0) return null;
+                const headers = Object.keys(tableData.reduce((acc:any, curr:any) => ({ ...acc, ...curr }), {}));
+                const filteredTableData = tableData;
+                
+                const numericHeaders = new Set<string>();
+                for (const h of headers) {
+                    if (filteredTableData.every(r => {
+                        const value = r[h];
+                        return value === null || value === undefined || value === '' || isNumber(value)
+                    })) {
+                        numericHeaders.add(h);
+                    }
+                }
+
+                return (
+                    <div key={key} className={keyIndex > 0 ? 'mt-12' : ''}>
+                    <h4 className="text-lg font-sans">{getTitle(key)}</h4>
+                    <Table>
+                        <TableHeader>
+                        <TableRow className="border-b-2 border-black">
+                            {headers.map((header) => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{formatHeader(header)}</TableHead>)}
+                        </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                        {filteredTableData.map((row: any, index: number) => (
+                            <TableRow key={index} className={cn({
+                            'bg-muted': row.lineage === 'BASE-LINE',
+                            'bg-gray-100 hover:bg-gray-200': (() => {
+                                const parsed = parseLineageString(row.lineage);
+                                return ageGroupLineageNames.has(parsed.name);
+                            })(),
+                            'bg-gray-300 hover:bg-gray-200': (() => {
+                                const parsed = parseLineageString(row.lineage);
+                                return sexLineageNames.has(parsed.name.toLowerCase());
+                            })(),
+                            })}>
+                            {headers.map((header, headerIndex) => (
+                                <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
+                                {(attributeColumns.has(header) || characteristicColumnsToFormat.has(header)) && typeof row[header] === 'number'
+                                    ? formatPositiveNumber(row[header])
+                                    : row[header]}
+                                </TableCell>
+                            ))}
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                    </div>
+                );
+                })}
+            </CardContent>
+        </AccordionContent>
+      </AccordionItem>
     </Card>
   );
 };
@@ -495,36 +537,44 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
   };
 
   return (
-    <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Heritage</CardTitle>
-        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="cultural">Cultural</SelectItem>
-            <SelectItem value="environ">Environ</SelectItem>
-            <SelectItem value="societal">Societal</SelectItem>
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent className="space-y-12">
-        {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
-          <HeritageTable title="Cultural Heritage" data={cultural} wealthClamp={0} />
-        )}
-        {(selectedFilter === 'all' || selectedFilter === 'environ') && (
-          <div className={selectedFilter === 'environ' ? '' : 'mt-12'}>
-            <HeritageTable title="Environ Heritage" data={environ} wealthClamp={0} />
-          </div>
-        )}
-        {(selectedFilter === 'all' || selectedFilter === 'societal') && (
-          <div className={selectedFilter === 'societal' ? '' : 'mt-12'}>
-            <HeritageTable title="Societal Heritage" data={societal} wealthClamp={10} />
-          </div>
-        )}
-      </CardContent>
+    <Card className="bg-white overflow-hidden">
+        <AccordionItem value="heritage" className="border-b-0">
+            <AccordionTrigger className="p-6 hover:no-underline w-full">
+                <div className="flex flex-row items-center justify-between w-full">
+                    <CardTitle>Heritage</CardTitle>
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Filter by..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem value="cultural">Cultural</SelectItem>
+                            <SelectItem value="environ">Environ</SelectItem>
+                            <SelectItem value="societal">Societal</SelectItem>
+                        </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+            </AccordionTrigger>
+            <AccordionContent>
+                <CardContent className="pt-6 space-y-12">
+                    {(selectedFilter === 'all' || selectedFilter === 'cultural') && (
+                    <HeritageTable title="Cultural Heritage" data={cultural} wealthClamp={0} />
+                    )}
+                    {(selectedFilter === 'all' || selectedFilter === 'environ') && (
+                    <div className={selectedFilter === 'environ' ? '' : 'mt-12'}>
+                        <HeritageTable title="Environ Heritage" data={environ} wealthClamp={0} />
+                    </div>
+                    )}
+                    {(selectedFilter === 'all' || selectedFilter === 'societal') && (
+                    <div className={selectedFilter === 'societal' ? '' : 'mt-12'}>
+                        <HeritageTable title="Societal Heritage" data={societal} wealthClamp={10} />
+                    </div>
+                    )}
+                </CardContent>
+            </AccordionContent>
+        </AccordionItem>
     </Card>
   );
 };
@@ -575,41 +625,49 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 
 
   return (
-    <Card className="bg-white">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Traits</CardTitle>
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by Category..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
-            {categories.map((category) => (
-              <SelectItem key={category} value={category}>{category}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-2 border-black">
-              {headers.map(header => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{headerTitles[header]}</TableHead>)}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredData.map((row, index) => (
-              <TableRow key={index}>
-                {headers.map((header, headerIndex) => (
-                   <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                     {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
-                   </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
+    <Card className="bg-white overflow-hidden">
+        <AccordionItem value="traits" className="border-b-0">
+            <AccordionTrigger className="p-6 hover:no-underline w-full">
+                <div className="flex flex-row items-center justify-between w-full">
+                    <CardTitle>Traits</CardTitle>
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Filter by Category..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Categories</SelectItem>
+                            {categories.map((category) => (
+                            <SelectItem key={category} value={category}>{category}</SelectItem>
+                            ))}
+                        </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+            </AccordionTrigger>
+            <AccordionContent>
+                <CardContent className="pt-6">
+                    <Table>
+                    <TableHeader>
+                        <TableRow className="border-b-2 border-black">
+                        {headers.map(header => <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': numericHeaders.has(header) })}>{headerTitles[header]}</TableHead>)}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {filteredData.map((row, index) => (
+                        <TableRow key={index}>
+                            {headers.map((header, headerIndex) => (
+                            <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
+                                {typeof row[header] === 'boolean' ? String(row[header]) : row[header]}
+                            </TableCell>
+                            ))}
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                    </Table>
+                </CardContent>
+            </AccordionContent>
+        </AccordionItem>
     </Card>
   );
 };
@@ -618,32 +676,36 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 const EmpiresCard = ({ data }: { data: any[] }) => {
     const tableData = data;
     return (
-        <Card className="bg-white">
-        <CardHeader>
-            <CardTitle>Empires</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <Table>
-            <TableHeader>
-                <TableRow className="border-b-2 border-black">
-                <TableHead className="font-bold text-lg h-8 px-2 text-right">D6</TableHead>
-                <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
-                <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
-                <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {tableData.map((row: any, index: number) => (
-                <TableRow key={index}>
-                    <TableCell className="py-2 px-2 font-bold text-right">{row.id}</TableCell>
-                    <TableCell className="py-2 px-2">{row.name}</TableCell>
-                    <TableCell className="py-2 px-2">{row.region}</TableCell>
-                    <TableCell className="py-2 px-2">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-        </CardContent>
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="empires" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Empires</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6">
+                        <Table>
+                        <TableHeader>
+                            <TableRow className="border-b-2 border-black">
+                            <TableHead className="font-bold text-lg h-8 px-2 text-right">D6</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {tableData.map((row: any, index: number) => (
+                            <TableRow key={index}>
+                                <TableCell className="py-2 px-2 font-bold text-right">{row.id}</TableCell>
+                                <TableCell className="py-2 px-2">{row.name}</TableCell>
+                                <TableCell className="py-2 px-2">{row.region}</TableCell>
+                                <TableCell className="py-2 px-2">{Array.isArray(row.neighbors) ? row.neighbors.join(', ') : row.neighbors}</TableCell>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                        </Table>
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
         </Card>
     );
 };
@@ -652,35 +714,39 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
     const tableData = data;
     const isRankNumeric = tableData.every(r => isNumber(r['Rank']));
     return (
-    <Card className="bg-white">
-      <CardHeader>
-        <CardTitle>Naming Practice Titles</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-2 border-black">
-              <TableHead className={cn("font-bold text-lg h-8 px-2", { "text-right": isRankNumeric })}>Rank</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
-              <TableHead className="font-bold text-lg h-8 px-2">Tradition</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {tableData.map((row: any, index: number) => (
-              <TableRow key={index}>
-                <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isRankNumeric })}>{row['Rank']}</TableCell>
-                <TableCell className="py-2 px-2">{row.Guild}</TableCell>
-                <TableCell className="py-2 px-2">{row.Order}</TableCell>
-                <TableCell className="py-2 px-2">{row.Temple}</TableCell>
-                <TableCell className="py-2 px-2">{row.Tradition}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="naming-practice-titles" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Naming Practice Titles</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6">
+                        <Table>
+                        <TableHeader>
+                            <TableRow className="border-b-2 border-black">
+                            <TableHead className={cn("font-bold text-lg h-8 px-2", { "text-right": isRankNumeric })}>Rank</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2">Tradition</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {tableData.map((row: any, index: number) => (
+                            <TableRow key={index}>
+                                <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isRankNumeric })}>{row['Rank']}</TableCell>
+                                <TableCell className="py-2 px-2">{row.Guild}</TableCell>
+                                <TableCell className="py-2 px-2">{row.Order}</TableCell>
+                                <TableCell className="py-2 px-2">{row.Temple}</TableCell>
+                                <TableCell className="py-2 px-2">{row.Tradition}</TableCell>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                        </Table>
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
+        </Card>
     );
 };
 
@@ -689,58 +755,62 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
     const tableDataRandom = randomPersonItemDeity;
 
     return (
-    <Card className="bg-white">
-        <CardHeader>
-            <CardTitle>Tragedy Seeds</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-12">
-             <div>
-                <h4 className="text-lg mb-2 font-sans">Template</h4>
-                <Table>
-                    <TableHeader>
-                        <TableRow className="border-b-2 border-black">
-                            <TableHead className="font-bold text-lg h-8 px-2 text-right">D66</TableHead>
-                            <TableHead className="font-bold text-lg h-8 px-2">Seed</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableDataTragedy.map((row: any, index: number) => (
-                            <TableRow key={index}>
-                                <TableCell className="py-2 px-2 font-bold text-right">{row.d66}</TableCell>
-                                <TableCell className="py-2 px-2">{row.seed}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-             </div>
-             <div className="mt-12">
-                <h4 className="text-lg mb-2 font-sans">Random Person, Item, Deity, Citystate</h4>
-                <Table>
-                    <TableHeader>
-                        <TableRow className="border-b-2 border-black">
-                        <TableHead className="font-bold text-lg h-8 px-2 text-right">D66</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2">Person</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2">Item</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2">Citystate</TableHead>
-                        <TableHead className="font-bold text-lg h-8 px-2">Deity</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableDataRandom.map((row: any, index: number) => (
-                        <TableRow key={index}>
-                            <TableCell className="py-2 px-2 font-bold text-right">{row.d66}</TableCell>
-                            <TableCell className="py-2 px-2">{row.Person}</TableCell>
-                            <TableCell className="py-2 px-2">{row.Item}</TableCell>
-                            <TableCell className="py-2 px-2">{row.Citystate}</TableCell>
-                            <TableCell className="py-2 px-2">{row.Deity}</TableCell>
-                        </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-             </div>
-        </CardContent>
-    </Card>
-);
+        <Card className="bg-white overflow-hidden">
+            <AccordionItem value="tragedy-seeds" className="border-b-0">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                    <CardTitle>Tragedy Seeds</CardTitle>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <CardContent className="pt-6 space-y-12">
+                        <div>
+                            <h4 className="text-lg mb-2 font-sans">Template</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        <TableHead className="font-bold text-lg h-8 px-2 text-right">D66</TableHead>
+                                        <TableHead className="font-bold text-lg h-8 px-2">Seed</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {tableDataTragedy.map((row: any, index: number) => (
+                                        <TableRow key={index}>
+                                            <TableCell className="py-2 px-2 font-bold text-right">{row.d66}</TableCell>
+                                            <TableCell className="py-2 px-2">{row.seed}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div className="mt-12">
+                            <h4 className="text-lg mb-2 font-sans">Random Person, Item, Deity, Citystate</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                    <TableHead className="font-bold text-lg h-8 px-2 text-right">D66</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Person</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Item</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Citystate</TableHead>
+                                    <TableHead className="font-bold text-lg h-8 px-2">Deity</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {tableDataRandom.map((row: any, index: number) => (
+                                    <TableRow key={index}>
+                                        <TableCell className="py-2 px-2 font-bold text-right">{row.d66}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Person}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Item}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Citystate}</TableCell>
+                                        <TableCell className="py-2 px-2">{row.Deity}</TableCell>
+                                    </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                    </CardContent>
+                </AccordionContent>
+            </AccordionItem>
+        </Card>
+    );
 }
 
 const UniversalTableCard = ({ data }: { data: any[] }) => {
@@ -756,32 +826,36 @@ const UniversalTableCard = ({ data }: { data: any[] }) => {
   });
 
   return (
-    <Card className="bg-white">
-      <CardHeader>
-        <CardTitle>Universal Table</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8">
-          {columns.map((column, colIndex) => (
-            <Table key={colIndex}>
-              <TableHeader>
-                <TableRow className="border-b-2 border-black">
-                  <TableHead className="font-bold text-lg h-8 px-2 text-right">Index</TableHead>
-                  <TableHead className="font-bold text-lg h-8 px-2 text-right">Scalar</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {column.map((row, rowIndex) => (
-                  <TableRow key={rowIndex}>
-                    <TableCell className="py-2 px-2 text-right font-bold">{row.Index}</TableCell>
-                    <TableCell className="py-2 px-2 text-right">{row.Scalar}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          ))}
-        </div>
-      </CardContent>
+    <Card className="bg-white overflow-hidden">
+        <AccordionItem value="universal-table" className="border-b-0">
+            <AccordionTrigger className="p-6 hover:no-underline">
+                <CardTitle>Universal Table</CardTitle>
+            </AccordionTrigger>
+            <AccordionContent>
+                <CardContent className="pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8">
+                    {columns.map((column, colIndex) => (
+                        <Table key={colIndex}>
+                        <TableHeader>
+                            <TableRow className="border-b-2 border-black">
+                            <TableHead className="font-bold text-lg h-8 px-2 text-right">Index</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2 text-right">Scalar</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {column.map((row, rowIndex) => (
+                            <TableRow key={rowIndex}>
+                                <TableCell className="py-2 px-2 text-right font-bold">{row.Index}</TableCell>
+                                <TableCell className="py-2 px-2 text-right">{row.Scalar}</TableCell>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                        </Table>
+                    ))}
+                    </div>
+                </CardContent>
+            </AccordionContent>
+        </AccordionItem>
     </Card>
   );
 };
@@ -829,7 +903,7 @@ export default function Info({ data }: { data: StaticData }) {
   } = data;
 
   return (
-    <div className="space-y-8 max-w-[960px] mx-auto">
+    <Accordion type="multiple" className="space-y-8 max-w-[960px] mx-auto">
       <AdjustmentsCard data={data} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
       <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} headers={['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost']} />
@@ -862,6 +936,6 @@ export default function Info({ data }: { data: StaticData }) {
       <TraitsCard data={traits} />
       <UniversalTableCard data={universalTable} />
       <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
-    </div>
+    </Accordion>
   );
 }
