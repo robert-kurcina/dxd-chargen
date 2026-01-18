@@ -27,6 +27,7 @@ import pointBuyCosts from './pointBuyCosts.json';
 import professions from './professions.json';
 import randomPersonItemDeity from './randomPersonItemDeity.json';
 import salaryByTradeRank from './salaryByTradeRank.json';
+import salaryAdjustmentsByTrade from './salaryAdjustmentsByTrade.json';
 import settlements from './settlements.json';
 import socialGroups from './socialGroups.json';
 import socialRanks from './socialRanks.json';
@@ -84,6 +85,7 @@ const sarnaLenData = {
   professions,
   randomPersonItemDeity,
   salaryByTradeRank,
+  salaryAdjustmentsByTrade,
   settlements,
   socialGroups,
   socialRanks,

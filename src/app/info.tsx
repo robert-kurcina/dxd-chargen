@@ -1052,40 +1052,73 @@ const BeliefsAndDeitiesCard = ({ beliefs, deities }: { beliefs: any[], deities: 
     );
 };
 
-const SalaryByTradeRankCard = ({ data }: { data: any[] }) => {
-    const tableData = data;
-    const headers = ['Rank', 'Monthly', 'Daily', 'Wealth Rank'];
+const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentData: any[] }) => {
+    const rankTableData = rankData;
+    const rankHeaders = ['Rank', 'Monthly', 'Daily', 'Wealth Rank'];
+    
+    const adjustmentTableData = adjustmentData;
+    const adjustmentHeaders = ['Trade', 'Rank 1', 'Rank 2', 'Rank 3-4', 'Rank 5-7', 'Rank 8+'];
 
     return (
         <Card className="bg-white overflow-hidden">
-            <AccordionItem value="salary-by-trade-rank" className="border-b-0">
+            <AccordionItem value="salary" className="border-b-0">
                 <AccordionTrigger className="p-6 hover:no-underline">
-                    <CardTitle>Salary by Trade Rank</CardTitle>
+                    <CardTitle>Salary</CardTitle>
                 </AccordionTrigger>
                 <AccordionContent>
-                    <CardContent className="pt-6">
-                        <p className="text-sm text-muted-foreground mb-4">
-                            Monthly and Daily salaries are presented in units of silver pieces (sp).
-                        </p>
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="border-b-2 border-black">
-                                    {headers.map(header => (
-                                        <TableHead key={header} className="font-bold text-lg h-8 px-2 text-right">{header}</TableHead>
-                                    ))}
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {tableData.map((row: any, index: number) => (
-                                    <TableRow key={index}>
-                                        <TableCell className="py-2 px-2 text-right font-bold">{row['Rank']}</TableCell>
-                                        <TableCell className="py-2 px-2 text-right">{row.Monthly}</TableCell>
-                                        <TableCell className="py-2 px-2 text-right">{row.Daily}</TableCell>
-                                        <TableCell className="py-2 px-2 text-right">{row['Wealth Rank']}</TableCell>
+                    <CardContent className="pt-6 space-y-12">
+                        <div>
+                            <h4 className="text-lg mb-2 font-sans">Salary by Trade Rank</h4>
+                            <p className="text-sm text-muted-foreground mb-4">
+                                Monthly and Daily salaries are presented in units of silver pieces (sp).
+                            </p>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                        {rankHeaders.map(header => (
+                                            <TableHead key={header} className="font-bold text-lg h-8 px-2 text-right">{header}</TableHead>
+                                        ))}
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {rankTableData.map((row: any, index: number) => (
+                                        <TableRow key={index}>
+                                            <TableCell className="py-2 px-2 text-right font-bold">{row['Rank']}</TableCell>
+                                            <TableCell className="py-2 px-2 text-right">{row.Monthly}</TableCell>
+                                            <TableCell className="py-2 px-2 text-right">{row.Daily}</TableCell>
+                                            <TableCell className="py-2 px-2 text-right">{row['Wealth Rank']}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div className="mt-12">
+                            <h4 className="text-lg mb-2 font-sans">Salary Adjustments by Trade</h4>
+                            <p className="text-sm text-muted-foreground mb-4">
+                                Index offsets to adjust Wealth Rank based on Trade.
+                            </p>
+                             <Table>
+                                <TableHeader>
+                                    <TableRow className="border-b-2 border-black">
+                                    {adjustmentHeaders.map((header, headerIndex) => (
+                                        <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { 'text-right': headerIndex > 0})}>{header}</TableHead>
+                                    ))}
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {adjustmentTableData.map((row: any, index: number) => (
+                                    <TableRow key={index}>
+                                        <TableCell className="py-2 px-2 font-bold">{row.Trade}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 1']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 2']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 3-4']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 5-7']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 8+']}</TableCell>
+                                    </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </CardContent>
                 </AccordionContent>
             </AccordionItem>
@@ -1125,6 +1158,7 @@ export default function Info({ data }: { data: StaticData }) {
     professions,
     randomPersonItemDeity,
     salaryByTradeRank,
+    salaryAdjustmentsByTrade,
     settlements,
     socialGroups,
     socialRanks,
@@ -1158,7 +1192,7 @@ export default function Info({ data }: { data: StaticData }) {
       <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']}/>
       <SimpleTableCard title="PML Titles" data={pmlTitles} />
       <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
-      <SalaryByTradeRankCard data={salaryByTradeRank} />
+      <SalaryCard rankData={salaryByTradeRank} adjustmentData={salaryAdjustmentsByTrade} />
       <FilterableTableCard title="Settlements" data={settlements} />
       <SimpleTableCard title="Social Groups" data={socialGroups} />
       <SimpleTableCard title="Social Ranks" data={socialRanks} />

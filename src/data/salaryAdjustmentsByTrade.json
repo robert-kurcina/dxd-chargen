@@ -1,0 +1,13 @@
+
+[
+  { "Trade": "Academic", "Rank 1": "-3", "Rank 2": "0", "Rank 3-4": "+2", "Rank 5-7": "+3", "Rank 8+": "+5" },
+  { "Trade": "Cleric", "Rank 1": "-3", "Rank 2": "-1", "Rank 3-4": "0", "Rank 5-7": "+3", "Rank 8+": "+5" },
+  { "Trade": "Entertainer", "Rank 1": "-3", "Rank 2": "-1", "Rank 3-4": "0", "Rank 5-7": "0", "Rank 8+": "+2" },
+  { "Trade": "Knight", "Rank 1": "0", "Rank 2": "+2", "Rank 3-4": "+3", "Rank 5-7": "+5", "Rank 8+": "+6" },
+  { "Trade": "Mariner", "Rank 1": "-3", "Rank 2": "-1", "Rank 3-4": "0", "Rank 5-7": "+2", "Rank 8+": "+3" },
+  { "Trade": "Ranger", "Rank 1": "-3", "Rank 2": "-1", "Rank 3-4": "0", "Rank 5-7": "+2", "Rank 8+": "+3" },
+  { "Trade": "Rogue", "Rank 1": "-6", "Rank 2": "-3", "Rank 3-4": "-3", "Rank 5-7": "0", "Rank 8+": "+2" },
+  { "Trade": "Service", "Rank 1": "-6", "Rank 2": "-3", "Rank 3-4": "0", "Rank 5-7": "+1", "Rank 8+": "+2" },
+  { "Trade": "Warrior", "Rank 1": "-3", "Rank 2": "0", "Rank 3-4": "0", "Rank 5-7": "+2", "Rank 8+": "+3" },
+  { "Trade": "Wizard", "Rank 1": "-3", "Rank 2": "0", "Rank 3-4": "+3", "Rank 5-7": "+5", "Rank 8+": "+7" }
+]
