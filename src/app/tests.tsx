@@ -461,6 +461,8 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   const sortedSquad = squad ? [...squad].sort((a, b) => (b?.tradeRank || 0) - (a?.tradeRank || 0)) : null;
   const totalSalary = sortedSquad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
   const dailyCost = totalSalary / 30;
+  const quarterlyCost = totalSalary * 3;
+  const yearlyCost = totalSalary * 12;
   const requiredWealthRank = getIndex(dailyCost);
 
   return (
@@ -561,7 +563,9 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
             </Table>
             <div className="mt-4 p-4 border rounded-md bg-gray-50 text-right">
               <p className="font-semibold">Total Monthly Salary: <span className="font-mono">{totalSalary.toLocaleString()} sp</span></p>
-              <p className="text-sm text-muted-foreground">Minimum Wealth Rank to afford: <span className="font-mono font-semibold">{requiredWealthRank}</span> (Daily cost: {dailyCost.toFixed(2)} sp)</p>
+              <p className="text-sm text-muted-foreground">Quarterly Cost: <span className="font-mono">{quarterlyCost.toLocaleString()} sp</span></p>
+              <p className="text-sm text-muted-foreground">Yearly Cost: <span className="font-mono">{yearlyCost.toLocaleString()} sp</span></p>
+              <p className="text-sm text-muted-foreground mt-2">Minimum Wealth Rank to afford: <span className="font-mono font-semibold">{requiredWealthRank}</span> (Daily cost: {dailyCost.toFixed(2)} sp)</p>
             </div>
           </div>
         )}
