@@ -1,4 +1,5 @@
 
+
 import type { StaticData } from "@/data";
 import { ND6, D66, d66Lookup } from "./dice";
 import { findKeyCaseInsensitive } from "./utils";
@@ -543,6 +544,64 @@ export function getScalar(index: number): number {
 }
 
 /**
+ * Calculates an index from the Universal Table for any given scalar value.
+ * This is the inverse of the getScalar function, rounding to the nearest value in logarithmic space.
+ * @param scalar The scalar value to find the index for.
+ * @returns The calculated index.
+ */
+export function getIndex(scalar: number): number {
+  if (scalar <= 0) {
+    return -Infinity;
+  }
+
+  const baseScalars = [10, 12, 15, 20, 25, 30, 40, 50, 60, 80];
+  // Add the next value in sequence (10 * 10^1) to handle rounding up at the end of the cycle.
+  const comparisonScalars = [...baseScalars, 100];
+  const logComparisonScalars = comparisonScalars.map(v => Math.log(v));
+
+  let normalizedScalar = scalar;
+  let quotient = 0;
+
+  // Normalize the scalar to be within the [10, 100) range
+  if (normalizedScalar >= 100) {
+      while (normalizedScalar >= 100) {
+          normalizedScalar /= 10;
+          quotient++;
+      }
+  } else {
+      while (normalizedScalar < 10) {
+          normalizedScalar *= 10;
+          quotient--;
+      }
+  }
+
+  const logNormalizedScalar = Math.log(normalizedScalar);
+
+  // Find the index of the closest base scalar in logarithmic space
+  let closestIdx = 0;
+  let minDiff = Infinity;
+
+  for (let i = 0; i < logComparisonScalars.length; i++) {
+    const diff = Math.abs(logNormalizedScalar - logComparisonScalars[i]);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIdx = i;
+    }
+  }
+  
+  let remainder;
+  if (closestIdx === 10) { // This means we rounded up to 100
+      remainder = 0;
+      quotient++;
+  } else {
+      remainder = closestIdx;
+  }
+
+  return quotient * 10 + remainder;
+}
+
+
+/**
  * Parses a lineage string that may contain a rank in brackets.
  * e.g., "Early Teen [1]" -> { name: "Early Teen", rank: "1" }
  * e.g., "female" -> { name: "female", rank: null }
@@ -580,7 +639,7 @@ export function evaluateCandidacy(candidacyString: string, attributes: Record<st
       let conditionMet = false;
 
       // Check for summation condition e.g. "INT + KNO + PRE + POW >= 28"
-      const sumMatch = condition.match(/^([\w\s\+]+) >= (\d+)$/);
+      const sumMatch = condition.match(/^\(?([\w\s\+]+?)\)? >= (\d+)$/);
       if (sumMatch) {
         const attrsToSum = sumMatch[1].split('+').map(s => s.trim());
         const targetSum = parseInt(sumMatch[2], 10);
@@ -621,3 +680,4 @@ export function evaluateCandidacy(candidacyString: string, attributes: Record<st
     // All conditions passed
     return true;
 }
+

@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from 'react';
@@ -31,6 +32,7 @@ import {
   calculateAttributeSkillpointCost,
   calculateBonusSkillpointCost,
   getScalar,
+  getIndex,
   formatPositiveNumber,
   evaluateCandidacy,
   parseLineageString,
@@ -679,15 +681,28 @@ export default function Tests({ data }: { data: StaticData }) {
         <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
       </TestSuite>
 
-      <TestSuite title="getScalar Function Tests" value="get-scalar-tests">
+      <TestSuite title="getScalar & getIndex Function Tests" value="get-scalar-get-index-tests">
           <p className="text-sm text-muted-foreground p-4 -mb-4">
-              Tests the calculation of scalar values from any arbitrary index based on the Universal Table's logarithmic pattern.
+              Tests the calculation of scalar values from an index and its inverse function, which finds the nearest index for a given scalar on a logarithmic scale.
           </p>
+          <h3 className="font-semibold px-2 pt-2">getScalar (Index to Scalar)</h3>
           {getScalarTests.map((test, i) => {
               const result = getScalar(test.index);
               const pass = result === test.expected;
               return <TestCase key={`scalar-${i}`} title={`getScalar(${test.index})`} result={result} expected={test.expected} pass={pass} />;
           })}
+          <h3 className="font-semibold px-2 pt-4">getIndex (Scalar to Index)</h3>
+          {getScalarTests.map((test, i) => {
+              const scalar = test.expected;
+              const result = getIndex(scalar);
+              const pass = result === test.index;
+              return <TestCase key={`index-roundtrip-${i}`} title={`getIndex(${scalar})`} result={result} expected={test.index} pass={pass} />;
+          })}
+          <TestCase title="getIndex(110)" result={getIndex(110)} expected={11} pass={getIndex(110) === 11} />
+          <TestCase title="getIndex(99)" result={getIndex(99)} expected={10} pass={getIndex(99) === 10} />
+          <TestCase title="getIndex(89)" result={getIndex(89)} expected={9} pass={getIndex(89) === 9} />
+          <TestCase title="getIndex(0.11)" result={getIndex(0.11)} expected={-19} pass={getIndex(0.11) === -19} />
+          <TestCase title="getIndex(9500)" result={getIndex(9500)} expected={30} pass={getIndex(9500) === 30} />
       </TestSuite>
 
       <TestSuite title="Tragedy Seed Tests" value="tragedy-seed-tests">
@@ -696,3 +711,4 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
