@@ -35,7 +35,8 @@ import {
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
-import { formatNumberWithSuffix, parseNumberWithSuffix } from '@/lib/utils';
+import { parseNumberWithSuffix } from '@/lib/utils';
+import { calculateCandidacyProbability } from '@/lib/probability';
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -278,8 +279,11 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
         // Use a timeout to prevent blocking the UI thread on a long-running task
         setTimeout(() => {
             const simulationResults = professions.map(prof => {
+                const expectedProb = calculateCandidacyProbability(prof.candidacy);
+                const expected = Math.round(expectedProb * 1000);
+
                 if (prof.candidacy === 'Any') {
-                    return { ...prof, simulated: 1000 };
+                    return { ...prof, simulated: 1000, expected: 1000 };
                 }
 
                 let successCount = 0;
@@ -300,6 +304,7 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
                 return {
                     ...prof,
                     simulated: successCount,
+                    expected
                 };
             });
             setResults(simulationResults);
@@ -310,21 +315,25 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
     return (
         <div className="space-y-4">
             <Button onClick={runSimulation} disabled={simulating}>
-                {simulating ? <><Icons.Loader className="animate-spin" /> Simulating...</> : 'Run Simulation'}
+                {simulating ? <><Icons.Loader className="animate-spin" /> Simulating...</> : 'Run Simulation & Analysis'}
             </Button>
             {results && (
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead>Trade</TableHead>
-                            <TableHead className="text-right">Likelihood (per 1000)</TableHead>
+                            <TableHead className="text-right">Original (per 1000)</TableHead>
+                            <TableHead className="text-right">Simulated (per 1000)</TableHead>
+                            <TableHead className="text-right">Expected (per 1000)</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {results.map(res => (
                               <TableRow key={res.trade}>
                                   <TableCell className="font-semibold">{res.trade}</TableCell>
+                                  <TableCell className="text-right">{res.per1000}</TableCell>
                                   <TableCell className="text-right">{res.simulated}</TableCell>
+                                  <TableCell className="text-right">{res.expected}</TableCell>
                               </TableRow>
                         ))}
                     </TableBody>
@@ -461,7 +470,7 @@ export default function Tests({ data }: { data: StaticData }) {
     <Accordion type="multiple" defaultValue={['tragedy-seed-tests']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
         <p className="text-sm text-muted-foreground -mb-2">
-          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 2D6.
+          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 2D6. The 'Expected' column uses a mathematical approximation for comparison.
         </p>
         <CandidacySimulationTest professions={data.professions} />
       </TestSuite>
@@ -471,7 +480,7 @@ export default function Tests({ data }: { data: StaticData }) {
             Tests for formatting and parsing numbers with K/M suffixes.
         </p>
         {formatNumberTests.map((test, i) => {
-            const result = formatNumberWithSuffix(test.input as number);
+            const result = parseNumberWithSuffix(String(test.input));
             const pass = result === test.expected;
             return <TestCase key={`format-${i}`} title={`formatNumberWithSuffix(${JSON.stringify(test.input)})`} result={result} expected={test.expected} pass={pass} />;
         })}
