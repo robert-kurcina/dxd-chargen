@@ -53,11 +53,10 @@ const formatHeader = (header: string) => {
 // Generic component for a simple table in a card
 const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[]; headers?: string[] }) => {
   if (!data || data.length === 0) return null;
-  const tableHeaders = headers ?? Object.keys(
-    data.reduce((acc, curr) => ({ ...acc, ...curr }), {})
-  );
-
   const tableData = data;
+  const tableHeaders = headers ?? Object.keys(
+    tableData.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+  );
 
   const numericHeaders = useMemo(() => {
     const numeric = new Set<string>();
@@ -77,7 +76,7 @@ const SimpleTableCard = ({ title, data, headers }: { title: string; data: any[];
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -115,7 +114,7 @@ const ListCard = ({ title, data }: { title: string; data: string[] }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -138,7 +137,7 @@ const FilterableTableCard = ({ title, data }: { title: string; data: Record<stri
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>{title}</CardTitle>
         <Select value={selectedKey} onValueChange={setSelectedKey}>
           <SelectTrigger className="w-[180px]">
@@ -219,7 +218,7 @@ const AttributeDefinitionsCard = ({ data }: { data: any[] }) => {
     
     return (
         <Card className="bg-white">
-        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardHeader>
             <CardTitle>Attribute Definitions</CardTitle>
         </CardHeader>
         <CardContent className="space-y-12">
@@ -259,7 +258,7 @@ const CalculatedAbilitiesCard = ({ data }: { data: any[] }) => {
 
     return (
         <Card className="bg-white">
-        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardHeader>
             <CardTitle>Calculated Abilities</CardTitle>
         </CardHeader>
         <CardContent className="space-y-12">
@@ -296,7 +295,7 @@ const SpeciesCard = ({ data }: { data: any[] }) => {
 
     return (
         <Card className="bg-white">
-        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardHeader>
             <CardTitle>Species</CardTitle>
         </CardHeader>
         <CardContent className="space-y-12">
@@ -360,7 +359,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Adjustments</CardTitle>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[180px]">
@@ -479,7 +478,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Heritage</CardTitle>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[180px]">
@@ -559,7 +558,7 @@ const TraitsCard = ({ data }: { data: any[] }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 flex flex-row items-center justify-between bg-white/95 backdrop-blur-sm">
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Traits</CardTitle>
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-[180px]">
@@ -602,7 +601,7 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
     const tableData = data;
     return (
         <Card className="bg-white">
-        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardHeader>
             <CardTitle>Empires</CardTitle>
         </CardHeader>
         <CardContent>
@@ -636,7 +635,7 @@ const NamingPracticeTitlesCard = ({ data }: { data: any[] }) => {
     const isRankNumeric = tableData.every(r => isNumber(r['Rank']));
     return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader>
         <CardTitle>Naming Practice Titles</CardTitle>
       </CardHeader>
       <CardContent>
@@ -673,7 +672,7 @@ const TragedySeedsCard = ({ tragedySeeds, randomPersonItemDeity }: { tragedySeed
 
     return (
     <Card className="bg-white">
-        <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+        <CardHeader>
             <CardTitle>Tragedy Seeds</CardTitle>
         </CardHeader>
         <CardContent className="space-y-12">
@@ -740,7 +739,7 @@ const UniversalTableCard = ({ data }: { data: any[] }) => {
 
   return (
     <Card className="bg-white">
-      <CardHeader className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm">
+      <CardHeader>
         <CardTitle>Universal Table</CardTitle>
       </CardHeader>
       <CardContent>
