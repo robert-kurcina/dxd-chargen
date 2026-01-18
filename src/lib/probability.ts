@@ -1,4 +1,3 @@
-
 'use client';
 
 // Polynomial approximation for the error function erf(x)
@@ -98,31 +97,101 @@ function calculateSubConditionProbability(condition: string): number {
     throw new Error(`Invalid sub-condition format: "${condition}"`);
 }
 
+/**
+ * Recursively evaluates a parsed candidacy expression.
+ * @param expr The expression string to evaluate.
+ * @returns The probability (0 to 1) of the expression being true, or -1 on error.
+ */
+function evaluateExpression(expr: string): number {
+    expr = expr.trim();
+
+    // Base case: Handle fully wrapped expressions like `(A and B)`
+    if (expr.startsWith('(') && expr.endsWith(')')) {
+        let openParen = 1;
+        let isFullyWrapped = true;
+        for (let i = 1; i < expr.length - 1; i++) {
+            if (expr[i] === '(') openParen++;
+            if (expr[i] === ')') openParen--;
+            if (openParen === 0) {
+                // Found a closing parenthesis for an inner group before the end.
+                // This means it's not fully wrapped, e.g. `(A) and (B)`
+                isFullyWrapped = false;
+                break;
+            }
+        }
+        if (isFullyWrapped) {
+            return evaluateExpression(expr.substring(1, expr.length - 1));
+        }
+    }
+
+    let parenCount = 0;
+    
+    // Look for the rightmost lowest-precedence operator: 'or'.
+    for (let i = expr.length - 1; i >= 0; i--) {
+        if (expr[i] === ')') parenCount++;
+        if (expr[i] === '(') parenCount--;
+        
+        // Using ' or ' to avoid matching 'or' inside words.
+        if (parenCount === 0 && expr.substring(i).startsWith(' or ')) {
+            const left = expr.substring(0, i);
+            const right = expr.substring(i + ' or '.length);
+            const pLeft = evaluateExpression(left);
+            const pRight = evaluateExpression(right);
+            if (pLeft === -1 || pRight === -1) return -1;
+            // P(A or B) = P(A) + P(B) - P(A and B)
+            // Since events are independent, P(A and B) = P(A) * P(B)
+            return pLeft + pRight - (pLeft * pRight);
+        }
+    }
+    
+    // Look for the rightmost higher-precedence operator: 'and'.
+    parenCount = 0;
+    for (let i = expr.length - 1; i >= 0; i--) {
+        if (expr[i] === ')') parenCount++;
+        if (expr[i] === '(') parenCount--;
+        
+        if (parenCount === 0 && expr.substring(i).startsWith(' and ')) {
+            const left = expr.substring(0, i);
+            const right = expr.substring(i + ' and '.length);
+            const pLeft = evaluateExpression(left);
+            const pRight = evaluateExpression(right);
+            if (pLeft === -1 || pRight === -1) return -1;
+            // P(A and B) = P(A) * P(B)
+            return pLeft * pRight;
+        }
+    }
+
+    // If no operators, it's a base condition.
+    try {
+        // This function already handles the internal 'or' for individual attributes like "CCA or RCA 10+"
+        return calculateSubConditionProbability(expr);
+    } catch {
+        return -1;
+    }
+}
+
 
 /**
  * Calculates the exact probability of a profession's candidacy expression being true.
- * @param candidacyString The expression from the professions data (e.g., "INT + KNO >= 28, and INT, KNO 10+").
+ * Supports logical grouping with parentheses and 'and'/'or' operators.
+ * @param candidacyString The expression from the professions data (e.g., "(INT + KNO >= 18) or (PRE + POW >= 18), and KNO 10+").
  * @returns The total probability (from 0 to 1), or -1 if the expression is invalid.
  */
 export function calculateCandidacyProbability(candidacyString: string): number {
     if (!candidacyString || candidacyString.trim() === "") {
         return -1;
     }
-    if (candidacyString === "Any") {
+    if (candidacyString.trim().toLowerCase() === "any") {
       return 1.0;
     }
 
-    try {
-        const mainConditions = candidacyString.split(', and ');
-        
-        let totalProbability = 1.0;
+    // Standardize operators to simplify parsing
+    const standardizedExpr = candidacyString.replace(/, and /g, ' and ').replace(/, or /g, ' or ');
 
-        for (const condition of mainConditions) {
-            const subProb = calculateSubConditionProbability(condition);
-            totalProbability *= subProb;
-        }
-        
-        return totalProbability;
+    try {
+        const result = evaluateExpression(standardizedExpr);
+        // Ensure we don't return a value that looks valid but indicates an error
+        return result === -1 ? -1 : result;
     } catch (error) {
         console.error("Candidacy parsing error:", error);
         return -1;
