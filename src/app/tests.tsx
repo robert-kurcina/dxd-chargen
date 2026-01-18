@@ -741,6 +741,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
     };
 
     const RenderGroup = ({ group, isTopLevel = false, index }: { group: Group, isTopLevel?: boolean, index?: number }) => {
+        const specialistSalary = group.specialists.reduce((sum, s) => sum + (s.salary?.monthlySalary ?? 0), 0);
         const summary = (
             <div className="flex flex-1 items-center justify-between">
                 <h3 className="font-bold text-2xl">Group{index !== undefined ? ` #${index + 1}` : ''} <span className="text-xl font-normal text-muted-foreground">({group.memberCount} members)</span></h3>
@@ -754,10 +755,31 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                     <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                     <TableBody>
                         <MemberRow member={group.leader} />
-                        {group.specialists.map(s => <MemberRow key={s.id} member={s} />)}
                     </TableBody>
                 </Table>
-                <Accordion type="multiple" className="space-y-4">
+                
+                {group.specialists.length > 0 && (
+                     <Accordion type="single" collapsible className="w-full">
+                         <AccordionItem value={`group-specialists-${group.leader.id}`} className="bg-gray-50/50 rounded-md border">
+                            <AccordionTrigger className="p-4 text-left hover:no-underline">
+                                <div className="flex flex-1 items-center justify-between">
+                                    <h5 className="font-semibold text-lg">Group Specialists ({group.specialists.length} members)</h5>
+                                    <span className="text-sm text-muted-foreground font-mono ml-4">{specialistSalary.toLocaleString()} sp / month</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="p-4 pt-0">
+                                <Table>
+                                    <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                                    <TableBody>
+                                        {group.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                                    </TableBody>
+                                </Table>
+                            </AccordionContent>
+                         </AccordionItem>
+                     </Accordion>
+                )}
+                
+                <Accordion type="multiple" className="space-y-4 !mt-4">
                     {group.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
                 </Accordion>
             </div>
@@ -1201,3 +1223,4 @@ export default function Tests({ data }: { data: StaticData }) {
 }
 
     
+
