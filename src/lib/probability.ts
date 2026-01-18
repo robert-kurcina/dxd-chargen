@@ -95,29 +95,36 @@ function calculateSubConditionProbability(condition: string): number {
         }
     }
 
-    return 0; // Should not be reached for valid expressions
+    throw new Error(`Invalid sub-condition format: "${condition}"`);
 }
 
 
 /**
  * Calculates the exact probability of a profession's candidacy expression being true.
  * @param candidacyString The expression from the professions data (e.g., "INT + KNO >= 28, and INT, KNO 10+").
- * @returns The total probability (from 0 to 1).
+ * @returns The total probability (from 0 to 1), or -1 if the expression is invalid.
  */
 export function calculateCandidacyProbability(candidacyString: string): number {
+    if (!candidacyString || candidacyString.trim() === "") {
+        return -1;
+    }
     if (candidacyString === "Any") {
       return 1.0;
     }
 
-    // Split by ", and " to get the main independent conditions
-    const mainConditions = candidacyString.split(', and ');
-    
-    let totalProbability = 1.0;
+    try {
+        const mainConditions = candidacyString.split(', and ');
+        
+        let totalProbability = 1.0;
 
-    for (const condition of mainConditions) {
-        const subProb = calculateSubConditionProbability(condition);
-        totalProbability *= subProb;
+        for (const condition of mainConditions) {
+            const subProb = calculateSubConditionProbability(condition);
+            totalProbability *= subProb;
+        }
+        
+        return totalProbability;
+    } catch (error) {
+        console.error("Candidacy parsing error:", error);
+        return -1;
     }
-    
-    return totalProbability;
 }

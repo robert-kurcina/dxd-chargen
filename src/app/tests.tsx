@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Textarea } from '@/components/ui/textarea';
 import { Icons } from '@/components/icons';
 import { 
   ND6,
@@ -32,6 +33,7 @@ import {
   getScalar,
   formatPositiveNumber,
   evaluateCandidacy,
+  parseLineageString,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -342,6 +344,51 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
     );
 };
 
+const CandidacyEvaluatorTest = () => {
+    const defaultExpression = "INT + KNO + PRE + POW >= 28, and KNO, PRE 10+";
+    const [expression, setExpression] = useState(defaultExpression);
+    const [result, setResult] = useState<number | null>(null);
+
+    const handleEvaluate = () => {
+        const prob = calculateCandidacyProbability(expression);
+        setResult(prob);
+    };
+    
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const value = e.target.value;
+        if (value === "") {
+            setExpression(defaultExpression);
+        } else {
+            setExpression(value);
+        }
+    };
+
+    return (
+        <div className="space-y-4">
+            <p className="text-sm text-muted-foreground -mb-2">
+              Enter a candidacy expression to see its likelihood of success out of 1000.
+            </p>
+            <Textarea 
+                value={expression}
+                onChange={handleInputChange}
+                className="font-mono"
+                rows={3}
+            />
+            <Button onClick={handleEvaluate}>
+                Evaluate
+            </Button>
+            {result !== null && (
+                 <div className="mt-2 p-2 border rounded-md bg-gray-50 font-mono text-sm">
+                    {result === -1 
+                        ? <p className="text-destructive">Invalid Expression</p>
+                        : <p>Likelihood (per 1000): <span className="font-bold text-primary">{Math.round(result * 1000)}</span></p>
+                    }
+                 </div>
+            )}
+        </div>
+    );
+};
+
 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -466,7 +513,11 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   return (
-    <Accordion type="multiple" defaultValue={['candidacy-simulation']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <Accordion type="multiple" defaultValue={['candidacy-evaluator']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+      <TestSuite title="Candidacy Expression Evaluator" value="candidacy-evaluator">
+        <CandidacyEvaluatorTest />
+      </TestSuite>
+
       <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
         <CandidacySimulationTest professions={data.professions} />
       </TestSuite>
