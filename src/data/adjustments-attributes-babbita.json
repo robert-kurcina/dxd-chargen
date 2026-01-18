@@ -76,7 +76,7 @@
     "cost": -12
   },
   {
-    "lineage": "Child",
+    "lineage": "Child [A]",
     "CCA": 0,
     "RCA": 0,
     "REF": 0,
@@ -91,7 +91,7 @@
     "cost": 0
   },
   {
-    "lineage": "Youth",
+    "lineage": "Youth [0]",
     "CCA": 0,
     "RCA": 0,
     "REF": 0,
@@ -106,7 +106,7 @@
     "cost": 5
   },
   {
-    "lineage": "Early Teen",
+    "lineage": "Early Teen [1]",
     "CCA": 0,
     "RCA": 0,
     "REF": 1,
