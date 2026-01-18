@@ -660,9 +660,15 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
         </TableRow>
     );
 
-    const RenderBand = ({ band, index }: { band: Band, index: number }) => (
-        <div className="pl-4 mt-4">
-            <h5 className="font-semibold text-lg">Band #{index + 1} <span className="text-sm font-normal text-muted-foreground">({band.memberCount} members)</span></h5>
+    const RenderBand = ({ band, isTopLevel = false, index }: { band: Band, isTopLevel?: boolean, index?: number }) => {
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h5 className="font-semibold text-lg">Band{index !== undefined ? ` #${index + 1}` : ''} <span className="text-sm font-normal text-muted-foreground">({band.memberCount} members)</span></h5>
+                <span className="text-sm text-muted-foreground font-mono ml-4">{band.totalMonthlySalary.toLocaleString()} sp / month</span>
+            </div>
+        );
+
+        const content = (
             <Table>
                 <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                 <TableBody>
@@ -670,54 +676,135 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                     {band.followers.map(f => <MemberRow key={f.id} member={f} />)}
                 </TableBody>
             </Table>
-        </div>
-    );
+        );
 
-    const RenderSquad = ({ squad, index }: { squad: Squad, index: number }) => (
-        <div className="pl-4 mt-6 border-l-2 border-gray-300">
-            <h4 className="font-bold text-xl">Squad #{index + 1} <span className="text-sm font-normal text-muted-foreground">({squad.memberCount} members)</span></h4>
-             <Table>
-                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                <TableBody>
-                    <MemberRow member={squad.leader} />
-                    <MemberRow member={squad.secondary} />
-                </TableBody>
-            </Table>
-            {squad.bands.map((band, i) => <RenderBand key={band.leader.id} band={band} index={i} />)}
-        </div>
-    );
+        if (isTopLevel) {
+            return (
+                <div className="mt-6 space-y-4">
+                    <h5 className="font-semibold text-lg">Generated Band <span className="text-sm font-normal text-muted-foreground">({band.memberCount} total members)</span></h5>
+                    {content}
+                    <div className="mt-4 text-right font-bold text-xl">
+                        Total Band Monthly Salary: {band.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            )
+        }
 
-    const RenderGroup = ({ group, index }: { group: Group, index: number }) => (
-        <div className="pl-4 mt-6 border-l-4 border-gray-400">
-            <h3 className="font-bold text-2xl">Group #{index + 1} <span className="text-base font-normal text-muted-foreground">({group.memberCount} members)</span></h3>
-             <Table>
-                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                <TableBody>
-                    <MemberRow member={group.leader} />
-                    {group.specialists.map(s => <MemberRow key={s.id} member={s} />)}
-                </TableBody>
-            </Table>
-            {group.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
-        </div>
-    );
-    
-    const RenderCompany = ({ company }: { company: Company }) => (
-        <div className="mt-6">
-            <h2 className="font-bold text-3xl mb-4">Generated Company <span className="text-xl font-normal text-muted-foreground">({company.memberCount} total members)</span></h2>
-             <Table>
-                 <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                <TableBody>
-                    <MemberRow member={company.leader} />
-                    <MemberRow member={company.secondary} />
-                    {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
-                </TableBody>
-            </Table>
-            {company.groups.map((group, i) => <RenderGroup key={group.leader.id} group={group} index={i}/>)}
-            <div className="mt-8 text-right font-bold text-xl">
-                Total Company Monthly Salary: {company.totalMonthlySalary.toLocaleString()} sp
+        return (
+            <AccordionItem value={`band-${band.leader.id}`} className="bg-gray-50/50 rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        );
+    };
+
+    const RenderSquad = ({ squad, isTopLevel = false, index }: { squad: Squad, isTopLevel?: boolean, index?: number }) => {
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h4 className="font-bold text-xl">Squad{index !== undefined ? ` #${index + 1}` : ''} <span className="text-base font-normal text-muted-foreground">({squad.memberCount} members)</span></h4>
+                <span className="text-base font-normal text-muted-foreground font-mono ml-4">{squad.totalMonthlySalary.toLocaleString()} sp / month</span>
             </div>
-        </div>
-    );
+        );
+
+        const content = (
+            <div className="space-y-4">
+                <Table>
+                    <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                    <TableBody>
+                        <MemberRow member={squad.leader} />
+                        <MemberRow member={squad.secondary} />
+                    </TableBody>
+                </Table>
+                <Accordion type="multiple" className="space-y-2">
+                    {squad.bands.map((band, i) => <RenderBand key={band.leader.id} band={band} index={i} />)}
+                </Accordion>
+            </div>
+        );
+
+        if (isTopLevel) {
+            return (
+                <div className="mt-6 space-y-4">
+                    <h4 className="font-bold text-xl">Generated Squad <span className="text-base font-normal text-muted-foreground">({squad.memberCount} total members)</span></h4>
+                    {content}
+                    <div className="mt-4 text-right font-bold text-xl">
+                        Total Squad Monthly Salary: {squad.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <AccordionItem value={`squad-${squad.leader.id}`} className="bg-white rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        );
+    };
+
+    const RenderGroup = ({ group, isTopLevel = false, index }: { group: Group, isTopLevel?: boolean, index?: number }) => {
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h3 className="font-bold text-2xl">Group{index !== undefined ? ` #${index + 1}` : ''} <span className="text-xl font-normal text-muted-foreground">({group.memberCount} members)</span></h3>
+                <span className="text-xl font-normal text-muted-foreground font-mono ml-4">{group.totalMonthlySalary.toLocaleString()} sp / month</span>
+            </div>
+        );
+
+        const content = (
+            <div className="space-y-4">
+                <Table>
+                    <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                    <TableBody>
+                        <MemberRow member={group.leader} />
+                        {group.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                    </TableBody>
+                </Table>
+                <Accordion type="multiple" className="space-y-4">
+                    {group.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
+                </Accordion>
+            </div>
+        );
+
+        if (isTopLevel) {
+            return (
+                <div className="mt-6 space-y-4">
+                     <h3 className="font-bold text-2xl">Generated Group <span className="text-xl font-normal text-muted-foreground">({group.memberCount} total members)</span></h3>
+                    {content}
+                    <div className="mt-4 text-right font-bold text-xl">
+                        Total Group Monthly Salary: {group.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <AccordionItem value={`group-${group.leader.id}`} className="bg-gray-50/75 rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        );
+    };
+    
+    const RenderCompany = ({ company }: { company: Company }) => {
+        return (
+            <div className="mt-6 space-y-4">
+                <h2 className="font-bold text-3xl">Generated Company <span className="text-2xl font-normal text-muted-foreground">({company.memberCount} total members)</span></h2>
+                 <Table>
+                    <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                    <TableBody>
+                        <MemberRow member={company.leader} />
+                        <MemberRow member={company.secondary} />
+                        {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                    </TableBody>
+                </Table>
+                <Accordion type="multiple" className="space-y-4">
+                    {company.groups.map((group, i) => <RenderGroup key={group.leader.id} group={group} index={i}/>)}
+                </Accordion>
+                <div className="mt-4 text-right font-bold text-xl">
+                    Total Company Monthly Salary: {company.totalMonthlySalary.toLocaleString()} sp
+                </div>
+            </div>
+        );
+    };
 
     return (
         <div className="space-y-4">
@@ -752,55 +839,12 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
             </div>
             <Button onClick={handleGenerate}>Generate Unit</Button>
 
-            {generatedCompany && <RenderCompany company={generatedCompany} />}
-
-            {generatedGroup && (
-                <div className="mt-6">
-                    <h3 className="font-bold text-2xl mb-4">Generated Group <span className="text-base font-normal text-muted-foreground">({generatedGroup.memberCount} total members)</span></h3>
-                     <Table>
-                         <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                        <TableBody>
-                            <MemberRow member={generatedGroup.leader} />
-                            {generatedGroup.specialists.map(s => <MemberRow key={s.id} member={s} />)}
-                        </TableBody>
-                    </Table>
-                    {generatedGroup.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
-                    <div className="mt-8 text-right font-bold text-xl">
-                        Total Group Monthly Salary: {generatedGroup.totalMonthlySalary.toLocaleString()} sp
-                    </div>
-                </div>
-            )}
-             {generatedSquad && (
-                <div className="mt-6">
-                    <h4 className="font-bold text-xl">Generated Squad <span className="text-sm font-normal text-muted-foreground">({generatedSquad.memberCount} total members)</span></h4>
-                     <Table>
-                        <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                        <TableBody>
-                            <MemberRow member={generatedSquad.leader} />
-                            <MemberRow member={generatedSquad.secondary} />
-                        </TableBody>
-                    </Table>
-                    {generatedSquad.bands.map((band, i) => <RenderBand key={band.leader.id} band={band} index={i} />)}
-                     <div className="mt-8 text-right font-bold text-xl">
-                        Total Squad Monthly Salary: {generatedSquad.totalMonthlySalary.toLocaleString()} sp
-                    </div>
-                </div>
-            )}
-             {generatedBand && (
-                <div className="mt-6">
-                    <h5 className="font-semibold text-lg">Generated Band <span className="text-sm font-normal text-muted-foreground">({generatedBand.memberCount} total members)</span></h5>
-                    <Table>
-                        <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                        <TableBody>
-                            <MemberRow member={generatedBand.leader} />
-                            {generatedBand.followers.map(f => <MemberRow key={f.id} member={f} />)}
-                        </TableBody>
-                    </Table>
-                    <div className="mt-8 text-right font-bold text-xl">
-                        Total Band Monthly Salary: {generatedBand.totalMonthlySalary.toLocaleString()} sp
-                    </div>
-                </div>
-            )}
+            <div className="mt-6">
+                {generatedCompany && <RenderCompany company={generatedCompany} />}
+                {generatedGroup && <RenderGroup group={generatedGroup} isTopLevel={unitSize === 'Group'} />}
+                {generatedSquad && <RenderSquad squad={generatedSquad} isTopLevel={unitSize === 'Squad'} />}
+                {generatedBand && <RenderBand band={generatedBand} isTopLevel={unitSize === 'Band'} />}
+            </div>
         </div>
     );
 };
@@ -1137,3 +1181,5 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
+    
