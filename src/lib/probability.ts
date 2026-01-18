@@ -60,7 +60,7 @@ const D2_VARIANCE = 35 / 6; // ~5.833
  */
 function calculateSubConditionProbability(condition: string): number {
     // 1. Handle sum condition e.g., "INT + KNO + PRE + POW >= 28"
-    const sumMatch = condition.match(/^([\w\s\+]+?) >= (\d+)$/);
+    const sumMatch = condition.trim().match(/^([\w\s\+]+?) >= (\d+)$/);
     if (sumMatch) {
         const attrsToSum = sumMatch[1].split('+').map(s => s.trim());
         const numAttrs = attrsToSum.length;
@@ -76,7 +76,7 @@ function calculateSubConditionProbability(condition: string): number {
     }
     
     // 2. Handle single individual attribute condition e.g., "KNO 10+"
-    const individualMatch = condition.match(/^(\w+) (\d+)\+$/);
+    const individualMatch = condition.trim().match(/^(\w+) (\d+)\+$/);
     if (individualMatch) {
         const targetValue = parseInt(individualMatch[2], 10);
         return D2_CUMULATIVE_PROB_GT_EQ[targetValue] ?? 0;
@@ -94,30 +94,28 @@ function calculateSubConditionProbability(condition: string): number {
  * @returns A standardized, well-formed boolean expression string.
  */
 function preprocessCandidacyString(candidacyString: string): string {
-    // Regex to find patterns like "A, B 10+" or "A or B or C 10+"
-    // It requires at least two attributes in the list to trigger the expansion.
-    const shorthandRegex = /((?:\w+)(?:(?:, | or )\w+)+) (\d+\+)/g;
+    // A single, more robust regex to find all "shorthand" parts.
+    // It finds a list of attributes followed by a requirement like "10+".
+    // It captures the attribute list and the requirement.
+    // The negative lookbehind `(?<!\+)` ensures we don't match something like `A + B 10+`
+    const shorthandRegex = /((?:\w+(?:\s*,\s*|\s+or\s+))+?\w+)\s+(?<!\+)\s*(\d+\+)/g;
 
-    let preprocessed = candidacyString.replace(shorthandRegex, (match, p1_attrs, p2_req) => {
-        // This check prevents the regex from incorrectly matching parts of a sum expression.
-        if (candidacyString.includes('>=') && (match.includes('+') || match.includes('>='))) {
-            return match;
+    let processed = candidacyString.replace(shorthandRegex, (match, attrList, requirement) => {
+        const hasOr = attrList.includes(' or ');
+        const separator = hasOr ? /\s+or\s+/ : /\s*,\s*/;
+        const operator = hasOr ? ' or ' : ' and ';
+        
+        const attrs = attrList.split(separator).map(s => s.trim()).filter(Boolean);
+        
+        if (attrs.length === 1) {
+            return `${attrs[0]} ${requirement}`;
         }
-
-        const operator = p1_attrs.includes(' or ') ? ' or ' : ' and ';
-        const separator = p1_attrs.includes(' or ') ? ' or ' : ', ';
-
-        const attrs = p1_attrs.split(separator).map(s => s.trim()).filter(Boolean);
-
-        const expanded = attrs.map(attr => `${attr} ${p2_req}`).join(operator);
-        return `(${expanded})`;
+        
+        return '(' + attrs.map(attr => `${attr.trim()} ${requirement}`).join(operator) + ')';
     });
 
-    // Standardize the main separators
-    preprocessed = preprocessed.replace(/, and /g, ' and ');
-    preprocessed = preprocessed.replace(/, or /g, ' or ');
-
-    return preprocessed;
+    // Final standardization of the main conjunction between large parts of the expression.
+    return processed.replace(/,\s*and\s*/g, ' and ');
 }
 
 
