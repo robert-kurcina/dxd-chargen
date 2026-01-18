@@ -322,7 +322,6 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
                     <TableHeader>
                         <TableRow>
                             <TableHead>Trade</TableHead>
-                            <TableHead className="text-right">Original (per 1000)</TableHead>
                             <TableHead className="text-right">Simulated (per 1000)</TableHead>
                             <TableHead className="text-right">Expected (per 1000)</TableHead>
                         </TableRow>
@@ -331,7 +330,6 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
                         {results.map(res => (
                               <TableRow key={res.trade}>
                                   <TableCell className="font-semibold">{res.trade}</TableCell>
-                                  <TableCell className="text-right">{res.per1000}</TableCell>
                                   <TableCell className="text-right">{res.simulated}</TableCell>
                                   <TableCell className="text-right">{res.expected}</TableCell>
                               </TableRow>
