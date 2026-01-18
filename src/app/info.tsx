@@ -412,7 +412,7 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {filteredTableData.map((row: any, index: number) => (
                     <TableRow key={index} className={cn({
                       'bg-muted': row.lineage === 'BASE-LINE',
-                      'bg-gray-200': (() => {
+                      'bg-gray-200 hover:bg-gray-300': (() => {
                         const parsed = parseLineageString(row.lineage);
                         return ageGroupLineageNames.has(parsed.name) || sexLineageNames.has(parsed.name.toLowerCase());
                       })()
@@ -824,7 +824,7 @@ export default function Info({ data }: { data: StaticData }) {
   } = data;
 
   return (
-    <div className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <div className="space-y-8 max-w-[960px] mx-auto">
       <AdjustmentsCard data={data} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />
       <SimpleTableCard title="Attribute Modifiers" data={attributeModifiers} headers={['Group', 'Rank', 'CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED', 'Cost']} />

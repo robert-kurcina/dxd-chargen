@@ -61,21 +61,6 @@
     "cost": 17
   },
   {
-    "lineage": "female",
-    "CCA": 0,
-    "RCA": 0,
-    "REF": -1,
-    "INT": 0,
-    "KNO": 0,
-    "PRE": 1,
-    "POW": 1,
-    "STR": -1,
-    "FOR": 0,
-    "MOV": 0,
-    "ZED": -1,
-    "cost": -12
-  },
-  {
     "lineage": "Child [A]",
     "CCA": 0,
     "RCA": 0,
@@ -119,5 +104,20 @@
     "MOV": 0,
     "ZED": -4,
     "cost": -7
+  },
+  {
+    "lineage": "female",
+    "CCA": 0,
+    "RCA": 0,
+    "REF": -1,
+    "INT": 0,
+    "KNO": 0,
+    "PRE": 1,
+    "POW": 1,
+    "STR": -1,
+    "FOR": 0,
+    "MOV": 0,
+    "ZED": -1,
+    "cost": -12
   }
 ]

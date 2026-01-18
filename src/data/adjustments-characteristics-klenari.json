@@ -33,19 +33,19 @@
     "cost": -17
   },
   {
-    "lineage": "female",
-    "stature": -2,
-    "build": -1,
-    "bodypoints": -1,
-    "talents": "[Zucked]. Forage.",
-    "cost": -26
-  },
-  {
     "lineage": "Child [A]",
     "stature": 0,
     "build": 2,
     "bodypoints": 1,
     "talents": "",
     "cost": 7
+  },
+  {
+    "lineage": "female",
+    "stature": -2,
+    "build": -1,
+    "bodypoints": -1,
+    "talents": "[Zucked]. Forage.",
+    "cost": -26
   }
 ]

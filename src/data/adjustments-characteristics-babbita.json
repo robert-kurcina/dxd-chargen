@@ -33,14 +33,6 @@
     "cost": 43
   },
   {
-    "lineage": "female",
-    "stature": -1,
-    "build": -2,
-    "bodypoints": -1,
-    "talents": "[Zucked].",
-    "cost": -28
-  },
-  {
     "lineage": "Child [A]",
     "stature": 0,
     "build": 3,
@@ -63,5 +55,13 @@
     "bodypoints": 0,
     "talents": "",
     "cost": 1
+  },
+  {
+    "lineage": "female",
+    "stature": -1,
+    "build": -2,
+    "bodypoints": -1,
+    "talents": "[Zucked].",
+    "cost": -28
   }
 ]

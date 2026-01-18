@@ -25,14 +25,6 @@
     "cost": 14
   },
   {
-    "lineage": "female",
-    "stature": 0,
-    "build": -1,
-    "bodypoints": -1,
-    "talents": "v-Rocktaste.",
-    "cost": 4
-  },
-  {
     "lineage": "Child [A]",
     "stature": 10,
     "build": 5,
@@ -47,5 +39,13 @@
     "bodypoints": 0,
     "talents": "",
     "cost": 7
+  },
+  {
+    "lineage": "female",
+    "stature": 0,
+    "build": -1,
+    "bodypoints": -1,
+    "talents": "v-Rocktaste.",
+    "cost": 4
   }
 ]

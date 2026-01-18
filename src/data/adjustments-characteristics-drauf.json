@@ -41,14 +41,6 @@
     "cost": 24
   },
   {
-    "lineage": "female",
-    "stature": -3,
-    "build": -3,
-    "bodypoints": -1,
-    "talents": "Detect.",
-    "cost": -1
-  },
-  {
     "lineage": "Child [A]",
     "stature": 0,
     "build": 3,
@@ -63,5 +55,13 @@
     "bodypoints": 1,
     "talents": "",
     "cost": 6
+  },
+  {
+    "lineage": "female",
+    "stature": -3,
+    "build": -3,
+    "bodypoints": -1,
+    "talents": "Detect.",
+    "cost": -1
   }
 ]
