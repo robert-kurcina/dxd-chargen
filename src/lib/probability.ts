@@ -31,25 +31,31 @@ function normalCdf(x: number, mean: number, stdDev: number): number {
     return 0.5 * (1 + erf((x - mean) / (stdDev * Math.sqrt(2))));
 }
 
-// Probability of rolling at least a certain value on 2D6
-const D2_CUMULATIVE_PROB_GT_EQ: { [key: number]: number } = {
-    2: 36/36,
-    3: 35/36,
-    4: 33/36,
-    5: 30/36,
-    6: 26/36,
-    7: 21/36,
-    8: 15/36,
-    9: 10/36,
-    10: 6/36,
-    11: 3/36,
-    12: 1/36,
-    13: 0,
+// Probability of rolling at least a certain value on 3D6
+const D3_CUMULATIVE_PROB_GT_EQ: { [key: number]: number } = {
+    3: 216/216,
+    4: 215/216,
+    5: 212/216,
+    6: 206/216,
+    7: 196/216,
+    8: 181/216,
+    9: 160/216,
+    10: 135/216,
+    11: 108/216,
+    12: 81/216,
+    13: 56/216,
+    14: 35/216,
+    15: 20/216,
+    16: 10/216,
+    17: 4/216,
+    18: 1/216,
+    19: 0,
 };
 
-// Mean and Variance for a single 2D6 roll
-const D2_MEAN = 7;
-const D2_VARIANCE = 35 / 6; // 5.8333...
+
+// Mean and Variance for a single 3D6 roll
+const D3_MEAN = 10.5;
+const D3_VARIANCE = 35 / 4; // 8.75
 
 /**
  * Calculates the probability of a single candidacy sub-condition being met.
@@ -64,9 +70,9 @@ function calculateSubConditionProbability(condition: string): number {
         const numAttrs = attrsToSum.length;
         const targetSum = parseInt(sumMatch[2], 10);
 
-        // Use Central Limit Theorem to approximate the sum of n 2D6 rolls
-        const mean = numAttrs * D2_MEAN;
-        const variance = numAttrs * D2_VARIANCE;
+        // Use Central Limit Theorem to approximate the sum of n 3D6 rolls
+        const mean = numAttrs * D3_MEAN;
+        const variance = numAttrs * D3_VARIANCE;
         const stdDev = Math.sqrt(variance);
 
         // P(Sum >= X) = 1 - P(Sum < X) = 1 - CDF(X - 0.5) (with continuity correction)
@@ -79,7 +85,7 @@ function calculateSubConditionProbability(condition: string): number {
         const attrListStr = individualMatch[1].trim();
         const targetValue = parseInt(individualMatch[2], 10);
         
-        const probSingleAttr = D2_CUMULATIVE_PROB_GT_EQ[targetValue] ?? 0;
+        const probSingleAttr = D3_CUMULATIVE_PROB_GT_EQ[targetValue] ?? 0;
 
         if (attrListStr.includes(' or ')) {
             // OR condition: P(A or B or C) = 1 - P(not A and not B and not C)

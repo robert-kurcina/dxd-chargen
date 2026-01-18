@@ -35,7 +35,7 @@ import {
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
-import { parseNumberWithSuffix } from '@/lib/utils';
+import { parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import { calculateCandidacyProbability } from '@/lib/probability';
 
 // Component to display a test case
@@ -293,7 +293,7 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
                 for (let i = 0; i < iterations; i++) {
                     const randomAttributes: Record<string, number> = {};
                     attributesForCandidacy.forEach(attr => {
-                        randomAttributes[attr] = ND6(2);
+                        randomAttributes[attr] = ND6(3);
                     });
                     
                     if (evaluateCandidacy(prof.candidacy, randomAttributes)) {
@@ -467,10 +467,10 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   return (
-    <Accordion type="multiple" defaultValue={['tragedy-seed-tests']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <Accordion type="multiple" defaultValue={['candidacy-simulation']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
       <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
         <p className="text-sm text-muted-foreground -mb-2">
-          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 2D6. The 'Expected' column uses a mathematical approximation for comparison.
+          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 3D6. The 'Expected' column uses a mathematical approximation for comparison.
         </p>
         <CandidacySimulationTest professions={data.professions} />
       </TestSuite>
@@ -480,7 +480,7 @@ export default function Tests({ data }: { data: StaticData }) {
             Tests for formatting and parsing numbers with K/M suffixes.
         </p>
         {formatNumberTests.map((test, i) => {
-            const result = parseNumberWithSuffix(String(test.input));
+            const result = formatNumberWithSuffix(test.input);
             const pass = result === test.expected;
             return <TestCase key={`format-${i}`} title={`formatNumberWithSuffix(${JSON.stringify(test.input)})`} result={result} expected={test.expected} pass={pass} />;
         })}
