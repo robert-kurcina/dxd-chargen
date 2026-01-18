@@ -1,12 +1,13 @@
+
 [
-  { "Rank": 1, "Monthly": "6 gp", "Wealth Rank": -2 },
-  { "Rank": 2, "Monthly": "15 gp", "Wealth Rank": 2 },
-  { "Rank": 3, "Monthly": "30 gp", "Wealth Rank": 5 },
-  { "Rank": 4, "Monthly": "66 gp", "Wealth Rank": 8 },
-  { "Rank": 5, "Monthly": "184 gp", "Wealth Rank": 13 },
-  { "Rank": 6, "Monthly": "300 gp", "Wealth Rank": 15 },
-  { "Rank": 7, "Monthly": "645 gp", "Wealth Rank": 18 },
-  { "Rank": 8, "Monthly": "1390 gp", "Wealth Rank": 22 },
-  { "Rank": 9, "Monthly": "3000 gp", "Wealth Rank": 25 },
-  { "Rank": 10, "Monthly": "6460 gp", "Wealth Rank": 28 }
+  { "Rank": 1, "Monthly": "6 sp", "Daily": "0.2 sp", "Wealth Rank": -17 },
+  { "Rank": 2, "Monthly": "15 sp", "Daily": "0.5 sp", "Wealth Rank": -13 },
+  { "Rank": 3, "Monthly": "30 sp", "Daily": "1.0 sp", "Wealth Rank": -10 },
+  { "Rank": 4, "Monthly": "66 sp", "Daily": "2.2 sp", "Wealth Rank": -7 },
+  { "Rank": 5, "Monthly": "184 sp", "Daily": "6.1 sp", "Wealth Rank": -2 },
+  { "Rank": 6, "Monthly": "300 sp", "Daily": "10 sp", "Wealth Rank": 0 },
+  { "Rank": 7, "Monthly": "645 sp", "Daily": "21.5 sp", "Wealth Rank": 3 },
+  { "Rank": 8, "Monthly": "1390 sp", "Daily": "46.3 sp", "Wealth Rank": 7 },
+  { "Rank": 9, "Monthly": "3000 sp", "Daily": "100 sp", "Wealth Rank": 10 },
+  { "Rank": 10, "Monthly": "6450 sp", "Daily": "215 sp", "Wealth Rank": 13 }
 ]
