@@ -736,15 +736,22 @@ export function generateContractor(
   data: StaticData,
   trade?: string,
   tradeRank?: number
-): { trade: string; tradeRank: number; salary: ReturnType<typeof calculateSalary> } | null {
+): { trade: string; tradeRank: number; namingPractice: string; salary: ReturnType<typeof calculateSalary> } | null {
   
   let chosenTrade = trade;
+  let professionInfo;
+
   if (!chosenTrade) {
     const availableTrades = data.professions.filter(p => p.trade !== 'Rabble');
     if (availableTrades.length === 0) return null;
-    chosenTrade = availableTrades[Math.floor(Math.random() * availableTrades.length)].trade;
+    professionInfo = availableTrades[Math.floor(Math.random() * availableTrades.length)];
+    chosenTrade = professionInfo.trade;
+  } else {
+    professionInfo = data.professions.find(p => p.trade === chosenTrade);
   }
   
+  if (!professionInfo) return null;
+
   const chosenRank = tradeRank ?? Math.floor(Math.random() * 10) + 1;
 
   const salary = calculateSalary(chosenTrade, chosenRank, data);
@@ -752,6 +759,7 @@ export function generateContractor(
   return {
     trade: chosenTrade,
     tradeRank: chosenRank,
+    namingPractice: professionInfo.namingPractice,
     salary: salary,
   };
 }
@@ -790,3 +798,5 @@ export function generateSquad(
 
   return squad;
 }
+
+    

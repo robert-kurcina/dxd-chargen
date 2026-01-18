@@ -458,7 +458,8 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   
   const trades = ['Any', ...data.professions.filter(p => p.trade !== 'Rabble').map(p => p.trade)];
 
-  const totalSalary = squad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
+  const sortedSquad = squad ? [...squad].sort((a, b) => (b?.tradeRank || 0) - (a?.tradeRank || 0)) : null;
+  const totalSalary = sortedSquad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
   const dailyCost = totalSalary / 30;
   const requiredWealthRank = getIndex(dailyCost);
 
@@ -490,7 +491,13 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
           <div className="mt-4 p-4 border rounded-md bg-gray-50">
             <h4 className="font-semibold">Generated Contractor</h4>
             <p>Trade: <span className="font-mono">{contractor.trade}</span></p>
-            <p>Rank: <span className="font-mono">{contractor.tradeRank}</span></p>
+            <p>Rank: <span className="font-mono">
+                {(() => {
+                    const titleRow = data.namingPracticeTitles.find(t => t.Rank === String(contractor.tradeRank));
+                    const rankTitle = titleRow && contractor.namingPractice in titleRow ? (titleRow as any)[contractor.namingPractice] : '';
+                    return `${contractor.tradeRank} ${rankTitle && `(${rankTitle})`}`;
+                })()}
+            </span></p>
             <p>Monthly Salary: <span className="font-mono">{contractor.salary?.monthlySalary.toLocaleString() ?? 'N/A'} sp</span></p>
           </div>
         )}
@@ -521,7 +528,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
           </div>
         </div>
         <Button onClick={handleGenerateSquad}>Generate Squad</Button>
-        {squad && squad.length > 0 && (
+        {sortedSquad && sortedSquad.length > 0 && (
           <div className="mt-4">
             <h4 className="font-semibold mb-2">Generated Squad Summary</h4>
             <Table>
@@ -529,19 +536,27 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
                 <TableRow>
                   <TableHead>Member</TableHead>
                   <TableHead>Trade</TableHead>
-                  <TableHead className="text-right">Rank</TableHead>
+                  <TableHead>Rank / Title</TableHead>
                   <TableHead className="text-right">Monthly Salary (sp)</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {squad.map((member, index) => (
-                  member && <TableRow key={index}>
-                    <TableCell>#{index + 1}</TableCell>
-                    <TableCell>{member.trade}</TableCell>
-                    <TableCell className="text-right">{member.tradeRank}</TableCell>
-                    <TableCell className="text-right">{member.salary?.monthlySalary.toLocaleString() ?? 'N/A'}</TableCell>
-                  </TableRow>
-                ))}
+                {sortedSquad.map((member, index) => {
+                  if (!member) return null;
+                  const titleRow = data.namingPracticeTitles.find(t => t.Rank === String(member.tradeRank));
+                  const rankTitle = titleRow && member.namingPractice in titleRow ? (titleRow as any)[member.namingPractice] : '';
+
+                  return (
+                    <TableRow key={index}>
+                      <TableCell>#{index + 1}</TableCell>
+                      <TableCell>{member.trade}</TableCell>
+                      <TableCell>
+                        {member.tradeRank} {rankTitle && `(${rankTitle})`}
+                      </TableCell>
+                      <TableCell className="text-right">{member.salary?.monthlySalary.toLocaleString() ?? 'N/A'}</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
             <div className="mt-4 p-4 border rounded-md bg-gray-50 text-right">
@@ -883,3 +898,5 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
+    
