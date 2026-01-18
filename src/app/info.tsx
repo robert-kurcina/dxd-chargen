@@ -1126,6 +1126,38 @@ const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentD
     );
 };
 
+const MilitaryHierarchyCard = ({ data }: { data: any }) => {
+  return (
+    <Card className="bg-white overflow-hidden">
+      <AccordionItem value="military-hierarchy" className="border-b-0">
+        <AccordionTrigger className="p-6 hover:no-underline">
+          <CardTitle>Military Hierarchy</CardTitle>
+        </AccordionTrigger>
+        <AccordionContent>
+          <CardContent className="pt-6 space-y-4">
+            {Object.entries(data).map(([unit, structure]: [string, any]) => (
+              <div key={unit}>
+                <h4 className="text-lg font-sans capitalize">{unit}</h4>
+                <ul className="list-disc pl-5 text-sm">
+                  {Object.entries(structure).map(([key, value]: [string, any]) => {
+                    const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                    return (
+                        <li key={key}>
+                        <span className="capitalize">{label}:</span>{' '}
+                        {typeof value === 'object' ? `min ${value.min}, max ${value.max}` : value}
+                        </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            ))}
+          </CardContent>
+        </AccordionContent>
+      </AccordionItem>
+    </Card>
+  );
+};
+
 
 // Main Info component
 export default function Info({ data }: { data: StaticData }) {
@@ -1168,10 +1200,12 @@ export default function Info({ data }: { data: StaticData }) {
     universalTable,
     wealthTitles,
     steps,
+    militaryHierarchy,
   } = data;
 
   return (
     <Accordion type="multiple" className="space-y-8 max-w-[960px] mx-auto">
+      <MilitaryHierarchyCard data={militaryHierarchy} />
       <AdjustmentsByLineageCard data={data} />
       <AdjustmentsByAgeGroupCard attributeModifiers={attributeModifiers} characteristicModifiers={characteristicModifiers} />
       <FilterableTableCard title="Age Brackets" data={ageBrackets} />

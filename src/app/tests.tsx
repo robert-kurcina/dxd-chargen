@@ -41,10 +41,12 @@ import {
   generateContractor,
   generateSquad,
   generateGroup,
+  generateCompany,
   type Contractor,
   type Band,
   type Squad,
   type Group,
+  type Company,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -602,16 +604,44 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
 };
 
 const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
-    const [groupLeaderRank, setGroupLeaderRank] = useState(8);
+    const MIN_RANKS: { [key: string]: number } = { Band: 1, Squad: 3, Group: 4, Company: 5 };
+    const [unitSize, setUnitSize] = useState('Band');
+    const [leaderRank, setLeaderRank] = useState(MIN_RANKS[unitSize]);
     const [trade, setTrade] = useState('Warrior');
     const [numSpecialists, setNumSpecialists] = useState(ND6());
+    
+    const [generatedCompany, setGeneratedCompany] = useState<Company | null>(null);
     const [generatedGroup, setGeneratedGroup] = useState<Group | null>(null);
+    const [generatedSquad, setGeneratedSquad] = useState<Squad | null>(null);
+    const [generatedBand, setGeneratedBand] = useState<Band | null>(null);
 
     const trades = ['Any', ...data.professions.filter(p => p.trade !== 'Rabble').map(p => p.trade)];
+    
+    const handleUnitSizeChange = (newSize: string) => {
+        setUnitSize(newSize);
+        const minRank = MIN_RANKS[newSize];
+        if (leaderRank < minRank) {
+            setLeaderRank(minRank);
+        }
+    }
 
     const handleGenerate = () => {
-        const group = generateGroup(data, groupLeaderRank, trade, numSpecialists);
-        setGeneratedGroup(group);
+        setGeneratedCompany(null);
+        setGeneratedGroup(null);
+        setGeneratedSquad(null);
+        setGeneratedBand(null);
+
+        const rank = Math.max(MIN_RANKS[unitSize], leaderRank);
+
+        if (unitSize === 'Company') {
+            setGeneratedCompany(generateCompany(data, rank, trade, numSpecialists));
+        } else if (unitSize === 'Group') {
+            setGeneratedGroup(generateGroup(data, rank, trade, numSpecialists));
+        } else if (unitSize === 'Squad') {
+            setGeneratedSquad(generateSquad(data, rank, trade));
+        } else {
+            setGeneratedBand(generateBand(data, rank, trade));
+        }
     };
 
     const getTitle = (member: Contractor) => {
@@ -631,7 +661,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
 
     const RenderBand = ({ band, index }: { band: Band, index: number }) => (
         <div className="pl-4 mt-4">
-            <h5 className="font-semibold text-lg">Band #{index + 1}</h5>
+            <h5 className="font-semibold text-lg">Band #{index + 1} <span className="text-sm font-normal text-muted-foreground">({band.memberCount} members)</span></h5>
             <Table>
                 <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                 <TableBody>
@@ -644,7 +674,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
 
     const RenderSquad = ({ squad, index }: { squad: Squad, index: number }) => (
         <div className="pl-4 mt-6 border-l-2 border-gray-300">
-            <h4 className="font-bold text-xl">Squad #{index + 1}</h4>
+            <h4 className="font-bold text-xl">Squad #{index + 1} <span className="text-sm font-normal text-muted-foreground">({squad.memberCount} members)</span></h4>
              <Table>
                 <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                 <TableBody>
@@ -655,13 +685,57 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
             {squad.bands.map((band, i) => <RenderBand key={band.leader.id} band={band} index={i} />)}
         </div>
     );
+
+    const RenderGroup = ({ group, index }: { group: Group, index: number }) => (
+        <div className="pl-4 mt-6 border-l-4 border-gray-400">
+            <h3 className="font-bold text-2xl">Group #{index + 1} <span className="text-base font-normal text-muted-foreground">({group.memberCount} members)</span></h3>
+             <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={group.leader} />
+                    {group.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                </TableBody>
+            </Table>
+            {group.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
+        </div>
+    );
     
+    const RenderCompany = ({ company }: { company: Company }) => (
+        <div className="mt-6">
+            <h2 className="font-bold text-3xl mb-4">Generated Company <span className="text-xl font-normal text-muted-foreground">({company.memberCount} total members)</span></h2>
+             <Table>
+                 <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={company.leader} />
+                    <MemberRow member={company.secondary} />
+                    {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                </TableBody>
+            </Table>
+            {company.groups.map((group, i) => <RenderGroup key={group.leader.id} group={group} index={i}/>)}
+            <div className="mt-8 text-right font-bold text-xl">
+                Total Company Monthly Salary: {company.totalMonthlySalary.toLocaleString()} sp
+            </div>
+        </div>
+    );
+
     return (
         <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                 <div className="space-y-2">
+                    <Label>Unit Size</Label>
+                    <Select value={unitSize} onValueChange={handleUnitSizeChange}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Band">Band</SelectItem>
+                            <SelectItem value="Squad">Squad</SelectItem>
+                            <SelectItem value="Group">Group</SelectItem>
+                            <SelectItem value="Company">Company</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
                 <div className="space-y-2">
-                    <Label>Group Leader Rank (1-10)</Label>
-                    <Input type="number" min="1" max="10" value={groupLeaderRank} onChange={(e) => setGroupLeaderRank(Math.max(1, Math.min(10, parseInt(e.target.value) || 1)))} />
+                    <Label>Leader Rank (1-10)</Label>
+                    <Input type="number" min={MIN_RANKS[unitSize]} max="10" value={leaderRank} onChange={(e) => setLeaderRank(Math.max(1, Math.min(10, parseInt(e.target.value) || 1)))} />
                 </div>
                 <div className="space-y-2">
                     <Label>Primary Trade</Label>
@@ -671,15 +745,17 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                     </Select>
                 </div>
                  <div className="space-y-2">
-                    <Label>Number of Specialists</Label>
-                    <Input type="number" min="1" max="6" value={numSpecialists} onChange={(e) => setNumSpecialists(Math.max(1, Math.min(6, parseInt(e.target.value) || 1)))} />
+                    <Label># of Specialists</Label>
+                    <Input type="number" min="1" max="6" value={numSpecialists} onChange={(e) => setNumSpecialists(Math.max(1, Math.min(6, parseInt(e.target.value) || 1)))} disabled={unitSize === 'Band' || unitSize === 'Squad'} />
                 </div>
             </div>
-            <Button onClick={handleGenerate}>Generate Group</Button>
+            <Button onClick={handleGenerate}>Generate Unit</Button>
+
+            {generatedCompany && <RenderCompany company={generatedCompany} />}
 
             {generatedGroup && (
                 <div className="mt-6">
-                    <h3 className="font-bold text-2xl mb-4">Generated Group</h3>
+                    <h3 className="font-bold text-2xl mb-4">Generated Group <span className="text-base font-normal text-muted-foreground">({generatedGroup.memberCount} total members)</span></h3>
                      <Table>
                          <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                         <TableBody>
@@ -687,11 +763,40 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                             {generatedGroup.specialists.map(s => <MemberRow key={s.id} member={s} />)}
                         </TableBody>
                     </Table>
-                    
                     {generatedGroup.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
-
                     <div className="mt-8 text-right font-bold text-xl">
                         Total Group Monthly Salary: {generatedGroup.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            )}
+             {generatedSquad && (
+                <div className="mt-6">
+                    <h4 className="font-bold text-xl">Generated Squad <span className="text-sm font-normal text-muted-foreground">({generatedSquad.memberCount} total members)</span></h4>
+                     <Table>
+                        <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                        <TableBody>
+                            <MemberRow member={generatedSquad.leader} />
+                            <MemberRow member={generatedSquad.secondary} />
+                        </TableBody>
+                    </Table>
+                    {generatedSquad.bands.map((band, i) => <RenderBand key={band.leader.id} band={band} index={i} />)}
+                     <div className="mt-8 text-right font-bold text-xl">
+                        Total Squad Monthly Salary: {generatedSquad.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            )}
+             {generatedBand && (
+                <div className="mt-6">
+                    <h5 className="font-semibold text-lg">Generated Band <span className="text-sm font-normal text-muted-foreground">({generatedBand.memberCount} total members)</span></h5>
+                    <Table>
+                        <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                        <TableBody>
+                            <MemberRow member={generatedBand.leader} />
+                            {generatedBand.followers.map(f => <MemberRow key={f.id} member={f} />)}
+                        </TableBody>
+                    </Table>
+                    <div className="mt-8 text-right font-bold text-xl">
+                        Total Band Monthly Salary: {generatedBand.totalMonthlySalary.toLocaleString()} sp
                     </div>
                 </div>
             )}
@@ -1031,5 +1136,3 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
-
-    

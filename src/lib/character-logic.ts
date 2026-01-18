@@ -689,9 +689,10 @@ export function evaluateCandidacy(candidacyString: string, attributes: Record<st
  */
 export function calculateSalary(trade: string, tradeRank: number, data: StaticData): { finalWealthRank: number; monthlySalary: number; dailySalary: number } | null {
     if (!trade || !tradeRank) return null;
+
     const baseSalaryInfo = data.salaryByTradeRank.find(s => Number(s.Rank) === Number(tradeRank));
     if (!baseSalaryInfo) return null;
-    
+
     const baseWealthRank = Number(baseSalaryInfo['Wealth Rank']);
 
     const adjustmentInfo = data.salaryAdjustmentsByTrade.find(a => a.Trade.toLowerCase() === trade.toLowerCase());
@@ -768,23 +769,27 @@ export function generateContractor(
 }
 
 export type Contractor = NonNullable<ReturnType<typeof generateContractor>>;
-export type Band = { leader: Contractor, followers: Contractor[], totalMonthlySalary: number };
-export type Squad = { leader: Contractor, secondary: Contractor, bands: Band[], totalMonthlySalary: number };
-export type Group = { leader: Contractor, specialists: Contractor[], squads: Squad[], totalMonthlySalary: number };
+export type Band = { leader: Contractor, followers: Contractor[], totalMonthlySalary: number, memberCount: number };
+export type Squad = { leader: Contractor, secondary: Contractor, bands: Band[], totalMonthlySalary: number, memberCount: number };
+export type Group = { leader: Contractor, specialists: Contractor[], squads: Squad[], totalMonthlySalary: number, memberCount: number };
+export type Company = { leader: Contractor, secondary: Contractor, specialists: Contractor[], groups: Group[], totalMonthlySalary: number, memberCount: number };
+
 
 export function generateBand(data: StaticData, leaderRank: number, trade: string): Band {
     const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Band Leader' };
     const followers: Contractor[] = [];
     let totalSalary = leader.salary?.monthlySalary ?? 0;
+    let memberCount = 1;
 
     for (let i = 0; i < data.militaryHierarchy.band.followerCount; i++) {
         const followerRank = Math.max(1, leaderRank - (ND6(2) - 2)); // Skew towards lower ranks
         const follower = { ...generateContractor(data, trade, followerRank)!, role: 'Band Follower' };
         followers.push(follower);
         totalSalary += follower.salary?.monthlySalary ?? 0;
+        memberCount++;
     }
 
-    return { leader, followers, totalMonthlySalary: totalSalary };
+    return { leader, followers, totalMonthlySalary: totalSalary, memberCount };
 }
 
 export function generateSquad(data: StaticData, leaderRank: number, trade: string): Squad {
@@ -793,6 +798,7 @@ export function generateSquad(data: StaticData, leaderRank: number, trade: strin
     const secondary = { ...generateContractor(data, trade, secondaryRank)!, role: 'Squad Secondary' };
     
     let totalSalary = (leader.salary?.monthlySalary ?? 0) + (secondary.salary?.monthlySalary ?? 0);
+    let memberCount = 2;
     const bands: Band[] = [];
 
     for (let i = 0; i < data.militaryHierarchy.squad.bandCount; i++) {
@@ -800,32 +806,65 @@ export function generateSquad(data: StaticData, leaderRank: number, trade: strin
         const band = generateBand(data, bandLeaderRank, trade);
         bands.push(band);
         totalSalary += band.totalMonthlySalary;
+        memberCount += band.memberCount;
     }
     
-    return { leader, secondary, bands, totalMonthlySalary: totalSalary };
+    return { leader, secondary, bands, totalMonthlySalary: totalSalary, memberCount };
 }
 
 export function generateGroup(data: StaticData, leaderRank: number, trade: string, numSpecialists: number): Group {
     const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Group Leader' };
 
     let totalSalary = leader.salary?.monthlySalary ?? 0;
+    let memberCount = 1;
     const specialists: Contractor[] = [];
     const squads: Squad[] = [];
 
     for (let i = 0; i < numSpecialists; i++) {
         const specialistRank = Math.max(1, leaderRank - (ND6() - 1));
-        // Specialists can be of any trade
         const specialist = { ...generateContractor(data, 'Any', specialistRank)!, role: 'Specialist' };
         specialists.push(specialist);
         totalSalary += specialist.salary?.monthlySalary ?? 0;
+        memberCount++;
     }
 
     for (let i = 0; i < data.militaryHierarchy.group.squadCount; i++) {
-        const squadLeaderRank = Math.max(1, leaderRank - (i + 1)); // Stagger squad leader ranks
+        const squadLeaderRank = Math.max(1, leaderRank - (i + 1));
         const squad = generateSquad(data, squadLeaderRank, trade);
         squads.push(squad);
         totalSalary += squad.totalMonthlySalary;
+        memberCount += squad.memberCount;
     }
 
-    return { leader, specialists, squads, totalMonthlySalary: totalSalary };
+    return { leader, specialists, squads, totalMonthlySalary: totalSalary, memberCount };
+}
+
+export function generateCompany(data: StaticData, leaderRank: number, trade: string, numSpecialists: number): Company {
+    const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Company Leader' };
+    const secondaryRank = Math.max(1, leaderRank - 1);
+    const secondary = { ...generateContractor(data, trade, secondaryRank)!, role: 'Company Secondary' };
+
+    let totalSalary = (leader.salary?.monthlySalary ?? 0) + (secondary.salary?.monthlySalary ?? 0);
+    let memberCount = 2;
+    const specialists: Contractor[] = [];
+    const groups: Group[] = [];
+
+    for (let i = 0; i < numSpecialists; i++) {
+        const specialistRank = Math.max(1, leaderRank - ND6());
+        const specialist = { ...generateContractor(data, 'Any', specialistRank)!, role: 'Company Specialist' };
+        specialists.push(specialist);
+        totalSalary += specialist.salary?.monthlySalary ?? 0;
+        memberCount++;
+    }
+    
+    for (let i = 0; i < data.militaryHierarchy.company.groupCount; i++) {
+        const groupLeaderRank = Math.max(1, leaderRank - (i + 1));
+        const numGroupSpecialists = ND6(1); // 1-6 specialists for sub-groups
+        const group = generateGroup(data, groupLeaderRank, trade, numGroupSpecialists);
+        groups.push(group);
+        totalSalary += group.totalMonthlySalary;
+        memberCount += group.memberCount;
+    }
+
+    return { leader, secondary, specialists, groups, totalMonthlySalary: totalSalary, memberCount };
 }

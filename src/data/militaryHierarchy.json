@@ -15,5 +15,14 @@
       "max": 6
     },
     "leaderCount": 1
+  },
+  "company": {
+    "groupCount": 3,
+    "specialistCount": {
+      "min": 1,
+      "max": 6
+    },
+    "leaderCount": 1,
+    "secondaryCount": 1
   }
 }
