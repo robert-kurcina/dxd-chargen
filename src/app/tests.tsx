@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Icons } from '@/components/icons';
 import { 
   ND6,
   D66, 
@@ -28,9 +30,11 @@ import {
   calculateAttributeSkillpointCost,
   calculateBonusSkillpointCost,
   getScalar,
+  formatPositiveNumber,
+  evaluateCandidacy,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
-import { cn, formatNumberWithSuffix, parseNumberWithSuffix } from '@/lib/utils';
+import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -264,6 +268,84 @@ const ND6Test = () => {
   );
 };
 
+const CandidacySimulationTest = ({ professions }: { professions: StaticData['professions'] }) => {
+    const [results, setResults] = useState<any[] | null>(null);
+    const [simulating, setSimulating] = useState(false);
+
+    const runSimulation = () => {
+        setSimulating(true);
+        // Use a timeout to prevent blocking the UI thread on a long-running task
+        setTimeout(() => {
+            const simulationResults = professions.map(prof => {
+                if (prof.candidacy === 'Any') {
+                    return { ...prof, simulated: 1000 };
+                }
+
+                let successCount = 0;
+                const iterations = 1000;
+                const attributesForCandidacy = ["CCA", "RCA", "REF", "INT", "KNO", "PRE", "POW", "STR", "FOR"];
+                
+                for (let i = 0; i < iterations; i++) {
+                    const randomAttributes: Record<string, number> = {};
+                    attributesForCandidacy.forEach(attr => {
+                        randomAttributes[attr] = ND6(2);
+                    });
+                    
+                    if (evaluateCandidacy(prof.candidacy, randomAttributes)) {
+                        successCount++;
+                    }
+                }
+                
+                return {
+                    ...prof,
+                    simulated: successCount,
+                };
+            });
+            setResults(simulationResults);
+            setSimulating(false);
+        }, 0);
+    };
+
+    return (
+        <div className="space-y-4">
+            <Button onClick={runSimulation} disabled={simulating}>
+                {simulating ? <><Icons.Loader className="animate-spin" /> Simulating...</> : 'Run Simulation'}
+            </Button>
+            {results && (
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Trade</TableHead>
+                            <TableHead className="text-right">Original</TableHead>
+                            <TableHead className="text-right">Simulated</TableHead>
+                            <TableHead className="text-right">Difference</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {results.map(res => {
+                            const difference = res.simulated - res.per1000;
+                            return (
+                              <TableRow key={res.trade}>
+                                  <TableCell className="font-semibold">{res.trade}</TableCell>
+                                  <TableCell className="text-right">{res.per1000}</TableCell>
+                                  <TableCell className="text-right">{res.simulated}</TableCell>
+                                  <TableCell className={cn(
+                                      'text-right',
+                                      {'text-destructive font-bold': Math.abs(difference) > 50},
+                                      {'text-green-600': difference >= 0}
+                                  )}>
+                                      {formatPositiveNumber(difference)}
+                                  </TableCell>
+                              </TableRow>
+                            )
+                        })}
+                    </TableBody>
+                </Table>
+            )}
+        </div>
+    );
+};
+
 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -389,12 +471,19 @@ export default function Tests({ data }: { data: StaticData }) {
 
   return (
     <Accordion type="multiple" defaultValue={['tragedy-seed-tests']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+      <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
+        <p className="text-sm text-muted-foreground -mb-2">
+          This test simulates attribute rolls 1,000 times for each profession to verify the 'per1000' likelihood of meeting the candidacy requirements. Each attribute is rolled using 2D6.
+        </p>
+        <CandidacySimulationTest professions={data.professions} />
+      </TestSuite>
+
       <TestSuite title="Number Suffix Formatting Tests" value="number-suffix-tests">
         <p className="text-sm text-muted-foreground p-4 -mb-4">
             Tests for formatting and parsing numbers with K/M suffixes.
         </p>
         {formatNumberTests.map((test, i) => {
-            const result = formatNumberWithSuffix(test.input);
+            const result = formatNumberWithSuffix(test.input as number);
             const pass = result === test.expected;
             return <TestCase key={`format-${i}`} title={`formatNumberWithSuffix(${JSON.stringify(test.input)})`} result={result} expected={test.expected} pass={pass} />;
         })}

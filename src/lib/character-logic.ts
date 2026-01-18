@@ -562,3 +562,62 @@ export function parseLineageString(lineageString: string): { name: string; rank:
     rank: null,
   };
 }
+
+/**
+ * Evaluates a profession's candidacy expression against a set of randomly rolled attributes.
+ * @param candidacyString The expression from the professions data (e.g., "INT + KNO >= 28, and INT, KNO 10+").
+ * @param attributes A record of attribute names and their numeric values.
+ * @returns `true` if the attributes satisfy the expression, `false` otherwise.
+ */
+export function evaluateCandidacy(candidacyString: string, attributes: Record<string, number>): boolean {
+    if (candidacyString === "Any") {
+      return true;
+    }
+
+    const mainConditions = candidacyString.split(', and ');
+    
+    for (const condition of mainConditions) {
+      let conditionMet = false;
+
+      // Check for summation condition e.g. "INT + KNO + PRE + POW >= 28"
+      const sumMatch = condition.match(/^([\w\s\+]+) >= (\d+)$/);
+      if (sumMatch) {
+        const attrsToSum = sumMatch[1].split('+').map(s => s.trim());
+        const targetSum = parseInt(sumMatch[2], 10);
+        
+        const currentSum = attrsToSum.reduce((sum, attr) => sum + (attributes[attr] || 0), 0);
+
+        if (currentSum >= targetSum) {
+          conditionMet = true;
+        }
+      }
+      
+      // Check for individual attribute condition e.g. "KNO, PRE 10+" OR "CCA or RCA or STR 10+"
+      const individualMatch = condition.match(/^([\w\s,or]+) (\d+)\+$/);
+      if (individualMatch) {
+        const attrListStr = individualMatch[1].trim();
+        const targetValue = parseInt(individualMatch[2], 10);
+        
+        if (attrListStr.includes(' or ')) {
+          // OR condition: "CCA or RCA or STR 10+"
+          const attrsToCheck = attrListStr.split(' or ').map(s => s.trim());
+          if (attrsToCheck.some(attr => (attributes[attr] || 0) >= targetValue)) {
+            conditionMet = true;
+          }
+        } else {
+          // AND condition (implicit): "KNO, PRE 10+"
+          const attrsToCheck = attrListStr.split(',').map(s => s.trim());
+          if (attrsToCheck.every(attr => (attributes[attr] || 0) >= targetValue)) {
+            conditionMet = true;
+          }
+        }
+      }
+
+      if (!conditionMet) {
+        return false; // One of the "and" conditions failed
+      }
+    }
+    
+    // All conditions passed
+    return true;
+}
