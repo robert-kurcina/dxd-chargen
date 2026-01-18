@@ -34,7 +34,8 @@ import {
   evaluateCandidacy,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
-import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { formatNumberWithSuffix, parseNumberWithSuffix } from '@/lib/utils';
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -316,29 +317,16 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
                     <TableHeader>
                         <TableRow>
                             <TableHead>Trade</TableHead>
-                            <TableHead className="text-right">Original</TableHead>
-                            <TableHead className="text-right">Simulated</TableHead>
-                            <TableHead className="text-right">Difference</TableHead>
+                            <TableHead className="text-right">Likelihood (per 1000)</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {results.map(res => {
-                            const difference = res.simulated - res.per1000;
-                            return (
+                        {results.map(res => (
                               <TableRow key={res.trade}>
                                   <TableCell className="font-semibold">{res.trade}</TableCell>
-                                  <TableCell className="text-right">{res.per1000}</TableCell>
                                   <TableCell className="text-right">{res.simulated}</TableCell>
-                                  <TableCell className={cn(
-                                      'text-right',
-                                      {'text-destructive font-bold': Math.abs(difference) > 50},
-                                      {'text-green-600': difference >= 0}
-                                  )}>
-                                      {formatPositiveNumber(difference)}
-                                  </TableCell>
                               </TableRow>
-                            )
-                        })}
+                        ))}
                     </TableBody>
                 </Table>
             )}
