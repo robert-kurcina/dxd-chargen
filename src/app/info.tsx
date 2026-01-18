@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/table';
 import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import type { StaticData } from '@/data';
-import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost } from '@/lib/character-logic';
+import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost, formatPositiveNumber } from '@/lib/character-logic';
 
 const isNumber = (value: any): boolean => {
     if (value === null || value === undefined || typeof value === 'boolean' || Array.isArray(value)) return false;
@@ -318,6 +318,8 @@ const SpeciesCard = ({ data }: { data: any[] }) => {
 const AdjustmentsCard = ({ data }: { data: any }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
+  const attributeColumns = new Set(['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV', 'ZED']);
+
   const { adjustmentKeys, ancestries } = useMemo(() => {
     const keys = Object.keys(data).filter(k => k.startsWith('adjustments-'));
     const ancestrySet = new Set<string>();
@@ -408,7 +410,9 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                     <TableRow key={index}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>
-                           {header.toLowerCase() === 'cost' && typeof row[header] === 'number' ? row[header] : row[header]}
+                           {attributeColumns.has(header) && typeof row[header] === 'number'
+                             ? formatPositiveNumber(row[header])
+                             : row[header]}
                         </TableCell>
                       ))}
                     </TableRow>
