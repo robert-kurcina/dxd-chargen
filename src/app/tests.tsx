@@ -39,6 +39,7 @@ import {
   parseLineageString,
   calculateSalary,
   generateContractor,
+  generateBand,
   generateSquad,
   generateGroup,
   generateCompany,
