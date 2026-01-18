@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/table';
 import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import type { StaticData } from '@/data';
-import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost, formatPositiveNumber } from '@/lib/character-logic';
+import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost, formatPositiveNumber, parseLineageString } from '@/lib/character-logic';
 
 const isNumber = (value: any): boolean => {
     if (value === null || value === undefined || typeof value === 'boolean' || Array.isArray(value)) return false;
@@ -412,7 +412,10 @@ const AdjustmentsCard = ({ data }: { data: any }) => {
                   {filteredTableData.map((row: any, index: number) => (
                     <TableRow key={index} className={cn({
                       'bg-muted': row.lineage === 'BASE-LINE',
-                      'bg-gray-200': ageGroupLineageNames.has(row.lineage.split(' ')[0]) || sexLineageNames.has(row.lineage.toLowerCase())
+                      'bg-gray-200': (() => {
+                        const parsed = parseLineageString(row.lineage);
+                        return ageGroupLineageNames.has(parsed.name) || sexLineageNames.has(parsed.name.toLowerCase());
+                      })()
                     })}>
                       {headers.map((header, headerIndex) => (
                         <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeaders.has(header) })}>

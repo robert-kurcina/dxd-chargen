@@ -541,3 +541,24 @@ export function getScalar(index: number): number {
   
   return baseValue * Math.pow(10, quotient);
 }
+
+/**
+ * Parses a lineage string that may contain a rank in brackets.
+ * e.g., "Early Teen [1]" -> { name: "Early Teen", rank: "1" }
+ * e.g., "female" -> { name: "female", rank: null }
+ * @param lineageString The lineage string to parse.
+ * @returns An object with the name and rank (if present).
+ */
+export function parseLineageString(lineageString: string): { name: string; rank: string | null } {
+  const match = lineageString.match(/^(.*?)\s*\[(.*?)\]\s*$/);
+  if (match) {
+    return {
+      name: match[1].trim(),
+      rank: match[2].trim(),
+    };
+  }
+  return {
+    name: lineageString.trim(),
+    rank: null,
+  };
+}
