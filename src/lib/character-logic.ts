@@ -688,7 +688,8 @@ export function evaluateCandidacy(candidacyString: string, attributes: Record<st
  * @returns An object with the final wealth rank, and monthly/daily salaries, or null if inputs are invalid.
  */
 export function calculateSalary(trade: string, tradeRank: number, data: StaticData): { finalWealthRank: number; monthlySalary: number; dailySalary: number } | null {
-    const baseSalaryInfo = data.salaryByTradeRank.find(s => s.Rank === tradeRank);
+    if (!trade || !tradeRank) return null;
+    const baseSalaryInfo = data.salaryByTradeRank.find(s => Number(s.Rank) === Number(tradeRank));
     if (!baseSalaryInfo) return null;
     
     const baseWealthRank = Number(baseSalaryInfo['Wealth Rank']);
@@ -736,12 +737,12 @@ export function generateContractor(
   data: StaticData,
   trade?: string,
   tradeRank?: number
-): { trade: string; tradeRank: number; namingPractice: string; salary: ReturnType<typeof calculateSalary> } | null {
+): { id: string, role: string, trade: string; tradeRank: number; namingPractice: string; salary: ReturnType<typeof calculateSalary> } | null {
   
   let chosenTrade = trade;
   let professionInfo;
 
-  if (!chosenTrade) {
+  if (!chosenTrade || chosenTrade === 'Any') {
     const availableTrades = data.professions.filter(p => p.trade !== 'Rabble');
     if (availableTrades.length === 0) return null;
     professionInfo = availableTrades[Math.floor(Math.random() * availableTrades.length)];
@@ -757,6 +758,8 @@ export function generateContractor(
   const salary = calculateSalary(chosenTrade, chosenRank, data);
 
   return {
+    id: crypto.randomUUID(),
+    role: 'Contractor',
     trade: chosenTrade,
     tradeRank: chosenRank,
     namingPractice: professionInfo.namingPractice,
@@ -764,39 +767,65 @@ export function generateContractor(
   };
 }
 
-/**
- * Generates a squad of contractors.
- * @param data The static game data.
- * @param trade The trade for the squad. If 'Any', trades are randomized per member.
- * @param numMembers The number of members in the squad. Defaults to a 1D6 roll.
- * @param avgTradeRank The average rank for the squad. Defaults to a 1D6 roll.
- * @returns An array of generated contractor objects.
- */
-export function generateSquad(
-  data: StaticData,
-  trade?: string,
-  numMembers?: number,
-  avgTradeRank?: number
-): Array<ReturnType<typeof generateContractor>> {
+export type Contractor = NonNullable<ReturnType<typeof generateContractor>>;
+export type Band = { leader: Contractor, followers: Contractor[], totalMonthlySalary: number };
+export type Squad = { leader: Contractor, secondary: Contractor, bands: Band[], totalMonthlySalary: number };
+export type Group = { leader: Contractor, specialists: Contractor[], squads: Squad[], totalMonthlySalary: number };
 
-  const squad: Array<ReturnType<typeof generateContractor>> = [];
-  const memberCount = numMembers ?? ND6();
-  const averageRank = avgTradeRank ?? ND6();
+export function generateBand(data: StaticData, leaderRank: number, trade: string): Band {
+    const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Band Leader' };
+    const followers: Contractor[] = [];
+    let totalSalary = leader.salary?.monthlySalary ?? 0;
 
-  for (let i = 0; i < memberCount; i++) {
-    // Generate a rank with a bit of variance around the average, clamped between 1 and 10
-    const rankVariance = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
-    const individualRank = Math.max(1, Math.min(10, averageRank + rankVariance));
-    
-    const individualTrade = (trade && trade !== 'Any') ? trade : undefined;
-
-    const contractor = generateContractor(data, individualTrade, individualRank);
-    if (contractor) {
-      squad.push(contractor);
+    for (let i = 0; i < data.militaryHierarchy.band.followerCount; i++) {
+        const followerRank = Math.max(1, leaderRank - (ND6(2) - 2)); // Skew towards lower ranks
+        const follower = { ...generateContractor(data, trade, followerRank)!, role: 'Band Follower' };
+        followers.push(follower);
+        totalSalary += follower.salary?.monthlySalary ?? 0;
     }
-  }
 
-  return squad;
+    return { leader, followers, totalMonthlySalary: totalSalary };
 }
 
+export function generateSquad(data: StaticData, leaderRank: number, trade: string): Squad {
+    const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Squad Leader' };
+    const secondaryRank = Math.max(1, leaderRank - 1);
+    const secondary = { ...generateContractor(data, trade, secondaryRank)!, role: 'Squad Secondary' };
     
+    let totalSalary = (leader.salary?.monthlySalary ?? 0) + (secondary.salary?.monthlySalary ?? 0);
+    const bands: Band[] = [];
+
+    for (let i = 0; i < data.militaryHierarchy.squad.bandCount; i++) {
+        const bandLeaderRank = Math.max(1, leaderRank - (i + 2)); // Stagger band leader ranks
+        const band = generateBand(data, bandLeaderRank, trade);
+        bands.push(band);
+        totalSalary += band.totalMonthlySalary;
+    }
+    
+    return { leader, secondary, bands, totalMonthlySalary: totalSalary };
+}
+
+export function generateGroup(data: StaticData, leaderRank: number, trade: string, numSpecialists: number): Group {
+    const leader = { ...generateContractor(data, trade, leaderRank)!, role: 'Group Leader' };
+
+    let totalSalary = leader.salary?.monthlySalary ?? 0;
+    const specialists: Contractor[] = [];
+    const squads: Squad[] = [];
+
+    for (let i = 0; i < numSpecialists; i++) {
+        const specialistRank = Math.max(1, leaderRank - (ND6() - 1));
+        // Specialists can be of any trade
+        const specialist = { ...generateContractor(data, 'Any', specialistRank)!, role: 'Specialist' };
+        specialists.push(specialist);
+        totalSalary += specialist.salary?.monthlySalary ?? 0;
+    }
+
+    for (let i = 0; i < data.militaryHierarchy.group.squadCount; i++) {
+        const squadLeaderRank = Math.max(1, leaderRank - (i + 1)); // Stagger squad leader ranks
+        const squad = generateSquad(data, squadLeaderRank, trade);
+        squads.push(squad);
+        totalSalary += squad.totalMonthlySalary;
+    }
+
+    return { leader, specialists, squads, totalMonthlySalary: totalSalary };
+}

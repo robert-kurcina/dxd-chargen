@@ -55,6 +55,7 @@ import adjustmentsAttributesKriket from './adjustments-attributes-kriket.json';
 import adjustmentsCharacteristicsKriket from './adjustments-characteristics-kriket.json';
 import adjustmentsAttributesStonefolk from './adjustments-attributes-stonefolk.json';
 import adjustmentsCharacteristicsStonefolk from './adjustments-characteristics-stonefolk.json';
+import militaryHierarchy from './militaryHierarchy.json';
 
 const sarnaLenData = {
   ageBrackets,
@@ -113,6 +114,7 @@ const sarnaLenData = {
   'adjustments-characteristics-kriket': adjustmentsCharacteristicsKriket,
   'adjustments-attributes-stonefolk': adjustmentsAttributesStonefolk,
   'adjustments-characteristics-stonefolk': adjustmentsCharacteristicsStonefolk,
+  militaryHierarchy,
 };
 
 export type StaticData = typeof sarnaLenData;

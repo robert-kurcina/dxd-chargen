@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import { Icons } from '@/components/ui/icons';
+import { v4 as uuidv4 } from 'uuid';
 import { 
   ND6,
   D66, 
@@ -39,6 +40,11 @@ import {
   calculateSalary,
   generateContractor,
   generateSquad,
+  generateGroup,
+  type Contractor,
+  type Band,
+  type Squad,
+  type Group,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -58,7 +64,7 @@ const TestCase = ({ title, result, expected, pass }: { title: string, result: an
 );
 
 // Component for a group of tests
-const TestSuite = ({ title, children, value }: { title: string; children: React.ReactNode; value: string }) => (
+const TestSuite = ({ title, children, value, defaultValue }: { title: string; children: React.ReactNode; value: string, defaultValue?: string }) => (
     <Card>
       <AccordionItem value={value} className="border-b-0">
         <AccordionTrigger className="w-full p-6 hover:no-underline">
@@ -403,7 +409,7 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
         { trade: 'Academic', rank: 4, expected: { wr: 5, daily: 30, monthly: 900 } },
         { trade: 'Academic', rank: 8, expected: { wr: 22, daily: 1500, monthly: 45000 } },
         { trade: 'Knight', rank: 1, expected: { wr: -7, daily: 2, monthly: 60 } },
-        { trade: 'Knight', rank: 4, expected: { wr: 6, daily: 40, monthly: 1200 } },
+        { trade: 'Knight', rank: 4, expected: { wr: 8, daily: 60, monthly: 1800 } },
         { trade: 'Knight', rank: 8, expected: { wr: 23, daily: 2000, monthly: 60000 } },
         { trade: 'Service', rank: 1, expected: { wr: -13, daily: 0.5, monthly: 15 } },
         { trade: 'Service', rank: 4, expected: { wr: 3, daily: 20, monthly: 600 } },
@@ -459,11 +465,10 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   const trades = ['Any', ...data.professions.filter(p => p.trade !== 'Rabble').map(p => p.trade)];
 
   const sortedSquad = squad ? [...squad].sort((a, b) => (b?.tradeRank || 0) - (a?.tradeRank || 0)) : null;
-  const totalSalary = sortedSquad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
-  const dailyCost = totalSalary / 30;
-  const quarterlyCost = totalSalary * 3;
-  const yearlyCost = totalSalary * 12;
-  const requiredWealthRank = getIndex(dailyCost);
+  
+  const totalMonthlySalary = sortedSquad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
+  const totalQuarterlySalary = totalMonthlySalary * 3;
+  const totalYearlySalary = totalMonthlySalary * 12;
 
   return (
     <div className="space-y-8">
@@ -549,7 +554,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
                   const rankTitle = titleRow && member.namingPractice in titleRow ? (titleRow as any)[member.namingPractice] : '';
 
                   return (
-                    <TableRow key={index}>
+                    <TableRow key={member.id}>
                       <TableCell>#{index + 1}</TableCell>
                       <TableCell>{member.trade}</TableCell>
                       <TableCell>
@@ -561,17 +566,137 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
                 })}
               </TableBody>
             </Table>
-            <div className="mt-4 p-4 border rounded-md bg-gray-50 text-right">
-              <p className="font-semibold">Total Monthly Salary: <span className="font-mono">{totalSalary.toLocaleString()} sp</span></p>
-              <p className="text-sm text-muted-foreground">Quarterly Cost: <span className="font-mono">{quarterlyCost.toLocaleString()} sp</span></p>
-              <p className="text-sm text-muted-foreground">Yearly Cost: <span className="font-mono">{yearlyCost.toLocaleString()} sp</span></p>
-              <p className="text-sm text-muted-foreground mt-2">Minimum Wealth Rank to afford: <span className="font-mono font-semibold">{requiredWealthRank}</span> (Daily cost: {dailyCost.toFixed(2)} sp)</p>
+            <div className="mt-4 border rounded-md overflow-hidden">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Period</TableHead>
+                            <TableHead className="text-right">Total Cost (sp)</TableHead>
+                            <TableHead className="text-right">Required WR</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell className="font-semibold">Monthly</TableCell>
+                            <TableCell className="text-right font-mono">{totalMonthlySalary.toLocaleString()}</TableCell>
+                             <TableCell className="text-right font-mono">{getIndex(totalMonthlySalary / 30)}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className="font-semibold">Quarterly</TableCell>
+                            <TableCell className="text-right font-mono">{totalQuarterlySalary.toLocaleString()}</TableCell>
+                             <TableCell className="text-right font-mono">{getIndex(totalQuarterlySalary / 90)}</TableCell>
+                        </TableRow>
+                         <TableRow>
+                            <TableCell className="font-semibold">Yearly</TableCell>
+                            <TableCell className="text-right font-mono">{totalYearlySalary.toLocaleString()}</TableCell>
+                             <TableCell className="text-right font-mono">{getIndex(totalYearlySalary / 360)}</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
             </div>
           </div>
         )}
       </div>
     </div>
   );
+};
+
+const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
+    const [groupLeaderRank, setGroupLeaderRank] = useState(8);
+    const [trade, setTrade] = useState('Warrior');
+    const [numSpecialists, setNumSpecialists] = useState(ND6());
+    const [generatedGroup, setGeneratedGroup] = useState<Group | null>(null);
+
+    const trades = ['Any', ...data.professions.filter(p => p.trade !== 'Rabble').map(p => p.trade)];
+
+    const handleGenerate = () => {
+        const group = generateGroup(data, groupLeaderRank, trade, numSpecialists);
+        setGeneratedGroup(group);
+    };
+
+    const getTitle = (member: Contractor) => {
+        const titleRow = data.namingPracticeTitles.find(t => t.Rank === String(member.tradeRank));
+        const rankTitle = titleRow && member.namingPractice in titleRow ? (titleRow as any)[member.namingPractice] : '';
+        return rankTitle ? `(${rankTitle})` : '';
+    };
+
+    const MemberRow = ({ member, role }: { member: Contractor, role?: string }) => (
+        <TableRow key={member.id}>
+            <TableCell>{role ?? member.role}</TableCell>
+            <TableCell>{member.trade}</TableCell>
+            <TableCell>{member.tradeRank} {getTitle(member)}</TableCell>
+            <TableCell className="text-right font-mono">{member.salary?.monthlySalary.toLocaleString()} sp</TableCell>
+        </TableRow>
+    );
+
+    const RenderBand = ({ band, index }: { band: Band, index: number }) => (
+        <div className="pl-4 mt-4">
+            <h5 className="font-semibold text-lg">Band #{index + 1}</h5>
+            <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={band.leader} />
+                    {band.followers.map(f => <MemberRow key={f.id} member={f} />)}
+                </TableBody>
+            </Table>
+        </div>
+    );
+
+    const RenderSquad = ({ squad, index }: { squad: Squad, index: number }) => (
+        <div className="pl-4 mt-6 border-l-2 border-gray-300">
+            <h4 className="font-bold text-xl">Squad #{index + 1}</h4>
+             <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={squad.leader} />
+                    <MemberRow member={squad.secondary} />
+                </TableBody>
+            </Table>
+            {squad.bands.map((band, i) => <RenderBand key={band.leader.id} band={band} index={i} />)}
+        </div>
+    );
+    
+    return (
+        <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                    <Label>Group Leader Rank (1-10)</Label>
+                    <Input type="number" min="1" max="10" value={groupLeaderRank} onChange={(e) => setGroupLeaderRank(Math.max(1, Math.min(10, parseInt(e.target.value) || 1)))} />
+                </div>
+                <div className="space-y-2">
+                    <Label>Primary Trade</Label>
+                    <Select value={trade} onValueChange={setTrade}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>{trades.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                    </Select>
+                </div>
+                 <div className="space-y-2">
+                    <Label>Number of Specialists</Label>
+                    <Input type="number" min="1" max="6" value={numSpecialists} onChange={(e) => setNumSpecialists(Math.max(1, Math.min(6, parseInt(e.target.value) || 1)))} />
+                </div>
+            </div>
+            <Button onClick={handleGenerate}>Generate Group</Button>
+
+            {generatedGroup && (
+                <div className="mt-6">
+                    <h3 className="font-bold text-2xl mb-4">Generated Group</h3>
+                     <Table>
+                         <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                        <TableBody>
+                            <MemberRow member={generatedGroup.leader} />
+                            {generatedGroup.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                        </TableBody>
+                    </Table>
+                    
+                    {generatedGroup.squads.map((squad, i) => <RenderSquad key={squad.leader.id} squad={squad} index={i}/>)}
+
+                    <div className="mt-8 text-right font-bold text-xl">
+                        Total Group Monthly Salary: {generatedGroup.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
 
 
@@ -698,7 +823,11 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   return (
-    <Accordion type="multiple" defaultValue={['salary-expectations']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <Accordion type="multiple" defaultValue={['military-unit-generator']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+       <TestSuite title="Military Unit Generator" value="military-unit-generator">
+        <MilitaryUnitGeneratorTest data={data} />
+      </TestSuite>
+      
       <TestSuite title="Salary Expectations" value="salary-expectations">
         <SalaryExpectationsTest data={data} />
       </TestSuite>

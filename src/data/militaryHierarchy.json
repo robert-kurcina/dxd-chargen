@@ -1,0 +1,19 @@
+{
+  "band": {
+    "leaderCount": 1,
+    "followerCount": 5
+  },
+  "squad": {
+    "bandCount": 2,
+    "leaderCount": 1,
+    "secondaryCount": 1
+  },
+  "group": {
+    "squadCount": 3,
+    "specialistCount": {
+      "min": 1,
+      "max": 6
+    },
+    "leaderCount": 1
+  }
+}
