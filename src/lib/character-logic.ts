@@ -681,3 +681,47 @@ export function evaluateCandidacy(candidacyString: string, attributes: Record<st
     return true;
 }
 
+/**
+ * Calculates a character's salary based on their Trade and Trade Rank.
+ * @param trade The character's profession.
+ * @param tradeRank The character's rank in that profession.
+ * @param data The static game data.
+ * @returns An object with the final wealth rank, and monthly/daily salaries, or null if inputs are invalid.
+ */
+export function calculateSalary(trade: string, tradeRank: number, data: StaticData): { finalWealthRank: number; monthlySalary: number; dailySalary: number } | null {
+    const baseSalaryInfo = data.salaryByTradeRank.find(s => s.Rank === tradeRank);
+    if (!baseSalaryInfo) return null;
+    
+    const baseWealthRank = baseSalaryInfo['Wealth Rank'];
+
+    const adjustmentInfo = data.salaryAdjustmentsByTrade.find(a => a.Trade.toLowerCase() === trade.toLowerCase());
+    
+    let adjustmentOffset = 0;
+    if (adjustmentInfo) {
+        let adjustmentColumn: string;
+        if (tradeRank === 1) {
+            adjustmentColumn = 'Rank 1';
+        } else if (tradeRank === 2) {
+            adjustmentColumn = 'Rank 2';
+        } else if (tradeRank >= 3 && tradeRank <= 4) {
+            adjustmentColumn = 'Rank 3-4';
+        } else if (tradeRank >= 5 && tradeRank <= 7) {
+            adjustmentColumn = 'Rank 5-7';
+        } else { // rank >= 8
+            adjustmentColumn = 'Rank 8+';
+        }
+        
+        const adjustmentValue = adjustmentInfo[adjustmentColumn as keyof typeof adjustmentInfo];
+        adjustmentOffset = typeof adjustmentValue === 'number' ? adjustmentValue : 0;
+    }
+
+    const finalWealthRank = baseWealthRank + adjustmentOffset;
+    const dailySalary = getScalar(finalWealthRank);
+    const monthlySalary = Math.round((dailySalary * 30) * 100) / 100;
+
+    return {
+        finalWealthRank,
+        monthlySalary,
+        dailySalary
+    };
+}

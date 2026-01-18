@@ -36,6 +36,7 @@ import {
   formatPositiveNumber,
   evaluateCandidacy,
   parseLineageString,
+  calculateSalary,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -391,6 +392,43 @@ const CandidacyEvaluatorTest = () => {
     );
 };
 
+const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
+    const tests = [
+        { trade: 'Academic', rank: 1, expected: { wr: -10, daily: 1, monthly: 30 } },
+        { trade: 'Academic', rank: 4, expected: { wr: 5, daily: 30, monthly: 900 } },
+        { trade: 'Academic', rank: 8, expected: { wr: 22, daily: 1500, monthly: 45000 } },
+        { trade: 'Knight', rank: 1, expected: { wr: -7, daily: 2, monthly: 60 } },
+        { trade: 'Knight', rank: 4, expected: { wr: 6, daily: 40, monthly: 1200 } },
+        { trade: 'Knight', rank: 8, expected: { wr: 23, daily: 2000, monthly: 60000 } },
+        { trade: 'Service', rank: 1, expected: { wr: -13, daily: 0.5, monthly: 15 } },
+        { trade: 'Service', rank: 4, expected: { wr: 3, daily: 20, monthly: 600 } },
+        { trade: 'Service', rank: 8, expected: { wr: 19, daily: 800, monthly: 24000 } },
+    ];
+
+    return (
+        <div className="space-y-2">
+            <p className="text-sm text-muted-foreground -mb-2">
+              Tests the `calculateSalary` function for various combinations of Trade and Trade Rank.
+            </p>
+            {tests.map((test, i) => {
+                const result = calculateSalary(test.trade, test.rank, data);
+                if (!result) {
+                    return <TestCase key={i} title={`Test ${test.trade} Rank ${test.rank}`} result="null" expected={test.expected} pass={false} />;
+                }
+                
+                const pass = result.finalWealthRank === test.expected.wr && 
+                             result.dailySalary === test.expected.daily && 
+                             result.monthlySalary === test.expected.monthly;
+
+                const resultDisplay = `WR: ${result.finalWealthRank}, Daily: ${result.dailySalary}, Monthly: ${result.monthlySalary}`;
+                const expectedDisplay = `WR: ${test.expected.wr}, Daily: ${test.expected.daily}, Monthly: ${test.expected.monthly}`;
+
+                return <TestCase key={i} title={`Test ${test.trade} Rank ${test.rank}`} result={resultDisplay} expected={expectedDisplay} pass={pass} />;
+            })}
+        </div>
+    );
+};
+
 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -522,6 +560,10 @@ export default function Tests({ data }: { data: StaticData }) {
 
       <TestSuite title="Candidacy Simulation" value="candidacy-simulation">
         <CandidacySimulationTest professions={data.professions} />
+      </TestSuite>
+
+      <TestSuite title="Salary Calculation" value="salary-calculation-tests">
+        <SalaryCalculationTest data={data} />
       </TestSuite>
 
       <TestSuite title="Number Suffix Formatting Tests" value="number-suffix-tests">
@@ -711,4 +753,3 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
-
