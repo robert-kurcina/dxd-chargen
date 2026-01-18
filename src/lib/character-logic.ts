@@ -1,5 +1,4 @@
 
-
 import type { StaticData } from "@/data";
 import { ND6, D66, d66Lookup } from "./dice";
 import { findKeyCaseInsensitive } from "./utils";
@@ -712,19 +711,82 @@ export function calculateSalary(trade: string, tradeRank: number, data: StaticDa
         }
         
         const adjustmentValue = adjustmentInfo[adjustmentColumn as keyof typeof adjustmentInfo];
-        
-        if (typeof adjustmentValue === 'number' || typeof adjustmentValue === 'string') {
-            adjustmentOffset = Number(adjustmentValue);
-        }
+        adjustmentOffset = Number(adjustmentValue);
     }
 
     const finalWealthRank = baseWealthRank + adjustmentOffset;
     const dailySalary = getScalar(finalWealthRank);
-    const monthlySalary = Math.round((dailySalary * 30) * 100) / 100;
+    const monthlySalary = Math.round((dailySalary * 30));
 
     return {
         finalWealthRank,
         monthlySalary,
         dailySalary
     };
+}
+
+/**
+ * Generates a single contractor with a specified or random trade and rank.
+ * @param data The static game data.
+ * @param trade The desired trade. If not provided, a random trade is chosen.
+ * @param tradeRank The desired rank. If not provided, a random rank (1-10) is chosen.
+ * @returns An object representing the generated contractor.
+ */
+export function generateContractor(
+  data: StaticData,
+  trade?: string,
+  tradeRank?: number
+): { trade: string; tradeRank: number; salary: ReturnType<typeof calculateSalary> } | null {
+  
+  let chosenTrade = trade;
+  if (!chosenTrade) {
+    const availableTrades = data.professions.filter(p => p.trade !== 'Rabble');
+    if (availableTrades.length === 0) return null;
+    chosenTrade = availableTrades[Math.floor(Math.random() * availableTrades.length)].trade;
+  }
+  
+  const chosenRank = tradeRank ?? Math.floor(Math.random() * 10) + 1;
+
+  const salary = calculateSalary(chosenTrade, chosenRank, data);
+
+  return {
+    trade: chosenTrade,
+    tradeRank: chosenRank,
+    salary: salary,
+  };
+}
+
+/**
+ * Generates a squad of contractors.
+ * @param data The static game data.
+ * @param trade The trade for the squad. If 'Any', trades are randomized per member.
+ * @param numMembers The number of members in the squad. Defaults to a 1D6 roll.
+ * @param avgTradeRank The average rank for the squad. Defaults to a 1D6 roll.
+ * @returns An array of generated contractor objects.
+ */
+export function generateSquad(
+  data: StaticData,
+  trade?: string,
+  numMembers?: number,
+  avgTradeRank?: number
+): Array<ReturnType<typeof generateContractor>> {
+
+  const squad: Array<ReturnType<typeof generateContractor>> = [];
+  const memberCount = numMembers ?? ND6();
+  const averageRank = avgTradeRank ?? ND6();
+
+  for (let i = 0; i < memberCount; i++) {
+    // Generate a rank with a bit of variance around the average, clamped between 1 and 10
+    const rankVariance = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+    const individualRank = Math.max(1, Math.min(10, averageRank + rankVariance));
+    
+    const individualTrade = (trade && trade !== 'Any') ? trade : undefined;
+
+    const contractor = generateContractor(data, individualTrade, individualRank);
+    if (contractor) {
+      squad.push(contractor);
+    }
+  }
+
+  return squad;
 }

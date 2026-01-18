@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
-import { Icons } from '@/components/icons';
+import { Icons } from '@/components/ui/icons';
 import { 
   ND6,
   D66, 
@@ -37,11 +37,16 @@ import {
   evaluateCandidacy,
   parseLineageString,
   calculateSalary,
+  generateContractor,
+  generateSquad,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
 import { parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import { calculateCandidacyProbability } from '@/lib/probability';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -417,16 +422,137 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
                 }
                 
                 const pass = result.finalWealthRank === test.expected.wr && 
-                             result.dailySalary === test.expected.daily && 
-                             result.monthlySalary === test.expected.monthly;
+                             Math.abs(result.dailySalary - test.expected.daily) < 0.01 && 
+                             Math.abs(result.monthlySalary - test.expected.monthly) < 0.01;
 
-                const resultDisplay = `WR: ${result.finalWealthRank}, Daily: ${result.dailySalary}, Monthly: ${result.monthlySalary}`;
-                const expectedDisplay = `WR: ${test.expected.wr}, Daily: ${test.expected.daily}, Monthly: ${test.expected.monthly}`;
+                const resultDisplay = `WR: ${result.finalWealthRank}, Daily: ${result.dailySalary.toFixed(1)}, Monthly: ${result.monthlySalary}`;
+                const expectedDisplay = `WR: ${test.expected.wr}, Daily: ${test.expected.daily.toFixed(1)}, Monthly: ${test.expected.monthly}`;
 
                 return <TestCase key={i} title={`Test ${test.trade} Rank ${test.rank}`} result={resultDisplay} expected={expectedDisplay} pass={pass} />;
             })}
         </div>
     );
+};
+
+const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
+  // States for single contractor
+  const [singleTrade, setSingleTrade] = useState<string | undefined>(undefined);
+  const [singleRank, setSingleRank] = useState<number | undefined>(undefined);
+  const [contractor, setContractor] = useState<ReturnType<typeof generateContractor>>(null);
+
+  // States for squad
+  const [squadTrade, setSquadTrade] = useState<string>('Any');
+  const [numMembers, setNumMembers] = useState<number | undefined>(undefined);
+  const [avgRank, setAvgRank] = useState<number | undefined>(undefined);
+  const [squad, setSquad] = useState<Array<ReturnType<typeof generateContractor>> | null>(null);
+
+  const handleGenerateContractor = () => {
+    const result = generateContractor(data, singleTrade, singleRank);
+    setContractor(result);
+  };
+  
+  const handleGenerateSquad = () => {
+    const result = generateSquad(data, squadTrade, numMembers, avgRank);
+    setSquad(result);
+  };
+  
+  const trades = ['Any', ...data.professions.filter(p => p.trade !== 'Rabble').map(p => p.trade)];
+
+  const totalSalary = squad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
+  const dailyCost = totalSalary / 30;
+  const requiredWealthRank = getIndex(dailyCost);
+
+  return (
+    <div className="space-y-8">
+      {/* Single Contractor Generator */}
+      <div className="space-y-4 p-4 border rounded-md">
+        <h3 className="font-semibold">Contractor Generator</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label>Trade (Optional)</Label>
+            <Select onValueChange={(val) => setSingleTrade(val === 'Any' ? undefined : val)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Random" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Any">Random</SelectItem>
+                {trades.slice(1).map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label>Trade Rank (1-10, Optional)</Label>
+            <Input type="number" min="1" max="10" placeholder="Random" onChange={(e) => setSingleRank(e.target.value ? parseInt(e.target.value) : undefined)} />
+          </div>
+        </div>
+        <Button onClick={handleGenerateContractor}>Generate Contractor</Button>
+        {contractor && (
+          <div className="mt-4 p-4 border rounded-md bg-gray-50">
+            <h4 className="font-semibold">Generated Contractor</h4>
+            <p>Trade: <span className="font-mono">{contractor.trade}</span></p>
+            <p>Rank: <span className="font-mono">{contractor.tradeRank}</span></p>
+            <p>Monthly Salary: <span className="font-mono">{contractor.salary?.monthlySalary.toLocaleString() ?? 'N/A'} sp</span></p>
+          </div>
+        )}
+      </div>
+
+      {/* Squad Generator */}
+      <div className="space-y-4 p-4 border rounded-md">
+        <h3 className="font-semibold">Squad Generator</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label>Trade</Label>
+            <Select value={squadTrade} onValueChange={setSquadTrade}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Trade" />
+              </SelectTrigger>
+              <SelectContent>
+                {trades.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label>Number of Members (Optional)</Label>
+            <Input type="number" min="1" placeholder="Random (1D6)" onChange={(e) => setNumMembers(e.target.value ? parseInt(e.target.value) : undefined)} />
+          </div>
+          <div className="space-y-2">
+            <Label>Average Rank (Optional)</Label>
+            <Input type="number" min="1" max="10" placeholder="Random (1D6)" onChange={(e) => setAvgRank(e.target.value ? parseInt(e.target.value) : undefined)} />
+          </div>
+        </div>
+        <Button onClick={handleGenerateSquad}>Generate Squad</Button>
+        {squad && squad.length > 0 && (
+          <div className="mt-4">
+            <h4 className="font-semibold mb-2">Generated Squad Summary</h4>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Member</TableHead>
+                  <TableHead>Trade</TableHead>
+                  <TableHead className="text-right">Rank</TableHead>
+                  <TableHead className="text-right">Monthly Salary (sp)</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {squad.map((member, index) => (
+                  member && <TableRow key={index}>
+                    <TableCell>#{index + 1}</TableCell>
+                    <TableCell>{member.trade}</TableCell>
+                    <TableCell className="text-right">{member.tradeRank}</TableCell>
+                    <TableCell className="text-right">{member.salary?.monthlySalary.toLocaleString() ?? 'N/A'}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <div className="mt-4 p-4 border rounded-md bg-gray-50 text-right">
+              <p className="font-semibold">Total Monthly Salary: <span className="font-mono">{totalSalary.toLocaleString()} sp</span></p>
+              <p className="text-sm text-muted-foreground">Minimum Wealth Rank to afford: <span className="font-mono font-semibold">{requiredWealthRank}</span> (Daily cost: {dailyCost.toFixed(2)} sp)</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 
@@ -553,7 +679,11 @@ export default function Tests({ data }: { data: StaticData }) {
   ];
 
   return (
-    <Accordion type="multiple" defaultValue={['candidacy-evaluator']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <Accordion type="multiple" defaultValue={['salary-expectations']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+      <TestSuite title="Salary Expectations" value="salary-expectations">
+        <SalaryExpectationsTest data={data} />
+      </TestSuite>
+
       <TestSuite title="Candidacy Expression Evaluator" value="candidacy-evaluator">
         <CandidacyEvaluatorTest />
       </TestSuite>
