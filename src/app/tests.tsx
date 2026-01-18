@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { 
-  D6,
+  ND6,
   D66, 
   d66Lookup, 
-  d6ColumnLookup,
+  d66ColumnLookup,
 } from '@/lib/dice';
 import {
   parseTalent,
@@ -98,7 +98,7 @@ const D66AndD6LookupTest = ({ title, tableData }: { title: string; tableData: an
 
   const handleRoll = () => {
     const d66 = D66();
-    const d6 = D6();
+    const d6 = ND6();
     setD66Roll(d66);
     setD6Roll(d6);
 
@@ -230,6 +230,36 @@ const TragedySeedTest = ({ data }: { data: StaticData }) => {
           )}
         </div>
       )}
+    </div>
+  );
+};
+
+const ND6Test = () => {
+  const [results, setResults] = useState<{ [key: number]: number | null }>({ 1: null, 2: null, 3: null });
+
+  const handleRoll = (dice: number) => {
+    const result = ND6(dice);
+    setResults(prev => ({ ...prev, [dice]: result }));
+  };
+
+  return (
+    <div className="space-y-4">
+      <h3 className="font-semibold">ND6 Function Test</h3>
+      <p className="text-sm text-muted-foreground">
+        Click the buttons to roll a specified number of 6-sided dice and see the summed result.
+      </p>
+      {[1, 2, 3].map(diceCount => (
+        <div key={diceCount} className="p-2 border rounded-md bg-gray-50">
+            <div className="flex items-center gap-4">
+                <Button onClick={() => handleRoll(diceCount)}>Roll {diceCount}D6</Button>
+                {results[diceCount] !== null && (
+                    <p>
+                        Result: <span className="font-mono font-bold text-primary">{results[diceCount]}</span>
+                    </p>
+                )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
@@ -373,6 +403,10 @@ export default function Tests({ data }: { data: StaticData }) {
             const pass = result === test.expected;
             return <TestCase key={`parse-${i}`} title={`parseNumberWithSuffix("${test.input}")`} result={result} expected={test.expected} pass={pass} />;
         })}
+      </TestSuite>
+
+      <TestSuite title="ND6 Function Tests" value="nd6-tests">
+        <ND6Test />
       </TestSuite>
 
       <TestSuite title="Dice Roller Demo" value="dice-roller-demo">

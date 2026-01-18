@@ -1,6 +1,6 @@
 
 import type { StaticData } from "@/data";
-import { D6, D66, d66Lookup } from "./dice";
+import { ND6, D66, d66Lookup } from "./dice";
 import { findKeyCaseInsensitive } from "./utils";
 
 
@@ -355,7 +355,7 @@ export function lookupTragedyKeyword(keyword: string, d66Roll: number, table: St
     const rawValue = row[matchingKey];
 
     if (matchingKey.toLowerCase() === 'person' && typeof rawValue === 'string' && rawValue.includes('*')) {
-      const roll = D6();
+      const roll = ND6();
       const baseValue = rawValue.replace('*', '').trim();
       if (roll >= 4) {
         return {

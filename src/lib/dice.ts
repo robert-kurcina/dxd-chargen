@@ -6,7 +6,7 @@ import type { StaticData } from "@/data";
  * @param numberOfDice The number of D6 to roll. Defaults to 1.
  * @returns A random number representing the sum of the dice rolls.
  */
-export function D6(numberOfDice: number = 1): number {
+export function ND6(numberOfDice: number = 1): number {
   let sum = 0;
   for (let i = 0; i < numberOfDice; i++) {
     // Using Math.random() is fine here as it's for non-critical, client-side generation.
@@ -20,8 +20,8 @@ export function D6(numberOfDice: number = 1): number {
  * @returns A random number between 11 and 66 where the second digit is never greater than 6.
  */
 export function D66(): number {
-  const d1 = D6();
-  const d2 = D6();
+  const d1 = ND6();
+  const d2 = ND6();
   return d1 * 10 + d2;
 }
 
