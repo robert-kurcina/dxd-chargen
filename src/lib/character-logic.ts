@@ -821,7 +821,7 @@ export function generateGroup(data: StaticData, leaderRank: number, trade: strin
     const specialists: Contractor[] = [];
     const squads: Squad[] = [];
     
-    const numSpecialists = data.militaryHierarchy.group.specialistCount.min + Math.floor(Math.random() * (data.militaryHierarchy.group.specialistCount.max - data.militaryHierarchy.group.specialistCount.min + 1));
+    const numSpecialists = Math.floor(Math.random() * 6) + 1;
 
     for (let i = 0; i < numSpecialists; i++) {
         const specialistRank = Math.max(1, leaderRank - (ND6() - 1));
@@ -873,4 +873,22 @@ export function generateCompany(data: StaticData, leaderRank: number, trade: str
     }
 
     return { leader, secondary, specialists, groups, totalMonthlySalary: totalSalary, memberCount };
+}
+
+/**
+ * Calculates the Attribute Dice Modifier (DM) for a given attribute value.
+ * The calculation rule (flooring vs. ceiling) differs between attributes based on analysis of the sample data.
+ * @param attributeName The name/abbreviation of the attribute (e.g., 'CCA', 'REF').
+ * @param attributeValue The numeric score of the attribute.
+ * @returns The calculated Dice Modifier.
+ */
+export function calculateAttributeDM(attributeName: string, attributeValue: number): number {
+  const floorAttributes = new Set(['CCA', 'POW', 'STR', 'MOV', 'ZED']);
+  
+  if (floorAttributes.has(attributeName.toUpperCase())) {
+    return Math.floor((attributeValue - 7) / 2);
+  } else {
+    // For attributes: RCA, REF, INT, KNO, PRE, FOR, SIZ
+    return Math.ceil((attributeValue - 7) / 2);
+  }
 }
