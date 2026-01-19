@@ -1,85 +1,56 @@
+
 {
   "band": {
-    "leaderCount": 1,
-    "followerCount": 5,
+    "composition": "1 Leader, 5 Followers",
     "ranks": {
       "leader": "1+"
     }
   },
   "squad": {
-    "bandCount": 2,
-    "leaderCount": 1,
-    "secondaryCount": 1,
+    "composition": "1 Leader, 1 Secondary, 2 Bands",
     "ranks": {
       "leader": "3+",
       "secondary": "2+"
     }
   },
   "group": {
-    "squadCount": 3,
-    "specialistCount": {
-      "min": 1,
-      "max": 6
-    },
-    "leaderCount": 1,
+    "composition": "1 Leader, 3 Squads, 1-6 Specialists",
     "ranks": {
       "leader": "4+",
-      "specialist": "Any"
+      "specialist": "3+",
+      "specialistMember": "2+"
     }
   },
   "company": {
-    "groupCount": 3,
-    "specialistCount": {
-      "min": 3,
-      "max": 6
-    },
-    "leaderCount": 1,
-    "secondaryCount": 1,
+    "composition": "1 Leader, 1 Secondary, 3 Groups, 1 Specialist Unit (3-6 members)",
     "ranks": {
       "leader": "5+",
       "secondary": "4+",
-      "specialist": "Any"
-    }
-  },
-  "specialistUnit": {
-    "leaderCount": 1,
-    "memberCount": {
-      "min": 3,
-      "max": 6
+      "specialistUnitLeader": "4+",
+      "specialistUnitMember": "3+"
     }
   },
   "detachment": {
-    "companyCount": 5,
-    "specialistUnitCount": 2,
-    "leaderCount": 1,
-    "secondCount": 1,
-    "liasonCount": 1,
-    "staffCoordinatorCount": 1,
+    "composition": "1 Leader, 1 Second, 1 Liason, 1 Staff Coordinator, 5 Companies, 2 Specialist Units (3-6 members each)",
     "ranks": {
-      "leader": 7,
-      "second": 6,
-      "liason": 6,
+      "leader": "7",
+      "second": "6",
+      "liason": "6",
       "staffCoordinator": "6-7",
-      "specialistUnitLeader": 6,
-      "specialistUnitMember": 5
+      "specialistUnitLeader": "6",
+      "specialistUnitMember": "5"
     }
   },
   "formation": {
-    "detachmentCount": 5,
-    "specialistUnitCount": 3,
-    "leaderCount": 1,
-    "secondCount": 1,
-    "thirdCount": 1,
-    "liasonCount": 1,
-    "staffCoordinatorCount": 1,
+    "composition": "1 Leader, 1 Second, 1 Third, 1 Liason, 1 Staff Coordinator, 5 Detachments, 3 Specialist Units (3-6 members each)",
     "ranks": {
-      "leader": 8,
-      "second": 7,
-      "third": 6,
-      "liason": 7,
-      "staffCoordinator": 6,
-      "specialistUnitLeader": 7,
-      "specialistUnitMember": 6
+      "leader": "8",
+      "second": "7",
+      "third": "6",
+      "liason": "7",
+      "staffCoordinator": "6",
+      "specialistUnitLeader": "7",
+      "specialistUnitMember": "6"
     }
   }
 }

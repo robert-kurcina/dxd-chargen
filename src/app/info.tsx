@@ -1127,16 +1127,10 @@ const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentD
 };
 
 const MilitaryHierarchyCard = ({ data }: { data: any }) => {
-  const renderValue = (value: any) => {
-    if (typeof value === 'object' && value !== null) {
-      if (value.min !== undefined && value.max !== undefined) {
-        return `${value.min}-${value.max}`;
-      }
-      return JSON.stringify(value);
-    }
-    return value;
-  }
-  
+  const formatRole = (role: string) => {
+    return role.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  };
+
   return (
     <Card className="bg-white overflow-hidden">
       <AccordionItem value="military-hierarchy" className="border-b-0">
@@ -1148,40 +1142,23 @@ const MilitaryHierarchyCard = ({ data }: { data: any }) => {
             {Object.entries(data).map(([unit, structure]: [string, any]) => (
               <div key={unit}>
                 <h4 className="text-xl font-sans capitalize font-bold mb-2">{unit}</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-                  {Object.entries(structure).map(([key, value]: [string, any]) => {
-                    const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                    if (key === 'ranks') {
-                      return (
-                        <div key={key} className="md:col-span-2 mt-2">
-                           <h5 className="text-lg font-semibold">Personnel Ranks</h5>
-                           <Table>
-                             <TableHeader>
-                               <TableRow>
-                                 <TableHead>Role</TableHead>
-                                 <TableHead>Rank</TableHead>
-                               </TableRow>
-                             </TableHeader>
-                             <TableBody>
-                               {Object.entries(value as Record<string, string|number>).map(([role, rank]) => (
-                                 <TableRow key={role}>
-                                   <TableCell className="capitalize font-medium">{role.replace(/([A-Z])/g, ' $1')}</TableCell>
-                                   <TableCell>{renderValue(rank)}</TableCell>
-                                 </TableRow>
-                               ))}
-                             </TableBody>
-                           </Table>
-                        </div>
-                      )
-                    }
-                    return (
-                        <div key={key} className="flex justify-between border-b pb-1">
-                          <span className="font-semibold">{label}:</span>
-                          <span>{renderValue(value)}</span>
-                        </div>
-                    )
-                  })}
-                </div>
+                <p className='text-sm text-muted-foreground -mt-2 mb-4'>{structure.composition}</p>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Role</TableHead>
+                      <TableHead className="text-right">Required Rank</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Object.entries(structure.ranks).map(([role, rank]) => (
+                      <TableRow key={role}>
+                        <TableCell className="font-medium">{formatRole(role)}</TableCell>
+                        <TableCell className="text-right">{rank as string}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
             ))}
           </CardContent>
