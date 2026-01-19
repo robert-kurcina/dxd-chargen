@@ -1,12 +1,19 @@
 {
   "band": {
     "leaderCount": 1,
-    "followerCount": 5
+    "followerCount": 5,
+    "ranks": {
+      "leader": "1+"
+    }
   },
   "squad": {
     "bandCount": 2,
     "leaderCount": 1,
-    "secondaryCount": 1
+    "secondaryCount": 1,
+    "ranks": {
+      "leader": "3+",
+      "secondary": "2+"
+    }
   },
   "group": {
     "squadCount": 3,
@@ -14,7 +21,11 @@
       "min": 1,
       "max": 6
     },
-    "leaderCount": 1
+    "leaderCount": 1,
+    "ranks": {
+      "leader": "4+",
+      "specialist": "Any"
+    }
   },
   "company": {
     "groupCount": 3,
@@ -23,6 +34,52 @@
       "max": 6
     },
     "leaderCount": 1,
-    "secondaryCount": 1
+    "secondaryCount": 1,
+    "ranks": {
+      "leader": "5+",
+      "secondary": "4+",
+      "specialist": "Any"
+    }
+  },
+  "specialistUnit": {
+    "leaderCount": 1,
+    "memberCount": {
+      "min": 3,
+      "max": 6
+    }
+  },
+  "detachment": {
+    "companyCount": 5,
+    "specialistUnitCount": 2,
+    "leaderCount": 1,
+    "secondCount": 1,
+    "liasonCount": 1,
+    "staffCoordinatorCount": 1,
+    "ranks": {
+      "leader": 7,
+      "second": 6,
+      "liason": 6,
+      "staffCoordinator": "6-7",
+      "specialistUnitLeader": 6,
+      "specialistUnitMember": 5
+    }
+  },
+  "formation": {
+    "detachmentCount": 5,
+    "specialistUnitCount": 3,
+    "leaderCount": 1,
+    "secondCount": 1,
+    "thirdCount": 1,
+    "liasonCount": 1,
+    "staffCoordinatorCount": 1,
+    "ranks": {
+      "leader": 8,
+      "second": 7,
+      "third": 6,
+      "liason": 7,
+      "staffCoordinator": 6,
+      "specialistUnitLeader": 7,
+      "specialistUnitMember": 6
+    }
   }
 }

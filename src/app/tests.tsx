@@ -43,11 +43,16 @@ import {
   generateSquad,
   generateGroup,
   generateCompany,
+  generateDetachment,
+  generateFormation,
   type Contractor,
   type Band,
   type Squad,
   type Group,
   type Company,
+  type Detachment,
+  type Formation,
+  type SpecialistUnit,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -461,7 +466,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   };
   
   const handleGenerateSquad = () => {
-    const result = generateSquad(data, squadTrade, numMembers, avgRank);
+    const result = generateSquad(data, numMembers ?? ND6(), avgRank ?? ND6(), squadTrade);
     setSquad(result);
   };
   
@@ -605,11 +610,13 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
 };
 
 const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
-    const MIN_RANKS: { [key: string]: number } = { Band: 1, Squad: 3, Group: 4, Company: 5 };
+    const MIN_RANKS: { [key: string]: number } = { Band: 1, Squad: 3, Group: 4, Company: 5, Detachment: 7, Formation: 8 };
     const [unitSize, setUnitSize] = useState('Band');
     const [leaderRank, setLeaderRank] = useState(MIN_RANKS[unitSize]);
     const [trade, setTrade] = useState('Warrior');
     
+    const [generatedFormation, setGeneratedFormation] = useState<Formation | null>(null);
+    const [generatedDetachment, setGeneratedDetachment] = useState<Detachment | null>(null);
     const [generatedCompany, setGeneratedCompany] = useState<Company | null>(null);
     const [generatedGroup, setGeneratedGroup] = useState<Group | null>(null);
     const [generatedSquad, setGeneratedSquad] = useState<Squad | null>(null);
@@ -626,6 +633,8 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
     }
 
     const handleGenerate = () => {
+        setGeneratedFormation(null);
+        setGeneratedDetachment(null);
         setGeneratedCompany(null);
         setGeneratedGroup(null);
         setGeneratedSquad(null);
@@ -633,7 +642,11 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
 
         const rank = Math.max(MIN_RANKS[unitSize], leaderRank);
 
-        if (unitSize === 'Company') {
+        if (unitSize === 'Formation') {
+            setGeneratedFormation(generateFormation(data, rank, trade));
+        } else if (unitSize === 'Detachment') {
+            setGeneratedDetachment(generateDetachment(data, rank, trade));
+        } else if (unitSize === 'Company') {
             setGeneratedCompany(generateCompany(data, rank, trade));
         } else if (unitSize === 'Group') {
             setGeneratedGroup(generateGroup(data, rank, trade));
@@ -658,6 +671,32 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
             <TableCell className="text-right font-mono">{member.salary?.monthlySalary.toLocaleString()} sp</TableCell>
         </TableRow>
     );
+    
+    const RenderSpecialistUnit = ({ unit, index, titlePrefix }: { unit: SpecialistUnit, index: number, titlePrefix: string }) => {
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h5 className="font-semibold text-lg">{titlePrefix} #{index + 1} <span className="text-sm font-normal text-muted-foreground">({unit.memberCount} members)</span></h5>
+                <span className="text-sm text-muted-foreground font-mono ml-4">{unit.totalMonthlySalary.toLocaleString()} sp / month</span>
+            </div>
+        );
+
+        const content = (
+            <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={unit.leader} />
+                    {unit.members.map(m => <MemberRow key={m.id} member={m} />)}
+                </TableBody>
+            </Table>
+        );
+
+        return (
+            <AccordionItem value={`specialist-unit-${unit.leader.id}`} className="bg-gray-100/75 rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        );
+    };
 
     const RenderBand = ({ band, isTopLevel = false, index }: { band: Band, isTopLevel?: boolean, index?: number }) => {
         const summary = (
@@ -760,7 +799,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                 
                 {group.specialists.length > 0 && (
                      <Accordion type="single" collapsible className="w-full">
-                         <AccordionItem value={`group-specialists-${group.leader.id}`} className="bg-gray-50/50 rounded-md border">
+                         <AccordionItem value={`group-specialists-${group.leader.id}`} className="bg-gray-100/75 rounded-md border">
                             <AccordionTrigger className="p-4 text-left hover:no-underline">
                                 <div className="flex flex-1 items-center justify-between">
                                     <h5 className="font-semibold text-lg">Group Specialists ({group.specialists.length} members)</h5>
@@ -805,50 +844,151 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
         );
     };
     
-    const RenderCompany = ({ company }: { company: Company }) => {
+    const RenderCompany = ({ company, isTopLevel = false, index }: { company: Company, isTopLevel?: boolean, index?: number }) => {
         const specialistSalary = company.specialists.reduce((sum, s) => sum + (s.salary?.monthlySalary ?? 0), 0);
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h2 className="font-bold text-3xl">Company{index !== undefined ? ` #${index + 1}` : ''} <span className="text-2xl font-normal text-muted-foreground">({company.memberCount} members)</span></h2>
+                <span className="text-2xl font-normal text-muted-foreground font-mono ml-4">{company.totalMonthlySalary.toLocaleString()} sp / month</span>
+            </div>
+        );
+        
+        const content = (
+          <div className="space-y-4">
+            <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={company.leader} />
+                    <MemberRow member={company.secondary} />
+                </TableBody>
+            </Table>
+
+            {company.specialists.length > 0 && (
+                <Accordion type="single" collapsible className="w-full mt-4">
+                    <AccordionItem value={`company-specialists-${company.leader.id}`} className="bg-gray-100/75 rounded-md border">
+                        <AccordionTrigger className="p-4 text-left hover:no-underline">
+                            <div className="flex flex-1 items-center justify-between">
+                                <h5 className="font-semibold text-lg">Company Specialists ({company.specialists.length} members)</h5>
+                                <span className="text-sm text-muted-foreground font-mono ml-4">{specialistSalary.toLocaleString()} sp / month</span>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="p-4 pt-0">
+                            <Table>
+                                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                                <TableBody>
+                                    {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                                </TableBody>
+                            </Table>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            )}
+
+            <Accordion type="multiple" className="space-y-4 !mt-4">
+                {company.groups.map((group, i) => <RenderGroup key={group.leader.id} group={group} index={i}/>)}
+            </Accordion>
+          </div>
+        );
+
+        if (isTopLevel) {
+            return (
+                <div className="mt-6 space-y-4">
+                    {summary}
+                    {content}
+                    <div className="mt-4 text-right font-bold text-xl">
+                        Total Company Monthly Salary: {company.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <AccordionItem value={`company-${company.leader.id}`} className="bg-white rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        )
+    };
+    
+    const RenderDetachment = ({ detachment, isTopLevel = false, index }: { detachment: Detachment, isTopLevel?: boolean, index?: number }) => {
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h2 className="font-bold text-4xl">Detachment{index !== undefined ? ` #${index + 1}` : ''} <span className="text-3xl font-normal text-muted-foreground">({detachment.memberCount} members)</span></h2>
+                <span className="text-3xl font-normal text-muted-foreground font-mono ml-4">{detachment.totalMonthlySalary.toLocaleString()} sp / month</span>
+            </div>
+        );
+
+        const content = (
+          <div className="space-y-4">
+            <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={detachment.leader} />
+                    <MemberRow member={detachment.second} />
+                    <MemberRow member={detachment.liason} />
+                    <MemberRow member={detachment.staffCoordinator} />
+                </TableBody>
+            </Table>
+            
+            <Accordion type="multiple" className="space-y-2 !mt-4">
+                {detachment.specialistUnits.map((unit, i) => <RenderSpecialistUnit key={unit.leader.id} unit={unit} index={i} titlePrefix="Staff Specialist Unit" />)}
+            </Accordion>
+            
+            <Accordion type="multiple" className="space-y-4 !mt-4">
+                {detachment.companies.map((company, i) => <RenderCompany key={company.leader.id} company={company} index={i}/>)}
+            </Accordion>
+          </div>
+        );
+
+        if (isTopLevel) {
+            return (
+                <div className="mt-6 space-y-4">
+                    {summary}
+                    {content}
+                    <div className="mt-4 text-right font-bold text-2xl">
+                        Total Detachment Monthly Salary: {detachment.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <AccordionItem value={`detachment-${detachment.leader.id}`} className="bg-gray-50/25 rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        )
+    };
+    
+    const RenderFormation = ({ formation }: { formation: Formation }) => {
         return (
             <div className="mt-6 space-y-4">
-                <h2 className="font-bold text-3xl">Generated Company <span className="text-2xl font-normal text-muted-foreground">({company.memberCount} total members)</span></h2>
-                 <Table>
+                <h2 className="font-bold text-5xl">Generated Formation <span className="text-4xl font-normal text-muted-foreground">({formation.memberCount} total members)</span></h2>
+                <Table>
                     <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                     <TableBody>
-                        <MemberRow member={company.leader} />
-                        <MemberRow member={company.secondary} />
+                        <MemberRow member={formation.leader} />
+                        <MemberRow member={formation.second} />
+                        <MemberRow member={formation.third} />
+                        <MemberRow member={formation.liason} />
+                        <MemberRow member={formation.staffCoordinator} />
                     </TableBody>
                 </Table>
-
-                {company.specialists.length > 0 && (
-                    <Accordion type="single" collapsible className="w-full mt-4">
-                        <AccordionItem value="company-specialists" className="bg-gray-50/50 rounded-md border">
-                            <AccordionTrigger className="p-4 text-left hover:no-underline">
-                                <div className="flex flex-1 items-center justify-between">
-                                    <h5 className="font-semibold text-lg">Company Specialists ({company.specialists.length} members)</h5>
-                                    <span className="text-sm text-muted-foreground font-mono ml-4">{specialistSalary.toLocaleString()} sp / month</span>
-                                </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="p-4 pt-0">
-                                <Table>
-                                    <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
-                                    <TableBody>
-                                        {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
-                                    </TableBody>
-                                </Table>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                )}
-
+                
+                <Accordion type="multiple" className="space-y-2 !mt-4">
+                    {formation.specialistUnits.map((unit, i) => <RenderSpecialistUnit key={unit.leader.id} unit={unit} index={i} titlePrefix="Formation Specialist Unit" />)}
+                </Accordion>
 
                 <Accordion type="multiple" className="space-y-4 !mt-4">
-                    {company.groups.map((group, i) => <RenderGroup key={group.leader.id} group={group} index={i}/>)}
+                    {formation.detachments.map((detachment, i) => <RenderDetachment key={detachment.leader.id} detachment={detachment} index={i}/>)}
                 </Accordion>
-                <div className="mt-4 text-right font-bold text-xl">
-                    Total Company Monthly Salary: {company.totalMonthlySalary.toLocaleString()} sp
+                <div className="mt-4 text-right font-bold text-3xl">
+                    Total Formation Monthly Salary: {formation.totalMonthlySalary.toLocaleString()} sp
                 </div>
             </div>
         );
     };
+
 
     return (
         <div className="space-y-4">
@@ -862,6 +1002,8 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                             <SelectItem value="Squad">Squad</SelectItem>
                             <SelectItem value="Group">Group</SelectItem>
                             <SelectItem value="Company">Company</SelectItem>
+                            <SelectItem value="Detachment">Detachment</SelectItem>
+                            <SelectItem value="Formation">Formation</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -880,7 +1022,9 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
             <Button onClick={handleGenerate}>Generate Unit</Button>
 
             <div className="mt-6">
-                {generatedCompany && <RenderCompany company={generatedCompany} />}
+                {generatedFormation && <RenderFormation formation={generatedFormation} />}
+                {generatedDetachment && <RenderDetachment detachment={generatedDetachment} isTopLevel={unitSize === 'Detachment'} />}
+                {generatedCompany && <RenderCompany company={generatedCompany} isTopLevel={unitSize === 'Company'} />}
                 {generatedGroup && <RenderGroup group={generatedGroup} isTopLevel={unitSize === 'Group'} />}
                 {generatedSquad && <RenderSquad squad={generatedSquad} isTopLevel={unitSize === 'Squad'} />}
                 {generatedBand && <RenderBand band={generatedBand} isTopLevel={unitSize === 'Band'} />}
@@ -1223,4 +1367,5 @@ export default function Tests({ data }: { data: StaticData }) {
 }
 
     
+
 
