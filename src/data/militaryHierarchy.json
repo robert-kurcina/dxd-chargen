@@ -9,48 +9,48 @@
   "squad": {
     "composition": "1 Leader, 1 Secondary, 2 Bands",
     "ranks": {
-      "leader": "3+",
-      "secondary": "2+"
+      "leader": "2+",
+      "secondary": "1+"
     }
   },
   "group": {
     "composition": "1 Leader, 3 Squads, 1-6 Specialists",
     "ranks": {
-      "leader": "4+",
-      "specialist": "3+",
-      "specialistMember": "2+"
+      "leader": "3+",
+      "specialist": "4+",
+      "specialistMember": "3+"
     }
   },
   "company": {
     "composition": "1 Leader, 1 Secondary, 3 Groups, 1 Specialist Unit (3-6 members)",
     "ranks": {
-      "leader": "5+",
-      "secondary": "4+",
-      "specialistUnitLeader": "4+",
-      "specialistUnitMember": "3+"
+      "leader": "4+",
+      "secondary": "3+",
+      "specialistUnitLeader": "5+",
+      "specialistUnitMember": "4+"
     }
   },
   "detachment": {
     "composition": "1 Leader, 1 Second, 1 Liason, 1 Staff Coordinator, 5 Companies, 2 Specialist Units (3-6 members each)",
     "ranks": {
-      "leader": "7",
-      "second": "6",
-      "liason": "6",
-      "staffCoordinator": "6-7",
-      "specialistUnitLeader": "6",
-      "specialistUnitMember": "5"
+      "leader": "6",
+      "second": "5",
+      "liason": "5",
+      "staffCoordinator": "5-6",
+      "specialistUnitLeader": "7",
+      "specialistUnitMember": "6"
     }
   },
   "formation": {
     "composition": "1 Leader, 1 Second, 1 Third, 1 Liason, 1 Staff Coordinator, 5 Detachments, 3 Specialist Units (3-6 members each)",
     "ranks": {
-      "leader": "8",
-      "second": "7",
-      "third": "6",
-      "liason": "7",
-      "staffCoordinator": "6",
-      "specialistUnitLeader": "7",
-      "specialistUnitMember": "6"
+      "leader": "7",
+      "second": "6",
+      "third": "5",
+      "liason": "6",
+      "staffCoordinator": "5",
+      "specialistUnitLeader": "8",
+      "specialistUnitMember": "7"
     }
   }
 }
