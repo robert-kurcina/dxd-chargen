@@ -55,6 +55,7 @@ import {
   type SpecialistUnit,
   generateDivision,
   type Division,
+  calculateAttributeDM,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -882,7 +883,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                             <Table>
                                 <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                                 <TableBody>
-                                    {company.specialists.map(s => <MemberRow key={s.id} member={s} />)}
+                                    {company.specialists.map(s => <MemberRow key={s.id} member={s} role="Specialist"/>)}
                                 </TableBody>
                             </Table>
                         </AccordionContent>
@@ -1107,6 +1108,79 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
     );
 };
 
+const ScalarIndexTester = () => {
+    const [indexInput, setIndexInput] = useState<string>('0');
+    const [scalarResult, setScalarResult] = useState<number | null>(null);
+
+    const [scalarInput, setScalarInput] = useState<string>('10');
+    const [indexResult, setIndexResult] = useState<number | null>(null);
+
+    const handleGetScalar = () => {
+        const index = parseInt(indexInput, 10);
+        if (!isNaN(index)) {
+            const result = getScalar(index);
+            setScalarResult(Math.round(result));
+        } else {
+            setScalarResult(null);
+        }
+    };
+
+    const handleGetIndex = () => {
+        const scalar = parseInt(scalarInput, 10);
+        if (!isNaN(scalar)) {
+            const result = getIndex(scalar);
+            setIndexResult(Math.round(result));
+        } else {
+            setIndexResult(null);
+        }
+    };
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4 p-4 border rounded-md">
+                <h3 className="font-semibold">getScalar (Index to Scalar)</h3>
+                <p className="text-sm text-muted-foreground">Enter an Index to see the corresponding rounded Scalar value.</p>
+                <div className="flex items-center gap-4">
+                    <Input
+                        type="number"
+                        step="1"
+                        value={indexInput}
+                        onChange={(e) => setIndexInput(e.target.value)}
+                        placeholder="Enter Index"
+                        className="w-32"
+                    />
+                    <Button onClick={handleGetScalar}>Get Scalar</Button>
+                </div>
+                {scalarResult !== null && (
+                    <div className="mt-2 p-2 border rounded-md bg-gray-50 font-mono text-sm">
+                        <p>Scalar: <span className="font-bold text-primary">{scalarResult}</span></p>
+                    </div>
+                )}
+            </div>
+            <div className="space-y-4 p-4 border rounded-md">
+                 <h3 className="font-semibold">getIndex (Scalar to Index)</h3>
+                 <p className="text-sm text-muted-foreground">Enter a Scalar value to see the closest corresponding Index.</p>
+                <div className="flex items-center gap-4">
+                    <Input
+                        type="number"
+                        step="1"
+                        value={scalarInput}
+                        onChange={(e) => setScalarInput(e.target.value)}
+                        placeholder="Enter Scalar"
+                        className="w-32"
+                    />
+                    <Button onClick={handleGetIndex}>Get Index</Button>
+                </div>
+                {indexResult !== null && (
+                    <div className="mt-2 p-2 border rounded-md bg-gray-50 font-mono text-sm">
+                        <p>Index: <span className="font-bold text-primary">{indexResult}</span></p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -1216,19 +1290,6 @@ export default function Tests({ data }: { data: StaticData }) {
     { input: "-5 k", expected: -5000 },
   ];
 
-  // Test data for getScalar
-  const getScalarTests = [
-      { index: 0, expected: 10 },
-      { index: 9, expected: 80 },
-      { index: 10, expected: 100 },
-      { index: 20, expected: 1000 },
-      { index: 30, expected: 10000 },
-      { index: -1, expected: 8 },
-      { index: -10, expected: 1 },
-      { index: -11, expected: 0.8 },
-      { index: -20, expected: 0.1 },
-      { index: 59, expected: 8000000 },
-  ];
 
   return (
     <Accordion type="multiple" defaultValue={['military-unit-generator']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
@@ -1410,27 +1471,7 @@ export default function Tests({ data }: { data: StaticData }) {
       </TestSuite>
 
       <TestSuite title="getScalar & getIndex Function Tests" value="get-scalar-get-index-tests">
-          <p className="text-sm text-muted-foreground p-4 -mb-4">
-              Tests the calculation of scalar values from an index and its inverse function, which finds the nearest index for a given scalar on a logarithmic scale.
-          </p>
-          <h3 className="font-semibold px-2 pt-2">getScalar (Index to Scalar)</h3>
-          {getScalarTests.map((test, i) => {
-              const result = getScalar(test.index);
-              const pass = result === test.expected;
-              return <TestCase key={`scalar-${i}`} title={`getScalar(${test.index})`} result={result} expected={test.expected} pass={pass} />;
-          })}
-          <h3 className="font-semibold px-2 pt-4">getIndex (Scalar to Index)</h3>
-          {getScalarTests.map((test, i) => {
-              const scalar = test.expected;
-              const result = getIndex(scalar);
-              const pass = result === test.index;
-              return <TestCase key={`index-roundtrip-${i}`} title={`getIndex(${scalar})`} result={result} expected={test.index} pass={pass} />;
-          })}
-          <TestCase title="getIndex(110)" result={getIndex(110)} expected={11} pass={getIndex(110) === 11} />
-          <TestCase title="getIndex(99)" result={getIndex(99)} expected={10} pass={getIndex(99) === 10} />
-          <TestCase title="getIndex(89)" result={getIndex(89)} expected={9} pass={getIndex(89) === 9} />
-          <TestCase title="getIndex(0.11)" result={getIndex(0.11)} expected={-19} pass={getIndex(0.11) === -19} />
-          <TestCase title="getIndex(9500)" result={getIndex(9500)} expected={30} pass={getIndex(9500) === 30} />
+        <ScalarIndexTester />
       </TestSuite>
 
       <TestSuite title="Tragedy Seed Tests" value="tragedy-seed-tests">
@@ -1439,8 +1480,3 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
-
-    
-
-
-
