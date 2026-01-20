@@ -776,6 +776,7 @@ export type Company = { leader: Contractor, secondary: Contractor, specialists: 
 export type SpecialistUnit = { leader: Contractor, members: Contractor[], totalMonthlySalary: number, memberCount: number };
 export type Detachment = { leader: Contractor, second: Contractor, liason: Contractor, staffCoordinator: Contractor, specialistUnits: SpecialistUnit[], companies: Company[], totalMonthlySalary: number, memberCount: number };
 export type Formation = { leader: Contractor, second: Contractor, third: Contractor, liason: Contractor, staffCoordinator: Contractor, specialistUnits: SpecialistUnit[], detachments: Detachment[], totalMonthlySalary: number, memberCount: number };
+export type Division = { leader: Contractor, second: Contractor, third: Contractor, liaisonLeader: Contractor, liaisonStaff: Contractor[], formations: Formation[], totalMonthlySalary: number, memberCount: number };
 
 
 export function generateBand(data: StaticData, leaderRank: number, trade: string): Band {
@@ -833,14 +834,16 @@ export function generateGroup(data: StaticData, leaderRank: number, trade: strin
     const numSpecialists = minSpec + Math.floor(Math.random() * (maxSpec - minSpec + 1));
     
     if (numSpecialists > 0) {
-      const leaderSpecialistRank = Math.max(3, leaderRank - ND6());
+      const specRank = parseInt(data.militaryHierarchy.group.ranks.specialist.replace('+', ''));
+      const leaderSpecialistRank = Math.max(specRank, leaderRank - ND6());
       const leaderSpecialist = { ...generateContractor(data, 'Any', leaderSpecialistRank)!, role: 'Group Specialist Lead' };
       specialists.push(leaderSpecialist);
       totalSalary += leaderSpecialist.salary?.monthlySalary ?? 0;
       memberCount++;
       
+      const memberSpecRank = parseInt(data.militaryHierarchy.group.ranks.specialistMember.replace('+', ''));
       for(let i=0; i<numSpecialists - 1; i++) {
-        const memberRank = Math.min(leaderSpecialistRank, Math.max(2, leaderSpecialistRank - ND6()));
+        const memberRank = Math.min(leaderSpecialistRank, Math.max(memberSpecRank, leaderSpecialistRank - ND6()));
         const memberSpecialist = { ...generateContractor(data, 'Any', memberRank)!, role: 'Group Specialist' };
         specialists.push(memberSpecialist);
         totalSalary += memberSpecialist.salary?.monthlySalary ?? 0;
@@ -871,7 +874,7 @@ export function generateCompany(data: StaticData, leaderRank: number, trade: str
     const specialists: Contractor[] = [];
     const groups: Group[] = [];
     
-    // Generate groups
+    // Generate groups first to determine highest specialist rank
     const groupCount = parseInt(data.militaryHierarchy.company.composition.split(', ')[2].split(' ')[0]);
     for (let i = 0; i < groupCount; i++) {
         const groupLeaderRank = Math.max(1, leaderRank - (i + 1));
@@ -880,6 +883,8 @@ export function generateCompany(data: StaticData, leaderRank: number, trade: str
         totalSalary += group.totalMonthlySalary;
         memberCount += group.memberCount;
     }
+    
+    const highestGroupSpecialistRank = Math.max(0, ...groups.flatMap(g => g.specialists.map(s => s.tradeRank)));
 
     // Generate specialists
     const specialistCountStr = data.militaryHierarchy.company.composition.match(/(\d+-\d+)\s+members/)?.[1] ?? "0-0";
@@ -887,14 +892,17 @@ export function generateCompany(data: StaticData, leaderRank: number, trade: str
     const numSpecialists = minSpec + Math.floor(Math.random() * (maxSpec - minSpec + 1));
     
     if (numSpecialists > 0) {
-      const leaderSpecialistRank = Math.max(4, leaderRank - ND6());
+      const specRank = parseInt(data.militaryHierarchy.company.ranks.specialistUnitLeader.replace('+', ''));
+      const leaderSpecialistRank = Math.max(specRank, highestGroupSpecialistRank + 1);
+
       const leaderSpecialist = { ...generateContractor(data, 'Any', leaderSpecialistRank)!, role: 'Company Specialist Lead' };
       specialists.push(leaderSpecialist);
       totalSalary += leaderSpecialist.salary?.monthlySalary ?? 0;
       memberCount++;
       
+      const memberSpecRank = parseInt(data.militaryHierarchy.company.ranks.specialistUnitMember.replace('+', ''));
       for(let i=0; i<numSpecialists - 1; i++) {
-        const memberRank = Math.min(leaderSpecialistRank, Math.max(3, leaderSpecialistRank - ND6()));
+        const memberRank = Math.min(leaderSpecialistRank, Math.max(memberSpecRank, leaderSpecialistRank - ND6()));
         const memberSpecialist = { ...generateContractor(data, 'Any', memberRank)!, role: 'Company Specialist' };
         specialists.push(memberSpecialist);
         totalSalary += memberSpecialist.salary?.monthlySalary ?? 0;
@@ -913,7 +921,7 @@ function generateSpecialistUnit(data: StaticData, leaderRank: number, memberRank
     let memberCount = 1;
 
     const compString = data.militaryHierarchy.detachment.composition; // Assuming same structure for formation for member count
-    const memberCountMatch = compString.match(/(\d+)\s+to\s+(\d+)\s+Specialist\s+members/);
+    const memberCountMatch = compString.match(/(\d+)-(\d+)\s+members/);
     let numMembers = 4; // Default
     if (memberCountMatch) {
       const min = parseInt(memberCountMatch[1]);
@@ -964,8 +972,8 @@ export function generateDetachment(data: StaticData, initialLeaderRank: number, 
     for (let i = 0; i < specUnitCount; i++) {
         const unit = generateSpecialistUnit(
           data, 
-          parseInt(data.militaryHierarchy.detachment.ranks.specialistUnitLeader), 
-          parseInt(data.militaryHierarchy.detachment.ranks.specialistUnitMember), 
+          parseInt(data.militaryHierarchy.detachment.ranks.specialistUnitLeader.replace('+', '')), 
+          parseInt(data.militaryHierarchy.detachment.ranks.specialistUnitMember.replace('+', '')), 
           `Staff Specialist Unit`
         );
         specialistUnits.push(unit);
@@ -1014,6 +1022,40 @@ export function generateFormation(data: StaticData, leaderRank: number, trade: s
     }
 
     return { leader, second, third, liason, staffCoordinator, specialistUnits, detachments, totalMonthlySalary: totalSalary, memberCount };
+}
+
+export function generateDivision(data: StaticData, leaderRank: number, trade: string): Division {
+    let memberCount = 0;
+    let totalSalary = 0;
+
+    const ranks = data.militaryHierarchy.division.ranks;
+    const leader = { ...generateContractor(data, trade, parseInt(ranks.leader))!, role: 'Division Leader' };
+    const second = { ...generateContractor(data, trade, parseInt(ranks.second))!, role: 'Division Second' };
+    const third = { ...generateContractor(data, trade, parseInt(ranks.third))!, role: 'Division Third' };
+    const liaisonLeader = { ...generateContractor(data, 'Any', parseInt(ranks.liaisonLeader))!, role: 'Division Liaison Leader' };
+    
+    memberCount += 4;
+    totalSalary += (leader.salary?.monthlySalary ?? 0) + (second.salary?.monthlySalary ?? 0) + (third.salary?.monthlySalary ?? 0) + (liaisonLeader.salary?.monthlySalary ?? 0);
+
+    const liaisonStaff: Contractor[] = [];
+    const liaisonStaffCount = 10;
+    for (let i = 0; i < liaisonStaffCount; i++) {
+        const staffMember = { ...generateContractor(data, 'Any', parseInt(ranks.liaisonStaffMember))!, role: 'Liaison Staff Member' };
+        liaisonStaff.push(staffMember);
+        totalSalary += staffMember.salary?.monthlySalary ?? 0;
+        memberCount++;
+    }
+
+    const formationCount = 5;
+    const formations: Formation[] = [];
+    for (let i = 0; i < formationCount; i++) {
+        const formation = generateFormation(data, 7 - i, trade); // Stagger leader ranks
+        formations.push(formation);
+        totalSalary += formation.totalMonthlySalary;
+        memberCount += formation.memberCount;
+    }
+
+    return { leader, second, third, liaisonLeader, liaisonStaff, formations, totalMonthlySalary: totalSalary, memberCount };
 }
 
 

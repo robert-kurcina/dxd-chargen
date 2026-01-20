@@ -51,5 +51,15 @@
       "specialistUnitLeader": "8",
       "specialistUnitMember": "7"
     }
+  },
+  "division": {
+    "composition": "1 Leader, 1 Second, 1 Third, 1 Liaison Leader, 10 Liaison Staff Members, 5 Formations",
+    "ranks": {
+      "leader": "8",
+      "second": "7",
+      "third": "6",
+      "liaisonLeader": "7",
+      "liaisonStaffMember": "6"
+    }
   }
 }

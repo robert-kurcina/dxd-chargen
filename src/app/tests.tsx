@@ -53,6 +53,8 @@ import {
   type Detachment,
   type Formation,
   type SpecialistUnit,
+  generateDivision,
+  type Division,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -610,11 +612,12 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
 };
 
 const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
-    const MIN_RANKS: { [key: string]: number } = { Band: 1, Squad: 3, Group: 4, Company: 5, Detachment: 7, Formation: 8 };
+    const MIN_RANKS: { [key: string]: number } = { Band: 1, Squad: 2, Group: 3, Company: 4, Detachment: 6, Formation: 7, Division: 8 };
     const [unitSize, setUnitSize] = useState('Band');
     const [leaderRank, setLeaderRank] = useState(MIN_RANKS[unitSize]);
     const [trade, setTrade] = useState('Warrior');
     
+    const [generatedDivision, setGeneratedDivision] = useState<Division | null>(null);
     const [generatedFormation, setGeneratedFormation] = useState<Formation | null>(null);
     const [generatedDetachment, setGeneratedDetachment] = useState<Detachment | null>(null);
     const [generatedCompany, setGeneratedCompany] = useState<Company | null>(null);
@@ -633,6 +636,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
     }
 
     const handleGenerate = () => {
+        setGeneratedDivision(null);
         setGeneratedFormation(null);
         setGeneratedDetachment(null);
         setGeneratedCompany(null);
@@ -642,7 +646,9 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
 
         const rank = Math.max(MIN_RANKS[unitSize], leaderRank);
 
-        if (unitSize === 'Formation') {
+        if (unitSize === 'Division') {
+            setGeneratedDivision(generateDivision(data, rank, trade));
+        } else if (unitSize === 'Formation') {
             setGeneratedFormation(generateFormation(data, rank, trade));
         } else if (unitSize === 'Detachment') {
             setGeneratedDetachment(generateDetachment(data, rank, trade));
@@ -960,30 +966,96 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
         )
     };
     
-    const RenderFormation = ({ formation }: { formation: Formation }) => {
+    const RenderFormation = ({ formation, isTopLevel = false, index }: { formation: Formation, isTopLevel?: boolean, index?: number }) => {
+        const summary = (
+            <div className="flex flex-1 items-center justify-between">
+                <h2 className="font-bold text-4xl">Formation{index !== undefined ? ` #${index + 1}` : ''} <span className="text-3xl font-normal text-muted-foreground">({formation.memberCount} members)</span></h2>
+                <span className="text-3xl font-normal text-muted-foreground font-mono ml-4">{formation.totalMonthlySalary.toLocaleString()} sp / month</span>
+            </div>
+        );
+
+        const content = (
+          <div className="space-y-4">
+            <Table>
+                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                <TableBody>
+                    <MemberRow member={formation.leader} />
+                    <MemberRow member={formation.second} />
+                    <MemberRow member={formation.third} />
+                    <MemberRow member={formation.liason} />
+                    <MemberRow member={formation.staffCoordinator} />
+                </TableBody>
+            </Table>
+            
+            <Accordion type="multiple" className="space-y-2 !mt-4">
+                {formation.specialistUnits.map((unit, i) => <RenderSpecialistUnit key={unit.leader.id} unit={unit} index={i} titlePrefix="Formation Specialist Unit" />)}
+            </Accordion>
+
+            <Accordion type="multiple" className="space-y-4 !mt-4">
+                {formation.detachments.map((detachment, i) => <RenderDetachment key={detachment.leader.id} detachment={detachment} index={i}/>)}
+            </Accordion>
+          </div>
+        );
+        
+        if (isTopLevel) {
+            return (
+                <div className="mt-6 space-y-4">
+                    <h2 className="font-bold text-5xl">Generated Formation <span className="text-4xl font-normal text-muted-foreground">({formation.memberCount} total members)</span></h2>
+                    {content}
+                    <div className="mt-4 text-right font-bold text-3xl">
+                        Total Formation Monthly Salary: {formation.totalMonthlySalary.toLocaleString()} sp
+                    </div>
+                </div>
+            );
+        }
+        
+        return (
+            <AccordionItem value={`formation-${formation.leader.id}`} className="bg-gray-50/25 rounded-md border">
+                <AccordionTrigger className="p-4 text-left hover:no-underline">{summary}</AccordionTrigger>
+                <AccordionContent className="p-4 pt-0">{content}</AccordionContent>
+            </AccordionItem>
+        )
+    };
+    
+    const RenderDivision = ({ division }: { division: Division }) => {
+        const liaisonStaffSalary = division.liaisonStaff.reduce((sum, s) => sum + (s.salary?.monthlySalary ?? 0), 0);
         return (
             <div className="mt-6 space-y-4">
-                <h2 className="font-bold text-5xl">Generated Formation <span className="text-4xl font-normal text-muted-foreground">({formation.memberCount} total members)</span></h2>
+                <h2 className="font-bold text-5xl">Generated Division <span className="text-4xl font-normal text-muted-foreground">({division.memberCount} total members)</span></h2>
                 <Table>
                     <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
                     <TableBody>
-                        <MemberRow member={formation.leader} />
-                        <MemberRow member={formation.second} />
-                        <MemberRow member={formation.third} />
-                        <MemberRow member={formation.liason} />
-                        <MemberRow member={formation.staffCoordinator} />
+                        <MemberRow member={division.leader} />
+                        <MemberRow member={division.second} />
+                        <MemberRow member={division.third} />
                     </TableBody>
                 </Table>
                 
-                <Accordion type="multiple" className="space-y-2 !mt-4">
-                    {formation.specialistUnits.map((unit, i) => <RenderSpecialistUnit key={unit.leader.id} unit={unit} index={i} titlePrefix="Formation Specialist Unit" />)}
+                <Accordion type="single" collapsible className="w-full !mt-4">
+                     <AccordionItem value={`division-liaison-staff-${division.leader.id}`} className="bg-gray-100/75 rounded-md border">
+                        <AccordionTrigger className="p-4 text-left hover:no-underline">
+                            <div className="flex flex-1 items-center justify-between">
+                                <h5 className="font-semibold text-lg">Division Liaison Staff ({division.liaisonStaff.length + 1} members)</h5>
+                                <span className="text-sm text-muted-foreground font-mono ml-4">{(liaisonStaffSalary + (division.liaisonLeader.salary?.monthlySalary ?? 0)).toLocaleString()} sp / month</span>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="p-4 pt-0">
+                            <Table>
+                                <TableHeader><TableRow><TableHead>Role</TableHead><TableHead>Trade</TableHead><TableHead>Rank / Title</TableHead><TableHead className="text-right">Monthly Salary</TableHead></TableRow></TableHeader>
+                                <TableBody>
+                                    <MemberRow member={division.liaisonLeader} />
+                                    {division.liaisonStaff.map(s => <MemberRow key={s.id} member={s} />)}
+                                </TableBody>
+                            </Table>
+                        </AccordionContent>
+                     </AccordionItem>
                 </Accordion>
-
+    
                 <Accordion type="multiple" className="space-y-4 !mt-4">
-                    {formation.detachments.map((detachment, i) => <RenderDetachment key={detachment.leader.id} detachment={detachment} index={i}/>)}
+                    {division.formations.map((formation, i) => <RenderFormation key={formation.leader.id} formation={formation} index={i}/>)}
                 </Accordion>
                 <div className="mt-4 text-right font-bold text-3xl">
-                    Total Formation Monthly Salary: {formation.totalMonthlySalary.toLocaleString()} sp
+                    Total Division Monthly Salary: {division.totalMonthlySalary.toLocaleString()} sp
                 </div>
             </div>
         );
@@ -1004,6 +1076,7 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
                             <SelectItem value="Company">Company</SelectItem>
                             <SelectItem value="Detachment">Detachment</SelectItem>
                             <SelectItem value="Formation">Formation</SelectItem>
+                            <SelectItem value="Division">Division</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -1022,7 +1095,8 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
             <Button onClick={handleGenerate}>Generate Unit</Button>
 
             <div className="mt-6">
-                {generatedFormation && <RenderFormation formation={generatedFormation} />}
+                {generatedDivision && <RenderDivision division={generatedDivision} />}
+                {generatedFormation && <RenderFormation formation={generatedFormation} isTopLevel={unitSize === 'Formation'}/>}
                 {generatedDetachment && <RenderDetachment detachment={generatedDetachment} isTopLevel={unitSize === 'Detachment'} />}
                 {generatedCompany && <RenderCompany company={generatedCompany} isTopLevel={unitSize === 'Company'} />}
                 {generatedGroup && <RenderGroup group={generatedGroup} isTopLevel={unitSize === 'Group'} />}
@@ -1367,5 +1441,6 @@ export default function Tests({ data }: { data: StaticData }) {
 }
 
     
+
 
 
