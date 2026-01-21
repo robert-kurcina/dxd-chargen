@@ -1181,6 +1181,173 @@ const ScalarIndexTester = () => {
     );
 };
 
+const AttributeArrayTest = () => {
+    const [rolls, setRolls] = useState<number[]>([]);
+
+    const handleRoll = () => {
+        const newRolls = Array.from({ length: 9 }, () => ND6(2));
+        setRolls(newRolls.sort((a, b) => b - a));
+    };
+
+    return (
+        <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+                Generate a set of 9 attribute scores by rolling 2D6 for each. The results are sorted in descending order.
+            </p>
+            <Button onClick={handleRoll}>Generate Attribute Scores</Button>
+            {rolls.length > 0 && (
+                <div className="mt-4 p-4 border rounded-md bg-gray-50">
+                    <p className="font-semibold">
+                        Generated Scores: <span className="font-mono text-primary">{rolls.join(', ')}</span>
+                    </p>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const HeritageGenerationTest = ({ data }: { data: StaticData }) => {
+    const [results, setResults] = useState<{ cultural: any; environ: any; societal: any } | null>(null);
+
+    const handleGenerate = () => {
+        const cultural = data.culturalHeritage[Math.floor(Math.random() * data.culturalHeritage.length)];
+        const environ = data.environHeritage[Math.floor(Math.random() * data.environHeritage.length)];
+        const societal = data.societalHeritage[Math.floor(Math.random() * data.societalHeritage.length)];
+        setResults({ cultural, environ, societal });
+    };
+
+    return (
+        <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+                Randomly selects one heritage background from each of the three categories: Cultural, Environ, and Societal.
+            </p>
+            <Button onClick={handleGenerate}>Generate Heritage</Button>
+            {results && (
+                <div className="mt-4 space-y-4">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Cultural: {results.cultural.entry}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm"><strong>Talents:</strong> {results.cultural.talents}</p>
+                            <p className="text-sm"><strong>Wealth Mod:</strong> {results.cultural.wealth}, <strong>Cost:</strong> {results.cultural.cost}</p>
+                        </CardContent>
+                    </Card>
+                     <Card>
+                        <CardHeader>
+                            <CardTitle>Environ: {results.environ.entry}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm"><strong>Talents:</strong> {results.environ.talents}</p>
+                            <p className="text-sm"><strong>Wealth Mod:</strong> {results.environ.wealth}, <strong>Cost:</strong> {results.environ.cost}</p>
+                        </CardContent>
+                    </Card>
+                     <Card>
+                        <CardHeader>
+                            <CardTitle>Societal: {results.societal.entry}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm"><strong>Talents:</strong> {results.societal.talents}</p>
+                            <p className="text-sm"><strong>Wealth Mod:</strong> {results.societal.wealth}, <strong>Cost:</strong> {results.societal.cost}</p>
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const ProfessionAndTitleTest = ({ data }: { data: StaticData }) => {
+    const [result, setResult] = useState<{ profession: string; rank: number; title: string; namingPractice: string } | null>(null);
+
+    const handleGenerate = () => {
+        const profession = data.professions[Math.floor(Math.random() * data.professions.length)];
+        const rank = Math.floor(Math.random() * 11); // 0-10
+        const titleRow = data.namingPracticeTitles.find(t => t.Rank === String(rank));
+        const title = titleRow ? (titleRow as any)[profession.namingPractice] || '-' : '-';
+
+        setResult({
+            profession: profession.trade,
+            rank,
+            title,
+            namingPractice: profession.namingPractice
+        });
+    };
+
+    return (
+        <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+                Randomly generates a profession and a trade rank (0-10), then looks up the corresponding title.
+            </p>
+            <Button onClick={handleGenerate}>Generate Profession & Title</Button>
+            {result && (
+                <div className="mt-4 p-4 border rounded-md bg-gray-50">
+                    <p><strong>Profession:</strong> {result.profession}</p>
+                    <p><strong>Trade Rank:</strong> {result.rank}</p>
+                    <p><strong>Naming Practice:</strong> {result.namingPractice}</p>
+                    <p><strong>Title:</strong> {result.title}</p>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const SettlementGenerationTest = ({ data }: { data: StaticData }) => {
+    const [result, setResult] = useState<{ empire: string; settlement: string } | null>(null);
+
+    const handleGenerate = () => {
+        const empires = data.empires;
+        const empire = empires[Math.floor(Math.random() * empires.length)];
+        
+        const settlementOptions = (data.settlements as any)[empire.name];
+        const settlement = settlementOptions[ND6()-1];
+
+        setResult({
+            empire: empire.name,
+            settlement: settlement
+        });
+    };
+
+    return (
+        <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+                Randomly selects an empire and then rolls a D6 to determine a starting settlement from that empire's list.
+            </p>
+            <Button onClick={handleGenerate}>Generate Settlement</Button>
+            {result && (
+                <div className="mt-4 p-4 border rounded-md bg-gray-50">
+                    <p><strong>Empire:</strong> {result.empire}</p>
+                    <p><strong>Settlement:</strong> {result.settlement}</p>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const SimpleDisplayCardTest = ({ title, data }: { title: string, data: any[] }) => {
+    if (!data || data.length === 0) {
+        return <div>No data for {title}</div>;
+    }
+    return (
+    <div>
+        <h3 className="font-semibold mb-2">{title}</h3>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    {Object.keys(data[0]).map(key => <TableHead key={key}>{key}</TableHead>)}
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {data.map((row, i) => (
+                    <TableRow key={i}>
+                        {Object.values(row).map((val: any, j: number) => <TableCell key={j}>{Array.isArray(val) ? val.join(', ') : val}</TableCell>)}
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </div>
+    )
+};
 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -1312,6 +1479,18 @@ export default function Tests({ data }: { data: StaticData }) {
       <TestSuite title="Salary Calculation" value="salary-calculation-tests">
         <SalaryCalculationTest data={data} />
       </TestSuite>
+      
+      <TestSuite title="Heritage Generation" value="heritage-generation">
+        <HeritageGenerationTest data={data} />
+      </TestSuite>
+
+      <TestSuite title="Profession & Title Generation" value="profession-title-generation">
+        <ProfessionAndTitleTest data={data} />
+      </TestSuite>
+
+       <TestSuite title="Settlement Generation" value="settlement-generation">
+        <SettlementGenerationTest data={data} />
+      </TestSuite>
 
       <TestSuite title="Number Suffix Formatting Tests" value="number-suffix-tests">
         <p className="text-sm text-muted-foreground p-4 -mb-4">
@@ -1331,6 +1510,20 @@ export default function Tests({ data }: { data: StaticData }) {
 
       <TestSuite title="ND6 Function Tests" value="nd6-tests">
         <ND6Test />
+      </TestSuite>
+
+      <TestSuite title="Attribute Array Generation" value="attribute-array-generation">
+        <AttributeArrayTest />
+      </TestSuite>
+
+      <TestSuite title="Simple Data Tables" value="simple-data-tables">
+        <div className="space-y-8">
+            <SimpleDisplayCardTest title="PML Titles" data={data.pmlTitles} />
+            <SimpleDisplayCardTest title="Point Buy Costs" data={data.pointBuyCosts} />
+            <SimpleDisplayCardTest title="Wealth Titles" data={data.wealthTitles} />
+            <SimpleDisplayCardTest title="Social Groups" data={data.socialGroups} />
+            <SimpleDisplayCardTest title="Social Ranks" data={data.socialRanks} />
+        </div>
       </TestSuite>
 
       <TestSuite title="Dice Roller Demo" value="dice-roller-demo">
@@ -1480,3 +1673,4 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
