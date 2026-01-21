@@ -14,6 +14,9 @@ export const generateImageFlow = ai.defineFlow(
       model: 'googleai/imagen-4.0-fast-generate-001',
       prompt,
     });
+    if (!media) {
+      throw new Error('The image generation model did not return an image. This may be due to safety filters or prompt complexity.');
+    }
     return media.url;
   }
 );

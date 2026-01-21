@@ -31,8 +31,8 @@ export async function getImageFromPrompt(prompt: string) {
   try {
     const result = await generateImageFlow(prompt);
     return { imageUrl: result };
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
-    return { error: 'Failed to generate image. Please try again later.' };
+    return { error: e.message || 'Failed to generate image. Please try again later.' };
   }
 }
