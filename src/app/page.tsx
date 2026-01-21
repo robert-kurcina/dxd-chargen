@@ -6,7 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Worksheet from './worksheet';
 import Info from './info';
 import Tests from './tests';
-import ImageGenPage from './image-gen';
 
 export default function CharacterSheetPage() {
   return (
@@ -14,13 +13,12 @@ export default function CharacterSheetPage() {
       <Tabs defaultValue="overview" className="w-full flex-1 flex flex-col min-h-0">
         <div className="shrink-0">
           <div className="sticky top-0 z-30 bg-white py-2">
-            <TabsList className="grid w-full max-w-[960px] mx-auto grid-cols-6">
+            <TabsList className="grid w-full max-w-[960px] mx-auto grid-cols-5">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="sample">Sample</TabsTrigger>
               <TabsTrigger value="worksheet">Worksheet</TabsTrigger>
               <TabsTrigger value="tests">Tests</TabsTrigger>
               <TabsTrigger value="info">Info</TabsTrigger>
-              <TabsTrigger value="image-gen">Image Gen</TabsTrigger>
             </TabsList>
           </div>
         </div>
@@ -54,12 +52,6 @@ export default function CharacterSheetPage() {
             className="[grid-area:stack] overflow-y-auto"
           >
             <Info data={sarnaLenData} />
-          </TabsContent>
-          <TabsContent
-            value="image-gen"
-            className="[grid-area:stack] overflow-y-auto"
-          >
-            <ImageGenPage />
           </TabsContent>
         </div>
       </Tabs>
