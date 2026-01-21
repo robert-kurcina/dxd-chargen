@@ -6,7 +6,6 @@ import {
   Eye,
   Smile,
   Loader2,
-  Dices,
 } from 'lucide-react';
 
 export const Icons = {
@@ -17,5 +16,4 @@ export const Icons = {
   Perception: Eye,
   Charisma: Smile,
   Loader: Loader2,
-  Dices,
 };
