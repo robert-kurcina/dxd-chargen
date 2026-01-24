@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -454,26 +454,49 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
 const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   // States for single contractor
   const [singleTrade, setSingleTrade] = useState<string | undefined>(undefined);
-  const [singleRank, setSingleRank] = useState<number | undefined>(undefined);
+  const [singleRank, setSingleRank] = useState<string>('');
+  const [singleRankMax, setSingleRankMax] = useState(10);
   const [contractor, setContractor] = useState<ReturnType<typeof generateContractor>>(null);
 
   // States for squad
   const [squadTrade, setSquadTrade] = useState<string>('Any');
-  const [numMembers, setNumMembers] = useState<number | undefined>(undefined);
-  const [avgRank, setAvgRank] = useState<number | undefined>(undefined);
+  const [numMembers, setNumMembers] = useState<string>('');
+  const [avgRank, setAvgRank] = useState<string>('');
+  const [avgRankMax, setAvgRankMax] = useState(10);
   const [squad, setSquad] = useState<Array<ReturnType<typeof generateContractor>> | null>(null);
 
+  const trades = ['Any', ...data.professions.map(p => p.trade)];
+
+  const handleSingleTradeChange = (val: string) => {
+    const newTrade = val === 'Any' ? undefined : val;
+    setSingleTrade(newTrade);
+    const isRabble = newTrade?.toLowerCase() === 'rabble';
+    const newMax = isRabble ? 3 : 10;
+    setSingleRankMax(newMax);
+    if (parseInt(singleRank) > newMax) {
+        setSingleRank(String(newMax));
+    }
+  };
+
+  const handleSquadTradeChange = (val: string) => {
+    setSquadTrade(val);
+    const isRabble = val?.toLowerCase() === 'rabble';
+    const newMax = isRabble ? 3 : 10;
+    setAvgRankMax(newMax);
+    if (parseInt(avgRank) > newMax) {
+        setAvgRank(String(newMax));
+    }
+  };
+
   const handleGenerateContractor = () => {
-    const result = generateContractor(data, singleTrade, singleRank);
+    const result = generateContractor(data, singleTrade, singleRank ? parseInt(singleRank) : undefined);
     setContractor(result);
   };
   
   const handleGenerateSquad = () => {
-    const result = generateSquad(data, numMembers ?? ND6(), avgRank ?? ND6(), squadTrade);
+    const result = generateSquad(data, numMembers ? parseInt(numMembers) : ND6(), avgRank ? parseInt(avgRank) : ND6(), squadTrade);
     setSquad(result);
   };
-  
-  const trades = ['Any', ...data.professions.filter(p => p.trade !== 'Rabble').map(p => p.trade)];
 
   const sortedSquad = squad ? [...squad].sort((a, b) => (b?.tradeRank || 0) - (a?.tradeRank || 0)) : null;
   
@@ -489,7 +512,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label>Trade (Optional)</Label>
-            <Select onValueChange={(val) => setSingleTrade(val === 'Any' ? undefined : val)}>
+            <Select onValueChange={handleSingleTradeChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Random" />
               </SelectTrigger>
@@ -500,8 +523,8 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>Trade Rank (1-10, Optional)</Label>
-            <Input type="number" min="1" max="10" placeholder="Random" onChange={(e) => setSingleRank(e.target.value ? parseInt(e.target.value) : undefined)} />
+            <Label>Trade Rank (Optional)</Label>
+            <Input type="number" min="1" max={singleRankMax} placeholder="Random" value={singleRank} onChange={(e) => setSingleRank(e.target.value)} />
           </div>
         </div>
         <Button onClick={handleGenerateContractor}>Generate Contractor</Button>
@@ -527,7 +550,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label>Trade</Label>
-            <Select value={squadTrade} onValueChange={setSquadTrade}>
+            <Select value={squadTrade} onValueChange={handleSquadTradeChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Select Trade" />
               </SelectTrigger>
@@ -538,11 +561,11 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
           </div>
           <div className="space-y-2">
             <Label>Number of Members (Optional)</Label>
-            <Input type="number" min="1" placeholder="Random (1D6)" onChange={(e) => setNumMembers(e.target.value ? parseInt(e.target.value) : undefined)} />
+            <Input type="number" min="1" placeholder="Random (1D6)" value={numMembers} onChange={(e) => setNumMembers(e.target.value)} />
           </div>
           <div className="space-y-2">
             <Label>Average Rank (Optional)</Label>
-            <Input type="number" min="1" max="10" placeholder="Random (1D6)" onChange={(e) => setAvgRank(e.target.value ? parseInt(e.target.value) : undefined)} />
+            <Input type="number" min="1" max={avgRankMax} placeholder="Random (1D6)" value={avgRank} onChange={(e) => setAvgRank(e.target.value)} />
           </div>
         </div>
         <Button onClick={handleGenerateSquad}>Generate Squad</Button>
@@ -1459,7 +1482,7 @@ export default function Tests({ data }: { data: StaticData }) {
 
 
   return (
-    <Accordion type="multiple" defaultValue={['military-unit-generator']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <Accordion type="multiple" defaultValue={['salary-expectations']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
        <TestSuite title="Military Unit Generator" value="military-unit-generator">
         <MilitaryUnitGeneratorTest data={data} />
       </TestSuite>
@@ -1617,7 +1640,7 @@ export default function Tests({ data }: { data: StaticData }) {
         {calculateMaturityDifferenceTests.map((test, i) => {
             const result = calculateMaturityDifference(test.char, test.talent);
             const pass = result === test.expected;
-            return <TestCase key={i} title={`Test ${i+1}: Difference between char ${JSON.stringify(test.char)} and talent ${JSON.stringify(test.talent)}`} result={result} expected={test.expected} pass={pass} />
+            return <TestCase key={i} title={`Test ${i+1}: Difference between char ${JSON.stringify(test.char)} and talent ${JSON.stringify(test.talent)}`} result={result} expected={test.expected} pass={pass} />;
         })}
       </TestSuite>
       
@@ -1673,5 +1696,6 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
 
 

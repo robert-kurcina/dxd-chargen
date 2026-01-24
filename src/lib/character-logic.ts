@@ -688,15 +688,14 @@ export function evaluateCandidacy(candidacyString: string, attributes: Record<st
  * @returns An object with the final wealth rank, and monthly/daily salaries, or null if inputs are invalid.
  */
 export function calculateSalary(trade: string, tradeRank: number, data: StaticData): { finalWealthRank: number; monthlySalary: number; dailySalary: number } | null {
-    if (!trade || !tradeRank) return null;
+    if (!trade || !tradeRank || tradeRank < 1 || tradeRank > 10) return null;
 
     const baseSalaryInfo = data.salaryByTradeRank.find(s => Number(s.Rank) === Number(tradeRank));
     if (!baseSalaryInfo) return null;
 
     const baseWealthRank = Number(baseSalaryInfo['Wealth Rank']);
-
     const adjustmentInfo = data.salaryAdjustmentsByTrade.find(a => a.Trade.toLowerCase() === trade.toLowerCase());
-    
+
     let adjustmentOffset = 0;
     if (adjustmentInfo) {
         let adjustmentColumn: string;
@@ -705,10 +704,18 @@ export function calculateSalary(trade: string, tradeRank: number, data: StaticDa
         } else {
             adjustmentColumn = `Rank ${tradeRank}`;
         }
-        
-        const adjustmentValue = adjustmentInfo[adjustmentColumn as keyof typeof adjustmentInfo];
-        if (adjustmentValue !== undefined) {
-            adjustmentOffset = Number(adjustmentValue);
+
+        if (adjustmentColumn in adjustmentInfo) {
+            const adjustmentValue = (adjustmentInfo as any)[adjustmentColumn];
+            if (adjustmentValue !== null && adjustmentValue !== undefined) {
+                adjustmentOffset = Number(adjustmentValue);
+            } else {
+                // This rank is not applicable for this trade.
+                return null;
+            }
+        } else {
+            // Should not happen if data is well-formed
+            return null;
         }
     }
 
@@ -750,15 +757,28 @@ export function generateContractor(
   
   if (!professionInfo) return null;
 
-  const chosenRank = tradeRank ?? Math.floor(Math.random() * 10) + 1;
-
-  const salary = calculateSalary(chosenTrade, chosenRank, data);
+  let finalRank: number;
+  if (tradeRank) {
+      finalRank = tradeRank;
+      if (chosenTrade.toLowerCase() === 'rabble' && tradeRank > 3) {
+          finalRank = 3; 
+      }
+  } else {
+      if (chosenTrade.toLowerCase() === 'rabble') {
+          finalRank = Math.floor(Math.random() * 3) + 1;
+      } else {
+          finalRank = Math.floor(Math.random() * 10) + 1;
+      }
+  }
+  
+  const salary = calculateSalary(chosenTrade, finalRank, data);
+  if (!salary) return null;
 
   return {
     id: crypto.randomUUID(),
     role: 'Contractor',
     trade: chosenTrade,
-    tradeRank: chosenRank,
+    tradeRank: finalRank,
     namingPractice: professionInfo.namingPractice,
     salary: salary,
   };

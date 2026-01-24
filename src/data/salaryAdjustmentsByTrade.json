@@ -109,5 +109,16 @@
     "Rank 6": 0,
     "Rank 7": 1,
     "Rank 8+": 2
+  },
+  {
+    "Trade": "Rabble",
+    "Rank 1": -8,
+    "Rank 2": -5,
+    "Rank 3": -3,
+    "Rank 4": null,
+    "Rank 5": null,
+    "Rank 6": null,
+    "Rank 7": null,
+    "Rank 8+": null
   }
 ]
