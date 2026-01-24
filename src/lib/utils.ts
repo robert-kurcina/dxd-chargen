@@ -80,3 +80,36 @@ export function parseNumberWithSuffix(value: string | number): number {
     // If no suffix, just return the parsed number
     return parseFloat(s);
 }
+
+/**
+ * Calculates the relative share of each item's weight compared to the total weight.
+ * @param items An array of objects.
+ * @param weightKey The key in each object that holds the numerical weight.
+ * @returns A new array of objects, each with an added `relativeShare` property (per 1000).
+ */
+export function calculateRelativeShares<T extends Record<string, any>>(
+  items: T[],
+  weightKey: keyof T
+): (T & { relativeShare: number })[] {
+  if (!items || items.length === 0) {
+    return [];
+  }
+
+  const totalWeight = items.reduce((sum, item) => {
+    const weight = Number(item[weightKey]);
+    return sum + (isNaN(weight) ? 0 : weight);
+  }, 0);
+
+  if (totalWeight === 0) {
+    return items.map(item => ({ ...item, relativeShare: 0 }));
+  }
+
+  return items.map(item => {
+    const weight = Number(item[weightKey]);
+    const share = isNaN(weight) ? 0 : (weight / totalWeight) * 1000;
+    return {
+      ...item,
+      relativeShare: Math.round(share),
+    };
+  });
+}

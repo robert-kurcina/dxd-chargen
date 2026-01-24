@@ -29,7 +29,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
-import { cn, parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
+import { cn, parseNumberWithSuffix, formatNumberWithSuffix, calculateRelativeShares } from '@/lib/utils';
 import type { StaticData } from '@/data';
 import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost, formatPositiveNumber, parseLineageString } from '@/lib/character-logic';
 
@@ -797,32 +797,33 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
 };
 
 const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[], titles: any[] }) => {
-    const professionsData = professions;
+    const professionsWithShares = useMemo(() => calculateRelativeShares(professions, 'per1000'), [professions]);
     const titlesData = titles;
     const isRankNumeric = titlesData.every(r => isNumber(r['Rank']));
 
-    const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per1000'];
+    const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per1000', 'relativeShare'];
     const professionHeaderTitles: Record<string, string> = {
         trade: 'Trade',
         candidacy: 'Candidacy',
         namingPractice: 'Naming Practice',
         per1000: 'Likelihood (per 1000)',
+        relativeShare: 'Relative Share (per 1000)'
     };
 
     const numericHeadersProfessions = useMemo(() => {
         const numeric = new Set<string>();
-        if (!professionsData.length) return numeric;
-        const headers = ['per1000'];
+        if (!professionsWithShares.length) return numeric;
+        const headers = ['per1000', 'relativeShare'];
         for (const header of headers) {
-            if (professionsData.every(row => {
-                const value = row[header];
+            if (professionsWithShares.every(row => {
+                const value = (row as any)[header];
                 return value === null || value === undefined || value === '' || isNumber(value);
             })) {
                 numeric.add(header);
             }
         }
         return numeric;
-    }, [professionsData]);
+    }, [professionsWithShares]);
 
     return (
         <Card className="bg-white overflow-hidden">
@@ -843,7 +844,7 @@ const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[],
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {professionsData.map((row: any) => (
+                                    {professionsWithShares.map((row: any) => (
                                         <TableRow key={row.trade}>
                                             {professionHeaders.map((header, headerIndex) => (
                                                  <TableCell key={header} className={cn('py-2 px-2', { 'font-bold': headerIndex === 0, 'text-right': numericHeadersProfessions.has(header) })}>
