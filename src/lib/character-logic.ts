@@ -700,20 +700,16 @@ export function calculateSalary(trade: string, tradeRank: number, data: StaticDa
     let adjustmentOffset = 0;
     if (adjustmentInfo) {
         let adjustmentColumn: string;
-        if (tradeRank === 1) {
-            adjustmentColumn = 'Rank 1';
-        } else if (tradeRank === 2) {
-            adjustmentColumn = 'Rank 2';
-        } else if (tradeRank >= 3 && tradeRank <= 4) {
-            adjustmentColumn = 'Rank 3-4';
-        } else if (tradeRank >= 5 && tradeRank <= 7) {
-            adjustmentColumn = 'Rank 5-7';
-        } else { // rank >= 8
+        if (tradeRank >= 8) {
             adjustmentColumn = 'Rank 8+';
+        } else {
+            adjustmentColumn = `Rank ${tradeRank}`;
         }
         
         const adjustmentValue = adjustmentInfo[adjustmentColumn as keyof typeof adjustmentInfo];
-        adjustmentOffset = Number(adjustmentValue);
+        if (adjustmentValue !== undefined) {
+            adjustmentOffset = Number(adjustmentValue);
+        }
     }
 
     const finalWealthRank = baseWealthRank + adjustmentOffset;

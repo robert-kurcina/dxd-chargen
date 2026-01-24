@@ -1057,7 +1057,7 @@ const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentD
     const rankHeaders = ['Rank', 'Monthly', 'Daily', 'Wealth Rank'];
     
     const adjustmentTableData = adjustmentData;
-    const adjustmentHeaders = ['Trade', 'Rank 1', 'Rank 2', 'Rank 3-4', 'Rank 5-7', 'Rank 8+'];
+    const adjustmentHeaders = ['Trade', 'Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6', 'Rank 7', 'Rank 8+'];
 
     return (
         <Card className="bg-white overflow-hidden">
@@ -1111,8 +1111,11 @@ const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentD
                                         <TableCell className="py-2 px-2 font-bold">{row.Trade}</TableCell>
                                         <TableCell className="py-2 px-2 text-right">{row['Rank 1']}</TableCell>
                                         <TableCell className="py-2 px-2 text-right">{row['Rank 2']}</TableCell>
-                                        <TableCell className="py-2 px-2 text-right">{row['Rank 3-4']}</TableCell>
-                                        <TableCell className="py-2 px-2 text-right">{row['Rank 5-7']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 3']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 4']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 5']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 6']}</TableCell>
+                                        <TableCell className="py-2 px-2 text-right">{row['Rank 7']}</TableCell>
                                         <TableCell className="py-2 px-2 text-right">{row['Rank 8+']}</TableCell>
                                     </TableRow>
                                     ))}

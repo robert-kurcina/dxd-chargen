@@ -417,13 +417,13 @@ const CandidacyEvaluatorTest = () => {
 const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
     const tests = [
         { trade: 'Academic', rank: 1, expected: { wr: -10, daily: 1, monthly: 30 } },
-        { trade: 'Academic', rank: 4, expected: { wr: 5, daily: 30, monthly: 900 } },
+        { trade: 'Academic', rank: 4, expected: { wr: 4, daily: 25, monthly: 750 } },
         { trade: 'Academic', rank: 8, expected: { wr: 22, daily: 1500, monthly: 45000 } },
         { trade: 'Knight', rank: 1, expected: { wr: -7, daily: 2, monthly: 60 } },
-        { trade: 'Knight', rank: 4, expected: { wr: 8, daily: 60, monthly: 1800 } },
+        { trade: 'Knight', rank: 4, expected: { wr: 6, daily: 40, monthly: 1200 } },
         { trade: 'Knight', rank: 8, expected: { wr: 23, daily: 2000, monthly: 60000 } },
         { trade: 'Service', rank: 1, expected: { wr: -13, daily: 0.5, monthly: 15 } },
-        { trade: 'Service', rank: 4, expected: { wr: 3, daily: 20, monthly: 600 } },
+        { trade: 'Service', rank: 4, expected: { wr: 1, daily: 12, monthly: 360 } },
         { trade: 'Service', rank: 8, expected: { wr: 19, daily: 800, monthly: 24000 } },
     ];
 
@@ -1673,4 +1673,5 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
 
