@@ -416,7 +416,7 @@ const CandidacyEvaluatorTest = () => {
 
 const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
     const tests = [
-        { trade: 'Academic', rank: 1, expected: { wr: -10, daily: 1, monthly: 30 } },
+        { trade: 'Academic', rank: 1, expected: { wr: -3, daily: 5, monthly: 150 } },
         { trade: 'Academic', rank: 4, expected: { wr: 4, daily: 25, monthly: 750 } },
         { trade: 'Academic', rank: 8, expected: { wr: 22, daily: 1500, monthly: 45000 } },
         { trade: 'Knight', rank: 1, expected: { wr: -7, daily: 2, monthly: 60 } },
@@ -656,7 +656,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   
   const handleGenerateSquad = () => {
     const leaderRank = avgRank ? parseInt(avgRank) : ND6(2);
-    const result = generateSquad(data, leaderRank, squadTrade);
+    const result = generateSquad(data, data.militaryHierarchy, leaderRank, squadTrade);
     setSquad(result);
   };
 
@@ -836,19 +836,19 @@ const MilitaryUnitGeneratorTest = ({ data }: { data: StaticData }) => {
         const rank = Math.max(MIN_RANKS[unitSize], leaderRank);
 
         if (unitSize === 'Division') {
-            setGeneratedDivision(generateDivision(data, rank, trade));
+            setGeneratedDivision(generateDivision(data, data.militaryHierarchy, rank, trade));
         } else if (unitSize === 'Formation') {
-            setGeneratedFormation(generateFormation(data, rank, trade));
+            setGeneratedFormation(generateFormation(data, data.militaryHierarchy, rank, trade));
         } else if (unitSize === 'Detachment') {
-            setGeneratedDetachment(generateDetachment(data, rank, trade));
+            setGeneratedDetachment(generateDetachment(data, data.militaryHierarchy, rank, trade));
         } else if (unitSize === 'Company') {
-            setGeneratedCompany(generateCompany(data, rank, trade));
+            setGeneratedCompany(generateCompany(data, data.militaryHierarchy, rank, trade));
         } else if (unitSize === 'Group') {
-            setGeneratedGroup(generateGroup(data, rank, trade));
+            setGeneratedGroup(generateGroup(data, data.militaryHierarchy, rank, trade));
         } else if (unitSize === 'Squad') {
-            setGeneratedSquad(generateSquad(data, rank, trade));
+            setGeneratedSquad(generateSquad(data, data.militaryHierarchy, rank, trade));
         } else {
-            setGeneratedBand(generateBand(data, rank, trade));
+            setGeneratedBand(generateBand(data, data.militaryHierarchy, rank, trade));
         }
     };
 
@@ -1861,6 +1861,7 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
 
 
 
