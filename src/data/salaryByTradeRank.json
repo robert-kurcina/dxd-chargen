@@ -4,6 +4,7 @@
     "Rank": 1,
     "Weekly": 15,
     "Monthly": 60,
+    "Quarterly": 180,
     "Daily": 2,
     "Wealth Rank": -7
   },
@@ -11,6 +12,7 @@
     "Rank": 2,
     "Weekly": 37,
     "Monthly": 150,
+    "Quarterly": 450,
     "Daily": 5,
     "Wealth Rank": -3
   },
@@ -18,6 +20,7 @@
     "Rank": 3,
     "Weekly": 75,
     "Monthly": 300,
+    "Quarterly": 900,
     "Daily": 10,
     "Wealth Rank": 0
   },
@@ -25,6 +28,7 @@
     "Rank": 4,
     "Weekly": 150,
     "Monthly": 600,
+    "Quarterly": 1800,
     "Daily": 20,
     "Wealth Rank": 3
   },
@@ -32,6 +36,7 @@
     "Rank": 5,
     "Weekly": 450,
     "Monthly": 1800,
+    "Quarterly": 5400,
     "Daily": 60,
     "Wealth Rank": 8
   },
@@ -39,6 +44,7 @@
     "Rank": 6,
     "Weekly": 750,
     "Monthly": 3000,
+    "Quarterly": 9000,
     "Daily": 100,
     "Wealth Rank": 10
   },
@@ -46,6 +52,7 @@
     "Rank": 7,
     "Weekly": 1500,
     "Monthly": 6000,
+    "Quarterly": 18000,
     "Daily": 200,
     "Wealth Rank": 13
   },
@@ -53,6 +60,7 @@
     "Rank": 8,
     "Weekly": 3750,
     "Monthly": 15000,
+    "Quarterly": 45000,
     "Daily": 500,
     "Wealth Rank": 17
   },
@@ -60,6 +68,7 @@
     "Rank": 9,
     "Weekly": 7500,
     "Monthly": 30000,
+    "Quarterly": 90000,
     "Daily": 1000,
     "Wealth Rank": 20
   },
@@ -67,6 +76,7 @@
     "Rank": 10,
     "Weekly": 15000,
     "Monthly": 60000,
+    "Quarterly": 180000,
     "Daily": 2000,
     "Wealth Rank": 23
   }
