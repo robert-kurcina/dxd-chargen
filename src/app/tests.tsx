@@ -460,10 +460,9 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
 
   // States for squad
   const [squadTrade, setSquadTrade] = useState<string>('Any');
-  const [numMembers, setNumMembers] = useState<string>('');
   const [avgRank, setAvgRank] = useState<string>('');
   const [avgRankMax, setAvgRankMax] = useState(10);
-  const [squad, setSquad] = useState<Array<ReturnType<typeof generateContractor>> | null>(null);
+  const [squad, setSquad] = useState<Squad | null>(null);
 
   const trades = ['Any', ...data.professions.map(p => p.trade)];
 
@@ -494,13 +493,20 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   };
   
   const handleGenerateSquad = () => {
-    const result = generateSquad(data, numMembers ? parseInt(numMembers) : ND6(), avgRank ? parseInt(avgRank) : ND6(), squadTrade);
+    const leaderRank = avgRank ? parseInt(avgRank) : ND6(2);
+    const result = generateSquad(data, leaderRank, squadTrade);
     setSquad(result);
   };
 
-  const sortedSquad = squad ? [...squad].sort((a, b) => (b?.tradeRank || 0) - (a?.tradeRank || 0)) : null;
+  const allSquadMembers: Contractor[] = squad ? [
+    squad.leader,
+    squad.secondary,
+    ...squad.bands.flatMap(b => [b.leader, ...b.followers])
+  ] : [];
+
+  const sortedSquad = allSquadMembers.length > 0 ? [...allSquadMembers].sort((a, b) => (b?.tradeRank || 0) - (a?.tradeRank || 0)) : null;
   
-  const totalMonthlySalary = sortedSquad?.reduce((sum, member) => sum + (member?.salary?.monthlySalary || 0), 0) ?? 0;
+  const totalMonthlySalary = squad?.totalMonthlySalary ?? 0;
   const totalQuarterlySalary = totalMonthlySalary * 3;
   const totalYearlySalary = totalMonthlySalary * 12;
 
@@ -509,7 +515,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
       {/* Single Contractor Generator */}
       <div className="space-y-4 p-4 border rounded-md">
         <h3 className="font-semibold">Contractor Generator</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Trade (Optional)</Label>
             <Select onValueChange={handleSingleTradeChange}>
@@ -547,7 +553,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
       {/* Squad Generator */}
       <div className="space-y-4 p-4 border rounded-md">
         <h3 className="font-semibold">Squad Generator</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Trade</Label>
             <Select value={squadTrade} onValueChange={handleSquadTradeChange}>
@@ -560,18 +566,14 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>Number of Members (Optional)</Label>
-            <Input type="number" min="1" placeholder="Random (1D6)" value={numMembers} onChange={(e) => setNumMembers(e.target.value)} />
-          </div>
-          <div className="space-y-2">
-            <Label>Average Rank (Optional)</Label>
-            <Input type="number" min="1" max={avgRankMax} placeholder="Random (1D6)" value={avgRank} onChange={(e) => setAvgRank(e.target.value)} />
+            <Label>Leader's Rank (Optional)</Label>
+            <Input type="number" min="1" max={avgRankMax} placeholder="Random (2D6)" value={avgRank} onChange={(e) => setAvgRank(e.target.value)} />
           </div>
         </div>
         <Button onClick={handleGenerateSquad}>Generate Squad</Button>
         {sortedSquad && sortedSquad.length > 0 && (
           <div className="mt-4">
-            <h4 className="font-semibold mb-2">Generated Squad Summary</h4>
+            <h4 className="font-semibold mb-2">Generated Squad Summary ({squad?.memberCount} members)</h4>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -589,7 +591,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
 
                   return (
                     <TableRow key={member.id}>
-                      <TableCell>#{index + 1}</TableCell>
+                      <TableCell>#{index + 1} ({member.role})</TableCell>
                       <TableCell>{member.trade}</TableCell>
                       <TableCell>
                         {member.tradeRank} {rankTitle && `(${rankTitle})`}
@@ -1696,6 +1698,7 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
 
 
 
