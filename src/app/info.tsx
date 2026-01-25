@@ -1055,7 +1055,7 @@ const BeliefsAndDeitiesCard = ({ beliefs, deities }: { beliefs: any[], deities: 
 
 const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentData: any[] }) => {
     const rankTableData = rankData;
-    const rankHeaders = ['Rank', 'Monthly', 'Daily', 'Wealth Rank'];
+    const rankHeaders = ['Rank', 'Weekly', 'Monthly', 'Daily', 'Wealth Rank'];
     
     const adjustmentTableData = adjustmentData;
     const adjustmentHeaders = ['Trade', 'Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6', 'Rank 7', 'Rank 8+'];
@@ -1071,7 +1071,7 @@ const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentD
                         <div>
                             <h4 className="text-lg mb-2 font-sans">Salary by Trade Rank</h4>
                             <p className="text-sm text-muted-foreground mb-4">
-                                Monthly and Daily salaries are presented in units of silver pieces (sp).
+                                Weekly, Monthly, and Daily salaries are presented in units of silver pieces (sp).
                             </p>
                             <Table>
                                 <TableHeader>
@@ -1084,10 +1084,11 @@ const SalaryCard = ({ rankData, adjustmentData }: { rankData: any[], adjustmentD
                                 <TableBody>
                                     {rankTableData.map((row: any, index: number) => (
                                         <TableRow key={index}>
-                                            <TableCell className="py-2 px-2 text-right font-bold">{row['Rank']}</TableCell>
-                                            <TableCell className="py-2 px-2 text-right">{row.Monthly}</TableCell>
-                                            <TableCell className="py-2 px-2 text-right">{row.Daily}</TableCell>
-                                            <TableCell className="py-2 px-2 text-right">{row['Wealth Rank']}</TableCell>
+                                            {rankHeaders.map(header => (
+                                                <TableCell key={header} className={cn("py-2 px-2 text-right", { 'font-bold': header === 'Rank' })}>
+                                                    {row[header]}
+                                                </TableCell>
+                                            ))}
                                         </TableRow>
                                     ))}
                                 </TableBody>
