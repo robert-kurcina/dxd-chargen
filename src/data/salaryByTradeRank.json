@@ -3,11 +3,12 @@
   { "Rank": 1, "Monthly": 60, "Daily": 2, "Wealth Rank": -7 },
   { "Rank": 2, "Monthly": 150, "Daily": 5, "Wealth Rank": -3 },
   { "Rank": 3, "Monthly": 300, "Daily": 10, "Wealth Rank": 0 },
-  { "Rank": 4, "Monthly": 660, "Daily": 22, "Wealth Rank": 3 },
-  { "Rank": 5, "Monthly": 1840, "Daily": 61.3, "Wealth Rank": 8 },
+  { "Rank": 4, "Monthly": 600, "Daily": 20, "Wealth Rank": 3 },
+  { "Rank": 5, "Monthly": 1800, "Daily": 60, "Wealth Rank": 8 },
   { "Rank": 6, "Monthly": 3000, "Daily": 100, "Wealth Rank": 10 },
-  { "Rank": 7, "Monthly": 6450, "Daily": 215, "Wealth Rank": 13 },
-  { "Rank": 8, "Monthly": 13900, "Daily": 463.3, "Wealth Rank": 17 },
+  { "Rank": 7, "Monthly": 6000, "Daily": 200, "Wealth Rank": 13 },
+  { "Rank": 8, "Monthly": 15000, "Daily": 500, "Wealth Rank": 17 },
   { "Rank": 9, "Monthly": 30000, "Daily": 1000, "Wealth Rank": 20 },
-  { "Rank": 10, "Monthly": 64500, "Daily": 2150, "Wealth Rank": 23 }
+  { "Rank": 10, "Monthly": 60000, "Daily": 2000, "Wealth Rank": 23 }
 ]
+
