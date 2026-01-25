@@ -460,17 +460,17 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
 };
 
 const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
-  const [rows, setRows] = useState([{ id: uuidv4(), trade: 'Warrior', rank: 1 }]);
+  const [rows, setRows] = useState([{ id: uuidv4(), trade: 'Warrior', rank: 1, count: 1 }]);
 
   const handleAddRow = () => {
-    setRows([...rows, { id: uuidv4(), trade: 'Warrior', rank: 1 }]);
+    setRows([...rows, { id: uuidv4(), trade: 'Warrior', rank: 1, count: 1 }]);
   };
 
   const handleRemoveRow = (id: string) => {
     setRows(rows.filter(row => row.id !== id));
   };
 
-  const handleUpdateRow = (id: string, field: 'trade' | 'rank', value: string | number) => {
+  const handleUpdateRow = (id: string, field: 'trade' | 'rank' | 'count', value: string | number) => {
     setRows(rows.map(row => {
       if (row.id === id) {
         const newRow = { ...row, [field]: value };
@@ -486,25 +486,26 @@ const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
 
   const trades = data.professions.map(p => p.trade);
   const ranks = Array.from({ length: 10 }, (_, i) => i + 1);
+  const counts = Array.from({ length: 20 }, (_, i) => i + 1);
 
   const calculatedRows = rows.map(row => {
     const salary = calculateSalary(row.trade, row.rank, data);
-    const quarterlySalary = salary ? salary.monthlySalary * 3 : null;
+    const count = row.count || 1;
+    const dailySalary = salary ? salary.dailySalary * count : null;
+    const monthlySalary = salary ? salary.monthlySalary * count : null;
+    const quarterlySalary = salary ? salary.monthlySalary * 3 * count : null;
     return {
       ...row,
-      salary,
+      dailySalary,
+      monthlySalary,
       quarterlySalary
     };
   });
 
   const totals = calculatedRows.reduce((acc, row) => {
-    if (row.salary) {
-      acc.daily += row.salary.dailySalary;
-      acc.monthly += row.salary.monthlySalary;
-    }
-    if (row.quarterlySalary) {
-      acc.quarterly += row.quarterlySalary;
-    }
+    if (row.dailySalary) acc.daily += row.dailySalary;
+    if (row.monthlySalary) acc.monthly += row.monthlySalary;
+    if (row.quarterlySalary) acc.quarterly += row.quarterlySalary;
     return acc;
   }, { daily: 0, monthly: 0, quarterly: 0 });
 
@@ -516,6 +517,7 @@ const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
           <TableRow>
             <TableHead>Trade</TableHead>
             <TableHead>Rank</TableHead>
+            <TableHead>Count</TableHead>
             <TableHead className="text-right">Per Day (sp)</TableHead>
             <TableHead className="text-right">Per Month (sp)</TableHead>
             <TableHead className="text-right">Per Quarter (sp)</TableHead>
@@ -553,14 +555,27 @@ const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
                     </SelectContent>
                   </Select>
                 </TableCell>
-                <TableCell className="text-right font-mono">
-                  {row.salary ? `${row.salary.dailySalary.toLocaleString()} (${getIndex(row.salary.dailySalary)})` : 'N/A'}
+                <TableCell className="w-[120px]">
+                   <Select
+                    value={String(row.count)}
+                    onValueChange={(value) => handleUpdateRow(row.id, 'count', parseInt(value))}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {counts.map(c => (
+                        <SelectItem key={c} value={String(c)}>{c}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </TableCell>
                 <TableCell className="text-right font-mono">
-                  {row.salary ? `${row.salary.monthlySalary.toLocaleString()} (${getIndex(row.salary.monthlySalary / 30)})` : 'N/A'}
+                  {row.dailySalary !== null ? `${row.dailySalary.toLocaleString()} (${getIndex(row.dailySalary / row.count)})` : 'N/A'}
                 </TableCell>
                 <TableCell className="text-right font-mono">
-                  {row.quarterlySalary ? `${row.quarterlySalary.toLocaleString()} (${getIndex(row.quarterlySalary / 90)})` : 'N/A'}
+                  {row.monthlySalary !== null ? `${row.monthlySalary.toLocaleString()} (${getIndex(row.monthlySalary / (30 * row.count))})` : 'N/A'}
+                </TableCell>
+                <TableCell className="text-right font-mono">
+                  {row.quarterlySalary !== null ? `${row.quarterlySalary.toLocaleString()} (${getIndex(row.quarterlySalary / (90 * row.count))})` : 'N/A'}
                 </TableCell>
                 <TableCell>
                   {index === 0 ? (
@@ -579,7 +594,7 @@ const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={2} className="font-bold text-right">Total</TableCell>
+            <TableCell colSpan={3} className="font-bold text-right">Total</TableCell>
             <TableCell className="text-right font-mono font-bold">
               {totals.daily.toLocaleString()} ({getIndex(totals.daily)})
             </TableCell>
@@ -1846,6 +1861,7 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
 
 
 
