@@ -6,7 +6,7 @@ import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import { Icons } from '@/components/ui/icons';
 import { v4 as uuidv4 } from 'uuid';
@@ -425,6 +425,8 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
         { trade: 'Service', rank: 1, expected: { wr: -13, daily: 0.5, monthly: 15 } },
         { trade: 'Service', rank: 4, expected: { wr: 1, daily: 12, monthly: 360 } },
         { trade: 'Service', rank: 8, expected: { wr: 19, daily: 800, monthly: 24000 } },
+        { trade: 'Rabble', rank: 3, expected: { wr: -3, daily: 5, monthly: 150 } },
+        { trade: 'Rabble', rank: 4, expected: null },
     ];
 
     return (
@@ -434,6 +436,12 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
             </p>
             {tests.map((test, i) => {
                 const result = calculateSalary(test.trade, test.rank, data);
+                
+                if (test.expected === null) {
+                    const pass = result === null;
+                    return <TestCase key={i} title={`Test ${test.trade} Rank ${test.rank} (should fail)`} result={result} expected={test.expected} pass={pass} />;
+                }
+
                 if (!result) {
                     return <TestCase key={i} title={`Test ${test.trade} Rank ${test.rank}`} result="null" expected={test.expected} pass={false} />;
                 }
@@ -450,6 +458,145 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
         </div>
     );
 };
+
+const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
+  const [rows, setRows] = useState([{ id: uuidv4(), trade: 'Warrior', rank: 1 }]);
+
+  const handleAddRow = () => {
+    setRows([...rows, { id: uuidv4(), trade: 'Warrior', rank: 1 }]);
+  };
+
+  const handleRemoveRow = (id: string) => {
+    setRows(rows.filter(row => row.id !== id));
+  };
+
+  const handleUpdateRow = (id: string, field: 'trade' | 'rank', value: string | number) => {
+    setRows(rows.map(row => {
+      if (row.id === id) {
+        const newRow = { ...row, [field]: value };
+        // If trade changes to Rabble, cap the rank
+        if (field === 'trade' && value === 'Rabble' && newRow.rank > 3) {
+          newRow.rank = 3;
+        }
+        return newRow;
+      }
+      return row;
+    }));
+  };
+
+  const trades = data.professions.map(p => p.trade);
+  const ranks = Array.from({ length: 10 }, (_, i) => i + 1);
+
+  const calculatedRows = rows.map(row => {
+    const salary = calculateSalary(row.trade, row.rank, data);
+    const quarterlySalary = salary ? salary.monthlySalary * 3 : null;
+    return {
+      ...row,
+      salary,
+      quarterlySalary
+    };
+  });
+
+  const totals = calculatedRows.reduce((acc, row) => {
+    if (row.salary) {
+      acc.daily += row.salary.dailySalary;
+      acc.monthly += row.salary.monthlySalary;
+    }
+    if (row.quarterlySalary) {
+      acc.quarterly += row.quarterlySalary;
+    }
+    return acc;
+  }, { daily: 0, monthly: 0, quarterly: 0 });
+
+  return (
+    <div className="space-y-4 p-4 border rounded-md">
+      <h3 className="font-semibold">Customize Group Pay</h3>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Trade</TableHead>
+            <TableHead>Rank</TableHead>
+            <TableHead className="text-right">Per Day (sp)</TableHead>
+            <TableHead className="text-right">Per Month (sp)</TableHead>
+            <TableHead className="text-right">Per Quarter (sp)</TableHead>
+            <TableHead className="w-[50px]"></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {calculatedRows.map((row, index) => {
+            const isRabble = row.trade === 'Rabble';
+            return (
+              <TableRow key={row.id}>
+                <TableCell className="w-[200px]">
+                  <Select
+                    value={row.trade}
+                    onValueChange={(value) => handleUpdateRow(row.id, 'trade', value)}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {trades.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+                <TableCell className="w-[120px]">
+                   <Select
+                    value={String(row.rank)}
+                    onValueChange={(value) => handleUpdateRow(row.id, 'rank', parseInt(value))}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {ranks.map(r => (
+                        <SelectItem key={r} value={String(r)} disabled={isRabble && r > 3}>
+                          {r}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+                <TableCell className="text-right font-mono">
+                  {row.salary ? `${row.salary.dailySalary.toLocaleString()} (${getIndex(row.salary.dailySalary)})` : 'N/A'}
+                </TableCell>
+                <TableCell className="text-right font-mono">
+                  {row.salary ? `${row.salary.monthlySalary.toLocaleString()} (${getIndex(row.salary.monthlySalary / 30)})` : 'N/A'}
+                </TableCell>
+                <TableCell className="text-right font-mono">
+                  {row.quarterlySalary ? `${row.quarterlySalary.toLocaleString()} (${getIndex(row.quarterlySalary / 90)})` : 'N/A'}
+                </TableCell>
+                <TableCell>
+                  {index === 0 ? (
+                    <Button variant="ghost" size="icon" onClick={handleAddRow}>
+                      [+]
+                    </Button>
+                  ) : (
+                    <Button variant="ghost" size="icon" onClick={() => handleRemoveRow(row.id)}>
+                      (x)
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={2} className="font-bold text-right">Total</TableCell>
+            <TableCell className="text-right font-mono font-bold">
+              {totals.daily.toLocaleString()} ({getIndex(totals.daily)})
+            </TableCell>
+            <TableCell className="text-right font-mono font-bold">
+              {totals.monthly.toLocaleString()} ({getIndex(totals.monthly / 30)})
+            </TableCell>
+             <TableCell className="text-right font-mono font-bold">
+              {totals.quarterly.toLocaleString()} ({getIndex(totals.quarterly / 90)})
+            </TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
+  );
+};
+
 
 const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
   // States for single contractor
@@ -633,6 +780,7 @@ const SalaryExpectationsTest = ({ data }: { data: StaticData }) => {
           </div>
         )}
       </div>
+      <CustomizeGroupPay data={data} />
     </div>
   );
 };
@@ -1698,6 +1846,7 @@ export default function Tests({ data }: { data: StaticData }) {
     </Accordion>
   );
 }
+
 
 
 
