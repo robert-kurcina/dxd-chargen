@@ -1,13 +1,14 @@
+
 [
-  { "Rank": "0", "Guild": "Page", "Order": "Initiate", "Temple": "Initiate", "Tradition": "Recruit" },
-  { "Rank": "1", "Guild": "Apprentice", "Order": "Apprentice", "Temple": "Acolyte", "Tradition": "Soldier" },
-  { "Rank": "2", "Guild": "3rd Crafter", "Order": "Arcanist", "Temple": "Cleric", "Tradition": "Corporal" },
-  { "Rank": "3", "Guild": "2nd Crafter", "Order": "Senior Arcanist", "Temple": "Elder", "Tradition": "Sergeant" },
-  { "Rank": "4", "Guild": "1st Crafter", "Order": "Genera", "Temple": "Priest", "Tradition": "Lieutenant" },
-  { "Rank": "5", "Guild": "3rd Keeper", "Order": "Specialist", "Temple": "Templar", "Tradition": "Captain" },
-  { "Rank": "6", "Guild": "2nd Keeper", "Order": "Magus", "Temple": "Appointed", "Tradition": "Major" },
-  { "Rank": "7", "Guild": "1st Keeper", "Order": "High Magus", "Temple": "Benefex", "Tradition": "Commander" },
-  { "Rank": "8", "Guild": "Master", "Order": "Novice Adept", "Temple": "Exemplar", "Tradition": "Field General" },
-  { "Rank": "9", "Guild": "High Master", "Order": "Master Adept", "Temple": "Visionary", "Tradition": "Staff General" },
-  { "Rank": "10", "Guild": "Gr. master", "Order": "Grand Adept", "Temple": "Avatarin", "Tradition": "High General" }
+  { "Rank": "0", "Guild": "Page", "Order": "Initiate", "Temple": "Initiate", "Military": "Recruit", "Shadow": "Shadow-0", "Academy": "Academy-0", "Free": "Free-0" },
+  { "Rank": "1", "Guild": "Apprentice", "Order": "Apprentice", "Temple": "Acolyte", "Military": "Soldier", "Shadow": "Shadow-1", "Academy": "Academy-1", "Free": "Free-1" },
+  { "Rank": "2", "Guild": "3rd Crafter", "Order": "Arcanist", "Temple": "Cleric", "Military": "Corporal", "Shadow": "Shadow-2", "Academy": "Academy-2", "Free": "Free-2" },
+  { "Rank": "3", "Guild": "2nd Crafter", "Order": "Senior Arcanist", "Temple": "Elder", "Military": "Sergeant", "Shadow": "Shadow-3", "Academy": "Academy-3", "Free": "Free-3" },
+  { "Rank": "4", "Guild": "1st Crafter", "Order": "Genera", "Temple": "Priest", "Military": "Lieutenant", "Shadow": "Shadow-4", "Academy": "Academy-4", "Free": "Free-4" },
+  { "Rank": "5", "Guild": "3rd Keeper", "Order": "Specialist", "Temple": "Templar", "Military": "Captain", "Shadow": "Shadow-5", "Academy": "Academy-5", "Free": "Free-5" },
+  { "Rank": "6", "Guild": "2nd Keeper", "Order": "Magus", "Temple": "Appointed", "Military": "Major", "Shadow": "Shadow-6", "Academy": "Academy-6", "Free": "Free-6" },
+  { "Rank": "7", "Guild": "1st Keeper", "Order": "High Magus", "Temple": "Benefex", "Military": "Commander", "Shadow": "Shadow-7", "Academy": "Academy-7", "Free": "Free-7" },
+  { "Rank": "8", "Guild": "Master", "Order": "Novice Adept", "Temple": "Exemplar", "Military": "Field General", "Shadow": "Shadow-8", "Academy": "Academy-8", "Free": "Free-8" },
+  { "Rank": "9", "Guild": "High Master", "Order": "Master Adept", "Temple": "Visionary", "Military": "Staff General", "Shadow": "Shadow-9", "Academy": "Academy-9", "Free": "Free-9" },
+  { "Rank": "10", "Guild": "Gr. master", "Order": "Grand Adept", "Temple": "Avatarin", "Military": "High General", "Shadow": "Shadow-10", "Academy": "Academy-10", "Free": "Free-10" }
 ]

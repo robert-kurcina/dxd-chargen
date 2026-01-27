@@ -800,7 +800,6 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
 const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[], titles: any[] }) => {
     const professionsWithShares = useMemo(() => calculateRelativeShares(professions, 'per1000'), [professions]);
     const titlesData = titles;
-    const isRankNumeric = titlesData.every(r => isNumber(r['Rank']));
 
     const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per1000', 'relativeShare'];
     const professionHeaderTitles: Record<string, string> = {
@@ -825,6 +824,14 @@ const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[],
         }
         return numeric;
     }, [professionsWithShares]);
+    
+    const titleHeaders = useMemo(() => {
+        if (!titlesData.length) return [];
+        return Object.keys(titlesData[0]);
+    }, [titlesData]);
+    
+    const isRankNumeric = titlesData.every(r => isNumber(r['Rank']));
+
 
     return (
         <Card className="bg-white overflow-hidden">
@@ -862,22 +869,22 @@ const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[],
                              <Table>
                                 <TableHeader>
                                     <TableRow className="border-b-2 border-black">
-                                    <TableHead className={cn("font-bold text-lg h-8 px-2", { "text-right": isRankNumeric })}>Rank</TableHead>
-                                    <TableHead className="font-bold text-lg h-8 px-2">Guild</TableHead>
-                                    <TableHead className="font-bold text-lg h-8 px-2">Order</TableHead>
-                                    <TableHead className="font-bold text-lg h-8 px-2">Temple</TableHead>
-                                    <TableHead className="font-bold text-lg h-8 px-2">Tradition</TableHead>
+                                        {titleHeaders.map(header => (
+                                            <TableHead key={header} className={cn("font-bold text-lg h-8 px-2", { "text-right": header === 'Rank' && isRankNumeric })}>
+                                                {formatHeader(header)}
+                                            </TableHead>
+                                        ))}
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {titlesData.map((row: any, index: number) => (
-                                    <TableRow key={index}>
-                                        <TableCell className={cn("py-2 px-2 font-bold", {"text-right": isRankNumeric })}>{row['Rank']}</TableCell>
-                                        <TableCell className="py-2 px-2">{row.Guild}</TableCell>
-                                        <TableCell className="py-2 px-2">{row.Order}</TableCell>
-                                        <TableCell className="py-2 px-2">{row.Temple}</TableCell>
-                                        <TableCell className="py-2 px-2">{row.Tradition}</TableCell>
-                                    </TableRow>
+                                        <TableRow key={index}>
+                                            {titleHeaders.map(header => (
+                                                <TableCell key={header} className={cn("py-2 px-2", { 'font-bold': header === 'Rank', "text-right": header === 'Rank' && isRankNumeric })}>
+                                                    {row[header]}
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
