@@ -1,4 +1,3 @@
-
 'use client';
 
 // Polynomial approximation for the error function erf(x)
