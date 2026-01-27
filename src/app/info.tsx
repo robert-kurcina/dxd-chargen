@@ -798,14 +798,14 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
 };
 
 const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[], titles: any[] }) => {
-    const professionsWithShares = useMemo(() => calculateRelativeShares(professions, 'per1000'), [professions]);
+    const professionsWithShares = useMemo(() => calculateRelativeShares(professions, 'per1000').sort((a, b) => a.trade.localeCompare(b.trade)), [professions]);
     const titlesData = titles;
 
     const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per1000', 'relativeShare'];
     const professionHeaderTitles: Record<string, string> = {
         trade: 'Trade',
         candidacy: 'Candidacy',
-        namingPractice: 'Naming Practice',
+        namingPractice: 'Tradition',
         per1000: 'Likelihood (per 1000)',
         relativeShare: 'Relative Share (per 1000)'
     };
@@ -865,7 +865,7 @@ const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[],
                             </Table>
                         </div>
                         <div className="mt-12">
-                            <h4 className="text-lg mb-2 font-sans">Naming Practice Titles</h4>
+                            <h4 className="text-lg mb-2 font-sans">Tradition Titles by Rank</h4>
                              <Table>
                                 <TableHeader>
                                     <TableRow className="border-b-2 border-black">
