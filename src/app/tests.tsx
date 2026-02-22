@@ -10,11 +10,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFoo
 import { Textarea } from '@/components/ui/textarea';
 import { Icons } from '@/components/ui/icons';
 import { v4 as uuidv4 } from 'uuid';
-import { 
+import {
   ND6,
-  D66, 
-  d66Lookup, 
-  d66ColumnLookup,
+  D66,
+  d66Lookup,
+  d6ColumnLookup,
 } from '@/lib/dice';
 import {
   parseTalent,

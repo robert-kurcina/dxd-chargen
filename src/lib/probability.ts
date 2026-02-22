@@ -95,18 +95,18 @@ function calculateSubConditionProbability(condition: string): number {
 function preprocessCandidacyString(candidacyString: string): string {
     const shorthandRegex = /((?:\w+(?:\s*,\s*|\s+or\s+))+?\w+)\s+(?<!\+)\s*(\d+\+)/g;
 
-    let processed = candidacyString.replace(shorthandRegex, (match, attrList, requirement) => {
+    let processed = candidacyString.replace(shorthandRegex, (match: string, attrList: string, requirement: string) => {
         const hasOr = /\s+or\s+/.test(attrList);
         const separator = hasOr ? /\s+or\s+/ : /\s*,\s*/;
         const operator = hasOr ? ' or ' : ' and ';
-        
-        const attrs = attrList.split(separator).map(s => s.trim()).filter(Boolean);
+
+        const attrs = attrList.split(separator).map((s: string) => s.trim()).filter(Boolean);
         
         if (attrs.length === 1) {
             return `${attrs[0]} ${requirement}`;
         }
-        
-        return '(' + attrs.map(attr => `${attr.trim()} ${requirement}`).join(operator) + ')';
+
+        return '(' + attrs.map((attr: string) => `${attr.trim()} ${requirement}`).join(operator) + ')';
     });
 
     return processed.replace(/,\s*and\s*/g, ' and ');

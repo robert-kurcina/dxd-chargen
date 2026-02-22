@@ -523,7 +523,7 @@ const AdjustmentsByLineageCard = ({ data }: { data: any }) => {
                 
                 const numericHeaders = new Set<string>();
                 for (const h of headers) {
-                    if (filteredTableData.every(r => {
+                    if (filteredTableData.every((r: any) => {
                         const value = r[h];
                         return value === null || value === undefined || value === '' || isNumber(value)
                     })) {
