@@ -1,0 +1,32 @@
+{
+  "release": "v104-properties-runnable",
+  "date": "2026-08-12",
+  "jsonFiles": 74,
+  "physicalScaleRows": 100,
+  "heritageCharacteristicRules": 10,
+  "heritagePackages": 36,
+  "languages": 17,
+  "settlementLanguageDefaults": 6,
+  "playableTradePackages": 11,
+  "playableSpeciesWithAgeData": 8,
+  "completeMagicItems": 96,
+  "totalMagicItems": 144,
+  "typescriptSourceFiles": 43,
+  "checks": {
+    "jsonParse": "pass",
+    "dataIntegrity": "pass",
+    "physicalScaleIntegrity": "pass",
+    "rulesLayerStrictTypecheck": "pass",
+    "typescriptSyntaxTranspile": "pass",
+    "localImportResolution": "pass",
+    "draftMigrationV4ToV5": "pass",
+    "propertiesRulesSmoke": "pass",
+    "gitDiffCheck": "pass",
+    "npmCi": "blocked: registry.npmjs.org EAI_AGAIN",
+    "nextTypecheck": "not run: dependency install unavailable",
+    "nextProductionBuild": "not run: dependency install unavailable",
+    "zedRecordedAffinityRoll": "pass",
+    "directMovAdjustment": "pass: nonzero Drauf case",
+    "throwingRuntimeOrInvariant": "pass: no per-item throw OR stored"
+  }
+}

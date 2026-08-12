@@ -1,0 +1,3217 @@
+[
+  {
+    "trade": "Academic",
+    "criticalAttributes": [
+      "INT",
+      "KNO",
+      "POW"
+    ],
+    "minimumAgeGroup": "Teenager",
+    "minimumAgeRank": 2,
+    "adjustments": {
+      "CCA": -3,
+      "RCA": -1,
+      "REF": 0,
+      "INT": 2,
+      "KNO": 3,
+      "PRE": -1,
+      "POW": -1,
+      "STR": -2,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 0,
+      "build": -2,
+      "bodypoints": -2
+    },
+    "grants": [
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 4,
+        "stars": 6
+      },
+      {
+        "trait": "Deity X > Deity",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 3
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "§Academics X > Skill",
+        "specialization": null,
+        "level": 2,
+        "stars": 4
+      },
+      {
+        "trait": "§Academics X > Skill",
+        "specialization": null,
+        "level": 3,
+        "stars": 5
+      },
+      {
+        "trait": "History X > Region",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Lore X > Field",
+        "specialization": null,
+        "level": 4,
+        "stars": 4
+      },
+      {
+        "trait": "Lore X > Field",
+        "specialization": null,
+        "level": 4,
+        "stars": 6
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Read X > Language",
+        "specialization": null,
+        "level": 3,
+        "stars": 1
+      },
+      {
+        "trait": "Reasoning X",
+        "specialization": null,
+        "level": 2,
+        "stars": 4
+      },
+      {
+        "trait": "Teach X",
+        "specialization": null,
+        "level": 6,
+        "stars": 5
+      }
+    ],
+    "specializations": [],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Cleric",
+    "criticalAttributes": [
+      "INT",
+      "KNO",
+      "PRE",
+      "POW"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 0,
+      "REF": 0,
+      "INT": 0,
+      "KNO": 3,
+      "PRE": 1,
+      "POW": 0,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 0,
+      "build": 3,
+      "bodypoints": 1
+    },
+    "grants": [
+      {
+        "trait": "Deity X > Deity",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Design X > Category",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      },
+      {
+        "trait": "Discipline X",
+        "specialization": null,
+        "level": 5,
+        "stars": 4
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "v-Magic X",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Hermit",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": -1,
+          "INT": 1,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 1,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -5,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Addict X > Type]",
+            "specialization": "Herbs",
+            "level": 2,
+            "stars": 3
+          },
+          {
+            "trait": "[Paranoid X]",
+            "specialization": null,
+            "level": 1,
+            "stars": 3
+          },
+          {
+            "trait": "Deity X > Deity",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Greenthumb X",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 4,
+            "stars": 2
+          },
+          {
+            "trait": "v-Magic X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Wise X",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Shaman",
+        "adjustments": {
+          "CCA": -1,
+          "RCA": -3,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 1,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Addict X > Type]",
+            "specialization": "Herbs",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Deity X > Deity",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Persuade X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "v-Heal X",
+            "specialization": null,
+            "level": 2,
+            "stars": 3
+          },
+          {
+            "trait": "v-Magic X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Cloistered",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 2,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Believer X > Belief]",
+            "specialization": null,
+            "level": 2,
+            "stars": 4
+          },
+          {
+            "trait": "Deity X > Deity",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "Strike X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "v-Magic X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Physician",
+        "adjustments": {
+          "CCA": -1,
+          "RCA": -2,
+          "REF": -2,
+          "INT": 1,
+          "KNO": 3,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 2,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Alchemy X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Medicine",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Medic X > Type",
+            "specialization": null,
+            "level": 4,
+            "stars": 2
+          },
+          {
+            "trait": "Medic X > Type",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Medic X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Wise X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Guardian",
+        "adjustments": {
+          "CCA": 2,
+          "RCA": 0,
+          "REF": 0,
+          "INT": -2,
+          "KNO": -2,
+          "PRE": 1,
+          "POW": 1,
+          "STR": 1,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 1
+        },
+        "grants": [
+          {
+            "trait": "[Fanatic X > Deity]",
+            "specialization": null,
+            "level": 4,
+            "stars": 2
+          },
+          {
+            "trait": "[Violent X]",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Discipline X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Intimidate X",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Martialist X",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Entertainer",
+    "criticalAttributes": [
+      "REF",
+      "INT",
+      "PRE"
+    ],
+    "minimumAgeGroup": "Child",
+    "minimumAgeRank": -1,
+    "adjustments": {
+      "CCA": -1,
+      "RCA": 0,
+      "REF": 0,
+      "INT": -1,
+      "KNO": -2,
+      "PRE": 3,
+      "POW": -1,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": -2,
+      "build": -1,
+      "bodypoints": 0
+    },
+    "grants": [
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 4,
+        "stars": 6
+      },
+      {
+        "trait": "Deity X > Deity",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 3
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Perform X > Form",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Perform X > Form",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Perform X > Form",
+        "specialization": null,
+        "level": 5,
+        "stars": 6
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      }
+    ],
+    "specializations": [],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Knight",
+    "criticalAttributes": [
+      "PRE",
+      "POW",
+      "STR",
+      "FOR"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "adjustments": {
+      "CCA": 1,
+      "RCA": -3,
+      "REF": 0,
+      "INT": 0,
+      "KNO": 0,
+      "PRE": 1,
+      "POW": 3,
+      "STR": 3,
+      "FOR": 3,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 2,
+      "build": 2,
+      "bodypoints": 1
+    },
+    "grants": [
+      {
+        "trait": "[Comrade > Target]",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Brawn X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Discipline X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Expert X > Weapon",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Expert X > Weapon",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Leadership X",
+        "specialization": null,
+        "level": 2,
+        "stars": 0
+      },
+      {
+        "trait": "Medic X > Type",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Peerage X > Region",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Pidgin X > Type & Region",
+        "specialization": "Warlang",
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Quick X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Read X > Language",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      },
+      {
+        "trait": "Riding X > Type",
+        "specialization": null,
+        "level": 2,
+        "stars": 0
+      },
+      {
+        "trait": "Strike X > Type",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Sturdy X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Trained X > Type",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Templar",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 2,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Brawn X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Deity X > Deity",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Grit X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Royal",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Parry X",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "Peerage X > Region",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Free",
+        "adjustments": {
+          "CCA": 1,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -2,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": "Sword",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 3,
+            "stars": 3
+          },
+          {
+            "trait": "Peerage X > Region",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Pidgin X > Type & Region",
+            "specialization": "Barter",
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Death",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": -3,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 2,
+          "PRE": 0,
+          "POW": 1,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 1
+        },
+        "grants": [
+          {
+            "trait": "Brawn X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Grit X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Riding X > Type",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Surefooted X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Wise X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Mariner",
+    "criticalAttributes": [
+      "PRE",
+      "POW",
+      "STR",
+      "FOR"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 0,
+      "REF": 0,
+      "INT": 0,
+      "KNO": 0,
+      "PRE": 1,
+      "POW": 0,
+      "STR": 0,
+      "FOR": 3,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": -2,
+      "build": -2,
+      "bodypoints": 0
+    },
+    "grants": [
+      {
+        "trait": "Brawn X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Expert X > Weapon",
+        "specialization": null,
+        "level": 2,
+        "stars": 0
+      },
+      {
+        "trait": "Language X > Language",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Language X > Language",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Language X > Language",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Language X > Language",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      },
+      {
+        "trait": "Pidgin X > Type & Region",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Seafaring X",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Steer X > Type",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Steer X > Type",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Survival X > Environ",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Swim X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Voyager",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 1,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Gossip X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "History X > Region",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Language X > Language",
+            "specialization": "Common",
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Navigation X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "Swim X",
+            "specialization": null,
+            "level": 2,
+            "stars": 3
+          }
+        ]
+      },
+      {
+        "name": "Sailor",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 1,
+          "STR": 1,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Brawn X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Connections X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Pidgin X > Type & Region",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": "Coasts",
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Swim X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Privateer",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 1,
+          "INT": -1,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 1,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Hatred X > Demographic]",
+            "specialization": "Pirates",
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Connections X",
+            "specialization": null,
+            "level": 3,
+            "stars": 3
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Gossip X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Office X > Office",
+            "specialization": "Law",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Office X > Office",
+            "specialization": "Commerce",
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Persuade X",
+            "specialization": null,
+            "level": 3,
+            "stars": 3
+          },
+          {
+            "trait": "Politics X > Region",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Pirate",
+        "adjustments": {
+          "CCA": 2,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Enemies X > Settlement]",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "[Paranoid X]",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Connections X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Gossip X",
+            "specialization": null,
+            "level": 4,
+            "stars": 1
+          },
+          {
+            "trait": "Intimidate X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Office X > Office",
+            "specialization": "Law",
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Seafaring X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": "Coasts",
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 4,
+            "stars": 1
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Rabble",
+    "criticalAttributes": [
+      "REF",
+      "STR",
+      "FOR"
+    ],
+    "minimumAgeGroup": "Child",
+    "minimumAgeRank": -3,
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 0,
+      "REF": 0,
+      "INT": 0,
+      "KNO": 0,
+      "PRE": 0,
+      "POW": 0,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": -2,
+      "build": -2,
+      "bodypoints": -3
+    },
+    "grants": [
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 4,
+        "stars": 6
+      },
+      {
+        "trait": "Deity X > Deity",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 3
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Deity X > Deity",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 4,
+        "stars": 4
+      },
+      {
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Mob X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 4,
+        "stars": 3
+      }
+    ],
+    "specializations": [],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Ranger",
+    "criticalAttributes": [
+      "PRE",
+      "POW",
+      "STR",
+      "FOR"
+    ],
+    "minimumAgeGroup": "Child",
+    "minimumAgeRank": -1,
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 0,
+      "REF": 0,
+      "INT": 0,
+      "KNO": 2,
+      "PRE": 0,
+      "POW": 2,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 0,
+      "build": 0,
+      "bodypoints": 1
+    },
+    "grants": [
+      {
+        "trait": "[Solitary X]",
+        "specialization": null,
+        "level": 1,
+        "stars": 4
+      },
+      {
+        "trait": "Archery X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Lore X > Field",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Parry X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Sneaky X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Survival X > Environ",
+        "specialization": null,
+        "level": 3,
+        "stars": 1
+      },
+      {
+        "trait": "Survival X > Environ",
+        "specialization": null,
+        "level": 3,
+        "stars": 1
+      },
+      {
+        "trait": "Tracking X",
+        "specialization": null,
+        "level": 3,
+        "stars": 1
+      },
+      {
+        "trait": "v-Compass X",
+        "specialization": null,
+        "level": 1,
+        "stars": 3
+      },
+      {
+        "trait": "v-Magic X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Wise X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Wanderer",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 3,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -1,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Selfless > Target]",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "[Solitary X]",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Fishing X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Forage X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Greenthumb X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Pidgin X > Type & Region",
+            "specialization": "Barter",
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Trapmaster X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Wise X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Beastfriend",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 2,
+          "POW": 1,
+          "STR": 1,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 2,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Doubt X]",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Animal Trainer X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Forage X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Husbandry X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Medic X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Sneaky X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Surefooted X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Bardic",
+        "adjustments": {
+          "CCA": -1,
+          "RCA": -1,
+          "REF": 0,
+          "INT": 2,
+          "KNO": 1,
+          "PRE": 5,
+          "POW": -2,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": -3,
+          "build": 1,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "v-Heal X",
+            "specialization": null,
+            "level": 1,
+            "stars": 3
+          },
+          {
+            "trait": "[Coward X]",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Gambling X > Game",
+            "specialization": null,
+            "level": 2,
+            "stars": 3
+          },
+          {
+            "trait": "Intimidate X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Perform X > Form",
+            "specialization": "Sing",
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Persuade X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Primp X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Seduction X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Teach X",
+            "specialization": null,
+            "level": 4,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Scout",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 2,
+          "REF": 1,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -1,
+          "bodypoints": 1
+        },
+        "grants": [
+          {
+            "trait": "[Solitary X]",
+            "specialization": null,
+            "level": 4,
+            "stars": 4
+          },
+          {
+            "trait": "Detect X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Hunter X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Pidgin X > Type & Region",
+            "specialization": "Warlang",
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Strike X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 3
+          },
+          {
+            "trait": "Surefooted X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Trapmaster X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Rogue",
+    "criticalAttributes": [
+      "CCA",
+      "RCA",
+      "REF",
+      "INT"
+    ],
+    "minimumAgeGroup": "Child",
+    "minimumAgeRank": -1,
+    "adjustments": {
+      "CCA": 3,
+      "RCA": 0,
+      "REF": 1,
+      "INT": 1,
+      "KNO": 0,
+      "PRE": 1,
+      "POW": -1,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 0,
+      "build": 0,
+      "bodypoints": 0
+    },
+    "grants": [
+      {
+        "trait": "Detect X > Type",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Lockpicking X",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Pidgin X > Type & Region",
+        "specialization": "Lingo",
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Quick X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Sneaky X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Vagabond",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 2,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Cutpurse X",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Forage X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 4,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Thief",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 1,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": -1,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Climb X",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Cutpurse X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Persuade X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Trapmaster X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Spy",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 1,
+          "PRE": 0,
+          "POW": 1,
+          "STR": 0,
+          "FOR": -1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -1,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Climb X",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Pidgin X > Type & Region",
+            "specialization": "Warlang",
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Disguise X",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 4,
+            "stars": 1
+          },
+          {
+            "trait": "Warfare X > Category",
+            "specialization": "Spycraft",
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": "Dagger",
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Goon",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": -1,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 1,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 1,
+          "build": 2,
+          "bodypoints": 1
+        },
+        "grants": [
+          {
+            "trait": "Brawn X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Connections X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": "Melee",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Intimidate X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Mob X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Suss X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Assassin",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 3,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -1,
+          "bodypoints": 1
+        },
+        "grants": [
+          {
+            "trait": "Disguise X",
+            "specialization": null,
+            "level": 4,
+            "stars": 4
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Gossip X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Poisons X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Service",
+    "criticalAttributes": [
+      "INT",
+      "KNO",
+      "POW"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "adjustments": {
+      "CCA": -2,
+      "RCA": 0,
+      "REF": 0,
+      "INT": 0,
+      "KNO": 0,
+      "PRE": 0,
+      "POW": 0,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": -4,
+      "build": 2,
+      "bodypoints": -1
+    },
+    "grants": [
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 4,
+        "stars": 6
+      },
+      {
+        "trait": "Deity X > Deity",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1
+      },
+      {
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 3
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "stars": 3
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 4,
+        "stars": 4
+      },
+      {
+        "trait": "Labor X > Field",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Lore X > Field",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      },
+      {
+        "trait": "Service X > Type",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      }
+    ],
+    "specializations": [],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Warrior",
+    "criticalAttributes": [
+      "PRE",
+      "POW",
+      "STR",
+      "FOR"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 0,
+      "REF": 1,
+      "INT": 0,
+      "KNO": 0,
+      "PRE": 0,
+      "POW": 1,
+      "STR": 2,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 1,
+      "build": 1,
+      "bodypoints": 2
+    },
+    "grants": [
+      {
+        "trait": "[Comrade > Target]",
+        "specialization": null,
+        "level": 3,
+        "stars": 4
+      },
+      {
+        "trait": "Brawn X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Drill X > Type | Trade",
+        "specialization": null,
+        "level": 2,
+        "stars": 0
+      },
+      {
+        "trait": "Expert X > Weapon",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Expert X > Weapon",
+        "specialization": null,
+        "level": 4,
+        "stars": 0
+      },
+      {
+        "trait": "Leadership X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Martialist X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2
+      },
+      {
+        "trait": "Pidgin X > Type & Region",
+        "specialization": "Warlang",
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "Quick X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Sturdy X",
+        "specialization": null,
+        "level": 1,
+        "stars": 1
+      },
+      {
+        "trait": "Tactics X > Type",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Trained X > Type",
+        "specialization": null,
+        "level": 3,
+        "stars": 1
+      },
+      {
+        "trait": "Trained X > Type",
+        "specialization": null,
+        "level": 1,
+        "stars": 0
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Soldier",
+        "adjustments": {
+          "CCA": 1,
+          "RCA": 1,
+          "REF": 0,
+          "INT": -1,
+          "KNO": -1,
+          "PRE": 0,
+          "POW": 1,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Drill X > Type | Trade",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Parry X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Quick X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Strike X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Archer",
+        "adjustments": {
+          "CCA": -1,
+          "RCA": 2,
+          "REF": 1,
+          "INT": 0,
+          "KNO": -1,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 1,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 3,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Drill X > Type | Trade",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": "Any Range",
+            "level": 1,
+            "stars": 3
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": "Bow",
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Rapid-shot X > Type",
+            "specialization": "Bow",
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Engineer",
+        "adjustments": {
+          "CCA": -1,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 2,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 1,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "§Military X > Skill",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Drill X > Type | Trade",
+            "specialization": null,
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "Expert X > Weapon",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Engineer",
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Siege",
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Maths X",
+            "specialization": null,
+            "level": 1,
+            "stars": 4
+          },
+          {
+            "trait": "Read X > Language",
+            "specialization": null,
+            "level": 2,
+            "stars": 3
+          },
+          {
+            "trait": "Warfare X > Category",
+            "specialization": "Engineering",
+            "level": 2,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Rider",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": -2,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Animal Trainer X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Husbandry X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Riding X > Type",
+            "specialization": null,
+            "level": 3,
+            "stars": 1
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  },
+  {
+    "trade": "Wizard",
+    "criticalAttributes": [
+      "INT",
+      "KNO",
+      "PRE",
+      "POW"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 1,
+      "REF": 0,
+      "INT": 4,
+      "KNO": 1,
+      "PRE": 1,
+      "POW": 1,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": -2,
+      "build": -2,
+      "bodypoints": -1
+    },
+    "grants": [
+      {
+        "trait": "[Paranoid X]",
+        "specialization": null,
+        "level": 1,
+        "stars": 3
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "Lore X > Field",
+        "specialization": "Magic",
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "trait": "Read X > Language",
+        "specialization": "Blacktongue",
+        "level": 3,
+        "stars": 3
+      },
+      {
+        "trait": "v-Magic X",
+        "specialization": null,
+        "level": 3,
+        "stars": 2
+      },
+      {
+        "trait": "v-Zedsurge X",
+        "specialization": null,
+        "level": 1,
+        "stars": 2
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Spellbinder",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 1,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 2,
+          "PRE": 1,
+          "POW": 0,
+          "STR": 0,
+          "FOR": -1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -1,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "v-Magic X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Warmage",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 3,
+          "REF": 1,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": -1,
+          "POW": 4,
+          "STR": -1,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 1,
+          "bodypoints": 1
+        },
+        "grants": [
+          {
+            "trait": "[Enemies X > Settlement]",
+            "specialization": null,
+            "level": 2,
+            "stars": 3
+          },
+          {
+            "trait": "[Paranoid X]",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Pidgin X > Type & Region",
+            "specialization": "Warlang",
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "v-Magic X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Alchemist",
+        "adjustments": {
+          "CCA": -3,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 1,
+          "PRE": 0,
+          "POW": 0,
+          "STR": -1,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": -1,
+          "bodypoints": -1
+        },
+        "grants": [
+          {
+            "trait": "Alchemy X",
+            "specialization": null,
+            "level": 4,
+            "stars": 3
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Alchemy",
+            "level": 4,
+            "stars": 2
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Chemistry",
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Picoswarms",
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "v-Imbue X > Type",
+            "specialization": "Alchemy",
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "v-Magic X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          }
+        ]
+      },
+      {
+        "name": "Illusionist",
+        "adjustments": {
+          "CCA": -3,
+          "RCA": 1,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 2,
+          "PRE": 3,
+          "POW": 2,
+          "STR": -3,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 1,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "[Reckless X]",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Design X > Category",
+            "specialization": null,
+            "level": 2,
+            "stars": 3
+          },
+          {
+            "trait": "Disguise X",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Perform X > Form",
+            "specialization": null,
+            "level": 3,
+            "stars": 2
+          },
+          {
+            "trait": "Perform X > Form",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Persuade X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Optics",
+            "level": 3,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Summoner",
+        "adjustments": {
+          "CCA": -1,
+          "RCA": -1,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 3,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 1,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Discipline X",
+            "specialization": null,
+            "level": 2,
+            "stars": 2
+          },
+          {
+            "trait": "Intimidate X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Persuade X",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Psychology",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Tactics X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          }
+        ]
+      },
+      {
+        "name": "Artificer",
+        "adjustments": {
+          "CCA": -2,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 2,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": -1,
+          "build": -1,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1
+          },
+          {
+            "trait": "Engineer X > Category",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Medic X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Magiviruses",
+            "level": 2,
+            "stars": 1
+          },
+          {
+            "trait": "v-Imbue X > Type",
+            "specialization": "Items",
+            "level": 2,
+            "stars": 0
+          }
+        ]
+      },
+      {
+        "name": "Necromancer",
+        "adjustments": {
+          "CCA": -2,
+          "RCA": -2,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 3,
+          "PRE": -2,
+          "POW": 5,
+          "STR": -1,
+          "FOR": -1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 1,
+          "build": -4,
+          "bodypoints": -2
+        },
+        "grants": [
+          {
+            "trait": "[Enemies X > Settlement]",
+            "specialization": null,
+            "level": 1,
+            "stars": 3
+          },
+          {
+            "trait": "[Paranoid X]",
+            "specialization": null,
+            "level": 1,
+            "stars": 2
+          },
+          {
+            "trait": "Language X > Language",
+            "specialization": "Blacktongue",
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "trait": "Lore X > Field",
+            "specialization": "Magic",
+            "level": 4,
+            "stars": 1
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Biology",
+            "level": 2,
+            "stars": 0
+          },
+          {
+            "trait": "Science X > Field",
+            "specialization": "Magiviruses",
+            "level": 3,
+            "stars": 0
+          },
+          {
+            "trait": "v-Imbue X > Type",
+            "specialization": null,
+            "level": 2,
+            "stars": 0
+          }
+        ]
+      }
+    ],
+    "source": "sarna-len.characters(2).xlsx"
+  }
+]

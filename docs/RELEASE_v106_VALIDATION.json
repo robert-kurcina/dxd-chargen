@@ -1,0 +1,21 @@
+{
+  "release": "v106-finalization-library-runnable",
+  "packageVersion": "0.106.0",
+  "jsonValidation": "pass: 75 JSON files",
+  "heritagePackages": "pass: 36",
+  "languages": "pass: 17",
+  "nameGenerators": "pass: 17 structured D66 generators",
+  "tradePackages": "pass: 11 complete playable packages",
+  "physicalScale": "pass: 100 rows",
+  "completeMagicItems": "pass: 96/144 exposed by policy",
+  "typescriptSyntax": "pass: 50 TS/TSX source files",
+  "coreTypecheck": "pass: dependency-free rules, draft, library, finalization, projection, and data layer",
+  "localImports": "pass: 0 unresolved local imports",
+  "runtimeSmoke": "pass: ready validation, CRS projection, library create/duplicate, JSON export/import, v105 draft promotion, v1-v6 draft migration",
+  "packageLockVersionSync": "pass: 0.106.0",
+  "gitDiffCheck": "pass",
+  "launchScriptExecutable": "pass: run-local.sh mode 755",
+  "npmCi": "unavailable in generation sandbox: npm package tarballs are not fully cached and registry requests fail at the container/network boundary",
+  "nextBuild": "not run because dependencies cannot be installed in the generation sandbox",
+  "nodeModulesIncluded": false
+}

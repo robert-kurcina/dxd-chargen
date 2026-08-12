@@ -1,0 +1,35 @@
+{
+  "release": "v103",
+  "date": "2026-08-12",
+  "tranche": "Assign Proficiencies",
+  "data": {
+    "jsonFiles": 72,
+    "heritagePackages": 36,
+    "languages": 17,
+    "explicitSettlementLanguageDefaults": 6,
+    "playableTradePackages": 11,
+    "playableSpeciesWithAgeData": 8,
+    "completeMagicItemsExposed": 96,
+    "magicItemsInSource": 144
+  },
+  "checks": {
+    "dataValidator": "pass",
+    "rulesStrictTypecheck": "pass",
+    "typescriptSyntaxTranspile": "pass: 41 files, 0 errors",
+    "localImportResolution": "pass: 0 unresolved",
+    "proficienciesSmokeTest": "pass",
+    "gitDiffCheck": "pass",
+    "packageLockManifestSync": "pass",
+    "networkNpmCi": "unavailable in generation sandbox; partial node_modules removed"
+  },
+  "smokeTest": {
+    "defaultPml": 1,
+    "pml12MinimumAgeRank": 3,
+    "age24Skillpoints": 24,
+    "acrobatic3CostAtIm4": 12,
+    "remainingAfterAcrobatic3": 12,
+    "dormantPmlMilestoneChoicePreserved": true,
+    "coromDefaultLanguage": "Coro",
+    "languageProficiencySeparatedFromSkillpoints": true
+  }
+}

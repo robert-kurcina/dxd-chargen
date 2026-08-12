@@ -3,8 +3,8 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Sarna Len Character Sheet',
-  description: 'Your character sheet for the Sarna Len RPG.',
+  title: 'Sarna Len Character Forge',
+  description: 'DXD character creation and character sheet for the Sarna Len RPG.',
 };
 
 export default function RootLayout({

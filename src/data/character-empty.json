@@ -83,7 +83,8 @@
     "armor": "",
     "magicItems": "",
     "skills": "",
-    "languages": ""
+    "languages": "",
+    "spells": ""
   },
   "performance": [
     {
@@ -188,5 +189,6 @@
       "name": "Max Advantage",
       "value": "+0"
     }
-  ]
+  ],
+  "affinityAttribute": null
 }

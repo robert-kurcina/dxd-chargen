@@ -255,45 +255,43 @@ Release criteria include:
 - existing character-sheet view retained;
 - final-product plan added.
 
-### Milestone 1 — Background
+### Milestone 1 — Background — DONE in v101
 
-Implement real controls and validation for all Background steps. Resolve region/settlement relationships, demographic state, age generation/selection, three heritage dimensions, Social Rank, personality, tragedy seeds, disabilities, and belief/worship.
+Implemented real controls and validation for all Background steps. Resolve region/settlement relationships, demographic state, age generation/selection, three heritage dimensions, Social Rank, personality, tragedy seeds, disabilities, and belief/worship.
 
 Acceptance target: a Background phase can reach `complete` without prototype completion controls, and changing any Background choice correctly invalidates only affected downstream choices.
 
-### Milestone 2 — Intrinsics
+### Milestone 2 — Intrinsics — DONE in v102 functional tranche
 
-Implement Sophont species/lineage, attributes, Trade/specialization, ZED, and Wealth. Apply species/lineage and package adjustments with visible provenance.
+Implemented Sophont species/lineage, attributes, Trade/specialization, ZED, and Wealth. Apply species/lineage and package adjustments with visible provenance.
 
 Acceptance target: all core attributes and starting economic/professional state are deterministic from draft selections and rules data.
 
-### Milestone 3 — Proficiencies
+### Milestone 3 — Proficiencies — DONE in v103 functional tranche
 
-Implement PML, package-granted traits, purchased skills/abilities/talents, additional skills, and languages. Add budget accounting and searchable large-catalogue components.
+Implemented PML, package-granted traits, PML Virtuosity choices, additional Skill purchases, source/cost accounting, and Languages. Added live budget accounting and a searchable Skill catalogue.
 
 Acceptance target: no player must manually re-enter a granted proficiency, and all skill spending has an auditable source/cost breakdown.
 
-### Milestone 4 — Properties
+### Milestone 4 — Properties — DONE in v104 functional tranche
 
-Implement height/weight and all canonical derived calculations. Build a reusable calculation-breakdown UI.
+Implemented height/weight and the canonical derived calculations, with visible calculation inputs and physical source breakdowns.
 
-Acceptance target: the projected sheet's derived values match a suite of canon reference characters and hand-calculated fixtures.
+Acceptance target: the projected sheet's derived values match a suite of canon reference characters and hand-calculated fixtures. Additional fixture expansion remains part of hardening.
 
-### Milestone 5 — Utilities
+### Milestone 5 — Utilities — DONE in v105 functional tranche
 
-Implement spells, starting gear, weapons, armor, magic items, name, and relationships. Add large-catalogue filters and purchasing/availability rules where character creation requires them.
+Implemented Spells, Starting Gear, Weapons, Armor, complete-data Magic Items, and conlang-driven Name generation. Relationships remain deliberately deferred and non-blocking under the current scope decision. Large catalogues use search/filter controls, Starting Gear shows Personal Wealth and cost/Weight totals, and incomplete Magic Item records are not exposed at runtime.
 
-Acceptance target: a user can finish a legal starting character entirely in the Forge.
+No starting-Spell allotment or Magic Item entitlement is invented where the current normalized canon does not establish a deterministic rule; those selections require explicit review.
 
-### Milestone 6 — Finalization and character library
+Acceptance target achieved for the in-scope Utilities: a user can record and review all currently modeled starting utilities in the Forge without prose parsing or spreadsheet lookup. Whole-character finalization is Milestone 6.
 
-- whole-character validation;
-- finalization/reopen workflow;
-- local multi-character library;
-- import/export JSON;
-- duplicate character;
-- print/PDF-friendly sheet rendering;
-- optional shareable read-only export representation.
+### Milestone 6 — Finalization and character library — DONE in v106 functional tranche
+
+Implemented whole-character validation, deterministic finished-sheet projection, finalization/reopen workflow, browser-local multi-character storage, legacy v105 single-draft promotion, JSON import/export, New/Duplicate/Delete controls, and print/Save-PDF-friendly sheet rendering. Exported character JSON is a portable read-only/shareable representation until a hosted share-link system exists.
+
+Acceptance target achieved: a user can create multiple characters locally, identify blocking completion gaps, reopen any character without reverse-parsing the sheet, export/import the full structured state, and render the active draft as the finished CRS.
 
 ### Milestone 7 — Hardening and release
 
@@ -333,3 +331,23 @@ Given a stable `CharacterDraft`, `project-character-sheet.ts` must produce stabl
 ## Definition of final product
 
 The Forge is ready for general play when a new player can create a legal character from an empty draft to a play-ready sheet without consulting a spreadsheet or manually performing routine calculations, while an experienced player can freely revisit choices and inspect the exact rule source of every granted, purchased, and calculated value.
+
+## Implementation progress
+
+### v101 — Background functional tranche
+
+Complete as interactive builder steps: Region/Settlement, scoped Demographics, Age, Heritage, Social Rank, Personality, Tragedy Seed, Disabilities, and Belief/Worship. Heritage is driven by XLSX-normalized structured grants and writes provenance-preserving selections into the draft.
+
+### v102 — Intrinsics functional tranche
+
+Complete as interactive builder steps: playable Species/Lineage, all three Attribute-generation methods, creation-only Attribute purchases, Trade/Specialization and candidacy, Trade Rank, Affinity/ZED, and calculated Wealth. Trade packages are normalized from the character XLSX and Stars remain author-calibration metadata only. Kriket remains excluded until canonical age data exists; Merchant remains deferred by explicit scope decision.
+
+### v103 — Proficiencies functional tranche
+
+Complete as interactive builder steps: PML with Age validation and advanced-PML warnings; package-granted Trait review with duplicate-source consolidation; Broad Skill specialization resolution; PML Virtuosity milestone choices; Additional Skill purchasing with Age/PML/Trade/Disability Skillpoint sources and Attribute/ZED deductions; and the 17-language conlang catalogue with separate Language proficiency spending. Advanced mutation assignment remains a follow-up warning rather than invented automation.
+
+### v104 — Properties functional tranche
+
+Complete as interactive builder steps: canonical Stature/Build derivation; exact Height/Weight/SIZ lookup; Underweight/Overweight handling; Profile; allometric Carry/Jump scaling; Movement/MOV; Lob/Pitch/Hurl Method Indexes; carrying and jumping; managed concerns; Hitpoints/Bodypoints/Recovery; Favor/Manapool/Cellburn; Max Advantage; limits; and compact CRS compatibility values. Per-item throwing OR remains runtime-derived from Method minus item Weight rather than inventory state.
+
+Next implementation tranche: **Assign Utilities** — Spells, Starting Gear, Magic Items, and Name. Relationships remain deliberately deferred by scope decision.

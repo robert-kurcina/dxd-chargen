@@ -1,0 +1,6453 @@
+[
+  {
+    "languageId": "language-arikkah",
+    "language": "Arikkah",
+    "source": "name-generators/Arikkah.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bh"
+      },
+      {
+        "roll": 13,
+        "value": "Ch"
+      },
+      {
+        "roll": 14,
+        "value": "D"
+      },
+      {
+        "roll": 15,
+        "value": "Dh"
+      },
+      {
+        "roll": 16,
+        "value": "Dz"
+      },
+      {
+        "roll": 21,
+        "value": "F"
+      },
+      {
+        "roll": 22,
+        "value": "G"
+      },
+      {
+        "roll": 23,
+        "value": "Ghv"
+      },
+      {
+        "roll": 24,
+        "value": "J"
+      },
+      {
+        "roll": 25,
+        "value": "K"
+      },
+      {
+        "roll": 26,
+        "value": "Kh"
+      },
+      {
+        "roll": 31,
+        "value": "Khv"
+      },
+      {
+        "roll": 32,
+        "value": "L"
+      },
+      {
+        "roll": 33,
+        "value": "Lj"
+      },
+      {
+        "roll": 34,
+        "value": "Ly"
+      },
+      {
+        "roll": 35,
+        "value": "M"
+      },
+      {
+        "roll": 36,
+        "value": "Mj"
+      },
+      {
+        "roll": 41,
+        "value": "My"
+      },
+      {
+        "roll": 42,
+        "value": "N"
+      },
+      {
+        "roll": 43,
+        "value": "Nj"
+      },
+      {
+        "roll": 44,
+        "value": "Ny"
+      },
+      {
+        "roll": 45,
+        "value": "P"
+      },
+      {
+        "roll": 46,
+        "value": "Ph"
+      },
+      {
+        "roll": 51,
+        "value": "R"
+      },
+      {
+        "roll": 52,
+        "value": "Rj"
+      },
+      {
+        "roll": 53,
+        "value": "Ry"
+      },
+      {
+        "roll": 54,
+        "value": "S"
+      },
+      {
+        "roll": 55,
+        "value": "Sh"
+      },
+      {
+        "roll": 56,
+        "value": "Sy"
+      },
+      {
+        "roll": 61,
+        "value": "T"
+      },
+      {
+        "roll": 62,
+        "value": "Th"
+      },
+      {
+        "roll": 63,
+        "value": "Ts"
+      },
+      {
+        "roll": 64,
+        "value": "W"
+      },
+      {
+        "roll": 65,
+        "value": "Y"
+      },
+      {
+        "roll": 66,
+        "value": "Zy"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "i"
+      },
+      {
+        "roll": 31,
+        "value": "im"
+      },
+      {
+        "roll": 32,
+        "value": "in"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "um"
+      },
+      {
+        "roll": 56,
+        "value": "un"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [
+      {
+        "referent": "MALE HUMAN",
+        "value": "õ"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "an"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "or"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "u"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ei"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ia"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ine"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "eia"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "ũ"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "un"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "alũ"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "imũ"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "al"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "ar"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "el"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "um"
+      }
+    ],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "an"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "on"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "un"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "yn"
+      }
+    ]
+  },
+  {
+    "languageId": "language-blacktongue",
+    "language": "Blacktongue",
+    "source": "name-generators/Blacktongue.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bl"
+      },
+      {
+        "roll": 13,
+        "value": "Br"
+      },
+      {
+        "roll": 14,
+        "value": "Ć"
+      },
+      {
+        "roll": 15,
+        "value": "Ch"
+      },
+      {
+        "roll": 16,
+        "value": "D"
+      },
+      {
+        "roll": 21,
+        "value": "Dr"
+      },
+      {
+        "roll": 22,
+        "value": "Dź"
+      },
+      {
+        "roll": 23,
+        "value": "Dż"
+      },
+      {
+        "roll": 24,
+        "value": "G"
+      },
+      {
+        "roll": 25,
+        "value": "Gr"
+      },
+      {
+        "roll": 26,
+        "value": "Gw"
+      },
+      {
+        "roll": 31,
+        "value": "H"
+      },
+      {
+        "roll": 32,
+        "value": "K"
+      },
+      {
+        "roll": 33,
+        "value": "Kr"
+      },
+      {
+        "roll": 34,
+        "value": "Kw"
+      },
+      {
+        "roll": 35,
+        "value": "L'"
+      },
+      {
+        "roll": 36,
+        "value": "M"
+      },
+      {
+        "roll": 41,
+        "value": "Ń"
+      },
+      {
+        "roll": 42,
+        "value": "N"
+      },
+      {
+        "roll": 43,
+        "value": "P"
+      },
+      {
+        "roll": 44,
+        "value": "Pl"
+      },
+      {
+        "roll": 45,
+        "value": "Pr"
+      },
+      {
+        "roll": 46,
+        "value": "Rz"
+      },
+      {
+        "roll": 51,
+        "value": "Ś"
+      },
+      {
+        "roll": 52,
+        "value": "Skr"
+      },
+      {
+        "roll": 53,
+        "value": "Spl"
+      },
+      {
+        "roll": 54,
+        "value": "Spr"
+      },
+      {
+        "roll": 55,
+        "value": "Str"
+      },
+      {
+        "roll": 56,
+        "value": "Sz"
+      },
+      {
+        "roll": 61,
+        "value": "T"
+      },
+      {
+        "roll": 62,
+        "value": "Tr"
+      },
+      {
+        "roll": 63,
+        "value": "Wl"
+      },
+      {
+        "roll": 64,
+        "value": "Wr"
+      },
+      {
+        "roll": 65,
+        "value": "Ź"
+      },
+      {
+        "roll": 66,
+        "value": "Ż"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "ą"
+      },
+      {
+        "roll": 12,
+        "value": "a"
+      },
+      {
+        "roll": 13,
+        "value": "ai"
+      },
+      {
+        "roll": 14,
+        "value": "am"
+      },
+      {
+        "roll": 15,
+        "value": "an"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "ę"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "ęn"
+      },
+      {
+        "roll": 24,
+        "value": "i"
+      },
+      {
+        "roll": 25,
+        "value": "il"
+      },
+      {
+        "roll": 26,
+        "value": "in"
+      },
+      {
+        "roll": 31,
+        "value": "ir"
+      },
+      {
+        "roll": 32,
+        "value": "ja"
+      },
+      {
+        "roll": 33,
+        "value": "je"
+      },
+      {
+        "roll": 34,
+        "value": "ji"
+      },
+      {
+        "roll": 35,
+        "value": "jo"
+      },
+      {
+        "roll": 36,
+        "value": "jǫ"
+      },
+      {
+        "roll": 41,
+        "value": "ju"
+      },
+      {
+        "roll": 42,
+        "value": "ǫ"
+      },
+      {
+        "roll": 43,
+        "value": "oi"
+      },
+      {
+        "roll": 44,
+        "value": "om"
+      },
+      {
+        "roll": 45,
+        "value": "on"
+      },
+      {
+        "roll": 46,
+        "value": "ou"
+      },
+      {
+        "roll": 51,
+        "value": "ra"
+      },
+      {
+        "roll": 52,
+        "value": "re"
+      },
+      {
+        "roll": 53,
+        "value": "ri"
+      },
+      {
+        "roll": 54,
+        "value": "ro"
+      },
+      {
+        "roll": 55,
+        "value": "ru"
+      },
+      {
+        "roll": 56,
+        "value": "ry"
+      },
+      {
+        "roll": 61,
+        "value": "u"
+      },
+      {
+        "roll": 62,
+        "value": "ui"
+      },
+      {
+        "roll": 63,
+        "value": "un"
+      },
+      {
+        "roll": 64,
+        "value": "y"
+      },
+      {
+        "roll": 65,
+        "value": "ym"
+      },
+      {
+        "roll": 66,
+        "value": "yn"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "DIVINE",
+        "value": "in"
+      },
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "an"
+      },
+      {
+        "domain": "GUARDIAN",
+        "value": "on"
+      },
+      {
+        "domain": "WISDOM",
+        "value": "un"
+      },
+      {
+        "domain": "NATURE",
+        "value": "yn"
+      }
+    ]
+  },
+  {
+    "languageId": "language-boren",
+    "language": "Boren",
+    "source": "name-generators/Boren.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Classifier + Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Classifier + Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Classifier + Begin + Middle + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Classifier + Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Classifier + Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Classifier + Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bh"
+      },
+      {
+        "roll": 13,
+        "value": "Bl"
+      },
+      {
+        "roll": 14,
+        "value": "Br"
+      },
+      {
+        "roll": 15,
+        "value": "Ch"
+      },
+      {
+        "roll": 16,
+        "value": "D"
+      },
+      {
+        "roll": 21,
+        "value": "Dh"
+      },
+      {
+        "roll": 22,
+        "value": "G"
+      },
+      {
+        "roll": 23,
+        "value": "Gh"
+      },
+      {
+        "roll": 24,
+        "value": "Gh"
+      },
+      {
+        "roll": 25,
+        "value": "Ghr"
+      },
+      {
+        "roll": 26,
+        "value": "Ghv"
+      },
+      {
+        "roll": 31,
+        "value": "Jh"
+      },
+      {
+        "roll": 32,
+        "value": "K"
+      },
+      {
+        "roll": 33,
+        "value": "Kh"
+      },
+      {
+        "roll": 34,
+        "value": "Kh"
+      },
+      {
+        "roll": 35,
+        "value": "Khr"
+      },
+      {
+        "roll": 36,
+        "value": "Khv"
+      },
+      {
+        "roll": 41,
+        "value": "L"
+      },
+      {
+        "roll": 42,
+        "value": "Lh"
+      },
+      {
+        "roll": 43,
+        "value": "M"
+      },
+      {
+        "roll": 44,
+        "value": "Mh"
+      },
+      {
+        "roll": 45,
+        "value": "N"
+      },
+      {
+        "roll": 46,
+        "value": "Nh"
+      },
+      {
+        "roll": 51,
+        "value": "P"
+      },
+      {
+        "roll": 52,
+        "value": "Ph"
+      },
+      {
+        "roll": 53,
+        "value": "Pl"
+      },
+      {
+        "roll": 54,
+        "value": "Pr"
+      },
+      {
+        "roll": 55,
+        "value": "R"
+      },
+      {
+        "roll": 56,
+        "value": "Rh"
+      },
+      {
+        "roll": 61,
+        "value": "S"
+      },
+      {
+        "roll": 62,
+        "value": "Sh"
+      },
+      {
+        "roll": 63,
+        "value": "T"
+      },
+      {
+        "roll": 64,
+        "value": "Th"
+      },
+      {
+        "roll": 65,
+        "value": "Z"
+      },
+      {
+        "roll": 66,
+        "value": "Zh"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "ak"
+      },
+      {
+        "roll": 14,
+        "value": "am"
+      },
+      {
+        "roll": 15,
+        "value": "an"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "ek"
+      },
+      {
+        "roll": 24,
+        "value": "el"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "ok"
+      },
+      {
+        "roll": 36,
+        "value": "om"
+      },
+      {
+        "roll": 41,
+        "value": "on"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "rek"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ruk"
+      },
+      {
+        "roll": 52,
+        "value": "ryk"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "uk"
+      },
+      {
+        "roll": 56,
+        "value": "un"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "ek"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ak"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "ok"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "uk"
+      }
+    ]
+  },
+  {
+    "languageId": "language-borensk",
+    "language": "Borensk",
+    "source": "name-generators/Borensk.md",
+    "kind": "borensk",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Initial + Kernel + Ending"
+      },
+      {
+        "roll": 2,
+        "pattern": "Initial + Kernel + Kernel + Ending"
+      },
+      {
+        "roll": 3,
+        "pattern": "Votive Prefix + Initial + Kernel + Ending"
+      },
+      {
+        "roll": 4,
+        "pattern": "Initial + Kernel + Ending + Ending"
+      },
+      {
+        "roll": 5,
+        "pattern": "Votive Prefix + Kernel + Initial + Ending"
+      },
+      {
+        "roll": 6,
+        "pattern": "Votive Prefix + Initial + Kernel + Kernel + Ending"
+      }
+    ],
+    "votivePrefix": [
+      {
+        "roll": 11,
+        "value": "Ar"
+      },
+      {
+        "roll": 12,
+        "value": "Boren"
+      },
+      {
+        "roll": 13,
+        "value": "Borsk"
+      },
+      {
+        "roll": 14,
+        "value": "Brat"
+      },
+      {
+        "roll": 15,
+        "value": "Bret"
+      },
+      {
+        "roll": 16,
+        "value": "Brod"
+      },
+      {
+        "roll": 21,
+        "value": "Bron"
+      },
+      {
+        "roll": 22,
+        "value": "Chren"
+      },
+      {
+        "roll": 23,
+        "value": "Dom"
+      },
+      {
+        "roll": 24,
+        "value": "Er"
+      },
+      {
+        "roll": 25,
+        "value": "Grod"
+      },
+      {
+        "roll": 26,
+        "value": "Ir"
+      },
+      {
+        "roll": 31,
+        "value": "Khor"
+      },
+      {
+        "roll": 32,
+        "value": "Khval"
+      },
+      {
+        "roll": 33,
+        "value": "Lud"
+      },
+      {
+        "roll": 34,
+        "value": "Mat"
+      },
+      {
+        "roll": 35,
+        "value": "Nar"
+      },
+      {
+        "roll": 36,
+        "value": "Or"
+      },
+      {
+        "roll": 41,
+        "value": "Rod"
+      },
+      {
+        "roll": 42,
+        "value": "San"
+      },
+      {
+        "roll": 43,
+        "value": "Se"
+      },
+      {
+        "roll": 44,
+        "value": "Sen"
+      },
+      {
+        "roll": 45,
+        "value": "Sve"
+      },
+      {
+        "roll": 46,
+        "value": "Svi"
+      },
+      {
+        "roll": 51,
+        "value": "Svy"
+      },
+      {
+        "roll": 52,
+        "value": "Ur"
+      },
+      {
+        "roll": 53,
+        "value": "Vel"
+      },
+      {
+        "roll": 54,
+        "value": "Vele"
+      },
+      {
+        "roll": 55,
+        "value": "Vesh"
+      },
+      {
+        "roll": 56,
+        "value": "Vez"
+      },
+      {
+        "roll": 61,
+        "value": "Vor"
+      },
+      {
+        "roll": 62,
+        "value": "Vyr"
+      },
+      {
+        "roll": 63,
+        "value": "Yar"
+      },
+      {
+        "roll": 64,
+        "value": "Zher"
+      },
+      {
+        "roll": 65,
+        "value": "Zor"
+      },
+      {
+        "roll": 66,
+        "value": "Zven"
+      }
+    ],
+    "initial": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bl"
+      },
+      {
+        "roll": 13,
+        "value": "Bor"
+      },
+      {
+        "roll": 14,
+        "value": "Br"
+      },
+      {
+        "roll": 15,
+        "value": "By"
+      },
+      {
+        "roll": 16,
+        "value": "Bz"
+      },
+      {
+        "roll": 21,
+        "value": "Ch"
+      },
+      {
+        "roll": 22,
+        "value": "D"
+      },
+      {
+        "roll": 23,
+        "value": "Dn"
+      },
+      {
+        "roll": 24,
+        "value": "Dr"
+      },
+      {
+        "roll": 25,
+        "value": "Dv"
+      },
+      {
+        "roll": 26,
+        "value": "Dz"
+      },
+      {
+        "roll": 31,
+        "value": "Dzh"
+      },
+      {
+        "roll": 32,
+        "value": "G"
+      },
+      {
+        "roll": 33,
+        "value": "Gh"
+      },
+      {
+        "roll": 34,
+        "value": "Gl"
+      },
+      {
+        "roll": 35,
+        "value": "Gr"
+      },
+      {
+        "roll": 36,
+        "value": "Gv"
+      },
+      {
+        "roll": 41,
+        "value": "Gw"
+      },
+      {
+        "roll": 42,
+        "value": "J"
+      },
+      {
+        "roll": 43,
+        "value": "K"
+      },
+      {
+        "roll": 44,
+        "value": "Kh"
+      },
+      {
+        "roll": 45,
+        "value": "Kl"
+      },
+      {
+        "roll": 46,
+        "value": "Kr"
+      },
+      {
+        "roll": 51,
+        "value": "Ks"
+      },
+      {
+        "roll": 52,
+        "value": "Kv"
+      },
+      {
+        "roll": 53,
+        "value": "L"
+      },
+      {
+        "roll": 54,
+        "value": "M"
+      },
+      {
+        "roll": 55,
+        "value": "N"
+      },
+      {
+        "roll": 56,
+        "value": "R"
+      },
+      {
+        "roll": 61,
+        "value": "S"
+      },
+      {
+        "roll": 62,
+        "value": "Sh"
+      },
+      {
+        "roll": 63,
+        "value": "Sk"
+      },
+      {
+        "roll": 64,
+        "value": "Str"
+      },
+      {
+        "roll": 65,
+        "value": "V"
+      },
+      {
+        "roll": 66,
+        "value": "Zh"
+      }
+    ],
+    "kernel": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "acz"
+      },
+      {
+        "roll": 13,
+        "value": "al"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "av"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ecz"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "ev"
+      },
+      {
+        "roll": 31,
+        "value": "i"
+      },
+      {
+        "roll": 32,
+        "value": "icz"
+      },
+      {
+        "roll": 33,
+        "value": "il"
+      },
+      {
+        "roll": 34,
+        "value": "in"
+      },
+      {
+        "roll": 35,
+        "value": "ir"
+      },
+      {
+        "roll": 36,
+        "value": "iv"
+      },
+      {
+        "roll": 41,
+        "value": "o"
+      },
+      {
+        "roll": 42,
+        "value": "ocz"
+      },
+      {
+        "roll": 43,
+        "value": "ol"
+      },
+      {
+        "roll": 44,
+        "value": "on"
+      },
+      {
+        "roll": 45,
+        "value": "or"
+      },
+      {
+        "roll": 46,
+        "value": "ov"
+      },
+      {
+        "roll": 51,
+        "value": "u"
+      },
+      {
+        "roll": 52,
+        "value": "ucz"
+      },
+      {
+        "roll": 53,
+        "value": "ul"
+      },
+      {
+        "roll": 54,
+        "value": "un"
+      },
+      {
+        "roll": 55,
+        "value": "ur"
+      },
+      {
+        "roll": 56,
+        "value": "uv"
+      },
+      {
+        "roll": 61,
+        "value": "y"
+      },
+      {
+        "roll": 62,
+        "value": "ycz"
+      },
+      {
+        "roll": 63,
+        "value": "yl"
+      },
+      {
+        "roll": 64,
+        "value": "yn"
+      },
+      {
+        "roll": 65,
+        "value": "yr"
+      },
+      {
+        "roll": 66,
+        "value": "yv"
+      }
+    ],
+    "ending": [
+      {
+        "roll": 11,
+        "value": "ach"
+      },
+      {
+        "roll": 12,
+        "value": "ak"
+      },
+      {
+        "roll": 13,
+        "value": "ar"
+      },
+      {
+        "roll": 14,
+        "value": "arev"
+      },
+      {
+        "roll": 15,
+        "value": "arnik"
+      },
+      {
+        "roll": 16,
+        "value": "bor"
+      },
+      {
+        "roll": 21,
+        "value": "czak"
+      },
+      {
+        "roll": 22,
+        "value": "czyka"
+      },
+      {
+        "roll": 23,
+        "value": "dom"
+      },
+      {
+        "roll": 24,
+        "value": "ek"
+      },
+      {
+        "roll": 25,
+        "value": "en"
+      },
+      {
+        "roll": 26,
+        "value": "ensk"
+      },
+      {
+        "roll": 31,
+        "value": "ev"
+      },
+      {
+        "roll": 32,
+        "value": "grod"
+      },
+      {
+        "roll": 33,
+        "value": "ich"
+      },
+      {
+        "roll": 34,
+        "value": "ik"
+      },
+      {
+        "roll": 35,
+        "value": "in"
+      },
+      {
+        "roll": 36,
+        "value": "jcz"
+      },
+      {
+        "roll": 41,
+        "value": "kev"
+      },
+      {
+        "roll": 42,
+        "value": "mir"
+      },
+      {
+        "roll": 43,
+        "value": "narek"
+      },
+      {
+        "roll": 44,
+        "value": "narev"
+      },
+      {
+        "roll": 45,
+        "value": "nik"
+      },
+      {
+        "roll": 46,
+        "value": "or"
+      },
+      {
+        "roll": 51,
+        "value": "orev"
+      },
+      {
+        "roll": 52,
+        "value": "ov"
+      },
+      {
+        "roll": 53,
+        "value": "rad"
+      },
+      {
+        "roll": 54,
+        "value": "shenk"
+      },
+      {
+        "roll": 55,
+        "value": "sk"
+      },
+      {
+        "roll": 56,
+        "value": "ska"
+      },
+      {
+        "roll": 61,
+        "value": "skev"
+      },
+      {
+        "roll": 62,
+        "value": "slav"
+      },
+      {
+        "roll": 63,
+        "value": "vich"
+      },
+      {
+        "roll": 64,
+        "value": "vor"
+      },
+      {
+        "roll": 65,
+        "value": "yka"
+      },
+      {
+        "roll": 66,
+        "value": "yn"
+      }
+    ]
+  },
+  {
+    "languageId": "language-cher-gulo",
+    "language": "Cher-gulo",
+    "source": "name-generators/Cher-gulo.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bh"
+      },
+      {
+        "roll": 13,
+        "value": "Ch"
+      },
+      {
+        "roll": 14,
+        "value": "D"
+      },
+      {
+        "roll": 15,
+        "value": "Dh"
+      },
+      {
+        "roll": 16,
+        "value": "Dz"
+      },
+      {
+        "roll": 21,
+        "value": "F"
+      },
+      {
+        "roll": 22,
+        "value": "G"
+      },
+      {
+        "roll": 23,
+        "value": "Gh"
+      },
+      {
+        "roll": 24,
+        "value": "H"
+      },
+      {
+        "roll": 25,
+        "value": "J"
+      },
+      {
+        "roll": 26,
+        "value": "K"
+      },
+      {
+        "roll": 31,
+        "value": "Kh"
+      },
+      {
+        "roll": 32,
+        "value": "L"
+      },
+      {
+        "roll": 33,
+        "value": "Lj"
+      },
+      {
+        "roll": 34,
+        "value": "Ly"
+      },
+      {
+        "roll": 35,
+        "value": "M"
+      },
+      {
+        "roll": 36,
+        "value": "Mj"
+      },
+      {
+        "roll": 41,
+        "value": "My"
+      },
+      {
+        "roll": 42,
+        "value": "N"
+      },
+      {
+        "roll": 43,
+        "value": "Nj"
+      },
+      {
+        "roll": 44,
+        "value": "Ny"
+      },
+      {
+        "roll": 45,
+        "value": "P"
+      },
+      {
+        "roll": 46,
+        "value": "Ph"
+      },
+      {
+        "roll": 51,
+        "value": "R"
+      },
+      {
+        "roll": 52,
+        "value": "Rj"
+      },
+      {
+        "roll": 53,
+        "value": "Ry"
+      },
+      {
+        "roll": 54,
+        "value": "S"
+      },
+      {
+        "roll": 55,
+        "value": "Sh"
+      },
+      {
+        "roll": 56,
+        "value": "Sy"
+      },
+      {
+        "roll": 61,
+        "value": "T"
+      },
+      {
+        "roll": 62,
+        "value": "Th"
+      },
+      {
+        "roll": 63,
+        "value": "Ts"
+      },
+      {
+        "roll": 64,
+        "value": "W"
+      },
+      {
+        "roll": 65,
+        "value": "Y"
+      },
+      {
+        "roll": 66,
+        "value": "Zy"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "i"
+      },
+      {
+        "roll": 31,
+        "value": "im"
+      },
+      {
+        "roll": 32,
+        "value": "in"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "um"
+      },
+      {
+        "roll": 56,
+        "value": "un"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "DIVINE",
+        "value": "in"
+      },
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "an"
+      },
+      {
+        "domain": "GUARDIAN",
+        "value": "on"
+      },
+      {
+        "domain": "WISDOM",
+        "value": "un"
+      },
+      {
+        "domain": "NATURE",
+        "value": "yn"
+      }
+    ]
+  },
+  {
+    "languageId": "language-coro",
+    "language": "Coro",
+    "source": "name-generators/Coro.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "Bl"
+      },
+      {
+        "roll": 12,
+        "value": "Br"
+      },
+      {
+        "roll": 13,
+        "value": "Dr"
+      },
+      {
+        "roll": 14,
+        "value": "Dw"
+      },
+      {
+        "roll": 15,
+        "value": "F"
+      },
+      {
+        "roll": 16,
+        "value": "Fl"
+      },
+      {
+        "roll": 21,
+        "value": "Fr"
+      },
+      {
+        "roll": 22,
+        "value": "Fw"
+      },
+      {
+        "roll": 23,
+        "value": "Fy"
+      },
+      {
+        "roll": 24,
+        "value": "Ghr"
+      },
+      {
+        "roll": 25,
+        "value": "Ghw"
+      },
+      {
+        "roll": 26,
+        "value": "Ghw"
+      },
+      {
+        "roll": 31,
+        "value": "Gr"
+      },
+      {
+        "roll": 32,
+        "value": "Kh"
+      },
+      {
+        "roll": 33,
+        "value": "Kh"
+      },
+      {
+        "roll": 34,
+        "value": "Khr"
+      },
+      {
+        "roll": 35,
+        "value": "Khv"
+      },
+      {
+        "roll": 36,
+        "value": "Khw"
+      },
+      {
+        "roll": 41,
+        "value": "Khw"
+      },
+      {
+        "roll": 42,
+        "value": "Kl"
+      },
+      {
+        "roll": 43,
+        "value": "Kr"
+      },
+      {
+        "roll": 44,
+        "value": "Pl"
+      },
+      {
+        "roll": 45,
+        "value": "Pr"
+      },
+      {
+        "roll": 46,
+        "value": "Sh"
+      },
+      {
+        "roll": 51,
+        "value": "Shtr"
+      },
+      {
+        "roll": 52,
+        "value": "Sk"
+      },
+      {
+        "roll": 53,
+        "value": "Sl"
+      },
+      {
+        "roll": 54,
+        "value": "Sm"
+      },
+      {
+        "roll": 55,
+        "value": "Sn"
+      },
+      {
+        "roll": 56,
+        "value": "Sp"
+      },
+      {
+        "roll": 61,
+        "value": "St"
+      },
+      {
+        "roll": 62,
+        "value": "Str"
+      },
+      {
+        "roll": 63,
+        "value": "Th"
+      },
+      {
+        "roll": 64,
+        "value": "Tr"
+      },
+      {
+        "roll": 65,
+        "value": "Tw"
+      },
+      {
+        "roll": 66,
+        "value": "Zh"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [
+      {
+        "referent": "MALE HUMAN",
+        "value": "oun"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "uon"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "oan"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "ao"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "uan"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "ian"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "iy"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ey"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ih"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ien"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "eyi"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "ok"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "ap"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "iap"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "iok"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "up"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "op"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "o"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "aro"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "iro"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "uri"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "umi"
+      }
+    ],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-ershthikal",
+    "language": "Ershthikal",
+    "source": "name-generators/Ershthikal.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bl"
+      },
+      {
+        "roll": 13,
+        "value": "Br"
+      },
+      {
+        "roll": 14,
+        "value": "Ch"
+      },
+      {
+        "roll": 15,
+        "value": "Chn"
+      },
+      {
+        "roll": 16,
+        "value": "D"
+      },
+      {
+        "roll": 21,
+        "value": "Dr"
+      },
+      {
+        "roll": 22,
+        "value": "F"
+      },
+      {
+        "roll": 23,
+        "value": "G"
+      },
+      {
+        "roll": 24,
+        "value": "Gh"
+      },
+      {
+        "roll": 25,
+        "value": "Gr"
+      },
+      {
+        "roll": 26,
+        "value": "J"
+      },
+      {
+        "roll": 31,
+        "value": "K"
+      },
+      {
+        "roll": 32,
+        "value": "Kh"
+      },
+      {
+        "roll": 33,
+        "value": "Kr"
+      },
+      {
+        "roll": 34,
+        "value": "L"
+      },
+      {
+        "roll": 35,
+        "value": "M"
+      },
+      {
+        "roll": 36,
+        "value": "Mn"
+      },
+      {
+        "roll": 41,
+        "value": "N"
+      },
+      {
+        "roll": 42,
+        "value": "Nn"
+      },
+      {
+        "roll": 43,
+        "value": "P"
+      },
+      {
+        "roll": 44,
+        "value": "Pl"
+      },
+      {
+        "roll": 45,
+        "value": "Pr"
+      },
+      {
+        "roll": 46,
+        "value": "R"
+      },
+      {
+        "roll": 51,
+        "value": "S"
+      },
+      {
+        "roll": 52,
+        "value": "Sh"
+      },
+      {
+        "roll": 53,
+        "value": "Shm"
+      },
+      {
+        "roll": 54,
+        "value": "Shn"
+      },
+      {
+        "roll": 55,
+        "value": "T"
+      },
+      {
+        "roll": 56,
+        "value": "Tr"
+      },
+      {
+        "roll": 61,
+        "value": "V"
+      },
+      {
+        "roll": 62,
+        "value": "W"
+      },
+      {
+        "roll": 63,
+        "value": "Y"
+      },
+      {
+        "roll": 64,
+        "value": "Z"
+      },
+      {
+        "roll": 65,
+        "value": "Zh"
+      },
+      {
+        "roll": 66,
+        "value": "Zhn"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "i"
+      },
+      {
+        "roll": 31,
+        "value": "im"
+      },
+      {
+        "roll": 32,
+        "value": "in"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "um"
+      },
+      {
+        "roll": 56,
+        "value": "un"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "DIVINE",
+        "value": "ar"
+      },
+      {
+        "domain": "GUARDIAN",
+        "value": "or"
+      },
+      {
+        "domain": "COMMUNITY",
+        "value": "an"
+      },
+      {
+        "domain": "COMMERCE",
+        "value": "im"
+      },
+      {
+        "domain": "LANDSCAPE",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-fayeed",
+    "language": "Fayeed",
+    "source": "name-generators/Fayeed.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bh"
+      },
+      {
+        "roll": 13,
+        "value": "Ch"
+      },
+      {
+        "roll": 14,
+        "value": "D"
+      },
+      {
+        "roll": 15,
+        "value": "Dh"
+      },
+      {
+        "roll": 16,
+        "value": "Dz"
+      },
+      {
+        "roll": 21,
+        "value": "F"
+      },
+      {
+        "roll": 22,
+        "value": "G"
+      },
+      {
+        "roll": 23,
+        "value": "Gh"
+      },
+      {
+        "roll": 24,
+        "value": "H"
+      },
+      {
+        "roll": 25,
+        "value": "J"
+      },
+      {
+        "roll": 26,
+        "value": "K"
+      },
+      {
+        "roll": 31,
+        "value": "Kh"
+      },
+      {
+        "roll": 32,
+        "value": "L"
+      },
+      {
+        "roll": 33,
+        "value": "Lj"
+      },
+      {
+        "roll": 34,
+        "value": "Ly"
+      },
+      {
+        "roll": 35,
+        "value": "M"
+      },
+      {
+        "roll": 36,
+        "value": "Mj"
+      },
+      {
+        "roll": 41,
+        "value": "My"
+      },
+      {
+        "roll": 42,
+        "value": "N"
+      },
+      {
+        "roll": 43,
+        "value": "Nj"
+      },
+      {
+        "roll": 44,
+        "value": "Ny"
+      },
+      {
+        "roll": 45,
+        "value": "P"
+      },
+      {
+        "roll": 46,
+        "value": "Ph"
+      },
+      {
+        "roll": 51,
+        "value": "R"
+      },
+      {
+        "roll": 52,
+        "value": "Rj"
+      },
+      {
+        "roll": 53,
+        "value": "Ry"
+      },
+      {
+        "roll": 54,
+        "value": "S"
+      },
+      {
+        "roll": 55,
+        "value": "Sh"
+      },
+      {
+        "roll": 56,
+        "value": "Sy"
+      },
+      {
+        "roll": 61,
+        "value": "T"
+      },
+      {
+        "roll": 62,
+        "value": "Th"
+      },
+      {
+        "roll": 63,
+        "value": "Ts"
+      },
+      {
+        "roll": 64,
+        "value": "W"
+      },
+      {
+        "roll": 65,
+        "value": "Y"
+      },
+      {
+        "roll": 66,
+        "value": "Zy"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "i"
+      },
+      {
+        "roll": 31,
+        "value": "im"
+      },
+      {
+        "roll": 32,
+        "value": "in"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "um"
+      },
+      {
+        "roll": 56,
+        "value": "un"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "CELESTIAL",
+        "value": "in"
+      },
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "DIVINE",
+        "value": "an"
+      },
+      {
+        "domain": "GUARDIAN",
+        "value": "on"
+      },
+      {
+        "domain": "WISDOM",
+        "value": "un"
+      },
+      {
+        "domain": "COSMOS",
+        "value": "yn"
+      }
+    ]
+  },
+  {
+    "languageId": "language-heimneshi",
+    "language": "Heimneshi",
+    "source": "name-generators/Heimneshi.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "Bl"
+      },
+      {
+        "roll": 12,
+        "value": "Br"
+      },
+      {
+        "roll": 13,
+        "value": "Chr"
+      },
+      {
+        "roll": 14,
+        "value": "Chw"
+      },
+      {
+        "roll": 15,
+        "value": "Cz"
+      },
+      {
+        "roll": 16,
+        "value": "Dr"
+      },
+      {
+        "roll": 21,
+        "value": "Dz"
+      },
+      {
+        "roll": 22,
+        "value": "Fl"
+      },
+      {
+        "roll": 23,
+        "value": "Fr"
+      },
+      {
+        "roll": 24,
+        "value": "Gh"
+      },
+      {
+        "roll": 25,
+        "value": "Gr"
+      },
+      {
+        "roll": 26,
+        "value": "Gw"
+      },
+      {
+        "roll": 31,
+        "value": "Kh"
+      },
+      {
+        "roll": 32,
+        "value": "Kr"
+      },
+      {
+        "roll": 33,
+        "value": "Kw"
+      },
+      {
+        "roll": 34,
+        "value": "Lj"
+      },
+      {
+        "roll": 35,
+        "value": "Mj"
+      },
+      {
+        "roll": 36,
+        "value": "Nj"
+      },
+      {
+        "roll": 41,
+        "value": "Pl"
+      },
+      {
+        "roll": 42,
+        "value": "Pr"
+      },
+      {
+        "roll": 43,
+        "value": "Rz"
+      },
+      {
+        "roll": 44,
+        "value": "Sk"
+      },
+      {
+        "roll": 45,
+        "value": "Skr"
+      },
+      {
+        "roll": 46,
+        "value": "Sl"
+      },
+      {
+        "roll": 51,
+        "value": "Spl"
+      },
+      {
+        "roll": 52,
+        "value": "Spr"
+      },
+      {
+        "roll": 53,
+        "value": "Str"
+      },
+      {
+        "roll": 54,
+        "value": "Św"
+      },
+      {
+        "roll": 55,
+        "value": "Sz"
+      },
+      {
+        "roll": 56,
+        "value": "Tr"
+      },
+      {
+        "roll": 61,
+        "value": "Tw"
+      },
+      {
+        "roll": 62,
+        "value": "W"
+      },
+      {
+        "roll": 63,
+        "value": "Wl"
+      },
+      {
+        "roll": 64,
+        "value": "Wr"
+      },
+      {
+        "roll": 65,
+        "value": "Z"
+      },
+      {
+        "roll": 66,
+        "value": "Ż"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-ithuuikal",
+    "language": "Ithuuikal",
+    "source": "name-generators/Ithuuikal.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bl"
+      },
+      {
+        "roll": 13,
+        "value": "Br"
+      },
+      {
+        "roll": 14,
+        "value": "Ć"
+      },
+      {
+        "roll": 15,
+        "value": "Ch"
+      },
+      {
+        "roll": 16,
+        "value": "D"
+      },
+      {
+        "roll": 21,
+        "value": "Dr"
+      },
+      {
+        "roll": 22,
+        "value": "Dź"
+      },
+      {
+        "roll": 23,
+        "value": "Dż"
+      },
+      {
+        "roll": 24,
+        "value": "G"
+      },
+      {
+        "roll": 25,
+        "value": "Gr"
+      },
+      {
+        "roll": 26,
+        "value": "Gw"
+      },
+      {
+        "roll": 31,
+        "value": "H"
+      },
+      {
+        "roll": 32,
+        "value": "K"
+      },
+      {
+        "roll": 33,
+        "value": "Kr"
+      },
+      {
+        "roll": 34,
+        "value": "Kw"
+      },
+      {
+        "roll": 35,
+        "value": "L'"
+      },
+      {
+        "roll": 36,
+        "value": "M"
+      },
+      {
+        "roll": 41,
+        "value": "Ń"
+      },
+      {
+        "roll": 42,
+        "value": "N"
+      },
+      {
+        "roll": 43,
+        "value": "P"
+      },
+      {
+        "roll": 44,
+        "value": "Pl"
+      },
+      {
+        "roll": 45,
+        "value": "Pr"
+      },
+      {
+        "roll": 46,
+        "value": "Rz"
+      },
+      {
+        "roll": 51,
+        "value": "Ś"
+      },
+      {
+        "roll": 52,
+        "value": "Skr"
+      },
+      {
+        "roll": 53,
+        "value": "Spl"
+      },
+      {
+        "roll": 54,
+        "value": "Spr"
+      },
+      {
+        "roll": 55,
+        "value": "Str"
+      },
+      {
+        "roll": 56,
+        "value": "Sz"
+      },
+      {
+        "roll": 61,
+        "value": "T"
+      },
+      {
+        "roll": 62,
+        "value": "Tr"
+      },
+      {
+        "roll": 63,
+        "value": "Wl"
+      },
+      {
+        "roll": 64,
+        "value": "Wr"
+      },
+      {
+        "roll": 65,
+        "value": "Ź"
+      },
+      {
+        "roll": 66,
+        "value": "Ż"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "ą"
+      },
+      {
+        "roll": 12,
+        "value": "a"
+      },
+      {
+        "roll": 13,
+        "value": "ai"
+      },
+      {
+        "roll": 14,
+        "value": "am"
+      },
+      {
+        "roll": 15,
+        "value": "an"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "ę"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "ęn"
+      },
+      {
+        "roll": 24,
+        "value": "i"
+      },
+      {
+        "roll": 25,
+        "value": "il"
+      },
+      {
+        "roll": 26,
+        "value": "in"
+      },
+      {
+        "roll": 31,
+        "value": "ir"
+      },
+      {
+        "roll": 32,
+        "value": "ja"
+      },
+      {
+        "roll": 33,
+        "value": "je"
+      },
+      {
+        "roll": 34,
+        "value": "ji"
+      },
+      {
+        "roll": 35,
+        "value": "jo"
+      },
+      {
+        "roll": 36,
+        "value": "jǫ"
+      },
+      {
+        "roll": 41,
+        "value": "ju"
+      },
+      {
+        "roll": 42,
+        "value": "ǫ"
+      },
+      {
+        "roll": 43,
+        "value": "oi"
+      },
+      {
+        "roll": 44,
+        "value": "om"
+      },
+      {
+        "roll": 45,
+        "value": "on"
+      },
+      {
+        "roll": 46,
+        "value": "ou"
+      },
+      {
+        "roll": 51,
+        "value": "ra"
+      },
+      {
+        "roll": 52,
+        "value": "re"
+      },
+      {
+        "roll": 53,
+        "value": "ri"
+      },
+      {
+        "roll": 54,
+        "value": "ro"
+      },
+      {
+        "roll": 55,
+        "value": "ru"
+      },
+      {
+        "roll": 56,
+        "value": "ry"
+      },
+      {
+        "roll": 61,
+        "value": "u"
+      },
+      {
+        "roll": 62,
+        "value": "ui"
+      },
+      {
+        "roll": 63,
+        "value": "un"
+      },
+      {
+        "roll": 64,
+        "value": "y"
+      },
+      {
+        "roll": 65,
+        "value": "ym"
+      },
+      {
+        "roll": 66,
+        "value": "yn"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "DIVINE",
+        "value": "in"
+      },
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "an"
+      },
+      {
+        "domain": "GUARDIAN",
+        "value": "on"
+      },
+      {
+        "domain": "WISDOM",
+        "value": "un"
+      },
+      {
+        "domain": "NATURE",
+        "value": "yn"
+      }
+    ]
+  },
+  {
+    "languageId": "language-kahadi",
+    "language": "Kahadi",
+    "source": "name-generators/Kahadi.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bh"
+      },
+      {
+        "roll": 13,
+        "value": "Bl"
+      },
+      {
+        "roll": 14,
+        "value": "Br"
+      },
+      {
+        "roll": 15,
+        "value": "Ch"
+      },
+      {
+        "roll": 16,
+        "value": "Ḍ"
+      },
+      {
+        "roll": 21,
+        "value": "Ḍh"
+      },
+      {
+        "roll": 22,
+        "value": "Dh"
+      },
+      {
+        "roll": 23,
+        "value": "Dr"
+      },
+      {
+        "roll": 24,
+        "value": "G"
+      },
+      {
+        "roll": 25,
+        "value": "Gh"
+      },
+      {
+        "roll": 26,
+        "value": "H"
+      },
+      {
+        "roll": 31,
+        "value": "Jh"
+      },
+      {
+        "roll": 32,
+        "value": "K"
+      },
+      {
+        "roll": 33,
+        "value": "Kh"
+      },
+      {
+        "roll": 34,
+        "value": "L"
+      },
+      {
+        "roll": 35,
+        "value": "M"
+      },
+      {
+        "roll": 36,
+        "value": "Ṇ"
+      },
+      {
+        "roll": 41,
+        "value": "N"
+      },
+      {
+        "roll": 42,
+        "value": "Ṇh"
+      },
+      {
+        "roll": 43,
+        "value": "P"
+      },
+      {
+        "roll": 44,
+        "value": "Ph"
+      },
+      {
+        "roll": 45,
+        "value": "Pl"
+      },
+      {
+        "roll": 46,
+        "value": "Pr"
+      },
+      {
+        "roll": 51,
+        "value": "Ṛ"
+      },
+      {
+        "roll": 52,
+        "value": "R"
+      },
+      {
+        "roll": 53,
+        "value": "Ṛh"
+      },
+      {
+        "roll": 54,
+        "value": "Ṣ"
+      },
+      {
+        "roll": 55,
+        "value": "S"
+      },
+      {
+        "roll": 56,
+        "value": "Ṣh"
+      },
+      {
+        "roll": 61,
+        "value": "Ṭ"
+      },
+      {
+        "roll": 62,
+        "value": "Ṭh"
+      },
+      {
+        "roll": 63,
+        "value": "Th"
+      },
+      {
+        "roll": 64,
+        "value": "Tr"
+      },
+      {
+        "roll": 65,
+        "value": "V"
+      },
+      {
+        "roll": 66,
+        "value": "Y"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-orukugu",
+    "language": "Orukugu",
+    "source": "name-generators/Orukugu.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Br"
+      },
+      {
+        "roll": 13,
+        "value": "Ch"
+      },
+      {
+        "roll": 14,
+        "value": "D"
+      },
+      {
+        "roll": 15,
+        "value": "Dr"
+      },
+      {
+        "roll": 16,
+        "value": "G"
+      },
+      {
+        "roll": 21,
+        "value": "Gh"
+      },
+      {
+        "roll": 22,
+        "value": "Gr"
+      },
+      {
+        "roll": 23,
+        "value": "J"
+      },
+      {
+        "roll": 24,
+        "value": "K"
+      },
+      {
+        "roll": 25,
+        "value": "Kh"
+      },
+      {
+        "roll": 26,
+        "value": "Khv"
+      },
+      {
+        "roll": 31,
+        "value": "Kr"
+      },
+      {
+        "roll": 32,
+        "value": "L"
+      },
+      {
+        "roll": 33,
+        "value": "M"
+      },
+      {
+        "roll": 34,
+        "value": "N"
+      },
+      {
+        "roll": 35,
+        "value": "P"
+      },
+      {
+        "roll": 36,
+        "value": "Pr"
+      },
+      {
+        "roll": 41,
+        "value": "Q"
+      },
+      {
+        "roll": 42,
+        "value": "Qh"
+      },
+      {
+        "roll": 43,
+        "value": "Qh"
+      },
+      {
+        "roll": 44,
+        "value": "Ql"
+      },
+      {
+        "roll": 45,
+        "value": "Ql"
+      },
+      {
+        "roll": 46,
+        "value": "Qr"
+      },
+      {
+        "roll": 51,
+        "value": "Qr"
+      },
+      {
+        "roll": 52,
+        "value": "Qw"
+      },
+      {
+        "roll": 53,
+        "value": "Qy"
+      },
+      {
+        "roll": 54,
+        "value": "R"
+      },
+      {
+        "roll": 55,
+        "value": "Sh"
+      },
+      {
+        "roll": 56,
+        "value": "Sk"
+      },
+      {
+        "roll": 61,
+        "value": "Sl"
+      },
+      {
+        "roll": 62,
+        "value": "Spr"
+      },
+      {
+        "roll": 63,
+        "value": "Str"
+      },
+      {
+        "roll": 64,
+        "value": "T"
+      },
+      {
+        "roll": 65,
+        "value": "Tr"
+      },
+      {
+        "roll": 66,
+        "value": "Zh"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "i"
+      },
+      {
+        "roll": 31,
+        "value": "il"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "MILITARY",
+        "value": "ok"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-qua",
+    "language": "Qua",
+    "source": "name-generators/Qua.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "Ch"
+      },
+      {
+        "roll": 12,
+        "value": "Dr"
+      },
+      {
+        "roll": 13,
+        "value": "Dz"
+      },
+      {
+        "roll": 14,
+        "value": "Gr"
+      },
+      {
+        "roll": 15,
+        "value": "Gw"
+      },
+      {
+        "roll": 16,
+        "value": "Kl"
+      },
+      {
+        "roll": 21,
+        "value": "Kr"
+      },
+      {
+        "roll": 22,
+        "value": "Kw"
+      },
+      {
+        "roll": 23,
+        "value": "Lj"
+      },
+      {
+        "roll": 24,
+        "value": "Mj"
+      },
+      {
+        "roll": 25,
+        "value": "Nj"
+      },
+      {
+        "roll": 26,
+        "value": "Pl"
+      },
+      {
+        "roll": 31,
+        "value": "Pr"
+      },
+      {
+        "roll": 32,
+        "value": "Rz"
+      },
+      {
+        "roll": 33,
+        "value": "Sh"
+      },
+      {
+        "roll": 34,
+        "value": "Shch"
+      },
+      {
+        "roll": 35,
+        "value": "Sk"
+      },
+      {
+        "roll": 36,
+        "value": "Skw"
+      },
+      {
+        "roll": 41,
+        "value": "Sl"
+      },
+      {
+        "roll": 42,
+        "value": "Slj"
+      },
+      {
+        "roll": 43,
+        "value": "Sm"
+      },
+      {
+        "roll": 44,
+        "value": "Sn"
+      },
+      {
+        "roll": 45,
+        "value": "Sp"
+      },
+      {
+        "roll": 46,
+        "value": "St"
+      },
+      {
+        "roll": 51,
+        "value": "Stj"
+      },
+      {
+        "roll": 52,
+        "value": "Str"
+      },
+      {
+        "roll": 53,
+        "value": "Sw"
+      },
+      {
+        "roll": 54,
+        "value": "Sz"
+      },
+      {
+        "roll": 55,
+        "value": "Tr"
+      },
+      {
+        "roll": 56,
+        "value": "Tw"
+      },
+      {
+        "roll": 61,
+        "value": "Vr"
+      },
+      {
+        "roll": 62,
+        "value": "Zd"
+      },
+      {
+        "roll": 63,
+        "value": "Zh"
+      },
+      {
+        "roll": 64,
+        "value": "Zl"
+      },
+      {
+        "roll": 65,
+        "value": "Zm"
+      },
+      {
+        "roll": 66,
+        "value": "Zn"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-rasiya",
+    "language": "Rasiya",
+    "source": "name-generators/Rasiya.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Br"
+      },
+      {
+        "roll": 13,
+        "value": "Ch"
+      },
+      {
+        "roll": 14,
+        "value": "D"
+      },
+      {
+        "roll": 15,
+        "value": "Dh"
+      },
+      {
+        "roll": 16,
+        "value": "Dż"
+      },
+      {
+        "roll": 21,
+        "value": "F"
+      },
+      {
+        "roll": 22,
+        "value": "G"
+      },
+      {
+        "roll": 23,
+        "value": "Gh"
+      },
+      {
+        "roll": 24,
+        "value": "Gr"
+      },
+      {
+        "roll": 25,
+        "value": "H"
+      },
+      {
+        "roll": 26,
+        "value": "J"
+      },
+      {
+        "roll": 31,
+        "value": "K"
+      },
+      {
+        "roll": 32,
+        "value": "Kh"
+      },
+      {
+        "roll": 33,
+        "value": "Kl"
+      },
+      {
+        "roll": 34,
+        "value": "Lj"
+      },
+      {
+        "roll": 35,
+        "value": "M"
+      },
+      {
+        "roll": 36,
+        "value": "N"
+      },
+      {
+        "roll": 41,
+        "value": "Nth"
+      },
+      {
+        "roll": 42,
+        "value": "P"
+      },
+      {
+        "roll": 43,
+        "value": "Pl"
+      },
+      {
+        "roll": 44,
+        "value": "Pr"
+      },
+      {
+        "roll": 45,
+        "value": "Rz"
+      },
+      {
+        "roll": 46,
+        "value": "S"
+      },
+      {
+        "roll": 51,
+        "value": "Shth"
+      },
+      {
+        "roll": 52,
+        "value": "Str"
+      },
+      {
+        "roll": 53,
+        "value": "Św"
+      },
+      {
+        "roll": 54,
+        "value": "Sz"
+      },
+      {
+        "roll": 55,
+        "value": "T"
+      },
+      {
+        "roll": 56,
+        "value": "Ṭh"
+      },
+      {
+        "roll": 61,
+        "value": "Tr"
+      },
+      {
+        "roll": 62,
+        "value": "Vr"
+      },
+      {
+        "roll": 63,
+        "value": "W"
+      },
+      {
+        "roll": 64,
+        "value": "Wr"
+      },
+      {
+        "roll": 65,
+        "value": "Ż"
+      },
+      {
+        "roll": 66,
+        "value": "Z"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [
+      {
+        "referent": "MALE HUMAN",
+        "value": "an"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "ar"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "or"
+      },
+      {
+        "referent": "MALE HUMAN",
+        "value": "un"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "i"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "ei"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "iya"
+      },
+      {
+        "referent": "FEMALE HUMAN",
+        "value": "eni"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "ul"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "ur"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "al"
+      },
+      {
+        "referent": "LIVING NONHUMAN",
+        "value": "il"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "at"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "it"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "am"
+      },
+      {
+        "referent": "OBJECT / CRAFTED",
+        "value": "em"
+      }
+    ],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-sarek",
+    "language": "Sarek",
+    "source": "name-generators/Sarek.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "Bl"
+      },
+      {
+        "roll": 12,
+        "value": "Br"
+      },
+      {
+        "roll": 13,
+        "value": "Chr"
+      },
+      {
+        "roll": 14,
+        "value": "Chw"
+      },
+      {
+        "roll": 15,
+        "value": "Cz"
+      },
+      {
+        "roll": 16,
+        "value": "Dr"
+      },
+      {
+        "roll": 21,
+        "value": "Dz"
+      },
+      {
+        "roll": 22,
+        "value": "Dż"
+      },
+      {
+        "roll": 23,
+        "value": "Fl"
+      },
+      {
+        "roll": 24,
+        "value": "Fr"
+      },
+      {
+        "roll": 25,
+        "value": "Gr"
+      },
+      {
+        "roll": 26,
+        "value": "Gw"
+      },
+      {
+        "roll": 31,
+        "value": "Kl"
+      },
+      {
+        "roll": 32,
+        "value": "Kr"
+      },
+      {
+        "roll": 33,
+        "value": "Kw"
+      },
+      {
+        "roll": 34,
+        "value": "Lj"
+      },
+      {
+        "roll": 35,
+        "value": "Mj"
+      },
+      {
+        "roll": 36,
+        "value": "Nj"
+      },
+      {
+        "roll": 41,
+        "value": "Pl"
+      },
+      {
+        "roll": 42,
+        "value": "Pr"
+      },
+      {
+        "roll": 43,
+        "value": "Rz"
+      },
+      {
+        "roll": 44,
+        "value": "Sk"
+      },
+      {
+        "roll": 45,
+        "value": "Skr"
+      },
+      {
+        "roll": 46,
+        "value": "Sl"
+      },
+      {
+        "roll": 51,
+        "value": "Spl"
+      },
+      {
+        "roll": 52,
+        "value": "Spr"
+      },
+      {
+        "roll": 53,
+        "value": "Str"
+      },
+      {
+        "roll": 54,
+        "value": "Św"
+      },
+      {
+        "roll": 55,
+        "value": "Sz"
+      },
+      {
+        "roll": 56,
+        "value": "Tr"
+      },
+      {
+        "roll": 61,
+        "value": "Tw"
+      },
+      {
+        "roll": 62,
+        "value": "W"
+      },
+      {
+        "roll": 63,
+        "value": "Wl"
+      },
+      {
+        "roll": 64,
+        "value": "Wr"
+      },
+      {
+        "roll": 65,
+        "value": "Z"
+      },
+      {
+        "roll": 66,
+        "value": "Ż"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-stask",
+    "language": "Stask",
+    "source": "name-generators/Stask.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "Bl"
+      },
+      {
+        "roll": 12,
+        "value": "Br"
+      },
+      {
+        "roll": 13,
+        "value": "Dh"
+      },
+      {
+        "roll": 14,
+        "value": "Dhl"
+      },
+      {
+        "roll": 15,
+        "value": "Dhn"
+      },
+      {
+        "roll": 16,
+        "value": "Dhr"
+      },
+      {
+        "roll": 21,
+        "value": "Dhw"
+      },
+      {
+        "roll": 22,
+        "value": "Dr"
+      },
+      {
+        "roll": 23,
+        "value": "F"
+      },
+      {
+        "roll": 24,
+        "value": "Fl"
+      },
+      {
+        "roll": 25,
+        "value": "Fr"
+      },
+      {
+        "roll": 26,
+        "value": "Gl"
+      },
+      {
+        "roll": 31,
+        "value": "Gr"
+      },
+      {
+        "roll": 32,
+        "value": "Kh"
+      },
+      {
+        "roll": 33,
+        "value": "Khr"
+      },
+      {
+        "roll": 34,
+        "value": "Khv"
+      },
+      {
+        "roll": 35,
+        "value": "Kl"
+      },
+      {
+        "roll": 36,
+        "value": "Kr"
+      },
+      {
+        "roll": 41,
+        "value": "Mth"
+      },
+      {
+        "roll": 42,
+        "value": "Ndh"
+      },
+      {
+        "roll": 43,
+        "value": "Nth"
+      },
+      {
+        "roll": 44,
+        "value": "Pl"
+      },
+      {
+        "roll": 45,
+        "value": "Pr"
+      },
+      {
+        "roll": 46,
+        "value": "Sh"
+      },
+      {
+        "roll": 51,
+        "value": "Shth"
+      },
+      {
+        "roll": 52,
+        "value": "Sk"
+      },
+      {
+        "roll": 53,
+        "value": "Sl"
+      },
+      {
+        "roll": 54,
+        "value": "Str"
+      },
+      {
+        "roll": 55,
+        "value": "Th"
+      },
+      {
+        "roll": 56,
+        "value": "Thl"
+      },
+      {
+        "roll": 61,
+        "value": "Thn"
+      },
+      {
+        "roll": 62,
+        "value": "Thr"
+      },
+      {
+        "roll": 63,
+        "value": "Thw"
+      },
+      {
+        "roll": 64,
+        "value": "Tr"
+      },
+      {
+        "roll": 65,
+        "value": "Zh"
+      },
+      {
+        "roll": 66,
+        "value": "Zhth"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  },
+  {
+    "languageId": "language-thaleshi",
+    "language": "Thaleshi",
+    "source": "name-generators/Thaleshi.md",
+    "kind": "standard",
+    "patterns": [
+      {
+        "roll": 1,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 2,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 3,
+        "pattern": "Begin + Suffix"
+      },
+      {
+        "roll": 4,
+        "pattern": "Middle + Middle + Suffix"
+      },
+      {
+        "roll": 5,
+        "pattern": "Begin + Middle + Suffix"
+      },
+      {
+        "roll": 6,
+        "pattern": "Middle + Begin + Suffix"
+      }
+    ],
+    "begin": [
+      {
+        "roll": 11,
+        "value": "B"
+      },
+      {
+        "roll": 12,
+        "value": "Bh"
+      },
+      {
+        "roll": 13,
+        "value": "Bl"
+      },
+      {
+        "roll": 14,
+        "value": "Br"
+      },
+      {
+        "roll": 15,
+        "value": "Ch"
+      },
+      {
+        "roll": 16,
+        "value": "D"
+      },
+      {
+        "roll": 21,
+        "value": "Dh"
+      },
+      {
+        "roll": 22,
+        "value": "Dr"
+      },
+      {
+        "roll": 23,
+        "value": "F"
+      },
+      {
+        "roll": 24,
+        "value": "G"
+      },
+      {
+        "roll": 25,
+        "value": "Gh"
+      },
+      {
+        "roll": 26,
+        "value": "Ghv"
+      },
+      {
+        "roll": 31,
+        "value": "Jh"
+      },
+      {
+        "roll": 32,
+        "value": "K"
+      },
+      {
+        "roll": 33,
+        "value": "Kh"
+      },
+      {
+        "roll": 34,
+        "value": "Khv"
+      },
+      {
+        "roll": 35,
+        "value": "L"
+      },
+      {
+        "roll": 36,
+        "value": "Lh"
+      },
+      {
+        "roll": 41,
+        "value": "M"
+      },
+      {
+        "roll": 42,
+        "value": "Mh"
+      },
+      {
+        "roll": 43,
+        "value": "N"
+      },
+      {
+        "roll": 44,
+        "value": "Nh"
+      },
+      {
+        "roll": 45,
+        "value": "P"
+      },
+      {
+        "roll": 46,
+        "value": "Ph"
+      },
+      {
+        "roll": 51,
+        "value": "Pl"
+      },
+      {
+        "roll": 52,
+        "value": "Pr"
+      },
+      {
+        "roll": 53,
+        "value": "R"
+      },
+      {
+        "roll": 54,
+        "value": "Rh"
+      },
+      {
+        "roll": 55,
+        "value": "S"
+      },
+      {
+        "roll": 56,
+        "value": "Sh"
+      },
+      {
+        "roll": 61,
+        "value": "T"
+      },
+      {
+        "roll": 62,
+        "value": "Th"
+      },
+      {
+        "roll": 63,
+        "value": "Tr"
+      },
+      {
+        "roll": 64,
+        "value": "V"
+      },
+      {
+        "roll": 65,
+        "value": "Z"
+      },
+      {
+        "roll": 66,
+        "value": "Zh"
+      }
+    ],
+    "middle": [
+      {
+        "roll": 11,
+        "value": "a"
+      },
+      {
+        "roll": 12,
+        "value": "ai"
+      },
+      {
+        "roll": 13,
+        "value": "am"
+      },
+      {
+        "roll": 14,
+        "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
+      },
+      {
+        "roll": 16,
+        "value": "au"
+      },
+      {
+        "roll": 21,
+        "value": "e"
+      },
+      {
+        "roll": 22,
+        "value": "ea"
+      },
+      {
+        "roll": 23,
+        "value": "el"
+      },
+      {
+        "roll": 24,
+        "value": "en"
+      },
+      {
+        "roll": 25,
+        "value": "er"
+      },
+      {
+        "roll": 26,
+        "value": "il"
+      },
+      {
+        "roll": 31,
+        "value": "in"
+      },
+      {
+        "roll": 32,
+        "value": "ir"
+      },
+      {
+        "roll": 33,
+        "value": "o"
+      },
+      {
+        "roll": 34,
+        "value": "oi"
+      },
+      {
+        "roll": 35,
+        "value": "om"
+      },
+      {
+        "roll": 36,
+        "value": "on"
+      },
+      {
+        "roll": 41,
+        "value": "or"
+      },
+      {
+        "roll": 42,
+        "value": "ou"
+      },
+      {
+        "roll": 43,
+        "value": "ra"
+      },
+      {
+        "roll": 44,
+        "value": "re"
+      },
+      {
+        "roll": 45,
+        "value": "ri"
+      },
+      {
+        "roll": 46,
+        "value": "ro"
+      },
+      {
+        "roll": 51,
+        "value": "ru"
+      },
+      {
+        "roll": 52,
+        "value": "ry"
+      },
+      {
+        "roll": 53,
+        "value": "u"
+      },
+      {
+        "roll": 54,
+        "value": "ui"
+      },
+      {
+        "roll": 55,
+        "value": "un"
+      },
+      {
+        "roll": 56,
+        "value": "ur"
+      },
+      {
+        "roll": 61,
+        "value": "ya"
+      },
+      {
+        "roll": 62,
+        "value": "ye"
+      },
+      {
+        "roll": 63,
+        "value": "yə"
+      },
+      {
+        "roll": 64,
+        "value": "yi"
+      },
+      {
+        "roll": 65,
+        "value": "yo"
+      },
+      {
+        "roll": 66,
+        "value": "yu"
+      }
+    ],
+    "referentSuffixes": [],
+    "morphologicalSuffixes": [
+      {
+        "domain": "SACRED",
+        "value": "en"
+      },
+      {
+        "domain": "NOBILITY",
+        "value": "ar"
+      },
+      {
+        "domain": "MILITARY",
+        "value": "or"
+      },
+      {
+        "domain": "CIVIC",
+        "value": "an"
+      },
+      {
+        "domain": "TRADE",
+        "value": "im"
+      },
+      {
+        "domain": "NATURAL",
+        "value": "ur"
+      }
+    ]
+  }
+]

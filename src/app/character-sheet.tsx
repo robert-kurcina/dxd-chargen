@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Icons } from '@/components/icons';
-import { cn } from '@/lib/utils';
+import type { CharacterSheetData } from '@/lib/character-sheet-projection';
 
 const HistorySection = ({ title, content }: { title: string; content: string }) => (
   <p className="text-sm">
@@ -10,17 +10,18 @@ const HistorySection = ({ title, content }: { title: string; content: string }) 
   </p>
 );
 
-export default function CharacterSheet({ characterData }: { characterData: any }) {
+export default function CharacterSheet({ characterData }: { characterData: CharacterSheetData }) {
   const portrait = PlaceHolderImages.find((img) => img.id === 'character-portrait');
   const star = PlaceHolderImages.find((img) => img.id === 'star-icon');
   const affinity = PlaceHolderImages.find((img) => img.id === 'affinity-icon');
+  const affinityIndex = characterData.attributes.findIndex((attribute) => attribute.name === characterData.affinityAttribute);
 
   return (
     <div
-      className="text-black p-4 md:p-8 font-sans bg-cover bg-center max-w-[960px] mx-auto"
+      className="text-black p-4 md:p-8 font-sans bg-cover bg-center max-w-[960px] mx-auto print:max-w-none print:p-0 print:bg-none"
       style={{ backgroundImage: `url(https://images.unsplash.com/photo-1579281783472-3b13411b415f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJjaG1lbnQlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTcxNDcwODc5N3ww&ixlib=rb-4.1.0&q=80&w=1080)` }}
     >
-      <div className="border border-gray-300 p-4 bg-white shadow-lg">
+      <div className="border border-gray-300 p-4 bg-white shadow-lg print:border-0 print:shadow-none">
         <header className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
           <div className="w-full md:w-2/3">
             <p className="text-lg text-gray-500 mb-1 text-[18px]">Name</p>
@@ -81,14 +82,14 @@ export default function CharacterSheet({ characterData }: { characterData: any }
 
         <section className="relative mb-4">
           <h2 className="font-bold mb-1 text-lg text-[18px]">Attributes</h2>
-          {affinity && (
+          {affinity && affinityIndex >= 0 && (
             <Image
               src={affinity.imageUrl}
               alt={affinity.description}
               width={40}
               height={38}
               className="absolute h-10 w-10 z-10"
-              style={{ top: '-0.5rem', left: 'calc(100% * 8.5 / 12 - 1.25rem)' }}
+              style={{ top: '-0.5rem', left: `calc(100% * ${affinityIndex + 0.5} / 12 - 1.25rem)` }}
             />
           )}
           <div className="relative border border-gray-300">
@@ -180,6 +181,7 @@ export default function CharacterSheet({ characterData }: { characterData: any }
               <HistorySection title="Weapons" content={characterData.history.weapons} />
               <HistorySection title="Armor" content={characterData.history.armor} />
               <HistorySection title="Magic Items" content={characterData.history.magicItems} />
+              <HistorySection title="Spells" content={characterData.history.spells ?? ''} />
               <HistorySection title="Skills" content={characterData.history.skills} />
               <HistorySection title="Languages" content={characterData.history.languages} />
             </div>

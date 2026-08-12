@@ -14,12 +14,14 @@ The Forge is the primary DXD character-creation interface. The character sheet i
 
 ## Data flow
 
-`Static DXD catalogues -> CharacterDraft -> deterministic rules/validation -> CharacterSheetViewModel`
+`Static DXD catalogues -> CharacterDraft -> deterministic rules/validation -> CharacterSheet projection`
+
+`CharacterDraft <-> local Character Library`
 
 React components should render results and dispatch selections. They should not become the authoritative location for DXD formulas.
 
 ## Current release
 
-v99 supplies the workflow foundation, canonical step order, local persistence prototype, and structured CharacterDraft. Rule-specific creation forms are subsequent milestones.
+v106 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Release hardening is the next tranche.
 
 See `FINAL_PRODUCT_PLAN.md` for the full implementation and release plan.

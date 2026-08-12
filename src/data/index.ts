@@ -5,7 +5,7 @@ import ageGroups from './ageGroups.json';
 import attributeArrays from './attributeArrays.json';
 import attributeDefinitions from './attributeDefinitions.json';
 import attributeCreationRules from './attributeCreationRules.json';
-import beliefs from './beliefs.json';
+import beliefsRaw from './beliefs.json';
 import calculatedAbilities from './calculatedAbilities.json';
 import itemWeaponsRaw from './itemWeapons.json';
 import itemArmorsRaw from './itemArmors.json';
@@ -16,19 +16,24 @@ import characteristicCosts from './characteristicCosts.json';
 import citystatesRaw from './citystates.json';
 import deitiesRaw from './deities.json';
 import descriptors from './descriptors.json';
-import disabilities from './disabilities.json';
+import disabilitiesRaw from './disabilities.json';
 import economicStatuses from './economicStatuses.json';
-import empires from './empires.json';
+import empiresRaw from './empires.json';
 import environs from './environs.json';
 import favoredTradesByLineage from './favoredTradesByLineage.json';
 import culturalHeritage from './culturalHeritage.json';
 import environHeritage from './environHeritage.json';
 import societalHeritage from './societalHeritage.json';
 import heritagePackages from './heritagePackages.json';
+import tradePackages from './tradePackages.json';
 import languages from './languages.json';
+import languageDefaults from './languageDefaults.json';
+import nameGenerators from './nameGenerators.json';
 import namingPracticeTitles from './namingPracticeTitles.json';
 import notableFeatures from './notableFeatures.json';
 import physicalBlemishes from './physicalBlemishes.json';
+import physicalScale from './physicalScale.json';
+import heritageCharacteristicAdjustments from './heritageCharacteristicAdjustments.json';
 import pmlTitles from './pmlTitles.json';
 import pmlAgeMinimums from './pmlAgeMinimums.json';
 import pmlRules from './pmlRules.json';
@@ -39,9 +44,9 @@ import salaryByTradeRank from './salaryByTradeRank.json';
 import salaryAdjustmentsByTrade from './salaryAdjustmentsByTrade.json';
 import settlements from './settlements.json';
 import socialGroups from './socialGroups.json';
-import socialRanks from './socialRanks.json';
+import socialRanksRaw from './socialRanks.json';
 import speciesRaw from './species.json';
-import tragedySeeds from './tragedySeeds.json';
+import tragedySeedsRaw from './tragedySeeds.json';
 import traitsRaw from './traits.json';
 import universalTable from './universal-table.json';
 import wealthTitles from './wealthTitles.json';
@@ -81,6 +86,11 @@ const magicItems = withCatalogIds(
 const citystates = withCatalogIds(citystatesRaw, 'citystate', (item) => item.name);
 const deities = withCatalogIds(deitiesRaw, 'deity', (item) => item.deity);
 const professions = withCatalogIds(professionsRaw, 'trade', (item) => item.trade);
+const beliefs = withCatalogIds(beliefsRaw, 'belief', (item) => item.keyword);
+const disabilities = withCatalogIds(disabilitiesRaw, 'disability', (item) => `${item.d66}-${item.disability}`);
+const empires = withCatalogIds(empiresRaw, 'region', (item) => item.name);
+const socialRanks = withCatalogIds(socialRanksRaw, 'social-rank', (item) => item.society);
+const tragedySeeds = withCatalogIds(tragedySeedsRaw, 'tragedy', (item) => `${item.d66}-${item.seed}`);
 
 // A playable Species needs an age-bracket table because Age is a required chargen step.
 // Kriket remains in the source files and XLSX ancestry tables, but is intentionally not
@@ -127,10 +137,15 @@ const sarnaLenData = {
   environHeritage,
   societalHeritage,
   heritagePackages,
+  tradePackages,
   languages,
+  languageDefaults,
+  nameGenerators,
   namingPracticeTitles,
   notableFeatures,
   physicalBlemishes,
+  physicalScale,
+  heritageCharacteristicAdjustments,
   pmlTitles,
   pmlAgeMinimums,
   pmlRules,

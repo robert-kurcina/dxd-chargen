@@ -1,0 +1,93 @@
+[
+  {
+    "kind": "economy",
+    "entries": [
+      "Rising"
+    ],
+    "stature": 0,
+    "build": 1
+  },
+  {
+    "kind": "economy",
+    "entries": [
+      "Impoverished"
+    ],
+    "stature": -2,
+    "build": -3
+  },
+  {
+    "kind": "economy",
+    "entries": [
+      "Affluent"
+    ],
+    "stature": 2,
+    "build": 1
+  },
+  {
+    "kind": "society",
+    "entries": [
+      "Peasant",
+      "Slumfolk"
+    ],
+    "stature": -3,
+    "build": -3
+  },
+  {
+    "kind": "society",
+    "entries": [
+      "Landed",
+      "Aristocrats"
+    ],
+    "stature": 0,
+    "build": 1
+  },
+  {
+    "kind": "society",
+    "entries": [
+      "Nobles",
+      "Royalty",
+      "Imperial"
+    ],
+    "stature": 1,
+    "build": 1
+  },
+  {
+    "kind": "environs",
+    "entries": [
+      "Badlands",
+      "Deserts",
+      "Swamp",
+      "Taiga",
+      "Tundra"
+    ],
+    "stature": -1,
+    "build": -1
+  },
+  {
+    "kind": "environs",
+    "entries": [
+      "River",
+      "Woods"
+    ],
+    "stature": 0,
+    "build": 1
+  },
+  {
+    "kind": "culture",
+    "entries": [
+      "Merchant",
+      "Warrior"
+    ],
+    "stature": 1,
+    "build": 1
+  },
+  {
+    "kind": "culture",
+    "entries": [
+      "Nomadic",
+      "Wildling"
+    ],
+    "stature": -2,
+    "build": 0
+  }
+]

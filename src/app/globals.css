@@ -82,3 +82,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* DXD print sheet */
+@media print {
+  @page { margin: 0.35in; }
+  html, body { background: white !important; }
+  body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

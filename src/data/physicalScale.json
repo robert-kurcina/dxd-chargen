@@ -1,0 +1,702 @@
+[
+  {
+    "value": 0,
+    "height": "1'6",
+    "heightInches": 18,
+    "weightPounds": 3,
+    "siz": -6
+  },
+  {
+    "value": 1,
+    "height": "1'7",
+    "heightInches": 19,
+    "weightPounds": 3,
+    "siz": -5
+  },
+  {
+    "value": 2,
+    "height": "1'8",
+    "heightInches": 20,
+    "weightPounds": 4,
+    "siz": -4
+  },
+  {
+    "value": 3,
+    "height": "1'10",
+    "heightInches": 22,
+    "weightPounds": 5,
+    "siz": -3
+  },
+  {
+    "value": 4,
+    "height": "1'11",
+    "heightInches": 23,
+    "weightPounds": 6,
+    "siz": -3
+  },
+  {
+    "value": 5,
+    "height": "2'0",
+    "heightInches": 24,
+    "weightPounds": 7,
+    "siz": -2
+  },
+  {
+    "value": 6,
+    "height": "2'1",
+    "heightInches": 25,
+    "weightPounds": 8,
+    "siz": -1
+  },
+  {
+    "value": 7,
+    "height": "2'2",
+    "heightInches": 26,
+    "weightPounds": 8,
+    "siz": -1
+  },
+  {
+    "value": 8,
+    "height": "2'3",
+    "heightInches": 27,
+    "weightPounds": 9,
+    "siz": 0
+  },
+  {
+    "value": 9,
+    "height": "2'3",
+    "heightInches": 27,
+    "weightPounds": 10,
+    "siz": 0
+  },
+  {
+    "value": 10,
+    "height": "2'4",
+    "heightInches": 28,
+    "weightPounds": 10,
+    "siz": 0
+  },
+  {
+    "value": 11,
+    "height": "2'5",
+    "heightInches": 29,
+    "weightPounds": 11,
+    "siz": 0
+  },
+  {
+    "value": 12,
+    "height": "2'5",
+    "heightInches": 29,
+    "weightPounds": 12,
+    "siz": 1
+  },
+  {
+    "value": 13,
+    "height": "2'6",
+    "heightInches": 30,
+    "weightPounds": 13,
+    "siz": 1
+  },
+  {
+    "value": 14,
+    "height": "2'7",
+    "heightInches": 31,
+    "weightPounds": 14,
+    "siz": 1
+  },
+  {
+    "value": 15,
+    "height": "2'7",
+    "heightInches": 31,
+    "weightPounds": 15,
+    "siz": 2
+  },
+  {
+    "value": 16,
+    "height": "2'8",
+    "heightInches": 32,
+    "weightPounds": 16,
+    "siz": 2
+  },
+  {
+    "value": 17,
+    "height": "2'9",
+    "heightInches": 33,
+    "weightPounds": 17,
+    "siz": 2
+  },
+  {
+    "value": 18,
+    "height": "2'10",
+    "heightInches": 34,
+    "weightPounds": 18,
+    "siz": 3
+  },
+  {
+    "value": 19,
+    "height": "2'10",
+    "heightInches": 34,
+    "weightPounds": 19,
+    "siz": 3
+  },
+  {
+    "value": 20,
+    "height": "2'11",
+    "heightInches": 35,
+    "weightPounds": 21,
+    "siz": 3
+  },
+  {
+    "value": 21,
+    "height": "3'0",
+    "heightInches": 36,
+    "weightPounds": 22,
+    "siz": 3
+  },
+  {
+    "value": 22,
+    "height": "3'1",
+    "heightInches": 37,
+    "weightPounds": 24,
+    "siz": 4
+  },
+  {
+    "value": 23,
+    "height": "3'2",
+    "heightInches": 38,
+    "weightPounds": 26,
+    "siz": 4
+  },
+  {
+    "value": 24,
+    "height": "3'3",
+    "heightInches": 39,
+    "weightPounds": 27,
+    "siz": 4
+  },
+  {
+    "value": 25,
+    "height": "3'4",
+    "heightInches": 40,
+    "weightPounds": 29,
+    "siz": 5
+  },
+  {
+    "value": 26,
+    "height": "3'5",
+    "heightInches": 41,
+    "weightPounds": 32,
+    "siz": 5
+  },
+  {
+    "value": 27,
+    "height": "3'6",
+    "heightInches": 42,
+    "weightPounds": 34,
+    "siz": 5
+  },
+  {
+    "value": 28,
+    "height": "3'7",
+    "heightInches": 43,
+    "weightPounds": 36,
+    "siz": 6
+  },
+  {
+    "value": 29,
+    "height": "3'8",
+    "heightInches": 44,
+    "weightPounds": 39,
+    "siz": 6
+  },
+  {
+    "value": 30,
+    "height": "3'9",
+    "heightInches": 45,
+    "weightPounds": 42,
+    "siz": 6
+  },
+  {
+    "value": 31,
+    "height": "3'10",
+    "heightInches": 46,
+    "weightPounds": 45,
+    "siz": 6
+  },
+  {
+    "value": 32,
+    "height": "3'11",
+    "heightInches": 47,
+    "weightPounds": 48,
+    "siz": 7
+  },
+  {
+    "value": 33,
+    "height": "4'0",
+    "heightInches": 48,
+    "weightPounds": 51,
+    "siz": 7
+  },
+  {
+    "value": 34,
+    "height": "4'1",
+    "heightInches": 49,
+    "weightPounds": 55,
+    "siz": 7
+  },
+  {
+    "value": 35,
+    "height": "4'2",
+    "heightInches": 50,
+    "weightPounds": 59,
+    "siz": 8
+  },
+  {
+    "value": 36,
+    "height": "4'3",
+    "heightInches": 51,
+    "weightPounds": 63,
+    "siz": 8
+  },
+  {
+    "value": 37,
+    "height": "4'4",
+    "heightInches": 52,
+    "weightPounds": 68,
+    "siz": 8
+  },
+  {
+    "value": 38,
+    "height": "4'6",
+    "heightInches": 54,
+    "weightPounds": 72,
+    "siz": 9
+  },
+  {
+    "value": 39,
+    "height": "4'7",
+    "heightInches": 55,
+    "weightPounds": 78,
+    "siz": 9
+  },
+  {
+    "value": 40,
+    "height": "4'8",
+    "heightInches": 56,
+    "weightPounds": 83,
+    "siz": 9
+  },
+  {
+    "value": 41,
+    "height": "4'10",
+    "heightInches": 58,
+    "weightPounds": 89,
+    "siz": 9
+  },
+  {
+    "value": 42,
+    "height": "4'11",
+    "heightInches": 59,
+    "weightPounds": 96,
+    "siz": 10
+  },
+  {
+    "value": 43,
+    "height": "5'0",
+    "heightInches": 60,
+    "weightPounds": 102,
+    "siz": 10
+  },
+  {
+    "value": 44,
+    "height": "5'2",
+    "heightInches": 62,
+    "weightPounds": 110,
+    "siz": 10
+  },
+  {
+    "value": 45,
+    "height": "5'3",
+    "heightInches": 63,
+    "weightPounds": 118,
+    "siz": 11
+  },
+  {
+    "value": 46,
+    "height": "5'5",
+    "heightInches": 65,
+    "weightPounds": 126,
+    "siz": 11
+  },
+  {
+    "value": 47,
+    "height": "5'6",
+    "heightInches": 66,
+    "weightPounds": 135,
+    "siz": 11
+  },
+  {
+    "value": 48,
+    "height": "5'8",
+    "heightInches": 68,
+    "weightPounds": 145,
+    "siz": 12
+  },
+  {
+    "value": 49,
+    "height": "5'9",
+    "heightInches": 69,
+    "weightPounds": 155,
+    "siz": 12
+  },
+  {
+    "value": 50,
+    "height": "5'11",
+    "heightInches": 71,
+    "weightPounds": 166,
+    "siz": 12
+  },
+  {
+    "value": 51,
+    "height": "6'1",
+    "heightInches": 73,
+    "weightPounds": 178,
+    "siz": 12
+  },
+  {
+    "value": 52,
+    "height": "6'2",
+    "heightInches": 74,
+    "weightPounds": 191,
+    "siz": 13
+  },
+  {
+    "value": 53,
+    "height": "6'4",
+    "heightInches": 76,
+    "weightPounds": 205,
+    "siz": 13
+  },
+  {
+    "value": 54,
+    "height": "6'6",
+    "heightInches": 78,
+    "weightPounds": 220,
+    "siz": 13
+  },
+  {
+    "value": 55,
+    "height": "6'8",
+    "heightInches": 80,
+    "weightPounds": 235,
+    "siz": 14
+  },
+  {
+    "value": 56,
+    "height": "6'10",
+    "heightInches": 82,
+    "weightPounds": 252,
+    "siz": 14
+  },
+  {
+    "value": 57,
+    "height": "7'0",
+    "heightInches": 84,
+    "weightPounds": 270,
+    "siz": 14
+  },
+  {
+    "value": 58,
+    "height": "7'1",
+    "heightInches": 85,
+    "weightPounds": 290,
+    "siz": 15
+  },
+  {
+    "value": 59,
+    "height": "7'3",
+    "heightInches": 87,
+    "weightPounds": 311,
+    "siz": 15
+  },
+  {
+    "value": 60,
+    "height": "7'6",
+    "heightInches": 90,
+    "weightPounds": 333,
+    "siz": 15
+  },
+  {
+    "value": 61,
+    "height": "7'8",
+    "heightInches": 92,
+    "weightPounds": 357,
+    "siz": 15
+  },
+  {
+    "value": 62,
+    "height": "7'10",
+    "heightInches": 94,
+    "weightPounds": 382,
+    "siz": 16
+  },
+  {
+    "value": 63,
+    "height": "8'0",
+    "heightInches": 96,
+    "weightPounds": 410,
+    "siz": 16
+  },
+  {
+    "value": 64,
+    "height": "8'2",
+    "heightInches": 98,
+    "weightPounds": 439,
+    "siz": 16
+  },
+  {
+    "value": 65,
+    "height": "8'5",
+    "heightInches": 101,
+    "weightPounds": 471,
+    "siz": 17
+  },
+  {
+    "value": 66,
+    "height": "8'7",
+    "heightInches": 103,
+    "weightPounds": 505,
+    "siz": 17
+  },
+  {
+    "value": 67,
+    "height": "8'9",
+    "heightInches": 105,
+    "weightPounds": 541,
+    "siz": 17
+  },
+  {
+    "value": 68,
+    "height": "9'0",
+    "heightInches": 108,
+    "weightPounds": 580,
+    "siz": 18
+  },
+  {
+    "value": 69,
+    "height": "9'2",
+    "heightInches": 110,
+    "weightPounds": 621,
+    "siz": 18
+  },
+  {
+    "value": 70,
+    "height": "9'5",
+    "heightInches": 113,
+    "weightPounds": 666,
+    "siz": 18
+  },
+  {
+    "value": 71,
+    "height": "9'7",
+    "heightInches": 115,
+    "weightPounds": 714,
+    "siz": 18
+  },
+  {
+    "value": 72,
+    "height": "9'10",
+    "heightInches": 118,
+    "weightPounds": 765,
+    "siz": 19
+  },
+  {
+    "value": 73,
+    "height": "10'1",
+    "heightInches": 121,
+    "weightPounds": 820,
+    "siz": 19
+  },
+  {
+    "value": 74,
+    "height": "10'3",
+    "heightInches": 123,
+    "weightPounds": 879,
+    "siz": 19
+  },
+  {
+    "value": 75,
+    "height": "10'6",
+    "heightInches": 126,
+    "weightPounds": 942,
+    "siz": 20
+  },
+  {
+    "value": 76,
+    "height": "10'9",
+    "heightInches": 129,
+    "weightPounds": 1009,
+    "siz": 20
+  },
+  {
+    "value": 77,
+    "height": "11'1",
+    "heightInches": 133,
+    "weightPounds": 1082,
+    "siz": 20
+  },
+  {
+    "value": 78,
+    "height": "11'5",
+    "heightInches": 137,
+    "weightPounds": 1159,
+    "siz": 21
+  },
+  {
+    "value": 79,
+    "height": "11'8",
+    "heightInches": 140,
+    "weightPounds": 1242,
+    "siz": 21
+  },
+  {
+    "value": 80,
+    "height": "11'11",
+    "heightInches": 143,
+    "weightPounds": 1332,
+    "siz": 21
+  },
+  {
+    "value": 81,
+    "height": "12'3",
+    "heightInches": 147,
+    "weightPounds": 1427,
+    "siz": 21
+  },
+  {
+    "value": 82,
+    "height": "12'6",
+    "heightInches": 150,
+    "weightPounds": 1530,
+    "siz": 22
+  },
+  {
+    "value": 83,
+    "height": "12'10",
+    "heightInches": 154,
+    "weightPounds": 1639,
+    "siz": 22
+  },
+  {
+    "value": 84,
+    "height": "13'1",
+    "heightInches": 157,
+    "weightPounds": 1757,
+    "siz": 22
+  },
+  {
+    "value": 85,
+    "height": "13'5",
+    "heightInches": 161,
+    "weightPounds": 1883,
+    "siz": 23
+  },
+  {
+    "value": 86,
+    "height": "13'9",
+    "heightInches": 165,
+    "weightPounds": 2018,
+    "siz": 23
+  },
+  {
+    "value": 87,
+    "height": "14'1",
+    "heightInches": 169,
+    "weightPounds": 2163,
+    "siz": 23
+  },
+  {
+    "value": 88,
+    "height": "14'5",
+    "heightInches": 173,
+    "weightPounds": 2318,
+    "siz": 24
+  },
+  {
+    "value": 89,
+    "height": "14'9",
+    "heightInches": 177,
+    "weightPounds": 2485,
+    "siz": 24
+  },
+  {
+    "value": 90,
+    "height": "15'1",
+    "heightInches": 181,
+    "weightPounds": 2663,
+    "siz": 24
+  },
+  {
+    "value": 91,
+    "height": "15'5",
+    "heightInches": 185,
+    "weightPounds": 2854,
+    "siz": 24
+  },
+  {
+    "value": 92,
+    "height": "15'10",
+    "heightInches": 190,
+    "weightPounds": 3059,
+    "siz": 25
+  },
+  {
+    "value": 93,
+    "height": "16'2",
+    "heightInches": 194,
+    "weightPounds": 3279,
+    "siz": 25
+  },
+  {
+    "value": 94,
+    "height": "16'7",
+    "heightInches": 199,
+    "weightPounds": 3514,
+    "siz": 25
+  },
+  {
+    "value": 95,
+    "height": "16'11",
+    "heightInches": 203,
+    "weightPounds": 3766,
+    "siz": 26
+  },
+  {
+    "value": 96,
+    "height": "17'4",
+    "heightInches": 208,
+    "weightPounds": 4037,
+    "siz": 26
+  },
+  {
+    "value": 97,
+    "height": "17'9",
+    "heightInches": 213,
+    "weightPounds": 4326,
+    "siz": 26
+  },
+  {
+    "value": 98,
+    "height": "18'2",
+    "heightInches": 218,
+    "weightPounds": 4637,
+    "siz": 27
+  },
+  {
+    "value": 99,
+    "height": "18'7",
+    "heightInches": 223,
+    "weightPounds": 4970,
+    "siz": 27
+  }
+]

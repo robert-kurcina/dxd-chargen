@@ -9,7 +9,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import { Icons } from '@/components/ui/icons';
-import { v4 as uuidv4 } from 'uuid';
 import {
   ND6,
   D66,
@@ -460,10 +459,10 @@ const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
 };
 
 const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
-  const [rows, setRows] = useState([{ id: uuidv4(), trade: 'Warrior', rank: 1, count: 1 }]);
+  const [rows, setRows] = useState([{ id: crypto.randomUUID(), trade: 'Warrior', rank: 1, count: 1 }]);
 
   const handleAddRow = () => {
-    setRows([...rows, { id: uuidv4(), trade: 'Warrior', rank: 1, count: 1 }]);
+    setRows([...rows, { id: crypto.randomUUID(), trade: 'Warrior', rank: 1, count: 1 }]);
   };
 
   const handleRemoveRow = (id: string) => {

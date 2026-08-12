@@ -1,0 +1,8 @@
+[
+  { "settlement": "Sarken", "languageId": "language-sarek", "source": "Book III — Assign Languages" },
+  { "settlement": "Quagkh", "languageId": "language-qua", "source": "Book III — Assign Languages" },
+  { "settlement": "Boral", "languageId": "language-boren", "source": "Book III — Assign Languages" },
+  { "settlement": "Stagin", "languageId": "language-stask", "source": "Book III — Assign Languages" },
+  { "settlement": "Corom", "languageId": "language-coro", "source": "Book III — Assign Languages" },
+  { "settlement": "Paelon", "languageId": "language-thaleshi", "source": "Book III — Assign Languages" }
+]
