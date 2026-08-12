@@ -1,0 +1,189 @@
+[
+  {
+    "id": "language-arikkah",
+    "name": "Arikkah",
+    "utility": "Regional",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Humaniki",
+    "locus": "Southlands",
+    "empire": "Djorkan",
+    "nameGenerator": "name-generators/Arikkah.md"
+  },
+  {
+    "id": "language-blacktongue",
+    "name": "Blacktongue",
+    "utility": "Distributed",
+    "beatified": true,
+    "deity": "all Deities",
+    "peoples": null,
+    "locus": "Magespeak",
+    "empire": null,
+    "nameGenerator": "name-generators/Blacktongue.md"
+  },
+  {
+    "id": "language-boren",
+    "name": "Boren",
+    "utility": "Imperial",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Humaniki",
+    "locus": "Citystate Boral",
+    "empire": "Boron",
+    "nameGenerator": "name-generators/Boren.md"
+  },
+  {
+    "id": "language-borensk",
+    "name": "Borensk",
+    "utility": "Imperial",
+    "beatified": true,
+    "deity": "Sillis",
+    "peoples": "Humaniki",
+    "locus": "Citystate Boral",
+    "empire": "Boron",
+    "nameGenerator": "name-generators/Borensk.md"
+  },
+  {
+    "id": "language-cher-gulo",
+    "name": "Cher-gulo",
+    "utility": "Distributed",
+    "beatified": true,
+    "deity": "Ghul",
+    "peoples": "Humaniki",
+    "locus": "Cherigili",
+    "empire": null,
+    "nameGenerator": "name-generators/Cher-gulo.md"
+  },
+  {
+    "id": "language-coro",
+    "name": "Coro",
+    "utility": "Imperial",
+    "beatified": false,
+    "deity": "Coro",
+    "peoples": "Humaniki",
+    "locus": "Citystate Corom",
+    "empire": "Djorkan",
+    "nameGenerator": "name-generators/Coro.md"
+  },
+  {
+    "id": "language-ershthikal",
+    "name": "Ershthikal",
+    "utility": "Distributed",
+    "beatified": true,
+    "deity": "Ershthik",
+    "peoples": "Golbrini",
+    "locus": "Golbrini",
+    "empire": null,
+    "nameGenerator": "name-generators/Ershthikal.md"
+  },
+  {
+    "id": "language-fayeed",
+    "name": "Fayeed",
+    "utility": "Regional",
+    "beatified": true,
+    "deity": "Farl",
+    "peoples": "Klenari",
+    "locus": "Eastlands",
+    "empire": null,
+    "nameGenerator": "name-generators/Fayeed.md"
+  },
+  {
+    "id": "language-heimneshi",
+    "name": "Heimneshi",
+    "utility": "Imperial",
+    "beatified": false,
+    "deity": "Lekteb",
+    "peoples": "Humaniki",
+    "locus": "Castel Heimnor",
+    "empire": null,
+    "nameGenerator": "name-generators/Heimneshi.md"
+  },
+  {
+    "id": "language-ithuuikal",
+    "name": "Ithuuikal",
+    "utility": "Distributed",
+    "beatified": true,
+    "deity": "Szhuun",
+    "peoples": null,
+    "locus": "Northlands",
+    "empire": null,
+    "nameGenerator": "name-generators/Ithuuikal.md"
+  },
+  {
+    "id": "language-kahadi",
+    "name": "Kahadi",
+    "utility": "Regional",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Humaniki",
+    "locus": "Bendeni Realms",
+    "empire": "Pazkani",
+    "nameGenerator": "name-generators/Kahadi.md"
+  },
+  {
+    "id": "language-orukugu",
+    "name": "Orukugu",
+    "utility": "Distributed",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Orok",
+    "locus": "Orok Realms",
+    "empire": null,
+    "nameGenerator": "name-generators/Orukugu.md"
+  },
+  {
+    "id": "language-qua",
+    "name": "Qua",
+    "utility": "Imperial",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Humaniki",
+    "locus": "Citystate Quagkh",
+    "empire": "Vashtur",
+    "nameGenerator": "name-generators/Qua.md"
+  },
+  {
+    "id": "language-rasiya",
+    "name": "Rasiya",
+    "utility": "Regional",
+    "beatified": false,
+    "deity": "Resta",
+    "peoples": "Humaniki",
+    "locus": "Restan Empire",
+    "empire": null,
+    "nameGenerator": "name-generators/Rasiya.md"
+  },
+  {
+    "id": "language-sarek",
+    "name": "Sarek",
+    "utility": "Imperial",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Humaniki",
+    "locus": "Citystate Sarken",
+    "empire": "Sarukhen",
+    "nameGenerator": "name-generators/Sarek.md"
+  },
+  {
+    "id": "language-stask",
+    "name": "Stask",
+    "utility": "Regional",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Humaniki",
+    "locus": "Vasik Realms",
+    "empire": null,
+    "nameGenerator": "name-generators/Stask.md"
+  },
+  {
+    "id": "language-thaleshi",
+    "name": "Thaleshi",
+    "utility": "Regional",
+    "beatified": false,
+    "deity": "Thalesh",
+    "peoples": "Humaniki",
+    "locus": "Highlands",
+    "empire": "Palten",
+    "nameGenerator": "name-generators/Thaleshi.md"
+  }
+]

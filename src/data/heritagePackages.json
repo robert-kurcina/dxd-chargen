@@ -1,0 +1,2978 @@
+[
+  {
+    "id": "heritage-environs-badlands",
+    "kind": "environs",
+    "name": "Badlands",
+    "canonRef": "canon #6",
+    "wealth": -3,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-surefooted-x",
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Badlands",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-tracking-x",
+        "trait": "Tracking X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-tribal",
+    "kind": "society",
+    "name": "Tribal",
+    "canonRef": "canon #20",
+    "wealth": 4,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-tactics-x-type",
+        "trait": "Tactics X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 3,
+          "packageValueLevel": 1,
+          "skillpoints": 3
+        }
+      },
+      {
+        "traitId": "trait-tracking-x",
+        "trait": "Tracking X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-wise-x",
+        "trait": "Wise X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-nomadic",
+    "kind": "culture",
+    "name": "Nomadic",
+    "canonRef": "canon #21",
+    "wealth": -2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 2.6666666666666665
+        }
+      },
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-leadership-x",
+        "trait": "Leadership X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 3,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-pathfinder-x",
+        "trait": "Pathfinder X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-surefooted-x",
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-swim-x",
+        "trait": "Swim X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-coastal",
+    "kind": "environs",
+    "name": "Coastal",
+    "canonRef": "canon #10",
+    "wealth": 2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-fishing-x",
+        "trait": "Fishing X",
+        "specialization": null,
+        "level": 4,
+        "authorCalibration": {
+          "stars": 5,
+          "im": 1,
+          "packageValueLevel": 2.333333333333333,
+          "skillpoints": 2.333333333333333
+        }
+      },
+      {
+        "traitId": "trait-gossip-x",
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 4,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-swim-x",
+        "trait": "Swim X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-peasant",
+    "kind": "society",
+    "name": "Peasant",
+    "canonRef": "canon #26",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-discipline-x",
+        "trait": "Discipline X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 3,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-implore-x",
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-mob-x",
+        "trait": "Mob X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 10,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 3.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-wise-x",
+        "trait": "Wise X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-wildling",
+    "kind": "culture",
+    "name": "Wildling",
+    "canonRef": "canon #23",
+    "wealth": -3,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Trapping",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-mob-x",
+        "trait": "Mob X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 10,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 3.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-sneaky-x",
+        "trait": "Sneaky X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 3,
+          "packageValueLevel": 1,
+          "skillpoints": 3
+        }
+      },
+      {
+        "traitId": "trait-surefooted-x",
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-tracking-x",
+        "trait": "Tracking X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-deserts",
+    "kind": "environs",
+    "name": "Deserts",
+    "canonRef": "canon #7",
+    "wealth": 1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-grit-x",
+        "trait": "Grit X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Deserts",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-slumfolk",
+    "kind": "society",
+    "name": "Slumfolk",
+    "canonRef": "canon #26",
+    "wealth": 4,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 2.6666666666666665
+        }
+      },
+      {
+        "traitId": "trait-gambling-x-game",
+        "trait": "Gambling X > Game",
+        "specialization": "Any",
+        "level": 4,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 1,
+          "packageValueLevel": 3,
+          "skillpoints": 3
+        }
+      },
+      {
+        "traitId": "trait-implore-x",
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-mob-x",
+        "trait": "Mob X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 10,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 3.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-pidgin-x-type-and-region",
+        "trait": "Pidgin X > Type & Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.33333333333333337
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-service-x-type",
+        "trait": "Service X > Type",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 2.6666666666666665
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-warrior",
+    "kind": "culture",
+    "name": "Warrior",
+    "canonRef": "canon #20",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-brawn-x",
+        "trait": "Brawn X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Martial",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-expert-x-weapon",
+        "trait": "Expert X > Weapon",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-grit-x",
+        "trait": "Grit X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-martialist-x",
+        "trait": "Martialist X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-trained-x-type",
+        "trait": "Trained X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-warfare-x-category",
+        "trait": "Warfare X > Category",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 3,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-forests",
+    "kind": "environs",
+    "name": "Forests",
+    "canonRef": "canon #10",
+    "wealth": 1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-tracking-x",
+        "trait": "Tracking X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-townsfolk",
+    "kind": "society",
+    "name": "Townsfolk",
+    "canonRef": "canon #26",
+    "wealth": 9,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-section-studies-x-skill",
+        "trait": "§Studies X > Skill",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 4,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 6.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-artist-x",
+        "trait": "Artist X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 4,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 5.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-design-x-category",
+        "trait": "Design X > Category",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 4,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-read-x-language",
+        "trait": "Read X > Language",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-farming",
+    "kind": "culture",
+    "name": "Farming",
+    "canonRef": "canon #23",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-brawn-x",
+        "trait": "Brawn X",
+        "specialization": "Farming",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Farming",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-greenthumb-x",
+        "trait": "Greenthumb X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-husbandry-x",
+        "trait": "Husbandry X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-sturdy-x",
+        "trait": "Sturdy X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 10,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 6.666666666666668
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-hills",
+    "kind": "environs",
+    "name": "Hills",
+    "canonRef": "canon #10",
+    "wealth": 1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-climb-x",
+        "trait": "Climb X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-husbandry-x",
+        "trait": "Husbandry X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-cityfolk",
+    "kind": "society",
+    "name": "Cityfolk",
+    "canonRef": "canon #21",
+    "wealth": 11,
+    "social": 1,
+    "grants": [
+      {
+        "traitId": "trait-section-academics-x-skill",
+        "trait": "§Academics X > Skill",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 4,
+          "packageValueLevel": 1,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-section-studies-x-skill",
+        "trait": "§Studies X > Skill",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 4,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 5.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-history-x-region",
+        "trait": "History X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-lore-x-field",
+        "trait": "Lore X > Field",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-read-x-language",
+        "trait": "Read X > Language",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-herding",
+    "kind": "culture",
+    "name": "Herding",
+    "canonRef": "canon #20",
+    "wealth": 1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Herder",
+        "level": 4,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 3,
+          "skillpoints": 6
+        }
+      },
+      {
+        "traitId": "trait-husbandry-x",
+        "trait": "Husbandry X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 4.666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-jungle",
+    "kind": "environs",
+    "name": "Jungle",
+    "canonRef": "canon #8",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-climb-x",
+        "trait": "Climb X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Jungle",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 4.666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-landed",
+    "kind": "society",
+    "name": "Landed",
+    "canonRef": "canon #17",
+    "wealth": 13,
+    "social": 3,
+    "grants": [
+      {
+        "traitId": "trait-coward-x",
+        "trait": "[Coward X]",
+        "specialization": null,
+        "level": 4,
+        "authorCalibration": {
+          "stars": 3,
+          "im": -6,
+          "packageValueLevel": 3,
+          "skillpoints": -18
+        }
+      },
+      {
+        "traitId": "trait-enemies-x-settlement",
+        "trait": "[Enemies X > Settlement]",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -20,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": -6.666666666666668
+        }
+      },
+      {
+        "traitId": "trait-section-studies-x-skill",
+        "trait": "§Studies X > Skill",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 4,
+          "packageValueLevel": 1,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-connections-x",
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 5,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 8.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-history-x-region",
+        "trait": "History X > Region",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-maths-x",
+        "trait": "Maths X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 4,
+          "packageValueLevel": 1,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-read-x-language",
+        "trait": "Read X > Language",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-title-x-region",
+        "trait": "Title X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 10,
+          "packageValueLevel": 1,
+          "skillpoints": 10
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-fishing",
+    "kind": "culture",
+    "name": "Fishing",
+    "canonRef": "canon #20",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Fisher",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 5.333333333333333
+        }
+      },
+      {
+        "traitId": "trait-fishing-x",
+        "trait": "Fishing X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 2,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-swim-x",
+        "trait": "Swim X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 2.6666666666666665
+        }
+      },
+      {
+        "traitId": "trait-trapmaster-x",
+        "trait": "Trapmaster X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 3,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-marsh",
+    "kind": "environs",
+    "name": "Marsh",
+    "canonRef": "canon #8",
+    "wealth": -1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-brawn-x",
+        "trait": "Brawn X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-fishing-x",
+        "trait": "Fishing X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-surefooted-x",
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 2,
+          "skillpoints": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-aristocrats",
+    "kind": "society",
+    "name": "Aristocrats",
+    "canonRef": "canon #24",
+    "wealth": 16,
+    "social": 4,
+    "grants": [
+      {
+        "traitId": "trait-coward-x",
+        "trait": "[Coward X]",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": -6,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": -10
+        }
+      },
+      {
+        "traitId": "trait-enemies-x-settlement",
+        "trait": "[Enemies X > Settlement]",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": -20,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": -33.333333333333336
+        }
+      },
+      {
+        "traitId": "trait-section-studies-x-skill",
+        "trait": "§Studies X > Skill",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 4,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 9.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-connections-x",
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 5,
+          "packageValueLevel": 1,
+          "skillpoints": 5
+        }
+      },
+      {
+        "traitId": "trait-gambling-x-game",
+        "trait": "Gambling X > Game",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-history-x-region",
+        "trait": "History X > Region",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-peerage-x-region",
+        "trait": "Peerage X > Region",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-read-x-language",
+        "trait": "Read X > Language",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-title-x-region",
+        "trait": "Title X > Region",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 10,
+          "packageValueLevel": 2,
+          "skillpoints": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-performer",
+    "kind": "culture",
+    "name": "Performer",
+    "canonRef": "canon #23",
+    "wealth": 1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Employer",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-gossip-x",
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 2,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-perform-x-form",
+        "trait": "Perform X > Form",
+        "specialization": "Any",
+        "level": 4,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 3,
+          "skillpoints": 6
+        }
+      },
+      {
+        "traitId": "trait-seduction-x",
+        "trait": "Seduction X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 2.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-mountain",
+    "kind": "environs",
+    "name": "Mountain",
+    "canonRef": "canon #8",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-brawn-x",
+        "trait": "Brawn X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-climb-x",
+        "trait": "Climb X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 2.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-mountaineering-x",
+        "trait": "Mountaineering X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 3,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-surefooted-x",
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-tracking-x",
+        "trait": "Tracking X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-nobles",
+    "kind": "society",
+    "name": "Nobles",
+    "canonRef": "canon #21",
+    "wealth": 18,
+    "social": 5,
+    "grants": [
+      {
+        "traitId": "trait-enemies-x-settlement",
+        "trait": "[Enemies X > Settlement]",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": -20,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": -53.33333333333333
+        }
+      },
+      {
+        "traitId": "trait-paranoid-x",
+        "trait": "[Paranoid X]",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": -4,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": -6.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-section-military-x-skill",
+        "trait": "§Military X > Skill",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 4,
+          "packageValueLevel": 1,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-connections-x",
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 5,
+          "packageValueLevel": 1,
+          "skillpoints": 5
+        }
+      },
+      {
+        "traitId": "trait-history-x-region",
+        "trait": "History X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-leadership-x",
+        "trait": "Leadership X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 3,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-peerage-x-region",
+        "trait": "Peerage X > Region",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 4.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-read-x-language",
+        "trait": "Read X > Language",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-riding-x-type",
+        "trait": "Riding X > Type",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-title-x-region",
+        "trait": "Title X > Region",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 10,
+          "packageValueLevel": 3,
+          "skillpoints": 30
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-services",
+    "kind": "culture",
+    "name": "Services",
+    "canonRef": "canon #18",
+    "wealth": -1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-section-studies-x-skill",
+        "trait": "§Studies X > Skill",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 4,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Employer",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-gossip-x",
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 2,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-implore-x",
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-labor-x-field",
+        "trait": "Labor X > Field",
+        "specialization": "Service",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 2.6666666666666665
+        }
+      },
+      {
+        "traitId": "trait-lore-x-field",
+        "trait": "Lore X > Field",
+        "specialization": "Service",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-medic-x-type",
+        "trait": "Medic X > Type",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 3,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-steppe",
+    "kind": "environs",
+    "name": "Steppe",
+    "canonRef": "canon #10",
+    "wealth": 1,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Herding",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-husbandry-x",
+        "trait": "Husbandry X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-royalty",
+    "kind": "society",
+    "name": "Royalty",
+    "canonRef": "canon #28",
+    "wealth": 21,
+    "social": 7,
+    "grants": [
+      {
+        "traitId": "trait-enemies-x-settlement",
+        "trait": "[Enemies X > Settlement]",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -10,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": -23.333333333333336
+        }
+      },
+      {
+        "traitId": "trait-feeble-x",
+        "trait": "[Feeble X]",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -20,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": -26.66666666666667
+        }
+      },
+      {
+        "traitId": "trait-paranoid-x",
+        "trait": "[Paranoid X]",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -4,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": -9.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-connections-x",
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 4,
+        "authorCalibration": {
+          "stars": 4,
+          "im": 5,
+          "packageValueLevel": 2.666666666666667,
+          "skillpoints": 13.333333333333336
+        }
+      },
+      {
+        "traitId": "trait-fawn-x",
+        "trait": "Fawn X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-language-x-language",
+        "trait": "Language X > Language",
+        "specialization": "High",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-leadership-x",
+        "trait": "Leadership X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 3,
+          "packageValueLevel": 2,
+          "skillpoints": 6
+        }
+      },
+      {
+        "traitId": "trait-peerage-x-region",
+        "trait": "Peerage X > Region",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-primp-x",
+        "trait": "Primp X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-retinue-x",
+        "trait": "Retinue X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 3,
+          "packageValueLevel": 0,
+          "skillpoints": 0
+        }
+      },
+      {
+        "traitId": "trait-title-x-region",
+        "trait": "Title X > Region",
+        "specialization": "Any",
+        "level": 4,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 10,
+          "packageValueLevel": 4,
+          "skillpoints": 40
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-merchant",
+    "kind": "culture",
+    "name": "Merchant",
+    "canonRef": "canon #23",
+    "wealth": 3,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-section-studies-x-skill",
+        "trait": "§Studies X > Skill",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 4,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Trader",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-wares-x-ware",
+        "trait": "Wares X > Ware",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 2.6666666666666665,
+          "skillpoints": 8
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-river",
+    "kind": "environs",
+    "name": "River",
+    "canonRef": "canon #11",
+    "wealth": 2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-fishing-x",
+        "trait": "Fishing X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 1,
+          "packageValueLevel": 2,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-steer-x-type",
+        "trait": "Steer X > Type",
+        "specialization": "Boat",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-swim-x",
+        "trait": "Swim X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-society-imperial",
+    "kind": "society",
+    "name": "Imperial",
+    "canonRef": "canon #23",
+    "wealth": 24,
+    "social": 8,
+    "grants": [
+      {
+        "traitId": "trait-enemies-x-settlement",
+        "trait": "[Enemies X > Settlement]",
+        "specialization": "Any",
+        "level": 4,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -10,
+          "packageValueLevel": 3.3333333333333335,
+          "skillpoints": -33.333333333333336
+        }
+      },
+      {
+        "traitId": "trait-feeble-x",
+        "trait": "[Feeble X]",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -20,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": -6.666666666666668
+        }
+      },
+      {
+        "traitId": "trait-paranoid-x",
+        "trait": "[Paranoid X]",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": -4,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": -9.333333333333334
+        }
+      },
+      {
+        "traitId": "trait-connections-x",
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 5,
+          "packageValueLevel": 1,
+          "skillpoints": 5
+        }
+      },
+      {
+        "traitId": "trait-history-x-region",
+        "trait": "History X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-language-x-language",
+        "trait": "Language X > Language",
+        "specialization": "High",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-leadership-x",
+        "trait": "Leadership X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 3,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 4
+        }
+      },
+      {
+        "traitId": "trait-peerage-x-region",
+        "trait": "Peerage X > Region",
+        "specialization": "Any",
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 4.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-politics-x-region",
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 0.33333333333333337,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-read-x-language",
+        "trait": "Read X > Language",
+        "specialization": "Any",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-retinue-x",
+        "trait": "Retinue X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 3,
+          "packageValueLevel": 0,
+          "skillpoints": 0
+        }
+      },
+      {
+        "traitId": "trait-title-x-region",
+        "trait": "Title X > Region",
+        "specialization": "Any",
+        "level": 5,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 10,
+          "packageValueLevel": 4.333333333333333,
+          "skillpoints": 43.33333333333333
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-culture-crafting",
+    "kind": "culture",
+    "name": "Crafting",
+    "canonRef": "canon #24",
+    "wealth": 2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-craft-x-tradecraft",
+        "trait": "Craft X > Tradecraft",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 3,
+          "skillpoints": 9
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Shopkeeper",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-implore-x",
+        "trait": "Implore X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 2.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-suss-x",
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-grassland",
+    "kind": "environs",
+    "name": "Grassland",
+    "canonRef": "canon #9",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-barter-x",
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 0.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-domus-x-domain",
+        "trait": "Domus X > Domain",
+        "specialization": "Herding",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Grassland",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-savannah",
+    "kind": "environs",
+    "name": "Savannah",
+    "canonRef": "canon #8",
+    "wealth": 0,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 3,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Savannah",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-swamp",
+    "kind": "environs",
+    "name": "Swamp",
+    "canonRef": "canon #8",
+    "wealth": -2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-fishing-x",
+        "trait": "Fishing X",
+        "specialization": null,
+        "level": 3,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 1,
+          "packageValueLevel": 2.3333333333333335,
+          "skillpoints": 2.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-steer-x-type",
+        "trait": "Steer X > Type",
+        "specialization": "Boat",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 1,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 1.6666666666666667
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Swamp",
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-swim-x",
+        "trait": "Swim X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-wise-x",
+        "trait": "Wise X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-tundra",
+    "kind": "environs",
+    "name": "Tundra",
+    "canonRef": "canon #6",
+    "wealth": -2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": "Tundra",
+        "level": 2,
+        "authorCalibration": {
+          "stars": 2,
+          "im": 2,
+          "packageValueLevel": 1.3333333333333335,
+          "skillpoints": 2.666666666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-taiga",
+    "kind": "environs",
+    "name": "Taiga",
+    "canonRef": "canon #7",
+    "wealth": -3,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-navigation-x",
+        "trait": "Navigation X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 1,
+          "skillpoints": 2
+        }
+      },
+      {
+        "traitId": "trait-surefooted-x",
+        "trait": "Surefooted X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 1,
+          "packageValueLevel": 1,
+          "skillpoints": 1
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 0,
+          "im": 2,
+          "packageValueLevel": 2,
+          "skillpoints": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "heritage-environs-woods",
+    "kind": "environs",
+    "name": "Woods",
+    "canonRef": "canon #11",
+    "wealth": 2,
+    "social": 0,
+    "grants": [
+      {
+        "traitId": "trait-forage-x",
+        "trait": "Forage X",
+        "specialization": null,
+        "level": 2,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 1.6666666666666667,
+          "skillpoints": 3.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-hunter-x",
+        "trait": "Hunter X",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      },
+      {
+        "traitId": "trait-survival-x-environ",
+        "trait": "Survival X > Environ",
+        "specialization": null,
+        "level": 1,
+        "authorCalibration": {
+          "stars": 1,
+          "im": 2,
+          "packageValueLevel": 0.6666666666666667,
+          "skillpoints": 1.3333333333333335
+        }
+      }
+    ]
+  }
+]

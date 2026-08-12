@@ -1,4 +1,3 @@
-
 import ageBrackets from './ageBrackets.json';
 import attributeModifiers from './attributeModifiers.json';
 import characteristicModifiers from './characteristicModifiers.json';
@@ -8,14 +7,14 @@ import attributeDefinitions from './attributeDefinitions.json';
 import attributeCreationRules from './attributeCreationRules.json';
 import beliefs from './beliefs.json';
 import calculatedAbilities from './calculatedAbilities.json';
-import itemWeapons from './itemWeapons.json';
-import itemArmors from './itemArmors.json';
-import itemEquipments from './itemEquipments.json';
-import spells from './spells.json';
-import magicItems from './magicItems.json';
+import itemWeaponsRaw from './itemWeapons.json';
+import itemArmorsRaw from './itemArmors.json';
+import itemEquipmentsRaw from './itemEquipments.json';
+import spellsRaw from './spells.json';
+import magicItemsRaw from './magicItems.json';
 import characteristicCosts from './characteristicCosts.json';
-import citystates from './citystates.json';
-import deities from './deities.json';
+import citystatesRaw from './citystates.json';
+import deitiesRaw from './deities.json';
 import descriptors from './descriptors.json';
 import disabilities from './disabilities.json';
 import economicStatuses from './economicStatuses.json';
@@ -25,6 +24,8 @@ import favoredTradesByLineage from './favoredTradesByLineage.json';
 import culturalHeritage from './culturalHeritage.json';
 import environHeritage from './environHeritage.json';
 import societalHeritage from './societalHeritage.json';
+import heritagePackages from './heritagePackages.json';
+import languages from './languages.json';
 import namingPracticeTitles from './namingPracticeTitles.json';
 import notableFeatures from './notableFeatures.json';
 import physicalBlemishes from './physicalBlemishes.json';
@@ -32,16 +33,16 @@ import pmlTitles from './pmlTitles.json';
 import pmlAgeMinimums from './pmlAgeMinimums.json';
 import pmlRules from './pmlRules.json';
 import pointBuyCosts from './pointBuyCosts.json';
-import professions from './professions.json';
+import professionsRaw from './professions.json';
 import randomPersonItemDeity from './randomPersonItemDeity.json';
 import salaryByTradeRank from './salaryByTradeRank.json';
 import salaryAdjustmentsByTrade from './salaryAdjustmentsByTrade.json';
 import settlements from './settlements.json';
 import socialGroups from './socialGroups.json';
 import socialRanks from './socialRanks.json';
-import species from './species.json';
+import speciesRaw from './species.json';
 import tragedySeeds from './tragedySeeds.json';
-import traits from './traits.json';
+import traitsRaw from './traits.json';
 import universalTable from './universal-table.json';
 import wealthTitles from './wealthTitles.json';
 import steps from './steps.json';
@@ -64,6 +65,39 @@ import adjustmentsCharacteristicsKriket from './adjustments-characteristics-krik
 import adjustmentsAttributesStonefolk from './adjustments-attributes-stonefolk.json';
 import adjustmentsCharacteristicsStonefolk from './adjustments-characteristics-stonefolk.json';
 import militaryHierarchy from './militaryHierarchy.json';
+import { isCompleteMagicItem, makeCatalogId, withCatalogIds } from './catalog-policy';
+
+// Stable runtime IDs for catalogues stored by CharacterDraft.
+const traits = withCatalogIds(traitsRaw, 'trait', (item) => item.trait);
+const itemWeapons = withCatalogIds(itemWeaponsRaw, 'weapon', (item) => item.name);
+const itemArmors = withCatalogIds(itemArmorsRaw, 'armor', (item) => item.name);
+const itemEquipments = withCatalogIds(itemEquipmentsRaw, 'equipment', (item) => item.name);
+const spells = withCatalogIds(spellsRaw, 'spell', (item) => item.name);
+const magicItems = withCatalogIds(
+  magicItemsRaw.filter(isCompleteMagicItem),
+  'magic-item',
+  (item) => item.name,
+);
+const citystates = withCatalogIds(citystatesRaw, 'citystate', (item) => item.name);
+const deities = withCatalogIds(deitiesRaw, 'deity', (item) => item.deity);
+const professions = withCatalogIds(professionsRaw, 'trade', (item) => item.trade);
+
+// A playable Species needs an age-bracket table because Age is a required chargen step.
+// Kriket remains in the source files and XLSX ancestry tables, but is intentionally not
+// selectable until canonical Kriket age brackets exist.
+const species = speciesRaw
+  .map((family) => ({
+    ...family,
+    catalogId: makeCatalogId('species-family', family.name),
+    groups: family.groups
+      .filter((group) => Object.prototype.hasOwnProperty.call(ageBrackets, group.name))
+      .map((group) => ({
+        ...group,
+        catalogId: makeCatalogId('species', group.name),
+        lineageCatalogIds: group.lineages.map((lineage) => makeCatalogId('lineage', lineage)),
+      })),
+  }))
+  .filter((family) => family.groups.length > 0);
 
 const sarnaLenData = {
   ageBrackets,
@@ -92,6 +126,8 @@ const sarnaLenData = {
   culturalHeritage,
   environHeritage,
   societalHeritage,
+  heritagePackages,
+  languages,
   namingPracticeTitles,
   notableFeatures,
   physicalBlemishes,

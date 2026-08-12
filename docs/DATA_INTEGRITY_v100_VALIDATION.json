@@ -1,0 +1,24 @@
+{
+  "heritagePackages": 36,
+  "heritageByKind": {
+    "environs": 16,
+    "society": 10,
+    "culture": 10
+  },
+  "heritageGrants": 218,
+  "uniqueTraitReferences": 64,
+  "unresolvedWorkbookTraitReferences": 0,
+  "invalidHeritageGrantLevels": 0,
+  "uniqueHeritagePackageIds": 36,
+  "languages": 17,
+  "uniqueLanguageIds": 17,
+  "languageGeneratorsIncluded": 17,
+  "missingLanguageGenerators": 0,
+  "kriketPlayable": false,
+  "kriketReason": "Workbook contains Kriket/Umber/Carnelian ancestry data but no Kriket age-bracket table.",
+  "magicItemPolicy": "Expose only non-placeholder records with name, form, gradeAvailability, and substantive description; preserve all source records.",
+  "deitySelection": "unrestricted",
+  "merchantCompletion": "deferred",
+  "relationships": "deferred",
+  "demographicFineDetail": "deferred"
+}
