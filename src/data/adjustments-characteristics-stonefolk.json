@@ -1,4 +1,3 @@
-
 [
   {
     "lineage": "BASE-LINE",
@@ -9,11 +8,11 @@
     "cost": 108
   },
   {
-    "lineage": "Plains",
+    "lineage": "Steppe",
     "stature": 0,
     "build": 0,
     "bodypoints": 0,
-    "talents": "Survival 5 > Plains.",
+    "talents": "Survival 5 > Steppe.",
     "cost": 10
   },
   {

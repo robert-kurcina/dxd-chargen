@@ -299,7 +299,7 @@ const ND6Test = () => {
 
 type ProfessionResult = {
     trade: string;
-    candidacy: string;
+    candidacy: string | null;
     namingPractice: string;
     specializations: string[];
     likelihood: number;

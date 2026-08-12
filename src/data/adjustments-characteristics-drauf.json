@@ -1,4 +1,3 @@
-
 [
   {
     "lineage": "BASE-LINE",
@@ -49,7 +48,7 @@
     "cost": 13
   },
   {
-    "lineage": "Youth [0]",
+    "lineage": "Youth [1]",
     "stature": 0,
     "build": 1,
     "bodypoints": 1,

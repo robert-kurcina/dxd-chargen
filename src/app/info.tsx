@@ -798,22 +798,22 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
 };
 
 const ProfessionsAndTitlesCard = ({ professions, titles }: { professions: any[], titles: any[] }) => {
-    const professionsWithShares = useMemo(() => calculateRelativeShares(professions, 'per1000').sort((a, b) => a.trade.localeCompare(b.trade)), [professions]);
+    const professionsWithShares = useMemo(() => calculateRelativeShares(professions, 'per100K').sort((a, b) => a.trade.localeCompare(b.trade)), [professions]);
     const titlesData = titles;
 
-    const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per1000', 'relativeShare'];
+    const professionHeaders = ['trade', 'candidacy', 'namingPractice', 'per100K', 'relativeShare'];
     const professionHeaderTitles: Record<string, string> = {
         trade: 'Trade',
         candidacy: 'Candidacy',
-        namingPractice: 'Tradition',
-        per1000: 'Likelihood (per 1000)',
+        namingPractice: 'Naming Practice',
+        per100K: 'Annual Distribution (per 100K)',
         relativeShare: 'Relative Share (per 1000)'
     };
 
     const numericHeadersProfessions = useMemo(() => {
         const numeric = new Set<string>();
         if (!professionsWithShares.length) return numeric;
-        const headers = ['per1000', 'relativeShare'];
+        const headers = ['per100K', 'relativeShare'];
         for (const header of headers) {
             if (professionsWithShares.every(row => {
                 const value = (row as any)[header];

@@ -1,8 +1,50 @@
 {
-  "Boron": ["Boral", "Boral", "Boral", "Boral", "Boral", "Boral"],
-  "Palten": ["Paltesh", "Paltesh", "Paltesh", "Paltesh", "Paelon", "Paelon"],
-  "Sarekun": ["Sarken", "Sarken", "Sarken", "Sarken", "Indel", "Indel"],
-  "Vashtur": ["Stagin", "Stagin", "Stagin", "Quaghk", "Quaghk", "Quel"],
-  "Djorkan": ["Corom", "Corom", "Corom", "Corom", "Corom", "Corom"],
-  "Western": ["Aquorica", "Aquorica", "Aquorica", "Aquorica", "Riaton", "Riaton"]
+  "Boron": [
+    "Boral",
+    "Boral",
+    "Boral",
+    "Boral",
+    "Boral",
+    "Boral"
+  ],
+  "Palten": [
+    "Paltesh",
+    "Paltesh",
+    "Paltesh",
+    "Paltesh",
+    "Paelon",
+    "Paelon"
+  ],
+  "Sarukhen": [
+    "Sarken",
+    "Sarken",
+    "Sarken",
+    "Sarken",
+    "Indel",
+    "Indel"
+  ],
+  "Vashtur": [
+    "Stagin",
+    "Stagin",
+    "Stagin",
+    "Quagkh",
+    "Quagkh",
+    "Quel"
+  ],
+  "Djorkan": [
+    "Corom",
+    "Corom",
+    "Corom",
+    "Corom",
+    "Corom",
+    "Corom"
+  ],
+  "Western": [
+    "Aquorica",
+    "Aquorica",
+    "Aquorica",
+    "Aquorica",
+    "Riaton",
+    "Riaton"
+  ]
 }

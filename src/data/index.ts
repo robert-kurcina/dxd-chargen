@@ -5,6 +5,7 @@ import characteristicModifiers from './characteristicModifiers.json';
 import ageGroups from './ageGroups.json';
 import attributeArrays from './attributeArrays.json';
 import attributeDefinitions from './attributeDefinitions.json';
+import attributeCreationRules from './attributeCreationRules.json';
 import beliefs from './beliefs.json';
 import calculatedAbilities from './calculatedAbilities.json';
 import characteristicCosts from './characteristicCosts.json';
@@ -23,6 +24,8 @@ import namingPracticeTitles from './namingPracticeTitles.json';
 import notableFeatures from './notableFeatures.json';
 import physicalBlemishes from './physicalBlemishes.json';
 import pmlTitles from './pmlTitles.json';
+import pmlAgeMinimums from './pmlAgeMinimums.json';
+import pmlRules from './pmlRules.json';
 import pointBuyCosts from './pointBuyCosts.json';
 import professions from './professions.json';
 import randomPersonItemDeity from './randomPersonItemDeity.json';
@@ -64,6 +67,7 @@ const sarnaLenData = {
   ageGroups,
   attributeArrays,
   attributeDefinitions,
+  attributeCreationRules,
   beliefs,
   calculatedAbilities,
   characteristicCosts,
@@ -82,6 +86,8 @@ const sarnaLenData = {
   notableFeatures,
   physicalBlemishes,
   pmlTitles,
+  pmlAgeMinimums,
+  pmlRules,
   pointBuyCosts,
   professions,
   randomPersonItemDeity,

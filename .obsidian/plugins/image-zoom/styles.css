@@ -1,0 +1,139 @@
+/* Image Zoom & Pan Plugin Styles */
+/* ��������ʹ�� my-custom-zoom- ǰ׺��ֹ��ʽ��Ⱦ */
+
+/* ���ǲ� - ��ɫ��͸������ */
+.my-custom-zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    cursor: zoom-out;
+}
+
+/* ���ǲ���ʾ״̬ */
+.my-custom-zoom-overlay.my-custom-zoom-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ͼƬ���� */
+.my-custom-zoom-img-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ͼƬ��ʽ */
+.my-custom-zoom-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    transform-origin: 0 0;
+    transition: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: grab;
+    will-change: transform;
+}
+
+/* ��ק��״̬ */
+.my-custom-zoom-img.my-custom-zoom-dragging {
+    cursor: grabbing;
+}
+
+/* ͼƬ���ض��� */
+@keyframes my-custom-zoom-fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.my-custom-zoom-overlay.my-custom-zoom-visible .my-custom-zoom-img {
+    animation: my-custom-zoom-fadeIn 0.3s ease-out;
+}
+
+/* ��ʾ���֣���ѡ���ܣ� */
+.my-custom-zoom-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* ���ű���ָʾ������ѡ���ܣ� */
+.my-custom-zoom-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-family: monospace;
+    padding: 6px 12px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.my-custom-zoom-indicator.my-custom-zoom-visible {
+    opacity: 1;
+}
+
+/* ��Ӧʽ���� */
+@media (max-width: 768px) {
+    .my-custom-zoom-img {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+
+    .my-custom-zoom-hint {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+}
+
+/* ��ɫģʽ���䣨ObsidianĬ����ɫ����Ϊ���մ����� */
+.theme-dark .my-custom-zoom-overlay {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* ǳɫģʽ���� */
+.theme-light .my-custom-zoom-overlay {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+/* ��ӡʱ���� */
+@media print {
+    .my-custom-zoom-overlay {
+        display: none !important;
+    }
+}

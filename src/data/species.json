@@ -2,15 +2,93 @@
   {
     "name": "Humaniki",
     "groups": [
-      { "name": "Human", "lineages": ["Sondgarat", "Quaggik", "Vasikha", "Drusian", "Auldfar", "Baminat", "Heidelan", "Restani"] },
-      { "name": "Drauf", "lineages": ["Ferrite", "Thanekon", "Exnoran", "Gemalite"] },
-      { "name": "Alef", "lineages": ["Akrunai", "Vanyrai", "Huaczwyk"] },
-      { "name": "Klenari", "lineages": ["Jarmaran", "Stepmir", "Farleen"] },
-      { "name": "Babbita", "lineages": ["Indelan", "Coromite", "Ankilati"] },
-      { "name": "Gnoan", "lineages": ["Gilvan", "Eyravite", "Dulndran"] },
-      { "name": "Cherigili", "lineages": ["Restanoi", "Quaggian"] }
+      {
+        "name": "Human",
+        "lineages": [
+          "Sondgarat",
+          "Quaggik",
+          "Vasikha",
+          "Drusian",
+          "Auldfar",
+          "Baminat",
+          "Heidelan",
+          "Restani",
+          "Eniyaski",
+          "Pazkharan"
+        ]
+      },
+      {
+        "name": "Drauf",
+        "lineages": [
+          "Ferrite",
+          "Thanekon",
+          "Exnoran",
+          "Gemalite"
+        ]
+      },
+      {
+        "name": "Alef",
+        "lineages": [
+          "Akrunai",
+          "Vanyrai",
+          "Huaczwyk"
+        ]
+      },
+      {
+        "name": "Klenari",
+        "lineages": [
+          "Jarmaran",
+          "Stepmir",
+          "Farleen"
+        ]
+      },
+      {
+        "name": "Babbita",
+        "lineages": [
+          "Indelan",
+          "Coromite",
+          "Ankilati"
+        ]
+      },
+      {
+        "name": "Gnoan",
+        "lineages": [
+          "Gilvanar",
+          "Eyravite",
+          "Dulndran"
+        ]
+      },
+      {
+        "name": "Cherigili",
+        "lineages": [
+          "Restanoi",
+          "Quaggian"
+        ]
+      }
     ]
   },
-  { "name": "Kriketai", "groups": [{ "name": "Kriket", "lineages": ["Umber", "Carnelian"] }] },
-  { "name": "Stonefolk", "groups": [{ "name": "Stonefolk", "lineages": ["Plains", "Mountains"] }] }
+  {
+    "name": "Kriketai",
+    "groups": [
+      {
+        "name": "Kriket",
+        "lineages": [
+          "Umber",
+          "Carnelian"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Stonefolk",
+    "groups": [
+      {
+        "name": "Stonefolk",
+        "lineages": [
+          "Steppe",
+          "Mountains"
+        ]
+      }
+    ]
+  }
 ]

@@ -1,0 +1,44 @@
+{
+  "description": "Piconit Metastasis Level (PML) is a Universal Index of piconit metastasis, not a professional rank.",
+  "defaultPcPml": 1,
+  "favorDice": {
+    "sessionStartFormula": "PML",
+    "progressionDeltaPerPmlIncrease": 1
+  },
+  "hitpoints": {
+    "baseFormula": "10 + REF DM + POW DM + PRE DM + MOV DM",
+    "pmlBonusFormula": "3 × PML",
+    "progressionDeltaPerPmlIncrease": 3
+  },
+  "resourceMutation": {
+    "formula": "floor(PML / 2)",
+    "endurance": 1,
+    "resilience": 1,
+    "resistance": 1
+  },
+  "recoveryRatePmlBonus": {
+    "formula": "floor(PML / 3)"
+  },
+  "maxAdvantage": {
+    "formula": "1 + floor((PML - 1) / 3)"
+  },
+  "virtuosityChoiceAtPml": [
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "secondaryMutations": {
+    "formula": "max(0, PML - 5)"
+  },
+  "psychologicalDisabilities": {
+    "formula": "max(0, PML - 9)"
+  },
+  "minimumAgeRule": "Minimum Age Rank = floor(PML / 4), with PML 1–3 treated as Age Rank 0.",
+  "notes": [
+    "The Adventuring Rules PML Adjustments table is a quick reference for cumulative gains from the default PML 1 starting baseline; do not interpret its PML-1 dashes as zero total Favor or zero PML contribution to Hitpoints.",
+    "Where the quick-reference table conflicts with explicit formulas, the generator uses the explicit current rules text."
+  ],
+  "source": "Book II — DXD Core Rules; Book III — Character Creation; Book VII — Adventuring Rules"
+}

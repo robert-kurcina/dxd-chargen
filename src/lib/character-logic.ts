@@ -470,6 +470,45 @@ export function calculateAttributeSkillpointCost(attributesString: string, data:
  * @param data The static data containing characteristic costs.
  * @returns The total calculated skillpoint cost.
  */
+/**
+ * Returns the Attribute DM for a raw Attribute value. DM is 0 at 7, +1 at 8-9,
+ * +2 at 10-11, and mirrors downward below 7.
+ */
+export function getAttributeDm(value: number): number {
+    if (value === 7) return 0;
+    if (value > 7) return Math.ceil((value - 7) / 2);
+    return -Math.ceil((7 - value) / 2);
+}
+
+/**
+ * Prices purchased raw Attribute increases during Assign Intrinsics. This uses the
+ * character-creation IM schedule, not the ordinary in-play advancement IM.
+ */
+export function calculateCreationAttributeSkillpointCost(
+    attributeAbbreviation: string,
+    currentValue: number,
+    increases: number,
+    data: StaticData
+): number {
+    if (!Number.isInteger(increases) || increases < 0) return 0;
+    const attrDef = data.attributeDefinitions
+      .flatMap(group => group.attributes)
+      .find(attr => attr.abbreviation === attributeAbbreviation.toUpperCase());
+    if (!attrDef) return 0;
+
+    const creationIm = Number(attrDef.creationIm);
+    if (!Number.isFinite(creationIm)) return 0;
+
+    let total = 0;
+    let value = currentValue;
+    for (let i = 0; i < increases; i++) {
+      const next = value + 1;
+      total += creationIm * (getAttributeDm(next) > getAttributeDm(value) ? 3 : 2);
+      value = next;
+    }
+    return total;
+}
+
 export function calculateCharacteristicSkillpointCost(characteristicsString: string, data: StaticData): number {
     if (!characteristicsString) return 0;
 
@@ -633,7 +672,10 @@ export function parseLineageString(lineageString: string): { name: string; rank:
  * @param attributes A record of attribute names and their numeric values.
  * @returns `true` if the attributes satisfy the expression, `false` otherwise.
  */
-export function evaluateCandidacy(candidacyString: string, attributes: Record<string, number>): boolean {
+export function evaluateCandidacy(candidacyString: string | null | undefined, attributes: Record<string, number>): boolean {
+    if (!candidacyString) {
+      return false;
+    }
     if (candidacyString === "Any") {
       return true;
     }

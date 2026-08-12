@@ -1,0 +1,11 @@
+{
+    "id": "image-zoom",
+    "name": "Image Zoom",
+    "version": "1.0.0",
+    "minAppVersion": "1.5.0",
+    "description": "Lightweight image zoom and drag viewing plugin, supports wheel zoom and mouse drag panning",
+    "author": "AI",
+    "authorUrl": "",
+    "fundingUrl": "",
+    "isDesktopOnly": false
+}

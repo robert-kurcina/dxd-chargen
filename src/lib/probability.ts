@@ -182,7 +182,7 @@ function evaluateExpression(expr: string): number {
  * @param candidacyString The expression from the professions data.
  * @returns The total probability (from 0 to 1), or -1 if the expression is invalid.
  */
-export function calculateCandidacyProbability(candidacyString: string): number {
+export function calculateCandidacyProbability(candidacyString: string | null | undefined): number {
     if (!candidacyString || candidacyString.trim() === "") {
         return -1;
     }

@@ -1,0 +1,52 @@
+[
+  {
+    "pml": "1-3",
+    "minimumAgeRank": 0,
+    "minimumAgeGroup": "Youth"
+  },
+  {
+    "pml": "4-7",
+    "minimumAgeRank": 1,
+    "minimumAgeGroup": "Early Teen"
+  },
+  {
+    "pml": "8-11",
+    "minimumAgeRank": 2,
+    "minimumAgeGroup": "Teenager"
+  },
+  {
+    "pml": "12-15",
+    "minimumAgeRank": 3,
+    "minimumAgeGroup": "Young Adult"
+  },
+  {
+    "pml": "16-19",
+    "minimumAgeRank": 4,
+    "minimumAgeGroup": "Adult"
+  },
+  {
+    "pml": "20-23",
+    "minimumAgeRank": 5,
+    "minimumAgeGroup": "Mature"
+  },
+  {
+    "pml": "24-27",
+    "minimumAgeRank": 6,
+    "minimumAgeGroup": "Middle Age"
+  },
+  {
+    "pml": "28-31",
+    "minimumAgeRank": 7,
+    "minimumAgeGroup": "Elder"
+  },
+  {
+    "pml": "32-35",
+    "minimumAgeRank": 8,
+    "minimumAgeGroup": "Aged"
+  },
+  {
+    "pml": "36+",
+    "minimumAgeRank": 9,
+    "minimumAgeGroup": "Venerable"
+  }
+]

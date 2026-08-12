@@ -1,1 +1,18 @@
-["Tundra", "Taiga", "Badlands", "Mountain", "Deserts", "Plains", "Jungle", "Savannah", "Hills", "Swamp", "Marsh", "Coastal", "River", "Forests", "Woods", "Grassland"]
+[
+  "Tundra",
+  "Taiga",
+  "Badlands",
+  "Mountain",
+  "Deserts",
+  "Steppe",
+  "Jungle",
+  "Savannah",
+  "Hills",
+  "Swamp",
+  "Marsh",
+  "Coastal",
+  "River",
+  "Forests",
+  "Woods",
+  "Grassland"
+]

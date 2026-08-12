@@ -1,14 +1,132 @@
-
 [
-  { "trade": "Cleric", "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, PRE 10+", "namingPractice": "Temple", "specializations": ["Hermit", "Shaman", "Cloistered", "Physician", "Guardian"], "per1000": 15 },
-  { "trade": "Knight", "candidacy": "PRE + POW + STR + FOR >= 28, and POW 10+, and CCA or RCA 10+", "namingPractice": "Temple", "specializations": ["Templar", "Royal", "Free", "Death"], "per1000": 28 },
-  { "trade": "Mariner", "candidacy": "PRE + POW + STR + FOR >= 28, and CCA or POW 10+", "namingPractice": "Military", "specializations": ["Voyager", "Sailor", "Privateer", "Pirate"], "per1000": 165 },
-  { "trade": "Ranger", "candidacy": "CCA + RCA + REF + INT >= 28, and REF, PRE 10+", "namingPractice": "Order", "specializations": ["Wanderer", "Beastfriend", "Bardic", "Scout"], "per1000": 15 },
-  { "trade": "Rogue", "candidacy": "CCA + RCA + REF + INT >= 28, and REF 10+", "namingPractice": "Cabal", "specializations": ["Vagabond", "Thief", "Spy", "Goon", "Assassin"], "per1000": 90 },
-  { "trade": "Warrior", "candidacy": "PRE + POW + STR + FOR >= 28, and CCA or RCA or STR 10+", "namingPractice": "Military", "specializations": ["Soldier", "Archer", "Engineer", "Rider"], "per1000": 228 },
-  { "trade": "Wizard", "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, INT 10+", "namingPractice": "Order", "specializations": ["Spellbinder", "Warmage", "Alchemist", "Illusionist", "Summoner", "Artificer", "Necromancer"], "per1000": 15 },
-  { "trade": "Academic", "candidacy": "INT + KNO + POW >= 28, and INT, KNO 10+", "namingPractice": "Order", "specializations": [], "per1000": 2 },
-  { "trade": "Entertainer", "candidacy": "INT + REF + PRE >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 61 },
-  { "trade": "Service", "candidacy": "PRE + INT + KNO + POW >= 28", "namingPractice": "Guild", "specializations": [], "per1000": 541 },
-  { "trade": "Rabble", "candidacy": "Any", "namingPractice": "Military", "specializations": [], "per1000": 1000 }
+  {
+    "trade": "Cleric",
+    "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, PRE 10+",
+    "namingPractice": "Temple",
+    "specializations": [
+      "Hermit",
+      "Shaman",
+      "Cloistered",
+      "Physician",
+      "Guardian"
+    ],
+    "per100K": 1000
+  },
+  {
+    "trade": "Knight",
+    "candidacy": "PRE + POW + STR + FOR >= 28, and CCA, RCA, POW 10+",
+    "namingPractice": "Temple",
+    "specializations": [
+      "Templar",
+      "Royal",
+      "Free",
+      "Death"
+    ],
+    "per100K": 200
+  },
+  {
+    "trade": "Mariner",
+    "candidacy": "PRE + POW + STR + FOR >= 28, and POW 10+",
+    "namingPractice": "Tradition",
+    "specializations": [
+      "Voyager",
+      "Sailor",
+      "Privateer",
+      "Pirate"
+    ],
+    "per100K": 6000
+  },
+  {
+    "trade": "Merchant",
+    "candidacy": null,
+    "namingPractice": "Guild",
+    "specializations": [
+      "Broker",
+      "Factor",
+      "Caravaner",
+      "Port Factor"
+    ],
+    "per100K": null,
+    "note": "Current iterated canon defines Merchant as a Trade, but does not yet provide a Professional Candidate formula or per-100K distribution in Book III."
+  },
+  {
+    "trade": "Ranger",
+    "candidacy": "CCA + RCA + REF + INT >= 28, and REF, PRE 10+",
+    "namingPractice": "Order",
+    "specializations": [
+      "Wanderer",
+      "Beastfriend",
+      "Bardic",
+      "Scout"
+    ],
+    "per100K": 1000
+  },
+  {
+    "trade": "Rogue",
+    "candidacy": "CCA + RCA + REF + INT >= 28, and REF 10+",
+    "namingPractice": "Guild",
+    "specializations": [
+      "Vagabond",
+      "Thief",
+      "Spy",
+      "Goon",
+      "Assassin"
+    ],
+    "per100K": 6000
+  },
+  {
+    "trade": "Warrior",
+    "candidacy": "PRE + POW + STR + FOR >= 28, and CCA or RCA or STR 10+",
+    "namingPractice": "Tradition",
+    "specializations": [
+      "Soldier",
+      "Archer",
+      "Engineer",
+      "Rider"
+    ],
+    "per100K": 6000
+  },
+  {
+    "trade": "Wizard",
+    "candidacy": "INT + KNO + PRE + POW >= 28, and KNO, INT 10+",
+    "namingPractice": "Order",
+    "specializations": [
+      "Spellbinder",
+      "Warmage",
+      "Alchemist",
+      "Illusionist",
+      "Summoner",
+      "Artificer",
+      "Necromancer"
+    ],
+    "per100K": 1000
+  },
+  {
+    "trade": "Academic",
+    "candidacy": "INT + KNO + POW >= 28, and INT, KNO 10+",
+    "namingPractice": "Order",
+    "specializations": [],
+    "per100K": 100
+  },
+  {
+    "trade": "Entertainer",
+    "candidacy": "INT + REF + PRE >= 28",
+    "namingPractice": "Guild",
+    "specializations": [],
+    "per100K": 4000
+  },
+  {
+    "trade": "Service",
+    "candidacy": "INT + KNO + POW >= 28",
+    "namingPractice": "Guild",
+    "specializations": [],
+    "per100K": 4000
+  },
+  {
+    "trade": "Rabble",
+    "candidacy": "Any",
+    "namingPractice": "-",
+    "specializations": [],
+    "per100K": 70700
+  }
 ]

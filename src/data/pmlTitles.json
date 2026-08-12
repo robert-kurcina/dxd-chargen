@@ -1,8 +1,27 @@
 [
-  { "level": "0", "title": "Novice" },
-  { "level": "1-4", "title": "Early Game" },
-  { "level": "5-8", "title": "Middle Game" },
-  { "level": "9-12", "title": "Late Game" },
-  { "level": "13-16", "title": "Legendary Game" },
-  { "level": "17-20", "title": "Epic Game" }
+  {
+    "game": "Early Game",
+    "title": "Novice",
+    "pml": "1-4"
+  },
+  {
+    "game": "Middle Game",
+    "title": "Veteran",
+    "pml": "5-8"
+  },
+  {
+    "game": "Late Game",
+    "title": "Seasoned",
+    "pml": "9-12"
+  },
+  {
+    "game": "Legendary Game",
+    "title": "Legendary",
+    "pml": "13-16"
+  },
+  {
+    "game": "Epic Game",
+    "title": "Epic",
+    "pml": "17-20"
+  }
 ]

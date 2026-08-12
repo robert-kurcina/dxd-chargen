@@ -55,15 +55,15 @@ export default function CharacterSheet({ characterData }: { characterData: any }
         </header>
 
         <section className="mb-4">
-          <h2 className="font-bold mb-2 text-lg text-[18px]">Character Level (PML)</h2>
+          <h2 className="font-bold mb-2 text-lg text-[18px]">PML</h2>
           <div className="border border-gray-300 p-2 flex items-center justify-end">
             <div className="flex items-center space-x-1 md:space-x-2 text-gray-700 text-sm">
-              {Array.from({ length: 12 }, (_, i) => (
+              {Array.from({ length: 20 }, (_, i) => (
                 <span
                   key={i}
                   className="relative flex items-center justify-center border border-gray-400 rounded-full h-6 w-6 md:h-8 md:w-8"
                 >
-                  {characterData.level === i + 1 && star && (
+                  {characterData.pml === i + 1 && star && (
                      <Image
                       src={star.imageUrl}
                       alt={star.description}

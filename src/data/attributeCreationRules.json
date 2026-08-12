@@ -1,0 +1,12 @@
+{
+  "context": "Assign Intrinsics / post-array Attribute adjustment during character creation",
+  "ordinaryAdvancementUnaffected": true,
+  "costRule": "Price each +1 separately: 2 × creation IM when the +1 does not increase Attribute DM; 3 × creation IM when the +1 increases Attribute DM.",
+  "priorMonthsRule": "Justify prior Months equal to the Skillpoint cost; these Months represent Downtime XP at 10 XP per Month and are not paid a second time during character creation.",
+  "standardNoviceLimits": {
+    "maxPurchasedIncreasePerAttribute": 2,
+    "maxPurchasedIncreaseTotal": 4,
+    "gmApprovalAtFinalAttribute": 14
+  },
+  "source": "Book III — Character Creation, Post-array Attribute Adjustment"
+}
