@@ -1,0 +1,790 @@
+[
+  {
+    "name": "Gorget, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Neck + Upper Chest."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 8,
+    "priceGp": 1.5,
+    "traits": [
+      "Target"
+    ]
+  },
+  {
+    "name": "Gorget, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Neck + Upper Chest."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 12,
+    "priceGp": 3,
+    "traits": [
+      "Fitted",
+      "Target"
+    ]
+  },
+  {
+    "name": "Rerebraces, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Upper Arms."
+    ],
+    "deflectRating": 4,
+    "armorRating": 18,
+    "weight": 10,
+    "priceGp": 15,
+    "traits": [
+      "Fitted 2"
+    ]
+  },
+  {
+    "name": "Vambraces, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Forearms + Elbows."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 4,
+    "priceGp": 2.5,
+    "traits": []
+  },
+  {
+    "name": "Vambraces, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Forearms + Elbows."
+    ],
+    "deflectRating": 4,
+    "armorRating": 9,
+    "weight": 6,
+    "priceGp": 15,
+    "traits": [
+      "Fitted"
+    ]
+  },
+  {
+    "name": "Gauntlets, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Hands + Forearms."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 3,
+    "priceGp": 3,
+    "traits": []
+  },
+  {
+    "name": "Gauntlets, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Hands + Forearms."
+    ],
+    "deflectRating": 2,
+    "armorRating": 16,
+    "weight": 4,
+    "priceGp": 4,
+    "traits": []
+  },
+  {
+    "name": "Gauntlets, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Hands + Forearms."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 5,
+    "priceGp": 10,
+    "traits": [
+      "Fitted 2"
+    ]
+  },
+  {
+    "name": "Sleeve, Reinforced × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Arm.",
+      "Body Part: Arm."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 4,
+    "priceGp": 6,
+    "traits": []
+  },
+  {
+    "name": "Sleeve, Metal × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Arm.",
+      "Body Part: Arm."
+    ],
+    "deflectRating": 3,
+    "armorRating": 15,
+    "weight": 6,
+    "priceGp": 20,
+    "traits": [
+      "Fitted 2"
+    ]
+  },
+  {
+    "name": "Pauldron, Reinforced × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Shoulder."
+    ],
+    "deflectRating": 3,
+    "armorRating": 9,
+    "weight": 2,
+    "priceGp": 2.5,
+    "traits": [
+      "Protective"
+    ]
+  },
+  {
+    "name": "Pauldron, Metal × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Shoulder."
+    ],
+    "deflectRating": 5,
+    "armorRating": 18,
+    "weight": 4,
+    "priceGp": 6,
+    "traits": [
+      "Protective"
+    ]
+  },
+  {
+    "name": "Manica, Mail × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Arm.",
+      "Body Part: Arm + Shoulder."
+    ],
+    "deflectRating": 4,
+    "armorRating": 15,
+    "weight": 5,
+    "priceGp": 6,
+    "traits": [
+      "Parry"
+    ]
+  },
+  {
+    "name": "Skirt, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Legs.",
+      "Body Part: Abdomen + Thighs."
+    ],
+    "deflectRating": 1,
+    "armorRating": 9,
+    "weight": 10,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Skirt, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Legs.",
+      "Body Part: Abdomen + Thighs."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 15,
+    "priceGp": 15,
+    "traits": [
+      "Noisy",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Cuisses, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Thighs."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 6,
+    "priceGp": 8,
+    "traits": [
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Leggings, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Legs.",
+      "Body Part: Legs."
+    ],
+    "deflectRating": 1,
+    "armorRating": 10,
+    "weight": 10,
+    "priceGp": 8,
+    "traits": []
+  },
+  {
+    "name": "Leggings, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Legs.",
+      "Body Part: Legs."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 12,
+    "priceGp": 10,
+    "traits": [
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Leggings, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Legs.",
+      "Body Part: Legs."
+    ],
+    "deflectRating": 3,
+    "armorRating": 15,
+    "weight": 20,
+    "priceGp": 30,
+    "traits": [
+      "Bulky",
+      "Fitted 2"
+    ]
+  },
+  {
+    "name": "Greaves, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Shins + Knees."
+    ],
+    "deflectRating": 0,
+    "armorRating": 9,
+    "weight": 6,
+    "priceGp": 6,
+    "traits": []
+  },
+  {
+    "name": "Greaves, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Shins + Knees."
+    ],
+    "deflectRating": 2,
+    "armorRating": 15,
+    "weight": 10,
+    "priceGp": 30,
+    "traits": []
+  },
+  {
+    "name": "Sollerets, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Feet."
+    ],
+    "deflectRating": 2,
+    "armorRating": 18,
+    "weight": 10,
+    "priceGp": 8,
+    "traits": [
+      "Noisy"
+    ]
+  },
+  {
+    "name": "Chestplate, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Chest."
+    ],
+    "deflectRating": 4,
+    "armorRating": 21,
+    "weight": 20,
+    "priceGp": 30,
+    "traits": [
+      "Fitted",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Chestplate, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Body Part: Chest."
+    ],
+    "deflectRating": 2,
+    "armorRating": 12,
+    "weight": 12,
+    "priceGp": 15,
+    "traits": []
+  },
+  {
+    "name": "Breastplate, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Front Torso.",
+      "Body Part: Front Torso."
+    ],
+    "deflectRating": 4,
+    "armorRating": 21,
+    "weight": 20,
+    "priceGp": 80,
+    "traits": [
+      "Fitted 2",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Backplate, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Back Torso.",
+      "Body Part: Front Torso."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 15,
+    "priceGp": 30,
+    "traits": [
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Jacket, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Torso.",
+      "Body Part: Front Torso + Back Torso."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 15,
+    "priceGp": 20,
+    "traits": []
+  },
+  {
+    "name": "Jacket, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Torso.",
+      "Body Part: Front Torso + Back Torso."
+    ],
+    "deflectRating": 3,
+    "armorRating": 12,
+    "weight": 20,
+    "priceGp": 30,
+    "traits": [
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Brigandine, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Torso.",
+      "Body Part: Front Torso + Back Torso."
+    ],
+    "deflectRating": 4,
+    "armorRating": 18,
+    "weight": 25,
+    "priceGp": 60,
+    "traits": [
+      "Fitted",
+      "Bulky",
+      "Mail",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Cuirass, Metal",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Hit Location: Torso.",
+      "Body Part: Front Torso + Back Torso."
+    ],
+    "deflectRating": 5,
+    "armorRating": 21,
+    "weight": 30,
+    "priceGp": 100,
+    "traits": [
+      "Fitted 3"
+    ]
+  },
+  {
+    "name": "Shirt, Padded",
+    "notes": [
+      "Classification: Gear Armor."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 10,
+    "priceGp": 15,
+    "traits": [
+      "Bulky",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Long Shirt, Padded",
+    "notes": [
+      "Classification: Gear Armor."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 15,
+    "priceGp": 20,
+    "traits": [
+      "Bulky 2",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Shirt, Quilted",
+    "notes": [
+      "Classification: Gear Armor."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 8,
+    "priceGp": 10,
+    "traits": [
+      "Flex",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Long Shirt, Quilted",
+    "notes": [
+      "Classification: Gear Armor."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 12,
+    "priceGp": 12,
+    "traits": [
+      "Flex"
+    ]
+  },
+  {
+    "name": "Thin Shirt, Mail",
+    "notes": [
+      "Classification: Gear Armor."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 12,
+    "priceGp": 20,
+    "traits": [
+      "Mail"
+    ]
+  },
+  {
+    "name": "Thin Long Shirt, Mail",
+    "notes": [
+      "Classification: Gear Armor."
+    ],
+    "deflectRating": 2,
+    "armorRating": 12,
+    "weight": 15,
+    "priceGp": 25,
+    "traits": [
+      "Mail"
+    ]
+  },
+  {
+    "name": "Shield, Buckler",
+    "notes": [
+      "Classification: Shield Armor."
+    ],
+    "deflectRating": 4,
+    "armorRating": 6,
+    "weight": 2,
+    "priceGp": 2.5,
+    "traits": [
+      "1H",
+      "Target 2"
+    ]
+  },
+  {
+    "name": "Shield, Small",
+    "notes": [
+      "Classification: Shield Armor."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 5,
+    "priceGp": 4,
+    "traits": [
+      "1H",
+      "Target",
+      "Coverage"
+    ]
+  },
+  {
+    "name": "Shield, Medium",
+    "notes": [
+      "Classification: Shield Armor."
+    ],
+    "deflectRating": 3,
+    "armorRating": 12,
+    "weight": 10,
+    "priceGp": 6,
+    "traits": [
+      "1H",
+      "Screen",
+      "Coverage"
+    ]
+  },
+  {
+    "name": "Shield, Large",
+    "notes": [
+      "Classification: Shield Armor."
+    ],
+    "deflectRating": 4,
+    "armorRating": 15,
+    "weight": 15,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Bulky",
+      "Screen",
+      "Coverage"
+    ]
+  },
+  {
+    "name": "Shield, Tower",
+    "notes": [
+      "Classification: Shield Armor."
+    ],
+    "deflectRating": 4,
+    "armorRating": 18,
+    "weight": 20,
+    "priceGp": 10,
+    "traits": [
+      "1H",
+      "Bulky 2",
+      "Screen"
+    ]
+  },
+  {
+    "name": "Helmet, Mail Coif",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 2,
+    "armorRating": 12,
+    "weight": 4,
+    "priceGp": 10,
+    "traits": [
+      "Mail",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Helmet, Boiled",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 1,
+    "armorRating": 9,
+    "weight": 2.5,
+    "priceGp": 2.5,
+    "traits": [
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Helmet, Full",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 5,
+    "priceGp": 25,
+    "traits": [
+      "Blinders",
+      "Rigid",
+      "Protective"
+    ]
+  },
+  {
+    "name": "Helmet, Half",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 2,
+    "armorRating": 15,
+    "weight": 2.5,
+    "priceGp": 10,
+    "traits": [
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Helmet, Half Mantled",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 3,
+    "priceGp": 12,
+    "traits": [
+      "Noisy",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Helmet, Full Visored",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 4,
+    "armorRating": 21,
+    "weight": 6,
+    "priceGp": 12,
+    "traits": [
+      "Blinders",
+      "Rigid",
+      "Protective"
+    ]
+  },
+  {
+    "name": "Helmet, Full Visored Mantled",
+    "notes": [
+      "Classification: Helmet Armor."
+    ],
+    "deflectRating": 5,
+    "armorRating": 24,
+    "weight": 8,
+    "priceGp": 40,
+    "traits": [
+      "Blinders",
+      "Noisy",
+      "Rigid",
+      "Protective"
+    ]
+  },
+  {
+    "name": "Armor Set, Light (Soft)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso."
+    ],
+    "deflectRating": 2,
+    "armorRating": 3,
+    "weight": 20,
+    "priceGp": 50,
+    "traits": [
+      "Flex"
+    ]
+  },
+  {
+    "name": "Armor Set, Light (Boiled)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso, Arms.",
+      "When not using Hit Locations, add +2 AR and +2 Deflect."
+    ],
+    "deflectRating": 3,
+    "armorRating": 9,
+    "weight": 25,
+    "priceGp": 60,
+    "traits": []
+  },
+  {
+    "name": "Armor Set, Medium (Reinforced)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso, Arms.",
+      "When not using Hit Locations, add +2 AR and +2 Deflect."
+    ],
+    "deflectRating": 4,
+    "armorRating": 12,
+    "weight": 25,
+    "priceGp": 100,
+    "traits": [
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Armor Set, Medium (Mail)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso, Arms.",
+      "When not using Hit Locations, add +2 AR and +2 Deflect."
+    ],
+    "deflectRating": 5,
+    "armorRating": 15,
+    "weight": 30,
+    "priceGp": 120,
+    "traits": [
+      "Flex",
+      "Mail",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Armor Set, Heavy (Reinforced + Plate)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso, Arms, Legs.",
+      "When not using Hit Locations, add +4 AR and +4 Deflect."
+    ],
+    "deflectRating": 6,
+    "armorRating": 18,
+    "weight": 40,
+    "priceGp": 150,
+    "traits": [
+      "Mail",
+      "Fitted",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Armor Set, Heavy (Mail + Plate)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso, Arms, Legs.",
+      "When not using Hit Locations, add +4 AR and +4 Deflect."
+    ],
+    "deflectRating": 7,
+    "armorRating": 21,
+    "weight": 50,
+    "priceGp": 200,
+    "traits": [
+      "Bulky",
+      "Fitted 2",
+      "Rigid"
+    ]
+  },
+  {
+    "name": "Armor Set, Field (Plate)",
+    "notes": [
+      "Classification: Armor Set.",
+      "Hit Locations: Front Torso, Back Torso, Arms, Legs.",
+      "When not using Hit Locations, add +4 AR and +4 Deflect."
+    ],
+    "deflectRating": 8,
+    "armorRating": 24,
+    "weight": 60,
+    "priceGp": 250,
+    "traits": [
+      "Bulky 2",
+      "Fitted 3",
+      "Rigid"
+    ]
+  }
+]

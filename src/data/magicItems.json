@@ -1,0 +1,1010 @@
+[
+  {
+    "name": "Acid Weapon X",
+    "form": "Weapon",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. May be used once per SIZ. Regenerates 1 per 6 Hours with enough water. XD Damage (Acid) each Round after first contact until washed away. May be spat up to STR - 10 feet with OR x0.2. Accuracy is DM -3 initially. Negated by Oily X or Resist Acid X."
+  },
+  {
+    "name": "Affinity Stone X",
+    "form": "Stone",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Used by guildmasters of a Trade during an Affinity Ritual. The stone when held solely by a Denizen indicates with a symbol, color, sound, or other pattern, the Zed Affinity of the character. The stone when held by a Denizen and touching another with it for 1-Minute will alter the Zed Affinity of that other character to match the first. X is the number of characters which may be altered during the same Affinity Ritual before the stone must rest for 1-Day. All Denizens have a Natural Affinity at birth. If they hold the stone for 1-Minute and think upon themselves after sensing the patterns of the stone, will reset their Zed Affinity to that natural one."
+  },
+  {
+    "name": "Amulet of (Deity domain) X",
+    "form": "Amulet",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Protects against Domain with DM +X."
+  },
+  {
+    "name": "Amulet of Discretion X",
+    "form": "Amulet",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Masks up to X Favor dice used"
+  },
+  {
+    "name": "Amulet of Many Tongues",
+    "form": "Amulet",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Amulet of Recharging X",
+    "form": "Amulet",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Spend up to X living mana while touching the worn items. Each point restores +1 Current Dead Mana Index to one connected Manaseep or Manasump, divided among rings, bracers, amulets, and necklaces as the user chooses, never above each Capacity Index."
+  },
+  {
+    "name": "Amulet of True Direction X",
+    "form": "Amulet",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. When held will point to a stored location. The location may be set by pressing down on a button. It generates small marbles which can also be used as beacons. It may remember or maintain X beacons at a time."
+  },
+  {
+    "name": "Arbiter Braces X",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Provide +X mana for specific Order Magicka."
+  },
+  {
+    "name": "Arbiter Rings X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Provide DM +X for specific Order Magicka."
+  },
+  {
+    "name": "Arrows of Unfailing Accuracy X",
+    "form": "Arrows",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Heavier than a normal arrow by double its weight. Will always hit the target somewhere; do not perform a Range Combat Hit Test. Normally an arrow flies at (via STR/3 + 12 or about Index 14) 250 feet per 10-second Turn. Its Speed Index can be using ZED plus any mana spent. Flies swiftly for up to X + 6-Turns. Impact is +X. Damage is +X minus 1 per Turn of flight."
+  },
+  {
+    "name": "Auditor of Books",
+    "form": "Device",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Axe of Thunder and Lightning",
+    "form": "Axe",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Bag of Deep Pockets X",
+    "form": "Bag",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. A rather small bag which fits a human-sized hand up to the shoulder. There are X pockets within it which can hold any object up to 6-feet in length which can fit the bag’s mouth which is about 6-inches in diameter. The pockets are environmentally controlled when activated using mana, which is done automatically when any pocket contains an item. It will drain 1 mana from its user per Day. It is Linked and the user may be up to 100-feet away. If there is no mana remaining, it becomes un-Linked and will slowly push out its contents one at a time in a random order."
+  },
+  {
+    "name": "Bandages of Lirace",
+    "form": "Bandages",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Bangle of Hygiene X",
+    "form": "Bangle",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Cleans the bearer and anything deliberately touched if desired. X is the number of separate persons or hand-sized objects which may be cleaned during one activation; larger objects count as several uses at the GM's discretion."
+  },
+  {
+    "name": "Banweapon X",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser.[2H, Hafted]. Manapump > { Pierce +X. Blinding X + 3 Electroshock X.} Specify Warhammer, Broadsword, Greataxe, Mace, or Spear. Whenever this weapon strikes, it creates a flash of lightning which will causing Blinding for those unprepared, and Noise equal to 110 dB + 5 dB each mana. If striking a living target, creates Electroshock X."
+  },
+  {
+    "name": "Battlebundle X",
+    "form": "Bundle",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manastore X Weighs about 10X Pounds and is a satchel of partitioned badglass batteries. Treat the bundle as Manastore (X + 20) for Dead Mana Capacity Index, or assign several smaller stores totaling similar endurance. It serves to power Scrolls, Devices, and Magic Items but does not stack with the user's Manapool to raise Available Mana."
+  },
+  {
+    "name": "Belt of Silence X",
+    "form": "Belt",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. When worn and activated by silently mouthing the word “whisper”, it adjusts any Noise by -XD to Detect with OR ZED attenuated normally."
+  },
+  {
+    "name": "Blade of Infinite Length X",
+    "form": "Blade",
+    "gradeLevel": 1,
+    "gradeAvailability": "Wondrous",
+    "description": "Wondrous. Manatrigger. Pierce X + 1. When activated, the weapon's blade grows outward as a conspicuously glowing coherent particle-beam edge. The blade has no intrinsic length limit. Its extension propagates at the speed of light in the medium, so at ordinary encounter distances there is no meaningful travel-time Dodge. Normal attack defense still applies because a target may react to the wielder, the aim, the swing, or the line being established. Use CCA for an ordinary Close attack. When the wielder deliberately projects the blade beyond Close range, use the ordinary Range Combat Hit Test. A single straight extension can intersect several targets; use the normal multiple-target rules. Resolve Pierce X + 1 against each intervening target, object, or barrier. The blade may continue through anything it successfully penetrates and stops where the GM determines the material or effect defeats that Pierce, or when the wielder ends the extension. The glow is obvious. The infinite potential length does not grant perception: the wielder still needs a valid target, declared direction, Link, sensor, or other established way to know where to place the blade."
+  },
+  {
+    "name": "Bolts of Percussion X",
+    "form": "Bolts",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Noise 2 + X, Stun X, OR -3 This is a set of 2D+3 specially crafted bolts. When they strike a target, they release an explosive noise and might shatter. Roll Fate dice and on Negative Effect, the bolt shatters and becomes useless. It will fly at the normal rate for an arrow (via STR/3 + 12 or about Index 14) but can be powered by mana with each mana spent providing +1 MOV. Each mana spent is also +1 Impact."
+  },
+  {
+    "name": "Box of Unending Biscuits",
+    "form": "Box",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Box of Unusual Containment",
+    "form": "Box",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Bracers of Climbing and Lacerations",
+    "form": "Bracers",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Braincache X",
+    "form": "Clockwork brain container",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. A Braincache is a clockwork brain container designed to keep a damaged living brain supported while it is installed within another host, including a construct, an animal body, or another vessel able to accept the mechanism. The exact housing may vary, but it must physically contain and support the brain and maintain its psychotronic connection to the host. Braincache X is normally made at X1 through X3. While installed, the subject acquires [Slow 3 - X]; if the result is 0, do not acquire Slow. Reduce ZED by 3 - X; if the result is 0, there is no ZED reduction. The subject also suffers POW -3 for the permanent Link between the brain, cache, and host. X3 therefore removes the additional Slow and ZED reduction but does not remove the permanent POW cost. The Braincache does not by itself make an incompatible body biologically natural or repair the original brain Injury. Those remain matters for the host, Medicine, Magic, or other rules."
+  },
+  {
+    "name": "Breastplate of Saint Norut",
+    "form": "Breastplate",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Charm of Adaptation X",
+    "form": "Charm",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM +X Survive Cold, Heat, Humidity effects."
+  },
+  {
+    "name": "Circlet of Courage X",
+    "form": "Circlet",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Receive Grit and DM +X for POW Tests involving fear, hesitation, or morale."
+  },
+  {
+    "name": "Circlet of Retrieval X",
+    "form": "Circlet",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Up to X items may be Linked to the circlet by touching it for 1-Minute. A Linked item within ZOR may be teleported back into the wearer's open hand. Retrieve one item at a time, furthest to closest by default, but the wearer may Concentrate and choose whichever is desired."
+  },
+  {
+    "name": "Cloak of Shadow Walking",
+    "form": "Cloak",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Cloak of the Sun",
+    "form": "Cloak",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Crystal of Navigation X",
+    "form": "Crystal",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Works only within a dark room or area with dust, smoke, or water vapor. It may keep X routes or destinations in active memory at a time. When touched it toggles activation. When it is activated, it will float up to just above everybody’s eye-level who is within a 10-foot diameter circle and illuminate the air with holographic information. The default imagery will be the night sky full of stars matching the local conditions. It will respond to whomever is speaking to show a map, predictions of travel duration, and forecasts for weather."
+  },
+  {
+    "name": "Dagger of Sacrifice X",
+    "form": "Dagger",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manaleech X, Damage +X. Forbidden. It is a necroblade. Ceremonial ornate design."
+  },
+  {
+    "name": "Dagger of Stabbing X",
+    "form": "Dagger",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manatrigger, Pierce, Damage +XD, Reach. This is an especially crafted dagger which when it strikes living tissue by the stabbing action, grows double in length for a deep, penetrating puncture and providing +XD Damage with +X Pierce. It grows to fit into the hands of the wielder."
+  },
+  {
+    "name": "Darts of Shattering Skies",
+    "form": "Darts",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Fireglaive of Young Sillis",
+    "form": "Glaive",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Flaming Weapon X",
+    "form": "Weapon",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Specify Weapon :: Manapump (10-Minutes) > { Fire Damage +1D + mana } +XD Damage (Fire) each Round after first contact until doused. +1 Damage per Turn if oily, kindling, or hairy. The standard shape is a flamberge which is a sort of Greatsword or Longsword with wavy edges and a blacksmith’s forgemark on the blade near the hit surrounded by a fire glyph. Drains 1 mana every 10-Minutes active. Spending additional mana provides +1 Damage for any attack and results in a larger flame. The heat from this weapon will become unbearable at some point as it is 1 BTU plus 1 BTU per mana which courses through the weapon."
+  },
+  {
+    "name": "Flask of Everlasting Beverages",
+    "form": "Flask",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Flowbracer",
+    "form": "Bracer",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. These are usually a matched pair of blackmetal and leather bracers, although gauntlets, cuffs, arm-rings, or another worn form which can maintain the same conductive path are possible. While worn, increase the bearer's Cellburn Limit by up to +3. The Flowbracer's added Cellburn allowance is an explicit exception to the normal VSE requirement: the additional Cellburn enabled by the Flowbracer does not require VSE. It does not create living mana, increase Manapool, or replace Zedsurge. Cellburn beyond the Flowbracer's added allowance follows the normal VSE rules."
+  },
+  {
+    "name": "Flower Hearts of Everia",
+    "form": "Flower",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Gems of Radiance X",
+    "form": "Gems",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Light 100X-feet, Blinding 2 + X. At 2-5-10 Gems used together is another +1 Blinding. Duration is 1-Minute. Has 10 Gems. Charges 1D. Check after using."
+  },
+  {
+    "name": "Girdle of Mass X",
+    "form": "Girdle",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Professional Issue > Knight. Link POW -1. The Girdle increases the wearer's effective Mass Index by +3X. Against external attempts to push, throw, knock back, overturn, carry, or otherwise move the wearer, treat the wearer as SIZ +3X. The artificial mass also provides Armor 3X against primarily kinetic Damage where increased inertia actually helps, such as Bludgeon or collision. It does not make the wearer stronger and does not burden the wearer's own ordinary locomotion merely because the Girdle is active. The GM may disregard the benefit where mass would not physically mitigate the effect."
+  },
+  {
+    "name": "Goggles of Nightvision X",
+    "form": "Goggles",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Switch > X +3 Detect during Night This is a multi-spectrum Nightvision ability covering Ultravision (ultraviolet) and Infravision (Heat)."
+  },
+  {
+    "name": "Greater Banhammer X",
+    "form": "Hammer",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. [2H, Hafted]. Manapump > { Pierce +X. Blinding X + 3. Electroshock X. }. Manaflow > Quake X. Similar to the Banweapon X for Warhammers, but this highly coveted weapon when it strikes a large solid object, if the user desires and acquires a Delay token to brace for the impact, causes a rippling effect similar to an earthquake. The amount of time required between these efforts is about 1-Minute as it is necessary for the picoswarms to multiply in number. Resolve the seismic effect with Quake X in Book VIII. The Quake is separate from the Banhammer's direct weapon strike: a target struck by the hammer takes the normal weapon/Manapump Damage, while the ground or solid structure carries the Quake outward. Quake does not automatically bypass Hitpoints or Armor Rating on the directly struck target."
+  },
+  {
+    "name": "Gullboard X",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. More correctly as “Gullboard of the Last Patrol” in reference to the ancient Kingdom of Shont-sha. A semi-intelligent technological airfoil-shaped artifact similar in design to a gull’s wings with a 10-foot tether and wrist-strap. It has stirrups on its top for a human-sized stance and feet and a shallow compartment with a sliding cover which can hold a small-sized trunk or large sack for at most 30-pounds or 20 cuft. It may fly receiving +X Flight trait, but at X + MOV 20 (~60 MPH) and levitates gently, following whoever holds on to its tether. It is semi-intelligent INT 4 + X and KNO 4 + X, and will know its last owner, desiring to return to it by flying or floating around. It requires Riding > Wingboard to correctly ride it. Any weight added to the board from the rider or stored items adjusts its MOV accordingly."
+  },
+  {
+    "name": "Harness of Deafening Defense",
+    "form": "Harness",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Hat of Hearing X",
+    "form": "Hat",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. [Awkward]. Switch > Detect +XD Ridiculous looking. Each Hat of Hearing apparently was crafted by a cynical haberdasher and there are male, female, and child versions. [Awkward]. Receive DM +XD Detect for hearing. Receive another DM +1D Detect if everything else is quiet. It is Painful if Ambient Noise is louder than a whisper (30 dB or so)."
+  },
+  {
+    "name": "Hat of Many Things",
+    "form": "Hat",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Heart of Life X",
+    "form": "Heart",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. A Heart of Life is a clockwork replacement heart. The visible mechanism varies by maker and may be jeweled, blackmetal-cased, or hidden beneath an organic-looking shell, but it must replace a functioning heart organ and remain connected to the bearer's circulation. While functioning, the bearer receives +X STR and +X REF and acquires [Zucked X]. The enhanced circulation and response therefore come with reduced compatibility with ordinary piconit and mana use."
+  },
+  {
+    "name": "Heavy Cloak of the Quite Sea",
+    "form": "Cloak",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Helm of Command",
+    "form": "Helm",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Helm of Energetic Ruminations X",
+    "form": "Helm",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Receive DM +X INT and KNO. Always Distracted."
+  },
+  {
+    "name": "Infinite Chain X",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manaflow > { Reach X. }. [Awkward][Hafted]. Entangle. Reach. Magnify > { STR, REF }. Foldspace X. A chain weapon which grows from the hammerspace. It may grasp with high dexterity. It can also be used by whirling it around the character’s shoulders. When “thrown” by releasing the free end of the chain, it will strike causing Damage. The chain itself is titanium-laced black metal is relative sturdy, though it can be grabbed or used as a rope."
+  },
+  {
+    "name": "Ink of Air X",
+    "form": "Tattoo ink",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manatrigger > +X Stress Must apply to rib-cage, and carotid arteries near the throat of a Sophont. May ignore the need to breathe oxygen (or whatever the Sophont normally breathes) for 10-Minutes per X."
+  },
+  {
+    "name": "Ink of Shielding X",
+    "form": "Tattoo ink",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manatrigger > +X Stress Must apply to all shoulders and hips. Receive DM +X Defender Combat Tests and Defender Detect Tests, including against Detect Magic. Remains in effect for 10-Minutes."
+  },
+  {
+    "name": "Ink of Strength X",
+    "form": "Tattoo ink",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manatrigger > +X Stress Must apply to each arm, leg, neck, back, abdomen as a small 1-Inch circular sigil. Whatever group of muscles that area represents benefits. Requires decorative scarification around that sigil to store additional piconits. Receive +X for Tests involving STR or FOR, and +X Index for any Physical capabilities such as carrying, running, or jumping. Remains in effect for 10-Minutes."
+  },
+  {
+    "name": "Leggings for a Wild Jaunt X",
+    "form": "Leggings",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Receive +X MOV, +X Sprint and +X Leap. Always Distracted."
+  },
+  {
+    "name": "Lens of the Wandering Eye X",
+    "form": "Lens",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. More correctly as “Meechum’s Singular Lense of the Wandering Eye”. Can read any text from the perspective of another creature with eyes."
+  },
+  {
+    "name": "Lenses of the Light X",
+    "form": "Lens",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. DM +3X Detect"
+  },
+  {
+    "name": "Librarian’s Aide",
+    "form": "Device",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Magnificent Orbs",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser–Wondrous",
+    "description": "Varies between Lesser and Wondrous. There are several sorts with their own entries such as Orb of Commerce, Orb of Utterance, etc. Each are heavy and made of polished quartz glass, which is melted badglass formed into a spherical mold. Many are styled with the addition of colorful dyes and particulates. Some are formed around a central bauble or decorative fractal sculpture. When using Detect Magic, orbs will of course glow in gold, but they’ll also generate rays to illuminate animated holographic projections. They come in various sizes. For example, a Supreme Orb is 1-Foot in diameter and at SIZ 9 weighs about 80-Pounds. The power of an orb is proportional to its size, but the abilities of an orb is independent of its size. All orbs are generally resilient and use the properties of Tempered Glass, but can be made more resilient through the application of mana. All Magnificent Orbs have a manastore whose Dead Mana Capacity Index varies by SIZ. They also have Manapump > Armor to increase their resilience; each +1 mana from a Spellcaster (not from the manastore) provides +10 AR. Body shown here is Bodypoints until fractured, which causes the orb to become useless. Size SIZ Diameter Weight AR Body Manastore Knuckle -12 2-in 0.6# 6 4 1 Palm -7 3-in 2# 7 9 3 Master 0 4-in 10# 9 16 10 Great 2 6-in 15# 10 18 12 Scrying 6 10-in 40# 12 22 16 Supreme 9 12-in 80# 13 25 19 The Manastore column is Dead Mana Capacity Index. These rounded values follow the orb's increasing badglass volume rather than the retired manapip ratios."
+  },
+  {
+    "name": "Magnificent Stands of Transposition X",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "Wondrous",
+    "description": "Wondrous. Manadrain > per 10-Minutes These are stands with equilateral triangular bases which can hold a palm-sized Magnificent Orb. When two stands are touched together they will become Linked and drain 1 mana per 10-Minutes. The orbs may be moved far apart up to ZOR but will continue to work as though in contact with the user, if the user holds any one of the stands. A set may maintain up to X + 1 Linked stands. Each stand above the first pair requires an additional mana."
+  },
+  {
+    "name": "Marvelous Marbles",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. A Marvelous Marble is normally a single metal sphere about 1-Inch in diameter. Beads, pellets, or other small rolling forms may be made if they preserve the same bouncing and rolling behavior. Once activated, the enchantment operates for 1-Minute. After its first bounce, while it continues rolling through open space, the marble spawns and scatters 10 copies of itself in different directions after about 1-Second of travel. Each moving copy behaves the same way after its own first bounce and 1-Second of travel. A marble only spawns when there is ample free space around it. Holding it in a hand, swallowing it, shutting it inside a small box, or otherwise confining it prevents replication. Do not track every marble individually once the cascade becomes large. The GM describes the expanding clatter and treats the occupied region as Difficult terrain where the marbles materially cover the floor. Depending upon the space available, thousands of copies can accumulate and the affected footprint can approach 10,000 sqft. The noise is conspicuous. Running, fighting, wheeled movement, stairs, slopes, crowds, fragile objects, and similar circumstances can cause ordinary falls, collisions, or other Injury using the existing movement, terrain, Impact, and Destruction rules. The item does not require a separate marble-damage subsystem. Replication stops when the 1-Minute operating duration ends or where there is insufficient space."
+  },
+  {
+    "name": "Mask of Conviction",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Mask of Fine Observation X",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manatrigger. Manasump > Glamour. DM +X detecting small things. Makes them glow."
+  },
+  {
+    "name": "Mask of Mystery X",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manatrigger. Manasump > Glamour. Causes people to not remember the wearer. This is a DM -3 per X."
+  },
+  {
+    "name": "Mask of Rothii",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Mask of Surprise X",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Manatrigger. Manasump > Glamour. Always causes others to become Surprised unless they pass an REF Test at DR -XD."
+  },
+  {
+    "name": "Mask of Yirm",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Militia Arrow X",
+    "form": "Arrow",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Returning. Choose Accuracy +X, Damage +X, or Impact +X when crafted. There is just one arrow. The same enchantment is also made as bolts or other ordinary ammunition for military issue. When it is loosed from a standard sized Medium Bow or Longbow, after striking or missing it disappears and reforms in the archer’s preferred hand if within ZORM of 1. There is some intelligence in the projectile and it knows when to instead appear at the archer’s side or within the archer’s quiver. The military pattern is intentionally low-power. Choose one benefit when the item is imbued: Accuracy +X, Damage +X, or Impact +X. Do not apply all three."
+  },
+  {
+    "name": "Mirror of Actual Truth",
+    "form": "Mirror",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Necklace of Allure X",
+    "form": "Necklace",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM +X Seduction"
+  },
+  {
+    "name": "Necklace of Might X",
+    "form": "Necklace",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Receive +3X STR and FOR"
+  },
+  {
+    "name": "Needle Arrows X",
+    "form": "Arrows",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Pierce +X, +XD Damage. This is a set of 2D+3 specially crafted arrows shaped similar to a bodkin arrow but with an overly sharp needle-like tip. Handling the arrow incorrectly, usually by accident, will prick the handler’s finger. It will fly at the normal rate for an arrow (via STR/3 + 12 or about Index 14) but can be powered by mana with each mana spent providing +1 MOV. Each mana spent is also +1 Impact."
+  },
+  {
+    "name": "Orb of Commerce X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manadrain > per 10-Minutes A palm-sized violet quartz (amethyst) sphere which learns spoken languages it hears and translates for the holder into a preferred language known. It may separate and translate up to X simultaneous speakers or languages. Available in multiple colors and decorative occlusions. Usually found slightly cracked or chipped but will function correctly until cleaved in half or smashed. Presume DM -1D if damaged."
+  },
+  {
+    "name": "Orb of Darkness X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manadrain > per 10-Minutes A palm-size black topaz sphere. When activated by a user, it will create a sphere of darkness of radius ZOR/10 feet. Treat the user's ZED as +X for finding this ZOR. Each additional mana spent will increase the ZOR by 1 for just 10-Seconds."
+  },
+  {
+    "name": "Orb of Discretion X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manalink. A palm-sized emerald sphere which allows up to X + 1 persons who touch it simultaneously and affirm a desire to become Linked. It Links them without the need for spellcasting. Each will lose 1 mana per 1-Hour while Linked. While Linked, the two persons to share simple emotive thoughts with each other within the ZOR of both combined. Complex imagery and emotions can be conveyed by an Attentive sender, but causes an Attentive recipient to become Distracted if it needs to understand."
+  },
+  {
+    "name": "Orb of Equity X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manadrain > per 10-Minutes, Manaleech May intentionally or unintentionally be used to provide +1 DM when held for any Test. Will stay brightly charged for 1 hour each time. Can sustain up to X. Unless slowly discharged, it will penalize its holder DM -1 every Test for each excess beyond X. How often it does this is random but check Luck once per 1-Hour. Whenever a Luck Test is failed by one or more characters, the one closest will experience manaleech by the Degree of Failure. This will power the orb to provide a local, positive or beneficial environmental impact to benefit the character for 10-Minutes by providing DM +1D for all Tests. Extended use of this feature, often unintentional, will demonstrate through impacts in the environment around the holder such as accidents occurring, Denizens entering disputes or exhibiting confusion or violence, etc."
+  },
+  {
+    "name": "Orb of Nullification X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. A palm-sized black Blackmetal sphere with an inset bezel ring. This item has Manastore 10X. Every 10-Minutes of deliberate charging, 1 living mana from the touching user restores +1 Current Dead Mana Index. It slowly loses 1 Current Dead Mana Index every Week if not maintained. When the bezel is twisted to show all red instead of its default gold, it is activated. Using its current mana level as Zed, any active use of mustrumforms within ZOR will be absorbed by the orb and reduces its mana by an equal amount. If there are multiple Orbs of Nullification within range of the mustrum source, divide the absorption equally but give the nearest orb any fractional remainder. When an orb no longer has mana, the bezel will rotate automatically to show its gold ring. While an orb contains mana, when it is near a creature with magicorruption that is within ZOR, it will cause it 1 Hitpoint damage every 1-Minute or 10 Hitpoint damage every 10-Minutes, and eventually creating Injury. Reduce effective Damage experienced by 1 per ZORM. Deities dislike these orbs and they are similar in design as godtraps."
+  },
+  {
+    "name": "Orb of Observation X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Manadrain > per 1-Day There are two sizes; a Master Orb of yellow quartz about 1-foot in diameter and a palm-sized Sight Orb of clear quartz. After the user holds both a Master and a Sight orb, the Sight orb can be placed anywhere. One Master Orb may maintain up to X Sight Orbs. The same user holding the Master Orb can see and hear anything each Sight Orb senses, and can switch between them. Maximum ZOR can be increased for 10-Minutes per mana flow."
+  },
+  {
+    "name": "Orb of Quickened Days",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Orb of Reticence X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Legendary",
+    "description": "Legendary. A Supreme Orb seemingly hollow, but with twenty finger-holes. Any character placing fingers from separate hands into opposing finger-holes activates it. When activated, piconits, including godclouds, within a 10X-Foot radius become non-functional. They are destroyed after 1-Minute of continuous exposure. An X2 or X3 Orb of Reticence is therefore enormously more difficult to find even though the operation is otherwise the same."
+  },
+  {
+    "name": "Orb of Utterance X",
+    "form": "Orb",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manatrigger > Manadrain > per 10-Minutes A palm-sized rose quartz sphere which when activated while in hand for 1 mana will amplify anything spoken to be a loud shout, and the volume can be controlled as desired by thinking it. The amplification will last 10-Minutes per mana spent under normal conditions. The volume is about 20 + 10X dB louder than the spoken voice, and this projects from a 30-degree up to a 120-degree cone away from the speaker desired. Every 1 mana added will increase the volume another 10 dB for just 10-Seconds."
+  },
+  {
+    "name": "Pebbles of Boulderish Size X",
+    "form": "Pebbles",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Bag of 10X Pebbles. Heavier than normal expected weight (0.2 cuft and 1# becomes 5#) Add Acid to it with some water, and it will grow into 2000# boulders each 20-cuft (about 3 × 3 × 2 feet), sapping any local ground-water by equal amount if none is poured onto it. Acquires 1-cuft per ounce of water and requires 1-Minute each 0.1-0.2-0.5-1.0-2-5-10-20-50-100-200 cuft (10-Minutes) Add too much water, and it will grow larger but of the same mass (20K#) up to 200-cuft When it dries out, it will shrink. Takes 1-Day each cuft to shrink half (10 days)."
+  },
+  {
+    "name": "Pendant of Insightfulness X",
+    "form": "Pendant",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM +X INT"
+  },
+  {
+    "name": "Pendant of Knowledge X",
+    "form": "Pendant",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Specific subject, skill, region. Receive +X Knowledge."
+  },
+  {
+    "name": "Pendant of Memories X",
+    "form": "Pendant",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Remember details of any event clearly. Stores memories of the prior bearers, going back decades. Receive +X History."
+  },
+  {
+    "name": "Pendant of Phasing X",
+    "form": "Pendant",
+    "gradeLevel": 1,
+    "gradeAvailability": "Wondrous",
+    "description": "Wondrous. Cross through any wall."
+  },
+  {
+    "name": "Pendant of Tears X",
+    "form": "Pendant",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. DM +X Persuasion and higher. Elicits tears and crying, and emotes others in contact."
+  },
+  {
+    "name": "Pistol of Whips and Chains",
+    "form": "Pistol",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Portable Door X",
+    "form": "Door",
+    "gradeLevel": 1,
+    "gradeAvailability": "Wondrous",
+    "description": "Wondrous. With a touch of a decorative piece of art, this heavy roll of leather when draped against a wall, it glows and affixes itself to form a sturdy Hardwood door within a door frame. Opening the door reveals the other side of a wall up to 10X-feet thick. It remains this way until one of its three hinges is pressed."
+  },
+  {
+    "name": "Pot of Recombination",
+    "form": "Pot",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Potion of Resplendent Regeneration X",
+    "form": "Pot",
+    "gradeLevel": 1,
+    "gradeAvailability": "Wondrous",
+    "description": "Wondrous. Manasump. Will regenerate lost or injured body parts. +1 Bodypoint, +1D6 Hitpoints each sip. Malformation Test TN=7+ DM-3 per sip to avoid malformation mutation. Has 4D × X sips."
+  },
+  {
+    "name": "Potion of Whetted Blades X",
+    "form": "Blade",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Impact +X, Damage +X A standard bottle allows 10X applications, though found examples may have fewer remaining. When applied to the edge of a blade such as an Axe or Sword, it receives Impact +X and Damage +X for about 1-Week. One application treats one ordinary blade."
+  },
+  {
+    "name": "Poultice of Intense Effectiveness",
+    "form": "Poultice",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Raiment Fold X",
+    "form": "Raiment",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Eldritch. Foldspace X. Hammerspace X. A Raiment Fold stores one prepared loadout of armor, clothing, weapons, packs, and other designated equipment in a personal fold. In 1 Action, the user may exchange the designated equipment presently worn or carried with the stored loadout. The entire exchange occurs or none of it does. The Raiment Fold must have enough Foldspace/Hammerspace capacity for the prepared loadout. It cannot store a living creature or anything prohibited by the normal Hammerspace rules. It does not make armor weightless while worn, bypass fitting requirements, or create duplicate equipment."
+  },
+  {
+    "name": "Resplendent Shield X",
+    "form": "Shield",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Deflect +X and +3X Armor Rating. Shiny and so -1D Detect during the day and -2D at night if a light is cast upon its surface. It is a very dark and mirror-finished medium-sized kite-shield of devoid of surface art. If painted, the art will slowly flake away and disappear revealing the highly polished Blackmetal beneath."
+  },
+  {
+    "name": "Rig of Great Speed",
+    "form": "Rig",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Rig of Great Strength",
+    "form": "Rig",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Ring of Combat X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. DM +X CCA and RCA and REF"
+  },
+  {
+    "name": "Ring of Glamour X",
+    "form": "Ring (traditional; variable worn form)",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. The traditional form is a ring, but the same item may be made as a necklace, bracelet, pendant, circlet, anklet, veil ornament, skin-bound adornment, or another worn form suitable to its maker and culture. While worn and functioning, the bearer acquires Beauty X. The name Glamour is traditional. This standard item grants the Beauty X Trait; it is not the separate Psionic or spell-derived Glamour X effect. These items are especially prized by Entertainers and courtesans, and are also commissioned by courtiers, diplomats, wealthy patrons, and others whose livelihood benefits from extraordinary presentation."
+  },
+  {
+    "name": "Ring of Refraction X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manaseep X. Manastore. When worn, causes the character to always be effectively Hidden. Their actual physical position is downwards from any light source and sideways just a little. The amount depends on whether the ring is touched by the other hand. Normally it is -1D to Detect and Hit, and the other is -2D detect and Hit."
+  },
+  {
+    "name": "Ring of Regents X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Receive +X Politics and +X Peerage."
+  },
+  {
+    "name": "Rings of Binding X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Manatrigger. Seeker X > Visible. Resize. Entangle X. These are prepared rings carried loose or in a bag. The thrower names or indicates a visible intended target and throws one ring. Intent is selection, not mind-reading. If the target can react, resolve the ordinary Range Combat Hit Test. On a Hit, the ring enlarges enough to pass around the selected body or limbs, follows the acquired visible target, and contracts to apply Entangle X. It is designed to restrain rather than crush and causes no automatic constriction Damage. A target already brought into base-contact while Entangled can enter Grappling under the normal Entangle/Grapple rule; later Grapple Actions remain normal Tests."
+  },
+  {
+    "name": "Ring of the Conniving Gambler X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Legendary",
+    "description": "Legendary. Modifies any die thrown so that its final value can be mentally adjusted. Effectively DM +XD until caught."
+  },
+  {
+    "name": "Ring of the Deceitful Gambler X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Duplicates and stores for retrieval any playing card. Effectively DM +XD until caught."
+  },
+  {
+    "name": "Ring of Therapy X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Reduce XD Stress per 1-minute"
+  },
+  {
+    "name": "Ring of Warfare X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Receive +X Tactics and Leadership"
+  },
+  {
+    "name": "Robe of Many Colors X",
+    "form": "Robe",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manaseep X. Manastore. Changes colors and patterns. Controlled by placing adjacent to a color and breathing against both within a foot distance. It has many sections and colors can be adjusted per section. Its texture is that of a silk robe of four layers of masterful craftwork."
+  },
+  {
+    "name": "Robe of Plasma",
+    "form": "Robe",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Shield of Daruk-Esh",
+    "form": "Shield",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Sleeve of Eyes X",
+    "form": "Sleeve",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Manaseep X. Manastore. A garment made of living reptilian flesh embedded with several dozen eyes which shrink and grow as needed. When the eyes are closed, the garment looks like a fine green scaled glove fitting over the fingers to the bicep of a humanoid. When the eyes are open, the sleeve is active. The eyes allow the wearer to see multi-spectrum light, including heat, ultra-violet, x-ray, radio, and even cosmic energy. All in 360-degrees and will penetrate clothing and armor which may cover it. It will detect any Magic Items within ZED feet. It causes 1-Fatigue per 10-Seconds active."
+  },
+  {
+    "name": "Soulbound Weapon X",
+    "form": "Weapon",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Soulbound > { INT-KNO-PRE-POW, one or more Skills } The bound soul is an artificial intelligence with a simulated panel of Attributes for INT, KNO, PRE, and POW. Generate those values using 2D6 + 3 as bracketed such as [7] or [15] to indicate that they are simulated and artificial. Actual value will be that minus 6 for any deeper Sophont-like conversations or personality. The enchantment may preserve up to X Skills from the bound personality. Soul binding to artifacts such as swords requires blood proteins to sustain the picoswarm group. Also may be locked to recognize specific DNA for blood-line possessors to control."
+  },
+  {
+    "name": "Spoon of Blackened Light",
+    "form": "Spoon",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Suncloak X",
+    "form": "Cloak",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM +3X per ORM hiding Visible and Heat signature beneath cloak except for cast shadow."
+  },
+  {
+    "name": "Sword of Sunlight",
+    "form": "Sword",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Tattoo of Longevity X",
+    "form": "Tattoo (traditional; variable worn/body-attached form)",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. The traditional form is an enchanted tattoo, but the form-factor is not mandatory. Scarification, a branded pattern, implanted decorative thread, a bracelet, amulet, ring, circlet, or another worn or body-attached form may carry the same effect. While the item is functioning for the bearer, the bearer must already be in the Mature Age Group or older. Reduce the bearer's effective age by 10X Years for the purpose of age-related effects, but never reduce the effective Age Group below Mature. The character's actual chronology, memories, relationships, accumulated training, and historical age do not change."
+  },
+  {
+    "name": "Teeth of the Lashing Tongue",
+    "form": "Teeth",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "The Great Helm of Sight",
+    "form": "Helm",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "The Last Book of Origo",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "The Straightest Red Line of Forkon",
+    "form": "",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Timekeeper’s Bracelet",
+    "form": "Bracelet",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Tome of Post Haste X",
+    "form": "Tome",
+    "gradeLevel": 1,
+    "gradeAvailability": "Legendary",
+    "description": "Legendary. Records the event of a character as it occurs. Events can be replayed as a sound and light simulation. Semi-intelligent. Receive DM +XD for Tests involving that. When a character dies, this tome will record their energy signature (“soul”). The character becomes alive again whenever a part of the history of the tome is replayed for a living Sophont which touches it."
+  },
+  {
+    "name": "Twinning Charm X",
+    "form": "Charm",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. It is a pair. A couple holds and makes a promise and divides the pair. Will always be able to locate the other and Manatrigger to experience each other's perspective and hear thoughts. Can be denied unless mutual."
+  },
+  {
+    "name": "Vial of Many Potions",
+    "form": "Pot",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Vorpal Weapon of Sar-ul Tamvunh",
+    "form": "Weapon",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Vorpal Weapon X",
+    "form": "Weapon",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. [2H, Awkward]. +3X Damage. +X Accuracy. Pierce +X. Cursed X; failure is mishap causing -XD6 Hitpoints"
+  },
+  {
+    "name": "Wand of Etching and Dismemberment",
+    "form": "Wand",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Whetcoin X",
+    "form": "Coin",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Manapump. Manaseep. Provides +X Impact for any edged, sharp, or bladed weapon, cumulative every 10-Seconds until the first strike which lands and causes Damage. Will fade after 1-Hour or until consciously triggered to be removed. If using manapump, increase Damage by +1 for 1-Minute each living mana expended. ### UNIVERSAL TABLE For every +3 Index in DXD, the scalar values double approximately from 10 starting at Index zero. - Time — Seconds. Index 0 is 10-Seconds or 1-Turn. 1-Minute is 6 Turns, so Index +8. 10-Minutes is Index +18. 1-Hour is Index +24. - Thickness — mils. There are 1000 mils per inch. - Length — Length or Distance in feet. Index 0 is 10 feet or 10’. It is +3 Index Feet for each ×2 Length of something. 1 square meter is roughly 10-sqft. - Area — Square feet. Index 0 is 10 sqft. It is +2 Index sqft for each +1 Index Length. - Volume — Cubic feet. Index 0 is 10 cuft. It is +3 Index cuft for each +1 Index Length. Use cubic inches cuin for very small amounts; Index 0 is 10 cuin. Index cuft – 23 is Index cuin. - Weight — Pounds. Index 0 is 10 pounds or 10#. It is +3 Index Weight for each +1 Index Length. - Speed — Index. Velocity or V. Feet per 10-Second Turn, or F/Turn. Feet per Minute is Index + 5. Miles per Hour (MPH) is Index – 12. - Acceleration — dV or delta-vee (∆V). A DXD-specific property representing feet per second acceleration. Index 0 is 10-Feet/sec/sec. Speed is Time + Acceleration. Distance is Time + Speed. - Energy — Joules or Newtons. Index 0 is 10 Joules or 10 J. A Joule per second is 1-Watt. Each +1 Index Distance is -3 Index Energy. - Radiation — Rads. A DXD-specific property. It is measured in Joules per Pound. Index 0 is 10 Rads. - Temperature — Fahrenheit or °F. Index 0 is 10° F. Water boils at 212° F or Index 13. Bronze melts at 1600° F or Index 22. - Heat Capacity — Hcf. A DXD-specific property. Heat required for each +1°F for 1-cuft of something within 10-Seconds. Index 0 is 10 Hcf. - Heat — BTU. Index 0 is 10 BTU to increase the Index Temperature of something per its Heat Capacity in 10-Seconds. Each +1 Index Distance from a source is -3 Index Heat. There are 1000 Joules per BTU, so Index Joules is Index BTU + 30. - Pressure — psf or Pounds per sqft. Index 0 is 10 psf and 1-sqft nozzle. It is +1 Index psf each +1 Index Area of target. Each +1 Index Distance is -3 Index Pressure. Each -1 Area of nozzle is +1 Index. - Sound — dB or Decibels. Energy is per 10-sqft, similar to psf. Each +1 Index Energy is +2 dB. dB is 100 + 4 × Index psf. - Light — lux, which is Energy per 10-sqft. Each +3 Index Light is ×10 lux. Each +1 Distance is -3 Light. Index 10 is 100 lux or “Twilight”. A Clear Day is Index 19, and Torch light is Index 7. - Armor — AR or Armor Rating. Find Index of tensile strength of a material in megapascals or MPa. It is +3 Index for each ×2 layers. - Damage — Find Index of Joules or Watts. Apply +1 Index if using ft-lbs. The amount of Damage is 1D + Index minus 5. Two-handed use 2D + Index minus 5. Blast damage is 1D + Index minus 40. Heat damage is Index Heat minus 10. At 1-Feet reduce 10. Reduce both by 3 × Index distance."
+  },
+  {
+    "name": "Wings of Saint Paelik",
+    "form": "Wings",
+    "gradeLevel": 1,
+    "gradeAvailability": "",
+    "description": "Listed in the canonical Known Magic Items catalogue; no detailed effect entry is currently specified in the iterated canon."
+  },
+  {
+    "name": "Anklets of Stealth X",
+    "form": "Anklets",
+    "gradeLevel": 1,
+    "gradeAvailability": "Legendary",
+    "description": "Legendary. Acquire Stealth X. This provides its ordinary intrinsic concealment and Nightvision benefits."
+  },
+  {
+    "name": "Bracelets of Health X",
+    "form": "Bracelets",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM+X FOR tests."
+  },
+  {
+    "name": "Bracers of Avoidance X",
+    "form": "Bracers",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM +X Deflect"
+  },
+  {
+    "name": "Bracers of Excellent Accuracy X",
+    "form": "Bracers",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. DM +X Range Combat Hit Test"
+  },
+  {
+    "name": "Ring of Clumsiness",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Professional Issue > Mariner. Designed for sea travel. While aboard a vessel upon Sea or Ocean, it removes ordinary motion sickness and cancels adjTN caused specifically by roiling waves. The ring is the most common form factor, but other forms use stylized ship, wave, sail, or sea-creature iconography. Outside that intended context it supplies no general coordination penalty or benefit."
+  },
+  {
+    "name": "Ring of Weakness",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Professional Issue > Mariner. A survival aid for persons lost at sea. It slows metabolism, improves water retention, and assists saltwater processing when the wearer must drink saltwater. Use the ordinary Survival, Fatigue, Weariness, thirst, and deprivation rules; the Item changes what the GM considers physiologically survivable rather than replacing those rules. Its usual icon shows water with the alchemical salt symbol, a circle crossed by a line."
+  },
+  {
+    "name": "Ring of Foolishness X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Court Issue. Commonly issued by Autarchs to courtiers. While worn, acquire +X Fawn, +X Banter, and +X Peerage for the permitted social context. When within ZED OR of an activated Crown of Tongues, the wearer must pass a Discipline Test when the Crown invokes its court-control function. On failure, momentarily acquire [Talkative X] > Crown-bearer, with X = 1 + Degree of Failure, and speak forthrightly without ordinary regard for personal safety until that immediate interaction ends."
+  },
+  {
+    "name": "Ring of Blindness",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Common",
+    "description": "Common. Professional Issue > Mariner, Aerostat Pilot, Dragon/Tarn Rider. Creates ultraviolet blocking and a polarization layer above the cornea for bright-sun and high-glare conditions. Common iconography uses a Tarn feather, aerostat, or balloon. Outside a sunny or comparably bright-glare environment, penalize DM -1D Detect because the filtering is inappropriate."
+  },
+  {
+    "name": "Crown of Tongues",
+    "form": "Crown",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Ruler's Item. Link POW -1 while active. When activated, spoken Language in the Crown's presence can be understood and spoken through the Item at a default DM -3 where the bearer lacks the actual Language. The Crown also acts as the customary controller for Rings of Foolishness. An appropriate Detect Magic Test informs the ruler that such a Ring is being worn within the Crown's operational presence. The Crown does not create Language Skill and does not reveal meaning which the speaker did not express."
+  },
+  {
+    "name": "Goggles of Swimming X",
+    "form": "Goggles",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Switch > MOV 10 + X under water. This creates aof oxygen around the face of the Humanik user allowing them to breathe and survive underwater as deep as X + 10-Atmospheres"
+  },
+  {
+    "name": "Ink of the Brawling X",
+    "form": "Tattoo ink",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manatrigger > +X Stress Must apply to spine and upper hips. Receive +X Brawler X as a Skill."
+  },
+  {
+    "name": "Mask of Fauna Empathication X",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manatrigger. Manasump > Glamour. Makes ordinary animal life calm and trusting unless threatened or injured. Receive DM +X for Interaction Tests with affected animals."
+  },
+  {
+    "name": "Mask of Bardic Oration X",
+    "form": "Mask",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Manatrigger. Manasump > Glamour. Modifies voice to be mellifluous and bardic. Causes +XDM Persuade."
+  },
+  {
+    "name": "Ring of Welfare X",
+    "form": "Ring",
+    "gradeLevel": 1,
+    "gradeAvailability": "Greater",
+    "description": "Greater. Creates a X Gold bullion every morning at sunrise, which forms as a growing signet disc atop the ring. In return, it causes DM -1 FOR while worn. The bullion is worth 1 gold piece and is decorated with the design of the nearest kingdom or empire."
+  },
+  {
+    "name": "Veil of Detoxification X",
+    "form": "Veil",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Remove all foreign toxins. DM +3X FOR for Poisoning tests"
+  }
+]

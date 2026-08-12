@@ -1,0 +1,2089 @@
+[
+  {
+    "name": "Axe, Broad",
+    "notes": [
+      "minSTR: 8.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -9,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 4,
+    "damageDice": 1,
+    "damageOffset": 6,
+    "weight": 6,
+    "priceGp": 12,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Cleave",
+      "Throwable",
+      "Impale"
+    ]
+  },
+  {
+    "name": "Axe, Hand",
+    "notes": [
+      "minSTR: 6.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -7,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 4,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Stub",
+      "Hafted",
+      "Cleave",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "Club, Flail",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 6,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Stub",
+      "Thresh",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Club, Iron Shod Wood",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 4.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": -2,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 1.2,
+    "priceGp": 1.2,
+    "traits": [
+      "1H",
+      "Blunt 2",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Club, Mace",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 5,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Blunt",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Club, Morning-star",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 7.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 6,
+    "priceGp": 3,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Stub",
+      "Thresh",
+      "Stun",
+      "Swift"
+    ]
+  },
+  {
+    "name": "Club, Spiked Mace",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 5,
+    "damageDice": 1,
+    "damageOffset": 3,
+    "weight": 5,
+    "priceGp": 6,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Stun",
+      "Bleed"
+    ]
+  },
+  {
+    "name": "Club, Wood",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 3.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": -2,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 0.8,
+    "priceGp": 0.8,
+    "traits": [
+      "1H",
+      "Blunt 2",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Dagger, Punch",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 3.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 7,
+    "damageDice": 1,
+    "damageOffset": -4,
+    "weight": 1.2,
+    "priceGp": 1.2,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Swift 2"
+    ]
+  },
+  {
+    "name": "Dagger, Standard",
+    "notes": [
+      "minSTR: 2.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -7,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 1,
+    "priceGp": 2.5,
+    "traits": [
+      "1H",
+      "Stub",
+      "Throwable",
+      "Swift"
+    ]
+  },
+  {
+    "name": "Dagger, Stiletto",
+    "notes": [
+      "minSTR: 1.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -7,
+    "isBracket": false,
+    "acc": 4,
+    "impact": 8,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 0.4,
+    "priceGp": 4,
+    "traits": [
+      "1H",
+      "Stub",
+      "Swift 2",
+      "Throwable",
+      "Impale"
+    ]
+  },
+  {
+    "name": "Hammer, War",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 9.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 6,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 6,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Blunt",
+      "Hafted",
+      "Stun 2",
+      "Impale"
+    ]
+  },
+  {
+    "name": "Knife, Hunting",
+    "notes": [
+      "minSTR: 3.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -6,
+    "isBracket": false,
+    "acc": -3,
+    "impact": 4,
+    "damageDice": 1,
+    "damageOffset": 3,
+    "weight": 1.5,
+    "priceGp": 10,
+    "traits": [
+      "1H",
+      "Stub",
+      "Swift",
+      "Cleave"
+    ]
+  },
+  {
+    "name": "Knife, Large",
+    "notes": [
+      "minSTR: 3.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -6,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 1.2,
+    "priceGp": 6,
+    "traits": [
+      "1H",
+      "Stub",
+      "Swift",
+      "Cleave"
+    ]
+  },
+  {
+    "name": "Knife, Paring",
+    "notes": [
+      "minSTR: 1.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -8,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -5,
+    "weight": 0.5,
+    "priceGp": 2.5,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "Knife, Small",
+    "notes": [
+      "minSTR: 2.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -6,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 0,
+    "weight": 0.8,
+    "priceGp": 1,
+    "traits": [
+      "1H",
+      "Stub",
+      "Hafted",
+      "Swift 2"
+    ]
+  },
+  {
+    "name": "❶ Magestick, Rod",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 4.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": -2,
+    "damageDice": 1,
+    "damageOffset": 3,
+    "weight": 1.2,
+    "priceGp": 12,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Blunt 2",
+      "Reach",
+      "Swift",
+      "Stun",
+      "Manatrigger",
+      "Focus",
+      "Radsoak",
+      "Manastore 10"
+    ]
+  },
+  {
+    "name": "❶ Magestick, Small Wand",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 0.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": -4,
+    "damageDice": 1,
+    "damageOffset": -3,
+    "weight": 0.4,
+    "priceGp": 5,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 2",
+      "Manatrigger",
+      "Focus",
+      "Radsoak",
+      "Manastore 10"
+    ]
+  },
+  {
+    "name": "❶ Magestick, Wand",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 3.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": -2,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 0.8,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 2",
+      "Stun",
+      "Manatrigger",
+      "Focus",
+      "Radsoak",
+      "Manastore 10"
+    ]
+  },
+  {
+    "name": "Spear, Short",
+    "notes": [
+      "minSTR: 5.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -3,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 6,
+    "damageDice": 1,
+    "damageOffset": 0,
+    "weight": 2,
+    "priceGp": 3,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Impale",
+      "Swift",
+      "Throwable",
+      "Perimeter"
+    ]
+  },
+  {
+    "name": "Staff, Shod Short",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 5.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 1,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 1.5,
+    "priceGp": 2.5,
+    "traits": [
+      "1H",
+      "Blunt",
+      "Reach",
+      "Swift",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Staff, Short",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 4.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": 3,
+    "weight": 1.2,
+    "priceGp": 1.2,
+    "traits": [
+      "1H",
+      "Hafted",
+      "Blunt 2",
+      "Reach",
+      "Swift",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Sword, Broad",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 6.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 3,
+    "weight": 3,
+    "priceGp": 15,
+    "traits": [
+      "1H",
+      "Parry",
+      "Cleave"
+    ]
+  },
+  {
+    "name": "Sword, Long",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 7.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 4,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 4,
+    "priceGp": 25,
+    "traits": [
+      "1H",
+      "Parry",
+      "Impale",
+      "Pierce-Cleave"
+    ]
+  },
+  {
+    "name": "Sword, Rapier",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 5.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 2,
+    "impact": 10,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 2.5,
+    "priceGp": 25,
+    "traits": [
+      "1H",
+      "Parry 2",
+      "Impale",
+      "Swift 3"
+    ]
+  },
+  {
+    "name": "Sword, Short",
+    "notes": [
+      "minSTR: 5.",
+      "Classification: 1-Handed Melee."
+    ],
+    "ora": -8,
+    "isBracket": false,
+    "acc": 1,
+    "impact": 6,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 1.5,
+    "priceGp": 8,
+    "traits": [
+      "1H",
+      "Cleave",
+      "Swift",
+      "Parry",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "Axe, Great",
+    "notes": [
+      "minSTR: 12.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": -10,
+    "isBracket": false,
+    "acc": -3,
+    "impact": 6,
+    "damageDice": 2,
+    "damageOffset": 6,
+    "weight": 8,
+    "priceGp": 20,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Cleave",
+      "Throwable",
+      "Impale"
+    ]
+  },
+  {
+    "name": "Axe, Long",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 3,
+    "damageDice": 2,
+    "damageOffset": 2,
+    "weight": 6,
+    "priceGp": 20,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Impale",
+      "Cleave"
+    ]
+  },
+  {
+    "name": "Club, War Mace",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 6,
+    "damageDice": 2,
+    "damageOffset": 0,
+    "weight": 8,
+    "priceGp": 20,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Flail, Great",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 12.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 6,
+    "damageDice": 2,
+    "damageOffset": 5,
+    "weight": 8,
+    "priceGp": 12,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Stub",
+      "Reach",
+      "Thresh",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Hammer, Maul",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 11.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": 4,
+    "damageDice": 2,
+    "damageOffset": 7,
+    "weight": 12,
+    "priceGp": 15,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Awkward",
+      "Reach",
+      "Stun",
+      "Bleed"
+    ]
+  },
+  {
+    "name": "War Hammer, Great",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": 8,
+    "damageDice": 2,
+    "damageOffset": 4,
+    "weight": 8,
+    "priceGp": 12,
+    "traits": [
+      "2H",
+      "Blunt",
+      "Hafted",
+      "Stun 2",
+      "Impale"
+    ]
+  },
+  {
+    "name": "❶ Magestick, Staff",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 7.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": -2,
+    "damageDice": 2,
+    "damageOffset": -3,
+    "weight": 4,
+    "priceGp": 25,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Blunt 2",
+      "Reach",
+      "Swift",
+      "Stun",
+      "Perimeter",
+      "Manatrigger",
+      "Focus",
+      "Radsoak",
+      "Manastore 10"
+    ]
+  },
+  {
+    "name": "Polearm, Glaive",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 3,
+    "damageDice": 2,
+    "damageOffset": 0,
+    "weight": 8,
+    "priceGp": 6,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Awkward",
+      "Reach",
+      "Swift",
+      "Charge",
+      "Perimeter"
+    ]
+  },
+  {
+    "name": "Polearm, Halberd",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 9.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": 4,
+    "damageDice": 2,
+    "damageOffset": 2,
+    "weight": 12,
+    "priceGp": 10,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Reach",
+      "Charge",
+      "Pierce-Cleave",
+      "Perimeter"
+    ]
+  },
+  {
+    "name": "Polearm, Poleaxe",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 9.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -4,
+    "impact": 9,
+    "damageDice": 2,
+    "damageOffset": 0,
+    "weight": 10,
+    "priceGp": 8,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Reach",
+      "Charge",
+      "Extended"
+    ]
+  },
+  {
+    "name": "Spear, Medium",
+    "notes": [
+      "minSTR: 7.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 8,
+    "damageDice": 2,
+    "damageOffset": -1,
+    "weight": 4,
+    "priceGp": 6,
+    "traits": [
+      "2H",
+      "Reach",
+      "Charge",
+      "Throwable",
+      "Perimeter"
+    ]
+  },
+  {
+    "name": "Spear, Long",
+    "notes": [
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": -3,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 11,
+    "damageDice": 2,
+    "damageOffset": 1,
+    "weight": 8,
+    "priceGp": 10,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Awkward",
+      "Reach 2",
+      "Charge"
+    ]
+  },
+  {
+    "name": "Staff, Quarter",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 7.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": -2,
+    "damageDice": 2,
+    "damageOffset": -3,
+    "weight": 4,
+    "priceGp": 2.5,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Blunt 2",
+      "Reach",
+      "Swift",
+      "Stun",
+      "Perimeter"
+    ]
+  },
+  {
+    "name": "Staff, Shod Quarter",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 1,
+    "damageDice": 2,
+    "damageOffset": -2,
+    "weight": 6,
+    "priceGp": 5,
+    "traits": [
+      "2H",
+      "Hafted",
+      "Blunt",
+      "Reach",
+      "Swift",
+      "Stun",
+      "Perimeter"
+    ]
+  },
+  {
+    "name": "Sword, Bastard",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 14.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 6,
+    "damageDice": 2,
+    "damageOffset": 6,
+    "weight": 6,
+    "priceGp": 30,
+    "traits": [
+      "2H",
+      "Parry",
+      "Cleave",
+      "Impale"
+    ]
+  },
+  {
+    "name": "Sword, Claymore",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 16.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 7,
+    "damageDice": 2,
+    "damageOffset": 7,
+    "weight": 8,
+    "priceGp": 32,
+    "traits": [
+      "2H",
+      "Parry",
+      "Cleave",
+      "Pierce-Cleave"
+    ]
+  },
+  {
+    "name": "Sword, Great",
+    "notes": [
+      "ORa: -.",
+      "minSTR: 8.",
+      "Classification: 2-Handed Melee."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 7,
+    "damageDice": 2,
+    "damageOffset": 3,
+    "weight": 8,
+    "priceGp": 25,
+    "traits": [
+      "2H",
+      "Parry",
+      "Cleave",
+      "Impale",
+      "Stun"
+    ]
+  },
+  {
+    "name": "Pistol, Light",
+    "notes": [
+      "minSTR: 6.",
+      "Capacity: 1 × Round, vs.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 2,
+    "isBracket": true,
+    "acc": -1,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 1.2,
+    "priceGp": 5,
+    "traits": [
+      "1H",
+      "Blackpowder",
+      "Reload 3"
+    ]
+  },
+  {
+    "name": "Pistol, Medium",
+    "notes": [
+      "minSTR: 7.",
+      "Capacity: 1 × Round, sm.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 3,
+    "isBracket": true,
+    "acc": -1,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 2,
+    "priceGp": 10,
+    "traits": [
+      "1H",
+      "Blackpowder",
+      "Reload 3"
+    ]
+  },
+  {
+    "name": "Pistol, Heavy",
+    "notes": [
+      "minSTR: 8.",
+      "Capacity: 1 × Round.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 4,
+    "isBracket": true,
+    "acc": -1,
+    "impact": 4,
+    "damageDice": 1,
+    "damageOffset": 7,
+    "weight": 2.5,
+    "priceGp": 25,
+    "traits": [
+      "1H",
+      "Blackpowder",
+      "Reload 4",
+      "Recoil"
+    ]
+  },
+  {
+    "name": "Musket, Light",
+    "notes": [
+      "minSTR: 6.",
+      "Capacity: 1 × Round, sm.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 8,
+    "isBracket": true,
+    "acc": -2,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 7,
+    "weight": 6,
+    "priceGp": 8,
+    "traits": [
+      "2H",
+      "Blackpowder",
+      "Reload 4",
+      "Recoil"
+    ]
+  },
+  {
+    "name": "Musket, Medium",
+    "notes": [
+      "minSTR: 7.",
+      "Capacity: 1 × Round.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 8,
+    "isBracket": true,
+    "acc": -2,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 12,
+    "weight": 8,
+    "priceGp": 15,
+    "traits": [
+      "2H",
+      "Blackpowder",
+      "Reload 5",
+      "Recoil"
+    ]
+  },
+  {
+    "name": "Musket, Heavy",
+    "notes": [
+      "minSTR: 7.",
+      "Capacity: 1 × Round, lg.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 8,
+    "isBracket": true,
+    "acc": -3,
+    "impact": 4,
+    "damageDice": 1,
+    "damageOffset": 17,
+    "weight": 10,
+    "priceGp": 30,
+    "traits": [
+      "2H",
+      "Blackpowder",
+      "Reload 5",
+      "Recoil 2"
+    ]
+  },
+  {
+    "name": "Musket, Blunderbuss",
+    "notes": [
+      "minSTR: 8.",
+      "Capacity: 1 × Pellets.",
+      "Classification: Firearm.",
+      "Technical Weapon. Damage is bracketed: do not apply STR DM to total Damage."
+    ],
+    "ora": 6,
+    "isBracket": true,
+    "acc": -4,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": 10,
+    "weight": 8,
+    "priceGp": 25,
+    "traits": [
+      "2H",
+      "Blackpowder",
+      "Reload 4",
+      "Recoil 3",
+      "Spray"
+    ]
+  },
+  {
+    "name": "Crossbow, Cranequin",
+    "notes": [
+      "minSTR: 9.",
+      "Capacity: 1 × Bolt, lg..",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 6,
+    "isBracket": true,
+    "acc": -4,
+    "impact": 12,
+    "damageDice": 1,
+    "damageOffset": 16,
+    "weight": 12,
+    "priceGp": 50,
+    "traits": [
+      "2H",
+      "Reload 7",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Crossbow, Dart",
+    "notes": [
+      "minSTR: -2.",
+      "Capacity: 1 × Bolt, vvsm..",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 1,
+    "isBracket": true,
+    "acc": 2,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": -4,
+    "weight": 0.8,
+    "priceGp": 1.5,
+    "traits": [
+      "1H",
+      "Reload"
+    ]
+  },
+  {
+    "name": "Crossbow, Hand",
+    "notes": [
+      "minSTR: 0.",
+      "Capacity: 1 × Bolt, vsm..",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 2,
+    "isBracket": true,
+    "acc": 2,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 1.2,
+    "priceGp": 2,
+    "traits": [
+      "1H",
+      "Reload"
+    ]
+  },
+  {
+    "name": "Crossbow, Heavy",
+    "notes": [
+      "minSTR: 8.",
+      "Capacity: 1 × Bolt, hv..",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 8,
+    "isBracket": true,
+    "acc": -1,
+    "impact": 9,
+    "damageDice": 1,
+    "damageOffset": 10,
+    "weight": 6,
+    "priceGp": 20,
+    "traits": [
+      "2H",
+      "Reload 3",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Crossbow, Light",
+    "notes": [
+      "minSTR: 6.",
+      "Capacity: 1 × Bolt.",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 6,
+    "isBracket": true,
+    "acc": 0,
+    "impact": 8,
+    "damageDice": 1,
+    "damageOffset": 4,
+    "weight": 3,
+    "priceGp": 6,
+    "traits": [
+      "2H",
+      "Reload 2",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Crossbow, Medium",
+    "notes": [
+      "minSTR: 7.",
+      "Capacity: 1 × Bolt.",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 7,
+    "isBracket": true,
+    "acc": 0,
+    "impact": 8,
+    "damageDice": 1,
+    "damageOffset": 7,
+    "weight": 4,
+    "priceGp": 10,
+    "traits": [
+      "2H",
+      "Reload 2",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Crossbow, Pistol",
+    "notes": [
+      "minSTR: 3.",
+      "Capacity: 1 × Bolt, sm..",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 4,
+    "isBracket": true,
+    "acc": 3,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 2.5,
+    "priceGp": 2.5,
+    "traits": [
+      "1H",
+      "Reload"
+    ]
+  },
+  {
+    "name": "Crossbow, Repeating",
+    "notes": [
+      "minSTR: 7.",
+      "Capacity: 5 × Bolt.",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 7,
+    "isBracket": true,
+    "acc": -1,
+    "impact": 12,
+    "damageDice": 1,
+    "damageOffset": 7,
+    "weight": 5,
+    "priceGp": 15,
+    "traits": [
+      "2H",
+      "Reload 4",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Crossbow, Repeating Heavy",
+    "notes": [
+      "minSTR: 8.",
+      "Capacity: 8 × Bolt, hv..",
+      "Classification: Crossbow.",
+      "Crossbow weapon; uses bolts."
+    ],
+    "ora": 8,
+    "isBracket": true,
+    "acc": -2,
+    "impact": 12,
+    "damageDice": 1,
+    "damageOffset": 10,
+    "weight": 8,
+    "priceGp": 20,
+    "traits": [
+      "2H",
+      "Reload 5",
+      "Bulky"
+    ]
+  },
+  {
+    "name": "Bow, Long",
+    "notes": [
+      "minSTR: 8.",
+      "Capacity: 1 × Arrow, lg.",
+      "Classification: Bow.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -2,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 11,
+    "damageDice": 1,
+    "damageOffset": 6,
+    "weight": 3,
+    "priceGp": 4,
+    "traits": [
+      "2H",
+      "Reload 2"
+    ]
+  },
+  {
+    "name": "Bow, Medium",
+    "notes": [
+      "minSTR: 7.",
+      "Capacity: 1 × Arrow.",
+      "Classification: Bow.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -4,
+    "isBracket": false,
+    "acc": 2,
+    "impact": 7,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 2,
+    "priceGp": 3,
+    "traits": [
+      "2H",
+      "Reload"
+    ]
+  },
+  {
+    "name": "Bow, Small",
+    "notes": [
+      "minSTR: 4.",
+      "Capacity: 1 × Arrow.",
+      "Classification: Bow.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -8,
+    "isBracket": false,
+    "acc": 4,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 1,
+    "priceGp": 1.2,
+    "traits": [
+      "2H",
+      "Reload",
+      "Swift"
+    ]
+  },
+  {
+    "name": "Bow, Short",
+    "notes": [
+      "minSTR: 6.",
+      "Capacity: 1 × Arrow, sm..",
+      "Classification: Bow.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -6,
+    "isBracket": false,
+    "acc": 4,
+    "impact": 4,
+    "damageDice": 1,
+    "damageOffset": 0,
+    "weight": 1.5,
+    "priceGp": 2.5,
+    "traits": [
+      "2H",
+      "Reload",
+      "Swift"
+    ]
+  },
+  {
+    "name": "Bow, War",
+    "notes": [
+      "minSTR: 8.",
+      "Capacity: 1 × Arrow, lg.",
+      "Classification: Bow.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -3,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 14,
+    "damageDice": 1,
+    "damageOffset": 7,
+    "weight": 4,
+    "priceGp": 6,
+    "traits": [
+      "2H",
+      "Reload 2",
+      "Bulky",
+      "Impale"
+    ]
+  },
+  {
+    "name": "Atlatl",
+    "notes": [
+      "minSTR: 3.",
+      "Capacity: 1 × Spear.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": 3,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 0,
+    "damageDice": 0,
+    "damageOffset": 0,
+    "weight": 1,
+    "priceGp": 0.8,
+    "traits": [
+      "1H",
+      "Throwing aid",
+      "+2 Speed after REF",
+      "max 12"
+    ]
+  },
+  {
+    "name": "Axe, Throwing × 2",
+    "notes": [
+      "minSTR: 5.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -5,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 10,
+    "priceGp": 6,
+    "traits": [
+      "1H",
+      "Stub",
+      "Hafted",
+      "Throwable",
+      "Cleave"
+    ]
+  },
+  {
+    "name": "Knife, Throwing × 3",
+    "notes": [
+      "minSTR: 2.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -4,
+    "isBracket": false,
+    "acc": 1,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": -4,
+    "weight": 3,
+    "priceGp": 4,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "Knife, Throwing small × 5",
+    "notes": [
+      "minSTR: 1.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -5,
+    "isBracket": false,
+    "acc": 2,
+    "impact": 3,
+    "damageDice": 1,
+    "damageOffset": -5,
+    "weight": 2,
+    "priceGp": 3,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "Sling, Bolas",
+    "notes": [
+      "minSTR: 3.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -5,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": -4,
+    "weight": 1,
+    "priceGp": 2,
+    "traits": [
+      "1H",
+      "Reload",
+      "Entangle 3"
+    ]
+  },
+  {
+    "name": "Sling, Slingshot",
+    "notes": [
+      "minSTR: 3.",
+      "Capacity: 1 × Bullet.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -5,
+    "isBracket": false,
+    "acc": 3,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 1,
+    "priceGp": 1.2,
+    "traits": [
+      "2H",
+      "Blunt 3"
+    ]
+  },
+  {
+    "name": "Sling, Small",
+    "notes": [
+      "minSTR: 2.",
+      "Capacity: 1 × Bullet.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -4,
+    "isBracket": false,
+    "acc": 2,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": -5,
+    "weight": 0.4,
+    "priceGp": 0.2,
+    "traits": [
+      "2H",
+      "Blunt 2",
+      "Arc"
+    ]
+  },
+  {
+    "name": "Sling, Staff",
+    "notes": [
+      "minSTR: 6.",
+      "Capacity: 1 × Bullet.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -2,
+    "isBracket": false,
+    "acc": 1,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": 2,
+    "weight": 2,
+    "priceGp": 0.6,
+    "traits": [
+      "2H",
+      "Blunt",
+      "Reach",
+      "Arc 2"
+    ]
+  },
+  {
+    "name": "Star, Throwing × 10",
+    "notes": [
+      "minSTR: 2.",
+      "Classification: Thrown.",
+      "Technical Weapon; Interim Time 2X."
+    ],
+    "ora": -3,
+    "isBracket": false,
+    "acc": 2,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -5,
+    "weight": 2.5,
+    "priceGp": 4,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "1H Bashing Rock",
+    "notes": [
+      "Canonical price: -.",
+      "minSTR: 3.",
+      "Classification: Improvised."
+    ],
+    "ora": -7,
+    "isBracket": false,
+    "acc": -3,
+    "impact": -1,
+    "damageDice": 1,
+    "damageOffset": -4,
+    "weight": 2,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "1H Improvised",
+    "notes": [
+      "Canonical price: -.",
+      "minSTR: 3.",
+      "Classification: Improvised."
+    ],
+    "ora": -8,
+    "isBracket": false,
+    "acc": -2,
+    "impact": -1,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 2,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "1H Sharp Improvised",
+    "notes": [
+      "Canonical price: -.",
+      "minSTR: 1.",
+      "Classification: Improvised."
+    ],
+    "ora": -8,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": 1,
+    "weight": 0.6,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "❸ 1H Throwing Rock",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: varies.",
+      "minSTR: 1.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 3,
+    "impact": -2,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 2",
+      "Swift",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "2H Improvised",
+    "notes": [
+      "Canonical price: -.",
+      "minSTR: 5.",
+      "Classification: Improvised."
+    ],
+    "ora": -9,
+    "isBracket": false,
+    "acc": -4,
+    "impact": -1,
+    "damageDice": 2,
+    "damageOffset": -3,
+    "weight": 8,
+    "priceGp": 0,
+    "traits": [
+      "2H",
+      "Stub",
+      "Blunt",
+      "Reach",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "2H Sharp Improvised",
+    "notes": [
+      "Canonical price: -.",
+      "minSTR: 5.",
+      "Classification: Improvised."
+    ],
+    "ora": -10,
+    "isBracket": false,
+    "acc": -4,
+    "impact": 2,
+    "damageDice": 2,
+    "damageOffset": -3,
+    "weight": 5,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Reach",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "❸ 2H Throwing Rock",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: varies.",
+      "minSTR: 4.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": -2,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 2",
+      "Throwable"
+    ]
+  },
+  {
+    "name": "Feet, Bare",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: -.",
+      "ORa: N/A.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": -3,
+    "damageDice": 1,
+    "damageOffset": 0,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 3",
+      "Swift"
+    ]
+  },
+  {
+    "name": "Feet, Booted",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: -.",
+      "ORa: N/A.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 0,
+    "damageDice": 2,
+    "damageOffset": 2,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 2",
+      "Swift"
+    ]
+  },
+  {
+    "name": "❷ Feet, Talons",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: -.",
+      "ORa: N/A.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -1,
+    "impact": 2,
+    "damageDice": 2,
+    "damageOffset": 0,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Swift 2"
+    ]
+  },
+  {
+    "name": "Hands, Bare",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: -.",
+      "ORa: N/A.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 1,
+    "impact": -3,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 3",
+      "Swift 3"
+    ]
+  },
+  {
+    "name": "❷ Hands, Claws",
+    "notes": [
+      "Canonical price: -.",
+      "Canonical weight: -.",
+      "ORa: N/A.",
+      "Classification: Improvised."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 1,
+    "impact": 2,
+    "damageDice": 2,
+    "damageOffset": -2,
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "1H",
+      "Stub",
+      "Swift 3"
+    ]
+  },
+  {
+    "name": "Hands, Garrote",
+    "notes": [
+      "ORa: -.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -3,
+    "impact": 0,
+    "damageDice": 2,
+    "damageOffset": -1,
+    "weight": 0.2,
+    "priceGp": 1,
+    "traits": [
+      "2H",
+      "Stub",
+      "Awkward",
+      "Entangle"
+    ]
+  },
+  {
+    "name": "Hands, Brass-knuckles",
+    "notes": [
+      "ORa: N/A.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 1,
+    "impact": 0,
+    "damageDice": 1,
+    "damageOffset": -1,
+    "weight": 0.5,
+    "priceGp": 2,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt",
+      "Swift 3"
+    ]
+  },
+  {
+    "name": "Hands, Gauntlet, Mail",
+    "notes": [
+      "ORa: N/A.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -1,
+    "weight": 4,
+    "priceGp": 4,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt 2",
+      "Swift 2"
+    ]
+  },
+  {
+    "name": "Hands, Gauntlet, Metal",
+    "notes": [
+      "ORa: N/A.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -1,
+    "weight": 5,
+    "priceGp": 10,
+    "traits": [
+      "1H",
+      "Stub",
+      "Blunt",
+      "Swift"
+    ]
+  },
+  {
+    "name": "Hands, Gauntlet, Clawed",
+    "notes": [
+      "ORa: N/A.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 1,
+    "impact": 2,
+    "damageDice": 2,
+    "damageOffset": -2,
+    "weight": 3,
+    "priceGp": 3,
+    "traits": [
+      "1H",
+      "Stub",
+      "Swift 2"
+    ]
+  },
+  {
+    "name": "Spiked, Shield",
+    "notes": [
+      "Canonical weight: -.",
+      "ORa: -.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -2,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -3,
+    "weight": 0,
+    "priceGp": 1,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Bleed"
+    ]
+  },
+  {
+    "name": "Spiked, Boot or Solleret",
+    "notes": [
+      "Canonical weight: -.",
+      "ORa: -.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": -4,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -3,
+    "weight": 0,
+    "priceGp": 2.5,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Bleed"
+    ]
+  },
+  {
+    "name": "Spiked, Gauntlet",
+    "notes": [
+      "Canonical weight: -.",
+      "ORa: -.",
+      "Classification: Uncommon."
+    ],
+    "ora": 0,
+    "isBracket": false,
+    "acc": 0,
+    "impact": 2,
+    "damageDice": 1,
+    "damageOffset": -2,
+    "weight": 0,
+    "priceGp": 5,
+    "traits": [
+      "1H",
+      "Stub",
+      "Awkward",
+      "Swift",
+      "Bleed"
+    ]
+  }
+]

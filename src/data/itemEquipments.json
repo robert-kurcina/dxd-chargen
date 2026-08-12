@@ -1,0 +1,1634 @@
+[
+  {
+    "name": "Round, very small × 100",
+    "notes": [
+      "0.3-Inch ball of lead",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.1,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Round, small × 100",
+    "notes": [
+      "0.4-Inch ball of lead",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.12,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Round × 100",
+    "notes": [
+      "0.5-Inch ball of lead",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.25,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Round, large × 100",
+    "notes": [
+      "0.6-Inch ball of lead",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.5,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Pellets × 100",
+    "notes": [
+      "Each load is 100 actual pellets and has the same volume as 5 large Rounds",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 2.5,
+    "priceGp": 0.12,
+    "traits": []
+  },
+  {
+    "name": "Pouch, Tiny",
+    "notes": [
+      "5-cubic inches. Holds 40 large Rounds, 80 Rounds, 120 small Rounds, 300 very small Rounds",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.1,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Pouch, Small",
+    "notes": [
+      "20-cubic inches. Holds 150 large Rounds, 300 Rounds, 600 small Rounds, 1200 very small Rounds",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.2,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Powder Horn",
+    "notes": [
+      "5-cubic inches. Has measuring tool. Enough Blackpowder for 50-200 shots depending on Round size",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 2,
+    "priceGp": 0.5,
+    "traits": []
+  },
+  {
+    "name": "Firearm Kit",
+    "notes": [
+      "Contains flint rock, oil vial, drill ream, rag, ram rod. Each of correct length for Firearm purchased.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.5,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Wadding Kit",
+    "notes": [
+      "A sheet of thin cloth pre-cut into 10 strips of 10 tear-away patches allowing for 100 shots.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.1,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Bolt, very very small × 10",
+    "notes": [
+      "4-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.25,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Bolt, very small × 10",
+    "notes": [
+      "6-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.4,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Bolt, small × 10",
+    "notes": [
+      "12-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.8,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Bolt × 10",
+    "notes": [
+      "20-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 0.6,
+    "traits": []
+  },
+  {
+    "name": "Bolt, heavy × 10",
+    "notes": [
+      "30-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1.2,
+    "priceGp": 0.8,
+    "traits": []
+  },
+  {
+    "name": "Bolt, large × 10",
+    "notes": [
+      "36-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1.2,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Case, Tiny",
+    "notes": [
+      "Holds 10 Bolts up to 6-Inches length. Case must be opened. Can jam in another 5.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.25,
+    "priceGp": 0.6,
+    "traits": []
+  },
+  {
+    "name": "Case, Small",
+    "notes": [
+      "Holds 10 Bolts up to 20-Inches length. Case must be opened. Can jam in another 5.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.6,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Case",
+    "notes": [
+      "Holds 10 Bolts up to 36-Inches length. If case is opened, can store and retrieve another 5.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 1.5,
+    "traits": []
+  },
+  {
+    "name": "Case, Large",
+    "notes": [
+      "Holds 10 Bolts of any size. If case is opened, can store and retrieve another 10, or 15 loosely",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 2,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Magazine",
+    "notes": [
+      "Holds 5 Bolts for a Repeating Crossbow",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Magazine",
+    "notes": [
+      "Holds 8 Heavy Bolts for a Heavy Repeating Crossbow",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 2,
+    "priceGp": 1.2,
+    "traits": []
+  },
+  {
+    "name": "Boltheads, Blunt × 10",
+    "notes": [
+      "Bulbous and weighted front. Add Stun trait to Bolt, but reduce ORa, Dmg, and Impact by 2.",
+      "Category: Ammunition / Weapon Supply.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 0.15,
+    "traits": [
+      "Stun"
+    ]
+  },
+  {
+    "name": "Crossbow Kit",
+    "notes": [
+      "2 metal bowstrings, vial of oil, screwdriver, pliers, rag",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Arrow, small × 10",
+    "notes": [
+      "24-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.6,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Arrow × 10",
+    "notes": [
+      "30-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.8,
+    "priceGp": 0.5,
+    "traits": []
+  },
+  {
+    "name": "Arrow, large × 10",
+    "notes": [
+      "36-Inches long",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 0.6,
+    "traits": []
+  },
+  {
+    "name": "Quiver, Belt",
+    "notes": [
+      "Holds 10 Arrows of any length. Can jam in another 5",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.6,
+    "priceGp": 0.5,
+    "traits": []
+  },
+  {
+    "name": "Quiver, Small",
+    "notes": [
+      "Holds 20 Arrows of any length. Can jam in another 10",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 0.8,
+    "traits": []
+  },
+  {
+    "name": "Quiver, Large",
+    "notes": [
+      "Holds 30 Arrows of any length. Can jam in another 15",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 2,
+    "priceGp": 1.2,
+    "traits": []
+  },
+  {
+    "name": "Arrowheads, Blunt × 10",
+    "notes": [
+      "Bulbous and weighted front. Add Stun trait to Arrow, but reduce ORa, Dmg, and Impact by 3.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.6,
+    "priceGp": 0.15,
+    "traits": [
+      "Stun"
+    ]
+  },
+  {
+    "name": "Arrowheads, Grappling × 10",
+    "notes": [
+      "4-pronged front to catch cables, ropes, or to deliver messages. Reduce ORa, Dmg, and Impact by 3.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.6,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Arrowheads, Bodkin × 10",
+    "notes": [
+      "Very narrow point to attack armor. Add Impale trait.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.6,
+    "priceGp": 0.15,
+    "traits": [
+      "Impale"
+    ]
+  },
+  {
+    "name": "Bowyer’s Kit",
+    "notes": [
+      "2 Bowstrings, 10 Arrow fletches, 10 standard Arrow heads, vial of oil, glue, straps, rag",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Bullet, small × 100",
+    "notes": [
+      "0.4-Inch diameter. Increase ORa +3.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 1.2,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Bullet × 100",
+    "notes": [
+      "0.5-Inch diameter",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 2.5,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Bullet, large × 100",
+    "notes": [
+      "0.7-Inch diameter. Add Stun trait.",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 8,
+    "priceGp": 0.4,
+    "traits": [
+      "Stun"
+    ]
+  },
+  {
+    "name": "Pouch, Small",
+    "notes": [
+      "20-cubic inches. Holds 100 large Bullets, 300 Bullets, 500 small Bullets",
+      "Category: Ammunition / Weapon Supply."
+    ],
+    "weight": 0.2,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Scroll, Plain",
+    "notes": [
+      "Category: Scrolls.",
+      "Canonical price: -."
+    ],
+    "weight": 0.1,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Scroll, Encharged",
+    "notes": [
+      "A scroll within three badglass quartz rings on a ribbon or string. Provides 3 charges.",
+      "Category: Scrolls.",
+      "Canonical price: not listed."
+    ],
+    "weight": 0.12,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Scroll Case, basic",
+    "notes": [
+      "10-inches long by 2-inches diameter, and a cupped removable lid on a hinge.",
+      "Category: Scrolls.",
+      "Canonical price: -."
+    ],
+    "weight": 0.1,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Scroll Case, batteried",
+    "notes": [
+      "As the basic scroll case, but also has inlaid badglass gemstones within. +3 Charges",
+      "Category: Scrolls.",
+      "Canonical price: -."
+    ],
+    "weight": 0.12,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Scroll Case, triple",
+    "notes": [
+      "12-inches long by 3-inches diameter, same as basic scroll case, but can fit three scrolls.",
+      "Category: Scrolls.",
+      "Canonical price: -.",
+      "Filled weight: 0.5 lb."
+    ],
+    "weight": 0.3,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Scroll Case, triple batteried",
+    "notes": [
+      "As the triple scroll case, but with +10 Charges. Badglass crystals within its cap interior.",
+      "Category: Scrolls.",
+      "Canonical price: -.",
+      "Filled weight: 0.8 lb."
+    ],
+    "weight": 0.5,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Battery, small × 1",
+    "notes": [
+      "A 1-inch diameter, 10-inch Blackmetal cylinder with badglass crystals; treat as Manastore 20 for fast play.",
+      "Category: Scrolls.",
+      "Canonical price: -."
+    ],
+    "weight": 0.3,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Badglass, crystals × 1",
+    "notes": [
+      "300 badglass crystals of nearly uniform shape and size; enough raw material for roughly Manastore 20 when properly housed.",
+      "Category: Scrolls.",
+      "Canonical price: -."
+    ],
+    "weight": 0.25,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Riding kit",
+    "notes": [
+      "Saddle, stirrups, bridle, crop, blinders, brush, 8 shoes, shoe-knife, file, nail clippers.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Bathing Kit",
+    "notes": [
+      "Everything necessary to maintain hygiene and basic grooming. Wash rag, bathing soap, shampoo, fragrances, shaving blade, mirror, scraping knife, loofa sponge. Supports ordinary hygiene and grooming. Hygiene becomes a Social or sensory concern only when the Fiction makes it relevant.",
+      "Category: Utilities."
+    ],
+    "weight": 1,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Beauty Kit",
+    "notes": [
+      "Everything necessary for a specific Region. Lotions, salves, mascara, lipstick, lip balms, tweezers, brush, comb, hair ties, cotton swabs, mints. Supports deliberate grooming and presentation. Use the ordinary Social presentation guidance when it matters.",
+      "Category: Utilities."
+    ],
+    "weight": 1,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Whetting Kit",
+    "notes": [
+      "Sharpens blades, points, edges, and spikes. Creates +1 Impact and +1 Dmg on the first few dozen attacks for any Melee weapon that has Pierce, Cleave, or Impale.",
+      "Category: Utilities."
+    ],
+    "weight": 1,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Perfume kit",
+    "notes": [
+      "Several popular fragrances specific to a Region. Contains 1-cuin atomizers × 5. Over-use can make the character odorous and easily detectable. May mask ordinary odors when the Fiction allows; strong or inappropriate fragrance can instead become conspicuous.",
+      "Category: Utilities."
+    ],
+    "weight": 1,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Administrator Kit",
+    "notes": [
+      "Inkpot, Quill, Vellum sheets, Stamp of Office, Signet Ring or Amulet",
+      "Category: Utilities."
+    ],
+    "weight": 5,
+    "priceGp": 15,
+    "traits": []
+  },
+  {
+    "name": "Armorer’s Kit",
+    "notes": [
+      "Hammer, straps, grommets, screwdriver, pliers, file, prybar",
+      "Category: Utilities."
+    ],
+    "weight": 20,
+    "priceGp": 4,
+    "traits": []
+  },
+  {
+    "name": "Dining kit",
+    "notes": [
+      "Spoons × 4, forks × 4, chopsticks × 10, bowls × 4, tin cups × 4",
+      "Category: Utilities."
+    ],
+    "weight": 6,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Lockpick kit",
+    "notes": [
+      "Tools × 10 allowing one marked failure each. DM +1 to pick mechanical locks.",
+      "Category: Utilities."
+    ],
+    "weight": 4,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Tattoo kit",
+    "notes": [
+      "Inkpot × 10 standard colors, vial of tea oil, vial of disinfectant, cloth bandages × 10, tattoo needles × 10, blotting rag",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Scrivener kit",
+    "notes": [
+      "Pages × 100, inkpot, eraser, blotting rag, ink thinner, wax bar, 1 each signet ring and stamp for family-office-station of choice, quills × 10",
+      "Category: Utilities."
+    ],
+    "weight": 3,
+    "priceGp": 8,
+    "traits": []
+  },
+  {
+    "name": "Spelunk kit",
+    "notes": [
+      "Pitons × 20, piton hammer with claw, carabiner × 20, talcum powder × 10-Days usage",
+      "Category: Utilities."
+    ],
+    "weight": 25,
+    "priceGp": 12,
+    "traits": []
+  },
+  {
+    "name": "Cooking kit",
+    "notes": [
+      "500-cuin pot, 200-cuin saucepan. Can provide for 16 persons for a small meal each.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Caltrops, small × 100",
+    "notes": [
+      "Caltrops (100 sqft). Each 1-inch metal spiked tetrahedron. Affects SIZ 5 to 20. Dmg 1D-4.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Caltrops, medium × 30",
+    "notes": [
+      "Caltrops (100 sqft). Each 2-inch metal spiked tetrahedron. Affects SIZ 15 to 35. Dmg 1D-2.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Caltrops, large × 10",
+    "notes": [
+      "Caltrops (100 sqft). Each 3-inch metal spiked tetrahedron. Affects SIZ 25 to 50. Dmg 1D-2.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Horseshoes × 4",
+    "notes": [
+      "For the standard SIZ 18 to 22 Steed.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Blanket, Heavy",
+    "notes": [
+      "Ignore 20-Farenheit of Cold weather. Allows 2 Persons, or 1 Steed.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Blanket, Light",
+    "notes": [
+      "Ignore 10-Farenheit of Cold weather. Allows 2 persons, or 1 Steed.",
+      "Category: Utilities."
+    ],
+    "weight": 5,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Lore Book",
+    "notes": [
+      "Specify Lore topic. Contains illustrations, margin-notes, references. DM +1 Research.",
+      "Category: Tomes."
+    ],
+    "weight": 1,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Map Book",
+    "notes": [
+      "Specify topic as Empire, Region, and Settlement for specific accuracy in that Week hex. DM -1D anything below Day hex accuracy outside of a known highway or road. DM -1 each Day hex away from the Settlement identified.",
+      "Category: Tomes."
+    ],
+    "weight": 2,
+    "priceGp": 30,
+    "traits": []
+  },
+  {
+    "name": "Skill Book",
+    "notes": [
+      "As a Lore tome, but includes rubrics and practice exercises.",
+      "Category: Tomes."
+    ],
+    "weight": 1.2,
+    "priceGp": 20,
+    "traits": []
+  },
+  {
+    "name": "Large Book",
+    "notes": [
+      "Provides DM +1 Research Tests.",
+      "Category: Tomes.",
+      "Canonical price: TCA +5 sp (non-fixed value).",
+      "Canonical weight: × 3."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Library, Small",
+    "notes": [
+      "Contains about 20 significant written works which can be specified when the occasion arises.",
+      "Category: Tomes.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 200,
+    "traits": []
+  },
+  {
+    "name": "Library, Large",
+    "notes": [
+      "Contains about 100 significant written works which can be specified when the occasion arises.",
+      "Category: Tomes.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 1000,
+    "traits": []
+  },
+  {
+    "name": "Library, Huge",
+    "notes": [
+      "A substantial collection of about 1000 significant written works. Restricted to Cities.",
+      "Category: Tomes.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 10000,
+    "traits": []
+  },
+  {
+    "name": "Library, Immense",
+    "notes": [
+      "A major collection of about 10K significant written works. Restricted to Metropolises and Citystates.",
+      "Category: Tomes.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 100000,
+    "traits": []
+  },
+  {
+    "name": "Bookshelf",
+    "notes": [
+      "36-inch wide by 18-inch deep with wall supports. Holds about 30 books or 20 scrolls",
+      "Category: Tomes."
+    ],
+    "weight": 5,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Bookcase, Small",
+    "notes": [
+      "Holds 3 small bookshelves, with a bonus shelf atop. Holds about 100 books or 60 scrolls.",
+      "Category: Tomes."
+    ],
+    "weight": 20,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Boots, Fashion",
+    "notes": [
+      "High, narrow, heels 2-inch thick. Creates DM +1 for any Tests involving fashion to those who might care. Penalized MOV – 1 Jog or Run, and DM -1 any Tests involving Agility.",
+      "Category: Clothing."
+    ],
+    "weight": 1.2,
+    "priceGp": 2.5,
+    "traits": []
+  },
+  {
+    "name": "Boots, Rugged",
+    "notes": [
+      "Can travel about 6-Months over terrain. Has 0.5-inch thick leather soles, a heel 1-inch thick.",
+      "Category: Clothing."
+    ],
+    "weight": 2,
+    "priceGp": 3,
+    "traits": []
+  },
+  {
+    "name": "Boots, Soft",
+    "notes": [
+      "Very soft leather with a think 0.1-inch sole with or without a heel.",
+      "Category: Clothing."
+    ],
+    "weight": 1,
+    "priceGp": 2.5,
+    "traits": []
+  },
+  {
+    "name": "Cloak Or Cape",
+    "notes": [
+      "Varies in length. Boat-cloaks are thicker and longer. Riding capes are shorter and thinner.",
+      "Category: Clothing."
+    ],
+    "weight": 2,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Costume",
+    "notes": [
+      "For parties or events.",
+      "Category: Clothing."
+    ],
+    "weight": 4,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Glove, Leather × 2",
+    "notes": [
+      "Can be open-fingers, or even have wrist-straps.",
+      "Category: Clothing."
+    ],
+    "weight": 0.5,
+    "priceGp": 1.5,
+    "traits": []
+  },
+  {
+    "name": "Glove, Silk × 2",
+    "notes": [
+      "Covers elbows down to fingers.",
+      "Category: Clothing."
+    ],
+    "weight": 0.2,
+    "priceGp": 8,
+    "traits": []
+  },
+  {
+    "name": "Headgear, Cap or Hat",
+    "notes": [
+      "Varies by region and even settlement.",
+      "Category: Clothing."
+    ],
+    "weight": 0.1,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Leggings, Elastic",
+    "notes": [
+      "Can be of any design, but usually a single color. Breathes well with change of weather.",
+      "Category: Clothing."
+    ],
+    "weight": 1,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Leggings, Leather",
+    "notes": [
+      "Can be of any color. Doesn’t breathe well during bad weather, causing annoyance DM -1.",
+      "Category: Clothing."
+    ],
+    "weight": 2,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Robe",
+    "notes": [
+      "Many varieties; bath robe, dress robe, fashion robe, professional robes, etc.",
+      "Category: Clothing."
+    ],
+    "weight": 2,
+    "priceGp": 12,
+    "traits": []
+  },
+  {
+    "name": "Sandals",
+    "notes": [
+      "Thick with straps that lead up to the knees. 0.2-inch thick leather soles.",
+      "Category: Clothing."
+    ],
+    "weight": 1.2,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Outfit, Fitted",
+    "notes": [
+      "This is pants, blouses, dresses, skirts, vests, etc. An outfit for wearing about a Town or City.",
+      "Category: Clothing.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 15,
+    "traits": []
+  },
+  {
+    "name": "Outfit, Full",
+    "notes": [
+      "This is for wearing at events. Usually kept clean and ready. It can help where formal or event dress is relevant.",
+      "Category: Clothing.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 20,
+    "traits": []
+  },
+  {
+    "name": "Outfit, Simple",
+    "notes": [
+      "This is for travelling, labor, or just wearing by default. It can hinder Social interaction only where such clothing is materially inappropriate.",
+      "Category: Clothing.",
+      "Canonical weight: not listed."
+    ],
+    "weight": 0,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Shirt, Leather",
+    "notes": [
+      "Short-sleeved. Soft leather meant for comfort and fit.",
+      "Category: Clothing."
+    ],
+    "weight": 5,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Tunic",
+    "notes": [
+      "Tend to have great variations similar to hats (see Hat).",
+      "Category: Clothing."
+    ],
+    "weight": 3,
+    "priceGp": 1.2,
+    "traits": []
+  },
+  {
+    "name": "Rings",
+    "notes": [
+      "Each hand can wear 3 rings, each ear-nose-bellybutton-cheek allows 1 ring piercing.",
+      "Category: Clothing.",
+      "Canonical price: 1D sp (non-fixed value).",
+      "Canonical weight: .."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Bracelets & Bangles",
+    "notes": [
+      "A person can wear 2 necklaces, and 1 bracelet (or anklet) per arm or foot",
+      "Category: Clothing.",
+      "Canonical price: 1D sp (non-fixed value).",
+      "Canonical weight: .."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Necklaces & Amulets",
+    "notes": [
+      "A person can wear a single necklace plus another simpler chain with a pendant or amulet.",
+      "Category: Clothing.",
+      "Canonical price: 1D sp (non-fixed value).",
+      "Canonical weight: .."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": []
+  },
+  {
+    "name": "Phials × 10",
+    "notes": [
+      "Each holds 1-cuin of fluid. A “mouthful”.",
+      "Category: Containers.",
+      "Filled weight: 0.4 lb."
+    ],
+    "weight": 0.2,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Vials × 10",
+    "notes": [
+      "Each holds 10-cuin of fluid. A “small cup”.",
+      "Category: Containers.",
+      "Filled weight: 4 lb."
+    ],
+    "weight": 2,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Flasks × 10",
+    "notes": [
+      "Each holds 20-cuin of fluid. A “tall glass” or a “serving”.",
+      "Category: Containers.",
+      "Filled weight: 8 lb."
+    ],
+    "weight": 4,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Flagon × 10",
+    "notes": [
+      "Each holds 100-cuin of fluid. About 0.1 cuft space required.",
+      "Category: Containers.",
+      "Filled weight: 40 lb."
+    ],
+    "weight": 20,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Flagon, Large × 10",
+    "notes": [
+      "Each holds 250-cuin of fluid. About 0.2 cuft space required.",
+      "Category: Containers.",
+      "Filled weight: 100 lb."
+    ],
+    "weight": 50,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Pouch, Tiny × 10",
+    "notes": [
+      "Each holds 5-cubic inches",
+      "Category: Containers.",
+      "Filled weight: 1 lb."
+    ],
+    "weight": 0.1,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Pouch, Small × 10",
+    "notes": [
+      "Each holds 20-cubic inches",
+      "Category: Containers.",
+      "Filled weight: 4 lb."
+    ],
+    "weight": 0.4,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Pouch × 10",
+    "notes": [
+      "Each holds 100-cubic inches",
+      "Category: Containers.",
+      "Filled weight: 20 lb."
+    ],
+    "weight": 2,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Pouch, Large × 10",
+    "notes": [
+      "Each holds 300-cubic inches",
+      "Category: Containers.",
+      "Filled weight: 60 lb."
+    ],
+    "weight": 6,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Bag, Small × 10",
+    "notes": [
+      "Each holds 0.5 cuft.",
+      "Category: Containers.",
+      "Filled weight: 300 lb."
+    ],
+    "weight": 30,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Bag, Large × 1",
+    "notes": [
+      "Each holds 3-cuft",
+      "Category: Containers.",
+      "Filled weight: 150 lb."
+    ],
+    "weight": 15,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Chest, Small",
+    "notes": [
+      "0.5 cuft. Has a decorative design. Has fastener and a small padlock.",
+      "Category: Containers.",
+      "Filled weight: 25 lb."
+    ],
+    "weight": 5,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Chest, Large",
+    "notes": [
+      "1 cuft. Has a decorative design. Has fastener and a small padlock.",
+      "Category: Containers.",
+      "Filled weight: 50 lb."
+    ],
+    "weight": 6,
+    "priceGp": 1.5,
+    "traits": []
+  },
+  {
+    "name": "Trunk, Small",
+    "notes": [
+      "2 cuft. Has fastener and a small padlock.",
+      "Category: Containers.",
+      "Filled weight: 100 lb."
+    ],
+    "weight": 8,
+    "priceGp": 3,
+    "traits": []
+  },
+  {
+    "name": "Trunk, Large",
+    "notes": [
+      "3 cuft. Has fastener and a small padlock.",
+      "Category: Containers.",
+      "Filled weight: 150 lb."
+    ],
+    "weight": 10,
+    "priceGp": 4,
+    "traits": []
+  },
+  {
+    "name": "Keg, Small",
+    "notes": [
+      "0.5 cuft. Must be nailed shut, and pried open. Has an optional spigot.",
+      "Category: Containers.",
+      "Filled weight: 20 lb."
+    ],
+    "weight": 2,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Keg, Large",
+    "notes": [
+      "1.5 cuft. Must be nailed shut, and pried open. Has an optional spigot.",
+      "Category: Containers.",
+      "Filled weight: 50 lb."
+    ],
+    "weight": 5,
+    "priceGp": 0.5,
+    "traits": []
+  },
+  {
+    "name": "Barrel, Small",
+    "notes": [
+      "3 cuft. Must be nailed shut, and pried open. Has an optional spigot.",
+      "Category: Containers.",
+      "Filled weight: 150 lb."
+    ],
+    "weight": 8,
+    "priceGp": 0.8,
+    "traits": []
+  },
+  {
+    "name": "Barrel, Large",
+    "notes": [
+      "6 cuft. Must be nailed shut, and pried open. Has an optional spigot.",
+      "Category: Containers.",
+      "Filled weight: 300 lb."
+    ],
+    "weight": 12,
+    "priceGp": 1.2,
+    "traits": []
+  },
+  {
+    "name": "Backpack, Framed",
+    "notes": [
+      "Holds 1-cuft. Can support up to 2-cuft if packed outside of the backpack.",
+      "Category: Containers.",
+      "Filled weight: 120 lb."
+    ],
+    "weight": 10,
+    "priceGp": 3,
+    "traits": []
+  },
+  {
+    "name": "Backpack, Frameless",
+    "notes": [
+      "Holds 1-cuft. Has shoulder and waist straps, and made of boiled leather.",
+      "Category: Containers.",
+      "Filled weight: 60 lb."
+    ],
+    "weight": 6,
+    "priceGp": 1.8,
+    "traits": []
+  },
+  {
+    "name": "Purse",
+    "notes": [
+      "Holds 10-cuin. Has a strap fastener. Has a shoulder strap of any design.",
+      "Category: Containers.",
+      "Filled weight: 2 lb."
+    ],
+    "weight": 0.2,
+    "priceGp": 0.5,
+    "traits": []
+  },
+  {
+    "name": "Purse, Large",
+    "notes": [
+      "Holds 20-cuin. Has a twist-and-lock fastener. Has a shoulder strap of any design.",
+      "Category: Containers.",
+      "Filled weight: 4 lb."
+    ],
+    "weight": 0.4,
+    "priceGp": 1.5,
+    "traits": []
+  },
+  {
+    "name": "Case, map",
+    "notes": [
+      "16-inches long and 4-inches diameter. Unfurls a single map 16 × 32 dimensions. Specify the Region or Settlement to have mapped.",
+      "Category: Containers."
+    ],
+    "weight": 5,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Case, scroll",
+    "notes": [
+      "8-inches long and 2-inches diameter. Has endcaps and a transparent crystal viewport.",
+      "Category: Containers."
+    ],
+    "weight": 1,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Case, tome",
+    "notes": [
+      "16 × 10 × 4 inches. Reinforced leather slipcase to protect Tomes and Codices.",
+      "Category: Containers."
+    ],
+    "weight": 3,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Rope",
+    "notes": [
+      "100-feet by 1-Inch diameter of twisted fiber. Can bear 5000-Pounds",
+      "Category: Supplies."
+    ],
+    "weight": 10,
+    "priceGp": 2,
+    "traits": []
+  },
+  {
+    "name": "Twine",
+    "notes": [
+      "1000-feet by 0.2-Inch diameter of twisted dense silk fiber. Can bear 500-Pounds",
+      "Category: Supplies."
+    ],
+    "weight": 5,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Candle × 10",
+    "notes": [
+      "1-cuin of wax and wick in a long narrow candle. Each candle burns for 12-Hours. Light OR 25-Feet.",
+      "Category: Supplies."
+    ],
+    "weight": 1.2,
+    "priceGp": 0.5,
+    "traits": []
+  },
+  {
+    "name": "Torches × 10",
+    "notes": [
+      "Each torch burns for 6-Hours. Made of cloth and pitch wrapped upon sticks of wood. Light OR 50-Feet.",
+      "Category: Supplies."
+    ],
+    "weight": 20,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Lamp",
+    "notes": [
+      "Has 1-cuin oil reservoir, empty. Un-hooded. Light OR 50-Feet.",
+      "Category: Supplies."
+    ],
+    "weight": 1,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Lantern",
+    "notes": [
+      "Has 10-cuin oil reservoir, empty. Adjustable bullseye with a top-handle. Light OR 50-Feet.",
+      "Category: Supplies."
+    ],
+    "weight": 2,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Oil Flask",
+    "notes": [
+      "20-cuin oil. Made of leather with a plug-cap. Each 1-cuin burns for 1-Hour.",
+      "Category: Supplies."
+    ],
+    "weight": 1,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Tinderbox",
+    "notes": [
+      "About 100 uses. Has flint rock, steel striking plate.",
+      "Category: Supplies."
+    ],
+    "weight": 0.2,
+    "priceGp": 0.8,
+    "traits": []
+  },
+  {
+    "name": "Lock, common",
+    "notes": [
+      "DM -1D Pick-lock Tests. Increase TCA +3 per addition; Genelock, Codelock, Triggerlock",
+      "Category: Supplies."
+    ],
+    "weight": 0.5,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Lock, complex",
+    "notes": [
+      "DM -2D Pick-lock Tests. Increase TCA +3 per addition; Genelock, Codelock, Triggerlock",
+      "Category: Supplies."
+    ],
+    "weight": 0.6,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Refreshment Beverage × 10",
+    "notes": [
+      "Ingredients of 100-cuin for 10 1-cup servings each. Always fresh from the local market. Regional variations are different prices, flavor, quality. See Concoctions in this book .",
+      "Category: Supplies."
+    ],
+    "weight": 50,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Tea Beverage",
+    "notes": [
+      "A brick of enough dried leaves for 100 1-cup servings each. Specify Region, Herbal or Caffeinated. Regional variations are different prices, flavor, quality. See Concoctions.",
+      "Category: Supplies."
+    ],
+    "weight": 1,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Alcohol Beverage",
+    "notes": [
+      "Holds 100-cuin for 10 1-cup servings each. Regional variations have difference prices, flavor, quality. Specify Region and Beer, Wine, or Spirits. See Concoctions in this book .",
+      "Category: Supplies."
+    ],
+    "weight": 5,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Fresh foods × 10",
+    "notes": [
+      "Meals × 10; Choose type. Perishes after 1D-Days stored, 1D-Hours if not stored.",
+      "Category: Supplies."
+    ],
+    "weight": 6,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Salted foods × 10",
+    "notes": [
+      "Meals × 10; Choose type of dried foods. Perishes after 1D-Weeks stored, 1D-Days if not stored.",
+      "Category: Supplies."
+    ],
+    "weight": 4,
+    "priceGp": 0.4,
+    "traits": []
+  },
+  {
+    "name": "Medicine × 10",
+    "notes": [
+      "Choose × 10 of; Euphorics, Stimulants, Hallucinogenics, Psychedelics, etc.",
+      "Category: Supplies."
+    ],
+    "weight": 1,
+    "priceGp": 25,
+    "traits": []
+  },
+  {
+    "name": "Herbs & Spices × 100",
+    "notes": [
+      "Meals × 100. Using this reduces 1D Stress and 1 Weariness after the conclusion of a meal.",
+      "Category: Supplies."
+    ],
+    "weight": 1,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Betelnut × 100",
+    "notes": [
+      "Yezik readings × 100-Minutes Prevents losing memory of the Blacktongue language skill. See Blacktongue in Book IV — Character Options, under “Primary Languages” .",
+      "Category: Supplies."
+    ],
+    "weight": 1,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Instrument, cheap",
+    "notes": [
+      "Wood reed instrument or simple banjo, bongos, tambourine, or 2-string guitar.",
+      "Category: Supplies.",
+      "Canonical weight: -."
+    ],
+    "weight": 0,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Instrument, fancy",
+    "notes": [
+      "Any other sort of instrument; lute, violin, brass horns, drum set, etc.",
+      "Category: Supplies.",
+      "Canonical weight: -."
+    ],
+    "weight": 0,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Blank Tome",
+    "notes": [
+      "Page × 500. Vellum, which can be scraped and re-used. Not for scribing Spells.",
+      "Category: Supplies."
+    ],
+    "weight": 10,
+    "priceGp": 500,
+    "traits": []
+  },
+  {
+    "name": "Blank Codex",
+    "notes": [
+      "Pages × 100. Magepage. Each Spell level takes up 1 page, +1D if a spell if written by a Cleric. Hides indirect sight lines.",
+      "Category: Supplies."
+    ],
+    "weight": 5,
+    "priceGp": 100,
+    "traits": []
+  },
+  {
+    "name": "Blank Scroll",
+    "notes": [
+      "Pages × 10. Magepage. Each Spell level takes up 1 page +1D if a spell written by a Cleric. Hides indirect sight lines.",
+      "Category: Supplies.",
+      "Canonical weight: -."
+    ],
+    "weight": 0,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Idol or Figurine",
+    "notes": [
+      "A basic but stylized tiny statute of some person, Deity, Denizen, or other.",
+      "Category: Supplies."
+    ],
+    "weight": 0.25,
+    "priceGp": 0.1,
+    "traits": []
+  },
+  {
+    "name": "Bed roll, Simple",
+    "notes": [
+      "Canvas. 1-person 8 × 4 Feet. 0.2-inch thick with a temperature resistant bed liner.",
+      "Category: Utilities."
+    ],
+    "weight": 5,
+    "priceGp": 0.2,
+    "traits": []
+  },
+  {
+    "name": "Bed roll, Padded",
+    "notes": [
+      "Padded mattress. 1-person. Removes an additional 1 Weariness if restfully sleep.",
+      "Category: Utilities."
+    ],
+    "weight": 20,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Sleeping Bag",
+    "notes": [
+      "Canvas with padding and flap. 1-person. 8 × 3 Feet. 0.2-inch thick with temperature resistant liners, reducing Cold weather effectively by 20-Farenheight",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 1.5,
+    "traits": []
+  },
+  {
+    "name": "Half-shelter",
+    "notes": [
+      "1-person. Canvas. May combine with another Half-shelter. 10 × 6 × 4-Feet tall. Has single flap, lines, and 10 stakes.",
+      "Category: Utilities."
+    ],
+    "weight": 10,
+    "priceGp": 2.5,
+    "traits": []
+  },
+  {
+    "name": "Tent, small",
+    "notes": [
+      "4-person. 16 × 8 × 6-Feet tall. Canvas. May combine with another small Tent. Canvas. Has double flaps, lines, 20 stakes.",
+      "Category: Utilities."
+    ],
+    "weight": 25,
+    "priceGp": 5,
+    "traits": []
+  },
+  {
+    "name": "Tent, medium",
+    "notes": [
+      "8-person. 25 × 10 × 8-Feet tall. Canvas. May combine with another medium Tent. Has double flaps, lines, 32 stakes.",
+      "Category: Utilities."
+    ],
+    "weight": 50,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Tent, large",
+    "notes": [
+      "20-person. 25 × 25 × 10-Feet tall. Canvas. May combine with another large Tent. Has double flaps, lines, 50 stakes.",
+      "Category: Utilities."
+    ],
+    "weight": 80,
+    "priceGp": 12,
+    "traits": []
+  },
+  {
+    "name": "Wardrobe",
+    "notes": [
+      "Standard fashion for region. Non-descript and allows the wearer to blend into those crowds. Usually a robe, maybe a simple hat or cap, undergarments, a shirt, leggings.",
+      "Category: Clothing."
+    ],
+    "weight": 4,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Fashionware",
+    "notes": [
+      "Tailored cosmopolitan fashion. Outlandish 3 , but limit utility to within Aristocratic societies.",
+      "Category: Clothing."
+    ],
+    "weight": 8,
+    "priceGp": 100,
+    "traits": []
+  },
+  {
+    "name": "Raiments",
+    "notes": [
+      "Royal attire. Outlandish 2 , but limit utility to within Aristocratic societies.",
+      "Category: Clothing."
+    ],
+    "weight": 10,
+    "priceGp": 50,
+    "traits": []
+  },
+  {
+    "name": "Uniform",
+    "notes": [
+      "Military, wait staff, vocational. Outlandish , but limit utility to within Aristocratic societies.",
+      "Category: Clothing."
+    ],
+    "weight": 4,
+    "priceGp": 25,
+    "traits": []
+  },
+  {
+    "name": "Starshell",
+    "notes": [
+      "Battlefield illumination round. Light 16 when it opens overhead. Illuminated radius is roughly twice altitude, maximum 2,000 Feet. Reduce Light by 3 Index each 1-Minute: 16, 13, 10, 7, then it burns out.",
+      "Canonical price and weight are not listed.",
+      "Category: Ammunition & Supplies."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Light 16"
+    ]
+  }
+]

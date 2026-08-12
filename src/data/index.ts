@@ -8,6 +8,11 @@ import attributeDefinitions from './attributeDefinitions.json';
 import attributeCreationRules from './attributeCreationRules.json';
 import beliefs from './beliefs.json';
 import calculatedAbilities from './calculatedAbilities.json';
+import itemWeapons from './itemWeapons.json';
+import itemArmors from './itemArmors.json';
+import itemEquipments from './itemEquipments.json';
+import spells from './spells.json';
+import magicItems from './magicItems.json';
 import characteristicCosts from './characteristicCosts.json';
 import citystates from './citystates.json';
 import deities from './deities.json';
@@ -70,6 +75,11 @@ const sarnaLenData = {
   attributeCreationRules,
   beliefs,
   calculatedAbilities,
+  itemWeapons,
+  itemArmors,
+  itemEquipments,
+  spells,
+  magicItems,
   characteristicCosts,
   citystates,
   deities,

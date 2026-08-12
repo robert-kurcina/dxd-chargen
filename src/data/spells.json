@@ -1,0 +1,590 @@
+[
+  {
+    "name": "Aide",
+    "costAp": 6,
+    "costMana": 1,
+    "level": 5,
+    "description": "Eldritch Combat, Knowledge Type - Divine Range - PRE OR Area - Target Keywords: Prayer > DoS, Sanity, Duration 10-Minutes Tests: Prayer=Y, Link=Auto, Weave=-, Sanity=Y. The picoswarms from the Spellcaster escape to out of arms reach and form into a blackened silhouette facsimile devoid of texture or features. It is physical impervious as anything striking through its shape merely causes the shadowy aide to reform. The aide acts as a proxy or remote-controlled robot. If the Spellcaster closes their eyes, they can sense through the aide and control it as though the aide itself. When not used, the aide can be given a simple set of instructions to perform until done, at which point it will stand immobile. While this Spell is active, the Spell caster is considered automatically Linked to the aide and reduces POW by 3, and receives DM -1 for any Tests. The aide has physical Attributes (CCA, RCA, REF, STR, and FOR) equal to the Spellcaster. It moves at the Spellcaster's ZED rate, as an ordinary moving magical effect. Each Excess Mana assigned to an Attribute Intent increases that Attribute of the aide by +1."
+  },
+  {
+    "name": "Anaradic Aura",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 3,
+    "description": "Eldritch Combat, Knowledge Type - Common Range - Aura Area - Target Keywords: Painful 1D, Natural > Radiation, Duration 10-Minutes, Fatigue 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Any ionizing radiation, from high UV to cosmic, which the Spellcaster experiences is reduced in effect by a dark blue aura with flaming green streaks as though wearing an aurora about them. All living things which hold hands with the Spellcaster or are clasped closely in an unbroken chain will extend the benefits of the aura to them. The Spell is able to deflect or absorb up to 100 Rads of radiation damage at any one time, and this is Index 10. If there are multiple targets extending the aura, reduce the Index by 1 for each additional protected person after the Spellcaster. Therefore 3 total persons in the aura use 10 – 2 = Index 8, allowing each to ignore up to 60 Rads at any one time."
+  },
+  {
+    "name": "Armored Carapace",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 3,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - Self Area - Target Keywords: Another Tests: Prayer=-, Link=-, Weave=-, Sanity=-. With a muffled clutter like the shuffling of slowly riffed playing cards, the picoswarm arranges as glowing semi-translucent prismatic chitinous armor hewing to a favorite color, growing around the target . If X Excess Mana are assigned to the protection Intent, the carapace provides +X Deflect and +3X Armor Value. Not effective against Blast and area attacks in general."
+  },
+  {
+    "name": "Banelock",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 5,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - Self Area - Target Keywords: Forbidden, Flow 1-Minute, Sophontic, Painful 1D, Weave Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. Create a Banelock on any Magic Item which must be sustained through the duration of each Interval of 1-Minute. Pick one of these mechanisms for sustainment:"
+  },
+  {
+    "name": "Beckon",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 1,
+    "description": "Dominance Conjuration, Transformation Type - Arcane Range - PRE OR Area - Target Keywords: Weave, Sophontic Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. The Spellcaster fixes attention upon one Sophont within range which can perceive them and makes a brief beckoning gesture or equivalent signal. Perform an Opposed PRE v POW Weave Test. Upon success , on its next Initiative the target spends one normal Move approaching the Spellcaster by the safest obvious route available. The effect cannot force the target into fire, off a precipice, through an obviously lethal hazard, or into another act of direct self-harm. After that Move, the compulsion ends. Each Excess Mana provides DM +1 to the Weave Test. Beckon gives one immediate instruction and establishes no continuing Link."
+  },
+  {
+    "name": "Beknown",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Transformation Conjuration, Eldritch Type - Arcane Range - Touch Area - Target Keywords: Another, Duration 1-Block, Sophontic Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spellcaster briefly copies practiced patterns from a willing Sophont source into the target. The source must be present and touched during casting, and must actually know the Skill being copied. Choose one non-Virtuosity, non-Existential Skill known by the source and one specialization for that Skill which the source also knows. For the Duration, the target acquires that Skill at level 1 with that specialization. This removes the ordinary Lacking Skill penalty for that Skill but does not grant the source's higher Skill level. The Spell cannot grant a Language, Spell, Virtuosity, Existential Skill, or knowledge the source does not possess. It creates no continuing Link after casting. A character may benefit from only one Beknown Skill at a time; a later casting replaces the earlier one."
+  },
+  {
+    "name": "Bless",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - Self Area - Target Keywords: Prayer, Channel > Link, Weave > DoS, Imbue > { Aura, Holy }, Interval 10-Seconds Tests: Prayer=Y, Link=Y, Weave=Y, Sanity=-. Targets which are Linked receive DM +1 for their Combat Hit Test. Any Weapons used for the attack acquire the Aura and Holy traits. The Spell requires 1 mana every 10-Seconds to remain active; if that Interval payment is not made, it dispels."
+  },
+  {
+    "name": "Cause Fear",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 6,
+    "description": "Dominance Conjuration, Transformation Type - Arcane Range - Self Area - Sphere Keywords: Selective, Sanity > DoS, Damage 1D Stress, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=Y. First perform the Spellcaster's required Sanity Test. Upon success, each Degree of Success—one per 5 cascades—becomes +1 Intent for this casting, in addition to Intents purchased with Excess Mana. All specified targets within the Area-of-Effect are then subject to an Opposed PRE v POW Test. If any of these targets fail , they’ll acquire 1D Stress every 10-Seconds until the end of 1-Minute, or until they move outside of the Area-of-Effect ."
+  },
+  {
+    "name": "Charm",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 6,
+    "description": "Dominance Conjuration, Transformation Type - Arcane Range - Field Area - Target Keywords: Selective, Link > Weave PRE v POW DM -3 > DoS, Damage 1D Stress, Duration 10-Minutes, Sophontic Tests: Prayer=-, Link=Y, Weave=Y, Sanity=-. While the Spell is active, the Spellcaster may choose a Sophont target and force an Opposed PRE v POW Weave Test at DM -3. Upon success , the target Sophont temporarily receives 1D Charm in the form of Stress . Every 10-Seconds the target remains within range of the Spellcaster, they’ll receive another 1D Charm in the form of Stress . Similar to Stress and Resilience; if the amount of Charm received exceeds a target ’s Resilience, they have become Charmed at degree 1 or possibly more. Each Degree of Charm causes the target DM -1D for any proper use of decision-making skills while being psychologically manipulated by the Spellcaster. Charm is reduced 1 per 1-Minute not within Visibility or Line-of-Sight of the Spellcaster. It is possible to be charmed by two or more Spellcasters, and the target will favor the one with the more Charm assigned. However, if the Degree of Charm is 2 or more, the target will become agitated and irritable. At degree 4 or higher, the target would rather sequester themselves away and dwell in anguish and confusion."
+  },
+  {
+    "name": "Chirp±",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - PRE OR Area - Target Keywords: Charges × 3, Natural > Noise Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spell presumes that the Spellcaster has a repertoire of unusual sounds memorized, each of less than 1-Second in duration. The standard repertoire are bird chirps, animal barks, laughter, sneers, hisses, etc. Each Charge used allows one of those sounds to emit within Line-of-Sight and range to the target . The sound emitted will be at a maximum loudness of a whisper or about 30 dB, which is Index 5. Shouting is 80 dB or Index 9, and painfully loud is 120 dB or Index 11."
+  },
+  {
+    "name": "Compelling Voice",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Dominance Conjuration, Transformation Type - Arcane Range - PRE OR Area - Target Keywords: Weave, Sophontic, Natural > Noise Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. The Spellcaster speaks one brief command to a Sophont within range which can hear and understand it. Perform an Opposed PRE v POW Weave Test. Upon success , the target spends its next available Action obeying one short literal instruction such as “drop the knife,” “kneel,” “step aside,” or “run to the door.” The command cannot require suicide, direct self-injury, or entry into an obvious lethal hazard. If wording is ambiguous, the target follows the least harmful reasonable interpretation. The compulsion ends after that Action. A target successfully affected by the same Spellcaster cannot be affected by that Spellcaster's Compelling Voice again for 1-Minute. Each Excess Mana provides DM +1 to the Weave Test. No continuing Link is established."
+  },
+  {
+    "name": "Crystalline Wall",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 3,
+    "description": "Conjuration Combat, Eldritch Type - Common Range - ZED OR Area - Wall Keywords: Delay 1-Minute, Natural > Rock, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A bright neon cyan glowing line is traced between two points. It broils for a few seconds and then erupts skyward in three separate lurches (1 per 10-Seconds) a thick wall of translucent and multi-faceted quartz crystal. Each lurch will be at a third the maximum height causing anything above which might become crushed to immediately receive 4D Stun damage. This wall acquires ZED Bodypoints and Armor Rating ZED, which is at Index 0. It receives Deflect of 3. Every Excess Mana provides +1 Index for the amount of Bodypoints and Deflect, but increases Armor Rating by +3. Once all Bodypoints are removed, the Spell dissipates. If the Spell is active, then for 1 Action, the Spellcaster may adjust the height of wall within a single narrow section."
+  },
+  {
+    "name": "Cure Major Wounds",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 3,
+    "description": "Transformation Conjuration, Eldritch Type - Divine Range - Touch Area - Target Keywords: Prayer > DoS, Painful, Fatigue 1-Minute, Sophontic Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. A target Sophont regains 1D Hitpoints , and 1 Bodypoint . Applies even if target is Dead . Any Bleeding will stop, and any lost blood is regained. Recovering all Bodypoints when Dead merely repairs the body, but can put the character into Unconscious state if less than FOR in minutes have passed since becoming Dead . Any Severe Wounds are not removed and remain as they are, but will no longer cause Bleeding. Removes any Stunned or Dizzy statuses, and will stabilize a character that was Dying . Any body parts which have been lost are not regrown, and any bone fractures which have not been set will heal but re-set imperfectly. However, any internal organs which have been eviscerated will become hygienic and retract back into the abdomen or wherever and heal correctly. The amount of time required is 1-Minute per 1 Bodypoint returned if the target suffered Severe Wounds . If there are multiple wounds, the amount of time becomes 2-5-10 and 20 minutes for 2-3-4 and 5 such wounds. Each Excess Mana multiplies for Hitpoints and Bodypoints ."
+  },
+  {
+    "name": "Cure Minor Wounds",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Transformation Conjuration, Eldritch Type - Divine Range - Touch Area - Target Keywords: Prayer > DoS, Charges × 3 Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. The Spellcaster cures 1D Hitpoints and 1 Bodypoints of damage to one living target per Charge. Any Severe Wounds are not removed and remain as they are, but will no longer cause Bleeding. Removes any Stunned or Dizzy statuses, and will stabilize a character that was Dying ."
+  },
+  {
+    "name": "Curtain of Flames±",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 4,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - ZED OR Area - Wall Keywords: Delay 10-Seconds, Damage 4D, Natural > Fire, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A bright veridian green glowing line is traced between two points. It broils for a few seconds and then erupts skyward with a curtain of flames causing anything flammable above it or which crosses into to become on fire. If the Spell is active, then for 1 Action, the Spellcaster may adjust the height of curtain within a single narrow section."
+  },
+  {
+    "name": "Delink",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 4,
+    "description": "Eldritch Combat, Knowledge Type - Common Range - PRE OR Area - Target Keywords: Painful 1D Stress Tests: Prayer=-, Link=-, Weave=-, Sanity=-. This Spell lights up any picoswarm agents from any other Spells which are within ZORM of 1, and any Links that have been set between any two elements, making them clearly visible to any character with the Magic trait. This information is used to discern potential targets. Perform a Delink Test POW TN=7+ to disable one of the agents, or perform an Opposed POW v POW against the Spellcaster of that other Link. Upon failure , the specific target may not be test again, and the Spellcaster of that Spell becomes informed that someone is tampering with it."
+  },
+  {
+    "name": "Detect Magic",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - ZED OR Area - Pulse Keywords: Detect, Agents, DoS Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Numerous picoswarms emanate from the Spellcaster into the distance. When anything that has the qualities of magic, be it a Magic Item, a living Sophont, a manafounts, a picoswarm , Links and agents from active spells, it will appear in the Spellcaster’s mind as glowing silhouettes with an approximate distance and type. The clarity to which this information is detected requires a Detect Magic Test INT TN=7+. Each DoS from the Test allows one additional quality of information beyond the first. Any Active spells, any active use of Detect Magic, provide +1 DoS if the Spellcaster is within a combined ZOR of the Spellcaster plus ZOR of any target in question. It is not possible to directly detect anything involving Deities, Psionics, blits, ergforms, codebeings, or hamerbridges . Also see Detect Magic in this book ."
+  },
+  {
+    "name": "Detect Undying",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - ZED OR Area - Target Keywords: Detect, Prayer > DoS, Duration 1-Minute Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Allows the Spellcaster to determine if there are any of the Undying within range. Upon pass for the Prayer test, the Spellcaster gets a reading of the environment and how far away and generally how many Undying are detected, their SIZ, and their type if within ZORM of 1."
+  },
+  {
+    "name": "Disc of Deflection±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Combat Dominance, Knowledge Type - Arcane Range - Self Area - Target Keywords: Another, Duration 1-Minute, Sophontic Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A floating spinning golden disc of particles guards the target Sophont about the head. It moves rapidly to meet any incoming harm. The target acquires DM +1D for any Defender Combat Test. This disc can block a single attack at a time and has 100 Bodypoints which can absorb any form of physical Damage before dissipating. Each Excess Mana provides DM +1."
+  },
+  {
+    "name": "Disguise",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 7,
+    "description": "Transformation Conjuration, Eldritch Type - Arcane Range - Self Area - Target Keywords: Forbidden, Painful 1D Stress and 1D Fatigue, Fatigue 1-Minute, Duration 10-Minutes Tests: Prayer=-, Link=-, Weave=-, Sanity=-. With a flurry of picoswarm activity, the Spellcaster’s physical features are painfully altered from the bones, muscles, fatty tissue, and skin outwards. The Spell allows the Spellcaster to duplicate the visage, build, and complexion of another member of their species that has been touched prior to the last washing of hands. When the Spell dissipates, the Spellcaster’s appearance will slowly alter across 1-Minute of time during which the Spellcaster will be considered Distracted . When this change finally completes, it will cause 1D Stress ."
+  },
+  {
+    "name": "Discordance",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 6,
+    "description": "Eldritch Dominance, Knowledge Type - Arcane Range - Discordance OR Area - Aura Keywords: Duration 10-Seconds per mana Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. The Spellcaster releases an intentionally incoherent picoswarm which disrupts nearby magical coordination without automatically dispelling it. Spend at least 1 mana . The Discordance Rating equals the total mana committed to the Spell, and the Spell lasts 10-Seconds per mana . Within the first Discordance OR, apply adjTN equal to the Discordance Rating to Tests which cast, sustain, activate, pump, dispel, Link, Weave, or otherwise control magic. This affects the Spellcaster as well as other characters. Each additional Discordance OR Multiple reduces the effective Rating by 1 until it reaches zero. Discordance does not automatically Dispel an enchantment, drive away a Deity, or destroy a godcloud. It creates interference. The GM may describe quiescent enchantments as flickering, delaying, or behaving unreliably when no Test is otherwise required, but should require a Test only when failure would matter. High-level Spells expend the field. Each time Discordance affects a Spell of level 6 or greater, reduce its remaining duration by 1 Turn (10-Seconds). Count this once for that Spell use rather than once for every Prayer, Link, Weave, Sanity, or other Test made as part of the same use. Sustaining or invoking the high-level Spell again may expend another Turn when Discordance affects that new use. If no duration remains, Discordance dissipates immediately. Each Excess Mana therefore increases Discordance by +1 and extends the starting duration by another 10-Seconds."
+  },
+  {
+    "name": "Dispel Magic",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 1,
+    "description": "Combat Dominance, Knowledge Type - Common Range - ZED OR Area - Target Keywords: — Tests: Prayer=-, Link=-, Weave=-, Sanity=-. This Spell is versatile and can be cast in two different ways. Interrupt — Pick a target Spellcaster. When they are about to cast a Spell, or use it, acquire a Delay token. That target Spellcaster is then penalized DM -1D and must spend 1D additional mana . Each Excess Mana creates another DM -1 and requires that the target Spellcaster provide another +1 mana . Dispel — Pick a target to affect. Remove one Spell from that target if the amount of mana spent for the Dispel Magic is equal to or greater than that of the Spell to be removed. If the target Spell is sustained, that sustainment is an effect and it is first removed. For every Spell level of that target spell, first require an additional +1 mana . Each Excess Mana increases the amount of effective mana ."
+  },
+  {
+    "name": "Echo",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - PRE OR Area - Target Keywords: Duration 1-Minute, Responsive, Natural > Noise Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spellcaster records up to 1-Minute of sounds from around themselves, and afterwards picks a target location within range. At this location will be emitted the recording, which will play in a loop if desired with the interval and volume set accordingly. For 1 Action, if the Spell is still active, the location, volume, and interval can be adjusted. The sound emitted can be at a maximum loudness equal to normal speech in a quiet room, which is about 60 dB. This is Index 8. Whispers are at 30 dB or Index 5, shouting is 80 dB or Index 9, and painfully loud is 120 dB or Index 11."
+  },
+  {
+    "name": "Enlarge±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Transformation Conjuration, Eldritch Type - Arcane Range - Self Area - Target Keywords: Chiral Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Magically alters the Spellcaster's scale. Assign X Excess Mana specifically to the Size Intent. Increase SIZ by +X and height by +X/3. The reverse chiral use reduces SIZ and height by the same amounts. The change resolves under the ordinary Spell defaults for alterations of form."
+  },
+  {
+    "name": "Faithshield",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 4,
+    "description": "Combat Dominance, Knowledge Type - Divine Range - Field Area - Shell Keywords: Ritual > Prayer > DoS, Duration 10-Minutes Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Creates a glowing golden shield of fanciful design across the free arm or manipulator limb of choice. This provides Deflect 3, Armor Rating 10, which is Index 0. The shield has 10 × ZED Bodypoints , which are reduced whenever absorbing damage which would cause Bodypoints damage to the bearer. Assign Excess Mana to the feature desired as an Intent. If X is assigned to the Armor Intent, the shield provides +X Armor Rating. Excess Mana assigned instead to Deflect or the shield's own Bodypoints increases that chosen feature by +1 per point invested."
+  },
+  {
+    "name": "Firehands±",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 3,
+    "description": "Combat Dominance, Knowledge Type - Arcane Range - Touch Area - Target Keywords: Damage 1D per Hand, Duration 10-Seconds, Natural > Fire, Selective, Fatigue 1-Action Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Each of the Spellcaster’s hands burst into a ball roiling flame but causes no harm to them or anything unless they so desire. Anything worn or held, for example, does not catch fire. The Spell allows the Spellcaster to touch via a Close Combat Hit Test any target once per 1-Action. If the target is Hit, they’ll suffer 1D Damage for each Hand used, and anything flammable upon them at or just above the point of contact will catch fire. Using two or more Hands is a DM -1 per Hand used beyond the first. If a target is hit, the Spellcaster may hold on to them and need not perform additional Hit Tests unless they lose their grip. If the target catches fire, it receives 2D Damage every 1-Phase until the fire is extinguished. If multiple areas on a target catches fire, use 3D Damage +3 per location. The fire burns at 600° F which is Index 18."
+  },
+  {
+    "name": "Firesphere±",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 5,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - ZED OR Area - Sphere Keywords: Agents, Damage 3D, Fatigue 10-Seconds, Duration 1-Minute, Natural > Fire Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spellcaster must pick a location target within Line-of-Sight and range. A dome of fire encloses that area, and anything within it receives 3D Damage from fire, and elements upon them which are flammable catch fire. The Damage from the Spell is hot enough to melt many metals, and it will make metal and rock exceedingly hot. Any Armor Rating is temporarily reduced by any Damage received because it will store heat, and will continue to cause up to 1D Damage until removed or cooled. Anything which fails to leave it after 10-Seconds will become engulfed in flame as they catch fire. Targets which catch fire receive 3D + 6 Damage every 10-Seconds until extinguished. The fire burns at 2000° F which is Index 23."
+  },
+  {
+    "name": "Float",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Eldritch Combat, Knowledge Type - Common Range - Touch Area - Target Keywords: Another, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A rush of cool air is felt beneath the target ’s body and they levitate in any direction by adjusting their velocity up to 10-Feet per Turn. This is Index 0 or about 0.6 MPH. While levitating, they may orient, rotate, and move themselves however desired for 1-Action. Pushing with feet and hands will provide some speed as though using Move. This presumes a character of SIZ 12 which is about 150-pounds. Each SIZ smaller is +1 Index and each SIZ larger is -1 Index."
+  },
+  {
+    "name": "Fly",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Eldritch Combat, Knowledge Type - Common Range - Touch Area - Target Keywords: Another, Fatigue 1-Minute, Duration 10-Minutes Tests: Prayer=-, Link=-, Weave=-, Sanity=-. With a rumble and continuous venting of warm steam rolling off the lower half of the target , they rise into the air. They may adjust their velocity, increasing or decreasing, by up to 100-Feet per 10-Second Turn. This is Index 10 or about 6 MPH. The fastest a character could fly is limited to its ZED MPH, which is up to ZED +22 Feet per Turn, and is reached under constant acceleration in 10-Turns. This presumes a character of SIZ 12 which is about 150-pounds. Each SIZ smaller alters velocity +1 Index and each SIZ larger is -1 Index. Maximum velocity is unaffected."
+  },
+  {
+    "name": "Fogmark",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - Ring Area - Target Keywords: Duration 1-Minute Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. Specify a battlefield location, and create a fogmark ring around up to ZED feet radius. Any Detect Magic into or out of this radius is at DM -3. However, any mana used within this radius generates DM +3 for being detected. Each Excess Mana is +1 Index radius and another DM -1."
+  },
+  {
+    "name": "Frostbite±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - Touch Area - Target Keywords: Charges × 3, Damage 1-Bodypoint, Natural > Cold Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The living creature target when touched, experiences extreme cold where contacted. If this is against its body part, an area about 10-inches in diameter receives 1-Bodypoint of Damage at the end of the next 10-Second Turn. If this is against something like clothing or armor which is one the surface of the target , then apply 1D Hitpoints of Damage instead. The Spell presumes that the target is SIZ 12 or about 150-pounds. For every +3 or -3 SIZ, reduce or increase the amount of Damage by half or double it. If Damage is reduced to less than 1-Bodypoint, then there is no effect unless another Charge is re-applied to the same general area last touched."
+  },
+  {
+    "name": "Frostbeam",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 3,
+    "description": "Combat Dominance, Knowledge Type - Arcane Range - ZED OR Area - Beam Keywords: Surge, Range Combat, Damage 1D, Natural > Cold Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A thick black beam emanates from the Spellcaster to the target which must be in Line-of-Sight . The beam cuts through most armors and receives Impact POW. It lowers the surface temperature of a coin-sized area on the target by 50° F, which is Index 7. Each Excess Mana assigned to the Cold Intent increases the temperature-change Index by +1."
+  },
+  {
+    "name": "Gills",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Conjuration Combat, Eldritch Type - Common Range - Touch Area - Target Keywords: Another, Painful, Duration 10-Minutes, Natural > Air Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spell creates a thick transparent semi-organic membrane around the target ’s head which allows it to breath underwater. While the Spell is active, the membrane can be damaged by pulling away or piercing. The membrane can receive up to FOR Bodypoints of Damage before requiring it to reform which takes about 1-Minute. While the Spell is active, the Spellcaster may spend 1-Action to reform a membrane on themselves or any Linked target ."
+  },
+  {
+    "name": "Guidance",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 2,
+    "description": "Transformation Conjuration, Eldritch Type - Divine Range - Touch Area - Target Keywords: Prayer > DoS, Duration 1-Minute Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Target receives DM +1 for any Test using a specifically named Attribute of their own choice for the duration. Guidance is a blessing, not a guaranteed conversation with a Deity. Prayer, Attunement, invitation or unlock, and Headspace/Communion govern direct divine communication."
+  },
+  {
+    "name": "Glamour",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Transformation Conjuration, Eldritch Type - Arcane Range - Self Area - Target Keywords: Duration 10-Minutes Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Glamour is the non-invasive social cousin of Disguise . A picoswarm subtly changes apparent complexion, hair, scent, voice timbre, posture, surface ornament, garment finish, and other presentation cues without painfully rebuilding the Spellcaster's body. When invoked, state the social presentation being attempted, such as trustworthy, refined, harmless, impressive, alluring, devout, or authoritative. Receive DM +1 Persuade when that presentation directly helps the stated purpose. Each Excess Mana adds another DM +1 Persuade for that same purpose. Glamour does not duplicate a specific person, change species or SIZ, alter equipment properties, or replace the Disguise Skill. Detect Magic may reveal the active picoswarm normally."
+  },
+  {
+    "name": "Gust",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 6,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - Field Area - Cone Keywords: Agents, Painful 1D Stress, Natural > Wind, Responsive Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A small portal opens up at some point within range of the Spellcaster’s field, swirling with glowing gold polka-dotted picoswarm agents. This portal can be repositioned around the Spellcaster for 1-Action, and generates enough wind to forcefully push anything within a cone of effect backwards a few steps, requiring any living target to perform a Gust Test MOV (SIZ) TN=7+. Failing causes them to stumble, receive a Delay token, become Distracted , and become either Crouched or Prone . The amount of wind pressure generated is about 10 pounds/sqft, or Index 10. A gust of wind could actually launch characters if their bodies are splayed wide, have wings, or which are wearing robes or cloaks. Characters which crouch, lay prone, or otherwise shrink their profile are affected less. DM -1D or DM +1D for each. This is adjusted for the distance to any target by -1 Index per ORM using ZED OR × 0.1 (Feet). Anything buffeted by the gust is as though it was pushed (or thrown) with STR equal to that Index. Adjust the effective STR by the presented surface area of any characters as above. Each Excess Mana is +1 Index which is also DM -1 each for the Stumble test."
+  },
+  {
+    "name": "Halo of Light",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 5,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - Self Area - Sphere Keywords: Duration 10-Minutes, Responsive, Natural > Light Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Creates a brilliant floating source of soft battlefield illumination similar to a controllable Starshell . When cast, choose its altitude and desired Light Index. Its useful illuminated radius is about twice its altitude . It automatically keeps itself overhead and repositions its light according to the Spellcaster's immediate movement, line of travel, and visibly attended needs. This default behavior is encoded and does not require Linkage. The Halo may divide its illumination into several soft downward beams within the same illuminated area. The beams automatically favor places the Spellcaster is actively attending to. For 1 Action, the Spellcaster may use Responsive to set a new altitude or relative position. Freely steering beams, holding them upon independent moving targets, or otherwise exercising dynamic control beyond this default requires a Link . Power and Mana. Calculate the illuminated surface Area in sqft from the chosen radius and find its Area Index. Treat Light as Watts per 10-sqft under the Universal rules. Power Index Watts = Light Index + Area Index. Required mana is the power represented by that Index using the standard mana-energy relationship: mana = Power Index / 3, rounded up, minimum 1. The first point follows the normal living-mana rule; connected dead mana may supply the remainder subject to Available Mana Index. Do not multiply the requirement again for Duration; this is the power needed to keep the Halo operating while the Spell remains active. Example. A low Halo may be placed high enough to illuminate a courtyard or road junction. A brighter Halo over a battlefield costs substantially more because both the Light Index and illuminated Area contribute to the required power."
+  },
+  {
+    "name": "Heatbeam±",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 2,
+    "description": "Combat Dominance, Knowledge Type - Arcane Range - ZED OR Area - Beam Keywords: Surge, Range Combat, Damage 2D, Natural > Heat Tests: Prayer=-, Link=-, Weave=-, Sanity=-. With a rush of heat, a tight red beam of plasma ripples from the Spellcaster to the target which must be in Line-of-Sight . This is beam is hot fierce and will quickly heat through most armors and materials, receiving Impact equal to the Spellcaster’s POW. When calculating temperature changes, this creates a beam which heats of a coin-sized area on the target by 100° F which is Index 10. Any metal worn will keep heat that it may have absorbed and will cause up to 1D Damage until removed or cooled."
+  },
+  {
+    "name": "Heatwash±",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 3,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - ZED OR Area - Cone Keywords: Surge, Range Combat, Damage 2D, Natural > Heat Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A wave of abrupt and shimmering heat crosses from the Spellcaster to a cone-shaped area affecting all within its volume. The cone is about 30° wide at default, but can be made as narrow as 10° with some reduced efficiency. This cone is very hot and will cut through most armors and receives Impact POW. When calculating temperature changes, this heats up a cone-shaped volume centered towards a target by 30° F which is Index 5. Each Excess Mana is effectively +1 Index. If the cone is made narrower to 20° or 10°, adjust by +1 or +2 Index accordingly."
+  },
+  {
+    "name": "Hydrate±",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 3,
+    "description": "Conjuration Combat, Eldritch Type - Divine Range - Touch Area - Target Keywords: Prayer > DoS, Agents Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. By touching an appropriate container, the Spellcaster pulls in moisture from the surrounding environment and creates purified drinking water. The amount and time required depends on the humidity of the environment and if there is any standing water. The Spell produces 10-cuin per 10-Second Turn of effort if there is moisture in the area. Add the scalar volume produced across the Turns spent; if an Index is needed, look up that final volume on the Universal Table. Once the effort is stopped, the Spell dissipates. 1728- cuin is 1-cuft, but use 1500-cuin to match the Universal table. 250-cuin is 1-Gallon. Every 1-cuin is also known as a “mouthful”."
+  },
+  {
+    "name": "Hygienic Cleanse",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - Aura Area - Target Keywords: Prayer > DoS, Duration 10-Minutes Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. With alacrity, whirling and speeding glowing particles of white light rush across the surface of living creature target , and anything worn up to the extent of the radius of the Aura formed. When any particle encounters harmful bacteria or virus, grime, or undesirable pollutants on the body it deconstructs it and explodes into two or more rapidly moving particles. As the particles move, waves of gentle wind cross the surface of the target ’s body."
+  },
+  {
+    "name": "Ice Wall±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 4,
+    "description": "Conjuration Conjuration, Eldritch Type - Arcane Range - ZED OR Area - Wall Keywords: Delay 10-Seconds, Natural > Ice, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A bright neon pink glowing line is traced between two points. It broils for a few seconds and then erupts skyward with a wall of translucent wave of frozen ice causing anything above it to immediately receive 4D Stun damage and either be pushed out of the way or be crushed. This wall acquires ZED Bodypoints and Armor Rating ZED, which is at Index 0. Every Excess Mana provides +1 Index for the amount of Bodypoints but increases Armor Rating by +3. Once all Bodypoints are removed, the Spell dissipates. Anything which generates heat or fire receive 6 Impact to ignore this wall’s Armor Rating. If the Spell is active, then for 1 Action, the Spellcaster may adjust the height of wall within a single narrow section."
+  },
+  {
+    "name": "Identify",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - Touch Area - Target Keywords: Delay 10-Seconds Tests: Prayer=-, Link=-, Weave=-, Sanity=-. While the Spell is active and the Spellcaster holds and manipulates and rotates a small potion, medicine, magic item, or other non-living object in their hands, information pours forth in their mind about the object. Details such as chemical composition, imbuements, number of Charges, amount of living mana or stored dead mana , and how many Rads it issues."
+  },
+  {
+    "name": "Illusion",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - ZED OR Area - Sphere Keywords: Responsive, Duration 1-Minute, Natural > Light Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Creates an optionally animated illusion at a distant location that runs for up to 1-Minute. The images of the illusion are pulled from the memory of the Spellcaster and they will be convincing in that manner. If the Spellcaster has never seen a thing, perhaps a Bear or a piece of art, then the illusion will not have a convincing image of that. Illusions use only light, they are silent and can’t be smelled or touch, but can be animated by pulling movement from the Spellcaster’s memory. The size of the illusion will be limited by the radius of the Sphere and will fit as naturally as possible. Any person seeing the illusion will be convinced unless they interact with it, or are too close to notice details which are lacking, or which are not convincing. Each time one or more onlookers see the illusion, have the Spellcaster perform an Opposed KNO v INT Test against one of the group, applying DM -1 per onlooker in total. Apply a DM +1 for each Visibility ORM to the center of the illusion. If the test passes, the onlooker may not re-check the Test until after 10-Seconds. If the test fails, the onlooker of the test is unconvinced and informs the remainder of group to ignore the illusion."
+  },
+  {
+    "name": "Labor",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - Aura Area - Target Keywords: Prayer, Fatigue, Duration 10-Minutes, Natural > Energy Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. The Spellcaster is able to activate a mechanical contraption such as a pully system or billows, or engine and have it operate as though it was powered by water, muscles, heat (via steam, wood, or coal), or electricity. The Spell applies Index 0 work continuously until its 10-Minute Duration ends. Each Excess Mana assigned to the Work Intent increases the available work by +1 Index. While the Labor Spell is active, for 1 Action the Spellcaster can adjust the work delivered anywhere from zero up to the available maximum. A machine which requires more work than the Spell can provide operates slowly or not at all, according to its ordinary mechanical requirements."
+  },
+  {
+    "name": "Lance of Faith",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 1,
+    "description": "Combat Dominance, Knowledge Type - Divine Range - ZED OR Area - Target Keywords: Prayer > Weave > DoS, Missiles × 2, Damage 2D, Natural > Fire Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. A set of rapidly moving blips of orange daggers race towards one or more targets of the Spellcaster’s choice. As they get closer, they transform into brightly glowing orange bolts of plasma and strike their targets. The missiles automatically hit any target within ZED ORM +10, and anything further requires and Opposed ZED Test DM -1 per MORM."
+  },
+  {
+    "name": "Languages",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - Self Area - Target Keywords: Prayer > DoS, Agents, Fatigue 1-Minute, Duration 1-Hour, Sophontic Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Spindly silver threads of picoswarms extend from the skull of the target outward in multiple directions seeking living Sophonts. As the threads seek outward, they fade into higher dimensional containers in order to rapidly travel the face of Sarna Len. If the Sophont has a greater Language or Pidgin skill level than the target , the target uses their level. However, the ZOR is ZED miles and apply penalty DMs for any ZORM. The maximum ZORM allowed is 6. Using this spell causes a great amount of Fatigue because the mind, lips, tongue, jaws, and throat of the target need to recognize and move using unfamiliar patterns."
+  },
+  {
+    "name": "Lifesense±",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - ZED OR Area - Pulse Keywords: Detect, Prayer > DoS, Agents, Duration 1-Minute Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Allows the Spellcaster to determine if there are living creatures within range. Perform a Lifesense Test INT TN=7+ to succeed . Upon pass , the Spellcaster gets a reading of the environment and how far away and generally how many creatures are detected and their SIZ."
+  },
+  {
+    "name": "Light±",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 3,
+    "description": "Conjuration Combat, Eldritch Type - Arcane Range - Self Area - Target Keywords: Another, Responsive, Link > Active, Continuous, Natural > Light Tests: Prayer=-, Link=Active, Weave=-, Sanity=-. This spell creates a small floating orb of dim lighting similar to a lantern or torch allowing Visibility OR of 20-feet. Once it has become active, it will stay in a relative position with the target when they move. For 1 Action it can be forced into a different relative position. As an Active variation, the Spellcaster may Link to the Light Spell itself to actively control and dynamically shape its position. This reduces the Spellcaster's POW by 2 while the Active Link is maintained. Lighting OR is Index 3. Each Excess Mana assigned to the Lighting Intent provides +1 Index. Flash. Instead of improving the continuing illumination, the Spellcaster may spend Excess Mana to make one deliberate flash against one visible target within the Light's Visibility OR. The flash has Blinding X equal to the Excess Mana spent and then the orb returns to its ordinary lighting. Blinding uses the same Trait whether the source is magical or mundane."
+  },
+  {
+    "name": "Linkage",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Conjuration Type - Common Range - ZED OR Area - Target Keywords: Link, Persistent while maintained Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Establish a normal magical Link when no other Spell supplies one. Choose one visible target within ZED OR: a non-Living object or eidolon; an active Spell being dynamically controlled or shaped; a Living Sophont or organism; or one specific active Embodiment , Manifestation , or other local instance of a godcloud. Use the normal Link Test if the target resists. The Link uses all standard benefits, upkeep, Stress, Manapool, Delink/Dispel, and Trace rules. The POW commitment is -1 for a non-Living object, -2 for an active Spell, -3 for a Living target, and -6 for a local godcloud or Celestial instance. A Deity Link reaches only the selected instance unless the Deity deliberately uses that connection through its wider godcloud. The Spell has no separate fixed duration. It ends when the Link is voluntarily released, broken, Dispelled/Delinked, its target ceases to exist in the linked form, or another standard Link-ending condition occurs."
+  },
+  {
+    "name": "Linkmesh",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 6,
+    "description": "Eldritch Conjuration, Knowledge Type - Arcane Range - Existing Link; nodes within ZED OR when joined Area - Shared Link endpoint Keywords: Restricted > Warlock, Sacred Spell, Shared Link, Persistent while maintained Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. A Warlock who already holds one ordinary Link may turn that endpoint into a shared mesh for willing participants. The original Link remains the anchor and keeps its ordinary target-specific POW commitment, Stress, Manapool reduction, upkeep, Trace, Delink, and other consequences. Choose a Node Index from the R125 progression. R125 Index 0 supports 1 node; each Excess Mana raises the Node Index by +1, to a maximum of Index 6. Node count and mesh Linkage are read directly from the table. The Mesh Linkage is an aggregate POW commitment paid by the Warlock equal to the R125 Node Index. It replaces repeating the target-specific POW commitment for every branch; the anchor Link's own ordinary POW commitment remains separate. At Index 0, sharing the anchor with one node adds no further POW burden beyond the anchor itself. Each willing node joined to the mesh treats the anchor target as Visible and within LOS for magic which can use a Link. A node takes the ordinary non-POW consequences of participating in that Link: DM -1 to Tests, 1D Stress when joining a Living or active godcloud endpoint, Manapool -1, and normal Link upkeep appropriate to the target. Do not also charge that node the target's POW -1/-3/-6; the mesh's R125 Linkage already accounts for the branching POW burden. The mesh does not grant control of the target, reveal unrelated thoughts, or share any other Links held by the participants. The Warlock may voluntarily lower Node Index when enough nodes leave, immediately restoring the corresponding committed POW. Increasing Node Index again requires the additional Excess Mana. Normal participant upkeep remains individual; use Group/Ritual abstraction when a large NPC body is maintaining the mesh and individual accounting would not matter to play. If the anchor Link ends, the Linkmesh collapses immediately. A node which becomes unwilling, Unconscious, Dead, or otherwise unable to participate drops out without breaking the remaining mesh. Linkmesh cannot recurse through another Linkmesh and cannot be used to combine unrelated endpoints into one network."
+  },
+  {
+    "name": "Magick Missiles",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 2,
+    "description": "Combat Dominance, Knowledge Type - Arcane Range - ZED OR Area - Target Keywords: Missiles × 3, Damage 1D, Natural > Electricity, Seeker 1 > Mana (Manaseeker) Tests: Prayer=-, Link=-, Weave=-, Sanity=-. A set of rapidly moving glowing whitish-blue orbs of plasma race towards one or more targets of the Spellcaster’s choice. The missiles automatically hit any target within ZED ORM 1. Anything farther requires an Opposed Targeting ZED Test, DM +1 per missile assigned. The target must be acquired normally when the Spell is cast. After acquisition, the missiles use Manaseeker to retain or reacquire the target's magical/living-mana signature until they resolve; apply the ordinary Seeker and magical Mask rules if that signature becomes concealed or confused."
+  },
+  {
+    "name": "Nitcache",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Arcane; Restricted > Witch; FORBIDDEN Range - Touch Area - One prepared non-Living Item and source organism Keywords: Ritual, Eidolon Capture, Linkage, Living Mana, Forbidden Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Prepare a ring, charm, jar, bead, or similar non-Living container as a nitcache. Begin the Ritual with the universal magical ignition: 1 living mana from the Witch's own Manapool and an exhalation. The ritual then sacrifices one living organism and captures its active picoswarm as a coherent eidolon. Each successful capture increases the Current Nitcache Living Mana Index by +1 . The captive swarm is living, willful, and linked. Commit POW -1 per Current Nitcache Living Mana Index . For each intact captured source whose original SIZ is at least the cache's current Living Mana Index, reduce this Linkage burden by 1. Recalculate whenever the cache's Living Mana Index changes. The nitcache's own captive eidolons, rather than dead crystal storage, are carrying the organized living mana. A charged nitcache glows and emits low-frequency sound or vibration. It is recognizable as magical to any Spellcaster or character with Detect Magic within ordinary sensory range. After a later magical use has been ignited normally by its user, the nitcache may spend captive living mana as a connected source. Each point spent lowers its Living Mana Index by 1. It counts as living mana for magical requirements and ordinary living-mana consequences, but does not become the user's Cellburn because it was not drawn from the user's hamerbridges. Voluntarily releasing captive mana instead of spending it frees the eidolon. It immediately seeks Conjoinment with a nearby godcloud or compatible picoswarm, or disperses into the environment if no coherent host is available. Nitcache practice is forbidden because it imprisons willful eidolons and consumes their coherence as fuel."
+  },
+  {
+    "name": "Maskmagic±",
+    "costAp": 7,
+    "costMana": 1,
+    "level": 5,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - Touch Area - Target Keywords: Fatigue 1-Day, Mask 5 Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Mask the magical presence of the target . Begin with Mask 5 . Detect Magic Tests against the target receive DM -5. At the end of each Day, reduce the current Mask rating by 1; the Spell ends when the rating reaches zero. Each Excess Mana assigned to the Mask Intent increases the starting Mask rating by +1, which also extends the possible duration by another Day. Maskmagic does not alter actual ZED or Manapool. Also see Discipline > Manamask . If both protect the same target, use the stronger masking penalty rather than adding them together."
+  },
+  {
+    "name": "Mend Item±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - Self Area - Shell Keywords: Link > DoS Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Often imbued into a Scroll or other small Item, and is very popular among craftspersons. Establishes a link with a structurally compromised damaged object such as a sword, item or armor, or even a scratched piece of furniture. The piconits , under guidance by the Spellcaster, will begin to suture and refinish the surface of the item using the skills of the Spellcaster. In this manner, the picoswarm behaves as an apprentice that operates very quickly under the guidance of the Spellcaster to repair damaged items. This spell does not repair broken or physically separated components, but it can refabricate stitching, wood, metal, leather, or anything non-living within the structure or nearby. The time required is roughly one-tenth what it would normally require a non-magical solution for mending. Count this as 10 Bodypoints of whatever requires repair. Each DoS allows another 10 Bodypoints to be repaired."
+  },
+  {
+    "name": "Mend Structure±",
+    "costAp": 6,
+    "costMana": 1,
+    "level": 5,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - Touch Area - Target Keywords: Sanity, Fatigue 10-Seconds Tests: Prayer=-, Link=-, Weave=-, Sanity=Y. A target , living or otherwise, may be returned to an earlier time when it had a different, favorable, structural state. However, the maximum time allowed is the amount of time the Spellcaster has been within ZED + 10 Feet with the target . Any Hitpoints or Bodypoints a target had from that time will be re-assigned to the target . How far back in time begins at 10-Minutes, which is Index 18 Time. Each Excess Mana is +3 Indexes. 1-Hour is about Index 26, 1-Day is about Index 39, and 1-Week is about Index 48. It will require 10-Seconds for every Index backwards in time a Spellcaster decides to use. While scanning the time-line for this information, the Spellcaster acquires Fatigue and is considered Distracted . If the target is a living organism, its current memories will be kept as an overlay of its former memories in the past. The overlay will dominate once an equal amount of time has passed since the Spell concluded. Until then, the target will suffer DM -1 per Index used to all Tests (excluding Damage Tests) involving the Attributes INT, PRE, KNO, or POW."
+  },
+  {
+    "name": "One Mind One Thought",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 1,
+    "description": "Dominance Conjuration, Transformation Type - Divine Range - ZED OR Area - Target Keywords: Ritual , Link, Selective Tests: Prayer=Y, Link=Y, Weave=-, Sanity=-. Allows a Spellcaster to specifically create a Link to another Spellcaster. The target must have the v-Magic trait. The Link is mutual, but will incur the standard costs for a Link. The intent is to allow each Spellcaster to link to the other in order to perform Ritual Magic. This spell is sometimes used to keep track of apprentices as well, but is considered an impolite use of magic because it is so invasive to somebody’s thoughts."
+  },
+  {
+    "name": "Peculiar Optics",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - Touch Area - Target Keywords: Another, Duration 10-Minutes, Sophontic Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The target Sophont may pick any one of the frequency bands in the electromagnetic spectrum and view it and optionally hear it. Each Excess Mana allows an additional frequency to be selected and layered into the current vision. Choices are Subsonic (Vibrations), Sound, Infrared (Heat), Light, Ultraviolet, and Radio. While using this Spell, the Spellcaster’s normal ability to see Light is slightly affected; penalize DM -3 to Detect while using the Spell for seeing and possibly hearing."
+  },
+  {
+    "name": "Phantasms",
+    "costAp": 5,
+    "costMana": 1,
+    "level": 5,
+    "description": "Dominance Conjuration, Transformation Type - Arcane Range - POW OR Area - Pulse Keywords: Selective, Link > DoS, Duration 1-Minute, Fatigue 10-Seconds Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Every target within range may be targeted by this Spell which requires the Spellcaster to invade their minds and convince them of an illusory experience involving every one of their senses. The phantasms are elements of choice within the illusion that the Spellcaster selects from their own mind. The Spellcaster may delve deep into each target ’s mind and pull elements from it, but as a result will acquire 1D Stress damage each time. Have the Spellcaster perform an INT v INT Link Test against each target . Apply DM +1D if the Spellcaster delved deep. Upon success , the target is convinced of the illusory experience as though in a dream and will awaken only after being attacked by an element within illusion or attacking and hitting it."
+  },
+  {
+    "name": "Prayers to the Divine",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 3,
+    "description": "Eldritch Combat, Knowledge Type - Divine Range - Self Area - Target Keywords: Prayer > DoS Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Will call forth in an attempt to contact the Deity of the Spellcaster to reveal clues to one of the GM’s minor plot points in context. If there are DoS of the Prayer Test, then the clue revealed can be described more clearly. Every Excess Mana may be used to get an additional clue if one is available."
+  },
+  {
+    "name": "Preservatory",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 1,
+    "description": "Transformation Conjuration, Eldritch Type - Common Range - Touch Area - Target Keywords: Duration 1-Day Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spell arrests ordinary spoilage, decomposition, drying, and similar post-harvest biological change in a non-Living target. Typical targets are cooked food, picked fruit or herbs, medicines, biological samples, or a recently dead body being held for transport or examination. The Spell does not restore material already spoiled, heal Injury, purify existing disease or toxin, stop Bleeding or Dying, prevent Wasting Sickness or magical corruption, or return the Dead to life. It merely holds the affected material close to its present physical state for the Duration. A normal casting affects one target of about SIZ 12 or a contained amount up to Volume Index 0. Each Excess Mana increases the permitted SIZ or Volume by +3 Index. If both measures matter, use whichever is less favorable to the Spellcaster."
+  },
+  {
+    "name": "Prismafan of Corruption",
+    "costAp": 5,
+    "costMana": 1,
+    "level": 6,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - INT OR Area - Fan Keywords: Forbidden, Damage 3D Rads, Sanity, Painful 1D Hitpoints, Natural > Radiation Tests: Prayer=-, Link=-, Weave=-, Sanity=Y. A prismatic array of colors disguising deadly cosmic radiation spreads in harsh vibrating waves from the Spellcaster outwards in an arc towards the targets. Everything it crosses begins to decay, receiving 3D Rads, and every Excess Mana is another +1D. Rads bypasses all Hitpoints unless the entire body of a target is protected by manaclamps such as lead or blackmetal shielding, or some sort of anti-radiation barrier. In such a case, it affects all exposed areas such as eyes or fingers of whatever didn’t have adequate protection."
+  },
+  {
+    "name": "Prismafan of Lightning",
+    "costAp": 4,
+    "costMana": 1,
+    "level": 5,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - INT OR Area - Fan Keywords: Selective, Damage 3D, Sanity, Painful 1D Hitpoints, Natural > Lightning Tests: Prayer=-, Link=-, Weave=-, Sanity=Y. A prismatic array of colors flashes and alternates with bright blue fractal lightning bolts which crack and thunder from the Spellcaster outwards in an arc towards the targets. Everything it cross receives 1 Stun damage and 3D Damage from lightning. This bypasses all Hitpoints unless the target is electrically grounded or protected by an anti-energy field. The Spell causes an average of 100 Joules for 3D Damage, which is Index 10. Each Excess Mana is +3 Index, which is +1 Damage from lightning per die."
+  },
+  {
+    "name": "Protection",
+    "costAp": 5,
+    "costMana": 1,
+    "level": 2,
+    "description": "Combat Dominance, Knowledge Type - Arcane Range - INT OR Area - Shell Keywords: Another, Prayer > DoS, Duration 10-Minutes, Sophontic Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. A glowing, translucent, golden, almost crystalline shell appears around the target Sophont, and extends to any living creatures it touches of the same SIZ as the target or smaller. This shell acquires 10 Bodypoints and Armor Rating 10, which is at Index 0. Every Excess Mana provides +1 Index for the amount of Bodypoints but increases Armor Rating by +3. Once all Bodypoints are removed, the Spell dissipates."
+  },
+  {
+    "name": "Purify",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - Field Area - Pulse Keywords: Prayer > DoS, Agents, Duration 1-Minute Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Usually applied to a volume of food and water, this spell purifies all within its affect field. Elements within the corona of the Spellcaster’s field are flooded with a picoswarm appearing as glowing and twisting snowflakes. As a result, all harmful bacteria, viruses, and toxins are made inert or neutral. This may involve molecular changes of minerals or organic materials into harmless cells or dust. Any superficial disease symptoms which the character experiences, such as sinus congestion or bodily aches, also go away. Magiviruses are also removed, but they are not destroyed, merely ejected and should be kept into a black metal container otherwise they’ll tend to reseek the original host. The Spell lasts for 1-Minute which allows the Spellcaster to use this Spell’s effects against moving crowds of people or flowing water."
+  },
+  {
+    "name": "Radioresistance",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - Self Area - Target Keywords: Another, Duration 1-Hour Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Increase the Resistance of the target by +3 Index. Each application of the Spell will cause the target to become darker complected by one shade of monochromatic black. It is not melanin but the inclusion of Blackmetal within the cells of the character."
+  },
+  {
+    "name": "Reaccuracy",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - Self Area - Target Keywords: Another, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=-, Sanity=-. During Narrative or Technical combat, if the Spellcaster's immediately prior Attack action in the current combat successfully hit the same target , the Spell provides DM +1D to the Hit Test for the Spellcaster's next Attack against that target."
+  },
+  {
+    "name": "Read Language",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - Self Area - Shell Keywords: Agents, Weave > DoS, Duration 10-Minutes Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. Often imbued into a Scroll or other small Item such as a charm or amulet to allow non-Spellcasters to use a commonly spoken language in order to acquire proficiency in some other language. This is done by sending out agents to locate a speaker of the imbued language. When activated, the reader acquires the ability to read and speak fluently a language and all of its dialects as though it were Skill level 4 plus DoS. This lasts for DoS × 10-Minutes."
+  },
+  {
+    "name": "Read Magic",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 1,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - Self Area - Shell Keywords: Link > DoS, Duration 1-Minute Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Often imbued into a Scroll or other small Item such as a charm or amulet to allow non-Spellcasters to use a commonly spoken language. When activated, creates a link between the reader and the item which is sustained for DoS Minutes. During this time, the reader acquires v-Magic DoS and can read Yezik as “Blacktongue” as well. The proficiency level is at Skill level 4 plus DoS. Each Excess Mana increases both the language Skill level and the duration in 1-Minute turns."
+  },
+  {
+    "name": "Resize",
+    "costAp": 1,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - Touch Area - one non-Living, non-organic Item Keywords: Physics, Reversible, Weave, Duration 10-Days Tests: Prayer=., Link=-, Weave=Y, Sanity=-. Resize tailors a non-Living, non-organic Item to a different scale or body shape. On a normal casting the Spell changes the target by as much as 1 SIZ per Degree of Success; each Excess Mana permits another 1 SIZ of change. The Spell can also alter proportions needed to fit an unusually shaped Sophont. Ordinary resizing preserves the target's mass and material composition. Its density therefore changes as its volume changes. It does not by itself improve Weapon Damage, Armor Rating, shield protection, stored mana, or another game rating merely because the Item became larger, smaller, denser, or thinner. This makes ordinary Resize most useful for clothing, jewelry, tools, and worn or adorned Magic Items rather than as a way to improve a weapon or shield. A user may deliberately reconfigure the resized Item by spending mana. At least the first point must be living mana ; after that, connected dead mana may contribute under the normal Available Mana rules. Each mana committed permits one additional Index of adjustment to one ordinary physical property affected by the resize, such as Mass/Weight, density, thickness, rigidity, flexibility, or balance. Reconfiguration cannot create a new material, duplicate an imbuement, increase a native Weapon Damage or Armor Rating merely from size, or create additional mana capacity. The Resize lasts for 10-Days unless reversed or replaced. When it ends, the target returns toward its natural scale at about 1 SIZ per 10-Seconds. A reusable Magic Item may instead carry the spell-derived Resize X1 utility imbuement described in the Magic Items Library; that imbuement automatically fits its wearer and follows its own duration and mana-source rules."
+  },
+  {
+    "name": "Sensory Adjustment",
+    "costAp": 5,
+    "costMana": 1,
+    "level": 5,
+    "description": "Transformation Conjuration, Eldritch Type - Arcane Range - Touch Area - Target Keywords: Another, Duration 10-Minutes Tests: Prayer=-, Link=-, Weave=-, Sanity=-. Either enhance or desensitize one of the biological senses that living organisms would normally have. For senses ordinarily used with Detect, enhancement provides DM +1D; for other senses, enhancement improves the sense in the ordinary narrative manner. Desensitize shuts the selected sense down voluntarily. Choices are Touch, Smell, Taste, Sight, Hearing, Balance, Temperature, Satiation, and Pleasure. Each Excess Mana assigned to a Sensor Intent allows one additional listed sensor or sense to be affected by the same casting."
+  },
+  {
+    "name": "Sensefold",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 4,
+    "description": "Eldritch Conjuration, Knowledge Type - Arcane Range - Existing Link Area - Target or Anchor Keywords: Restricted > Warlock, Duration 10-Minutes Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Sensefold extends a Warlock's sensory viewpoint through an existing Link without moving the Warlock's body. The Link must already exist and continues to use its normal penalties, mana upkeep, and other rules. Choose one ordinary sense possessed by the Warlock. For the duration, the Warlock may attend through the Linked target or anchor as though that sense originated there. A moving anchor moves the viewpoint. A living target can supply sensory information it actually possesses. A non-Living anchor uses its local picoswarm to provide reasonable nearby sight, sound, vibration, pressure, or temperature; fine identification may require a Detect Test. The Warlock is Distracted while actively attending through Sensefold. Each Excess Mana adds either one additional ordinary sense or one additional already-Linked anchor. Sensefold does not teleport the Warlock, create Psionic Sense, or reveal information unavailable to the target, anchor, or its local picoswarm."
+  },
+  {
+    "name": "Shocker",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Combat Dominance, Knowledge Type - Divine Range - Touch Area - Target Keywords: Prayer, Charges × 3, Damage 1D Fatigue, Natural > Electricity Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. The target experiences a mild bio-electric shock as Electric damage of zero, stimulating its nervous system and causing an amazing amount of pain. If this is against its body part, it receives 1D Fatigue , becomes Distracted, and receives a Delay token as a result of being Stunned . The Spell presumes that the target is roughly SIZ 12 or about 150 pounds. For every +3 or -3 SIZ outside this range, reduce or increase the amount or Damage by half or double it. If Damage is reduced to less than 1D/4, then there is no effect unless another Charge is used."
+  },
+  {
+    "name": "Somnumshell±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Dominance Conjuration, Transformation Type - Common Range - Self Area - Shell Keywords: Another, Selective, Weave > DoS, Fatigue 1-Action, Damage 2D, Duration 1-Minute Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. Every target which crosses the threshold of the shell, is subject to an Opposed POW v POW Weave test if the Spellcaster spends 1-Action. Upon success , they’ll receive 2D Damage. If this causes their Hitpoints to go to zero, no Damage goes to their Bodypoints. Instead, the target will collapse in place and fall Unconscious until the Spell dissipates."
+  },
+  {
+    "name": "Soothtouch",
+    "costAp": 0,
+    "costMana": 1,
+    "level": 2,
+    "description": "Dominance Conjuration, Transformation Type - Divine Range - Aura Area - Target Keywords: Prayer, Fatigue 1-Action, Duration 1-Minute Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. While the Spell is active, every time the Spellcaster spends 1-Action, a living thing which holds hands with the Spellcaster or which is touched may be targeted to either remove 1D Stress , 1D Fatigue , 1D Weariness , or recover 1D Hitpoints."
+  },
+  {
+    "name": "Sphere of Silence±",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Common Range - POW OR Area - Sphere Keywords: Prayer, Duration 1-Minute, Natural > Noise Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. A semi-opaque geodesic spherical zone of translucent white surrounds the target and causes any noise from within it to be reduced to near total silence. The amount of sound reduction is -60 dB which is Index 8. Each Excess Mana is +1 Index."
+  },
+  {
+    "name": "Suspensive",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 4,
+    "description": "Eldritch Combat, Knowledge Type - Divine Range - Aura Area - Target Keywords: Prayer > DoS, Charges × 3X, Painful 1D Stress, Fatigue 10-Seconds, Duration 1-Minute, Natural > Gravity Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Assign X Excess Mana to the Charges Intent to create 3X Charges. For every Charge, the Spellcaster may pick a target not already affected by this Spell to cause it to partially ignore the effects of gravity. That target will continue to have mass which can be pushed or moved about in any direction including upwards. It will maintain any velocity assigned to it. The gravity experienced will be a tenth normal, or Index -5 (3 feet/second per second). In the last 10-Seconds before the Spell dissipates, the effects of gravity gradually become stronger, adjusting +1 Index every 1-Second until it becomes Index 5 (30 feet/second per second). This may cause clumsy characters to bumble and so each must perform Suspensive Test MOV TN=7+ to adjust their landing correctly. Any characters which fail receive 1D Damage."
+  },
+  {
+    "name": "Transliterator",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 3,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - Touch Area - Sphere Keywords: Agents, Link, Duration 10-Minutes, Sophontic Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. With a dazzle of grayish-blue swirl of lights, flittering lines dart between the Spellcaster and all Sophonts within the radius of the Sphere which have a language skill. The Spell will translate the text before the Spellcaster using the Skill level of any one of the languages spoken by any one Sophont that becomes Linked within the radius of the Sphere. This is an ordinary Active Link to a Sophont and commits POW -3 while that Sophont is selected. The text must not be protected by a magic lock. For 1 Action, the Sophont chosen may be switched; the previous Link ends and the new Sophont becomes the Link target, but each Sophont within range may only be chosen once per cast of this Spell. A real-time overlay of a language known by the Spellcaster will display in the script for that language elevated an inch above any page of text. At any time, the Spellcaster can point to the display and ask for the definition and pronunciation of any small block of text which will be heard aloud as though spoken. The translation will be at the level of Skill for the language chosen, catering to the reading ability of the Spellcaster. If the Spellcaster desires, the sound and light of the translation can be disguised to any not also touching the reader. This will lower the quality of the translation by 1 Skill level each."
+  },
+  {
+    "name": "Turn Undying",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 5,
+    "description": "Dominance Conjuration, Transformation Type - Divine Range - INT OR Area - Fan Keywords: Ritual, Prayer, Agents Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. With a ritual specific to the Spellcaster’s temple of worship, a picoswarm flows forth from their body and activates harsh bursts of rapid communication with the mustrumforms of the target Undying. This creates a radius around the spellcaster equal to ZOR – 10 Feet, dropping off in intensity with distance. These desire to remain in control and so become frightened and flee the warning issued. The amount of Undying which are affected depend on their ZED, which averages 5. The base amount is equal to Index 0 which is 10. The distance to each of the Undying reduces the effective Index they experience by 1 per ZORM. Each Excess Mana assigned to this effect is +1 Index. Frightened Undying will move directly away at their rated MOV Feet until they have done so for 1-Minute or until they are actively interrupted or attacked."
+  },
+  {
+    "name": "Tweak",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - ZED OR Area - Target Keywords: Duration 1-Action Tests: Prayer=-, Link=-, Weave=-, Sanity=-. The Spellcaster is able to remotely manipulate something physically for a brief moment as though a hand were operating. It can pick things up, twist, slap, punch, poke, etc. Anything performed will be experienced in the Spellcaster’s mind and so the temperature, texture, and hardness experienced would be as though a hand were actually present. This virtual hand has the CCA, RCA, and STR of the Spellcaster. Reduce each by 1 per ZORM. Any Tests performed by the virtual hand are penalized DM -1 per Visibility ORM."
+  },
+  {
+    "name": "Wardwyrd",
+    "costAp": 5,
+    "costMana": 1,
+    "level": 7,
+    "description": "Knowledge Dominance, Transformation Type - Arcane Range - 10-Foot Area - Field Keywords: Selective, Sophontic, Pulse, Field, Continuous Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. Upon touching a target such as an item, wall, or ground location, creates a continuous zone of discomfort known as a wardlock around it. It remains active until removed by the Spellcaster and, like any Spell, may be Dispelled. It affects only Sophonts with one or more of the identified keywords assigned to the ward. Identify one keyword to affect from among; Aberration, Abomination, Celestial, Construct, Monstrous, Undying . An affected Sophont is penalized DM -1D for all Tests, excluding Damage Tests. If the target is optionally Linked , the list can be updated dynamically as soon as a Sophont enters or exits ZED OR. Each Excess Mana provides either an additional keyword, or increases the effect of Warding by -1D."
+  },
+  {
+    "name": "Wardzone",
+    "costAp": 3,
+    "costMana": 1,
+    "level": 6,
+    "description": "Knowledge Dominance, Transformation Type - Divine Range - 1-Foot Area - Field Keywords: Prayer, Selective, Sophontic, Field, Continuous, Interval 10-Seconds Tests: Prayer=Y, Link=Y, Weave=-, Sanity=-. Upon touching a target such as an item, wall, or ground location, creates a continuous zone of discomfort known as a wardlock around it. It remains active while its 10-Second Interval mana payment is made, until removed by the Spellcaster, or until Dispelled. This affects only Sophonts. Any Sophont which enters within 1-Foot of the target is penalized DM -1D for all Tests, excluding Damage Tests. The Spell is selective, and so the Spellcaster can decide a very specific list of persons which could be affected or not affected. If the target is optionally Linked , the list can be updated dynamically as soon as a Sophont enters or exits ZED OR. Each Excess Mana provides either an additional keyword, or increases the effect of Warding by -1D."
+  },
+  {
+    "name": "Winkback",
+    "costAp": 5,
+    "costMana": 1,
+    "level": 8,
+    "description": "Eldritch Combat, Knowledge Type - Arcane Range - Aura Area - Target Keywords: Sanity Tests: Prayer=-, Link=-, Weave=-, Sanity=Y. The Spellcaster fades out of existence and appears by fading in at the end of the next character’s Phase in a position it had been within the last 10-Seconds prior to the Spell being cast. For each character holding hands in an unbroken chain leading to the Spellcaster, apply DM -3 for the Sanity Test."
+  },
+  {
+    "name": "Woundshell",
+    "costAp": 2,
+    "costMana": 1,
+    "level": 2,
+    "description": "Combat Dominance, Knowledge Type - Common Range - Self Area - Shell Keywords: Weave, Damage 1D, Sophontic Tests: Prayer=-, Link=-, Weave=Y, Sanity=-. A vibrating shell of spiky, angry, red and black dots surrounds the target Sophont and expands outward. Select one or more targets which encounter the Shell and perform a Weave test for each. If the target fails, it receives Damage involving puncture wounds. If there are multiple targets, the Spellcaster suffers DM -1 cumulative for each target above the first."
+  }
+]
