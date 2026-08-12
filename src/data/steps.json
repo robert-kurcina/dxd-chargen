@@ -1,155 +1,161 @@
 [
   {
-    "title": "ASSIGN INTRINSICS",
-    "value": "intrinsics",
-    "disabled": false,
+    "title": "ASSIGN BACKGROUND",
+    "value": "background",
+    "description": "Establish where the character comes from, the communities that shaped them, and the social and personal circumstances they bring into play.",
     "substeps": [
       {
+        "title": "Assign Starting Region & Settlement",
+        "value": "background-region-settlement",
+        "description": "Choose the character's starting region and settlement."
+      },
+      {
         "title": "Assign Demographics",
-        "value": "background-2",
-        "disabled": false,
-        "content": "Content for demographics will go here."
+        "value": "background-demographics",
+        "description": "Establish demographic details used by later background and biological choices."
       },
       {
-        "title": "Assign Attributes",
-        "value": "intrinsics-2",
-        "disabled": false,
-        "content": "Content for attributes will go here."
+        "title": "Assign Age",
+        "value": "background-age",
+        "description": "Choose the character's age group and age, respecting species and PML limits."
       },
       {
-        "title": "Assign Trade and Specialization",
-        "value": "intrinsics-3",
-        "disabled": false,
-        "content": "Content for trade and specialization will go here."
+        "title": "Assign Heritage",
+        "value": "background-heritage",
+        "description": "Choose cultural, environmental, and societal heritage packages."
       },
       {
-        "title": "Assign Zed",
-        "value": "intrinsics-4",
-        "disabled": true,
-        "content": "Content for zed will go here."
+        "title": "Assign Social Rank",
+        "value": "background-social-rank",
+        "description": "Determine the character's social standing and related background effects."
+      },
+      {
+        "title": "Assign Personality",
+        "value": "background-personality",
+        "description": "Record the personality traits that define the character's behavioral cues."
+      },
+      {
+        "title": "Assign Tragedy Seed",
+        "value": "background-tragedy-seed",
+        "description": "Choose or generate a tragedy seed for the character's personal history."
+      },
+      {
+        "title": "Assign Disabilities",
+        "value": "background-disabilities",
+        "description": "Record applicable disabilities and their rules effects."
+      },
+      {
+        "title": "Assign Belief & Worship",
+        "value": "background-belief-worship",
+        "description": "Choose belief, worship, and deity relationships where applicable."
       }
     ]
   },
   {
-    "title": "ASSIGN BACKGROUND",
-    "value": "background",
-    "disabled": false,
+    "title": "ASSIGN INTRINSICS",
+    "value": "intrinsics",
+    "description": "Define the character's species, core attributes, profession, magic potential, and starting wealth.",
     "substeps": [
       {
-        "title": "Assign Starting Region & Settlement",
-        "value": "background-1",
-        "disabled": false,
-        "content": "Content for starting region and settlement will go here."
+        "title": "Assign Sophont Species",
+        "value": "intrinsics-species",
+        "description": "Choose the Sophont species and lineage that establish biological adjustments and constraints."
       },
       {
-        "title": "Assign Heritage",
-        "value": "background-3",
-        "disabled": false,
-        "content": "Content for heritage will go here."
+        "title": "Assign Attributes",
+        "value": "intrinsics-attributes",
+        "description": "Generate or purchase the character's attributes and apply sourced adjustments."
       },
       {
-        "title": "Assign Social Rank",
-        "value": "background-4",
-        "disabled": false,
-        "content": "Content for social rank will go here."
+        "title": "Assign Trade and Specialization",
+        "value": "intrinsics-trade-specialization",
+        "description": "Choose Trade, specialization, and starting professional rank."
       },
       {
-        "title": "Assign Personality",
-        "value": "background-5",
-        "disabled": false,
-        "content": "Content for personality will go here."
+        "title": "Assign Zed",
+        "value": "intrinsics-zed",
+        "description": "Assign ZED using the DXD character-creation rules."
       },
       {
-        "title": "Assign Tragedy Seed",
-        "value": "background-6",
-        "disabled": false,
-        "content": "Content for tragedy seed will go here."
-      },
-      {
-        "title": "Assign Disabilities",
-        "value": "background-7",
-        "disabled": false,
-        "content": "Content for disabilities will go here."
-      },
-      {
-        "title": "Assign Belief & Worship",
-        "value": "background-8",
-        "disabled": false,
-        "content": "Content for belief and worship will go here."
+        "title": "Assign Wealth",
+        "value": "intrinsics-wealth",
+        "description": "Determine Wealth Rank and starting economic resources."
       }
     ]
   },
   {
     "title": "ASSIGN PROFICIENCIES",
     "value": "proficiencies",
-    "disabled": true,
+    "description": "Establish PML and the learned capabilities the character brings into play.",
     "substeps": [
       {
         "title": "Assign PML",
-        "value": "proficiencies-1",
-        "disabled": true,
-        "content": "Content for PML will go here."
+        "value": "proficiencies-pml",
+        "description": "Set starting Piconit Metastasis Level and apply its creation effects."
       },
       {
         "title": "Assign Skills, Abilities, and Talents",
-        "value": "proficiencies-2",
-        "disabled": true,
-        "content": "Content for skills, abilities, and talents will go here."
+        "value": "proficiencies-skills-abilities-talents",
+        "description": "Apply package-granted capabilities and make the player's proficiency selections."
       },
       {
         "title": "Assign Additional Skills",
-        "value": "proficiencies-3",
-        "disabled": true,
-        "content": "Content for additional skills will go here."
+        "value": "proficiencies-additional-skills",
+        "description": "Spend remaining character-creation skill resources."
       },
       {
         "title": "Assign Languages",
-        "value": "proficiencies-4",
-        "disabled": true,
-        "content": "Content for languages will go here."
-      },
+        "value": "proficiencies-languages",
+        "description": "Assign languages and fluency levels from background and purchased choices."
+      }
+    ]
+  },
+  {
+    "title": "ASSIGN PROPERTIES",
+    "value": "properties",
+    "description": "Resolve physical dimensions and the derived values that follow from completed character choices.",
+    "substeps": [
       {
         "title": "Assign Height and Weight",
-        "value": "proficiencies-5",
-        "disabled": true,
-        "content": "Content for height and weight will go here."
+        "value": "properties-height-weight",
+        "description": "Determine physical height and weight from species, SIZ, age, and applicable adjustments."
       },
       {
-        "title": "Assign Ability Metrics",
-        "value": "proficiencies-6",
-        "disabled": true,
-        "content": "Content for ability metrics will go here."
+        "title": "Assign Calculations",
+        "value": "properties-calculations",
+        "description": "Calculate derived performance, combat, mana, carrying, and other character values."
       }
     ]
   },
   {
     "title": "ASSIGN UTILITIES",
     "value": "utilities",
-    "disabled": true,
+    "description": "Finish the character with spells, equipment, magic items, identity, and relationships.",
     "substeps": [
       {
         "title": "Assign Spells",
-        "value": "utilities-1",
-        "disabled": true,
-        "content": "Content for spells will go here."
+        "value": "utilities-spells",
+        "description": "Choose starting spells when the character has access to spellcasting."
       },
       {
         "title": "Assign Starting Gear",
-        "value": "utilities-2",
-        "disabled": true,
-        "content": "Content for starting gear will go here."
+        "value": "utilities-starting-gear",
+        "description": "Choose weapons, armor, equipment, and other starting possessions."
       },
       {
         "title": "Assign Magic Items",
-        "value": "utilities-3",
-        "disabled": true,
-        "content": "Content for magic items will go here."
+        "value": "utilities-magic-items",
+        "description": "Assign starting magic items when granted or purchased."
       },
       {
         "title": "Assign Name",
-        "value": "utilities-4",
-        "disabled": true,
-        "content": "Content for name will go here."
+        "value": "utilities-name",
+        "description": "Record the character's name and naming details."
+      },
+      {
+        "title": "Assign Relationships",
+        "value": "utilities-relationships",
+        "description": "Record the important relationships that connect the character to people and organizations."
       }
     ]
   }
