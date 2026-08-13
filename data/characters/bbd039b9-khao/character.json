@@ -73,20 +73,26 @@
     "ageYears": 15,
     "birthMonth": 1,
     "culturalHeritageId": "heritage-culture-warrior",
-    "environHeritageId": "heritage-environs-desert",
+    "environHeritageId": "heritage-environs-deserts",
     "societalHeritageId": "heritage-society-cityfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-cityfolk",
     "socialRank": 1,
     "personality": [
       {
-        "id": "import-timid",
+        "id": "personality-timid",
         "name": "Timid",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-was-enslaved-but-escaped-from-citystate-sarken",
     "tragedySeedText": "Was enslaved but escaped from Citystate Sarken",
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-strange",
+        "name": "Strange",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
     "deityId": "deity-gnorg"
@@ -160,7 +166,7 @@
     "tradeId": "trade-warrior",
     "specializationId": "specialization-warrior-soldier",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "STR",
     "zedPurchasedIncrease": 0,
     "zed": 11,
     "wealthRank": 10
@@ -342,8 +348,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-low-coasts",
-        "name": "Low Coasts",
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -395,7 +401,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-shortsword"
       },
       {
         "id": "import-bansword-2",
@@ -404,7 +411,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.\n:: Manapump > { Pierce +X, Blinding X+3, Electroshock X, Quake X }"
+        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.\n:: Manapump > { Pierce +X, Blinding X+3, Electroshock X, Quake X }",
+        "catalogId": "weapon-bansword-2"
       }
     ],
     "armor": [
@@ -414,7 +422,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-chainmail-hauberk"
       },
       {
         "id": "import-medium-shield",
@@ -423,7 +432,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9   10#\n[1H]. Block. Screen. Coverage."
+        "sheetProperties": "Deflect +3  AR 9   10#\n[1H]. Block. Screen. Coverage.",
+        "catalogId": "armor-medium-shield"
       },
       {
         "id": "import-armor-medium-siz-9",
@@ -432,7 +442,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +4  AR 13  15#  Chainmail\n[Flex][Mail]. Sturdy."
+        "sheetProperties": "Deflect +4  AR 13  15#  Chainmail\n[Flex][Mail]. Sturdy.",
+        "catalogId": "armor-armor-medium"
       }
     ],
     "equipment": [
@@ -442,7 +453,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-wardrobe-kit",
@@ -450,7 +462,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe-kit"
       }
     ],
     "gearReviewed": true,

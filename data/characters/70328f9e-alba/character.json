@@ -69,23 +69,34 @@
     "culturalHeritageId": "heritage-culture-fishing",
     "environHeritageId": "heritage-environs-river",
     "societalHeritageId": "heritage-society-slumfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-slumfolk",
     "socialRank": 1,
     "personality": [
       {
-        "id": "import-nasty-scar",
+        "id": "personality-nasty-scar",
         "name": "Nasty Scar",
         "source": "player"
       },
       {
-        "id": "import-willful",
+        "id": "personality-willful",
         "name": "Willful",
         "source": "player"
       }
     ],
     "tragedySeedId": null,
     "tragedySeedText": null,
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-paranoid",
+        "name": "Paranoid",
+        "source": "player"
+      },
+      {
+        "id": "import-strange",
+        "name": "Strange",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
     "deityId": "deity-thaktha"
@@ -159,7 +170,7 @@
     "tradeId": "trade-wizard",
     "specializationId": "specialization-wizard-witch",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
     "zed": 9,
     "wealthRank": 6
@@ -403,8 +414,8 @@
     "additionalSkills": [],
     "languages": [
       {
-        "id": "import-kadahdi-barter",
-        "name": "Kadahdi Barter",
+        "id": "import-kahadi",
+        "name": "Kahadi",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -413,8 +424,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-magespeak",
-        "name": "Magespeak",
+        "id": "import-blacktongue",
+        "name": "Blacktongue",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -477,7 +488,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -  Acc +1   Impact +2  Damage 2D-2\n[1H, Stub]. Swift 3."
+        "sheetProperties": "ORa -  Acc +1   Impact +2  Damage 2D-2\n[1H, Stub]. Swift 3.",
+        "catalogId": "weapon-claws"
       },
       {
         "id": "import-rapier",
@@ -486,7 +498,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -  Acc +2   Impact +10   Damage 1D+4\n[1H]. Parry 2.  Impale. Swift 3."
+        "sheetProperties": "ORa -  Acc +2   Impact +10   Damage 1D+4\n[1H]. Parry 2.  Impale. Swift 3.",
+        "catalogId": "weapon-rapier"
       },
       {
         "id": "import-magestick-wand",
@@ -495,7 +508,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact -2   Damage 1D+1  0.8#\n[2H, Stub, Blunt 2]. Stun. \n:: Manatrigger, Focus, Radsoak"
+        "sheetProperties": "ORa -10  Acc +0  Impact -2   Damage 1D+1  0.8#\n[2H, Stub, Blunt 2]. Stun. \n:: Manatrigger, Focus, Radsoak",
+        "catalogId": "weapon-magestick-wand"
       }
     ],
     "armor": [],
@@ -506,7 +520,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-wardrobe",
@@ -514,7 +529,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

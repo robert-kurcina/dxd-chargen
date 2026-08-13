@@ -63,21 +63,21 @@
     "culturalHeritageId": "heritage-culture-merchant",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-townsfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-competitive",
+        "id": "personality-competitive",
         "name": "Competitive",
         "source": "player"
       },
       {
-        "id": "import-enemies",
+        "id": "personality-enemies",
         "name": "Enemies",
         "source": "player"
       },
       {
-        "id": "import-fawns",
+        "id": "personality-fawns",
         "name": "Fawns",
         "source": "player"
       }
@@ -158,7 +158,7 @@
     "tradeId": "trade-wizard",
     "specializationId": "specialization-wizard-spellbinder",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
     "zed": 12,
     "wealthRank": 12
@@ -270,8 +270,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-low-coasts",
-        "name": "Low Coasts",
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
         "source": "player",
         "kind": "default",
         "primary": true,
@@ -355,7 +355,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -6   Acc +0  Impact +3   Damage 1D   \n[1H, Stub, Hafted]. Swift 2."
+        "sheetProperties": "ORa -6   Acc +0  Impact +3   Damage 1D   \n[1H, Stub, Hafted]. Swift 2.",
+        "catalogId": "weapon-small-knife"
       },
       {
         "id": "import-magestick-staff",
@@ -364,7 +365,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak"
+        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak",
+        "catalogId": "weapon-magestick-staff"
       }
     ],
     "armor": [],
@@ -375,7 +377,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-jewelry-box",
@@ -383,7 +386,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-jewelry-box"
       },
       {
         "id": "import-wardrobe",
@@ -391,7 +395,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

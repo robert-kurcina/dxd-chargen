@@ -69,11 +69,11 @@
     "culturalHeritageId": "heritage-culture-warrior",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-townsfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-leader",
+        "id": "personality-leader",
         "name": "Leader",
         "source": "player"
       }
@@ -154,7 +154,7 @@
     "tradeId": "trade-knight",
     "specializationId": "specialization-knight-free",
     "tradeRank": 3,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "POW",
     "zedPurchasedIncrease": 0,
     "zed": 10,
     "wealthRank": 12
@@ -312,8 +312,8 @@
         "accentRemoved": true
       },
       {
-        "id": "import-drusian",
-        "name": "Drusian",
+        "id": "import-ithuuikal",
+        "name": "Ithuuikal",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -370,29 +370,23 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 4,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-greatsword",
         "name": "Greatsword",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-greatsword"
       },
       {
         "id": "import-dagger-standard",
         "name": "Dagger, Standard",
         "source": "player",
-        "quantity": 1,
+        "quantity": 4,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-sword-great",
@@ -401,7 +395,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -2   Impact +7   Damage 2D+3\n[2H]. Parry. Impale. Stun. Battle"
+        "sheetProperties": "ORa -10  Acc -2   Impact +7   Damage 2D+3\n[2H]. Parry. Impale. Stun. Battle",
+        "catalogId": "weapon-sword-great"
       }
     ],
     "armor": [
@@ -411,23 +406,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-helmet",
-        "name": "Helmet",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-shield",
-        "name": "Shield",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-cuirass"
       },
       {
         "id": "import-helmet-full",
@@ -436,7 +416,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +5  AR 18  5#\n[Blinders]. Sturdy. Block"
+        "sheetProperties": "Deflect +5  AR 18  5#\n[Blinders]. Sturdy. Block",
+        "catalogId": "armor-helmet-full"
       },
       {
         "id": "import-armor-heavy",
@@ -445,7 +426,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +6  AR 18  Cuirass + Mail 40#\n[Mail][Fitted]. Sturdy"
+        "sheetProperties": "Deflect +6  AR 18  Cuirass + Mail 40#\n[Mail][Fitted]. Sturdy",
+        "catalogId": "armor-armor-heavy"
       },
       {
         "id": "import-shield-medium",
@@ -454,7 +436,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  10#\n[1H]. Block. Screen. Coverage."
+        "sheetProperties": "Deflect +3  AR 9  10#\n[1H]. Block. Screen. Coverage.",
+        "catalogId": "armor-shield-medium"
       }
     ],
     "equipment": [
@@ -464,7 +447,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-soap-and-perfume"
       },
       {
         "id": "import-whetting-kit",
@@ -472,7 +456,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-whetting-kit"
       },
       {
         "id": "import-whetting-stone-oils",
@@ -480,7 +465,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-whetting-stone-oils"
       }
     ],
     "gearReviewed": true,

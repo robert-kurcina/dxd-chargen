@@ -72,19 +72,19 @@
     "ageGroup": "Teenager",
     "ageYears": 16,
     "birthMonth": 2,
-    "culturalHeritageId": "heritage-culture-herder",
-    "environHeritageId": "heritage-environs-forest",
+    "culturalHeritageId": "heritage-culture-herding",
+    "environHeritageId": "heritage-environs-forests",
     "societalHeritageId": "heritage-society-landed",
-    "socialRankId": null,
+    "socialRankId": "social-rank-landed",
     "socialRank": 3,
     "personality": [
       {
-        "id": "import-leisurely",
+        "id": "personality-leisurely",
         "name": "Leisurely",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-step-brother-killed-during-an-expedition",
     "tragedySeedText": "Step-brother killed during an expedition",
     "disabilities": [
       {
@@ -166,7 +166,7 @@
     "tradeId": "trade-ranger",
     "specializationId": "specialization-ranger-scout",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "PRE",
     "zedPurchasedIncrease": 0,
     "zed": 10,
     "wealthRank": 10
@@ -344,8 +344,8 @@
     "additionalSkills": [],
     "languages": [
       {
-        "id": "import-kahudi",
-        "name": "Kahudi",
+        "id": "import-kahadi",
+        "name": "Kahadi",
         "source": "player",
         "kind": "default",
         "primary": true,
@@ -362,16 +362,6 @@
         "baseLevel": 2,
         "improvements": 0,
         "accentRemoved": false
-      },
-      {
-        "id": "import-warkahad",
-        "name": "Warkahad",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": true
       }
     ]
   },
@@ -434,7 +424,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -6   Acc -3  Impact +4   Damage 1D+3\n[1H, Stub]. Swift. Cleave."
+        "sheetProperties": "ORa -6   Acc -3  Impact +4   Damage 1D+3\n[1H, Stub]. Swift. Cleave.",
+        "catalogId": "weapon-hunting-knife"
       },
       {
         "id": "import-short-bow",
@@ -443,15 +434,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -6   Acc +4  Impact +4   Damage 1D\n[2H, Reload]. Swift."
-      },
-      {
-        "id": "import-staff",
-        "name": "Staff",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
+        "sheetProperties": "ORa -6   Acc +4  Impact +4   Damage 1D\n[2H, Reload]. Swift.",
+        "catalogId": "weapon-short-bow"
       },
       {
         "id": "import-staff-quarter",
@@ -460,7 +444,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +0   Damage 2D-3\n[2H, Hafted, Blunt]. Reach. Swift. Stun."
+        "sheetProperties": "ORa -10  Acc +0  Impact +0   Damage 2D-3\n[2H, Hafted, Blunt]. Reach. Swift. Stun.",
+        "catalogId": "weapon-staff-quarter"
       }
     ],
     "armor": [
@@ -470,7 +455,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-jack-plate"
       },
       {
         "id": "import-armor-light",
@@ -479,7 +465,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather",
+        "catalogId": "armor-armor-light"
       }
     ],
     "equipment": [
@@ -489,7 +476,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-quiver-of-24-arrows"
       },
       {
         "id": "import-spellbook",
@@ -497,7 +485,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-spellbook"
       },
       {
         "id": "import-telescope",
@@ -505,15 +494,16 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-telescope"
       }
     ],
     "gearReviewed": true,
     "startingGearTrade": null,
     "magicItems": [
       {
-        "id": "import-milita-arrow-issued-by-the-pazkani-army",
-        "name": "Milita Arrow issued by the Pazkani Army",
+        "id": "import-militia-arrow-issued-by-the-pazkani-army",
+        "name": "Militia Arrow issued by the Pazkani Army",
         "source": "player"
       }
     ],

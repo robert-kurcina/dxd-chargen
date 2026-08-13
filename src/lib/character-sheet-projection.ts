@@ -51,7 +51,7 @@ function signed(value: number) {
 }
 
 function listInventory(items: CharacterDraft['utilities']['equipment']) {
-  return items.map((item) => item.quantity > 1 ? `${item.name} ×${item.quantity}` : item.name).join(', ');
+  return items.map((item) => item.quantity > 1 ? `${item.name} ×${item.quantity}` : item.name).join('; ');
 }
 
 function selectionRecord(selection: SourcedSelection) {

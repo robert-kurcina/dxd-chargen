@@ -63,11 +63,11 @@
     "culturalHeritageId": "heritage-culture-performer",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-peasant",
-    "socialRankId": null,
+    "socialRankId": "social-rank-peasant",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-kind",
+        "id": "personality-kind",
         "name": "Kind",
         "source": "player"
       }
@@ -148,7 +148,7 @@
     "tradeId": "trade-wizard",
     "specializationId": "specialization-wizard-spellbinder",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
     "zed": 12,
     "wealthRank": 8
@@ -373,21 +373,14 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-magestick",
-        "name": "Magestick",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-vorpal-sword",
         "name": "Vorpal Sword,",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4 \n[1H]. Parry. Impale. Pierce-Cleave.\n:: Manapump > { [2H, Awkward], Damage +3X, Acc +X, Pierce +X"
+        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4 \n[1H]. Parry. Impale. Pierce-Cleave.\n:: Manapump > { [2H, Awkward], Damage +3X, Acc +X, Pierce +X",
+        "catalogId": "weapon-vorpal-sword"
       },
       {
         "id": "import-magestick-staff",
@@ -396,7 +389,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak"
+        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak",
+        "catalogId": "weapon-magestick-staff"
       }
     ],
     "armor": [],
@@ -407,7 +401,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-small-box",
@@ -415,7 +410,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-box"
       },
       {
         "id": "import-wardrobe",
@@ -423,7 +419,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

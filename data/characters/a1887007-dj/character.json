@@ -63,16 +63,16 @@
     "culturalHeritageId": "heritage-culture-performer",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-townsfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-selfless",
+        "id": "personality-selfless",
         "name": "Selfless",
         "source": "player"
       },
       {
-        "id": "import-witty",
+        "id": "personality-witty",
         "name": "Witty",
         "source": "player"
       }
@@ -153,7 +153,7 @@
     "tradeId": "trade-ranger",
     "specializationId": "specialization-ranger-felanin",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "FOR",
     "zedPurchasedIncrease": 0,
     "zed": 8,
     "wealthRank": 12
@@ -287,8 +287,8 @@
         "accentRemoved": true
       },
       {
-        "id": "import-resta",
-        "name": "Resta",
+        "id": "import-rasiya",
+        "name": "Rasiya",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -341,20 +341,13 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-shortbow",
         "name": "Shortbow",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-shortbow"
       },
       {
         "id": "import-shortsword",
@@ -363,15 +356,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable."
-      },
-      {
-        "id": "import-staff",
-        "name": "Staff",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
+        "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
+        "catalogId": "weapon-shortsword"
       },
       {
         "id": "import-staff-quarter",
@@ -380,16 +366,18 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +0   Damage 2D-3\n[2H, Hafted, Blunt]. Reach. Swift. Stun."
+        "sheetProperties": "ORa -10  Acc +0  Impact +0   Damage 2D-3\n[2H, Hafted, Blunt]. Reach. Swift. Stun.",
+        "catalogId": "weapon-staff-quarter"
       },
       {
         "id": "import-dagger-standard",
         "name": "Dagger, Standard",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       }
     ],
     "armor": [
@@ -399,7 +387,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light",
@@ -408,7 +397,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather",
+        "catalogId": "armor-armor-light"
       }
     ],
     "equipment": [
@@ -418,7 +408,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-arrow-quiver"
       },
       {
         "id": "import-arrows",
@@ -426,7 +417,8 @@
         "source": "player",
         "quantity": 20,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-arrows"
       },
       {
         "id": "import-lamp",
@@ -434,15 +426,17 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-lamp"
       },
       {
-        "id": "import-lockpicks",
-        "name": "Lockpicks",
+        "id": "import-lockpick-kit",
+        "name": "Lockpick kit",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-lockpick-kit"
       },
       {
         "id": "import-pouch",
@@ -450,7 +444,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-pouch"
       },
       {
         "id": "import-spellbook",
@@ -458,7 +453,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-spellbook"
       },
       {
         "id": "import-tent",
@@ -466,7 +462,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-tent"
       }
     ],
     "gearReviewed": true,

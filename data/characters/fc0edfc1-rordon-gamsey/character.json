@@ -79,20 +79,36 @@
     "ageYears": 21,
     "birthMonth": 9,
     "culturalHeritageId": "heritage-culture-warrior",
-    "environHeritageId": "heritage-environs-mountains",
+    "environHeritageId": "heritage-environs-mountain",
     "societalHeritageId": "heritage-society-tribal",
-    "socialRankId": null,
+    "socialRankId": "social-rank-tribal",
     "socialRank": 3,
     "personality": [
       {
-        "id": "import-curious",
+        "id": "personality-curious",
         "name": "Curious",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-guardian-was-killed-defending-honor",
     "tragedySeedText": "Guardian was killed defending Honor",
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-cautious",
+        "name": "Cautious",
+        "source": "player"
+      },
+      {
+        "id": "import-solitary",
+        "name": "Solitary",
+        "source": "player"
+      },
+      {
+        "id": "import-zucked",
+        "name": "Zucked",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
     "deityId": "deity-agnostic-lekteb"
@@ -166,7 +182,7 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-spy",
     "tradeRank": 2,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "REF",
     "zedPurchasedIncrease": 0,
     "zed": 2,
     "wealthRank": 4
@@ -484,21 +500,14 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-dagger-standard-siz-6",
         "name": "Dagger, Standard SIZ 6",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       }
     ],
     "armor": [],
@@ -509,7 +518,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-reinforced"
       }
     ],
     "gearReviewed": true,

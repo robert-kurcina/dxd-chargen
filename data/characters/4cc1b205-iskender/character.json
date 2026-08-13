@@ -69,18 +69,29 @@
     "culturalHeritageId": "heritage-culture-fishing",
     "environHeritageId": "heritage-environs-river",
     "societalHeritageId": "heritage-society-cityfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-cityfolk",
     "socialRank": 1,
     "personality": [
       {
-        "id": "import-opinionated",
+        "id": "personality-opinionated",
         "name": "Opinionated",
         "source": "player"
       }
     ],
     "tragedySeedId": null,
     "tragedySeedText": null,
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-comrade",
+        "name": "Comrade",
+        "source": "player"
+      },
+      {
+        "id": "import-empathy",
+        "name": "Empathy",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-agnostic",
     "deityId": null
@@ -154,7 +165,7 @@
     "tradeId": "trade-warrior",
     "specializationId": "specialization-warrior-soldier",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "PRE",
     "zedPurchasedIncrease": 0,
     "zed": 6,
     "wealthRank": 15
@@ -418,8 +429,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-khardik-barter",
-        "name": "Khardik Barter",
+        "id": "import-stask",
+        "name": "Stask",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -428,28 +439,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-middle-coro",
-        "name": "Middle Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": false
-      },
-      {
-        "id": "import-middle-khardik",
-        "name": "Middle Khardik",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 5,
-        "improvements": 0,
-        "accentRemoved": false
-      },
-      {
-        "id": "import-war-vasikha",
-        "name": "War Vasikha",
+        "id": "import-coro",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -502,7 +493,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -  Acc +0   Impact +3   Damage 1D+3\n[1H]. Parry. Cleave."
+        "sheetProperties": "ORa -  Acc +0   Impact +3   Damage 1D+3\n[1H]. Parry. Cleave.",
+        "catalogId": "weapon-broadsword"
       },
       {
         "id": "import-dagger",
@@ -511,7 +503,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger"
       }
     ],
     "armor": [
@@ -521,7 +514,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-boiled-leather"
       },
       {
         "id": "import-half-helm-and-mantle",
@@ -529,7 +523,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-half-helm-and-mantle"
       },
       {
         "id": "import-full-helm",
@@ -538,7 +533,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 18  3#\n[Blinders]. Sturdy. Protective."
+        "sheetProperties": "Deflect +3  AR 18  3#\n[Blinders]. Sturdy. Protective.",
+        "catalogId": "armor-full-helm"
       },
       {
         "id": "import-boiled-leather-armor",
@@ -547,7 +543,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 12  25# Boiled\n--"
+        "sheetProperties": "Deflect +3  AR 12  25# Boiled\n--",
+        "catalogId": "armor-boiled-leather-armor"
       }
     ],
     "equipment": [
@@ -557,7 +554,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-boatcloak",
@@ -565,7 +563,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-boatcloak"
       },
       {
         "id": "import-wardrobe",
@@ -573,7 +572,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

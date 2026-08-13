@@ -48,7 +48,7 @@ function splitHistoryList(value) {
             brackets = Math.max(0, brackets - 1);
         const periodDelimiter = character === "." && /\s|$/.test(source[index + 1] ?? "");
         if (braces === 0 && brackets === 0 &&
-            (character === "," || character === "\n" || periodDelimiter)) {
+            (character === ";" || character === "\n" || periodDelimiter)) {
             const item = cleanHistoryText(token);
             if (item && !/^none(?: revealed)?$/i.test(item))
                 output.push(item);

@@ -69,11 +69,11 @@
     "culturalHeritageId": "heritage-culture-services",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-townsfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-kind",
+        "id": "personality-kind",
         "name": "Kind",
         "source": "player"
       }
@@ -390,12 +390,13 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-garrotte",
-        "name": "Garrotte",
+        "id": "import-garrote",
+        "name": "Garrote",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-garrote"
       },
       {
         "id": "import-stiletto",
@@ -403,7 +404,8 @@
         "source": "player",
         "quantity": 4,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-stiletto"
       },
       {
         "id": "import-dagger-stiletto",
@@ -412,7 +414,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7   Acc +4  Impact +8   Damage 1D-2\n[1H, Stub, Awkward]. Swift 2. Throwable."
+        "sheetProperties": "ORa -7   Acc +4  Impact +8   Damage 1D-2\n[1H, Stub, Awkward]. Swift 2. Throwable.",
+        "catalogId": "weapon-dagger-stiletto"
       },
       {
         "id": "import-hand-garrote",
@@ -421,17 +424,19 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -3  Impact +0   Damage 2D-1\n[2H, Stub, Awkward]. Entangle."
+        "sheetProperties": "ORa -10  Acc -3  Impact +0   Damage 2D-1\n[2H, Stub, Awkward]. Entangle.",
+        "catalogId": "weapon-hand-garrote"
       }
     ],
     "armor": [
       {
         "id": "import-leather-armor",
-        "name": "Leather armor",
+        "name": "Leather Armor",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light-thickened",
@@ -440,7 +445,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather Armor"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather Armor",
+        "catalogId": "armor-armor-light-thickened"
       }
     ],
     "equipment": [
@@ -450,7 +456,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-cookbook"
       },
       {
         "id": "import-cookware",
@@ -458,15 +465,17 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-cookware"
       },
       {
-        "id": "import-fishing-rod-x-2-with-tacklebox",
-        "name": "Fishing rod x 2 with tacklebox",
+        "id": "import-fishing-rod-x-2-with-tackle-box",
+        "name": "Fishing rod x 2 with tackle box",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-fishing-rod-x-2-with-tackle-box"
       },
       {
         "id": "import-knives-and-spits",
@@ -474,7 +483,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-knives-and-spits"
       },
       {
         "id": "import-silverware",
@@ -482,7 +492,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-silverware"
       },
       {
         "id": "import-spice-bags",
@@ -490,7 +501,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-spice-bags"
       },
       {
         "id": "import-tinderbox",
@@ -498,7 +510,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-tinderbox"
       },
       {
         "id": "import-trapping-kit",
@@ -506,7 +519,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-trapping-kit"
       }
     ],
     "gearReviewed": true,

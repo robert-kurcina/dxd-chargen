@@ -68,17 +68,17 @@
     "birthMonth": 1,
     "culturalHeritageId": "heritage-culture-wildling",
     "environHeritageId": "heritage-environs-swamp",
-    "societalHeritageId": "heritage-society-aristocrat",
-    "socialRankId": null,
+    "societalHeritageId": "heritage-society-aristocrats",
+    "socialRankId": "social-rank-aristocrats",
     "socialRank": 5,
     "personality": [
       {
-        "id": "import-flambouyant",
+        "id": "personality-flambouyant",
         "name": "Flambouyant",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-hunted-by-temple-of-thaktha",
     "tragedySeedText": "Hunted by Temple of Thaktha",
     "disabilities": [
       {
@@ -89,6 +89,11 @@
       {
         "id": "import-coward",
         "name": "Coward",
+        "source": "player"
+      },
+      {
+        "id": "import-enemies",
+        "name": "Enemies",
         "source": "player"
       }
     ],
@@ -165,7 +170,7 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-assassin",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "CCA",
     "zedPurchasedIncrease": 0,
     "zed": 15,
     "wealthRank": 11
@@ -433,8 +438,8 @@
     "additionalSkills": [],
     "languages": [
       {
-        "id": "import-coro-lingo",
-        "name": "Coro-Lingo",
+        "id": "import-coro",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -443,18 +448,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-coromu",
-        "name": "Coromu",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 7,
-        "improvements": 0,
-        "accentRemoved": false
-      },
-      {
-        "id": "import-restani",
-        "name": "Restani",
+        "id": "import-rasiya",
+        "name": "Rasiya",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -501,30 +496,24 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-shortsword",
         "name": "Shortsword",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable."
+        "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
+        "catalogId": "weapon-shortsword"
       },
       {
         "id": "import-dagger-standard-siz-6",
         "name": "Dagger, Standard SIZ 6",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       }
     ],
     "armor": [
@@ -534,7 +523,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light",
@@ -543,17 +533,19 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather",
+        "catalogId": "armor-armor-light"
       }
     ],
     "equipment": [
       {
-        "id": "import-fanny-pacl",
-        "name": "Fanny-pacl",
+        "id": "import-fanny-pack",
+        "name": "Fanny-pack",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-fanny-pack"
       },
       {
         "id": "import-wardrobe",
@@ -561,7 +553,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

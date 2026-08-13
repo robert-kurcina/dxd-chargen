@@ -78,5 +78,11 @@
     "name": "Galsathil",
     "region": "Vasik Realms",
     "neighbors": ["Vashtur", "Palten", "Djorkan"]
+  },
+  {
+    "id": 10,
+    "name": "Argeleb Twins Balun",
+    "region": "Argeleb Twins > Balun",
+    "neighbors": []
   }
 ]

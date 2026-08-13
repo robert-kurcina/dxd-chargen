@@ -68,7 +68,7 @@
     "birthMonth": 1,
     "culturalHeritageId": "heritage-culture-wildling",
     "environHeritageId": "heritage-environs-swamp",
-    "societalHeritageId": "heritage-society-aristocrat",
+    "societalHeritageId": "heritage-society-aristocrats",
     "socialRankId": null,
     "socialRank": 5,
     "personality": [
@@ -798,8 +798,8 @@
     "additionalSkills": [],
     "languages": [
       {
-        "id": "import-coromu",
-        "name": "Coromu",
+        "id": "import-coro",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
@@ -809,19 +809,8 @@
         "level": 8
       },
       {
-        "id": "import-coro-lingo",
-        "name": "Coro-Lingo",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 5,
-        "improvements": 0,
-        "accentRemoved": false,
-        "level": 5
-      },
-      {
-        "id": "import-restani",
-        "name": "Restani",
+        "id": "import-rasiya",
+        "name": "Rasiya",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -880,30 +869,24 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-shortsword",
         "name": "Shortsword",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable."
+        "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
+        "catalogId": "weapon-shortsword"
       },
       {
         "id": "import-dagger-standard-siz-6",
         "name": "Dagger, Standard SIZ 6",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "inventory-weapons-weapon-dagger-standard",
@@ -923,7 +906,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light",
@@ -932,7 +916,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather",
+        "catalogId": "armor-armor-light"
       },
       {
         "id": "inventory-armor-armor-armor-set-light-soft",
@@ -947,12 +932,13 @@
     ],
     "equipment": [
       {
-        "id": "import-fanny-pacl",
-        "name": "Fanny-pacl",
+        "id": "import-fanny-pack",
+        "name": "Fanny-pack",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-fanny-pack"
       },
       {
         "id": "import-wardrobe",
@@ -960,7 +946,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       },
       {
         "id": "inventory-equipment-equipment-wardrobe",

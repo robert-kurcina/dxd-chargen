@@ -73,20 +73,26 @@
     "ageYears": 10,
     "birthMonth": 1,
     "culturalHeritageId": "heritage-culture-wildling",
-    "environHeritageId": "heritage-environs-townsfolk",
-    "societalHeritageId": "heritage-society-coastal",
-    "socialRankId": null,
+    "environHeritageId": "heritage-environs-coastal",
+    "societalHeritageId": "heritage-society-townsfolk",
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-rational",
+        "id": "personality-rational",
         "name": "Rational",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-stole-a-trunk-from-my-best-friend",
     "tragedySeedText": "Stole a trunk from my best friend",
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-zucked",
+        "name": "Zucked",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-gnostic",
     "deityId": null
@@ -160,7 +166,7 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-thief",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "RCA",
     "zedPurchasedIncrease": 0,
     "zed": 6,
     "wealthRank": 2
@@ -382,12 +388,13 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-2-x-stilettoes",
-        "name": "2 x Stilettoes",
+        "id": "import-2-x-stilettos",
+        "name": "2 x Stilettos",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-2-x-stilettos"
       },
       {
         "id": "import-4-x-throwing-knives",
@@ -395,7 +402,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-4-x-throwing-knives"
       },
       {
         "id": "import-dagger-stiletto-siz-6",
@@ -404,7 +412,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4  Acc +4  Impact 8  Damage 1D-5 0.1#\n[1H, Stub, Awkward]. Swift 2. Throwable."
+        "sheetProperties": "ORa -4  Acc +4  Impact 8  Damage 1D-5 0.1#\n[1H, Stub, Awkward]. Swift 2. Throwable.",
+        "catalogId": "weapon-dagger-stiletto"
       },
       {
         "id": "import-knife-throwing-siz-6",
@@ -413,7 +422,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -1   Acc +1  Impact +3   Damage 1D-7  0.8#\n[1H, Stub, Awkward]. Throwable"
+        "sheetProperties": "ORa -1   Acc +1  Impact +3   Damage 1D-7  0.8#\n[1H, Stub, Awkward]. Throwable",
+        "catalogId": "weapon-knife-throwing"
       }
     ],
     "armor": [
@@ -423,7 +433,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light-siz-6",
@@ -432,7 +443,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +1  AR 5  6#  Leather Armor"
+        "sheetProperties": "Deflect +1  AR 5  6#  Leather Armor",
+        "catalogId": "armor-armor-light"
       }
     ],
     "equipment": [
@@ -442,7 +454,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-small-purse",
@@ -450,7 +463,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-purse"
       },
       {
         "id": "import-small-sack",
@@ -458,7 +472,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-sack"
       },
       {
         "id": "import-wardrobe",
@@ -466,7 +481,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

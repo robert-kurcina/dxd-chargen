@@ -67,23 +67,23 @@
     "ageYears": 18,
     "birthMonth": 1,
     "culturalHeritageId": "heritage-culture-wildling",
-    "environHeritageId": "heritage-environs-townsfolk",
-    "societalHeritageId": "heritage-society-coastal",
-    "socialRankId": null,
+    "environHeritageId": "heritage-environs-coastal",
+    "societalHeritageId": "heritage-society-townsfolk",
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 1,
     "personality": [
       {
-        "id": "import-stoic",
+        "id": "personality-stoic",
         "name": "Stoic",
         "source": "player"
       },
       {
-        "id": "import-unerring-aim",
+        "id": "personality-unerring-aim",
         "name": "Unerring Aim",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-a-man-who-i-wanted-as-a-teacher-was-executed-by-the-mayor",
     "tragedySeedText": "A man who I wanted as a teacher was executed by the Mayor",
     "disabilities": [],
     "disabilitiesReviewed": true,
@@ -159,7 +159,7 @@
     "tradeId": "trade-ranger",
     "specializationId": "specialization-ranger-beastfriend",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "STR",
     "zedPurchasedIncrease": 0,
     "zed": 7,
     "wealthRank": 8
@@ -321,8 +321,8 @@
         "accentRemoved": true
       },
       {
-        "id": "import-low-coasts",
-        "name": "Low Coasts",
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -385,20 +385,13 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-bow",
-        "name": "Bow",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-longsword",
         "name": "Longsword",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-longsword"
       },
       {
         "id": "import-small-knife",
@@ -407,7 +400,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -6   Acc +0  Impact +3   Damage 1D\n[1H, Stub, Hafted]. Swift 2."
+        "sheetProperties": "ORa -6   Acc +0  Impact +3   Damage 1D\n[1H, Stub, Hafted]. Swift 2.",
+        "catalogId": "weapon-small-knife"
       },
       {
         "id": "import-sword-long",
@@ -416,7 +410,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave."
+        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.",
+        "catalogId": "weapon-sword-long"
       },
       {
         "id": "import-bow-medium",
@@ -425,7 +420,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4   Acc +2  Impact +7   Damage 1D+2\n[2H, Reload]."
+        "sheetProperties": "ORa -4   Acc +2  Impact +7   Damage 1D+2\n[2H, Reload].",
+        "catalogId": "weapon-bow-medium"
       }
     ],
     "armor": [
@@ -435,7 +431,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light",
@@ -444,7 +441,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather",
+        "catalogId": "armor-armor-light"
       }
     ],
     "equipment": [
@@ -454,7 +452,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-arrow-quiver"
       },
       {
         "id": "import-arrows",
@@ -462,7 +461,8 @@
         "source": "player",
         "quantity": 20,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-arrows"
       },
       {
         "id": "import-backpack",
@@ -470,7 +470,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-large-sack",
@@ -478,7 +479,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-large-sack"
       },
       {
         "id": "import-wardrobe",
@@ -486,7 +488,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

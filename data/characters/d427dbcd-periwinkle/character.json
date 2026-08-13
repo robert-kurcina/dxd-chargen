@@ -69,18 +69,29 @@
     "culturalHeritageId": "heritage-culture-crafting",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-nobles",
-    "socialRankId": null,
+    "socialRankId": "social-rank-nobles",
     "socialRank": 5,
     "personality": [
       {
-        "id": "import-talkative",
+        "id": "personality-talkative",
         "name": "Talkative",
         "source": "player"
       }
     ],
     "tragedySeedId": null,
     "tragedySeedText": null,
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-enemies",
+        "name": "Enemies",
+        "source": "player"
+      },
+      {
+        "id": "import-paranoid",
+        "name": "Paranoid",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
     "deityId": "deity-marli"
@@ -154,7 +165,7 @@
     "tradeId": "trade-wizard",
     "specializationId": "specialization-wizard-spellbinder",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
     "zed": 13,
     "wealthRank": 22
@@ -272,8 +283,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-low-coasts",
-        "name": "Low Coasts",
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -292,8 +303,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-oruguku",
-        "name": "Oruguku",
+        "id": "import-orukugu",
+        "name": "Orukugu",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -381,29 +392,14 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-magestick",
-        "name": "Magestick",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-dagger-standard",
         "name": "Dagger, Standard",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7   Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -7   Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-magestick-staff",
@@ -412,7 +408,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak"
+        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak",
+        "catalogId": "weapon-magestick-staff"
       },
       {
         "id": "import-sentient-flaming-sword",
@@ -421,7 +418,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+9\n[1H]. Parry. Impale. Pierce-Cleave.\n:: Soulbound, Manapump (10-Minutes) > { Fire Damage +1D + Mana }"
+        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+9\n[1H]. Parry. Impale. Pierce-Cleave.\n:: Soulbound, Manapump (10-Minutes) > { Fire Damage +1D + Mana }",
+        "catalogId": "weapon-sentient-flaming-sword"
       }
     ],
     "armor": [
@@ -432,7 +430,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Manaflow (10-Minutes) > Deflect +3"
+        "sheetProperties": "Manaflow (10-Minutes) > Deflect +3",
+        "catalogId": "armor-bracelet-armor"
       }
     ],
     "equipment": [
@@ -442,7 +441,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-alchemy-kit"
       },
       {
         "id": "import-backpack",
@@ -450,7 +450,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-jewelry-box",
@@ -458,7 +459,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-jewelry-box"
       },
       {
         "id": "import-spellbook",
@@ -466,7 +468,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-spellbook"
       },
       {
         "id": "import-wardrobe",
@@ -474,7 +477,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

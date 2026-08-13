@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
+import { Fragment, useMemo, useRef, useState, type Dispatch, type SetStateAction } from 'react';
 import {
   AlertTriangle,
   Check,
@@ -217,6 +217,12 @@ export default function Worksheet({
   );
 
   const [activeStepValue, setActiveStepValue] = useState(allSteps[0]?.value ?? '');
+  const assignmentPanelRef = useRef<HTMLDivElement>(null);
+
+  const selectStep = (stepValue: string) => {
+    setActiveStepValue(stepValue);
+    requestAnimationFrame(() => assignmentPanelRef.current?.scrollTo({ top: 0, behavior: 'auto' }));
+  };
 
   const updateDraft: Dispatch<SetStateAction<CharacterDraft>> = setDraft;
 
@@ -302,12 +308,12 @@ export default function Worksheet({
     const empty = createEmptyCharacterDraft();
     if (onReset) onReset();
     else setDraft(empty);
-    setActiveStepValue(allSteps[0]?.value ?? '');
+    selectStep(allSteps[0]?.value ?? '');
   };
 
   const goToIndex = (index: number) => {
     const step = allSteps[index];
-    if (step) setActiveStepValue(step.value);
+    if (step) selectStep(step.value);
   };
 
   if (!activeStep) {
@@ -342,7 +348,7 @@ export default function Worksheet({
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)_300px]">
-        <Card className="h-fit lg:sticky lg:top-44">
+        <Card className="h-fit lg:sticky lg:top-44 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Creation</CardTitle>
             <CardDescription>
@@ -372,7 +378,7 @@ export default function Worksheet({
                       const complete = assessment.status === 'complete';
                       const warning = assessment.status === 'warning';
                       return (
-                        <button type="button" key={step.value} onClick={() => setActiveStepValue(step.value)} className={cn('flex w-full items-start gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors', active ? 'bg-primary text-primary-foreground' : 'hover:bg-muted')}>
+                        <button type="button" key={step.value} onClick={() => selectStep(step.value)} className={cn('flex w-full items-start gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors', active ? 'bg-primary text-primary-foreground' : 'hover:bg-muted')}>
                           {complete ? <Check className="mt-0.5 h-3.5 w-3.5 shrink-0" /> : warning ? <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-black" /> : <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#990000]" />}
                           <span>{step.title.replace('Assign ', '')}</span>
                         </button>
@@ -385,7 +391,7 @@ export default function Worksheet({
           </CardContent>
         </Card>
 
-        <Card className="min-h-[560px]">
+        <Card ref={assignmentPanelRef} className="min-h-[560px] lg:sticky lg:top-44 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain">
           <CardHeader>
             <div className="mb-2 flex flex-wrap items-center gap-2">
               <Badge variant="secondary">{activeStep.phaseTitle}</Badge>
@@ -537,7 +543,7 @@ export default function Worksheet({
           </CardContent>
         </Card>
 
-        <Card className="h-fit w-full lg:sticky lg:top-44">
+        <Card className="h-fit w-full lg:sticky lg:top-44 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain">
           <CardHeader className="pb-3"><div className="flex items-start gap-3">{panelDraft.utilities.portraitDataUrl && <img src={panelDraft.utilities.portraitDataUrl} alt="Character portrait" className="h-auto w-28 rounded border object-cover" />}<div><CardTitle className="text-base">Character</CardTitle><CardDescription>Live compressed draft summary</CardDescription></div></div></CardHeader>
           <CardContent className="space-y-3 text-sm">
             <PersistentAccordionSection id="character-identity" title="Identity"><div className="font-medium">{panelDraft.utilities.name || 'Unnamed character'}</div><dl className="mt-3 grid grid-cols-[110px_1fr] gap-x-3 gap-y-2"><dt className="text-muted-foreground">Region</dt><dd>{(() => { const region = regionByDraft(panelDraft, data); const geo = geographicRegionName(panelDraft, data); return [geo, region?.name].filter(Boolean).join(' / ') || '—'; })()}</dd><dt className="text-muted-foreground">Settlement</dt><dd>{selectedSettlementDisplayName(panelDraft, data) ?? '—'}</dd><dt className="text-muted-foreground">Heritage</dt><dd className="text-left">{[panelDraft.background.culturalHeritageId,panelDraft.background.environHeritageId,panelDraft.background.societalHeritageId].map((id) => data.heritagePackages.find((pkg) => pkg.id === id)?.name).filter(Boolean).join(' / ') || '—'}</dd><dt className="text-muted-foreground">Species</dt><dd>{speciesChoice?.family.displayName ?? (panelDraft.intrinsics.childOfStrife ? 'Humaniki' : '—')}</dd><dt className="text-muted-foreground">Group</dt><dd>{speciesChoice?.group.name ?? getStrifePairing(panelDraft)?.exonym ?? '—'}</dd><dt className="text-muted-foreground">Lineage</dt><dd>{getLineageName(panelDraft,data) ?? (panelDraft.intrinsics.childOfStrife ? [panelDraft.intrinsics.strifeMotherLineageId,panelDraft.intrinsics.strifeFatherLineageId].map((id) => id?.replace(/^lineage-/, '').replace(/(^|-)([a-z])/g, (_,prefix,letter) => `${prefix}${letter.toUpperCase()}`)).filter(Boolean).join(' & ') : '—')}</dd><dt className="text-muted-foreground">Age Group</dt><dd>{panelDraft.background.ageGroup ?? '—'}{panelDraft.background.ageYears != null ? ` • ${panelDraft.background.ageYears}` : ''}</dd><dt className="text-muted-foreground">Belief</dt><dd>{beliefDisplay}</dd><dt className="text-muted-foreground">Trade</dt><dd>{getTradePackage(panelDraft,data)?.trade ?? '—'}{getTradeSpecialization(panelDraft,data) ? ` > ${getTradeSpecialization(panelDraft,data)?.name}` : ''}</dd></dl></PersistentAccordionSection>
@@ -551,7 +557,7 @@ export default function Worksheet({
             <PersistentAccordionSection id="character-utilities" title="Utilities" defaultOpen={false}><dl className="grid grid-cols-[90px_1fr] gap-x-3 gap-y-2"><dt className="text-muted-foreground">Proper Name</dt><dd>{panelDraft.utilities.properName || '—'}</dd><dt className="text-muted-foreground">Spells</dt><dd>{panelDraft.utilities.spells.map((item) => item.name).join(', ') || (panelDraft.utilities.spellsReviewed ? 'None' : '—')}</dd><dt className="text-muted-foreground">Gear</dt><dd>{panelInventory.map((item) => `${item.name}${item.quantity > 1 ? ` ×${item.quantity}` : ''}`).join(', ') || (panelDraft.utilities.gearReviewed ? 'None' : '—')}</dd><dt className="text-muted-foreground">Magic Items</dt><dd>{panelDraft.utilities.magicItems.map((item) => item.name).join(', ') || (panelDraft.utilities.magicItemsReviewed ? 'None' : '—')}</dd></dl></PersistentAccordionSection>
             <div className="rounded-md bg-muted p-3 text-xs text-muted-foreground">Skillpoints: {formatNumberWithCommas(skillpointBudget(panelDraft,data).remaining ?? '—')} remaining. Gear: {formatNumberWithCommas(startingGearTotals(panelDraft, data).costGp, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} / {personalWealthGp(panelDraft,data)?.toLocaleString() ?? '—'} gp.</div>
             <PersistentAccordionSection id="character-notes" title="Notes" defaultOpen={false}><div className="space-y-3 text-xs"><div>{[`Personality: ${panelDraft.background.personality.map((item) => item.name).join(', ') || '—'}`, `Blemishes: ${panelDraft.background.demographicSelections.filter((item) => /blemish/i.test(item.sourceDetail ?? '')).map((item) => item.name).join(', ') || '—'}`, `Notable features: ${panelDraft.background.demographicSelections.filter((item) => /notable/i.test(item.sourceDetail ?? '')).map((item) => item.name).join(', ') || '—'}`, `Tragedy seed: ${panelDraft.background.tragedySeedText ?? '—'}`, strifeSummary(panelDraft, data)].filter(Boolean).map((line) => <div key={line}>{line}</div>)}</div><dl className="grid grid-cols-[70px_1fr] gap-x-2 gap-y-1">{([['Weapons', panelDraft.utilities.weapons], ['Armor', panelDraft.utilities.armor], ['Equipment', panelDraft.utilities.equipment], ['Spells', panelDraft.utilities.spells]] as const).map(([label, items]) => <Fragment key={label}><dt className="font-semibold">{label}</dt><dd>{[...items].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((item) => item.name).join(label === 'Spells' ? ', ' : '; ') || '—'}</dd></Fragment>)}</dl><div><div className="font-semibold">Notes</div><div className="whitespace-pre-wrap">{panelDraft.utilities.notes || '—'}</div></div><div><div className="font-semibold">Backstory</div><div className="whitespace-pre-wrap">{panelDraft.utilities.backstory || '—'}</div></div></div></PersistentAccordionSection>
-            <PersistentAccordionSection id="character-status" title={<span className={cn('flex items-center gap-2', alertCount ? 'text-[#990000]' : warningCount ? 'text-black' : '')}>{unresolvedSteps.length ? <AlertTriangle className="h-4 w-4" /> : <Check className="h-4 w-4" />}Status {unresolvedSteps.length ? `${alertCount} alert${alertCount === 1 ? '' : 's'}${warningCount ? `, ${warningCount} warning${warningCount === 1 ? '' : 's'}` : ''}` : '✓'}</span>} defaultOpen={false}><div className="space-y-2">{unresolvedSteps.length ? unresolvedSteps.map(({step,assessment}) => { const warning = assessment.status === 'warning'; return <button type="button" key={step.value} onClick={() => setActiveStepValue(step.value)} className={cn('block w-full rounded border p-2 text-left text-xs', warning ? 'border-yellow-400 bg-yellow-100 text-black' : 'border-[#990000] text-[#990000]')}><span className="flex items-center gap-1 font-semibold"><AlertTriangle className="h-3.5 w-3.5" />{step.title}</span><span className="ml-5">{warning ? 'warning — review or approve' : 'alert — fix required'}</span></button>; }) : <div className="text-xs text-muted-foreground">All configured steps are complete.</div>}</div></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-status" title={<span className={cn('flex items-center gap-2', alertCount ? 'text-[#990000]' : warningCount ? 'text-black' : '')}>{unresolvedSteps.length ? <AlertTriangle className="h-4 w-4" /> : <Check className="h-4 w-4" />}Status {unresolvedSteps.length ? `${alertCount} alert${alertCount === 1 ? '' : 's'}${warningCount ? `, ${warningCount} warning${warningCount === 1 ? '' : 's'}` : ''}` : '✓'}</span>} defaultOpen={false}><div className="space-y-2">{unresolvedSteps.length ? unresolvedSteps.map(({step,assessment}) => { const warning = assessment.status === 'warning'; return <button type="button" key={step.value} onClick={() => selectStep(step.value)} className={cn('block w-full rounded border p-2 text-left text-xs', warning ? 'border-yellow-400 bg-yellow-100 text-black' : 'border-[#990000] text-[#990000]')}><span className="flex items-center gap-1 font-semibold"><AlertTriangle className="h-3.5 w-3.5" />{step.title}</span><span className="ml-5">{warning ? 'warning — review or approve' : 'alert — fix required'}</span></button>; }) : <div className="text-xs text-muted-foreground">All configured steps are complete.</div>}</div></PersistentAccordionSection>
           </CardContent>
         </Card>
       </div>

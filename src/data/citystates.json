@@ -128,5 +128,10 @@
     "name": "Khardik",
     "economicStatus": "Average",
     "environs": ["Woods", "Savannah", "Grassland", "Coastal"]
+  },
+  {
+    "name": "Castle Hol",
+    "economicStatus": "Average",
+    "environs": ["Mountain"]
   }
 ]

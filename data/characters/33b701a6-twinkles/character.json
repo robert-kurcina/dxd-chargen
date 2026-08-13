@@ -68,17 +68,17 @@
     "birthMonth": 8,
     "culturalHeritageId": "heritage-culture-crafting",
     "environHeritageId": "heritage-environs-coastal",
-    "societalHeritageId": "heritage-society-gentry",
-    "socialRankId": null,
+    "societalHeritageId": "heritage-society-landed",
+    "socialRankId": "social-rank-landed",
     "socialRank": 3,
     "personality": [
       {
-        "id": "import-practical",
+        "id": "personality-practical",
         "name": "Practical",
         "source": "player"
       },
       {
-        "id": "import-vain",
+        "id": "personality-vain",
         "name": "Vain",
         "source": "player"
       }
@@ -165,7 +165,7 @@
     "tradeId": "trade-cleric",
     "specializationId": "specialization-cleric-cloister",
     "tradeRank": 2,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
     "zed": 11,
     "wealthRank": 15
@@ -450,45 +450,14 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-club",
-        "name": "Club",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-dagger",
-        "name": "Dagger",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-magestick",
-        "name": "Magestick",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-spear",
-        "name": "Spear",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-club-wood",
         "name": "Club, Wood",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact -2   Damage 1D+1\n[1H, Blunt 4]. Stun."
+        "sheetProperties": "ORa -10  Acc +0  Impact -2   Damage 1D+1\n[1H, Blunt 4]. Stun.",
+        "catalogId": "weapon-club-wood"
       },
       {
         "id": "import-dagger-standard",
@@ -497,7 +466,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7   Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -7   Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-spear-medium",
@@ -506,7 +476,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa +0   Acc +0  Impact +8   Damage 2D-1\n[2H]. Reach. Charge. Throwable."
+        "sheetProperties": "ORa +0   Acc +0  Impact +8   Damage 2D-1\n[2H]. Reach. Charge. Throwable.",
+        "catalogId": "weapon-spear-medium"
       },
       {
         "id": "import-magestick-staff",
@@ -515,7 +486,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak"
+        "sheetProperties": "ORa -10  Acc -2  Impact -2   Damage 2D-3\n[2H, Hafted, Blunt 2]. Reach. Swift. Stun. Perimeter.\n:: Manatrigger, Focus, Radsoak",
+        "catalogId": "weapon-magestick-staff"
       }
     ],
     "armor": [
@@ -526,7 +498,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +2  AR 9  5#\n[1H][Target]. Coverage."
+        "sheetProperties": "Deflect +2  AR 9  5#\n[1H][Target]. Coverage.",
+        "catalogId": "armor-small-shield"
       }
     ],
     "equipment": [
@@ -536,7 +509,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-handful-of-gems",
@@ -544,7 +518,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-handful-of-gems"
       },
       {
         "id": "import-jewelry-box",
@@ -552,7 +527,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-jewelry-box"
       },
       {
         "id": "import-wardrobe",
@@ -560,7 +536,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

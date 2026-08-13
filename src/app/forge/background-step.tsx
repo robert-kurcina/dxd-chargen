@@ -478,6 +478,7 @@ function PersonalityStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 's
 
 function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
   const selected = data.tragedySeeds.find((item) => item.catalogId === draft.background.tragedySeedId);
+  const imported = !selected && draft.background.tragedySeedId && draft.background.tragedySeedText;
 
   const resolve = (item: StaticData['tragedySeeds'][number]) => {
     const tragedySeedText = resolveTragedySeed(item.seed, data.randomPersonItemDeity);
@@ -503,6 +504,7 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
         >
           <SelectTrigger className="flex-1"><SelectValue placeholder="Choose a tragedy template" /></SelectTrigger>
           <SelectContent>
+            {imported && <SelectItem value={draft.background.tragedySeedId!}>Imported: {draft.background.tragedySeedText}</SelectItem>}
             {data.tragedySeeds.map((item) => (
               <SelectItem key={item.catalogId} value={item.catalogId}>{item.d66}: {item.seed}</SelectItem>
             ))}
@@ -518,6 +520,7 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
           <div className="mt-1 font-medium">{draft.background.tragedySeedText}</div>
         </div>
       )}
+      {imported && <div className="rounded-lg border p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Imported resolved tragedy</div><div className="mt-1 font-medium">{draft.background.tragedySeedText}</div></div>}
     </div>
   );
 }
@@ -572,6 +575,7 @@ function DisabilitiesStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
           None
         </Button>
       </div>
+      {draft.background.disabilities.length > 0 && <div className="flex flex-wrap gap-2">{draft.background.disabilities.map((item) => <Badge key={item.id} variant="secondary">{item.name}</Badge>)}</div>}
       <div className="grid gap-2 sm:grid-cols-2">
         {filtered.map((item) => (
           <label key={item.catalogId} className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/50">

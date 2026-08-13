@@ -63,16 +63,16 @@
     "culturalHeritageId": "heritage-culture-wildling",
     "environHeritageId": "heritage-environs-river",
     "societalHeritageId": "heritage-society-peasant",
-    "socialRankId": null,
+    "socialRankId": "social-rank-peasant",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-kind",
+        "id": "personality-kind",
         "name": "Kind",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-cousine-was-crippled-when-wrongfully-imprisoned",
     "tragedySeedText": "Cousine was crippled when wrongfully imprisoned",
     "disabilities": [],
     "disabilitiesReviewed": true,
@@ -148,7 +148,7 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-spy",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "RCA",
     "zedPurchasedIncrease": 0,
     "zed": 10,
     "wealthRank": 4
@@ -240,8 +240,8 @@
         "accentRemoved": true
       },
       {
-        "id": "import-coromur-lingo",
-        "name": "Coromur Lingo",
+        "id": "import-coro",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -260,8 +260,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-kahadi-barter",
-        "name": "Kahadi Barter",
+        "id": "import-kahadi",
+        "name": "Kahadi",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -308,30 +308,24 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-hand-crossbow",
         "name": "Hand Crossbow",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa [9]  Acc +0  Impact +8   Damage 1D+1  0.8#\n[2H, Reload 2, Bulky]."
+        "sheetProperties": "ORa [9]  Acc +0  Impact +8   Damage 1D+1  0.8#\n[2H, Reload 2, Bulky].",
+        "catalogId": "weapon-hand-crossbow"
       },
       {
         "id": "import-dagger-standard-siz-6",
         "name": "Dagger, Standard SIZ 6",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-dagger-of-stabbing",
@@ -340,7 +334,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7   Acc +4  Impact +8   Damage 1D+3  1#\n[1H, Stub, Awkward]. Swift 2. Throwable.\n-- SIZ adjustment -3 ORa -3 Damage and 0.5#\n:: Manatrigger > { Pierce, Damage +1D, Reach }"
+        "sheetProperties": "ORa -7   Acc +4  Impact +8   Damage 1D+3  1#\n[1H, Stub, Awkward]. Swift 2. Throwable.\n-- SIZ adjustment -3 ORa -3 Damage and 0.5#\n:: Manatrigger > { Pierce, Damage +1D, Reach }",
+        "catalogId": "weapon-dagger-of-stabbing"
       }
     ],
     "armor": [],
@@ -351,7 +346,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-small-bolt-quiver",
@@ -359,7 +355,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-bolt-quiver"
       },
       {
         "id": "import-small-bolts",
@@ -367,7 +364,8 @@
         "source": "player",
         "quantity": 20,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-bolts"
       },
       {
         "id": "import-wardrobe",
@@ -375,7 +373,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

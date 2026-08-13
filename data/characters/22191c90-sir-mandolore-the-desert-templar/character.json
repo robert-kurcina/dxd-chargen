@@ -79,23 +79,23 @@
     "ageYears": 33,
     "birthMonth": 6,
     "culturalHeritageId": "heritage-culture-warrior",
-    "environHeritageId": "heritage-environs-desert",
+    "environHeritageId": "heritage-environs-deserts",
     "societalHeritageId": "heritage-society-cityfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-cityfolk",
     "socialRank": 1,
     "personality": [
       {
-        "id": "import-secretive-deist",
+        "id": "personality-secretive-deist",
         "name": "Secretive Deist",
         "source": "player"
       },
       {
-        "id": "import-sensitive",
+        "id": "personality-sensitive",
         "name": "Sensitive",
         "source": "player"
       }
     ],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-betrothed-a-princess-but-fled-from-her-was-given-a-landed-manor-but-lost-it-once-the-wedding-was-stopped",
     "tragedySeedText": "Betrothed a princess but fled from her; Was given a landed manor but lost it once the wedding was stopped",
     "disabilities": [],
     "disabilitiesReviewed": true,
@@ -171,7 +171,7 @@
     "tradeId": "trade-knight",
     "specializationId": "specialization-knight-templar",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "POW",
     "zedPurchasedIncrease": 0,
     "zed": 14,
     "wealthRank": 9
@@ -323,8 +323,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-drusa",
-        "name": "Drusa",
+        "id": "import-ithuuikal",
+        "name": "Ithuuikal",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -333,8 +333,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-kahudi",
-        "name": "Kahudi",
+        "id": "import-kahadi",
+        "name": "Kahadi",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -407,7 +407,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger"
       },
       {
         "id": "import-longsword",
@@ -416,7 +417,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave."
+        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.",
+        "catalogId": "weapon-longsword"
       },
       {
         "id": "import-banhammer-2",
@@ -425,7 +427,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -2   Impact +6   Damage 1D+4\n[1H, Blunt, Hafted]. Stun 2. Impale.\n:: Manapump > \n   { Pierce +X, Blinding X+3, Electroshock X, Quake X }"
+        "sheetProperties": "ORa -10  Acc -2   Impact +6   Damage 1D+4\n[1H, Blunt, Hafted]. Stun 2. Impale.\n:: Manapump > \n   { Pierce +X, Blinding X+3, Electroshock X, Quake X }",
+        "catalogId": "weapon-banhammer-2"
       }
     ],
     "armor": [
@@ -435,7 +438,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-all-are-cultural-stask"
       },
       {
         "id": "import-breastplate",
@@ -443,23 +447,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-helmet",
-        "name": "Helmet",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
-        "id": "import-shield",
-        "name": "Shield",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-breastplate"
       },
       {
         "id": "import-helmet-full",
@@ -468,7 +457,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +5  AR 18  5#\n[Blinders]. Sturdy. Protective."
+        "sheetProperties": "Deflect +5  AR 18  5#\n[Blinders]. Sturdy. Protective.",
+        "catalogId": "armor-helmet-full"
       },
       {
         "id": "import-cuirass-metal",
@@ -477,7 +467,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +5  AR 21  30#  Cuirass\n[Fitted 3]."
+        "sheetProperties": "Deflect +5  AR 21  30#  Cuirass\n[Fitted 3].",
+        "catalogId": "armor-cuirass-metal"
       },
       {
         "id": "import-shield-medium",
@@ -486,7 +477,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 12  10#\n[1H]. Screen. Coverage."
+        "sheetProperties": "Deflect +3  AR 12  10#\n[1H]. Screen. Coverage.",
+        "catalogId": "armor-shield-medium"
       }
     ],
     "equipment": [
@@ -496,7 +488,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-flask-of-oil",
@@ -504,7 +497,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-flask-of-oil"
       },
       {
         "id": "import-flintstone",
@@ -512,7 +506,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-flintstone"
       },
       {
         "id": "import-fragrant-soap",
@@ -520,7 +515,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-fragrant-soap"
       },
       {
         "id": "import-pouch",
@@ -528,7 +524,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-pouch"
       },
       {
         "id": "import-wardrobe",
@@ -536,7 +533,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       },
       {
         "id": "import-whetting-stone",
@@ -544,7 +542,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-whetting-stone"
       }
     ],
     "gearReviewed": true,

@@ -63,12 +63,17 @@
     "culturalHeritageId": "heritage-culture-wildling",
     "environHeritageId": "heritage-environs-river",
     "societalHeritageId": "heritage-society-slumfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-slumfolk",
     "socialRank": 0,
     "personality": [],
-    "tragedySeedId": null,
+    "tragedySeedId": "tragedy-imported-father-killed-by-a-criminal",
     "tragedySeedText": "Father killed by a criminal",
     "disabilities": [
+      {
+        "id": "import-talkative",
+        "name": "Talkative",
+        "source": "player"
+      },
       {
         "id": "import-talkative",
         "name": "Talkative",
@@ -148,7 +153,7 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-spy",
     "tradeRank": 1,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "CCA",
     "zedPurchasedIncrease": 0,
     "zed": 11,
     "wealthRank": 8
@@ -312,8 +317,8 @@
         "accentRemoved": true
       },
       {
-        "id": "import-corumu-lingo",
-        "name": "Corumu Lingo",
+        "id": "import-coro",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -376,7 +381,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa [7]   Acc +3  Impact +3   Damage 1D-2\n[1H, Reload]."
+        "sheetProperties": "ORa [7]   Acc +3  Impact +3   Damage 1D-2\n[1H, Reload].",
+        "catalogId": "weapon-hand-crossbow"
       },
       {
         "id": "import-shortsword",
@@ -385,7 +391,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -5    Acc +1  Impact +6   Damage 1D-1\n[1H]. Cleave. Swift. Parry. Throwable."
+        "sheetProperties": "ORa -5    Acc +1  Impact +6   Damage 1D-1\n[1H]. Cleave. Swift. Parry. Throwable.",
+        "catalogId": "weapon-shortsword"
       }
     ],
     "armor": [],
@@ -396,7 +403,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
         "id": "import-small-bolt-quiver",
@@ -404,7 +412,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-bolt-quiver"
       },
       {
         "id": "import-small-bolts",
@@ -412,7 +421,8 @@
         "source": "player",
         "quantity": 20,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-bolts"
       },
       {
         "id": "import-wardrobe",
@@ -420,7 +430,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

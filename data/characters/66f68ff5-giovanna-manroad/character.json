@@ -81,18 +81,24 @@
     "culturalHeritageId": "heritage-culture-wildling",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-slumfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-slumfolk",
     "socialRank": 0,
     "personality": [
       {
-        "id": "import-sleazy",
+        "id": "personality-sleazy",
         "name": "Sleazy",
         "source": "player"
       }
     ],
     "tragedySeedId": null,
     "tragedySeedText": null,
-    "disabilities": [],
+    "disabilities": [
+      {
+        "id": "import-zucked",
+        "name": "Zucked",
+        "source": "player"
+      }
+    ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
     "deityId": "deity-gennalfe"
@@ -166,7 +172,7 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-thief",
     "tradeRank": 2,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "CCA",
     "zedPurchasedIncrease": 0,
     "zed": 12,
     "wealthRank": 8
@@ -376,20 +382,13 @@
     "spellsReviewed": true,
     "weapons": [
       {
-        "id": "import-dagger",
-        "name": "Dagger",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0
-      },
-      {
         "id": "import-small-crossbow",
         "name": "Small Crossbow",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-small-crossbow"
       },
       {
         "id": "import-dagger-standard-siz-6",
@@ -398,7 +397,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift."
+        "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-crossbow-light-siz-6",
@@ -407,7 +407,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa [9]  Acc +0  Impact +8   Damage 1D+1  0.8#\n[2H, Reload 2, Bulky]."
+        "sheetProperties": "ORa [9]  Acc +0  Impact +8   Damage 1D+1  0.8#\n[2H, Reload 2, Bulky].",
+        "catalogId": "weapon-crossbow-light"
       }
     ],
     "armor": [
@@ -417,7 +418,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
         "id": "import-armor-light-siz-6",
@@ -426,7 +428,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +1  AR 5  6#  Leather Armor"
+        "sheetProperties": "Deflect +1  AR 5  6#  Leather Armor",
+        "catalogId": "armor-armor-light"
       }
     ],
     "equipment": [
@@ -436,15 +439,17 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-backpack"
       },
       {
-        "id": "import-lockpit-kit",
-        "name": "Lockpit Kit",
+        "id": "import-lockpick-kit",
+        "name": "Lockpick kit",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-lockpick-kit"
       },
       {
         "id": "import-small-bolt-quiver",
@@ -452,7 +457,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-bolt-quiver"
       },
       {
         "id": "import-small-bolts",
@@ -460,7 +466,8 @@
         "source": "player",
         "quantity": 20,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-small-bolts"
       },
       {
         "id": "import-stun-poison",
@@ -468,7 +475,8 @@
         "source": "player",
         "quantity": 3,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-stun-poison"
       },
       {
         "id": "import-wardrobe",
@@ -476,7 +484,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-wardrobe"
       }
     ],
     "gearReviewed": true,

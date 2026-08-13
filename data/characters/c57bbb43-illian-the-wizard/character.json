@@ -69,11 +69,11 @@
     "culturalHeritageId": "heritage-culture-merchant",
     "environHeritageId": "heritage-environs-coastal",
     "societalHeritageId": "heritage-society-townsfolk",
-    "socialRankId": null,
+    "socialRankId": "social-rank-townsfolk",
     "socialRank": 1,
     "personality": [
       {
-        "id": "import-grouch",
+        "id": "personality-grouch",
         "name": "Grouch",
         "source": "player"
       }
@@ -84,6 +84,11 @@
       {
         "id": "import-cautious",
         "name": "Cautious",
+        "source": "player"
+      },
+      {
+        "id": "import-paranoid",
+        "name": "Paranoid",
         "source": "player"
       }
     ],
@@ -160,7 +165,7 @@
     "tradeId": "trade-wizard",
     "specializationId": "specialization-wizard-illusionist",
     "tradeRank": 4,
-    "affinityAttribute": "ZED",
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
     "zed": 15,
     "wealthRank": 15
@@ -328,8 +333,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-drusi",
-        "name": "Drusi",
+        "id": "import-ithuuikal",
+        "name": "Ithuuikal",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -358,8 +363,8 @@
         "accentRemoved": false
       },
       {
-        "id": "import-oruguku",
-        "name": "Oruguku",
+        "id": "import-orukugu",
+        "name": "Orukugu",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
@@ -487,16 +492,18 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "weapon-dagger"
       },
       {
         "id": "import-magestick-small-wand-manaclamp",
-        "name": "Magestick, Small Wand\n+Manaclamp",
+        "name": "Magestick, Small Wand +Manaclamp",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc -3  Impact -4   Damage 1D-3\n[1H, Stub, Blunt 2]. \n:: Manatrigger, Focus, Radsoak, +Manaclamp"
+        "sheetProperties": "ORa -10  Acc -3  Impact -4   Damage 1D-3\n[1H, Stub, Blunt 2]. \n:: Manatrigger, Focus, Radsoak, +Manaclamp",
+        "catalogId": "weapon-magestick-small-wand-manaclamp"
       },
       {
         "id": "import-lesser-staff-of-power",
@@ -505,7 +512,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +1   Damage 2D-2\n[2H, Hafted, Blunt, Fragile]. Reach. Swift. Stun.\n:: Manatrigger, Focus-2, Radsoak-3, Manapool-10"
+        "sheetProperties": "ORa -10  Acc +0  Impact +1   Damage 2D-2\n[2H, Hafted, Blunt, Fragile]. Reach. Swift. Stun.\n:: Manatrigger, Focus-2, Radsoak-3, Manapool-10",
+        "catalogId": "weapon-lesser-staff-of-power"
       }
     ],
     "armor": [
@@ -515,16 +523,18 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "armor-leather-armor"
       },
       {
-        "id": "import-bracers-of-repellation",
-        "name": "Bracers of Repellation",
+        "id": "import-bracers-of-repulsion",
+        "name": "Bracers of Repulsion",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Manatrigger > +3 Deflect"
+        "sheetProperties": "Manatrigger > +3 Deflect",
+        "catalogId": "armor-bracers-of-repulsion"
       },
       {
         "id": "import-robe-of-armor",
@@ -533,7 +543,8 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Manatrigger > +6 Armor, +2 Deflect"
+        "sheetProperties": "Manatrigger > +6 Armor, +2 Deflect",
+        "catalogId": "armor-robe-of-armor"
       },
       {
         "id": "import-armor-light",
@@ -542,7 +553,18 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Deflect +3  AR 9  25#  Leather"
+        "sheetProperties": "Deflect +3  AR 9  25#  Leather",
+        "catalogId": "armor-armor-light"
+      },
+      {
+        "id": "import-bracers-of-repulsion",
+        "name": "Bracers of Repulsion",
+        "source": "player",
+        "quantity": 1,
+        "unitPriceGp": 0,
+        "unitWeight": 0,
+        "sheetProperties": "Manatrigger > +3 Deflect",
+        "catalogId": "armor-bracers-of-repulsion"
       }
     ],
     "equipment": [
@@ -552,7 +574,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-bedroll"
       },
       {
         "id": "import-spellbook",
@@ -560,7 +583,8 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
-        "unitWeight": 0
+        "unitWeight": 0,
+        "catalogId": "equipment-spellbook"
       },
       {
         "id": "import-goggles-of-night",
@@ -569,15 +593,16 @@
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "sheetProperties": "Switch > Nightvision-3"
+        "sheetProperties": "Switch > Nightvision-3",
+        "catalogId": "equipment-goggles-of-night"
       }
     ],
     "gearReviewed": true,
     "startingGearTrade": null,
     "magicItems": [
       {
-        "id": "import-bracers-of-repellation",
-        "name": "Bracers of Repellation",
+        "id": "import-bracers-of-repulsion",
+        "name": "Bracers of Repulsion",
         "source": "player"
       },
       {
