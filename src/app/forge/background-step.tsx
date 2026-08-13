@@ -74,6 +74,9 @@ function ChoiceCard({ selected, title, subtitle, meta, onClick, disabled = false
 }
 
 function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
+  const customRegion = draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Custom region');
+  const customSettlement = draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Custom settlement');
+  const custom = Boolean(customRegion || draft.background.regionId === 'region-other');
   const region = data.empires.find((item) => item.catalogId === draft.background.regionId);
   const settlementOptions = region ? settlementOptionsForRegion(region.name, data) : [];
   const selectedSettlement = selectedSettlementOption(draft, data);
@@ -119,13 +122,26 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
     if (!region) return;
     setDraft((current) => resetLocationDependentHeritage(current, region.catalogId, settlementId));
   };
+  const setCustomLocation = (kind: 'region' | 'settlement', value: string) => setDraft((current) => {
+    const detail = kind === 'region' ? 'Custom region' : 'Custom settlement';
+    const demographicSelections = [...current.background.demographicSelections.filter((entry) => entry.sourceDetail !== detail)];
+    if (value.trim()) demographicSelections.push({ id: makeCatalogId('custom', `${kind}-${value}`), name: value.slice(0, 100), source: 'player', sourceDetail: detail });
+    return { ...current, background: { ...current.background, regionId: 'region-other', settlementId: 'settlement-other', demographicSelections } };
+  });
+  const toggleCustom = (enabled: boolean) => setDraft((current) => ({
+    ...current,
+    background: enabled
+      ? { ...current.background, regionId: 'region-other', settlementId: 'settlement-other' }
+      : { ...current.background, regionId: null, settlementId: null, demographicSelections: current.background.demographicSelections.filter((entry) => !['Custom region', 'Custom settlement'].includes(entry.sourceDetail ?? '')) },
+  }));
 
   return (
     <div className="space-y-5">
+      <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={custom} onCheckedChange={(value) => toggleCustom(Boolean(value))} /><span><span className="block font-medium">Other</span><span className="text-xs text-muted-foreground">Use a custom Region and Settlement outside the standard catalog.</span></span></label>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label>Starting region</Label>
-          <Select value={draft.background.regionId ?? undefined} onValueChange={chooseRegion}>
+          {custom ? <Input value={customRegion?.name ?? ''} onChange={(event) => setCustomLocation('region', event.target.value)} placeholder="Custom region" maxLength={100} /> : <Select value={draft.background.regionId ?? undefined} onValueChange={chooseRegion}>
             <SelectTrigger><SelectValue placeholder="Choose a region" /></SelectTrigger>
             <SelectContent>
               {data.empires.map((item) => (
@@ -134,11 +150,11 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select>}
         </div>
         <div className="space-y-2">
           <Label>Starting settlement</Label>
-          <Select
+          {custom ? <Input value={customSettlement?.name ?? ''} onChange={(event) => setCustomLocation('settlement', event.target.value)} placeholder="Custom settlement" maxLength={100} /> : <Select
             value={draft.background.settlementId ?? undefined}
             onValueChange={chooseSettlement}
             disabled={!region}
@@ -151,7 +167,7 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select>}
         </div>
       </div>
 

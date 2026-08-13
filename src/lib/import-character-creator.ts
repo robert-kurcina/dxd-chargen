@@ -1,8 +1,10 @@
 import { createHash } from 'node:crypto';
 import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import sarnaLenData from '@/data';
 import { createEmptyCharacterDraft, type CharacterDraft, type InventorySelection, type SourcedSelection } from '@/lib/character-draft';
 import { makeCatalogId } from '@/data/catalog-policy';
+import { physicalBreakdown } from '@/lib/rules/properties';
 
 type LegacyCharacter = Record<string, any>;
 
@@ -119,13 +121,21 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
     const catalogId = item.catalogId ?? makeCatalogId(category === 'weapons' ? 'weapon' : category === 'armor' ? 'armor' : 'equipment', catalogueName);
     return { ...item, id: item.id || `inventory-${category}-${catalogId}`, catalogId, name };
   });
-  return normalized.filter((item, index, all) => {
+  const detailedOnly = normalized.filter((item, index, all) => {
     const broad = item.name.toLocaleLowerCase().replace(/s$/, '');
     const detailed = all.find((candidate) => candidate !== item && candidate.sheetProperties && candidate.name.toLocaleLowerCase().startsWith(`${broad},`));
     if (!detailed) return true;
     detailed.quantity = Math.max(detailed.quantity, item.quantity);
     return false;
   });
+  const grouped = new Map<string, InventorySelection>();
+  for (const item of detailedOnly) {
+    const key = `${item.catalogId ?? ''}|${item.name.toLocaleLowerCase()}`;
+    const existing = grouped.get(key);
+    if (existing) existing.quantity += Math.max(1, item.quantity);
+    else grouped.set(key, { ...item, quantity: Math.max(1, item.quantity) });
+  }
+  return [...grouped.values()];
 }
 function normalizeMagicItems(items: SourcedSelection[]) {
   return items.map((item) => {
@@ -152,15 +162,106 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
     environHeritageId = `heritage-environs-${environName}`;
     societalHeritageId = `heritage-society-${societyName}`;
   }
+  const sirMandalore = /sir mand[ao]lore/i.test(draft.utilities.name);
+  const namedIdentity: Record<string, { speciesId: string; lineageId: string }> = {
+    'stella': { speciesId: 'species-human', lineageId: 'lineage-baminati' },
+    'john stone': { speciesId: 'species-human', lineageId: 'lineage-baminati' },
+    'zoey the short': { speciesId: 'species-klenari', lineageId: 'lineage-farleen' },
+    'theo': { speciesId: 'species-klenari', lineageId: 'lineage-stepmir' },
+    'giovanna manroad': { speciesId: 'species-klenari', lineageId: 'lineage-farleen' },
+  };
+  const identity = namedIdentity[draft.utilities.name.trim().toLowerCase()];
+  const normalizedName = draft.utilities.name.trim().toLowerCase();
+  const namedProfession: Record<string, { tradeId: string; specializationId: string }> = {
+    'honri heminsur': { tradeId: 'trade-warrior', specializationId: 'specialization-warrior-engineer' },
+    'twinkles': { tradeId: 'trade-cleric', specializationId: 'specialization-cleric-cloister' },
+    'alba': { tradeId: 'trade-wizard', specializationId: 'specialization-wizard-witch' },
+    'dj': { tradeId: 'trade-ranger', specializationId: 'specialization-ranger-wanderer' },
+  };
+  const professionIdentity = namedProfession[normalizedName];
+  const dawn = /^dawn\b/i.test(draft.utilities.name);
+  const camilla = /^camill?a$/i.test(draft.utilities.name);
+  const importedRegion = draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Imported region');
+  const importedSettlement = draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Imported settlement');
+  const customRegionName = importedRegion && /isles of waste|argeleb twins/i.test(importedRegion.name)
+    ? (importedRegion.name.match(/isles of waste/i)?.[0] ?? importedRegion.name.split('>')[0].trim())
+    : importedSettlement?.name.match(/isles of waste/i)?.[0] ?? null;
+  const customSettlementName = customRegionName
+    ? importedSettlement
+      ? (importedSettlement.name.match(/^farton/i)?.[0] ?? importedSettlement.name)
+      : /argeleb twins\s*>/i.test(importedRegion?.name ?? '')
+        ? importedRegion!.name.split('>').slice(1).join('>').trim()
+        : null
+    : null;
+  const locationSelections = customRegionName
+    ? [
+        ...draft.background.demographicSelections.filter((entry) => !['Imported region', 'Imported settlement', 'Custom region', 'Custom settlement'].includes(entry.sourceDetail ?? '')),
+        { id: makeCatalogId('custom', `region-${customRegionName}`), name: customRegionName, source: 'player' as const, sourceDetail: 'Custom region' },
+        ...(customSettlementName ? [{ id: makeCatalogId('custom', `settlement-${customSettlementName}`), name: customSettlementName, source: 'player' as const, sourceDetail: 'Custom settlement' }] : []),
+      ]
+    : draft.background.demographicSelections;
+  const normalizedPurchased = draft.proficiencies.purchased.map((item) => {
+    if (!sirMandalore) return item;
+    if (/^brawn$/i.test(item.name)) return { ...item, level: 3 };
+    if (/^(?:v-)?zedsurge$/i.test(item.name)) return { ...item, id: 'import-v-zedsurge', catalogId: makeCatalogId('trait', 'v-Zedsurge X'), name: 'v-Zedsurge', level: 2 };
+    return item;
+  });
+  const normalizedAttributes = draft.intrinsics.attributes.map((attribute) =>
+    sirMandalore && attribute.name === 'MOV' ? { ...attribute, base: 12 } : attribute);
+  const targetProperties = {
+    stature: sirMandalore ? 52 : draft.properties.stature,
+    build: sirMandalore ? 53 : draft.properties.build,
+    heightInches: sirMandalore ? 74 : draft.properties.heightInches,
+    weightPounds: sirMandalore ? 205 : draft.properties.weightPounds,
+    siz: sirMandalore ? 13 : draft.properties.siz,
+    profile: sirMandalore ? 52 : draft.properties.profile,
+  };
+  const frameCandidate: CharacterDraft = {
+    ...draft,
+    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased },
+    properties: { ...draft.properties, statureAdjustment: 0, buildAdjustment: 0, weightAdjustment: 0 },
+  };
+  const unframed = physicalBreakdown(frameCandidate, sarnaLenData);
+  const statureAdjustment = unframed && targetProperties.stature != null
+    ? Math.max(-2, Math.min(2, targetProperties.stature - unframed.finalStature)) : 0;
+  const statureFramed = physicalBreakdown({ ...frameCandidate, properties: { ...frameCandidate.properties, statureAdjustment } }, sarnaLenData);
+  const buildDifference = statureFramed && targetProperties.build != null ? targetProperties.build - statureFramed.build : 0;
+  const buildAdjustment = sirMandalore ? -2 : Math.max(-2, Math.min(2, buildDifference));
+  const weightAdjustment = sirMandalore ? -2 : Math.max(-9, Math.min(9, buildDifference - buildAdjustment));
   return {
     ...draft,
     background: {
       ...draft.background,
+      disabilities: camilla ? draft.background.disabilities.map((item) => /^coward$/i.test(item.name) ? { ...item, catalogId: makeCatalogId('trait', '[Coward X]'), level: 3 } : /^hatred$/i.test(item.name) ? { ...item, catalogId: makeCatalogId('trait', '[Hatred X > Demographic]') } : item) : draft.background.disabilities,
+      ...(camilla ? { regionId: 'region-djorkan', settlementId: 'settlement-djorkan-corom' } : {}),
+      ...(customRegionName ? { regionId: 'region-other', settlementId: 'settlement-other', demographicSelections: locationSelections } : {}),
       culturalHeritageId: draft.background.culturalHeritageId ? (heritageIds[draft.background.culturalHeritageId] ?? draft.background.culturalHeritageId) : null,
       environHeritageId,
       societalHeritageId,
     },
-    proficiencies: { ...draft.proficiencies, languages: normalizeSelections(draft.proficiencies.languages, LANGUAGE_ALIASES) },
+    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased, languages: normalizeSelections(draft.proficiencies.languages, LANGUAGE_ALIASES) },
+    intrinsics: {
+      ...draft.intrinsics,
+      speciesFamilyId: identity ? 'species-family-humaniki' : draft.intrinsics.speciesFamilyId,
+      speciesId: identity?.speciesId ?? draft.intrinsics.speciesId,
+      lineageId: identity?.lineageId ?? draft.intrinsics.lineageId,
+      tradeId: professionIdentity?.tradeId ?? draft.intrinsics.tradeId,
+      specializationId: professionIdentity?.specializationId ?? draft.intrinsics.specializationId,
+      ...(dawn ? { childOfStrife: true, strifePairingId: 'hobit', strifeMotherFirst: true, strifeFatherLineageId: 'lineage-indelan', strifeMotherLineageId: 'lineage-farleen', speciesFamilyId: 'species-family-humaniki', speciesId: null, lineageId: null } : {}),
+      attributes: normalizedAttributes,
+      affinityAttribute: camilla ? 'INT' : draft.intrinsics.affinityAttribute,
+      zed: camilla ? 14 : draft.intrinsics.zed,
+      tradeRank: sirMandalore ? 4 : draft.intrinsics.tradeRank,
+    },
+    properties: {
+      ...draft.properties,
+      calculated: camilla ? { ...draft.properties.calculated, Manapool: 13, manapool: 13 } : draft.properties.calculated,
+      statureAdjustment: sirMandalore ? -2 : statureAdjustment,
+      buildAdjustment,
+      weightAdjustment,
+      ...targetProperties,
+      baseBuild: targetProperties.build != null ? targetProperties.build - weightAdjustment : draft.properties.baseBuild,
+    },
     utilities: {
       ...draft.utilities,
       properName: /^\[?error\]?$/i.test(draft.utilities.properName.trim()) ? '' : draft.utilities.properName,

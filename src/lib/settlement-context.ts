@@ -30,7 +30,7 @@ export function regionByDraft(draft: CharacterDraft, data: StaticData) {
 }
 
 export function geographicRegionName(draft: CharacterDraft, data: StaticData) {
-  return regionByDraft(draft, data)?.region ?? draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Imported region')?.name ?? null;
+  return regionByDraft(draft, data)?.region ?? draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Custom region')?.name ?? draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Imported region')?.name ?? null;
 }
 
 export function localeForRegion(regionName: string, data: StaticData) {
@@ -96,7 +96,7 @@ export function selectedSettlementName(draft: CharacterDraft, data: StaticData) 
 }
 
 export function selectedSettlementDisplayName(draft: CharacterDraft, data: StaticData) {
-  return selectedSettlementOption(draft, data)?.displayName ?? selectedSettlementName(draft, data) ?? draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Imported settlement')?.name ?? null;
+  return selectedSettlementOption(draft, data)?.displayName ?? selectedSettlementName(draft, data) ?? draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Custom settlement')?.name ?? draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Imported settlement')?.name ?? null;
 }
 
 export function allowedEnvironNames(draft: CharacterDraft, data: StaticData) {

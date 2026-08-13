@@ -15,6 +15,37 @@ const UTILITY_STEPS = new Set([
 
 export type InventoryCategory = 'weapons' | 'armor' | 'equipment';
 
+/** Convert canonical catalogue labels to natural reading order for display only. */
+export function displayInventoryName(name: string) {
+  const [noun, ...modifiers] = name.split(',').map((part) => part.trim());
+  const meaningful = modifiers.filter((part) => !/^(?:standard|medium|average)$/i.test(part));
+  return meaningful.length ? `${meaningful.join(' ')} ${noun}` : noun;
+}
+
+export function magicItemInventoryForm(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const configured = selection.catalogId ? draft.utilities.magicItemForms[selection.catalogId] : null;
+  const definition = data.magicItems.find((entry) => entry.catalogId === selection.catalogId);
+  const form = configured ?? definition?.form ?? '';
+  const magicName = selection.name.replace(/-\d+$/, '').trim();
+  const canonicalName = /banhammer/i.test(magicName)
+    ? 'Hammer, War'
+    : form
+      ? [data.itemWeapons, data.itemArmors, data.itemEquipments]
+          .flat()
+          .find((item) => item.name.localeCompare(form, undefined, { sensitivity: 'base' }) === 0)?.name
+      : null;
+  if (!canonicalName) return null;
+  const category: InventoryCategory = data.itemWeapons.some((item) => item.name === canonicalName)
+    ? 'weapons'
+    : data.itemArmors.some((item) => item.name === canonicalName)
+      ? 'armor'
+      : 'equipment';
+  const item = inventoryCatalogue(category, data).find((entry) => entry.name === canonicalName);
+  if (!item) return null;
+  const adjusted = adjustedGearValues(category, item, draft, data);
+  return { category, name: item.name, displayName: displayInventoryName(item.name), weight: Number(adjusted.weight) || 0 };
+}
+
 export function isUtilityStep(stepValue: string) {
   return UTILITY_STEPS.has(stepValue);
 }
@@ -65,7 +96,7 @@ export function adjustedGearValues(category: InventoryCategory, item: { weight: 
 
 export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
   const items = [...draft.utilities.weapons, ...draft.utilities.armor, ...draft.utilities.equipment];
-  return items.reduce(
+  const totals = items.reduce(
     (total, item) => {
       const category: InventoryCategory = draft.utilities.weapons.includes(item) ? 'weapons' : draft.utilities.armor.includes(item) ? 'armor' : 'equipment';
       const catalogueItem = data && item.catalogId ? inventoryCatalogue(category, data).find((entry) => entry.catalogId === item.catalogId) : null;
@@ -78,6 +109,13 @@ export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
     }); },
     { costGp: 0, purchasedCostGp: 0, weight: 0, itemCount: 0 },
   );
+  if (data) {
+    for (const magicItem of draft.utilities.magicItems) {
+      const form = magicItemInventoryForm(magicItem, draft, data);
+      if (form) totals.weight += form.weight;
+    }
+  }
+  return totals;
 }
 
 const CANONICAL_STARTING_GEAR: Record<string, Array<[InventoryCategory, string, number?]>> = {
@@ -228,18 +266,20 @@ export function setMagicItemForm(draft: CharacterDraft, catalogId: string, form:
 export function magicItemTotals(draft: CharacterDraft, data: StaticData) {
   let rarityProduct = 1;
   let worthGp = 0;
+  let weight = 0;
   for (const selection of draft.utilities.magicItems) {
     const item = data.magicItems.find((entry) => entry.catalogId === selection.catalogId);
     if (!item) continue;
     const metrics = magicItemGradeMetrics(item);
     rarityProduct *= metrics.worthMultiplier;
     worthGp += metrics.equivalentGp;
+    weight += magicItemInventoryForm(selection, draft, data)?.weight ?? 0;
   }
   const selectedCount = draft.utilities.magicItems.length;
   const rarityProductLabel = selectedCount
     ? `×${Number.isSafeInteger(rarityProduct) ? rarityProduct.toLocaleString('en-US') : rarityProduct.toExponential(0)}`
     : '×1';
-  return { rarityProduct, rarityProductLabel, worthGp };
+  return { rarityProduct, rarityProductLabel, worthGp, weight };
 }
 
 export function toggleMagicItem(draft: CharacterDraft, catalogId: string, data: StaticData): CharacterDraft {

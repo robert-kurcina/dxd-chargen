@@ -325,7 +325,9 @@
       "maxAdvantage": 1,
       "gold": 420,
       "xp": 755
-    }
+    },
+    "statureAdjustment": 0,
+    "buildAdjustment": -1
   },
   "utilities": {
     "spells": [

@@ -130,6 +130,8 @@ export type CharacterDraft = {
     stature: number | null;
     build: number | null;
     baseBuild: number | null;
+    statureAdjustment: number;
+    buildAdjustment: number;
     weightAdjustment: number;
     heightInches: number | null;
     weightPounds: number | null;
@@ -277,6 +279,8 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       stature: null,
       build: null,
       baseBuild: null,
+      statureAdjustment: 0,
+      buildAdjustment: 0,
       weightAdjustment: 0,
       heightInches: null,
       weightPounds: null,
@@ -316,7 +320,11 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
     const current = candidate as CharacterDraft;
     current.utilities.portraitDataUrl ??= '';
     current.utilities.portraitSourceDataUrl ??= '';
-    return { ...current, intrinsics: { ...current.intrinsics, strifeMixedLineage: current.intrinsics.strifeMixedLineage ?? false, strifeBonusParent: current.intrinsics.strifeBonusParent ?? null } };
+    return {
+      ...current,
+      intrinsics: { ...current.intrinsics, strifeMixedLineage: current.intrinsics.strifeMixedLineage ?? false, strifeBonusParent: current.intrinsics.strifeBonusParent ?? null },
+      properties: { ...current.properties, statureAdjustment: current.properties.statureAdjustment ?? 0, buildAdjustment: current.properties.buildAdjustment ?? 0 },
+    };
   }
 
   if (candidate.schemaVersion === 7) {
@@ -395,6 +403,8 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
     stature: null,
     build: null,
     baseBuild: null,
+    statureAdjustment: 0,
+    buildAdjustment: 0,
     weightAdjustment: 0,
     heightInches: legacy.heightInches,
     weightPounds: legacy.weightPounds,

@@ -31,20 +31,128 @@
   ],
   "warnings": [],
   "background": {
-    "regionId": "region-djorkan",
-    "settlementId": "settlement-djorkan-drayport",
+    "regionId": "region-other",
+    "settlementId": "settlement-other",
     "demographicSelections": [
       {
-        "id": "import-eastlands-isles-of-waste",
-        "name": "Eastlands > Isles of Waste",
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
         "source": "player",
-        "sourceDetail": "Imported region"
+        "sourceDetail": "Custom region"
       },
       {
-        "id": "import-drayport",
+        "id": "custom-settlement-drayport",
         "name": "Drayport",
         "source": "player",
-        "sourceDetail": "Imported settlement"
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
       },
       {
         "id": "import-marli",
@@ -57,6 +165,18 @@
         "name": "Premature White Hair",
         "source": "player",
         "sourceDetail": "Notable feature"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-drayport",
+        "name": "Drayport",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
       }
     ],
     "sex": "Male",
@@ -404,7 +524,9 @@
       "maxAdvantage": 2,
       "gold": 0,
       "xp": 360
-    }
+    },
+    "statureAdjustment": 0,
+    "buildAdjustment": 2
   },
   "utilities": {
     "spells": [
@@ -530,7 +652,7 @@
         "id": "import-bracers-of-repulsion",
         "name": "Bracers of Repulsion",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "Manatrigger > +3 Deflect",
@@ -555,16 +677,6 @@
         "unitWeight": 0,
         "sheetProperties": "Deflect +3  AR 9  25#  Leather",
         "catalogId": "armor-armor-light"
-      },
-      {
-        "id": "import-bracers-of-repulsion",
-        "name": "Bracers of Repulsion",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "sheetProperties": "Manatrigger > +3 Deflect",
-        "catalogId": "armor-bracers-of-repulsion"
       }
     ],
     "equipment": [

@@ -58,7 +58,7 @@
   grid-template-columns: repeat(11, 7.95%) 6.5%;
   grid-template-rows: 58.9% 31.1%;
   column-gap: .55%;
-  row-gap: 10%;
+  row-gap: 5%;
 }
 #front .field-group-attributes .field { width: 100%; height: 100%; padding: 0; }
 #front .field-group-attributes .field:nth-child(-n + 12) {
@@ -67,6 +67,7 @@
   font-weight: 700;
 }
 #front .field-group-attributes .field:nth-child(n + 13) { font-size: 1.95cqw; }
+#front .affinity-decal { position: absolute; top: 33.6%; width: 3.2%; height: auto; z-index: 6; display: none; transform: translateX(-50%); }
 
 /* Background and History & Notes. */
 #front .field-group-background {
@@ -136,6 +137,9 @@
   field-sizing: content;
   line-height: 1.18;
 }
+#front .field-group-history-notes .history-value.rich-hidden { display: none; }
+#front .field-group-history-notes .history-rich { flex: 1 1 0; min-width: 0; padding-left: .28cqw; font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive; line-height: 1.18; color: #080808; }
+#front .field-group-history-notes .history-rich .unresolved-specialization { color: #990000; }
 
 /* Performance, Concerns, Miscellaneous, and Combat use relative value rows. */
 #front .field-group-performance,
@@ -206,6 +210,18 @@
 #back .field-group-back-notes .field { width: 100%; height: 100%; }
 #back [data-field="BackName"] { padding: 0; font-size: 2.1cqw; line-height: 1.08; }
 #back [data-field="BackNotes"] { font-size: 1.42cqw; }
+#back .field-group-derived-scores {
+  left: 5%; top: 81%; width: 69.5%; height: 5%;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1cqw;
+}
+#back .derived-score { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: .5cqw; font-size: 1.42cqw; color: #555; }
+#back .derived-score .field { position: relative; width: 100%; height: 100%; padding: 0; font-size: 1.42cqw; line-height: 1; color: #222; }
+#back .field-group-movement-extras {
+  left: 0; top: 0; width: 100%; height: 100%;
+}
+#back .field-group-movement-extras .field { position: absolute; top: 96.3% !important; width: 3.8%; height: 1.8%; padding: 0; text-align: center; font-size: 1.25cqw; line-height: 1; z-index: 6; }
+#back .field-group-movement-extras .field:nth-child(1) { left: 24.7% !important; }
+#back .field-group-movement-extras .field:nth-child(2) { left: 37.7% !important; }
 
 /* Bottom chart values use two fixed rows so every value remains in its box. */
 #back .field-group-universal-chart {

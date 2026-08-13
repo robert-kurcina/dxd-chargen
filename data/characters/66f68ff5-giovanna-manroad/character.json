@@ -105,7 +105,7 @@
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
-    "speciesId": "species-halfling",
+    "speciesId": "species-klenari",
     "lineageId": "lineage-farleen",
     "childOfStrife": false,
     "strifeMixedLineage": false,
@@ -348,8 +348,8 @@
   "properties": {
     "stature": 21,
     "build": 29,
-    "baseBuild": 29,
-    "weightAdjustment": 0,
+    "baseBuild": 24,
+    "weightAdjustment": 5,
     "heightInches": 36,
     "weightPounds": 39,
     "siz": 5,
@@ -375,7 +375,9 @@
       "maxAdvantage": 1,
       "gold": 0,
       "xp": 1860
-    }
+    },
+    "statureAdjustment": 1,
+    "buildAdjustment": 2
   },
   "utilities": {
     "spells": [],

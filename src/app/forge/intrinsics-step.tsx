@@ -165,6 +165,7 @@ function baseValues(draft: CharacterDraft) {
 }
 
 function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue'>) {
+  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
   const purchasedTotal = totalPurchasedAttributeIncreases(draft);
   const purchasedSkillpoints = purchasedAttributeSkillpointCost(draft, data);
   const method = draft.intrinsics.attributeMethod;
@@ -216,8 +217,8 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
             {ROLLED_ATTRIBUTES.map((attribute, index) => {
               const record = draft.intrinsics.attributes.find((entry) => entry.name === attribute);
               const purchased = getPurchasedAttributeIncrease(attribute, draft);
-              const sourced = record?.adjustments.filter((adjustment) => adjustment.source !== 'player').reduce((sum, adjustment) => sum + adjustment.amount, 0) ?? 0;
-              const finalValue = getFinalAttributeValue(attribute, draft) ?? values[attribute];
+              const sourced = importedFinal ? 0 : record?.adjustments.filter((adjustment) => adjustment.source !== 'player').reduce((sum, adjustment) => sum + adjustment.amount, 0) ?? 0;
+              const finalValue = importedFinal ? (record?.base ?? values[attribute]) : getFinalAttributeValue(attribute, draft) ?? values[attribute];
               const canPurchaseMore = purchased < 2 && purchasedTotal < 4;
               return (
                 <tr key={attribute} className="border-t">
@@ -268,6 +269,7 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
 
 function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue'>) {
   const method = draft.intrinsics.attributeMethod;
+  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region') && draft.intrinsics.attributes.length === ROLLED_ATTRIBUTES.length;
   const spent = pointBuySpent(draft, data);
 
   const applyArray = (id: 'A' | 'B' | 'C') => {
@@ -311,7 +313,7 @@ function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'st
         </div>
       )}
 
-      {method ? <AttributeRows data={data} draft={draft} setDraft={setDraft} /> : (
+      {method || importedFinal ? <AttributeRows data={data} draft={draft} setDraft={setDraft} /> : (
         <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">Choose an Attribute generation method to begin.</div>
       )}
     </div>

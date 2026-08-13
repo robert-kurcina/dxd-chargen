@@ -327,8 +327,8 @@
   "properties": {
     "stature": 50,
     "build": 45,
-    "baseBuild": 45,
-    "weightAdjustment": 0,
+    "baseBuild": 43,
+    "weightAdjustment": 2,
     "heightInches": 71,
     "weightPounds": 118,
     "siz": 11,
@@ -354,7 +354,9 @@
       "maxAdvantage": 1,
       "gold": 1256,
       "xp": 665
-    }
+    },
+    "statureAdjustment": 2,
+    "buildAdjustment": 2
   },
   "utilities": {
     "spells": [

@@ -11,12 +11,12 @@
             "id": "bb60ab24ec7b0daf",
             "type": "leaf",
             "state": {
-              "type": "omni-viewer.jsonViewer",
+              "type": "image",
               "state": {
-                "file": "src/data/salaryByTradeRank.json"
+                "file": "public/character-creator/portraits/decal-khao.png"
               },
-              "icon": "braces",
-              "title": "salaryByTradeRank.json"
+              "icon": "lucide-image",
+              "title": "decal-khao"
             }
           }
         ]
@@ -187,6 +187,20 @@
   },
   "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "public/portrait-placeholder.png",
+    "public/character-creator/portraits/decal-istanidor.jpg",
+    "public/character-creator/portraits/decal-honri.png",
+    "public/character-creator/portraits/decal-dawn.png",
+    "public/character-creator/portraits/decal-albiyaleh.jpg",
+    "public/character-creator/sheet/zoey-sheet-front.png",
+    "public/character-creator/sheet/zoey-sheet-back.png",
+    "docs/RELEASE_v104_VALIDATION.json",
+    "docs/DATA_INTEGRITY_v100_VALIDATION.json",
+    "docs/RELEASE_v101.md",
+    "data/characters/08d6435e-camilla/character.json",
+    "data/characters/08d6435e-camilla/portrait.png",
+    "data/characters/08d6435e-camilla/source-image.png",
+    "imported/character-creator/scripts/pml-values.json",
     "src/data/salaryByTradeRank.json",
     "src/data/salaryAdjustmentsByTrade.json",
     "src/data/randomPersonItemDeity.json",
@@ -195,8 +209,6 @@
     "components.json",
     "src/prompts/attribute-dms.md",
     "src/prompts/universal-table.md",
-    "src/prompts/attributes.md",
-    "src/data/adjustments-attributes-babbita.json",
-    "src/data/adjustments-attributes-alef.json"
+    "src/prompts/attributes.md"
   ]
 }

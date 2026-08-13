@@ -42,6 +42,8 @@ import {
     group("back-name", [field("BackName", "area")]),
     group("equipment", [], { equipmentRows: true }),
     group("back-notes", [field("BackNotes", "area")]),
+    group("derived-scores", [field("Physicality", "derived"), field("GaspLimit", "derived"), field("SleepLimit", "derived")], { labeled: true }),
+    group("movement-extras", [field("ScalarAgility", "derived"), field("ScalarMphRun", "derived")]),
     group("universal-chart", [
       ...universalIndexes.map((name) => field(`Index${name}`, "derived")),
       ...universalIndexes.map((name) => field(`Scalar${name}`, "derived")),
@@ -219,7 +221,7 @@ import {
   function renderGroups(groups, targetId) {
     const target = document.getElementById(targetId);
     target.replaceChildren();
-    groups.forEach(({ name: groupName, fields, stars, equipmentRows }) => {
+    groups.forEach(({ name: groupName, fields, stars, equipmentRows, labeled }) => {
       const container = document.createElement("div");
       container.className = `field-group field-group-${groupName}`;
       container.dataset.region = groupName;
@@ -253,7 +255,20 @@ import {
           label.textContent = `${name};`;
           input.classList.add("history-value");
           historyField.append(label, input);
+          if (name === "Skills" || name === "Traits") {
+            const rich = document.createElement("div");
+            rich.className = "history-rich";
+            rich.dataset.richField = name;
+            historyField.append(rich);
+          }
           container.append(historyField);
+        } else if (labeled) {
+          const row = document.createElement("label");
+          row.className = "derived-score";
+          const caption = document.createElement("span");
+          caption.textContent = ({ Physicality: "Physicality", GaspLimit: "Gasp Limit", SleepLimit: "Sleep Limit", ScalarAgility: "Agility", ScalarMphRun: "MPH" })[name] ?? name;
+          row.append(caption, input);
+          container.append(row);
         } else {
           container.append(input);
         }
@@ -345,6 +360,24 @@ import {
     document.querySelector("#pml-stars").replaceChildren(...Array.from({ length: state.PML }, () => {
       const image = new Image(); image.src = "decals/decal-star.png"; return image;
     }));
+    const affinity = document.querySelector("#affinity-decal");
+    const attributeOrder = ["CCA", "RCA", "REF", "INT", "KNO", "PRE", "POW", "STR", "FOR", "MOV", "SIZ", "ZED"];
+    const affinityIndex = attributeOrder.indexOf(String(state.AffinityAttribute ?? "").toUpperCase());
+    affinity.style.display = affinityIndex < 0 ? "none" : "block";
+    if (affinityIndex >= 0) affinity.style.left = `${5.7 + affinityIndex * 8.5 + 3.975}%`;
+    for (const name of ["Skills", "Traits"]) {
+      const input = document.querySelector(`[data-field="${name}"]`);
+      const rich = document.querySelector(`[data-rich-field="${name}"]`);
+      const terms = state[`${name}Terms`];
+      if (!rich || !Array.isArray(terms)) continue;
+      input.classList.add("rich-hidden");
+      rich.replaceChildren(...terms.flatMap((term, index) => {
+        const span = document.createElement("span");
+        span.textContent = String(term.text ?? "").replace(/\s*\}\s*$/, "");
+        if (term.unresolved) span.className = "unresolved-specialization";
+        return index ? [document.createTextNode(", "), span] : [span];
+      }));
+    }
   }
 
   function syncAllFields() {

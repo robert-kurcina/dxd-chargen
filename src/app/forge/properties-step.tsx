@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { CharacterDraft } from '@/lib/character-draft';
-import { calculateProperties, physicalBreakdown, setWeightAdjustment } from '@/lib/rules/properties';
+import { calculateProperties, physicalBreakdown, setBodyFrameAdjustment, setWeightAdjustment } from '@/lib/rules/properties';
 import { formatNumberWithCommas } from '@/lib/utils';
 
 const signed = (value: number) => `${value >= 0 ? '+' : ''}${value}`;
@@ -35,6 +35,14 @@ function HeightWeightStep({ draft, data, setDraft }: { draft: CharacterDraft; da
       <MeasurementCards draft={draft} data={data} />
       {physical && (
         <>
+          <section className="space-y-4 rounded-lg border p-4">
+            <div><h3 className="font-semibold">Body Frame</h3><p className="mt-1 text-sm text-muted-foreground">Adjust final Stature by up to ±2. Because Build begins from adjusted Stature, that choice also moves Build; the separate Build frame is then applied by up to ±2.</p></div>
+            {([
+              { kind: 'stature' as const, label: 'Stature', value: draft.properties.statureAdjustment ?? 0, choices: [['Shorter',-2],['Short',-1],['Average',0],['Tall',1],['Taller',2]] as const },
+              { kind: 'build' as const, label: 'Build', value: draft.properties.buildAdjustment ?? 0, choices: [['Gracile',-2],['Slim',-1],['Average',0],['Stout',1],['Robust',2]] as const },
+            ]).map((group) => <div key={group.kind} className="space-y-2"><div className="text-sm font-medium">{group.label}</div><div className="flex flex-wrap gap-2">{group.choices.map(([label,value]) => <Button key={label} type="button" size="sm" variant={group.value === value ? 'default' : 'outline'} onClick={() => setDraft((current) => setBodyFrameAdjustment(current, group.kind, value))}>{label} ({signed(value)})</Button>)}</div></div>)}
+          </section>
+
           <section className="space-y-3 rounded-lg border p-4">
             <div>
               <h3 className="font-semibold">Underweight / Overweight</h3>
@@ -62,6 +70,8 @@ function HeightWeightStep({ draft, data, setDraft }: { draft: CharacterDraft; da
                   {physical.lines.map((line, index) => <tr key={`${line.label}-${index}`} className="border-t"><td className="px-3 py-2">{line.label}</td><td className="px-3 py-2 text-right tabular-nums">{signed(line.stature)}</td><td className="px-3 py-2 text-right tabular-nums">{signed(line.build)}</td><td className="px-3 py-2 text-right tabular-nums">{line.bodypoints == null ? '—' : signed(line.bodypoints)}</td></tr>)}
                   <tr className="border-t"><td className="px-3 py-2">STR DM → Stature</td><td className="px-3 py-2 text-right">included</td><td className="px-3 py-2 text-right">—</td><td className="px-3 py-2 text-right">—</td></tr>
                   <tr className="border-t"><td className="px-3 py-2">FOR DM − REF DM + Brawn → Build</td><td className="px-3 py-2 text-right">—</td><td className="px-3 py-2 text-right">included</td><td className="px-3 py-2 text-right">—</td></tr>
+                  {physical.statureAdjustment !== 0 && <tr className="border-t"><td className="px-3 py-2">Body Frame — Stature</td><td className="px-3 py-2 text-right">{signed(physical.statureAdjustment)}</td><td className="px-3 py-2 text-right">flows from Stature</td><td className="px-3 py-2 text-right">—</td></tr>}
+                  {physical.buildAdjustment !== 0 && <tr className="border-t"><td className="px-3 py-2">Body Frame — Build</td><td className="px-3 py-2 text-right">—</td><td className="px-3 py-2 text-right">{signed(physical.buildAdjustment)}</td><td className="px-3 py-2 text-right">—</td></tr>}
                   {physical.weightAdjustment !== 0 && <tr className="border-t"><td className="px-3 py-2">Weight adjustment</td><td className="px-3 py-2 text-right">—</td><td className="px-3 py-2 text-right">{signed(physical.weightAdjustment)}</td><td className="px-3 py-2 text-right">{physical.weightAdjustment > 0 ? 'pre-Overweight SIZ' : 'current SIZ'}</td></tr>}
                 </tbody>
               </table>
@@ -134,7 +144,7 @@ function CalculationsStep({ draft, data }: { draft: CharacterDraft; data: Static
 
       <section className="rounded-lg bg-muted/40 p-4 text-sm">
         <div className="font-medium">Limits</div>
-        <div className="mt-2 grid gap-2 sm:grid-cols-2"><span>Gasp Limit: {c.gaspTurns} Combat Turns</span><span>Sleep Limit: {c.sleepHours} Hours</span></div>
+        <div className="mt-2 grid gap-2 sm:grid-cols-2"><span>Gasp Limit: {c.gaspTurnsScalar} Turns</span><span>Sleep Limit: {c.sleepHoursScalar} Hours</span></div>
         {c.attentiveRegenerationBonus > 0 && <p className="mt-2 text-xs text-muted-foreground">v-Regenerate provides +{c.attentiveRegenerationBonus} Hitpoints while Attentive; this conditional bonus is not folded into base Hitpoints.</p>}
         {c.robustRecoveryBonus > 0 && <p className="mt-1 text-xs text-muted-foreground">Robust provides +{c.robustRecoveryBonus} Recovery for non-Severe injuries/wounds; the conditional bonus is not folded into base Recovery.</p>}
       </section>

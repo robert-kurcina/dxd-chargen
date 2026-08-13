@@ -31,20 +31,128 @@
   ],
   "warnings": [],
   "background": {
-    "regionId": "region-djorkan",
-    "settlementId": "settlement-djorkan-farton-near-the-isles-of-waste",
+    "regionId": "region-other",
+    "settlementId": "settlement-other",
     "demographicSelections": [
       {
-        "id": "import-eastlands",
-        "name": "Eastlands",
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
         "source": "player",
-        "sourceDetail": "Imported region"
+        "sourceDetail": "Custom region"
       },
       {
-        "id": "import-farton-near-the-isles-of-waste",
-        "name": "Farton near the Isles of Waste",
+        "id": "custom-settlement-farton",
+        "name": "Farton",
         "source": "player",
-        "sourceDetail": "Imported settlement"
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
       },
       {
         "id": "import-lirace",
@@ -57,6 +165,18 @@
         "name": "Astigmatic (needs glasses)",
         "source": "player",
         "sourceDetail": "Notable feature"
+      },
+      {
+        "id": "custom-region-isles-of-waste",
+        "name": "Isles of Waste",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-farton",
+        "name": "Farton",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
       }
     ],
     "sex": "Male",
@@ -151,8 +271,8 @@
         "adjustments": []
       }
     ],
-    "tradeId": "trade-fighter",
-    "specializationId": "specialization-fighter-engineer",
+    "tradeId": "trade-warrior",
+    "specializationId": "specialization-warrior-engineer",
     "tradeRank": 2,
     "affinityAttribute": "ZED",
     "zedPurchasedIncrease": 0,
@@ -356,8 +476,8 @@
   "properties": {
     "stature": 53,
     "build": 57,
-    "baseBuild": 57,
-    "weightAdjustment": 0,
+    "baseBuild": 65,
+    "weightAdjustment": -8,
     "heightInches": 76,
     "weightPounds": 252,
     "siz": 14,
@@ -383,7 +503,9 @@
       "maxAdvantage": 2,
       "gold": 0,
       "xp": 360
-    }
+    },
+    "statureAdjustment": -2,
+    "buildAdjustment": -2
   },
   "utilities": {
     "spells": [],

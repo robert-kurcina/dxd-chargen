@@ -368,7 +368,7 @@ export function getScalarValue(index: number): string {
   const bounded = Math.max(-30, Math.min(90, Math.floor(index)));
   const magnitude = Math.floor(bounded / 10);
   const remainder = bounded - 10 * magnitude;
-  return `${SCALAR_UC[remainder] * SCALAR_AF[magnitude]}${SCALAR_ES[magnitude]}`;
+  return `${Number((SCALAR_UC[remainder] * SCALAR_AF[magnitude]).toPrecision(12))}${SCALAR_ES[magnitude]}`;
 }
 
 export function getIndex(value: FieldValue): number {

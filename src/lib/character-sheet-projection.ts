@@ -13,7 +13,11 @@ import { geographicRegionName, regionByDraft, selectedSettlementDisplayName } fr
 import {
   compressedCapabilities,
   formatLanguageRecord,
+  specializationOptionsForTrait,
+  specializationRanksForSelection,
 } from '@/lib/rules/proficiencies';
+import { calculateProperties } from '@/lib/rules/properties';
+import { displayInventoryName, magicItemInventoryForm } from '@/lib/rules/utilities';
 
 export type CharacterSheetData = {
   name: string;
@@ -36,6 +40,11 @@ export type CharacterSheetData = {
     magicItems: string;
     spells?: string;
     skills: string;
+    traits: string;
+    skillsUnresolved: boolean;
+    traitsUnresolved: boolean;
+    skillTerms: Array<{ text: string; unresolved: boolean }>;
+    traitTerms: Array<{ text: string; unresolved: boolean }>;
     languages: string;
   };
   performance: Array<{ name: string; value: number }>;
@@ -51,7 +60,12 @@ function signed(value: number) {
 }
 
 function listInventory(items: CharacterDraft['utilities']['equipment']) {
-  return items.map((item) => item.quantity > 1 ? `${item.name} ×${item.quantity}` : item.name).join('; ');
+  const grouped = new Map<string, number>();
+  for (const item of items) {
+    const name = displayInventoryName(item.name);
+    grouped.set(name, (grouped.get(name) ?? 0) + Math.max(1, item.quantity));
+  }
+  return [...grouped].map(([name, quantity]) => quantity > 1 ? `${name} ×${quantity}` : name).join('; ');
 }
 
 function selectionRecord(selection: SourcedSelection) {
@@ -61,8 +75,30 @@ function selectionRecord(selection: SourcedSelection) {
   return `${name} ${level}${specialization ? ` > ${specialization}` : ''}`;
 }
 
-function projectedSkills(draft: CharacterDraft, data: StaticData) {
-  return compressedCapabilities(draft, data).map((entry) => entry.display).join(', ');
+function projectedCapabilities(draft: CharacterDraft, data: StaticData) {
+  const capabilities = compressedCapabilities(draft, data);
+  const isTraitOrTalent = (entry: typeof capabilities[number]) => {
+    if (entry.name.replace(/^\[/, '').replace(/\s+X\]?$/, '').toLowerCase() === 'hatred') return false;
+    const definitions = entry.sources.map((source) => data.traits.find((trait) => trait.catalogId === (source.catalogId ?? source.id)
+      || trait.trait.replace(/\s+X$/, '').toLowerCase() === source.name.replace(/\s+X$/, '').toLowerCase()));
+    return definitions.some((definition) => definition && (!definition.isSkill || definition.isVirtuosity));
+  };
+  const requiresSpecialization = (entry: typeof capabilities[number]) => entry.sources.some((source) => specializationOptionsForTrait(source, draft, data).length > 0 && Object.keys(specializationRanksForSelection(source, draft, data)).length === 0);
+  const isDisability = (entry: typeof capabilities[number]) => entry.sources.some((source) => data.traits.find((trait) => trait.catalogId === (source.catalogId ?? source.id))?.isDisability);
+  const format = (entry: typeof capabilities[number]) => {
+    const disability = isDisability(entry);
+    const name = entry.name.replace(/^[§$]\s*/, '').replace(/^\[/, '').replace(/\]$/, '').replace(/\s+X$/, '');
+    const specs = Object.entries(entry.specializations).sort(([a], [b]) => a.localeCompare(b)).map(([value, rank]) => `${value}${rank > 1 ? `-${rank}` : ''}`).join(', ');
+    if (disability) return `[${name}${entry.level > 1 ? `-${entry.level}` : ''}${specs ? ` > ${specs}` : ''}]`;
+    return `${name}${entry.level > 1 ? `-${entry.level}` : ''}${specs ? ` > ${specs}` : ''}`;
+  };
+  const pidgin = capabilities.filter((entry) => entry.name.replace(/^[§$]\s*/, '').replace(/\s+X$/, '').toLowerCase() === 'pidgin');
+  const presentationSort = (left: typeof capabilities[number], right: typeof capabilities[number]) => Number(isDisability(right)) - Number(isDisability(left)) || left.name.replace(/^[§$\[]\s*/, '').localeCompare(right.name.replace(/^[§$\[]\s*/, ''), undefined, { sensitivity: 'base', numeric: true });
+  const skills = capabilities.filter((entry) => !isTraitOrTalent(entry) && !pidgin.includes(entry)).sort(presentationSort);
+  const traits = capabilities.filter(isTraitOrTalent).sort(presentationSort);
+  const skillTerms = skills.map((entry) => ({ text: format(entry), unresolved: requiresSpecialization(entry) }));
+  const traitTerms = traits.map((entry) => ({ text: format(entry), unresolved: requiresSpecialization(entry) }));
+  return { skills: skillTerms.map((entry) => entry.text).join(', '), traits: traitTerms.map((entry) => entry.text).join(', '), pidgin: pidgin.map(format).join(', '), skillsUnresolved: skillTerms.some((entry) => entry.unresolved), traitsUnresolved: traitTerms.some((entry) => entry.unresolved), skillTerms, traitTerms };
 }
 
 function heightText(inches: number | null) {
@@ -72,12 +108,13 @@ function heightText(inches: number | null) {
 }
 
 export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): CharacterSheetData {
+  const capabilities = projectedCapabilities(draft, data);
   const importedDetail = (detail: string) => draft.background.demographicSelections.find((entry) => entry.sourceDetail === detail)?.name ?? '';
   const speciesChoice = getSpeciesChoice(draft, data);
   const strifePairing = draft.intrinsics.childOfStrife ? getStrifePairing(draft) : null;
   const species = speciesChoice?.family.displayName ?? (strifePairing ? 'Humaniki' : '');
   const group = speciesChoice?.group.name ?? strifePairing?.exonym ?? '';
-  const lineage = getLineageName(draft, data) ?? (strifePairing ? [draft.intrinsics.strifeMotherLineageId, draft.intrinsics.strifeFatherLineageId].map((id) => id?.replace(/^lineage-/, '').replace(/(^|-)([a-z])/g, (_, prefix, letter) => `${prefix}${letter.toUpperCase()}`)).filter(Boolean).join(' & ') : '');
+  const lineage = getLineageName(draft, data) ?? (strifePairing ? [draft.intrinsics.strifeFatherLineageId, draft.intrinsics.strifeMotherLineageId].map((id) => id?.replace(/^lineage-/, '').replace(/(^|-)([a-z])/g, (_, prefix, letter) => `${prefix}${letter.toUpperCase()}`)).filter(Boolean).join('-') : '');
   const trade = getTradePackage(draft, data)?.trade ?? '';
   const specialization = getTradeSpecialization(draft, data)?.name ?? '';
   const regionEntry = regionByDraft(draft, data);
@@ -89,12 +126,6 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const heritage = [draft.background.environHeritageId, draft.background.societalHeritageId, draft.background.culturalHeritageId]
     .map((id) => data.heritagePackages.find((entry) => entry.id === id)?.name)
     .filter((value): value is string => Boolean(value));
-  const demographic = [
-    draft.background.sex,
-    draft.background.gender && draft.background.gender !== draft.background.sex ? draft.background.gender : null,
-    draft.background.handedness ? `${draft.background.handedness}-handed` : null,
-    draft.background.geneticallyFemale && draft.background.sex !== 'Female' ? 'Genetically Female' : null,
-  ].filter((value): value is string => Boolean(value));
   const calculated = draft.properties.calculated;
   const calculatedAliases: Record<string, string[]> = {
     Hitpoints: ['hitpoints'], Bodypoints: ['bodypoints'], Recovery: ['recoveryRate'],
@@ -105,21 +136,30 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     MaxAdvantage: ['maxAdvantage'],
   };
   const numberCalc = (key: string) => Number(calculated[key] ?? calculatedAliases[key]?.map((alias) => calculated[alias]).find((value) => value != null)) || 0;
-  const mov = numberCalc('MOV');
+  const derived = calculateProperties(draft, data);
+  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
+  const recordedAttribute = (name: string) => draft.intrinsics.attributes.find((entry) => entry.name === name)?.base;
+  const mov = (derived?.mov ?? numberCalc('MOV')) || 0;
   const siz = draft.properties.siz ?? 0;
   const zed = draft.intrinsics.zed ?? 0;
 
   const attributes = ATTRIBUTE_ORDER.map((name) => {
-    const value = name === 'MOV' ? mov : name === 'SIZ' ? siz : name === 'ZED' ? zed : (getFinalAttributeValue(name, draft) ?? 0);
+    const value = name === 'MOV' ? mov : name === 'SIZ' ? siz : name === 'ZED' ? zed
+      : (importedFinal ? recordedAttribute(name) : getFinalAttributeValue(name, draft)) ?? 0;
     return { name, value, modifier: signed(getAttributeDm(value)) };
   });
 
   const importedFeatures = draft.background.demographicSelections.filter((entry) => entry.sourceDetail === 'Notable feature').map((entry) => entry.name);
   const notableFeatures = importedFeatures.length ? importedFeatures : draft.background.disabilities.map(selectionRecord);
-  const bioParts = [...demographic];
-  if (draft.background.ageGroup) bioParts.push(draft.background.ageGroup);
-  if (draft.background.ageYears != null) bioParts.push(`age ${draft.background.ageYears}`);
-  if (draft.background.birthMonth != null) bioParts.push(`birth month ${draft.background.birthMonth}`);
+  const sex = draft.background.sex ?? draft.background.gender;
+  const age = draft.background.ageYears != null
+    ? `${draft.background.ageYears}.${draft.background.birthMonth ?? 0}`
+    : null;
+  const bio = [sex, draft.background.ageGroup && age
+    ? `${draft.background.ageGroup} age ${age}`
+    : draft.background.ageGroup ?? (age ? `age ${age}` : null)]
+    .filter(Boolean)
+    .join(' > ');
 
   return {
     name: draft.utilities.name,
@@ -128,7 +168,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     details: {
       environ: heritage.join(' > '),
       species: [species, group, lineage].filter(Boolean).join(' > '),
-      bio: bioParts.join(' > '),
+      bio,
       physique: [heightText(draft.properties.heightInches), draft.properties.weightPounds != null ? `${draft.properties.weightPounds}-pounds` : ''].filter(Boolean).join(' and '),
     },
     pml: draft.proficiencies.pml ?? 0,
@@ -147,10 +187,18 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
       equipment: listInventory(draft.utilities.equipment),
       weapons: listInventory(draft.utilities.weapons),
       armor: listInventory(draft.utilities.armor),
-      magicItems: draft.utilities.magicItems.map((entry) => `${entry.name}${entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`).join(', '),
+      magicItems: draft.utilities.magicItems.map((entry) => {
+        const form = magicItemInventoryForm(entry, draft, data);
+        return `${entry.name}${form ? ` [${form.displayName}, ${form.weight}#]` : entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`;
+      }).join(', '),
       spells: draft.utilities.spells.map((entry) => entry.name).join(', '),
-      skills: projectedSkills(draft, data),
-      languages: draft.proficiencies.languages.map(formatLanguageRecord).join(', '),
+      skills: capabilities.skills,
+      traits: capabilities.traits,
+      skillsUnresolved: capabilities.skillsUnresolved,
+      traitsUnresolved: capabilities.traitsUnresolved,
+      skillTerms: capabilities.skillTerms,
+      traitTerms: capabilities.traitTerms,
+      languages: [...draft.proficiencies.languages.map(formatLanguageRecord), capabilities.pidgin].filter(Boolean).join(', '),
     },
     performance: [
       { name: 'Hitpoints', value: numberCalc('Hitpoints') },
@@ -167,7 +215,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
       { name: 'Trade Rank', value: draft.intrinsics.tradeRank ?? 0 },
       { name: 'Favor Dice', value: numberCalc('FavorDice') },
       { name: 'Cellburn Limit', value: numberCalc('Cellburn') },
-      { name: 'Manapool', value: numberCalc('Manapool') },
+      { name: 'Manapool', value: derived?.manapool ?? numberCalc('Manapool') },
     ],
     combat: [
       { name: 'Actions', value: signed(numberCalc('HastyActions')) },

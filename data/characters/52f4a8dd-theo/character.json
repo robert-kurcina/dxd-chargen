@@ -99,8 +99,8 @@
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
-    "speciesId": "species-halfling",
-    "lineageId": "lineage-jamaran",
+    "speciesId": "species-klenari",
+    "lineageId": "lineage-stepmir",
     "childOfStrife": false,
     "strifeMixedLineage": false,
     "strifePairingId": null,
@@ -381,7 +381,9 @@
       "maxAdvantage": 1,
       "gold": 0,
       "xp": 0
-    }
+    },
+    "statureAdjustment": 2,
+    "buildAdjustment": -2
   },
   "utilities": {
     "spells": [],

@@ -151,7 +151,7 @@
       }
     ],
     "tradeId": "trade-ranger",
-    "specializationId": "specialization-ranger-felanin",
+    "specializationId": "specialization-ranger-wanderer",
     "tradeRank": 1,
     "affinityAttribute": "FOR",
     "zedPurchasedIncrease": 0,
@@ -328,7 +328,9 @@
       "maxAdvantage": 1,
       "gold": 35,
       "xp": 850
-    }
+    },
+    "statureAdjustment": -2,
+    "buildAdjustment": -2
   },
   "utilities": {
     "spells": [

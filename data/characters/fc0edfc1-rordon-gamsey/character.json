@@ -31,20 +31,128 @@
   ],
   "warnings": [],
   "background": {
-    "regionId": "region-argeleb-twins-balun",
-    "settlementId": "settlement-argeleb-twins-balun-castle-hol",
+    "regionId": "region-other",
+    "settlementId": "settlement-other",
     "demographicSelections": [
       {
-        "id": "import-argeleb-twins-balun",
-        "name": "Argeleb Twins > Balun",
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
         "source": "player",
-        "sourceDetail": "Imported region"
+        "sourceDetail": "Custom region"
       },
       {
-        "id": "import-castle-hol",
+        "id": "custom-settlement-castle-hol",
         "name": "Castle Hol",
         "source": "player",
-        "sourceDetail": "Imported settlement"
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
       },
       {
         "id": "import-agnostic-lekteb",
@@ -69,6 +177,18 @@
         "name": "Overweight > +1 Brawn",
         "source": "player",
         "sourceDetail": "Notable feature"
+      },
+      {
+        "id": "custom-region-argeleb-twins",
+        "name": "Argeleb Twins",
+        "source": "player",
+        "sourceDetail": "Custom region"
+      },
+      {
+        "id": "custom-settlement-castle-hol",
+        "name": "Castle Hol",
+        "source": "player",
+        "sourceDetail": "Custom settlement"
       }
     ],
     "sex": "Male",
@@ -466,8 +586,8 @@
   "properties": {
     "stature": 25,
     "build": 34,
-    "baseBuild": 34,
-    "weightAdjustment": 0,
+    "baseBuild": 28,
+    "weightAdjustment": 6,
     "heightInches": 40,
     "weightPounds": 55,
     "siz": 7,
@@ -493,7 +613,9 @@
       "maxAdvantage": 1,
       "gold": 25,
       "xp": 0
-    }
+    },
+    "statureAdjustment": 2,
+    "buildAdjustment": 2
   },
   "utilities": {
     "spells": [],

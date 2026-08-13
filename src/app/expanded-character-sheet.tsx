@@ -4,8 +4,11 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { StaticData } from '@/data';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { projectCharacterSheet, type CharacterSheetData } from '@/lib/character-sheet-projection';
+import { calculateProperties } from '@/lib/rules/properties';
+import { displayInventoryName } from '@/lib/rules/utilities';
 
-function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData) {
+function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: StaticData) {
+  const derived = calculateProperties(draft, data);
   const value = (group: Array<{ name: string; value: number | string }>, name: string) => group.find((item) => item.name === name)?.value ?? 0;
   const allInventory = [...draft.utilities.weapons, ...draft.utilities.armor, ...draft.utilities.equipment];
   // Legacy sheets have a curated back-page item table distinct from the broader
@@ -19,6 +22,11 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData) {
     Name: [sheet.name, sheet.properName ? `[${sheet.properName}]` : ''].filter(Boolean).join('\n'),
     Details: [sheet.details.environ, sheet.details.species, sheet.details.bio, sheet.details.physique].filter(Boolean).join('\n'),
     PML: sheet.pml,
+    AffinityAttribute: sheet.affinityAttribute ?? '',
+    SkillsUnresolved: sheet.history.skillsUnresolved,
+    TraitsUnresolved: sheet.history.traitsUnresolved,
+    SkillsTerms: sheet.history.skillTerms,
+    TraitsTerms: sheet.history.traitTerms,
     ...Object.fromEntries(sheet.attributes.flatMap((attribute) => [[attribute.name, attribute.value], [`${attribute.name}DM`, attribute.modifier]])),
     Profession: sheet.background.profession.join('\n'),
     Settlement: sheet.background.settlement.join('\n'),
@@ -32,9 +40,10 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData) {
       `Magic Items; ${sheet.history.magicItems}`,
       `Spells; ${sheet.history.spells ?? ''}`,
       `Skills; ${sheet.history.skills}`,
+      `Traits; ${sheet.history.traits}`,
       `Languages; ${sheet.history.languages}`,
     ].join('\n'),
-    WeaponsArmorEquipment: inventory.map((item) => item.name).join('\n\n'),
+    WeaponsArmorEquipment: inventory.map((item) => displayInventoryName(item.name)).join('\n\n'),
     WeaponsArmorEquipmentProperties: equipmentProperties.join('\n\n'),
     BackNotes: [draft.utilities.notes, draft.utilities.backstory].filter(Boolean).join('\n\n'),
     BackName: sheet.name,
@@ -59,13 +68,18 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData) {
     Profile: draft.properties.profile ?? 0,
     Stature: draft.properties.stature ?? 0,
     Build: draft.properties.build ?? 0,
+    Physicality: derived?.physicality ?? 0,
+    GaspLimit: derived ? `${derived.gaspTurnsScalar} Turns` : '',
+    SleepLimit: derived ? `${derived.sleepHoursScalar} Hours` : '',
+    ScalarAgility: derived ? Number(derived.agilityFeet.toFixed(2)) : 0,
+    ScalarMphRun: derived?.runMph ?? 0,
   };
 }
 
 export default function ExpandedCharacterSheet({ draft, data }: { draft: CharacterDraft; data: StaticData }) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const sheet = useMemo(() => projectCharacterSheet(draft, data), [draft, data]);
-  const payload = useMemo(() => sheetPayload(draft, sheet), [draft, sheet]);
+  const payload = useMemo(() => sheetPayload(draft, sheet, data), [draft, sheet, data]);
   const send = useCallback(() => iframe.current?.contentWindow?.postMessage({ type: 'dxd-character-sheet', payload }, window.location.origin), [payload]);
   useEffect(() => {
     const receive = (event: MessageEvent) => {
@@ -75,5 +89,5 @@ export default function ExpandedCharacterSheet({ draft, data }: { draft: Charact
     send();
     return () => window.removeEventListener('message', receive);
   }, [send]);
-  return <iframe ref={iframe} title="Sarna Len character sheet" src="/character-creator/index.html?embed=1" onLoad={send} sandbox="allow-scripts allow-same-origin allow-downloads" className="h-[1500px] w-full rounded-lg border bg-white" />;
+  return <iframe ref={iframe} title="Sarna Len character sheet" src="/character-creator/index.html?embed=1" onLoad={send} sandbox="allow-scripts allow-same-origin allow-downloads" className="h-[calc(100vh-7rem)] min-h-[720px] w-full rounded-lg border bg-white" />;
 }

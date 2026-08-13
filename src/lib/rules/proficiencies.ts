@@ -77,6 +77,7 @@ function traitDefinitionById(id: string | undefined, data: StaticData) {
 
 function canonicalTraitBase(value: string) {
   return value
+    .replace(/^[§$]\s*/, '')
     .replace(/^\[/, '')
     .replace(/\]$/, '')
     .split(' > ')[0]
@@ -255,12 +256,17 @@ export function updateAdditionalSkillSpecializations(draft: CharacterDraft, sele
 
 export type CompressedCapability = { name: string; level: number; isSkill: boolean; specializations: Record<string, number>; sources: SourcedSelection[]; display: string };
 export function compressedCapabilities(draft: CharacterDraft, data: StaticData): CompressedCapability[] {
-  const all = [
+  let all = [
     ...draft.proficiencies.granted,
     ...draft.proficiencies.purchased,
     ...draft.proficiencies.additionalSkills,
     ...draft.background.disabilities,
   ];
+  if (draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')) {
+    const authoritative = new Set(draft.proficiencies.purchased.map((selection) => canonicalTraitBase(selection.name)));
+    all = all.filter((selection) => selection.source !== 'rule' && selection.source !== 'trade' && selection.source !== 'heritage'
+      || !authoritative.has(canonicalTraitBase(selection.name)));
+  }
   const groups = new Map<string, CompressedCapability>();
   for (const selection of all) {
     const baseName = selection.name.split(' > ')[0].replace(/\s+X$/, '').trim();

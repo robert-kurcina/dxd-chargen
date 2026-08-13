@@ -31,8 +31,8 @@
   ],
   "warnings": [],
   "background": {
-    "regionId": "region-jorkanale-waterway-swaps",
-    "settlementId": "settlement-jorkanale-waterway-swaps-corom",
+    "regionId": "region-djorkan",
+    "settlementId": "settlement-djorkan-corom",
     "demographicSelections": [
       {
         "id": "import-jorkanale-waterway-swaps",
@@ -84,12 +84,15 @@
       {
         "id": "import-hatred",
         "name": "Hatred",
-        "source": "player"
+        "source": "player",
+        "catalogId": "trait-hatred-x-demographic"
       },
       {
         "id": "import-coward",
         "name": "Coward",
-        "source": "player"
+        "source": "player",
+        "catalogId": "trait-coward-x",
+        "level": 3
       }
     ],
     "disabilitiesReviewed": true,
@@ -284,9 +287,9 @@
     "tradeId": "trade-rogue",
     "specializationId": "specialization-rogue-assassin",
     "tradeRank": 1,
-    "affinityAttribute": null,
+    "affinityAttribute": "INT",
     "zedPurchasedIncrease": 0,
-    "zed": null,
+    "zed": 14,
     "wealthRank": -2
   },
   "proficiencies": {
@@ -824,8 +827,8 @@
   "properties": {
     "stature": 41,
     "build": 31,
-    "baseBuild": 31,
-    "weightAdjustment": 0,
+    "baseBuild": 33,
+    "weightAdjustment": -2,
     "heightInches": 58,
     "weightPounds": 45,
     "siz": 6,
@@ -842,7 +845,7 @@
       "Resilience": 11,
       "Resistance": 11,
       "FavorDice": 1,
-      "Manapool": 0,
+      "Manapool": 13,
       "Cellburn": 8,
       "MOV": 16,
       "Walk": 8,
@@ -861,8 +864,11 @@
       "MeleeAttack": 5,
       "MeleeDefend": 5,
       "RangeAttack": 3,
-      "RangeDefend": 5
-    }
+      "RangeDefend": 5,
+      "manapool": 13
+    },
+    "statureAdjustment": -2,
+    "buildAdjustment": -2
   },
   "utilities": {
     "spells": [],
@@ -944,20 +950,10 @@
         "id": "import-wardrobe",
         "name": "Wardrobe",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "catalogId": "equipment-wardrobe"
-      },
-      {
-        "id": "inventory-equipment-equipment-wardrobe",
-        "catalogId": "equipment-wardrobe",
-        "name": "Wardrobe",
-        "source": "trade",
-        "sourceDetail": "Canonical Starting Gear",
-        "quantity": 1,
-        "unitPriceGp": 10,
-        "unitWeight": 4
       },
       {
         "id": "inventory-equipment-equipment-lockpick-kit",

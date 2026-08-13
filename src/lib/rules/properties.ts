@@ -1,7 +1,7 @@
 import type { StaticData } from '@/data';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
 import { getAttributeDm } from '@/lib/character-logic';
-import { getFinalAttributeValue, getLineageName, getSpeciesChoice, getTradePackage, getTradeSpecialization, nonPlayerAdjustmentsForAttribute, selectedSettlementName } from './intrinsics';
+import { getFinalAttributeValue, getLineageName, getSpeciesChoice, getTradePackage, getTradeSpecialization, nonPlayerAdjustmentsForAttribute, strifeParents } from './intrinsics';
 import type { StepAssessment } from './background';
 
 const PROPERTY_STEPS = new Set(['properties-height-weight', 'properties-calculations']);
@@ -52,14 +52,25 @@ function normalizeName(value: string) {
 function allSelections(draft: CharacterDraft): SourcedSelection[] {
   return [
     ...draft.proficiencies.granted,
+    ...draft.proficiencies.purchased,
     ...draft.proficiencies.additionalSkills,
     ...draft.background.disabilities,
   ];
 }
 
+function propertyAttributeValue(name: string, draft: CharacterDraft) {
+  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
+  if (importedFinal) return draft.intrinsics.attributes.find((entry) => entry.name === name)?.base ?? null;
+  return getFinalAttributeValue(name, draft);
+}
+
 /** Combine duplicate trait sources as highest level +1 per duplicate, capped at 10. */
 export function effectiveTraitLevel(draft: CharacterDraft, traitName: string) {
   const key = normalizeName(traitName);
+  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')
+    ? draft.proficiencies.purchased.filter((selection) => normalizeName(selection.name) === key)
+    : [];
+  if (importedFinal.length) return Math.min(10, Math.max(...importedFinal.map((selection) => Math.max(1, selection.level ?? 1))));
   const matches = allSelections(draft).filter((selection) => normalizeName(selection.name) === key);
   if (!matches.length) return 0;
   const levels = matches.map((selection) => Math.max(1, selection.level ?? 1)).sort((a, b) => b - a);
@@ -74,34 +85,8 @@ function scaleRow(value: number, data: StaticData) {
   };
 }
 
-function selectedHeritageName(id: string | null, data: StaticData) {
-  return id ? data.heritagePackages.find((entry) => entry.id === id)?.name ?? null : null;
-}
-
-function heritageLines(draft: CharacterDraft, data: StaticData): AdjustmentLine[] {
-  const settlementName = selectedSettlementName(draft, data);
-  const economy = settlementName ? data.citystates.find((entry) => entry.name === settlementName)?.economicStatus ?? '' : '';
-  const society = selectedHeritageName(draft.background.societalHeritageId, data);
-  const environs = selectedHeritageName(draft.background.environHeritageId, data);
-  const culture = selectedHeritageName(draft.background.culturalHeritageId, data);
-  const values: Record<string, string[]> = {
-    economy: String(economy).split(',').map((value) => value.trim()).filter(Boolean),
-    society: society ? [society] : [],
-    environs: environs ? [environs] : [],
-    culture: culture ? [culture] : [],
-  };
-  const result: AdjustmentLine[] = [];
-  for (const rule of data.heritageCharacteristicAdjustments) {
-    const matches = values[rule.kind]?.filter((value) => rule.entries.includes(value)) ?? [];
-    for (const match of matches) {
-      result.push({ label: `${match} ${rule.kind}`, stature: rule.stature, build: rule.build });
-    }
-  }
-  return result;
-}
-
 export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
-  const species = getSpeciesChoice(draft, data)?.group.name ?? null;
+  const species = getSpeciesChoice(draft, data)?.group.name ?? (draft.intrinsics.childOfStrife ? strifeParents(draft)?.fatherGroup : null) ?? null;
   const lineageName = getLineageName(draft, data);
   if (!species) return null;
   const table = characteristicTable(species, data);
@@ -113,9 +98,9 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   const age = data.characteristicModifiers.find((row) => row.Group === draft.background.ageGroup);
   const trade = getTradePackage(draft, data);
   const specialization = getTradeSpecialization(draft, data);
-  const str = getFinalAttributeValue('STR', draft);
-  const ref = getFinalAttributeValue('REF', draft);
-  const fort = getFinalAttributeValue('FOR', draft);
+  const str = propertyAttributeValue('STR', draft);
+  const ref = propertyAttributeValue('REF', draft);
+  const fort = propertyAttributeValue('FOR', draft);
   if (str == null || ref == null || fort == null) return null;
 
   const lines: AdjustmentLine[] = [
@@ -124,20 +109,21 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   if (lineageName && lineage) lines.push({ label: `${lineageName} lineage`, stature: num(lineage.stature), build: num(lineage.build), bodypoints: num(lineage.bodypoints) });
   if (female) lines.push({ label: 'Genetically Female', stature: num(female.stature), build: num(female.build), bodypoints: num(female.bodypoints) });
   if (age) lines.push({ label: `${age.Group} Age Group`, stature: num(age.Stature), build: num(age.Build), bodypoints: num(age.Bodypoints) });
-  lines.push(...heritageLines(draft, data));
   if (trade) lines.push({ label: `${trade.trade} Trade`, stature: num(trade.adjustments.stature), build: num(trade.adjustments.build), bodypoints: num(trade.adjustments.bodypoints) });
   if (trade && specialization) lines.push({ label: `${trade.trade} — ${specialization.name}`, stature: num(specialization.adjustments.stature), build: num(specialization.adjustments.build), bodypoints: num(specialization.adjustments.bodypoints) });
 
   // Stature starts from Species Stature; Species Build is applied only after final Stature becomes Build's base.
+  const statureAdjustment = Math.max(-2, Math.min(2, Math.trunc(draft.properties.statureAdjustment ?? 0)));
+  const buildAdjustment = Math.max(-2, Math.min(2, Math.trunc(draft.properties.buildAdjustment ?? 0)));
   const finalStature = Math.trunc(
     num(baseline.stature)
     + num(lineage?.stature)
     + num(female?.stature)
     + num(age?.Stature)
-    + heritageLines(draft, data).reduce((sum, entry) => sum + entry.stature, 0)
     + num(trade?.adjustments.stature)
     + num(specialization?.adjustments.stature)
     + getAttributeDm(str)
+    + statureAdjustment
   );
 
   const brawn = effectiveTraitLevel(draft, 'Brawn');
@@ -147,12 +133,12 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     + num(lineage?.build)
     + num(female?.build)
     + num(age?.Build)
-    + heritageLines(draft, data).reduce((sum, entry) => sum + entry.build, 0)
     + num(trade?.adjustments.build)
     + num(specialization?.adjustments.build)
     + getAttributeDm(fort)
     - getAttributeDm(ref)
     + brawn
+    + buildAdjustment
   );
   const weightAdjustment = Math.max(-9, Math.min(9, Math.trunc(draft.properties.weightAdjustment ?? 0)));
   const build = baseBuild + weightAdjustment;
@@ -174,6 +160,8 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     baseBuild,
     build,
     weightAdjustment,
+    statureAdjustment,
+    buildAdjustment,
     height: statureScale.row.height,
     heightInches: statureScale.row.heightInches,
     weightPounds: buildScale.row.weightPounds,
@@ -204,7 +192,7 @@ function scalarNumber(index: number, data: StaticData) {
 export function calculateProperties(draft: CharacterDraft, data: StaticData) {
   const physical = physicalBreakdown(draft, data);
   if (!physical) return null;
-  const attr = (name: string) => getFinalAttributeValue(name, draft) ?? 0;
+  const attr = (name: string) => propertyAttributeValue(name, draft) ?? 0;
   const dm = (name: string) => getAttributeDm(attr(name));
   const pml = Math.max(1, draft.proficiencies.pml ?? 1);
   const allometricSpeciesBuild = (() => {
@@ -233,8 +221,13 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
   const walk = Math.trunc(physical.finalStature / 20 + 5 + adjMov / 4);
   const jog = walk + 3;
   const runBase = Math.trunc(jog + 3 + adjMov / 2);
-  const directMovAdjustment = nonPlayerAdjustmentsForAttribute('MOV', draft, data)
-    .reduce((total, adjustment) => total + adjustment.amount, 0);
+  const importedMov = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')
+    ? draft.intrinsics.attributes.find((entry) => entry.name === 'MOV')?.base
+    : null;
+  const directMovAdjustment = importedMov != null
+    ? importedMov - runBase
+    : nonPlayerAdjustmentsForAttribute('MOV', draft, data)
+      .reduce((total, adjustment) => total + adjustment.amount, 0);
   const run = runBase + directMovAdjustment + sprint;
   const mov = run;
   const movDm = getAttributeDm(mov);
@@ -265,8 +258,10 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
   const cellburn = Math.max(1, dm('PRE') + dm('KNO') + dm('POW'));
   const favorDice = Math.max(0, pml + deity);
   const maxAdvantage = Math.max(1, 1 + Math.trunc((pml - 1) / 3));
-  const gaspTurns = Math.max(0, scalarNumber(attr('FOR'), data) - 10);
-  const sleepHours = Math.max(0, scalarNumber(attr('FOR'), data) - 5);
+  const gaspTurns = attr('FOR') - 10;
+  const sleepHours = attr('FOR') - 5;
+  const gaspTurnsScalar = scalar(gaspTurns, data);
+  const sleepHoursScalar = scalar(sleepHours, data);
 
   return {
     ...physical,
@@ -278,6 +273,8 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
     physicality,
     gaspTurns,
     sleepHours,
+    gaspTurnsScalar,
+    sleepHoursScalar,
     maxAdvantage,
     endurance,
     resilience,
@@ -316,6 +313,18 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
 }
 
 export function syncProperties(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  const completedImport = draft.completedSteps.includes('properties-calculations')
+    && draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')
+    && draft.properties.stature != null
+    && draft.properties.build != null
+    && draft.properties.heightInches != null
+    && draft.properties.weightPounds != null
+    && draft.properties.siz != null
+    && Object.keys(draft.properties.calculated).length > 0;
+  // Imported sheets already contain the final, canonical physique and derived
+  // scores. Replaying newer Forge rules would double-apply parts of their legacy
+  // build (for example Brawn) and inflate SIZ/weight.
+  if (completedImport) return draft;
   const result = calculateProperties(draft, data);
   if (!result) {
     // A loaded, completed sheet may contain authoritative calculated values from
@@ -372,6 +381,17 @@ export function setWeightAdjustment(draft: CharacterDraft, value: number) {
     properties: {
       ...draft.properties,
       weightAdjustment: Math.max(-9, Math.min(9, Math.trunc(value))),
+    },
+  };
+}
+
+export function setBodyFrameAdjustment(draft: CharacterDraft, kind: 'stature' | 'build', value: number) {
+  const adjusted = Math.max(-2, Math.min(2, Math.trunc(value)));
+  return {
+    ...draft,
+    properties: {
+      ...draft.properties,
+      [kind === 'stature' ? 'statureAdjustment' : 'buildAdjustment']: adjusted,
     },
   };
 }

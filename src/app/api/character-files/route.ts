@@ -16,7 +16,7 @@ async function metadata(idName: string) {
   const draft = migrateCharacterDraft(JSON.parse(await readFile(path.join(folder, 'character.json'), 'utf8')));
   const files = await readdir(folder);
   const portrait = files.find((name) => /^portrait\.(?:png|jpe?g|webp)$/i.test(name));
-  return { idName, name: draft.utilities.name || '', speciesId: draft.intrinsics.speciesId, lineageId: draft.intrinsics.lineageId, tradeId: draft.intrinsics.tradeId, professionId: draft.intrinsics.specializationId, thumbnailUrl: portrait ? `/api/character-files/${encodeURIComponent(idName)}/image/${encodeURIComponent(portrait)}` : null, updatedAt: (await stat(path.join(folder, 'character.json'))).mtime.toISOString() };
+  return { idName, name: draft.utilities.name || '', properName: draft.utilities.properName || '', speciesId: draft.intrinsics.speciesId, lineageId: draft.intrinsics.lineageId, tradeId: draft.intrinsics.tradeId, professionId: draft.intrinsics.specializationId, childOfStrife: draft.intrinsics.childOfStrife, strifePairingId: draft.intrinsics.strifePairingId, strifeFatherLineageId: draft.intrinsics.strifeFatherLineageId, strifeMotherLineageId: draft.intrinsics.strifeMotherLineageId, thumbnailUrl: portrait ? `/api/character-files/${encodeURIComponent(idName)}/image/${encodeURIComponent(portrait)}` : null, updatedAt: (await stat(path.join(folder, 'character.json'))).mtime.toISOString() };
 }
 export async function GET() {
   await mkdir(ROOT, { recursive: true });

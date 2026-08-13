@@ -32,7 +32,12 @@ export function assessBackgroundStep(
 ): StepAssessment {
   switch (stepValue) {
     case 'background-region-settlement':
-      return draft.background.regionId && draft.background.settlementId
+      return draft.background.regionId === 'region-other'
+        ? draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Custom region' && entry.name.trim())
+          && draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Custom settlement' && entry.name.trim())
+          ? { status: 'complete', messages: [] }
+          : { status: 'incomplete', messages: ['Specify both the custom Region and Settlement.'] }
+        : draft.background.regionId && draft.background.settlementId
         ? { status: 'complete', messages: [] }
         : { status: 'incomplete', messages: ['Choose both a starting region and settlement.'] };
 

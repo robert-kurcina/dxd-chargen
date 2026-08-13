@@ -91,9 +91,9 @@
     "childOfStrife": true,
     "strifeMixedLineage": false,
     "strifePairingId": "hobit",
-    "strifeMotherFirst": false,
-    "strifeFatherLineageId": "lineage-farleen",
-    "strifeMotherLineageId": "lineage-indelan",
+    "strifeMotherFirst": true,
+    "strifeFatherLineageId": "lineage-indelan",
+    "strifeMotherLineageId": "lineage-farleen",
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
     "attributeMethod": null,
@@ -341,8 +341,8 @@
   "properties": {
     "stature": 34,
     "build": 30,
-    "baseBuild": 30,
-    "weightAdjustment": 0,
+    "baseBuild": 26,
+    "weightAdjustment": 4,
     "heightInches": 49,
     "weightPounds": 42,
     "siz": 6,
@@ -368,7 +368,9 @@
       "maxAdvantage": 1,
       "gold": 0,
       "xp": 690
-    }
+    },
+    "statureAdjustment": 2,
+    "buildAdjustment": 2
   },
   "utilities": {
     "spells": [],

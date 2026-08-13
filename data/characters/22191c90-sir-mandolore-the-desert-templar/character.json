@@ -164,13 +164,13 @@
       },
       {
         "name": "MOV",
-        "base": 13,
+        "base": 12,
         "adjustments": []
       }
     ],
     "tradeId": "trade-knight",
     "specializationId": "specialization-knight-templar",
-    "tradeRank": 1,
+    "tradeRank": 4,
     "affinityAttribute": "POW",
     "zedPurchasedIncrease": 0,
     "zed": 14,
@@ -304,10 +304,11 @@
         "level": 2
       },
       {
-        "id": "import-zedsurge",
-        "name": "Zedsurge",
+        "id": "import-v-zedsurge",
+        "name": "v-Zedsurge",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-v-zedsurge-x"
       }
     ],
     "additionalSkills": [],
@@ -366,13 +367,13 @@
   },
   "properties": {
     "stature": 52,
-    "build": 51,
-    "baseBuild": 51,
-    "weightAdjustment": 0,
+    "build": 53,
+    "baseBuild": 55,
+    "weightAdjustment": -2,
     "heightInches": 74,
     "weightPounds": 205,
     "siz": 13,
-    "profile": 51,
+    "profile": 52,
     "calculated": {
       "hitpoints": 23,
       "bodypoints": 13,
@@ -394,7 +395,9 @@
       "maxAdvantage": 1,
       "gold": 80,
       "xp": 355
-    }
+    },
+    "statureAdjustment": -2,
+    "buildAdjustment": -2
   },
   "utilities": {
     "spells": [],

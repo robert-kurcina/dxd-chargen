@@ -24,6 +24,7 @@ import {
   addInventoryItem,
   adjustedGearValues,
   clearStartingGear,
+  displayInventoryName,
   gearSizeAdjustment,
   magicItemFormOptions,
   magicItemGradeMetrics,
@@ -147,7 +148,7 @@ function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
   const lineage = getLineageName(draft, data) ?? 'selected lineage';
   const over = budget != null && totals.purchasedCostGp > budget;
   const remaining = budget == null ? null : budget - totals.purchasedCostGp;
-  const matches = (item: { name: string; notes: string[]; traits: string[] }) => !search || `${item.name} ${item.notes.join(' ')} ${item.traits.join(' ')}`.toLowerCase().includes(search);
+  const matches = (item: { name: string; notes: string[]; traits: string[] }) => !search || `${item.name} ${displayInventoryName(item.name)} ${item.notes.join(' ')} ${item.traits.join(' ')}`.toLowerCase().includes(search);
   const weaponGroup = (item: StaticData['itemWeapons'][number]) => {
     const text = `${item.name} ${item.notes.join(' ')}`.toLowerCase();
     const ranged = /ranged|bow|crossbow|sling|firearm|pistol|musket|bola|throwing|rock/.test(text);
@@ -188,7 +189,7 @@ function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
               <tbody>
                 {selected.filter((item) => item.category === selectedCategory).map((item, index) => { const catalogueItem = (item.category === 'weapons' ? data.itemWeapons : item.category === 'armor' ? data.itemArmors : data.itemEquipments).find((entry) => entry.catalogId === item.catalogId); const values = catalogueItem ? adjustedGearValues(item.category, catalogueItem, draft, data) : { priceGp: item.unitPriceGp, weight: item.unitWeight, tca: 0 }; return (
                   <tr key={`${item.category}-${item.catalogId ?? item.id ?? item.name}-${index}`} className="border-t">
-                    <td className="px-3 py-2"><div className="font-medium">{item.name}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && item.category !== 'equipment' ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : item.category}{values.tca ? ` • TCA ${values.tca > 0 ? '+' : ''}${values.tca}` : ''}</div></td>
+                    <td className="px-3 py-2"><div className="font-medium">{displayInventoryName(item.name)}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && item.category !== 'equipment' ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : item.category}{values.tca ? ` • TCA ${values.tca > 0 ? '+' : ''}${values.tca}` : ''}</div></td>
                     <td className="px-3 py-2"><div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center">{item.quantity}</span><Button size="icon" variant="ghost" onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1))}><Plus className="h-3.5 w-3.5" /></Button></div></td>
                     <td className="px-3 py-2 text-right">{formatNumberWithCommas(values.priceGp)}</td>
                     <td className="px-3 py-2 text-right">{formatNumberWithCommas(values.weight)}#</td>
@@ -224,7 +225,7 @@ function MagicItemsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'ste
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-start justify-between gap-3 rounded-lg border bg-muted/20 p-4">
-        <div className="min-w-0 flex-1"><div className="font-medium">Complete-data Magic Items only</div><p className="mt-1 text-sm text-muted-foreground">Search matches item labels only. Numeric rarity uses the canonical worth multiplier (Common ×10, Lesser ×100, and so on); combined uncommonality multiplies those values. gp is the grade-equivalent value using the canonical Common ≈100 gp baseline.</p><Input className="mt-3" readOnly aria-label="Selected Magic Items" value={[...draft.utilities.magicItems].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((item) => item.name).join(', ')} placeholder="No Magic Items selected" /><div className="mt-2 flex flex-wrap gap-2"><Badge variant="outline">{data.magicItems.length} usable • {draft.utilities.magicItems.length} selected</Badge><Badge variant="secondary">Combined rarity {totals.rarityProductLabel}</Badge><Badge variant="secondary">Total equivalent {totals.worthGp.toLocaleString()} gp</Badge></div></div>
+        <div className="min-w-0 flex-1"><div className="font-medium">Complete-data Magic Items only</div><p className="mt-1 text-sm text-muted-foreground">Search matches item labels only. Numeric rarity uses the canonical worth multiplier (Common ×10, Lesser ×100, and so on); combined uncommonality multiplies those values. gp is the grade-equivalent value using the canonical Common ≈100 gp baseline.</p><Input className="mt-3" readOnly aria-label="Selected Magic Items" value={[...draft.utilities.magicItems].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((item) => item.name).join(', ')} placeholder="No Magic Items selected" /><div className="mt-2 flex flex-wrap gap-2"><Badge variant="outline">{data.magicItems.length} usable • {draft.utilities.magicItems.length} selected</Badge><Badge variant="secondary">Combined rarity {totals.rarityProductLabel}</Badge><Badge variant="secondary">Total equivalent {totals.worthGp.toLocaleString()} gp</Badge><Badge variant="secondary">Implied weight {formatNumberWithCommas(totals.weight)}#</Badge></div></div>
         <div className="flex gap-2"><Button type="button" variant="outline" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, magicItems: [], magicItemForms: {}, magicItemsReviewed: false } }))}>Reset</Button><ReviewButton reviewed={draft.utilities.magicItemsReviewed} label="Magic Items" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, magicItemsReviewed: !current.utilities.magicItemsReviewed } }))} /></div>
       </div>
       <div className="grid gap-3 sm:grid-cols-[1fr_190px]">

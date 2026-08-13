@@ -591,6 +591,7 @@ export function wealthTitle(rank: number | null, data: StaticData) {
 }
 
 export function syncIntrinsics(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
   const existingChoice = getSpeciesChoice(draft, data);
   let next = existingChoice && draft.intrinsics.speciesFamilyId !== existingChoice.family.catalogId
     ? { ...draft, intrinsics: { ...draft.intrinsics, speciesFamilyId: existingChoice.family.catalogId } }
@@ -627,8 +628,13 @@ export function syncIntrinsics(draft: CharacterDraft, data: StaticData): Charact
     ...next,
     intrinsics: {
       ...next.intrinsics,
+      ...(importedFinal ? {
+        attributes: draft.intrinsics.attributes,
+        affinityAttribute: draft.intrinsics.affinityAttribute,
+        zed: draft.intrinsics.zed,
+      } : {}),
       tradeRank,
-      zed,
+      zed: importedFinal ? draft.intrinsics.zed : zed,
       wealthRank,
     },
   };
