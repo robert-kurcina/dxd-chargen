@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type Dispatch, type SetStateAction } from 'react';
+import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { Check, ChevronDown, ChevronUp, Minus, Plus } from 'lucide-react';
 
 import type { StaticData } from '@/data';
@@ -97,7 +97,62 @@ function formatSigned(value: number) {
   return `${value >= 0 ? '+' : ''}${value}`;
 }
 
+// Labels were recovered from the supplied pair plates and reconciled with the
+// canonical spellings in species.json. The numbered source images remain
+// untouched so updated plates can replace them without changing saved data.
+const LINEAGE_EXAMPLE_FILES: Record<string, string> = {
+  Farleen: 'ancestral.pairs-01.png',
+  Jarmaran: 'ancestral.pairs-02.png',
+  Stepmir: 'ancestral.pairs-03.png',
+  Vanyrai: 'ancestral.pairs-04.png',
+  Akrunai: 'ancestral.pairs-05.png',
+  Gemalite: 'ancestral.pairs-06.png',
+  Thanekon: 'ancestral.pairs-07.png',
+  Ferrite: 'ancestral.pairs-08.png',
+  Ankilati: 'ancestral.pairs-09.png',
+  Coromite: 'ancestral.pairs-10.png',
+  Indelan: 'ancestral.pairs-11.png',
+  Eniyaski: 'ancestral.pairs-12.png',
+  Drusian: 'ancestral.pairs-13.png',
+  Heidelan: 'ancestral.pairs-14.png',
+  Quaggik: 'ancestral.pairs-15.png',
+  Restani: 'ancestral.pairs-16.png',
+  Vasikha: 'ancestral.pairs-17.png',
+  Baminati: 'ancestral.pairs-18.png',
+  Pazkharan: 'ancestral.pairs-19.png',
+  Gilvanar: 'ancestral.pairs-20.png',
+  Dulndran: 'ancestral.pairs-21.png',
+  Eyravite: 'ancestral.pairs-22.png',
+  Quaggian: 'ancestral.pairs-23.png',
+  Restanoi: 'ancestral.pairs-24.png',
+  Exnoran: 'ancestral.pairs-25.png',
+  Huaczwyk: 'ancestral.pairs-26.png',
+  Auldfar: 'ancestral.pairs-27.png',
+  Sondgarat: 'ancestral.pairs-28.png',
+};
+
+function ExampleToggle({ checked, onCheckedChange }: { checked: boolean; onCheckedChange: (checked: boolean) => void }) {
+  return (
+    <label className="flex items-start gap-3 rounded-lg border p-3">
+      <Checkbox checked={checked} onCheckedChange={(value) => onCheckedChange(Boolean(value))} />
+      <span className="font-medium">Show Examples</span>
+    </label>
+  );
+}
+
+function PeopleExample({ src, label }: { src: string; label: string }) {
+  return (
+    <figure className="overflow-hidden rounded-lg border bg-muted/20 p-2">
+      <img src={src} alt={`${label} examples`} loading="lazy" className="h-auto max-h-[36rem] w-full object-contain" />
+      <figcaption className="px-1 pt-2 text-center text-xs text-muted-foreground">{label}</figcaption>
+    </figure>
+  );
+}
+
 function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue'>) {
+  const [showSpeciesExamples, setShowSpeciesExamples] = useState(false);
+  const [showGroupExamples, setShowGroupExamples] = useState(false);
+  const [showLineageExamples, setShowLineageExamples] = useState(false);
   const choice = getSpeciesChoice(draft, data);
   const selectedFamily = data.species.find((family) => family.catalogId === draft.intrinsics.speciesFamilyId) ?? choice?.family ?? null;
   const selectedGroup = choice?.group ?? null;
@@ -121,6 +176,12 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
     setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: true, strifePairingId: pairing.id, strifeFatherLineageId: null, strifeMotherLineageId: null, strifeAttributeRolls: rolls, strifeBonusParent: Math.random() < 0.5 ? 'father' : 'mother', speciesFamilyId: makeCatalogId('species-family', 'Humaniki'), speciesId: primary?.catalogId ?? null, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
   };
   const setParentLineage = (role: 'father' | 'mother', lineage: string) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, [role === 'father' ? 'strifeFatherLineageId' : 'strifeMotherLineageId']: makeCatalogId('lineage', lineage) } }, data));
+  const lineageNameForId = (lineageId: string | null) => lineageId
+    ? data.species.flatMap((family) => family.groups).flatMap((group) => group.lineages).find((lineage) => makeCatalogId('lineage', lineage) === lineageId) ?? null
+    : null;
+  const exampleLineages = draft.intrinsics.childOfStrife
+    ? [lineageNameForId(draft.intrinsics.strifeFatherLineageId), lineageNameForId(draft.intrinsics.strifeMotherLineageId)].filter((lineage): lineage is string => Boolean(lineage))
+    : selectedLineage ? [selectedLineage] : [];
 
   const chooseFamily = (familyId: string) => {
     const family = data.species.find((entry) => entry.catalogId === familyId);
@@ -136,17 +197,19 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
   return <div className="space-y-6">
     <section className="space-y-3">
       <div><h3 className="font-semibold">Species</h3><p className="text-xs text-muted-foreground">Canonical hierarchy: Species → Ancestral Group → Lineage. Cherigili, Kriket, and Stonefolk are visible but unavailable for character creation in this build.</p></div>
+      <ExampleToggle checked={showSpeciesExamples} onCheckedChange={setShowSpeciesExamples} />
+      {showSpeciesExamples && <PeopleExample src="/api/data-assets/peoples/humaniki-heights.png" label="Humaniki Species height examples" />}
       <div className="grid gap-2 sm:grid-cols-3">{data.species.map((family) => <button key={family.catalogId} type="button" disabled={!family.selectable} onClick={() => chooseFamily(family.catalogId)} className={cn('rounded-lg border p-3 text-left', selectedFamily?.catalogId === family.catalogId && 'border-primary bg-primary/5 ring-1 ring-primary', !family.selectable && 'cursor-not-allowed opacity-50')}><div className="font-medium">{family.displayName}</div><div className="mt-1 text-xs text-muted-foreground">{family.groups.length} Group{family.groups.length === 1 ? '' : 's'}{!family.selectable ? ' • unavailable' : ''}</div></button>)}</div>
       <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.childOfStrife} onCheckedChange={(checked) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: Boolean(checked), speciesFamilyId: checked ? makeCatalogId('species-family', 'Humaniki') : current.intrinsics.speciesFamilyId, strifeMixedLineage: checked ? current.intrinsics.strifeMixedLineage : false, strifePairingId: checked ? current.intrinsics.strifePairingId : null, strifeFatherLineageId: checked ? current.intrinsics.strifeFatherLineageId : null, strifeMotherLineageId: checked ? current.intrinsics.strifeMotherLineageId : null } }, data))} /><span><span className="block font-medium">Child of Strife</span><span className="text-xs text-muted-foreground">Use a viable mixed Humaniki parent pairing from the inter-species guidelines.</span></span></label>
       {draft.intrinsics.childOfStrife && <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.strifeMotherFirst} onCheckedChange={(checked) => setDraft((current) => ({ ...current, intrinsics: { ...current.intrinsics, strifeMotherFirst: Boolean(checked), strifeFatherLineageId: current.intrinsics.strifeMotherLineageId, strifeMotherLineageId: current.intrinsics.strifeFatherLineageId } }))} /><span><span className="block font-medium">Mother–Father</span><span className="text-xs text-muted-foreground">Reverse which ancestral group supplies the mother and father.</span></span></label>}
       {draft.intrinsics.childOfStrife && <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.strifeMixedLineage} onCheckedChange={(checked) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, strifeMixedLineage: Boolean(checked), strifePairingId: checked ? null : current.intrinsics.strifePairingId, strifeFatherLineageId: null, strifeMotherLineageId: null, speciesId: checked ? current.intrinsics.speciesId : null, lineageId: null }, background: { ...current.background, ageYears: null } }, data))} /><span><span className="block font-medium">Mixed Lineage</span><span className="text-xs text-muted-foreground">Both parents share one Ancestral Group but come from different Lineages.</span></span></label>}
     </section>
     {draft.intrinsics.childOfStrife ? <>
-      <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{draft.intrinsics.strifeMixedLineage ? selectedFamily?.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />) : STRIFE_PAIRINGS.map((pairing) => <ChoiceCard key={pairing.id} selected={strifePairing?.id === pairing.id} title={pairing.exonym} subtitle={`${pairing.meaning} • ${draft.intrinsics.strifeMotherFirst ? `${pairing.groups[0]} mother, ${pairing.groups[1]} father` : `${pairing.groups[0]} father, ${pairing.groups[1]} mother`}`} onClick={() => chooseStrifePairing(pairing.id)} />)}</div></section>
-      {parents && <section className="space-y-4"><h3 className="font-semibold">Lineage / Line</h3>{([['Father', parents.fatherGroup, draft.intrinsics.strifeFatherLineageId, draft.intrinsics.strifeMotherLineageId], ['Mother', parents.motherGroup, draft.intrinsics.strifeMotherLineageId, draft.intrinsics.strifeFatherLineageId]] as const).map(([role, groupName, selectedId, otherId]) => <div key={role} className="space-y-2"><h4 className="text-sm font-semibold">{role} — {groupName}</h4><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{groupByName(groupName)?.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); const sameLineage = draft.intrinsics.strifeMixedLineage && otherId === id; return <ChoiceCard key={`${role}-${lineage}`} selected={selectedId === id} disabled={sameLineage} title={lineage} subtitle={sameLineage ? 'Already selected for the other parent' : undefined} onClick={() => setParentLineage(role.toLowerCase() as 'father' | 'mother', lineage)} />; })}</div></div>)}</section>}
+      <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{draft.intrinsics.strifeMixedLineage ? selectedFamily?.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />) : STRIFE_PAIRINGS.map((pairing) => <ChoiceCard key={pairing.id} selected={strifePairing?.id === pairing.id} title={pairing.exonym} subtitle={`${pairing.meaning} • ${draft.intrinsics.strifeMotherFirst ? `${pairing.groups[0]} mother, ${pairing.groups[1]} father` : `${pairing.groups[0]} father, ${pairing.groups[1]} mother`}`} onClick={() => chooseStrifePairing(pairing.id)} />)}</div><ExampleToggle checked={showGroupExamples} onCheckedChange={setShowGroupExamples} />{showGroupExamples && <PeopleExample src="/api/data-assets/peoples/humaniki-heights.png" label={`${strifePairing?.exonym ?? selectedGroup?.name ?? 'Humaniki'} Ancestral Group examples (temporary)`} />}</section>
+      {parents && <section className="space-y-4"><h3 className="font-semibold">Lineage / Line</h3>{([['Father', parents.fatherGroup, draft.intrinsics.strifeFatherLineageId, draft.intrinsics.strifeMotherLineageId], ['Mother', parents.motherGroup, draft.intrinsics.strifeMotherLineageId, draft.intrinsics.strifeFatherLineageId]] as const).map(([role, groupName, selectedId, otherId]) => <div key={role} className="space-y-2"><h4 className="text-sm font-semibold">{role} — {groupName}</h4><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{groupByName(groupName)?.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); const sameLineage = draft.intrinsics.strifeMixedLineage && otherId === id; return <ChoiceCard key={`${role}-${lineage}`} selected={selectedId === id} disabled={sameLineage} title={lineage} subtitle={sameLineage ? 'Already selected for the other parent' : undefined} onClick={() => setParentLineage(role.toLowerCase() as 'father' | 'mother', lineage)} />; })}</div></div>)}<ExampleToggle checked={showLineageExamples} onCheckedChange={setShowLineageExamples} />{showLineageExamples && (exampleLineages.length ? <div className="grid gap-3 xl:grid-cols-2">{exampleLineages.map((lineage) => LINEAGE_EXAMPLE_FILES[lineage] ? <PeopleExample key={lineage} src={`/api/data-assets/peoples/${LINEAGE_EXAMPLE_FILES[lineage]}`} label={lineage} /> : null)}</div> : <p className="text-sm text-muted-foreground">Choose the Father and Mother Lineages to show their examples.</p>)}</section>}
     </> : <>
-      {selectedFamily && <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedFamily.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />)}</div></section>}
-      {selectedGroup && <section className="space-y-3"><h3 className="font-semibold">Lineage / Line</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedGroup.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); return <ChoiceCard key={id} selected={draft.intrinsics.lineageId === id} title={lineage} onClick={() => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, lineageId: id } }, data))} />; })}</div></section>}
+      {selectedFamily && <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedFamily.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />)}</div><ExampleToggle checked={showGroupExamples} onCheckedChange={setShowGroupExamples} />{showGroupExamples && <PeopleExample src="/api/data-assets/peoples/humaniki-heights.png" label={`${selectedGroup?.name ?? selectedFamily.displayName} Ancestral Group examples (temporary)`} />}</section>}
+      {selectedGroup && <section className="space-y-3"><h3 className="font-semibold">Lineage / Line</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedGroup.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); return <ChoiceCard key={id} selected={draft.intrinsics.lineageId === id} title={lineage} onClick={() => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, lineageId: id } }, data))} />; })}</div><ExampleToggle checked={showLineageExamples} onCheckedChange={setShowLineageExamples} />{showLineageExamples && (selectedLineage && LINEAGE_EXAMPLE_FILES[selectedLineage] ? <PeopleExample src={`/api/data-assets/peoples/${LINEAGE_EXAMPLE_FILES[selectedLineage]}`} label={`${selectedGroup.name}, ${selectedLineage}`} /> : <p className="text-sm text-muted-foreground">Choose a Lineage to show its examples.</p>)}</section>}
     </>}
     {selectedGroup && <div className="rounded-lg border bg-muted/20 p-4"><div><div className="font-medium">Granted Species / Group / Lineage capabilities</div><div className="text-xs text-muted-foreground">Underlining marks overlap with Granted Heritage capabilities.</div></div><div className="mt-3 text-sm leading-relaxed">{biological.length ? [...biological].sort((a,b) => a.name.localeCompare(b.name)).map((item, index) => { const overlap = heritageKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()); return <span key={`${item.id}-${index}`} className={cn(overlap && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatCapability(item)}</span>; }) : 'Choose Group and Lineage.'}</div>{speciesAdjustmentBadges.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}</div>}</div>}
   </div>;

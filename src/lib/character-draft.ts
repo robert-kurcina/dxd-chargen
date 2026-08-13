@@ -225,7 +225,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       sex: null,
       gender: null,
       geneticallyFemale: false,
-      handedness: null,
+      handedness: 'Right',
       ageGroup: null,
       ageYears: null,
       birthMonth: null,
