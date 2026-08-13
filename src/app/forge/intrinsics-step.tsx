@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, type Dispatch, type SetStateAction } from 'react';
-import { Check, ChevronDown, ChevronUp, Dices, Minus, Plus } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp, Minus, Plus } from 'lucide-react';
 
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
-import { getAgeInYears, getAttributeDm } from '@/lib/character-logic';
+import { getAttributeDm } from '@/lib/character-logic';
 import {
   ROLLED_ATTRIBUTES,
   affinityCandidates,
@@ -118,13 +118,6 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
     if (!group?.selectable) return;
     setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, speciesFamilyId: selectedFamily.catalogId, speciesId: groupId, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
   };
-  const generateExactAge = () => {
-    if (!selectedGroup || !draft.background.ageGroup || !selectedGroup.hasAgeBrackets) return;
-    const years = getAgeInYears(selectedGroup.name as keyof StaticData['ageBrackets'], draft.background.ageGroup, data.ageBrackets, data.ageGroups);
-    if (years == null) return;
-    setDraft((current) => syncIntrinsics({ ...current, background: { ...current.background, ageYears: years } }, data));
-  };
-
   return <div className="space-y-6">
     <section className="space-y-3">
       <div><h3 className="font-semibold">Species</h3><p className="text-xs text-muted-foreground">Canonical hierarchy: Species → Ancestral Group → Lineage. Cherigili, Kriket, and Stonefolk are visible but unavailable for character creation in this build.</p></div>
@@ -132,7 +125,7 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
     </section>
     {selectedFamily && <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedFamily.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />)}</div></section>}
     {selectedGroup && <section className="space-y-3"><h3 className="font-semibold">Lineage / Line</h3>{!selectedGroup.selectable && <p className="text-xs text-muted-foreground">{selectedGroup.name} is shown for reference only; its Lines cannot be selected for a player character.</p>}<div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedGroup.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); return <ChoiceCard key={id} selected={draft.intrinsics.lineageId === id} title={lineage} disabled={!selectedGroup.selectable} onClick={() => { if (!selectedGroup.selectable) return; setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, lineageId: id } }, data)); }} />; })}</div></section>}
-    {selectedGroup && <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div className="flex flex-wrap items-center justify-between gap-2"><div><div className="font-medium">Granted Species / Group / Lineage capabilities</div><div className="text-xs text-muted-foreground">Underlining marks overlap with Granted Heritage capabilities.</div></div>{draft.background.ageGroup && <Button type="button" size="sm" variant="outline" disabled={!selectedGroup.selectable || !selectedGroup.hasAgeBrackets} onClick={generateExactAge}><Dices className="h-4 w-4" /> Generate age</Button>}</div><div className="mt-3 text-sm leading-relaxed">{biological.length ? [...biological].sort((a,b) => a.name.localeCompare(b.name)).map((item, index) => { const overlap = heritageKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()); return <span key={item.id} className={cn(overlap && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatCapability(item)}</span>; }) : 'Choose Group and Lineage.'}</div>{speciesAdjustmentBadges.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}</div>}</div>}
+    {selectedGroup && <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div><div className="font-medium">Granted Species / Group / Lineage capabilities</div><div className="text-xs text-muted-foreground">Underlining marks overlap with Granted Heritage capabilities.</div></div><div className="mt-3 text-sm leading-relaxed">{biological.length ? [...biological].sort((a,b) => a.name.localeCompare(b.name)).map((item, index) => { const overlap = heritageKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()); return <span key={item.id} className={cn(overlap && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatCapability(item)}</span>; }) : 'Choose Group and Lineage.'}</div>{speciesAdjustmentBadges.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}</div>}</div>}
   </div>;
 }
 
@@ -277,9 +270,6 @@ function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'st
         <ChoiceCard selected={method === 'point-buy'} title="Point Buy" subtitle="Spend up to 75 points; player-character rolls stay from 6 through 12." onClick={pointBuy} />
       </div>
 
-      {method === 'roll' && (
-        <div className="flex justify-end"><Button type="button" variant="outline" onClick={rollAll}><Dices className="h-4 w-4" /> Reroll all nine</Button></div>
-      )}
       {method === 'array' && (
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-medium">Array:</span>

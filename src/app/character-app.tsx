@@ -115,10 +115,10 @@ export default function CharacterApp({
   const selectCharacter = (id: string) => setLibrary((current) => ({ ...current, activeId: id }));
 
   return (
-    <main className="flex h-screen flex-col p-4 md:p-8">
-      <Tabs value={tab} onValueChange={setTab} className="flex min-h-0 w-full flex-1 flex-col">
-        <div className="shrink-0">
-          <div className="sticky top-0 z-30 bg-white py-2 print:hidden">
+    <main className="min-h-screen p-4 md:p-8">
+      <Tabs value={tab} onValueChange={setTab} className="w-full">
+        <div className="sticky top-0 z-50 bg-white py-2 print:hidden">
+          <div>
             <TabsList className="mx-auto grid w-full max-w-[1080px] grid-cols-6">
               <TabsTrigger value="forge">Forge</TabsTrigger>
               <TabsTrigger value="sheet">Sheet</TabsTrigger>
@@ -129,11 +129,11 @@ export default function CharacterApp({
             </TabsList>
           </div>
         </div>
-        <div className="grid min-h-0 flex-1 [grid-template-areas:stack] pt-2">
-          <TabsContent value="forge" className="[grid-area:stack] overflow-y-auto">
+        <div className="pt-2">
+          <TabsContent value="forge">
             <Worksheet data={data} draft={draft} setDraft={setDraft} />
           </TabsContent>
-          <TabsContent value="sheet" className="[grid-area:stack] overflow-y-auto print:overflow-visible">
+          <TabsContent value="sheet">
             <div className="mx-auto mb-3 flex w-full max-w-[960px] flex-col gap-2 rounded-lg border bg-card p-3 sm:flex-row sm:items-center sm:justify-between print:hidden">
               <div className="flex flex-wrap items-center gap-2 text-sm">
                 <span className="font-medium">Finished CRS projection</span>
@@ -144,7 +144,7 @@ export default function CharacterApp({
             </div>
             <CharacterSheet characterData={sheet} />
           </TabsContent>
-          <TabsContent value="library" className="[grid-area:stack] overflow-y-auto">
+          <TabsContent value="library">
             <CharacterLibraryPanel
               data={data}
               library={library}
@@ -163,13 +163,13 @@ export default function CharacterApp({
               onOpenSheet={() => setTab('sheet')}
             />
           </TabsContent>
-          <TabsContent value="sample" className="[grid-area:stack] overflow-y-auto">
+          <TabsContent value="sample">
             <CharacterSheet characterData={sampleData} />
           </TabsContent>
-          <TabsContent value="tests" className="[grid-area:stack] overflow-y-auto">
+          <TabsContent value="tests">
             <Tests data={data} />
           </TabsContent>
-          <TabsContent value="info" className="[grid-area:stack] overflow-y-auto">
+          <TabsContent value="info">
             <Info data={data} />
           </TabsContent>
         </div>

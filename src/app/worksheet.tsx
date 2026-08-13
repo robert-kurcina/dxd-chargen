@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
+import { Fragment, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import {
   AlertTriangle,
   Check,
@@ -212,8 +212,8 @@ export default function Worksheet({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1440px] space-y-4 pb-8">
-      <div className="sticky top-0 z-40 flex flex-col gap-3 rounded-lg border bg-card/95 p-4 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between">
+    <div className={cn('mx-auto w-full space-y-4 pb-8', panelExpanded ? 'max-w-none' : 'max-w-[1440px]')}>
+      <div className="sticky top-14 z-40 flex flex-col gap-3 rounded-lg border bg-card/95 p-4 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-semibold">Sarna Len Character Forge</h1>
@@ -238,8 +238,8 @@ export default function Worksheet({
         </div>
       </div>
 
-      <div className={cn('grid gap-4', panelExpanded ? 'lg:grid-cols-[280px_minmax(0,1fr)_520px]' : 'lg:grid-cols-[280px_minmax(0,1fr)_300px]')}>
-        <Card className="h-fit lg:sticky lg:top-24">
+      <div className={cn('grid gap-4', panelExpanded ? 'grid-cols-1' : 'lg:grid-cols-[280px_minmax(0,1fr)_300px]')}>
+        <Card className={cn('h-fit lg:sticky lg:top-44', panelExpanded && 'hidden')}>
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Creation</CardTitle>
             <CardDescription>
@@ -282,7 +282,7 @@ export default function Worksheet({
           </CardContent>
         </Card>
 
-        <Card className="min-h-[560px]">
+        <Card className={cn('min-h-[560px]', panelExpanded && 'hidden')}>
           <CardHeader>
             <div className="mb-2 flex flex-wrap items-center gap-2">
               <Badge variant="secondary">{activeStep.phaseTitle}</Badge>
@@ -425,13 +425,13 @@ export default function Worksheet({
           </CardContent>
         </Card>
 
-        <Card className="h-fit lg:sticky lg:top-24">
+        <Card className={cn('h-fit w-full', !panelExpanded && 'lg:sticky lg:top-44')}>
           <CardHeader className="pb-3"><div className="flex items-center justify-between"><div><CardTitle className="text-base">Character</CardTitle><CardDescription>Live compressed draft summary</CardDescription></div><Button type="button" size="icon" variant="ghost" onClick={() => setPanelExpanded((value) => !value)} aria-label={panelExpanded ? 'Minimize character panel' : 'Maximize character panel'}>{panelExpanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}</Button></div></CardHeader>
-          <CardContent className="space-y-3 text-sm">
+          <CardContent className={cn('text-sm', panelExpanded ? 'grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3' : 'space-y-3')}>
             <PersistentAccordionSection id="character-identity" title="Identity"><div className="font-medium">{panelDraft.utilities.name || 'Unnamed character'}</div><dl className="mt-3 grid grid-cols-[110px_1fr] gap-x-3 gap-y-2"><dt className="text-muted-foreground">Region</dt><dd>{data.empires.find((item) => item.catalogId === panelDraft.background.regionId)?.name ?? '—'}</dd><dt className="text-muted-foreground">Heritage</dt><dd className="text-left">{[panelDraft.background.culturalHeritageId,panelDraft.background.environHeritageId,panelDraft.background.societalHeritageId].map((id) => data.heritagePackages.find((pkg) => pkg.id === id)?.name).filter(Boolean).join(' / ') || '—'}</dd><dt className="text-muted-foreground">Species</dt><dd>{speciesChoice?.family.displayName ?? '—'}</dd><dt className="text-muted-foreground">Group</dt><dd>{speciesChoice?.group.name ?? '—'}</dd><dt className="text-muted-foreground">Lineage</dt><dd>{getLineageName(panelDraft,data) ?? '—'}</dd><dt className="text-muted-foreground">Age Group</dt><dd>{panelDraft.background.ageGroup ?? '—'}{panelDraft.background.ageYears != null ? ` • ${panelDraft.background.ageYears}` : ''}</dd><dt className="text-muted-foreground">Belief</dt><dd>{beliefDisplay}</dd><dt className="text-muted-foreground">Trade</dt><dd>{getTradePackage(panelDraft,data)?.trade ?? '—'}{getTradeSpecialization(panelDraft,data) ? ` > ${getTradeSpecialization(panelDraft,data)?.name}` : ''}</dd></dl></PersistentAccordionSection>
             <PersistentAccordionSection id="character-attributes" title="Attributes"><div className="space-y-3"><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Combat</div><div className="grid grid-cols-3 gap-2">{['CCA','RCA','REF'].map((name) => <div key={name} className="rounded border p-2 text-center"><div className="text-xs text-muted-foreground">{name}</div><div className="font-semibold">{getFinalAttributeValue(name,panelDraft) ?? '—'}</div></div>)}</div></div><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Psychological</div><div className="grid grid-cols-4 gap-2">{['INT','KNO','PRE','POW'].map((name) => <div key={name} className="rounded border p-2 text-center"><div className="text-xs text-muted-foreground">{name}</div><div className="font-semibold">{getFinalAttributeValue(name,panelDraft) ?? '—'}</div></div>)}</div></div><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Physical</div><div className="grid grid-cols-3 gap-2">{[['STR',getFinalAttributeValue('STR',panelDraft)],['FOR',getFinalAttributeValue('FOR',panelDraft)],['MOV',calc('MOV')]].map(([name,value]) => <div key={String(name)} className="rounded border p-2 text-center"><div className="text-xs text-muted-foreground">{name}</div><div className="font-semibold">{value ?? '—'}</div></div>)}</div></div><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Magic</div><div className="w-24 rounded border p-2 text-center"><div className="text-xs text-muted-foreground">ZED</div><div className="font-semibold">{panelDraft.intrinsics.zed ?? '—'}</div></div></div></div></PersistentAccordionSection>
-            <PersistentAccordionSection id="character-calculated" title="Calculated Scores"><dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">{[['Stature',panelDraft.properties.stature],['Build',panelDraft.properties.build],['Profile',panelDraft.properties.profile],['Hitpoints',calc('Hitpoints')],['Bodypoints',calc('Bodypoints')],['Resilience',calc('Resilience')],['Resistance',calc('Resistance')],['Endurance',calc('Endurance')],['Recovery Rate',calc('Recovery')]].map(([name,value]) => <><dt key={`${name}-dt`} className="text-muted-foreground">{name}</dt><dd key={`${name}-dd`}>{value ?? '—'}</dd></>)}</dl></PersistentAccordionSection>
-            <PersistentAccordionSection id="character-misc" title="Miscellaneous"><dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">{[['Wealth Rank',panelDraft.intrinsics.wealthRank],['Social Rank',panelDraft.background.socialRank],['Trade Rank',panelDraft.intrinsics.tradeRank],['Favor Dice',calc('FavorDice')],['Cellburn Limit',calc('Cellburn')],['Manapool',calc('Manapool')]].map(([name,value]) => <><dt key={`${name}-dt`} className="text-muted-foreground">{name}</dt><dd key={`${name}-dd`}>{value ?? '—'}</dd></>)}</dl></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-calculated" title="Calculated Scores"><dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">{[['Stature',panelDraft.properties.stature],['Build',panelDraft.properties.build],['Profile',panelDraft.properties.profile],['Hitpoints',calc('Hitpoints')],['Bodypoints',calc('Bodypoints')],['Resilience',calc('Resilience')],['Resistance',calc('Resistance')],['Endurance',calc('Endurance')],['Recovery Rate',calc('Recovery')]].map(([name,value]) => <Fragment key={String(name)}><dt className="text-muted-foreground">{name}</dt><dd>{value ?? '—'}</dd></Fragment>)}</dl></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-misc" title="Miscellaneous"><dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">{[['Wealth Rank',panelDraft.intrinsics.wealthRank],['Social Rank',panelDraft.background.socialRank],['Trade Rank',panelDraft.intrinsics.tradeRank],['Favor Dice',calc('FavorDice')],['Cellburn Limit',calc('Cellburn')],['Manapool',calc('Manapool')]].map(([name,value]) => <Fragment key={String(name)}><dt className="text-muted-foreground">{name}</dt><dd>{value ?? '—'}</dd></Fragment>)}</dl></PersistentAccordionSection>
             <PersistentAccordionSection id="character-skills" title={`Skills (${compressedSkills.length})`} defaultOpen={false}><div className="space-y-1 text-xs">{compressedSkills.length ? compressedSkills.map((item) => <div key={item.name}>{item.display}</div>) : '—'}</div></PersistentAccordionSection>
             <PersistentAccordionSection id="character-traits" title={`Traits (${compressedTraits.length})`} defaultOpen={false}><div className="space-y-1 text-xs">{compressedTraits.length ? compressedTraits.map((item) => <div key={item.name}>{item.display}</div>) : '—'}</div></PersistentAccordionSection>
             <PersistentAccordionSection id="character-status" title={`Status ${unresolvedSteps.length ? `(!) ${unresolvedSteps.length}` : '✓'}`} defaultOpen={false}><div className="space-y-2">{unresolvedSteps.length ? unresolvedSteps.map(({step,assessment}) => <button type="button" key={step.value} onClick={() => setActiveStepValue(step.value)} className="block w-full rounded border p-2 text-left text-xs"><span className="font-semibold">(!) {step.title}</span><span className="ml-2 text-muted-foreground">{assessment.status}</span></button>) : <div className="text-xs text-muted-foreground">All configured steps are complete.</div>}</div></PersistentAccordionSection>

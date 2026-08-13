@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
-import { Check, Minus, Plus, Search, Trash2, WandSparkles } from 'lucide-react';
+import { Check, Minus, Plus, Search, Trash2 } from 'lucide-react';
 
 import type { StaticData } from '@/data';
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,6 @@ import { effectiveTraitLevel } from '@/lib/rules/properties';
 import { getTradePackage, getTradeSpecialization } from '@/lib/rules/intrinsics';
 import {
   addInventoryItem,
-  generateCharacterName,
   magicItemFormOptions,
   magicItemGradeMetrics,
   magicItemTotals,
@@ -238,20 +237,6 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
   const languageId = draft.utilities.nameLanguageId ?? suggested ?? '';
   const language = data.languages.find((entry) => entry.id === languageId);
   const generator = data.nameGenerators.find((entry) => entry.languageId === languageId);
-  const generate = () => {
-    if (!languageId) return;
-    const name = generateCharacterName(languageId, draft.utilities.nameStyle, data);
-    if (!name) return;
-    setDraft((current) => ({
-      ...current,
-      utilities: {
-        ...current.utilities,
-        nameLanguageId: languageId,
-        properName: name,
-        name: current.utilities.name.trim() || name,
-      },
-    }));
-  };
   return (
     <div className="space-y-6">
       <section className="grid gap-4 lg:grid-cols-2">
@@ -260,7 +245,7 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
       </section>
       <section className="space-y-3 rounded-lg border p-4">
         <div><h3 className="font-semibold">Conlang name generator</h3><p className="mt-1 text-xs text-muted-foreground">Uses the existing D66 generator tables incorporated from the conlang source. The generated result is editable; the generator does not replace player choice.</p></div>
-        <div className="grid gap-3 md:grid-cols-[1fr_180px_auto]">
+        <div className="grid gap-3 md:grid-cols-[1fr_180px]">
           <Select value={languageId} onValueChange={(value) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, nameLanguageId: value } }))}>
             <SelectTrigger><SelectValue placeholder="Choose naming language" /></SelectTrigger>
             <SelectContent>{data.languages.filter((entry) => data.nameGenerators.some((generatorEntry) => generatorEntry.languageId === entry.id)).map((entry) => <SelectItem key={entry.id} value={entry.id}>{entry.name}</SelectItem>)}</SelectContent>
@@ -269,7 +254,6 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent><SelectItem value="any">Any personal ending</SelectItem><SelectItem value="masculine">Masculine ending</SelectItem><SelectItem value="feminine">Feminine ending</SelectItem></SelectContent>
           </Select>
-          <Button type="button" onClick={generate} disabled={!generator}><WandSparkles className="h-4 w-4" />Generate</Button>
         </div>
         <div className="flex flex-wrap gap-2 text-xs"><Badge variant="outline">{language?.name ?? 'No language'}</Badge>{language?.locus && <Badge variant="outline">{language.locus}</Badge>}{languageId === suggested && <Badge variant="secondary">Suggested from known language</Badge>}{generator && <Badge variant="outline">{generator.source}</Badge>}</div>
       </section>
