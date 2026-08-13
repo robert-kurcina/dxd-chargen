@@ -163,7 +163,7 @@ export default function CharacterLibraryPanel({
           </thead>
           <tbody>
             {visibleRows.map(({ entry, identity: identityValue, profession: professionValue }) => <tr key={entry.idName} className="border-t hover:bg-muted/30">
-              <td className="p-2"><img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/portrait-placeholder.png'} alt="" className="h-16 w-20 rounded border object-cover" /></td>
+              <td className="p-2"><img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-16 w-20 rounded border object-cover" /></td>
               <td className="p-3 font-medium"><span className="block">{entry.name || '—'}</span>{entry.properName && entry.properName !== entry.name && <span className="block text-xs font-normal text-muted-foreground">{entry.properName}</span>}</td>
               <td className="p-3">{identityValue}</td>
               <td className="p-3">{professionValue}</td>

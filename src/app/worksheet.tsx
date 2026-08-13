@@ -977,7 +977,7 @@ export default function Worksheet({
           <CardHeader className="pb-3">
             <div className="flex items-start gap-3">
               <img
-                src={panelDraft.utilities.portraitDataUrl || "/portrait-placeholder.png"}
+                src={panelDraft.utilities.portraitDataUrl || "/character-creator/img/portrait-placeholder.png"}
                 alt={panelDraft.utilities.portraitDataUrl ? "Character portrait" : "Default character portrait"}
                 className="aspect-[294/248] w-28 rounded border object-cover"
               />

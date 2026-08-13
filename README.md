@@ -78,7 +78,7 @@ Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef
 
 v110 makes **Assign Starting Region & Settlement** a rules-bearing origin choice rather than a stand-alone label.
 
-- Added the detailed **Corom Region / Eastlands** locale from `META/locale.citystate-crolm.pdf`: Citystate Corom plus 25 nearby settlements, totaling **536,300** population.
+- Added the detailed **Corom Region / Eastlands** locale from `data/maps/locale.citystate-crolm.pdf`: Citystate Corom plus 25 nearby settlements, totaling **536,300** population.
 - Preserved the English settlement labels as table-play glosses while exposing working native forms such as Fanur (Slowriver), Gromor (North Hold), Joro (Jorway), and Joromor (Jorfort).
 - Records the current Marli/Heiron divine spheres and historical Crolm (Ended) context without restricting Belief & Worship.
 - **Heritage now requires a selected Starting Region & Settlement.** Environs Heritage is restricted to terrain present at the selected settlement. Culture and Society remain choices, with local recommendations highlighted rather than forced.
@@ -161,8 +161,10 @@ npm run check
 - `src/app/forge/utilities-step.tsx` — Spells, Starting Gear, Magic Items, Name, and deferred Relationships controls.
 - `src/app/worksheet.tsx` — Character Forge workflow shell and live summary.
 - `src/app/character-sheet.tsx` — presentation-oriented sheet view.
-- `META/` — canon-sync history plus LLM/development architecture and implementation instructions.
+- `META/guidance/` — canon-sync history plus LLM/development architecture and implementation instructions.
+- `META/releases/` — release notes, data-integrity records, and validation reports.
+- `data/` — filesystem character records and shared provenance/runtime assets.
 - `scripts/` — local launchers and validation/maintenance scripts.
-- `META/FINAL_PRODUCT_PLAN.md` — implementation roadmap and release definition.
+- `META/guidance/FINAL_PRODUCT_PLAN.md` — implementation roadmap and release definition.
 
 Character creation state is not flattened into the presentation-only character sheet while the user is building a character.

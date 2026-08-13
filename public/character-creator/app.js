@@ -5,7 +5,7 @@ import {
   parseHistoryNotes,
   serializeEquipmentRows,
   serializeHistoryNotes,
-} from "./script/character-sheet.js";
+} from "./character-sheet.js";
 
 (async () => {
   "use strict";
@@ -145,11 +145,7 @@ import {
 
   async function loadSession(entry) {
     if (sessions.has(entry.slug)) return sessions.get(entry.slug);
-    const response = await fetch(`data/${encodeURIComponent(entry.slug)}.json`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`Unable to load ${entry.name}: HTTP ${response.status}`);
-    const session = createSession(entry, await response.json());
-    sessions.set(entry.slug, session);
-    return session;
+    throw new Error(`Open ${entry.name} from the application Library and Sheet tabs.`);
   }
 
   function storeCurrentSession() {
@@ -358,7 +354,7 @@ import {
       if (input.readOnly || input.dataset.field === "BackName") input.value = state[input.dataset.field] ?? "";
     });
     document.querySelector("#pml-stars").replaceChildren(...Array.from({ length: state.PML }, () => {
-      const image = new Image(); image.src = "decals/decal-star.png"; return image;
+      const image = new Image(); image.src = "/api/data-assets/decals/decal-star.png"; return image;
     }));
     const affinity = document.querySelector("#affinity-decal");
     const attributeOrder = ["CCA", "RCA", "REF", "INT", "KNO", "PRE", "POW", "STR", "FOR", "MOV", "SIZ", "ZED"];
@@ -699,25 +695,7 @@ import {
   });
 
   document.querySelector("#save").addEventListener("click", async () => {
-    try {
-      const payload = buildSavePayload();
-      const response = await fetch(`/api/characters/${encodeURIComponent(currentSlug)}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!response.ok) throw new Error(await response.text());
-      characterData = payload;
-      loadedState = clone(state);
-      preEditState = undefined;
-      pendingChanges = false;
-      storeCurrentSession();
-      syncModifiedFields();
-      syncActions();
-      notify("Character saved");
-    } catch (error) {
-      notify(`Save failed: ${String(error)}`);
-    }
+    notify("Save characters from the Forge tab.");
   });
 
   document.querySelector("#revert").addEventListener("click", () => {
@@ -754,32 +732,5 @@ import {
     return;
   }
 
-  try {
-    const response = await fetch("/api/characters", { cache: "no-store" });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    characterDirectory = (await response.json()).characters;
-    if (!Array.isArray(characterDirectory) || characterDirectory.length === 0) {
-      throw new Error("No character files were found");
-    }
-
-    const selector = document.querySelector("#character-select");
-    selector.replaceChildren(...characterDirectory.map((entry) => {
-      const option = document.createElement("option");
-      option.value = entry.slug;
-      option.dataset.name = entry.name;
-      option.textContent = entry.name;
-      return option;
-    }));
-    const initialEntry = characterDirectory.find(({ slug }) => slug === "zoey") ?? characterDirectory[0];
-    useSession(await loadSession(initialEntry));
-    syncPortrait(initialEntry);
-    selector.value = initialEntry.slug;
-    selector.disabled = false;
-    renderGroups(frontGroups, "front-fields");
-    renderGroups(backGroups, "back-fields");
-    syncAllFields();
-    syncActions();
-  } catch (error) {
-    document.body.innerHTML = `<p class="load-error">Unable to load character data: ${String(error)}</p>`;
-  }
+  document.body.innerHTML = '<p class="load-error">Open a character from the application Sheet tab.</p>';
 })();

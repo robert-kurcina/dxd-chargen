@@ -3,7 +3,7 @@ import { mkdir, readFile, readdir, rename, stat, writeFile } from 'node:fs/promi
 import path from 'node:path';
 import { NextResponse } from 'next/server';
 import { migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { importCharacterCreatorData } from '@/lib/import-character-creator';
+import { normalizeCharacterLibrary } from '@/lib/import-character-creator';
 
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
@@ -20,8 +20,8 @@ async function metadata(idName: string) {
 }
 export async function GET() {
   await mkdir(ROOT, { recursive: true });
-  // Also upgrades records imported by earlier character-creator bridges.
-  await importCharacterCreatorData(ROOT);
+  // Apply safe normalization aliases to persisted character records.
+  await normalizeCharacterLibrary(ROOT);
   const entries = await readdir(ROOT, { withFileTypes: true });
   const characters = (await Promise.all(entries.filter((entry) => entry.isDirectory() && safeId(entry.name)).map(async (entry) => { try { return await metadata(entry.name); } catch { return null; } }))).filter(Boolean).sort((a, b) => a!.idName.localeCompare(b!.idName, undefined, { numeric: true, sensitivity: 'base' }));
   return NextResponse.json({ characters });

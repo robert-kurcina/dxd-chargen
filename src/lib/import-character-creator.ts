@@ -502,3 +502,17 @@ export async function importCharacterCreatorData(root: string) {
     } catch {}
   }
 }
+
+/** Normalize the filesystem library without retaining the retired legacy import bundle. */
+export async function normalizeCharacterLibrary(root: string) {
+  await mkdir(root, { recursive: true });
+  for (const folderName of await readdir(root)) {
+    const characterPath = path.join(root, folderName, 'character.json');
+    try {
+      const current = await readFile(characterPath, 'utf8');
+      const draft = JSON.parse(current) as CharacterDraft;
+      const normalized = `${JSON.stringify(normalizeImportedDraft(draft), null, 2)}\n`;
+      if (normalized !== current) await writeFile(characterPath, normalized, 'utf8');
+    } catch {}
+  }
+}
