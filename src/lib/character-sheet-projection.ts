@@ -7,8 +7,9 @@ import {
   getSpeciesChoice,
   getTradePackage,
   getTradeSpecialization,
-  selectedSettlementName,
+  getStrifePairing,
 } from '@/lib/rules/intrinsics';
+import { geographicRegionName, regionByDraft, selectedSettlementDisplayName } from '@/lib/settlement-context';
 import {
   compressedCapabilities,
   formatLanguageRecord,
@@ -71,22 +72,39 @@ function heightText(inches: number | null) {
 }
 
 export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): CharacterSheetData {
+  const importedDetail = (detail: string) => draft.background.demographicSelections.find((entry) => entry.sourceDetail === detail)?.name ?? '';
   const speciesChoice = getSpeciesChoice(draft, data);
-  const species = speciesChoice?.family.displayName ?? '';
-  const group = speciesChoice?.group.name ?? '';
-  const lineage = getLineageName(draft, data) ?? '';
+  const strifePairing = draft.intrinsics.childOfStrife ? getStrifePairing(draft) : null;
+  const species = speciesChoice?.family.displayName ?? (strifePairing ? 'Humaniki' : '');
+  const group = speciesChoice?.group.name ?? strifePairing?.exonym ?? '';
+  const lineage = getLineageName(draft, data) ?? (strifePairing ? [draft.intrinsics.strifeMotherLineageId, draft.intrinsics.strifeFatherLineageId].map((id) => id?.replace(/^lineage-/, '').replace(/(^|-)([a-z])/g, (_, prefix, letter) => `${prefix}${letter.toUpperCase()}`)).filter(Boolean).join(' & ') : '');
   const trade = getTradePackage(draft, data)?.trade ?? '';
   const specialization = getTradeSpecialization(draft, data)?.name ?? '';
-  const region = data.empires.find((entry) => entry.catalogId === draft.background.regionId)?.name ?? '';
-  const settlement = selectedSettlementName(draft, data) ?? '';
+  const regionEntry = regionByDraft(draft, data);
+  const geographicRegion = geographicRegionName(draft, data) ?? '';
+  const region = [geographicRegion, regionEntry?.name].filter(Boolean).join(' / ') || importedDetail('Imported region');
+  const settlement = selectedSettlementDisplayName(draft, data) ?? importedDetail('Imported settlement');
   const belief = data.beliefs.find((entry) => entry.catalogId === draft.background.beliefId)?.keyword ?? '';
-  const deity = data.deities.find((entry) => entry.catalogId === draft.background.deityId)?.deity ?? '';
+  const deity = data.deities.find((entry) => entry.catalogId === draft.background.deityId)?.deity ?? importedDetail('Imported religion detail');
   const heritage = [draft.background.environHeritageId, draft.background.societalHeritageId, draft.background.culturalHeritageId]
     .map((id) => data.heritagePackages.find((entry) => entry.id === id)?.name)
     .filter((value): value is string => Boolean(value));
-  const demographic = [draft.background.sex, draft.background.gender, draft.background.handedness ? `${draft.background.handedness}-handed` : null, draft.background.geneticallyFemale ? 'Genetically Female' : null].filter((value): value is string => Boolean(value));
+  const demographic = [
+    draft.background.sex,
+    draft.background.gender && draft.background.gender !== draft.background.sex ? draft.background.gender : null,
+    draft.background.handedness ? `${draft.background.handedness}-handed` : null,
+    draft.background.geneticallyFemale && draft.background.sex !== 'Female' ? 'Genetically Female' : null,
+  ].filter((value): value is string => Boolean(value));
   const calculated = draft.properties.calculated;
-  const numberCalc = (key: string) => Number(calculated[key]) || 0;
+  const calculatedAliases: Record<string, string[]> = {
+    Hitpoints: ['hitpoints'], Bodypoints: ['bodypoints'], Recovery: ['recoveryRate'],
+    Endurance: ['endurance'], Resilience: ['resilience'], Resistance: ['resistance'],
+    FavorDice: ['favorDice'], Cellburn: ['cellburnLimit'], Manapool: ['manapool'],
+    MOV: ['mov'], HastyActions: ['actions'], MeleeAttack: ['meleeAttack'],
+    MeleeDefend: ['meleeDefend'], RangeAttack: ['rangeAttack'], RangeDefend: ['rangeDefend'],
+    MaxAdvantage: ['maxAdvantage'],
+  };
+  const numberCalc = (key: string) => Number(calculated[key] ?? calculatedAliases[key]?.map((alias) => calculated[alias]).find((value) => value != null)) || 0;
   const mov = numberCalc('MOV');
   const siz = draft.properties.siz ?? 0;
   const zed = draft.intrinsics.zed ?? 0;
@@ -96,7 +114,8 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     return { name, value, modifier: signed(getAttributeDm(value)) };
   });
 
-  const notableFeatures = draft.background.disabilities.map(selectionRecord);
+  const importedFeatures = draft.background.demographicSelections.filter((entry) => entry.sourceDetail === 'Notable feature').map((entry) => entry.name);
+  const notableFeatures = importedFeatures.length ? importedFeatures : draft.background.disabilities.map(selectionRecord);
   const bioParts = [...demographic];
   if (draft.background.ageGroup) bioParts.push(draft.background.ageGroup);
   if (draft.background.ageYears != null) bioParts.push(`age ${draft.background.ageYears}`);
@@ -143,8 +162,8 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     ],
     concerns: ['Superficial', 'Injury', 'Fatigue', 'Weariness', 'Stress', 'Rads'].map((name) => ({ name, value: 0 })),
     miscellaneous: [
-      { name: 'Wealth Rank', value: draft.intrinsics.wealthRank ?? 0 },
-      { name: 'Social Rank', value: Number(draft.background.socialRank) || 0 },
+      { name: 'Wealth Rank', value: draft.intrinsics.wealthRank ?? numberCalc('wealthRank') },
+      { name: 'Social Rank', value: Number(draft.background.socialRank ?? calculated.socialRank) || 0 },
       { name: 'Trade Rank', value: draft.intrinsics.tradeRank ?? 0 },
       { name: 'Favor Dice', value: numberCalc('FavorDice') },
       { name: 'Cellburn Limit', value: numberCalc('Cellburn') },

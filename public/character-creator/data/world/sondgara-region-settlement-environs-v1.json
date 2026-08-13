@@ -1,0 +1,278 @@
+{
+  "schema": "sarna-len-region-settlement-environs-v1",
+  "version": "1.0.0",
+  "updated": "2026-08-12",
+  "currentYearCE": 286,
+  "purpose": "Character Forge selection data for Region -> Settlement -> Environ.",
+  "selectionFlow": [
+    "regionId",
+    "settlementId",
+    "environId"
+  ],
+  "selectionRules": {
+    "region": "Choose one playable Region first.",
+    "settlement": "Choose only a Settlement whose regionId matches the selected Region.",
+    "environ": "Choose only an Environ explicitly afforded by the selected Settlement.",
+    "regionChange": "Changing Region clears Settlement and Environ unless the current Settlement remains valid in the new Region, which normally cannot occur.",
+    "settlementChange": "Changing Settlement preserves Environ only when that Environ is also afforded by the new Settlement; otherwise clear Environ.",
+    "generation": "D66 Generate for Settlement draws only from the selected Region; D66 Generate for Environ draws only from the selected Settlement's afforded Environs.",
+    "regionSummary": "Region-level Environ lists are summaries for presentation and filtering. They are not directly selectable until a Settlement has been chosen."
+  },
+  "authority": {
+    "characterCreation": "book-rewrite/02_Master_Manuscript_Entries/03_Character_Creation.md",
+    "explicitSections": [
+      "Assign Starting Region & Settlement",
+      "Starting Empires",
+      "Starting Settlement",
+      "Starting Economy and Environs"
+    ],
+    "geographicEvidence": [
+      "_source-images/tupi.biomes.svg",
+      "_source-images/tupi.height.svg",
+      "_generated_map/sondgara-settlement-network-v2.json",
+      "_toponym-renaming/02_geography/"
+    ],
+    "note": "Version 1 uses explicit manuscript Environs for the normal starting Citystates. Additional settlements and Castels must be added only after geographic derivation or explicit canon support."
+  },
+  "environCatalog": [
+    {"id":"badlands","display":"Badlands"},
+    {"id":"coastal","display":"Coastal"},
+    {"id":"deserts","display":"Deserts"},
+    {"id":"forests","display":"Forests"},
+    {"id":"grassland","display":"Grassland"},
+    {"id":"hills","display":"Hills"},
+    {"id":"jungle","display":"Jungle"},
+    {"id":"marsh","display":"Marsh"},
+    {"id":"mountain","display":"Mountain"},
+    {"id":"river","display":"River"},
+    {"id":"steppe","display":"Steppe"},
+    {"id":"swamp","display":"Swamp"},
+    {"id":"woods","display":"Woods"}
+  ],
+  "regions": [
+    {
+      "id":"northlands",
+      "display":"Northlands",
+      "empire":"Boron Empire",
+      "playable":true,
+      "settlementIds":["citystate-boral"],
+      "summaryEnvirons":["badlands","steppe","hills","river"],
+      "summaryStatus":"derived-union-of-explicit-settlement-environs"
+    },
+    {
+      "id":"emerald",
+      "display":"Emerald",
+      "empire":"Palten Empire",
+      "playable":true,
+      "settlementIds":["citystate-paltesh","citystate-paelon"],
+      "summaryEnvirons":["coastal","river","forests","hills","mountain","badlands"],
+      "summaryStatus":"derived-union-of-explicit-settlement-environs"
+    },
+    {
+      "id":"highlands",
+      "display":"Highlands",
+      "empire":"Sarekun Empire",
+      "playable":true,
+      "settlementIds":["citystate-sarken","citystate-indel"],
+      "summaryEnvirons":["deserts","badlands","mountain","steppe","grassland","woods"],
+      "summaryStatus":"derived-union-of-explicit-settlement-environs"
+    },
+    {
+      "id":"southlands",
+      "display":"Southlands",
+      "empire":"Vashtur Empire",
+      "playable":true,
+      "settlementIds":["citystate-stagin","citystate-quagkh","citystate-quel"],
+      "summaryEnvirons":["coastal","woods","deserts","river","steppe","forests","marsh","swamp","jungle"],
+      "summaryStatus":"derived-union-of-explicit-settlement-environs"
+    },
+    {
+      "id":"eastlands",
+      "display":"Eastlands",
+      "empire":"Djorkan Empire",
+      "playable":true,
+      "settlementIds":["citystate-corom"],
+      "summaryEnvirons":["coastal","river","swamp","jungle"],
+      "summaryStatus":"derived-union-of-explicit-settlement-environs"
+    },
+    {
+      "id":"westlands",
+      "display":"Westlands",
+      "empire":"Western Empire",
+      "playable":true,
+      "settlementIds":["citystate-aquorica","citystate-riaton"],
+      "pendingSettlementIds":["castel-heimnor"],
+      "summaryEnvirons":["river","swamp","forests","hills","coastal"],
+      "summaryStatus":"derived-union-of-explicit-settlement-environs"
+    }
+  ],
+  "settlements": [
+    {
+      "id":"citystate-aquorica",
+      "display":"Citystate Aquorica",
+      "shortDisplay":"Aquorica",
+      "type":"citystate",
+      "regionId":"westlands",
+      "empire":"Western Empire",
+      "playable":true,
+      "economicStatus":null,
+      "environs":["river","swamp","forests","hills"],
+      "sourceEnvironLabels":["River","Swamp","Forest","Hills"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-boral",
+      "display":"Citystate Boral",
+      "shortDisplay":"Boral",
+      "type":"citystate",
+      "regionId":"northlands",
+      "empire":"Boron Empire",
+      "playable":true,
+      "economicStatus":"Impoverished",
+      "environs":["badlands","steppe","hills","river"],
+      "sourceEnvironLabels":["Badlands","Steppe","Hills","River"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-corom",
+      "display":"Citystate Corom",
+      "shortDisplay":"Corom",
+      "type":"citystate",
+      "regionId":"eastlands",
+      "empire":"Djorkan Empire",
+      "playable":true,
+      "economicStatus":"Affluent",
+      "environs":["coastal","river","swamp","jungle"],
+      "sourceEnvironLabels":["Coastal","River","Swamp","Jungle"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-indel",
+      "display":"Citystate Indel",
+      "shortDisplay":"Indel",
+      "type":"citystate",
+      "regionId":"highlands",
+      "empire":"Sarekun Empire",
+      "playable":true,
+      "economicStatus":"Impoverished",
+      "environs":["grassland","steppe","woods","mountain"],
+      "sourceEnvironLabels":["Grasslands","Steppe","Woods","Mountains"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-paelon",
+      "display":"Citystate Paelon",
+      "shortDisplay":"Paelon",
+      "type":"citystate",
+      "regionId":"emerald",
+      "empire":"Palten Empire",
+      "playable":true,
+      "economicStatus":"Rising",
+      "environs":["mountain","badlands","hills","coastal"],
+      "sourceEnvironLabels":["Mountains","Badlands","Hills","Coastal"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-paltesh",
+      "display":"Citystate Paltesh",
+      "shortDisplay":"Paltesh",
+      "type":"citystate",
+      "regionId":"emerald",
+      "empire":"Palten Empire",
+      "playable":true,
+      "economicStatus":"Impoverished",
+      "environs":["coastal","river","forests","hills"],
+      "sourceEnvironLabels":["Coastal","River","Forest","Hills"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-quagkh",
+      "display":"Citystate Quagkh",
+      "shortDisplay":"Quagkh",
+      "type":"citystate",
+      "regionId":"southlands",
+      "empire":"Vashtur Empire",
+      "playable":true,
+      "economicStatus":null,
+      "environs":["steppe","forests","marsh","river"],
+      "sourceEnvironLabels":["Steppe","Forest","Marsh","River"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-quel",
+      "display":"Citystate Quel",
+      "shortDisplay":"Quel",
+      "type":"citystate",
+      "regionId":"southlands",
+      "empire":"Vashtur Empire",
+      "playable":true,
+      "economicStatus":"Impoverished",
+      "environs":["river","swamp","jungle","marsh"],
+      "sourceEnvironLabels":["River","Swamp","Jungle","Marsh"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-riaton",
+      "display":"Citystate Riaton",
+      "shortDisplay":"Riaton",
+      "type":"citystate",
+      "regionId":"westlands",
+      "empire":"Western Empire",
+      "playable":true,
+      "economicStatus":"Affluent",
+      "environs":["river","coastal","forests","swamp"],
+      "sourceEnvironLabels":["River","Coastal","Forest","Swamp"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-sarken",
+      "display":"Citystate Sarken",
+      "shortDisplay":"Sarken",
+      "type":"citystate",
+      "regionId":"highlands",
+      "empire":"Sarekun Empire",
+      "playable":true,
+      "economicStatus":"Rising, Affluent",
+      "environs":["deserts","badlands","mountain","steppe"],
+      "sourceEnvironLabels":["Desert","Badlands","Mountains","Steppe"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"citystate-stagin",
+      "display":"Citystate Stagin",
+      "shortDisplay":"Stagin",
+      "type":"citystate",
+      "regionId":"southlands",
+      "empire":"Vashtur Empire",
+      "playable":true,
+      "economicStatus":"Impoverished",
+      "environs":["coastal","woods","deserts","river"],
+      "sourceEnvironLabels":["Coastal","Woods","Desert","River"],
+      "environsStatus":"canon-explicit"
+    },
+    {
+      "id":"castel-heimnor",
+      "display":"Castel Heimnor",
+      "shortDisplay":"Heimnor",
+      "type":"castel",
+      "regionId":"westlands",
+      "empire":"Western Empire / Many Rivers historical context",
+      "playable":false,
+      "economicStatus":null,
+      "environs":[],
+      "sourceEnvironLabels":[],
+      "environsStatus":"pending-geographic-derivation",
+      "note":"The manuscript identifies Castel Heimnor with the Western starting area and also with the secondary Many Rivers context, but does not supply an explicit Starting Economy and Environs row. Do not expose Environ choices until geographically derived and reviewed."
+    }
+  ],
+  "normalization": {
+    "Forest":"forests",
+    "Grasslands":"grassland",
+    "Mountains":"mountain",
+    "Desert":"deserts"
+  },
+  "pendingExpansion": {
+    "scope":"Add ordinary cities, towns, villages, Castels, and secondary-Empire settlements by spatially joining the resolved settlement network to TUPI biome, relief, hydrology, coast, and region evidence.",
+    "rule":"Do not infer Environs from Empire membership alone. A Settlement's own local geography controls its afforded Environs."
+  }
+}

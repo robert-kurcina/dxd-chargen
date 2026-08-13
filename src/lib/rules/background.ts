@@ -1,5 +1,6 @@
 import type { StaticData } from '@/data';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
+import { allowedEnvironNames, selectedSettlementDisplayName } from '@/lib/settlement-context';
 
 export type StepStatus = 'complete' | 'incomplete' | 'warning';
 
@@ -62,15 +63,29 @@ export function assessBackgroundStep(
       }
       return { status: 'complete', messages: [] };
 
-    case 'background-heritage':
-      return draft.background.culturalHeritageId &&
-        draft.background.environHeritageId &&
-        draft.background.societalHeritageId
-        ? { status: 'complete', messages: [] }
-        : {
-            status: 'incomplete',
-            messages: ['Choose one Culture, one Environs, and one Society Heritage package.'],
-          };
+    case 'background-heritage': {
+      if (!draft.background.regionId || !draft.background.settlementId) {
+        return {
+          status: 'incomplete',
+          messages: ['Assign Starting Region & Settlement before Heritage. Location establishes the valid Environs Heritage choices and supplies regional context.'],
+        };
+      }
+      if (!draft.background.culturalHeritageId || !draft.background.environHeritageId || !draft.background.societalHeritageId) {
+        return {
+          status: 'incomplete',
+          messages: ['Choose one Culture, one location-compatible Environs, and one Society Heritage package.'],
+        };
+      }
+      const allowed = new Set(allowedEnvironNames(draft, data));
+      const selectedEnviron = data.heritagePackages.find((pkg) => pkg.id === draft.background.environHeritageId)?.name ?? null;
+      if (allowed.size && selectedEnviron && !allowed.has(selectedEnviron)) {
+        return {
+          status: 'incomplete',
+          messages: [`${selectedEnviron} is not an Environs Heritage available from ${selectedSettlementDisplayName(draft, data) ?? 'the selected settlement'}. Choose one of: ${Array.from(allowed).join(', ')}.`],
+        };
+      }
+      return { status: 'complete', messages: [] };
+    }
 
     case 'background-social-rank':
       return draft.background.socialRankId

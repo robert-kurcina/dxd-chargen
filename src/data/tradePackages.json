@@ -1964,7 +1964,7 @@
     },
     "grants": [
       {
-        "trait": "Detect X > Type",
+        "trait": "Detect X",
         "specialization": null,
         "level": 1,
         "stars": 1

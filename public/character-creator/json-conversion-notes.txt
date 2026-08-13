@@ -1,0 +1,222 @@
+The next task is to create a shell script which decomposes the convert JSON data into greater granularity. The original JSON needs to be in a /creator/data/migrated.  The decomposed JSON needs to be in /creator/data/converted
+
+The JSON data for converted should have these mappings to the child properties, where { } create child properties with the given keys, and [] indicates an array of values. In many places, I've gathered existing properties as children under a parent such as Attributes, Performance, Concerns, Miscellaneous, and several others. 
+
+The source properties from the migrated JSON are shown here within << foo >> angle brackets. Split in order on; any new-line(s), then keyword with semicolon (as in "Allies;" or "Tragedy;" or "Equipment;" or "Armor;" or "Skills;" or "Spells;" or "Magic Items;" or "Weapons;" or "Traits;" or "Languages;"), then angle-bracket delimiter, then comma-space delimiter, and then trim whitespace. The resultant index is shown in brackets, such as how exonym is Name[0] and endonym is Name[1]. Details[0][1] is split on Details and then split on Details[0]. Additional conversion instructions will appear afterwards within /** bar **/ delimiters. Any conversion errors replace with ERROR for the property value.
+
+Skills, Traits, Languages, and Disabilities require special care. They are written as:
+
+Skill-X
+Skill X > Specialization
+Skill X > { foo, bar, .. }
+Skill X > { foo }
+Skill X > { foo-Y, bar-Z, ..}
+
+Traits are written similarly, but Disability traits wrap the name in square brackets.
+
+Trait-X
+Trait X > Specialization
+Trait X > { foo, bar, .. }
+Trait X > { foo }
+Trait X > { foo-Y, bar-Z, ..}
+
+and then also
+
+[Trait-X]
+[Trait X > Specialization]
+etcetera
+
+Languages are written similarly, but square brackets and doubel-square brackets indicate accent and incompatible biology. Languages might be prefixed with a plus-sign to indicate default language. Languages may be compound terms using a space as delimiter.
+
+Language-X
+[Language-X] //accented
+[[Language-X]] //accented and incompatible biology
++Language-X //default
++[Language-X] //accented default
++[[Language-X]] //accented default incompatible biology
++foo bar-X //where "foo bar" is the language term
+
+
+many values are calculations using inputs, and those are identified as << calculated: foo >> where "foo" is migrated property key
+
+name: {
+	exonym: << Name[0] >>
+	endonym: << Name[1] >>
+}
+details: {
+	background: {
+		formative: {
+			environ: << Details[0][0] >>
+			society: << Details[0][1] >>
+			culture: << Details[0][2] >>
+		}
+		ethnicity: {
+			region: << Settlement[0] >>
+			settlement: << Settlement[1] >>
+		}
+		religion: {
+			practice: << Religion[0] >> /** one of Atheism, Gnostic, Deist, Agnostic. Write "Theist" if Religion[0] is not one of those values **/
+			deity: {
+				name: << Religion[0] >>
+				domains: [] << Religion[1] >>
+			}
+		}
+		personalityFeatures: { /** use the Zoey information for example**/
+			personality: [] /** Personality **/
+			blemishes: [] 
+			descriptors: []
+			tragedies: [] /** split on HistoryNotes[]
+			disabilities: []
+			other: []
+		}
+		profession: { /** use the Zoey information for example**/
+			trade: << Profession[0][1] >> /** split Profession[0] on hyphen. Zoey is Rogue **/
+			profession: << Profession[0][1] >> /** split Profession[0] on hyphen. Zoey is Spy**/
+			rank: << ProfessionRank >>
+			title: << Profession[1] >> /** Zoey is Apprentice **/
+		}
+	}
+
+	genebase: { 
+		species: "Humaniki" /** default to Humaniki **/
+		group: << Details[1][0] >>
+		lineage: << Details[1][1] >>
+	}
+
+	biology: { /** use the Zoey information for example **/
+		sex: << Details[1][2] >>
+		ageGroup: << Details[2][0] >> /** Zoey is Youth **/
+		ageYearsMonth: << Details[2][1] >> /** Zoey is 10.10 **/
+		heightFeetInches: << Details[3][0] >> /** Zoey is 2'6 tall **/
+		weightPounds: << Details[3][1] >> /** Zoey is 29 **/
+		stature: << Stature >>
+		build: << Build >>
+		profile: << calculation: floor((Stature + Build)/2) >>
+		pml: 0 
+		affinity: "ZED" /** default to ZED **/
+	}
+}
+
+attributes: { 
+	cca: << CCA >>
+	rca: << RCA >> 
+	ref: << REF >>
+	int: << INT >> 
+	kno: << KNO >> 
+	pre: << PRE >>
+	pow: << POW >> 
+	str: << STR >>
+	for: << FOR >> 
+	mov: << MOV >> 
+	siz: << SIZ >>
+	zed: << ZED >>
+}
+
+historyNotes: { /** Use Zoey for example **/
+	allies: [] /** split HistoryNotes["Allies;"]. Zoey is none **/
+	equipment: [] /** split HistoryNotes["Equipment;"] **/
+	weapons: [] /** split HistoryNotes["Weapons;"] **/
+	armor: [] /** split HistoryNotes["Armor;"] **/
+	magicItems: [] /** split HistoryNotes["Magic Items;"] **/
+	skills: [] /** split HistoryNotes["Skills;"] **/
+	traits: [] /** split HistoryNotes["Traits;"] **/
+	languages: [] /** split HistoryNotes["Languages;"] **/
+	notes: << BackNotes >>
+}
+calculatedScores: {
+	performance: {
+		hitpoints: 0 
+		bodypoints: 0 
+		recoveryRate: 0 
+		endurance: 0 
+		resilience: 0 
+		resistance: 0 
+	}
+
+	misc: {
+		wealthRank: << WealthRank >>
+		socialRank: << SocialRank >>
+		professionRank: << ProfessionRank >>
+		favorDice: << FavorDice >>
+		cellburnLimit: << Cellburn >>
+		manapool: << ZED >>
+	}
+
+
+	combat: {
+		actions: 0 
+		meleeAttack: 0 
+		meleeDefend: 0 
+		rangeAttack: 0 
+		rangeDefend: 0 
+		maxAdvantage: 0 	
+	}
+
+	resources: {
+		gold: GMNotes[0] /** remove GP and trim **/
+		xp: GMNotes[1] /** remove XP and trim **/
+	}
+}
+
+concerns: { /** leave all of these empty string or 0 **/
+	superficial: 0 
+	injury: 0 
+	fatigue: 0 
+	weariness: 0 
+	stress: 0 
+	rads: 0 
+}
+
+items: { /** leave all of these empty string or 0 **/
+	itemWeapons: [
+		name: ""
+		notes: []
+		ora: 0
+		isBracket: false /** boolean false|true **/
+		acc: 0
+		impact: 0
+		damageDice: 0
+		damageOffset: 0
+		weight: 0
+		traits: []
+	]
+
+	itemArmors: [
+		name: ""
+		notes: []
+		deflectRating:
+		armorRating:
+		weight: 0
+		traits: []
+	]
+
+	itemEquipments: [
+		name: ""
+		notes: []
+		weight: 0
+		traits: []
+	]
+}
+
+calculate: { /** leave all of these empty string or 0 **/
+	carrying: { 
+		lift: 0 
+		shoulder: 0 
+		carry: 0 
+	}
+	movement: {
+		walk: 0 
+		jog: 0 
+		run: 0 
+	}
+	throwing: {
+		lob: 0 
+		pitch: 0 
+		hurl: 0 
+	}
+	jumping: {
+		upward: 0 
+		broadjump: 0 
+		downward: 0 
+	}
+}

@@ -1,0 +1,475 @@
+{
+  "name": {
+    "exonym": "Alba",
+    "endonym": "Albiyaleh"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "River",
+        "society": "Slumfolk",
+        "culture": "Fishing"
+      },
+      "ethnicity": {
+        "region": "Bendeni Realms",
+        "settlement": "Citystate Dar"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Thaktha",
+          "domains": [
+            {
+              "name": "War-7][Death-4][Anger",
+              "rank": 2,
+              "opposed": true
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Nasty Scar",
+          "Willful"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Wizard",
+        "profession": "Witch",
+        "rank": 1,
+        "title": "Apprentice"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Alef",
+      "lineage": "Akrunai"
+    },
+    "biology": {
+      "sex": "Female",
+      "ageGroup": "Teenager",
+      "ageYearsMonth": 16.9,
+      "heightFeetInches": "5'3\"",
+      "weightPounds": 126,
+      "stature": 46,
+      "build": 45,
+      "profile": 45,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 8,
+    "rca": 8,
+    "ref": 10,
+    "int": 12,
+    "kno": 7,
+    "pre": 6,
+    "pow": 8,
+    "str": 7,
+    "for": 12,
+    "mov": 13,
+    "siz": 11,
+    "zed": 9
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "Wardrobe"
+    ],
+    "weapons": [
+      "Claws",
+      "Rapier"
+    ],
+    "armor": [],
+    "magicItems": [
+      "Bangle of Hygiene",
+      "Magestick Wand"
+    ],
+    "skills": [
+      {
+        "name": "Barter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawn",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Connections",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Detect",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Domus",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Fisher",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Fencer",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Fishing",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Gambling",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "History",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Bendeni Realm",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Implore",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Investigate",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Lore",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Alchemy",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Lore",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Magic",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Medic",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Mob",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nightvision",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Paranoid",
+        "rank": 0,
+        "specializations": [],
+        "disability": true
+      },
+      {
+        "name": "Persuasion",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Pidgin",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Barter",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Politics",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Port Dar",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Prestidigitation",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Blacktongue",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Service",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Wizards of Pazkan",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Sophistry",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Steer",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Boat",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Strange",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Disarming",
+            "rank": 0
+          }
+        ],
+        "disability": true
+      },
+      {
+        "name": "Survival",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "River",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Swim",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tracking",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Trapmaster",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Wise",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "traits": [
+      {
+        "name": "v-Compass",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "v-Imbue",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "v-Magic",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "v-Spellshaper",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "v-Zedsurge",
+        "rank": 0,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Kadahdi Barter",
+        "rank": 2,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Magespeak",
+        "rank": 2,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Middle Kahadi",
+        "rank": 6,
+        "isDefault": true,
+        "accented": true,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": "Relationship with Garjilav as a producer of Alchemical concoctions.\n\nTragedy - Stole a Map from the Sherrif of City Teir\n\nSpells; Dispel Magic, Float, Nitcache, One Mind"
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 18,
+      "bodypoints": 11,
+      "recoveryRate": 7,
+      "endurance": 15,
+      "resilience": 8,
+      "resistance": 17
+    },
+    "misc": {
+      "wealthRank": 6,
+      "socialRank": 1,
+      "professionRank": 1,
+      "favorDice": 1,
+      "cellburnLimit": 1,
+      "manapool": 11
+    },
+    "combat": {
+      "actions": 0,
+      "meleeAttack": 1,
+      "meleeDefend": 1,
+      "rangeAttack": 1,
+      "rangeDefend": 2,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 38,
+      "xp": 0
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": 5,
+      "shoulder": 2,
+      "carry": -1
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 10,
+      "run": 13
+    },
+    "throwing": {
+      "lob": -11,
+      "pitch": -5,
+      "hurl": 1
+    },
+    "jumping": {
+      "upward": -8,
+      "broadjump": -4,
+      "downward": 1
+    }
+  }
+}

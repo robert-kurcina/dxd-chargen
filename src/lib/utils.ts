@@ -6,6 +6,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/** Formats finite numeric values with en-US digit grouping (1,000; 1,000,000). */
+export function formatNumberWithCommas(
+  value: number | string,
+  options?: Intl.NumberFormatOptions,
+): string {
+  const numeric = typeof value === 'string'
+    ? Number(value.replace(/,/g, '').trim())
+    : value;
+
+  if (!Number.isFinite(numeric)) return String(value);
+  return numeric.toLocaleString('en-US', options);
+}
+
 /**
  * Finds a key in an object in a case-insensitive manner.
  * @param obj The object to search.

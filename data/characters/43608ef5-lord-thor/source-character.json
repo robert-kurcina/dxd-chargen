@@ -1,0 +1,447 @@
+{
+  "name": {
+    "exonym": "Lord Thor",
+    "endonym": "Thor Reaenim"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Landed",
+        "society": "River",
+        "culture": "Fishing"
+      },
+      "ethnicity": {
+        "region": "Southlands",
+        "settlement": "Citystate Stagin"
+      },
+      "religion": {
+        "practice": "Gnostic",
+        "deity": {
+          "name": "",
+          "domains": []
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Beautiful Voice +1 PRE/+2 if female"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [
+          "Lover banished me from Citystate Indel"
+        ],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Warrior",
+        "profession": "Rider",
+        "rank": "ERROR",
+        "title": "Recruit"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Human",
+      "lineage": "Vasikha"
+    },
+    "biology": {
+      "sex": "Male",
+      "ageGroup": "Teenager",
+      "ageYearsMonth": 18.8,
+      "heightFeetInches": "5'11\"",
+      "weightPounds": 155,
+      "stature": 51,
+      "build": 49,
+      "profile": 50,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 10,
+    "rca": 10,
+    "ref": 8,
+    "int": 11,
+    "kno": 9,
+    "pre": 13,
+    "pow": 6,
+    "str": 10,
+    "for": 10,
+    "mov": 13,
+    "siz": 12,
+    "zed": 10
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "Large sack",
+      "small purse",
+      "Small sack",
+      "Wardrobe"
+    ],
+    "weapons": [
+      "Knife",
+      "Medium Bow"
+    ],
+    "armor": [
+      "Chainmail Hauberk",
+      "Medium Shield"
+    ],
+    "magicItems": [
+      "Mask of Bardic Oration [+1 PRE, +2 vs. specific target ]"
+    ],
+    "skills": [
+      {
+        "name": "Archery",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Barter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawn",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Connections",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Coward",
+        "rank": 2,
+        "specializations": [],
+        "disability": true
+      },
+      {
+        "name": "Domus",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Fisher",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Drill",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Knives",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 4,
+        "specializations": [
+          {
+            "name": "Bows",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Fawn",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Fishing",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "History",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Implore",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Knife-fighter",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leadership",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Martialist",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Maths",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Persuade",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Pidgin",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Stask Warlang",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Primp",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Horse",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Steer",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Boat",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Sturdy",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "River",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Swim",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tactics",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Title",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Shield",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Chainmail",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Zedsurge",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Cher-gulo",
+        "rank": 2,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Common",
+        "rank": 2,
+        "isDefault": false,
+        "accented": false,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Middle Qua",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Middle Stask",
+        "rank": 4,
+        "isDefault": false,
+        "accented": false,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": ""
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 19,
+      "bodypoints": 12,
+      "recoveryRate": 4,
+      "endurance": 13,
+      "resilience": 7,
+      "resistance": 19
+    },
+    "misc": {
+      "wealthRank": 14,
+      "socialRank": 3,
+      "professionRank": "ERROR",
+      "favorDice": 1,
+      "cellburnLimit": 4,
+      "manapool": 13
+    },
+    "combat": {
+      "actions": 0,
+      "meleeAttack": 2,
+      "meleeDefend": 2,
+      "rangeAttack": 2,
+      "rangeDefend": 1,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 250,
+      "xp": 0
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": 8,
+      "shoulder": 3,
+      "carry": 0
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 10,
+      "run": 13
+    },
+    "throwing": {
+      "lob": -8,
+      "pitch": -2,
+      "hurl": 4
+    },
+    "jumping": {
+      "upward": -8,
+      "broadjump": -3,
+      "downward": 1
+    }
+  }
+}

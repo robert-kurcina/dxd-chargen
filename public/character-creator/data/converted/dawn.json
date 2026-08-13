@@ -1,0 +1,344 @@
+{
+  "name": {
+    "exonym": "Dawn the Hobit Cheetah",
+    "endonym": "Doan"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "River",
+        "society": "Slumfolk",
+        "culture": "Wilding"
+      },
+      "ethnicity": {
+        "region": "Eastlands",
+        "settlement": "Citystate Corom"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Heiron",
+          "domains": [
+            {
+              "name": "Avarice",
+              "rank": 5,
+              "opposed": true
+            },
+            {
+              "name": "Order",
+              "rank": 4,
+              "opposed": false
+            },
+            {
+              "name": "Passion",
+              "rank": 1,
+              "opposed": false
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [
+          "Father killed by a criminal"
+        ],
+        "disabilities": [
+          {
+            "name": "Talkative",
+            "rank": 0,
+            "specializations": [],
+            "disability": true
+          }
+        ],
+        "other": []
+      },
+      "profession": {
+        "trade": "Rogue",
+        "profession": "Spy",
+        "rank": 1,
+        "title": "Apprentice"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Hobit",
+      "lineage": "Indelan & Farleen"
+    },
+    "biology": {
+      "sex": "Female",
+      "ageGroup": "Early Teen",
+      "ageYearsMonth": 13.5,
+      "heightFeetInches": "4'1\"",
+      "weightPounds": 42,
+      "stature": 34,
+      "build": 30,
+      "profile": 32,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 14,
+    "rca": 13,
+    "ref": 14,
+    "int": 12,
+    "kno": 8,
+    "pre": 12,
+    "pow": 5,
+    "str": 0,
+    "for": 7,
+    "mov": 12,
+    "siz": 6,
+    "zed": 11
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "Small Bolt quiver",
+      "Small Bolts x 20",
+      "Wardrobe"
+    ],
+    "weapons": [
+      "Hand Crossbow",
+      "Shortsword"
+    ],
+    "armor": [],
+    "magicItems": [],
+    "skills": [
+      {
+        "name": "Barter",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Bite",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Claws",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Crossbow",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Dagger",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Detect",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Disguise",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Grit",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Intimidate",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leap",
+        "rank": 6,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Mob",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nightvision",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nimble",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Slippery",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sneaky",
+        "rank": 5,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sprint",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Surefooted",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Swim",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sword",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Talkative",
+        "rank": 1,
+        "specializations": [],
+        "disability": true
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 4,
+        "isDefault": true,
+        "accented": false,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Corumu Lingo",
+        "rank": 3,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Fayeed",
+        "rank": 2,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": ""
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 22,
+      "bodypoints": 6,
+      "recoveryRate": 2,
+      "endurance": 10,
+      "resilience": 6,
+      "resistance": 11
+    },
+    "misc": {
+      "wealthRank": 8,
+      "socialRank": 0,
+      "professionRank": 1,
+      "favorDice": 1,
+      "cellburnLimit": 3,
+      "manapool": 10
+    },
+    "combat": {
+      "actions": 1,
+      "meleeAttack": 4,
+      "meleeDefend": 4,
+      "rangeAttack": 3,
+      "rangeDefend": 4,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 0,
+      "xp": 690
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": -3,
+      "shoulder": -3,
+      "carry": -6
+    },
+    "movement": {
+      "walk": 6,
+      "jog": 9,
+      "run": 12
+    },
+    "throwing": {
+      "lob": -18,
+      "pitch": -12,
+      "hurl": -6
+    },
+    "jumping": {
+      "upward": -9,
+      "broadjump": -6,
+      "downward": 0
+    }
+  }
+}

@@ -18,6 +18,8 @@ const magicItems = read('magicItems.json');
 const tradePackages = read('tradePackages.json');
 const professions = read('professions.json');
 const settlements = read('settlements.json');
+const settlementProfiles = read('settlementProfiles.json');
+const localeProfiles = read('localeProfiles.json');
 const citystates = read('citystates.json');
 const physicalScale = read('physicalScale.json');
 const heritageCharacteristicAdjustments = read('heritageCharacteristicAdjustments.json');
@@ -81,6 +83,7 @@ for (const language of languages) {
 const knownSettlementNames = new Set([
   ...citystates.map((entry) => entry.name),
   ...Object.values(settlements).flat(),
+  ...settlementProfiles.map((entry) => entry.name),
 ]);
 const defaultSettlements = new Set();
 for (const mapping of languageDefaults) {
@@ -88,6 +91,38 @@ for (const mapping of languageDefaults) {
   defaultSettlements.add(mapping.settlement);
   if (!languageIds.has(mapping.languageId)) throw new Error(`Default language ${mapping.languageId} for ${mapping.settlement} is not in languages.json`);
   if (!knownSettlementNames.has(mapping.settlement)) throw new Error(`Unknown default-language settlement: ${mapping.settlement}`);
+}
+
+
+const heritageNames = new Set(heritage.map((entry) => entry.name));
+const environHeritageNames = new Set(heritage.filter((entry) => entry.kind === 'environs').map((entry) => entry.name));
+const cultureHeritageNames = new Set(heritage.filter((entry) => entry.kind === 'culture').map((entry) => entry.name));
+const societyHeritageNames = new Set(heritage.filter((entry) => entry.kind === 'society').map((entry) => entry.name));
+const deityNames = new Set(read('deities.json').map((entry) => entry.deity));
+const empireNames = new Set(read('empires.json').map((entry) => entry.name));
+const settlementProfileKeys = new Set();
+for (const profile of settlementProfiles) {
+  const key = `${profile.regionName}::${profile.name}`;
+  if (!profile.name || settlementProfileKeys.has(key)) throw new Error(`Duplicate/blank detailed settlement profile: ${key}`);
+  settlementProfileKeys.add(key);
+  if (!empireNames.has(profile.regionName)) throw new Error(`Detailed settlement ${profile.name} references unknown political region ${profile.regionName}`);
+  if (!Number.isInteger(profile.population) || profile.population < 0) throw new Error(`Detailed settlement ${profile.name} has invalid population`);
+  if (!languageIds.has(profile.defaultLanguageId)) throw new Error(`Detailed settlement ${profile.name} has unknown default language ${profile.defaultLanguageId}`);
+  for (const id of profile.heritageLanguageIds ?? []) if (!languageIds.has(id)) throw new Error(`Detailed settlement ${profile.name} has unknown Heritage language ${id}`);
+  for (const environ of profile.environs ?? []) if (!environHeritageNames.has(environ)) throw new Error(`Detailed settlement ${profile.name} has unknown Environs Heritage ${environ}`);
+  for (const culture of profile.cultureRecommendations ?? []) if (!cultureHeritageNames.has(culture)) throw new Error(`Detailed settlement ${profile.name} has unknown Culture Heritage recommendation ${culture}`);
+  for (const society of profile.societyRecommendations ?? []) if (!societyHeritageNames.has(society)) throw new Error(`Detailed settlement ${profile.name} has unknown Society Heritage recommendation ${society}`);
+  if (profile.currentDeity && !deityNames.has(profile.currentDeity)) throw new Error(`Detailed settlement ${profile.name} has unknown current deity ${profile.currentDeity}`);
+  if (!Number.isFinite(profile.originWeight) || profile.originWeight <= 0) throw new Error(`Detailed settlement ${profile.name} has invalid origin weight`);
+}
+for (const locale of localeProfiles) {
+  const localSettlements = settlementProfiles.filter((entry) => entry.localeId === locale.id);
+  const total = localSettlements.reduce((sum, entry) => sum + entry.population, 0);
+  if (total !== locale.population) throw new Error(`Locale ${locale.name} population mismatch: settlements ${total}, locale ${locale.population}`);
+  if (!empireNames.has(locale.regionName)) throw new Error(`Locale ${locale.name} references unknown political region ${locale.regionName}`);
+  if (!languageIds.has(locale.dominantLanguageId)) throw new Error(`Locale ${locale.name} has unknown dominant language ${locale.dominantLanguageId}`);
+  for (const deity of locale.currentDeitySpheres ?? []) if (!deityNames.has(deity)) throw new Error(`Locale ${locale.name} has unknown current deity ${deity}`);
+  if (locale.historicalDeity?.name && !deityNames.has(locale.historicalDeity.name)) throw new Error(`Locale ${locale.name} has unknown historical deity ${locale.historicalDeity.name}`);
 }
 
 const speciesFamilies = new Map(species.map((family) => [family.name, family]));
@@ -178,6 +213,7 @@ const completeMagicItems = magicItems.filter((item) =>
 console.log(`Validated ${jsonFiles.length} JSON files.`);
 console.log(`Heritage packages: ${heritage.length}.`);
 console.log(`Languages/name generators: ${languages.length}; structured D66 generators: ${nameGenerators.length}; explicit settlement defaults: ${languageDefaults.length}.`);
+console.log(`Detailed settlement profiles: ${settlementProfiles.length}; locale profiles: ${localeProfiles.length}.`);
 console.log(`Complete playable Trade packages: ${tradePackages.length}.`);
 console.log(`Physical scale: ${physicalScale.length} rows; Heritage body rules: ${heritageCharacteristicAdjustments.length}.`);
 console.log(`Selectable Humaniki Groups: ${selectableGroups.length} (${selectableGroups.join(', ')}); Cherigili Group plus Kriket and Stonefolk families retained but disabled.`);

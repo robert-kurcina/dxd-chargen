@@ -1,0 +1,537 @@
+{
+  "name": {
+    "exonym": "Iskender",
+    "endonym": "Istanidor"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "River",
+        "society": "Cityfolk",
+        "culture": "Fishing"
+      },
+      "ethnicity": {
+        "region": "Vasik Realm",
+        "settlement": "Citystate Khardik"
+      },
+      "religion": {
+        "practice": "Agnostic",
+        "deity": {
+          "name": "",
+          "domains": [
+            {
+              "name": "Gnorg",
+              "rank": 0,
+              "opposed": true
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Opinionated"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Warrior",
+        "profession": "Soldier",
+        "rank": 1,
+        "title": "Soldier"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Human",
+      "lineage": "Eniyaski"
+    },
+    "biology": {
+      "sex": "Male",
+      "ageGroup": "Young Adult",
+      "ageYearsMonth": 23.9,
+      "heightFeetInches": "6'4\"",
+      "weightPounds": 178,
+      "stature": 53,
+      "build": 51,
+      "profile": 52,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 13,
+    "rca": 10,
+    "ref": 12,
+    "int": 10,
+    "kno": 10,
+    "pre": 10,
+    "pow": 9,
+    "str": 9,
+    "for": 8,
+    "mov": 13,
+    "siz": 12,
+    "zed": 6
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "Boatcloak",
+      "Wardrobe"
+    ],
+    "weapons": [
+      "Broadsword",
+      "Dagger"
+    ],
+    "armor": [
+      "Boiled Leather",
+      "Half Helm & Mantle"
+    ],
+    "magicItems": [
+      "Whetcoin"
+    ],
+    "skills": [
+      {
+        "name": "Academics",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Maths",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Archery",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Barter",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawn",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Comrade",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Target",
+            "rank": 0
+          }
+        ],
+        "disability": true
+      },
+      {
+        "name": "Domus",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Fisher",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Drill",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Empathy",
+        "rank": 2,
+        "specializations": [],
+        "disability": true
+      },
+      {
+        "name": "Expert",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Daggers",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Spears",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Swords",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 5,
+        "specializations": [
+          {
+            "name": "Improvised Weapons",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Fishing",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "History",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Vasik Realm",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Knife-fighter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leadership",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Lore",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Human Cultures",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Martialist",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nimble",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Parry",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Persuade",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Pidgin",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "War Vasikha",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Politics",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Khardik",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Khardik",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Steer",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Sailboat",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Strike",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Studies",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Read",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Sturdy",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Coast",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "River",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Swim",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tactics",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Team",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Mail",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Leather",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trapmaster",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 4,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Heimneshi",
+        "rank": 2,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Khardik Barter",
+        "rank": 3,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Middle Coro",
+        "rank": 3,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Middle Khardik",
+        "rank": 5,
+        "isDefault": true,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "War Vasikha",
+        "rank": 3,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": "Allies; 5th Century, 3rd Cohort of the Pride of Khardik\n\nTragedy;  Step-brother killed in a fire at home."
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 22,
+      "bodypoints": 12,
+      "recoveryRate": 5,
+      "endurance": 11,
+      "resilience": 9,
+      "resistance": 19
+    },
+    "misc": {
+      "wealthRank": 15,
+      "socialRank": 1,
+      "professionRank": 1,
+      "favorDice": 1,
+      "cellburnLimit": 1,
+      "manapool": 9
+    },
+    "combat": {
+      "actions": 1,
+      "meleeAttack": 3,
+      "meleeDefend": 3,
+      "rangeAttack": 2,
+      "rangeDefend": 3,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 300,
+      "xp": 0
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": 7,
+      "shoulder": 3,
+      "carry": 0
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 10,
+      "run": 13
+    },
+    "throwing": {
+      "lob": -9,
+      "pitch": -3,
+      "hurl": 3
+    },
+    "jumping": {
+      "upward": -8,
+      "broadjump": -3,
+      "downward": 1
+    }
+  }
+}

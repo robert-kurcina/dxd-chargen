@@ -1,5 +1,7 @@
 import type { StaticData } from '@/data';
+import { makeCatalogId } from '@/data/catalog-policy';
 import type { CharacterDraft, InventorySelection, SourcedSelection } from '@/lib/character-draft';
+import { formatNumberWithCommas } from '@/lib/utils';
 import type { StepAssessment } from './background';
 import { effectiveTraitLevel } from './properties';
 
@@ -31,16 +33,93 @@ export function personalWealthGp(draft: CharacterDraft, data: StaticData) {
   return row ? scalarNumber(row.Scalar) : null;
 }
 
-export function startingGearTotals(draft: CharacterDraft) {
+const SIZE_ADJUSTMENTS = {
+  0: { weaponWeightIndex: -8, weaponOr: 6, weaponDamage: -6, weaponMinStr: -8, weaponTca: -16, armorWeight: -12, armorRating: -8, armorDeflect: -4, armorTca: -8 },
+  3: { weaponWeightIndex: -6, weaponOr: 4, weaponDamage: -4, weaponMinStr: -6, weaponTca: -12, armorWeight: -9, armorRating: -6, armorDeflect: -3, armorTca: -6 },
+  6: { weaponWeightIndex: -4, weaponOr: 3, weaponDamage: -3, weaponMinStr: -4, weaponTca: -8, armorWeight: -6, armorRating: -4, armorDeflect: -2, armorTca: -4 },
+  9: { weaponWeightIndex: -2, weaponOr: 2, weaponDamage: -1, weaponMinStr: -2, weaponTca: -4, armorWeight: -3, armorRating: -2, armorDeflect: -1, armorTca: -2 },
+  12: { weaponWeightIndex: 0, weaponOr: 0, weaponDamage: 0, weaponMinStr: 0, weaponTca: 0, armorWeight: 0, armorRating: 0, armorDeflect: 0, armorTca: 0 },
+  15: { weaponWeightIndex: 2, weaponOr: -2, weaponDamage: 1, weaponMinStr: 2, weaponTca: 4, armorWeight: 3, armorRating: 2, armorDeflect: 1, armorTca: 2 },
+  18: { weaponWeightIndex: 4, weaponOr: -3, weaponDamage: 3, weaponMinStr: 4, weaponTca: 8, armorWeight: 6, armorRating: 4, armorDeflect: 2, armorTca: 4 },
+} as const;
+
+export function gearSizeAdjustment(draft: CharacterDraft) {
+  if (draft.properties.siz == null) return null;
+  const presumedSiz = Math.max(0, Math.min(18, Math.round(draft.properties.siz / 3) * 3)) as keyof typeof SIZE_ADJUSTMENTS;
+  return { actualSiz: draft.properties.siz, presumedSiz, direction: presumedSiz < 12 ? 'smaller' as const : presumedSiz > 12 ? 'larger' as const : 'standard' as const, ...SIZE_ADJUSTMENTS[presumedSiz] };
+}
+
+function indexedScalar(value: number, adjustment: number, data: StaticData) {
+  if (!value || !adjustment) return value;
+  const closest = [...data.universalTable].sort((a, b) => Math.abs(scalarNumber(a.Scalar) - value) - Math.abs(scalarNumber(b.Scalar) - value))[0];
+  const target = data.universalTable.find((row) => row.Index === closest.Index + adjustment);
+  return target ? scalarNumber(target.Scalar) : value;
+}
+
+export function adjustedGearValues(category: InventoryCategory, item: { weight: number; priceGp: number; ora?: number; damageOffset?: number; armorRating?: number; deflectRating?: number; notes?: string[] }, draft: CharacterDraft, data: StaticData) {
+  const adjustment = gearSizeAdjustment(draft);
+  if (!adjustment || adjustment.direction === 'standard' || category === 'equipment') return { ...item, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0), tca: 0 };
+  if (category === 'weapons') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.weaponWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.weaponTca, data) / 10, ora: Number(item.ora ?? 0) + adjustment.weaponOr, damageOffset: Number(item.damageOffset ?? 0) + adjustment.weaponDamage, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0) + adjustment.weaponMinStr, tca: adjustment.weaponTca };
+  return { ...item, weight: Math.max(0.1, Number(item.weight) + adjustment.armorWeight), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.armorTca, data) / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: adjustment.armorTca };
+}
+
+export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
   const items = [...draft.utilities.weapons, ...draft.utilities.armor, ...draft.utilities.equipment];
   return items.reduce(
-    (total, item) => ({
-      costGp: total.costGp + Math.max(0, item.quantity) * Math.max(0, item.unitPriceGp),
-      weight: total.weight + Math.max(0, item.quantity) * Math.max(0, item.unitWeight),
+    (total, item) => {
+      const category: InventoryCategory = draft.utilities.weapons.includes(item) ? 'weapons' : draft.utilities.armor.includes(item) ? 'armor' : 'equipment';
+      const catalogueItem = data && item.catalogId ? inventoryCatalogue(category, data).find((entry) => entry.catalogId === item.catalogId) : null;
+      const values = catalogueItem && data ? adjustedGearValues(category, catalogueItem, draft, data) : { priceGp: item.unitPriceGp, weight: item.unitWeight };
+      return ({
+      costGp: total.costGp + Math.max(0, item.quantity) * Math.max(0, values.priceGp),
+      purchasedCostGp: total.purchasedCostGp + (item.sourceDetail === 'Canonical Starting Gear' ? 0 : Math.max(0, item.quantity) * Math.max(0, values.priceGp)),
+      weight: total.weight + Math.max(0, item.quantity) * Math.max(0, values.weight),
       itemCount: total.itemCount + Math.max(0, item.quantity),
-    }),
-    { costGp: 0, weight: 0, itemCount: 0 },
+    }); },
+    { costGp: 0, purchasedCostGp: 0, weight: 0, itemCount: 0 },
   );
+}
+
+const CANONICAL_STARTING_GEAR: Record<string, Array<[InventoryCategory, string, number?]>> = {
+  Academic: [['equipment', 'Wardrobe']],
+  Cleric: [['equipment', 'Idol or Figurine'], ['weapons', 'Club, Wood'], ['armor', 'Armor Set, Light (Soft)'], ['armor', 'Shield, Small'], ['weapons', 'Knife, Small']],
+  Entertainer: [['equipment', 'Wardrobe', 2]],
+  Knight: [['weapons', 'Sword, Long'], ['armor', 'Shield, Large'], ['armor', 'Helmet, Full'], ['weapons', 'Dagger, Standard'], ['armor', 'Breastplate, Metal'], ['equipment', 'Wardrobe', 2]],
+  Mariner: [['weapons', 'Axe, Throwing × 2'], ['weapons', 'Dagger, Standard'], ['weapons', 'Hands, Garrote'], ['equipment', 'Bag, Large × 1'], ['equipment', 'Herbs & Spices × 100'], ['equipment', 'Perfume kit']],
+  Rabble: [['weapons', 'Club, Wood']],
+  Ranger: [['equipment', 'Large Book'], ['weapons', 'Bow, Short'], ['weapons', 'Staff, Quarter'], ['equipment', 'Quiver, Large'], ['equipment', 'Arrow × 10', 3], ['weapons', 'Knife, Hunting']],
+  Service: [['equipment', 'Wardrobe', 2]],
+  Rogue: [['equipment', 'Lockpick kit'], ['armor', 'Armor Set, Light (Soft)'], ['weapons', 'Dagger, Standard'], ['equipment', 'Pouch, Small × 10']],
+  Warrior: [['weapons', 'Sword, Long'], ['armor', 'Armor Set, Medium (Mail)'], ['armor', 'Shield, Medium']],
+  Wizard: [['equipment', 'Large Book'], ['weapons', '❶ Magestick, Wand'], ['armor', 'Armor Set, Light (Soft)'], ['weapons', 'Knife, Small']],
+};
+
+function canonicalStartingGear(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  const trade = data.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === draft.intrinsics.tradeId)?.trade;
+  if (!trade || draft.utilities.startingGearTrade === trade) return draft;
+  const withoutPrior = (category: InventoryCategory) => draft.utilities[category].filter((item) => item.sourceDetail !== 'Canonical Starting Gear');
+  const next: CharacterDraft = { ...draft, utilities: { ...draft.utilities, weapons: withoutPrior('weapons'), armor: withoutPrior('armor'), equipment: withoutPrior('equipment'), startingGearTrade: trade, gearReviewed: false } };
+  const entries: Array<[InventoryCategory, string, number?]> = [['equipment', 'Wardrobe'], ...(CANONICAL_STARTING_GEAR[trade] ?? [])];
+  for (const [category, name, quantity = 1] of entries) {
+    const item = inventoryCatalogue(category, data).find((candidate) => candidate.name === name);
+    if (!item) continue;
+    const current = next.utilities[category];
+    const existing = current.find((selection) => selection.catalogId === item.catalogId);
+    const selection: InventorySelection = { id: `inventory-${category}-${item.catalogId}`, catalogId: item.catalogId, name: item.name, source: 'trade', sourceDetail: 'Canonical Starting Gear', quantity, unitPriceGp: Number(item.priceGp) || 0, unitWeight: Number(item.weight) || 0 };
+    next.utilities[category] = existing
+      ? current.map((entry) => entry.catalogId === item.catalogId && entry.sourceDetail === 'Canonical Starting Gear' ? { ...entry, quantity: Math.max(entry.quantity, quantity) } : entry)
+      : [...current, selection];
+  }
+  return next;
+}
+
+export function resetCanonicalStartingGear(draft: CharacterDraft, data: StaticData) {
+  return canonicalStartingGear({ ...draft, utilities: { ...draft.utilities, weapons: [], armor: [], equipment: [], startingGearTrade: null, gearReviewed: false } }, data);
+}
+
+export function clearStartingGear(draft: CharacterDraft, data: StaticData) {
+  const trade = data.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === draft.intrinsics.tradeId)?.trade ?? null;
+  return { ...draft, utilities: { ...draft.utilities, weapons: [], armor: [], equipment: [], startingGearTrade: trade, gearReviewed: false } };
 }
 
 function inventoryCatalogue(category: InventoryCategory, data: StaticData) {
@@ -258,6 +337,7 @@ export function generateCharacterName(
 }
 
 export function syncUtilities(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  draft = canonicalStartingGear(draft, data);
   const hydrateInventory = (category: InventoryCategory): InventorySelection[] => {
     const catalogue = inventoryCatalogue(category, data);
     return draft.utilities[category].map((selection) => {
@@ -273,6 +353,9 @@ export function syncUtilities(draft: CharacterDraft, data: StaticData): Characte
   };
   const nameLanguageId = draft.utilities.nameLanguageId
     ?? suggestedNameLanguageId(draft, data);
+  const nameStyle = draft.utilities.nameStyle === 'any' && draft.background.gender
+    ? (draft.background.gender === 'Female' ? 'feminine' : draft.background.gender === 'Male' ? 'masculine' : 'any')
+    : draft.utilities.nameStyle;
   return {
     ...draft,
     utilities: {
@@ -281,29 +364,34 @@ export function syncUtilities(draft: CharacterDraft, data: StaticData): Characte
       armor: hydrateInventory('armor'),
       equipment: hydrateInventory('equipment'),
       nameLanguageId,
+      nameStyle,
     },
   };
 }
 
 export function assessUtilityStep(stepValue: string, draft: CharacterDraft, data: StaticData): StepAssessment {
   if (stepValue === 'utilities-spells') {
-    if (!draft.utilities.spellsReviewed) return { status: 'incomplete', messages: ['Review starting Spells and explicitly finish this step, including when the character begins with none.'] };
-    if (draft.utilities.spells.length > 0 && effectiveTraitLevel(draft, 'v-Magic') <= 0) {
+    const vMagic = effectiveTraitLevel(draft, 'v-Magic');
+    if (vMagic <= 0 && draft.utilities.spells.length === 0) {
+      return { status: 'complete', messages: ['No v-Magic source is present; Assign Spells is not required.'] };
+    }
+    if (vMagic <= 0) {
       return { status: 'warning', messages: ['Starting Spells are recorded, but the current character has no v-Magic source. Keep only if another explicit rule grants access.'] };
     }
+    if (!draft.utilities.spellsReviewed) return { status: 'incomplete', messages: ['Review starting Spells and explicitly finish this step, including when the character begins with none.'] };
     return { status: 'complete', messages: [`${draft.utilities.spells.length} starting Spell${draft.utilities.spells.length === 1 ? '' : 's'} recorded.`] };
   }
   if (stepValue === 'utilities-starting-gear') {
-    if (!draft.utilities.gearReviewed) return { status: 'incomplete', messages: ['Review starting weapons, armor, and equipment, then finish the gear step.'] };
     const budget = personalWealthGp(draft, data);
-    const totals = startingGearTotals(draft);
-    if (budget != null && totals.costGp > budget) {
-      return { status: 'warning', messages: [`Recorded starting gear costs ${totals.costGp.toFixed(2)} gp, above Personal Wealth ${budget.toFixed(2)} gp. A GM grant, Assets, or another explicit source is needed.`] };
+    const totals = startingGearTotals(draft, data);
+    if (!draft.utilities.gearReviewed) return { status: 'warning', messages: ['Review and approve the canonical Starting Gear package. Its worth is informational and is not deducted from Personal Wealth.'] };
+    if (budget != null && totals.purchasedCostGp > budget) {
+      return { status: 'warning', messages: [`Additional purchased gear costs ${formatNumberWithCommas(totals.purchasedCostGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp, above Personal Wealth ${formatNumberWithCommas(budget, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp.`] };
     }
-    return { status: 'complete', messages: [`${totals.itemCount} item${totals.itemCount === 1 ? '' : 's'} recorded; ${totals.costGp.toFixed(2)} gp total.`] };
+    return { status: 'complete', messages: [`${formatNumberWithCommas(totals.itemCount)} item${totals.itemCount === 1 ? '' : 's'} recorded; ${formatNumberWithCommas(totals.costGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp total.`] };
   }
   if (stepValue === 'utilities-magic-items') {
-    if (!draft.utilities.magicItemsReviewed) return { status: 'incomplete', messages: ['Review complete Magic Items and explicitly finish this step, including when none are assigned.'] };
+    if (!draft.utilities.magicItemsReviewed) return { status: 'warning', messages: ['Review and approve the Magic Item selection, including when none are assigned.'] };
     return { status: 'complete', messages: [`${draft.utilities.magicItems.length} complete-data Magic Item${draft.utilities.magicItems.length === 1 ? '' : 's'} recorded.`] };
   }
   if (stepValue === 'utilities-name') {

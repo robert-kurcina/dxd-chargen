@@ -1,6 +1,7 @@
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
 import type { CharacterDraft, DraftAttribute, SelectionSource, SourcedSelection } from '@/lib/character-draft';
+import { selectedSettlementName as resolveSelectedSettlementName } from '@/lib/settlement-context';
 import {
   calculateCreationAttributeSkillpointCost,
   evaluateCandidacy,
@@ -12,6 +13,57 @@ import type { StepAssessment } from './background';
 
 export const ROLLED_ATTRIBUTES = ['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR'] as const;
 export type RolledAttribute = (typeof ROLLED_ATTRIBUTES)[number];
+
+export const STRIFE_PAIRINGS = [
+  { id: 'havef', exonym: 'Havef', meaning: 'half-Alef', groups: ['Human', 'Alef'] },
+  { id: 'habbit', exonym: 'Habbit', meaning: 'half-Babbita', groups: ['Human', 'Babbita'] },
+  { id: 'brodie', exonym: 'Brodie', meaning: 'half-Drauf', groups: ['Human', 'Drauf'] },
+  { id: 'gnauver', exonym: 'Gnauver', meaning: 'half-Gnoan', groups: ['Human', 'Gnoan'] },
+  { id: 'num-num', exonym: 'Num-num', meaning: 'half-Halfling', groups: ['Human', 'Klenari'] },
+  { id: 'alarf', exonym: 'Alarf', meaning: 'Alef + Drauf', groups: ['Alef', 'Drauf'] },
+  { id: 'balef', exonym: 'Balef', meaning: 'Babbita + Alef', groups: ['Babbita', 'Alef'] },
+  { id: 'draufling', exonym: 'Draufling', meaning: 'Drauf + Halfling', groups: ['Drauf', 'Klenari'] },
+  { id: 'gnobbit', exonym: 'Gnobbit', meaning: 'Gnoan + Babbita', groups: ['Gnoan', 'Babbita'] },
+  { id: 'gnobling', exonym: 'Gnobling', meaning: 'Gnoan + Halfling', groups: ['Gnoan', 'Klenari'] },
+  { id: 'hobit', exonym: 'Hobit', meaning: 'Halfling + Babbita', groups: ['Klenari', 'Babbita'] },
+] as const;
+
+export function getStrifePairing(draft: CharacterDraft) {
+  return STRIFE_PAIRINGS.find((pairing) => pairing.id === draft.intrinsics.strifePairingId) ?? null;
+}
+
+export function strifeParents(draft: CharacterDraft) {
+  if (draft.intrinsics.strifeMixedLineage) {
+    const group = draft.intrinsics.speciesId?.replace(/^species-/, '');
+    const canonical = group ? group.charAt(0).toUpperCase() + group.slice(1) : null;
+    return canonical ? { fatherGroup: canonical, motherGroup: canonical } : null;
+  }
+  const pairing = getStrifePairing(draft);
+  if (!pairing) return null;
+  const [first, second] = pairing.groups;
+  return draft.intrinsics.strifeMotherFirst
+    ? { fatherGroup: second, motherGroup: first }
+    : { fatherGroup: first, motherGroup: second };
+}
+
+function ageTrackGroup(draft: CharacterDraft, data: StaticData) {
+  const parents = draft.intrinsics.childOfStrife ? strifeParents(draft) : null;
+  if (parents) return draft.intrinsics.strifeBonusParent === 'mother' ? parents.motherGroup : parents.fatherGroup;
+  return getSpeciesChoice(draft, data)?.group.name ?? null;
+}
+
+export function startingAgeForDraft(draft: CharacterDraft, data: StaticData) {
+  if (!draft.background.ageGroup) return null;
+  const parents = draft.intrinsics.childOfStrife ? strifeParents(draft) : null;
+  const start = (group: string) => data.ageBrackets[group as keyof StaticData['ageBrackets']]?.find((entry) => entry.group === draft.background.ageGroup)?.age ?? null;
+  if (parents) {
+    const father = start(parents.fatherGroup);
+    const mother = start(parents.motherGroup);
+    return father == null || mother == null ? father ?? mother : Math.floor((father + mother) / 2);
+  }
+  const group = getSpeciesChoice(draft, data)?.group.name;
+  return group ? start(group) : null;
+}
 
 const PLAYER_ADJUSTMENT_DETAIL = 'Post-array Attribute adjustment';
 const INTRINSIC_STEPS = new Set([
@@ -84,6 +136,15 @@ function rowAdjustment(row: AdjustmentRow | undefined, attribute: string) {
   return Number.isFinite(value) ? value : 0;
 }
 
+function parentAttributeAdjustment(group: string, lineageId: string | null, attribute: string, data: StaticData) {
+  const table = attributeTableForSpecies(group, data) as AdjustmentRow[];
+  const lineageName = data.species.flatMap((family) => family.groups)
+    .find((candidate) => candidate.name === group)?.lineages
+    .find((name) => makeCatalogId('lineage', name) === lineageId);
+  return rowAdjustment(table.find((row) => row.lineage === 'BASE-LINE'), attribute)
+    + rowAdjustment(table.find((row) => row.lineage === lineageName), attribute);
+}
+
 function selectedRows(draft: CharacterDraft, data: StaticData) {
   const speciesName = getSpeciesChoice(draft, data)?.group.name;
   if (!speciesName) return { speciesName: null, baseline: undefined, lineage: undefined, female: undefined, age: undefined };
@@ -123,6 +184,24 @@ export function nonPlayerAdjustmentsForAttribute(
   draft: CharacterDraft,
   data: StaticData,
 ): NumericAdjustment[] {
+  const parents = draft.intrinsics.childOfStrife ? strifeParents(draft) : null;
+  if (parents && draft.intrinsics.strifeFatherLineageId && draft.intrinsics.strifeMotherLineageId) {
+    const father = parentAttributeAdjustment(parents.fatherGroup, draft.intrinsics.strifeFatherLineageId, attribute, data);
+    const mother = parentAttributeAdjustment(parents.motherGroup, draft.intrinsics.strifeMotherLineageId, attribute, data);
+    const roll = draft.intrinsics.strifeAttributeRolls[attribute] ?? 3;
+    const inherited = roll >= 5 ? Math.max(father, mother) : roll <= 2 ? Math.min(father, mother) : Math.floor((father + mother) / 2);
+    const adjustments: NumericAdjustment[] = inherited === 0 ? [] : [{ amount: inherited, source: 'rule', sourceDetail: `Child of Strife 1D=${roll}` }];
+    const age = data.attributeModifiers.find((row) => row.Group === draft.background.ageGroup) as AdjustmentRow | undefined;
+    const ageAmount = rowAdjustment(age, attribute);
+    if (ageAmount) adjustments.push({ amount: ageAmount, source: 'rule', sourceDetail: `${draft.background.ageGroup} Age Group modifier` });
+    const bonusGroup = ageTrackGroup(draft, data);
+    const bonus = bonusGroup ? data.ageBrackets[bonusGroup as keyof StaticData['ageBrackets']]?.find((entry) => entry.group === draft.background.ageGroup)?.bonus?.trim() ?? '' : '';
+    const sexMatch = bonus.match(/\((Male|Female)\)/i);
+    const eligible = !sexMatch || (sexMatch[1].toLowerCase() === 'female' ? draft.background.geneticallyFemale : draft.background.sex === 'Male');
+    const attrMatch = bonus.match(/^\+?(\d+)\s+(CCA|RCA|REF|INT|KNO|PRE|POW|STR|FOR|MOV|ZED)\b/i);
+    if (eligible && attrMatch && attrMatch[2].toUpperCase() === attribute.toUpperCase()) adjustments.push({ amount: Number(attrMatch[1]), source: 'rule', sourceDetail: `${bonusGroup} Age Group bonus (${draft.intrinsics.strifeBonusParent ?? 'father'})` });
+    return adjustments;
+  }
   const { speciesName, baseline, lineage, female, age } = selectedRows(draft, data);
   const lineageName = getLineageName(draft, data);
   const pkg = getTradePackage(draft, data);
@@ -273,7 +352,9 @@ function parseTalentList(
 
 function syncIntrinsicGrantedSelections(draft: CharacterDraft, data: StaticData): CharacterDraft {
   const retained = draft.proficiencies.granted.filter(
-    (item) => !['species', 'lineage', 'trade'].includes(item.source),
+    (item) => !['species', 'lineage', 'trade'].includes(item.source)
+      && item.sourceDetail !== 'Genetically Female'
+      && !item.sourceDetail?.includes('Age Group bonus'),
   );
   const grants: SourcedSelection[] = [];
   const speciesName = getSpeciesChoice(draft, data)?.group.name;
@@ -297,7 +378,8 @@ function syncIntrinsicGrantedSelections(draft: CharacterDraft, data: StaticData)
       grants.push(...parseTalentList(female?.talents, 'rule', 'Genetically Female', data, ageRank));
     }
     if (draft.background.ageGroup) {
-      const bracket = (data.ageBrackets as Record<string, Array<{ group: string; bonus: string }>>)[speciesName]?.find((entry) => entry.group === draft.background.ageGroup);
+      const bonusGroup = ageTrackGroup(draft, data) ?? speciesName;
+      const bracket = (data.ageBrackets as Record<string, Array<{ group: string; bonus: string }>>)[bonusGroup]?.find((entry) => entry.group === draft.background.ageGroup);
       const bonus = bracket?.bonus?.trim() ?? '';
       const sexMatch = bonus.match(/\((Male|Female)\)/i);
       const eligible = !sexMatch || (sexMatch[1].toLowerCase() === 'female' ? draft.background.geneticallyFemale : draft.background.sex === 'Male');
@@ -310,7 +392,7 @@ function syncIntrinsicGrantedSelections(draft: CharacterDraft, data: StaticData)
           catalogId: traitCatalogIdForName(name, data),
           name,
           source: 'rule',
-          sourceDetail: `${draft.background.ageGroup} Age Group bonus`,
+          sourceDetail: `${bonusGroup} ${draft.background.ageGroup} Age Group bonus${draft.intrinsics.childOfStrife ? ` (${draft.intrinsics.strifeBonusParent ?? 'father'})` : ''}`,
           level: Number(traitMatch[1]),
         });
       }
@@ -440,12 +522,7 @@ export function zedPurchaseSkillpointCost(draft: CharacterDraft, data: StaticDat
 }
 
 export function selectedSettlementName(draft: CharacterDraft, data: StaticData) {
-  const region = data.empires.find((entry) => entry.catalogId === draft.background.regionId);
-  if (!region || !draft.background.settlementId) return null;
-  const names = Array.from(new Set(data.settlements[region.name as keyof typeof data.settlements] ?? []));
-  return names.find(
-    (name) => makeCatalogId('settlement', `${region.name}-${name}`) === draft.background.settlementId,
-  ) ?? null;
+  return resolveSelectedSettlementName(draft, data);
 }
 
 export function wealthBreakdown(draft: CharacterDraft, data: StaticData) {
@@ -460,17 +537,18 @@ export function wealthBreakdown(draft: CharacterDraft, data: StaticData) {
   const knoDm = kno == null ? 0 : getAttributeDm(kno);
   const settlement = selectedSettlementName(draft, data);
   const citystate = settlement ? data.citystates.find((entry) => entry.name === settlement) : undefined;
+  const economicStatus = citystate?.economicStatus ?? null;
   const socialRank = typeof draft.background.socialRank === 'number'
     ? draft.background.socialRank
     : Number(draft.background.socialRank);
   let economy = 0;
   const economyNotes: string[] = [];
 
-  if (Number.isFinite(socialRank) && socialRank >= 1 && citystate?.economicStatus.includes('Impoverished')) {
+  if (Number.isFinite(socialRank) && socialRank >= 1 && economicStatus?.includes('Impoverished')) {
     economy -= 3;
     economyNotes.push('Impoverished settlement −3');
   }
-  if (Number.isFinite(socialRank) && socialRank >= 1 && citystate?.economicStatus.includes('Affluent')) {
+  if (Number.isFinite(socialRank) && socialRank >= 1 && economicStatus?.includes('Affluent')) {
     economy += 3;
     economyNotes.push('Affluent settlement +3');
   }
@@ -485,7 +563,7 @@ export function wealthBreakdown(draft: CharacterDraft, data: StaticData) {
     kno,
     knoDm,
     settlement,
-    economicStatus: citystate?.economicStatus ?? null,
+    economicStatus,
     economy,
     economyNotes,
     total: heritage + knoDm + economy,
@@ -517,6 +595,10 @@ export function syncIntrinsics(draft: CharacterDraft, data: StaticData): Charact
   let next = existingChoice && draft.intrinsics.speciesFamilyId !== existingChoice.family.catalogId
     ? { ...draft, intrinsics: { ...draft.intrinsics, speciesFamilyId: existingChoice.family.catalogId } }
     : draft;
+  if (next.background.ageGroup && next.background.ageYears == null) {
+    const ageYears = startingAgeForDraft(next, data);
+    if (ageYears != null) next = { ...next, background: { ...next.background, ageYears } };
+  }
   next = rebuildAttributeAdjustments(next, data);
   next = syncIntrinsicGrantedSelections(next, data);
 
@@ -554,6 +636,13 @@ export function syncIntrinsics(draft: CharacterDraft, data: StaticData): Charact
 
 export function assessIntrinsicStep(stepValue: string, draft: CharacterDraft, data: StaticData): StepAssessment {
   if (stepValue === 'intrinsics-species') {
+    if (draft.intrinsics.childOfStrife) {
+      const pairing = getStrifePairing(draft);
+      const mixedReady = draft.intrinsics.strifeMixedLineage && getSpeciesChoice(draft, data);
+      return (pairing || mixedReady) && draft.intrinsics.strifeFatherLineageId && draft.intrinsics.strifeMotherLineageId
+        ? { status: 'complete', messages: [`Child of Strife: ${draft.intrinsics.strifeMixedLineage ? 'Mixed Lineage' : pairing?.exonym}`] }
+        : { status: 'incomplete', messages: ['Choose a Child of Strife pairing and both parental lineages.'] };
+    }
     const choice = getSpeciesChoice(draft, data);
     if (!choice || !choice.family.selectable || !choice.group.selectable || !draft.intrinsics.lineageId) {
       const unavailable = choice?.group && !choice.group.selectable ? ` ${choice.group.name} is present for reference but unavailable for character creation.` : '';

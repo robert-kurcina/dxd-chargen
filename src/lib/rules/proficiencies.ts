@@ -14,6 +14,7 @@ import {
   syncIntrinsics,
 } from './intrinsics';
 import type { StepAssessment } from './background';
+import { geographicRegionName, selectedSettlementOption } from '@/lib/settlement-context';
 
 const PROFICIENCY_STEPS = new Set([
   'proficiencies-pml',
@@ -163,7 +164,7 @@ export function contextualGrantSpecialization(
   if (!selection.name.includes(' > ')) return null;
 
   const placeholder = selection.name.split(' > ').slice(1).join(' > ').toLowerCase();
-  const region = data.empires.find((entry) => entry.catalogId === draft.background.regionId)?.name ?? null;
+  const region = geographicRegionName(draft, data);
   const settlement = selectedSettlementName(draft, data);
   const deity = data.deities.find((entry) => entry.catalogId === draft.background.deityId)?.deity ?? null;
   const belief = data.beliefs.find((entry) => entry.catalogId === draft.background.beliefId)?.keyword ?? null;
@@ -184,6 +185,7 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
   academics: ['Alchemy', 'Design', 'Engineer', 'Medic', 'Science'],
   artist: ['Choreography', 'Comedy', 'Composer', 'Painter', 'Playwright', 'Poetry'],
   craft: ['Apothecary', 'Armorsmith', 'Carpentry', 'Clothier', 'Cosmetics', 'Hidecraft', 'Jewelcraft', 'Magicraft', 'Metalcraft', 'Pottery', 'Stonecraft', 'Textiles', 'Weaponsmith', 'Woodcraft'],
+  detect: ['Heat', 'Magic', 'Sight', 'Smell', 'Sound', 'Starlight', 'Taste', 'Vibration'],
   design: ['Enterprise', 'Factories', 'Fortresses', 'Gardens', 'Living Spaces', 'Settlements', 'Ships', 'War Engines'],
   domus: ['Academic', 'Employer', 'Estate', 'Farmer', 'Fisher', 'Herder', 'Martial', 'Rancher', 'Shopkeeper', 'Trader', 'Trapper'],
   engineer: ['Civil', 'Contraptions', 'Constructs', 'Warfare'],
@@ -210,8 +212,11 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
 export function specializationOptionsForTrait(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
   const base = canonicalTraitBase(selection.name);
   const placeholder = selection.name.includes(' > ') ? selection.name.split(' > ').slice(1).join(' > ').replace(/\s+X$/, '').trim().toLowerCase() : '';
-  if (placeholder === 'region') return data.empires.map((entry) => entry.name).sort();
-  if (placeholder === 'settlement') return Array.from(new Set(Object.values(data.settlements).flat())).sort();
+  if (placeholder === 'region') return Array.from(new Set(data.empires.map((entry) => entry.region))).sort();
+  if (placeholder === 'settlement') return Array.from(new Set([
+    ...Object.values(data.settlements).flat(),
+    ...data.settlementProfiles.map((entry) => entry.name),
+  ])).sort();
   if (placeholder === 'deity') return data.deities.map((entry) => entry.deity).sort();
   if (placeholder === 'language') return data.languages.map((entry) => entry.name).sort();
   if (placeholder === 'environ') return data.heritagePackages.filter((entry) => entry.kind === 'environs').map((entry) => entry.name).sort();
@@ -288,7 +293,8 @@ export function setGrantSpecialization(draft: CharacterDraft, grantId: string, s
 
 export function unresolvedBroadGrants(draft: CharacterDraft, data: StaticData) {
   return draft.proficiencies.granted.filter((selection) =>
-    (selection.name.includes(' > ') || specializationOptionsForTrait(selection, draft, data).length > 0)
+    (selection.name.includes(' > ')
+      || (canonicalTraitBase(selection.name) !== 'detect' && specializationOptionsForTrait(selection, draft, data).length > 0))
       && Object.keys(specializationRanksForSelection(selection, draft, data)).length === 0,
   );
 }
@@ -479,6 +485,8 @@ function languageById(id: string, data: StaticData) {
 }
 
 export function defaultLanguageSuggestion(draft: CharacterDraft, data: StaticData) {
+  const profile = selectedSettlementOption(draft, data);
+  if (profile?.defaultLanguageId) return languageById(profile.defaultLanguageId, data);
   const settlement = selectedSettlementName(draft, data);
   if (!settlement) return null;
   const mapping = data.languageDefaults.find((entry) => entry.settlement === settlement);
@@ -666,7 +674,8 @@ export function assessProficiencyStep(stepValue: string, draft: CharacterDraft, 
     }
     const unresolved = unresolvedBroadGrants(draft, data).length;
     if (unresolved > 0) {
-      return { status: 'warning', messages: [`${unresolved} granted Broad Skill/Trait specialization${unresolved === 1 ? '' : 's'} still need a concrete specialization.`] };
+      const names = unresolvedBroadGrants(draft, data).map((selection) => `${selection.name.split(' > ')[0].replace(/\s+X$/, '')} (${selection.sourceDetail ?? selection.source})`);
+      return { status: 'warning', messages: [`${unresolved} granted Broad Skill/Trait specialization${unresolved === 1 ? '' : 's'} still need a concrete specialization: ${names.join('; ')}.`] };
     }
     return { status: 'complete', messages: [] };
   }

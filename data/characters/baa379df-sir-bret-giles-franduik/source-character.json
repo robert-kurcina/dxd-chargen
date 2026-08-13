@@ -1,0 +1,343 @@
+{
+  "name": {
+    "exonym": "Sir Bret Giles Franduik",
+    "endonym": "Brejoral"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Coastal",
+        "society": "Townsfolk",
+        "culture": "Warrior"
+      },
+      "ethnicity": {
+        "region": "Eastlands",
+        "settlement": "Drayport"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Sillis",
+          "domains": [
+            {
+              "name": "Charity",
+              "rank": 6,
+              "opposed": false
+            },
+            {
+              "name": "Horror",
+              "rank": 2,
+              "opposed": true
+            },
+            {
+              "name": "War",
+              "rank": 2,
+              "opposed": true
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Leader"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Knight",
+        "profession": "Free",
+        "rank": 3,
+        "title": "Sergeant"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Human",
+      "lineage": "Drusian"
+    },
+    "biology": {
+      "sex": "Male",
+      "ageGroup": "Young Adult",
+      "ageYearsMonth": 24.3,
+      "heightFeetInches": "6'1\"",
+      "weightPounds": 178,
+      "stature": 51,
+      "build": 51,
+      "profile": 51,
+      "pml": 5,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 14,
+    "rca": 10,
+    "ref": 7,
+    "int": 11,
+    "kno": 7,
+    "pre": 8,
+    "pow": 12,
+    "str": 8,
+    "for": 8,
+    "mov": 11,
+    "siz": 12,
+    "zed": 10
+  },
+  "historyNotes": {
+    "allies": [
+      "Friend to Stella",
+      "Hireling to Periwinkle"
+    ],
+    "equipment": [
+      "Soap and perfume",
+      "Whetting Kit",
+      "Whetting stone + oils"
+    ],
+    "weapons": [
+      "Daggers x 4",
+      "Greatsword"
+    ],
+    "armor": [
+      "Cuirass",
+      "Helmet",
+      "Shield"
+    ],
+    "magicItems": [],
+    "skills": [
+      {
+        "name": "Barter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Dagger",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Gossip",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Grit",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Hunter",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leader",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Martialist",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Medic",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Shield",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Spear",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Strike",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sturdy",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Swim",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sword",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tactics",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Warfare",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Siege",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Zedsurge",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "traits": [
+      {
+        "name": "v-Fortitude",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 3,
+        "isDefault": true,
+        "accented": false,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Drusian",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Warlang Common",
+        "rank": 2,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": ""
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 29,
+      "bodypoints": 12,
+      "recoveryRate": 8,
+      "endurance": 13,
+      "resilience": 13,
+      "resistance": 21
+    },
+    "misc": {
+      "wealthRank": 12,
+      "socialRank": 0,
+      "professionRank": 3,
+      "favorDice": 5,
+      "cellburnLimit": 5,
+      "manapool": 13
+    },
+    "combat": {
+      "actions": 0,
+      "meleeAttack": 4,
+      "meleeDefend": 4,
+      "rangeAttack": 2,
+      "rangeDefend": 0,
+      "maxAdvantage": 2
+    },
+    "resources": {
+      "gold": 0,
+      "xp": 360
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": 7,
+      "shoulder": 3,
+      "carry": 0
+    },
+    "movement": {
+      "walk": 6,
+      "jog": 9,
+      "run": 11
+    },
+    "throwing": {
+      "lob": -10,
+      "pitch": -4,
+      "hurl": 2
+    },
+    "jumping": {
+      "upward": -10,
+      "broadjump": -5,
+      "downward": -1
+    }
+  }
+}

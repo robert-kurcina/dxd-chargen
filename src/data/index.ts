@@ -43,6 +43,8 @@ import randomPersonItemDeity from './randomPersonItemDeity.json';
 import salaryByTradeRank from './salaryByTradeRank.json';
 import salaryAdjustmentsByTrade from './salaryAdjustmentsByTrade.json';
 import settlements from './settlements.json';
+import settlementProfiles from './settlementProfiles.json';
+import localeProfiles from './localeProfiles.json';
 import socialGroups from './socialGroups.json';
 import socialRanksRaw from './socialRanks.json';
 import speciesRaw from './species.json';
@@ -155,6 +157,8 @@ const sarnaLenData = {
   salaryByTradeRank,
   salaryAdjustmentsByTrade,
   settlements,
+  settlementProfiles,
+  localeProfiles,
   socialGroups,
   socialRanks,
   species,

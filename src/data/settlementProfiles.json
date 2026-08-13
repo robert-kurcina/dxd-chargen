@@ -1,0 +1,1143 @@
+[
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Corom",
+    "displayName": "Citystate Corom",
+    "workingGloss": null,
+    "population": 400000,
+    "settlementType": "Citystate",
+    "currentDeity": "Marli",
+    "historicalDeities": [
+      "Crolm (Ended; early Citystate Corom native deity)"
+    ],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting",
+      "Performer"
+    ],
+    "societyRecommendations": [
+      "Cityfolk",
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles",
+      "Royalty",
+      "Imperial"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern administrative/common tongue",
+      "Fayeed Eastlands regional layer",
+      "Golbrini Ershthikal river/delta/coastal substrate",
+      "Cher-gulo maritime/coastal substrate"
+    ],
+    "nameStatus": "CANONICAL",
+    "originWeight": 400000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Fanur",
+    "displayName": "Fanur",
+    "workingGloss": "Slowriver",
+    "population": 2000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Swamp",
+      "Jungle",
+      "Forests"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Fishing",
+      "Farming",
+      "Services"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern surface hydronym/toponym",
+      "older Eastlands river substrate possible"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 2000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Gromor",
+    "displayName": "Gromor",
+    "workingGloss": "North Hold",
+    "population": 100,
+    "settlementType": "Hold",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern military/administrative"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 100,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Gronan",
+    "displayName": "Gronan",
+    "workingGloss": "Midhold",
+    "population": 1500,
+    "settlementType": "Hold",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern military/administrative"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 1500,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Kloran",
+    "displayName": "Kloran",
+    "workingGloss": "Pathfork",
+    "population": 12000,
+    "settlementType": "Castel",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Jungle",
+      "Hills"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting",
+      "Merchant"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro road-junction/civic name"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 12000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Bromor",
+    "displayName": "Bromor",
+    "workingGloss": "Northfort",
+    "population": 2200,
+    "settlementType": "Fort",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Swamp",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern military/administrative"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 2200,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Slyoan",
+    "displayName": "Slyoan",
+    "workingGloss": "Midview",
+    "population": 10000,
+    "settlementType": "City",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting",
+      "Performer"
+    ],
+    "societyRecommendations": [
+      "Cityfolk",
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern civic/coastal"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 10000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Franaro",
+    "displayName": "Franaro",
+    "workingGloss": "Rivergate",
+    "population": 5000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Jungle",
+      "Hills"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Fishing",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern infrastructure name",
+      "older river name may survive underneath"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 5000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Skonan",
+    "displayName": "Skonan",
+    "workingGloss": "Wellmet",
+    "population": 12000,
+    "settlementType": "Castel",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Swamp",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting",
+      "Merchant"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern civic/meeting-place name"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 12000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Friaro",
+    "displayName": "Friaro",
+    "workingGloss": "Bridgegate",
+    "population": 5000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Fishing",
+      "Merchant",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern infrastructure name"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 5000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Proran",
+    "displayName": "Proran",
+    "workingGloss": "Midpath",
+    "population": 5000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Swamp",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting",
+      "Farming"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern road/river settlement"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 5000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Groran",
+    "displayName": "Groran",
+    "workingGloss": "Corfort",
+    "population": 7000,
+    "settlementType": "Fort",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Jungle",
+      "Swamp"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern Corom-associated fortification"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 7000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Snelur",
+    "displayName": "Snelur",
+    "workingGloss": "Hailview",
+    "population": 7000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Fishing",
+      "Merchant",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern descriptive/coastal"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 7000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Oroim",
+    "displayName": "Oroim",
+    "workingGloss": "Boilerway",
+    "population": 2500,
+    "settlementType": "Town",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Jungle",
+      "Hills"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Crafting",
+      "Services",
+      "Merchant"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern road/industrial gloss replacement"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 2500,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Klomor",
+    "displayName": "Klomor",
+    "workingGloss": "Midfort",
+    "population": 12000,
+    "settlementType": "Fort",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Jungle",
+      "Hills"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern military/administrative"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 12000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Sloiur",
+    "displayName": "Sloiur",
+    "workingGloss": "Eastpoint",
+    "population": 5000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Swamp"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Fishing",
+      "Merchant",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern coastal descriptor"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 5000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Joro",
+    "displayName": "Joro",
+    "workingGloss": "Jorway",
+    "population": 2500,
+    "settlementType": "Town",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "Hills",
+      "Jungle",
+      "Woods"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-ithuuikal",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Jhastrujin/Lizardfolk inherited Jor- substrate",
+      "Coro road morphology"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 2500,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Gryor",
+    "displayName": "Gryor",
+    "workingGloss": "South Hold",
+    "population": 1500,
+    "settlementType": "Hold",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "Hills",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern military/administrative",
+      "Arikkah southern contact possible"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 1500,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Fyaran",
+    "displayName": "Fyaran",
+    "workingGloss": "Smallshack",
+    "population": 8000,
+    "settlementType": "Castel",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Hills",
+      "Jungle",
+      "Woods"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Crafting",
+      "Services",
+      "Farming"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern settlement name from humble gloss"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 8000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Fyonan",
+    "displayName": "Fyonan",
+    "workingGloss": "Southfolk",
+    "population": 5000,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "Hills",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Fishing",
+      "Services",
+      "Farming"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern community name",
+      "Arikkah southern contact possible"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 5000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Temis",
+    "displayName": "Temis",
+    "workingGloss": null,
+    "population": 1500,
+    "settlementType": "Town",
+    "currentDeity": "Marli",
+    "historicalDeities": [],
+    "environs": [
+      "Hills",
+      "Jungle",
+      "Woods"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting",
+      "Farming"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "inherited opaque Eastlands toponym",
+      "Coro modern usage"
+    ],
+    "nameStatus": "PRESERVE_INHERITED",
+    "originWeight": 1500,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Dwroan",
+    "displayName": "Dwroan",
+    "workingGloss": "Splitway",
+    "population": 5000,
+    "settlementType": "Town",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "River",
+      "Hills",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting",
+      "Merchant"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern road-junction/military name",
+      "Arikkah southern contact possible"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 5000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12; settlement class checked against locale map symbol"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Tehnar",
+    "displayName": "Tehnar",
+    "workingGloss": null,
+    "population": 10000,
+    "settlementType": "City",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "Hills",
+      "Jungle"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting",
+      "Performer"
+    ],
+    "societyRecommendations": [
+      "Cityfolk",
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "inherited Eastlands coastal toponym",
+      "Coro modern usage",
+      "Arikkah contact possible"
+    ],
+    "nameStatus": "PRESERVE_SOURCE_FORM",
+    "originWeight": 10000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Bradik",
+    "displayName": "Bradik",
+    "workingGloss": null,
+    "population": 10000,
+    "settlementType": "City",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "Coastal",
+      "River",
+      "Hills"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Merchant",
+      "Services",
+      "Crafting",
+      "Performer"
+    ],
+    "societyRecommendations": [
+      "Cityfolk",
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "inherited opaque Eastlands toponym",
+      "Coro modern usage",
+      "Arikkah contact possible"
+    ],
+    "nameStatus": "PRESERVE_INHERITED",
+    "originWeight": 10000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Stryan",
+    "displayName": "Stryan",
+    "workingGloss": "Southernmost",
+    "population": 3000,
+    "settlementType": "Town",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "Hills",
+      "Jungle",
+      "River"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Farming",
+      "Services",
+      "Merchant"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Peasant",
+      "Landed",
+      "Aristocrats"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Coro modern boundary/community name",
+      "Arikkah southern contact likely"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 3000,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  },
+  {
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "localeId": "corom-region",
+    "name": "Joromor",
+    "displayName": "Joromor",
+    "workingGloss": "Jorfort",
+    "population": 1500,
+    "settlementType": "Fort",
+    "currentDeity": "Heiron",
+    "historicalDeities": [],
+    "environs": [
+      "Hills",
+      "Jungle",
+      "Woods"
+    ],
+    "environsStatus": "LOCAL_MAP_DERIVED",
+    "cultureRecommendations": [
+      "Warrior",
+      "Services",
+      "Crafting"
+    ],
+    "societyRecommendations": [
+      "Townsfolk",
+      "Landed",
+      "Aristocrats",
+      "Nobles"
+    ],
+    "defaultLanguageId": "language-coro",
+    "heritageLanguageIds": [
+      "language-coro",
+      "language-ithuuikal",
+      "language-arikkah",
+      "language-fayeed",
+      "language-cher-gulo",
+      "language-ershthikal"
+    ],
+    "languageLayers": [
+      "Jhastrujin/Lizardfolk inherited Jor- substrate",
+      "Coro fortification morphology"
+    ],
+    "nameStatus": "GENERATED_WORKING_NATIVE_FORM",
+    "originWeight": 1500,
+    "source": "locale.citystate-crolm.pdf; author population/deity clarification 2026-08-12"
+  }
+]

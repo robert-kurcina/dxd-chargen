@@ -21,6 +21,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
 import { resolveTragedySeed } from '@/lib/character-logic';
+import { allowedEnvironNames, localeForRegion, selectedSettlementOption, settlementOptionsForRegion } from '@/lib/settlement-context';
 import {
   ageBonusText,
   ageGroupRank,
@@ -45,16 +46,19 @@ type ChoiceCardProps = {
   subtitle?: string;
   meta?: string;
   onClick: () => void;
+  disabled?: boolean;
 };
 
-function ChoiceCard({ selected, title, subtitle, meta, onClick }: ChoiceCardProps) {
+function ChoiceCard({ selected, title, subtitle, meta, onClick, disabled = false }: ChoiceCardProps) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         'relative rounded-lg border p-3 text-left transition-colors hover:bg-muted/60',
         selected && 'border-primary bg-primary/5 ring-1 ring-primary',
+        disabled && 'cursor-not-allowed opacity-45 hover:bg-transparent',
       )}
     >
       {selected && (
@@ -71,25 +75,49 @@ function ChoiceCard({ selected, title, subtitle, meta, onClick }: ChoiceCardProp
 
 function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
   const region = data.empires.find((item) => item.catalogId === draft.background.regionId);
-  const weightedSettlements = region ? data.settlements[region.name as keyof typeof data.settlements] ?? [] : [];
-  const settlementOptions = Array.from(new Set(weightedSettlements)).map((name) => ({
-    id: makeCatalogId('settlement', `${region?.name ?? 'unknown'}-${name}`),
-    name,
-  }));
-  const selectedSettlement = settlementOptions.find((item) => item.id === draft.background.settlementId);
+  const settlementOptions = region ? settlementOptionsForRegion(region.name, data) : [];
+  const selectedSettlement = selectedSettlementOption(draft, data);
+  const locale = region ? localeForRegion(region.name, data) : null;
   const citystate = selectedSettlement
     ? data.citystates.find((item) => item.name === selectedSettlement.name)
     : undefined;
+  const defaultLanguage = selectedSettlement?.defaultLanguageId
+    ? data.languages.find((language) => language.id === selectedSettlement.defaultLanguageId)
+    : null;
 
-  const chooseRegion = (regionId: string) => {
-    setDraft((current) => syncIntrinsics({
+  const resetLocationDependentHeritage = (current: CharacterDraft, regionId: string, settlementId: string | null) => {
+    const candidate: CharacterDraft = {
       ...current,
       background: {
         ...current.background,
         regionId,
-        settlementId: null,
+        settlementId,
       },
-    }, data));
+    };
+    const allowed = new Set(allowedEnvironNames(candidate, data));
+    const currentEnviron = data.heritagePackages.find((pkg) => pkg.id === candidate.background.environHeritageId)?.name ?? null;
+    const clearEnvirons = settlementId === null || Boolean(currentEnviron && allowed.size && !allowed.has(currentEnviron));
+    const background = clearEnvirons
+      ? { ...candidate.background, environHeritageId: null }
+      : candidate.background;
+    const withoutStaleDefaultLanguage = {
+      ...candidate,
+      background,
+      proficiencies: {
+        ...candidate.proficiencies,
+        languages: candidate.proficiencies.languages.filter((language) => language.kind !== 'default'),
+      },
+    };
+    return syncIntrinsics(syncHeritageGrantedSelections(withoutStaleDefaultLanguage, data), data);
+  };
+
+  const chooseRegion = (regionId: string) => {
+    setDraft((current) => resetLocationDependentHeritage(current, regionId, null));
+  };
+
+  const chooseSettlement = (settlementId: string) => {
+    if (!region) return;
+    setDraft((current) => resetLocationDependentHeritage(current, region.catalogId, settlementId));
   };
 
   return (
@@ -102,7 +130,7 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
             <SelectContent>
               {data.empires.map((item) => (
                 <SelectItem key={item.catalogId} value={item.catalogId}>
-                  {item.name} — {item.region}
+                  {item.region} — {item.name}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -112,18 +140,15 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
           <Label>Starting settlement</Label>
           <Select
             value={draft.background.settlementId ?? undefined}
-            onValueChange={(settlementId) =>
-              setDraft((current) => syncIntrinsics({
-                ...current,
-                background: { ...current.background, settlementId },
-              }, data))
-            }
+            onValueChange={chooseSettlement}
             disabled={!region}
           >
             <SelectTrigger><SelectValue placeholder={region ? 'Choose a settlement' : 'Choose a region first'} /></SelectTrigger>
             <SelectContent>
               {settlementOptions.map((item) => (
-                <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+                <SelectItem key={item.id} value={item.id}>
+                  {item.displayName}{item.workingGloss ? ` — ${item.workingGloss}` : ''}{item.population != null ? ` (${item.population.toLocaleString()})` : ''}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -132,17 +157,39 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
 
       {region && (
         <div className="rounded-lg bg-muted/50 p-4 text-sm">
-          <div className="font-medium">{region.name}</div>
-          <div className="mt-1 text-muted-foreground">Region: {region.region}</div>
-          {selectedSettlement && <div className="mt-1">Settlement: {selectedSettlement.name}</div>}
-          {citystate && (
-            <div className="mt-3 flex flex-wrap gap-2">
-              <Badge variant="outline">{citystate.economicStatus}</Badge>
-              {citystate.environs.map((environ) => <Badge key={environ} variant="secondary">{environ}</Badge>)}
+          <div className="font-medium">{region.region} — {region.name}</div>
+          {locale && (
+            <div className="mt-1 space-y-1 text-muted-foreground">
+              <div>{locale.name}: {locale.population.toLocaleString()} population</div>
+              <div><span className="font-medium text-foreground">Prominence:</span> {locale.currentDeitySpheres.join(', ')}</div>
+              <div>Early native deity: {locale.historicalDeity.name} ({locale.historicalDeity.status})</div>
             </div>
+          )}
+          {selectedSettlement && (
+            <>
+              <div className="mt-3 font-medium">{selectedSettlement.displayName}{selectedSettlement.workingGloss ? ` — “${selectedSettlement.workingGloss}”` : ''}</div>
+              <div className="mt-1 text-muted-foreground">
+                {[selectedSettlement.settlementType, selectedSettlement.population != null ? `${selectedSettlement.population.toLocaleString()} population` : null, selectedSettlement.currentDeity ? `${selectedSettlement.currentDeity} sphere` : null].filter(Boolean).join(' • ')}
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {citystate && <Badge variant="outline">{citystate.economicStatus}</Badge>}
+                {selectedSettlement.environs.map((environ) => <Badge key={environ} variant="secondary">{environ}</Badge>)}
+                {defaultLanguage && <Badge variant="outline">Default {defaultLanguage.name}</Badge>}
+              </div>
+              {selectedSettlement.languageLayers.length > 0 && (
+                <div className="mt-3 text-xs text-muted-foreground">Language/toponym layers: {selectedSettlement.languageLayers.join(' • ')}</div>
+              )}
+              {selectedSettlement.nameStatus !== 'CANONICAL' && (
+                <div className="mt-2 text-xs text-muted-foreground">Name status: {selectedSettlement.nameStatus.replaceAll('_', ' ').toLowerCase()}. English glosses remain available for table play.</div>
+              )}
+            </>
           )}
         </div>
       )}
+
+      <p className="text-xs text-muted-foreground">
+        Starting location is a prerequisite for Heritage. Its local terrain constrains Environs Heritage and also informs Culture/Society recommendations, language suggestions, contextual Region/Settlement specializations, and later Wealth calculations.
+      </p>
     </div>
   );
 }
@@ -165,7 +212,7 @@ function DemographicsStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
         <div className="space-y-2"><Label>Sex</Label><Select value={draft.background.sex ?? undefined} onValueChange={(sex) => setBackground({ sex: sex as CharacterDraft['background']['sex'], geneticallyFemale: sex === 'Male' ? false : draft.background.geneticallyFemale })}><SelectTrigger><SelectValue placeholder="Choose Sex" /></SelectTrigger><SelectContent>{['Male','Female','Intersex'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
         <div className="space-y-2"><Label>Gender</Label><Select value={draft.background.gender ?? undefined} onValueChange={(gender) => setBackground({ gender: gender as CharacterDraft['background']['gender'] })}><SelectTrigger><SelectValue placeholder="Choose Gender" /></SelectTrigger><SelectContent>{['Male','Female','Non-binary'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
         <div className="space-y-2"><Label>Handedness</Label><Select value={draft.background.handedness ?? undefined} onValueChange={(handedness) => setBackground({ handedness: handedness as CharacterDraft['background']['handedness'] })}><SelectTrigger><SelectValue placeholder="Choose handedness" /></SelectTrigger><SelectContent><SelectItem value="Right">Right</SelectItem><SelectItem value="Left">Left</SelectItem></SelectContent></Select></div>
-        <label className={cn('flex items-center gap-3 rounded-lg border p-3', draft.background.sex === 'Male' && 'opacity-50')}><Checkbox disabled={draft.background.sex === 'Male' || !draft.background.sex} checked={draft.background.geneticallyFemale} onCheckedChange={(value) => setBackground({ geneticallyFemale: Boolean(value) })} /><span><span className="block font-medium">Apply Genetically Female adjustments</span><span className="text-xs text-muted-foreground">Available for non-Male Sex; applies the Group's structured female Attribute, characteristic, Trait, and managed-concern adjustments.</span></span></label>
+        <label className={cn('flex items-start gap-3 rounded-lg border p-3', draft.background.sex === 'Male' && 'opacity-50')}><Checkbox disabled={draft.background.sex === 'Male' || !draft.background.sex} checked={draft.background.geneticallyFemale} onCheckedChange={(value) => setBackground({ geneticallyFemale: Boolean(value) })} /><span><span className="block font-medium">Apply Genetically Female adjustments</span><span className="text-xs text-muted-foreground">Available for non-Male Sex; applies the Group's structured female Attribute, characteristic, Trait, and managed-concern adjustments.</span></span></label>
       </div>
       <Separator />
       <div className="grid gap-4 md:grid-cols-3">
@@ -233,16 +280,8 @@ function AgeStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue
 
 function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
   const selectedRegion = data.empires.find((item) => item.catalogId === draft.background.regionId);
-  const settlementNames = selectedRegion
-    ? Array.from(new Set(data.settlements[selectedRegion.name as keyof typeof data.settlements] ?? []))
-    : [];
-  const selectedSettlementName = settlementNames.find(
-    (name) => makeCatalogId('settlement', `${selectedRegion?.name ?? 'unknown'}-${name}`) === draft.background.settlementId,
-  );
-  const settlementCitystate = selectedSettlementName
-    ? data.citystates.find((item) => item.name === selectedSettlementName)
-    : undefined;
-  const recommendedEnvirons = new Set(settlementCitystate?.environs ?? []);
+  const settlement = selectedSettlementOption(draft, data);
+  const allowedEnvirons = new Set(allowedEnvironNames(draft, data));
   const heritageGranted = draft.proficiencies.granted.filter((item) => item.source === 'heritage');
   const heritageCapabilityText = formatGrantedCapabilities(heritageGranted);
   const heritageRankAdjustment = [draft.background.culturalHeritageId, draft.background.environHeritageId, draft.background.societalHeritageId]
@@ -257,6 +296,8 @@ function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'step
   ] as const;
 
   const selectPackage = (kind: 'culture' | 'environs' | 'society', id: string) => {
+    const pkg = data.heritagePackages.find((entry) => entry.id === id);
+    if (kind === 'environs' && pkg && allowedEnvirons.size && !allowedEnvirons.has(pkg.name)) return;
     setDraft((current) => {
       const background = { ...current.background };
       if (kind === 'culture') background.culturalHeritageId = background.culturalHeritageId === id ? null : id;
@@ -266,32 +307,45 @@ function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'step
     });
   };
 
+  if (!selectedRegion || !settlement) {
+    return (
+      <div className="rounded-lg border border-dashed p-6 text-sm">
+        <div className="font-medium">Starting Region & Settlement is required before Heritage.</div>
+        <p className="mt-2 text-muted-foreground">Choose the character's origin first. The settlement establishes which Environs Heritage packages are valid and supplies the regional context used by several Heritage grants.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-7">
-      <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur">
-        <div className="flex flex-wrap items-center gap-2"><Badge variant="outline">Wealth {heritageWealthAdjustment(draft, data) >= 0 ? '+' : ''}{heritageWealthAdjustment(draft, data)}</Badge><Badge variant="outline">Rank {heritageRankAdjustment >= 0 ? '+' : ''}{heritageRankAdjustment}</Badge><Badge variant="secondary">Age Group {draft.background.ageGroup ?? 'unassigned'}</Badge></div>
-        <div className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Granted Heritage capabilities</div>
-        <p className="mt-1 text-sm leading-relaxed">{heritageCapabilityText.length ? heritageCapabilityText.join(', ') : 'Select Culture, Environs, and Society.'}</p>
-      </div>
       {categories.map((category) => {
         const packages = data.heritagePackages.filter((pkg) => pkg.kind === category.kind);
+        const recommendedNames = new Set(
+          category.kind === 'culture'
+            ? settlement.cultureRecommendations
+            : category.kind === 'society'
+              ? settlement.societyRecommendations
+              : settlement.environs,
+        );
         return (
           <section key={category.kind} className="space-y-3">
             <div className="flex items-center justify-between gap-2">
               <h3 className="font-semibold">{category.title} Heritage</h3>
-              {category.kind === 'environs' && recommendedEnvirons.size > 0 && (
-                <span className="text-xs text-muted-foreground">Settlement-compatible environs are marked</span>
-              )}
+              <span className="text-xs text-muted-foreground">
+                {category.kind === 'environs' ? 'Only local Environs are selectable' : 'Local recommendations are marked'}
+              </span>
             </div>
             <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
               {packages.map((pkg) => {
-                const recommended = category.kind === 'environs' && recommendedEnvirons.has(pkg.name);
+                const recommended = recommendedNames.has(pkg.name);
+                const incompatible = category.kind === 'environs' && allowedEnvirons.size > 0 && !allowedEnvirons.has(pkg.name);
                 return (
                   <ChoiceCard
                     key={pkg.id}
                     selected={category.selectedId === pkg.id}
+                    disabled={incompatible}
                     title={pkg.name}
-                    subtitle={`${pkg.grants.length} granted capabilities${recommended ? ' • local environ' : ''}`}
+                    subtitle={`${pkg.grants.length} granted capabilities${recommended ? category.kind === 'environs' ? ' • local environ' : ' • locally plausible' : incompatible ? ' • not present at starting settlement' : ''}`}
                     meta={`Wealth ${pkg.wealth >= 0 ? '+' : ''}${pkg.wealth}`}
                     onClick={() => selectPackage(category.kind, pkg.id)}
                   />
@@ -301,7 +355,21 @@ function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'step
           </section>
         );
       })}
-
+      <section className="rounded-lg border bg-muted/20 p-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="outline">{selectedRegion.region}</Badge>
+          <Badge variant="outline">{settlement.displayName}</Badge>
+          {settlement.population != null && <Badge variant="outline">Pop. {settlement.population.toLocaleString()}</Badge>}
+          <Badge variant="outline">Wealth {heritageWealthAdjustment(draft, data) >= 0 ? '+' : ''}{heritageWealthAdjustment(draft, data)}</Badge>
+          <Badge variant="outline">Rank {heritageRankAdjustment >= 0 ? '+' : ''}{heritageRankAdjustment}</Badge>
+          <Badge variant="secondary">Age Group {draft.background.ageGroup ?? 'unassigned'}</Badge>
+        </div>
+        <div className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Granted Heritage capabilities</div>
+        <p className="mt-1 text-sm leading-relaxed">{heritageCapabilityText.length ? heritageCapabilityText.join(', ') : 'Select Culture, Environs, and Society.'}</p>
+        <div className="mt-3 text-xs text-muted-foreground">
+          Environs is location-bound here: {settlement.environs.join(', ')}. Culture and Society remain player choices; local recommendations are highlighted rather than forced.
+        </div>
+      </section>
     </div>
   );
 }
@@ -392,7 +460,7 @@ function PersonalityStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 's
         </div>
       )}
       <ScrollArea className="h-[320px] rounded-lg border p-2">
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-[5px] mt-[5px] grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((choice) => (
             <ChoiceCard
               key={choice.id}
@@ -521,9 +589,27 @@ function DisabilitiesStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
 
 function BeliefStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
   const selectedBelief = data.beliefs.find((item) => item.catalogId === draft.background.beliefId);
+  const selectedRegion = data.empires.find((item) => item.catalogId === draft.background.regionId);
+  const settlement = selectedSettlementOption(draft, data);
+  const locale = selectedRegion ? localeForRegion(selectedRegion.name, data) : null;
 
   return (
     <div className="space-y-5">
+      {settlement && (
+        <div className="rounded-lg bg-muted/50 p-4 text-sm">
+          <div className="font-medium">Local worship context — {settlement.displayName}</div>
+          <div className="mt-1 text-muted-foreground">
+            {settlement.currentDeity ? `Current divine sphere: ${settlement.currentDeity}. ` : ''}
+            {locale ? `The wider ${locale.name} is covered by ${locale.currentDeitySpheres.join(' and ')}.` : ''}
+          </div>
+          {locale?.historicalDeity && (
+            <div className="mt-1 text-xs text-muted-foreground">
+              Historical layer: {locale.historicalDeity.name} ({locale.historicalDeity.status}) — {locale.historicalDeity.role}.
+            </div>
+          )}
+          <div className="mt-2 text-xs text-muted-foreground">This is origin context only. Belief & Worship remains unrestricted by region.</div>
+        </div>
+      )}
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {data.beliefs.map((belief) => (
           <ChoiceCard
@@ -559,11 +645,15 @@ function BeliefStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepVa
           >
             <SelectTrigger><SelectValue placeholder="Choose a deity" /></SelectTrigger>
             <SelectContent>
-              {data.deities.map((deity) => (
-                <SelectItem key={deity.catalogId} value={deity.catalogId}>
-                  {deity.deity} — {deity.domains.join(', ')}
-                </SelectItem>
-              ))}
+              {data.deities.map((deity) => {
+                const local = deity.deity === settlement?.currentDeity;
+                const historical = deity.deity === locale?.historicalDeity?.name;
+                return (
+                  <SelectItem key={deity.catalogId} value={deity.catalogId}>
+                    {deity.deity} — {deity.domains.join(', ')}{local ? ' • local sphere' : historical ? ` • historical ${locale?.historicalDeity.status.toLowerCase()}` : ''}
+                  </SelectItem>
+                );
+              })}
             </SelectContent>
           </Select>
         </div>

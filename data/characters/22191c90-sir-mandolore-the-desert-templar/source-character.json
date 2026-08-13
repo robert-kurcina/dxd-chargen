@@ -1,0 +1,403 @@
+{
+  "name": {
+    "exonym": "Sir Mandolore The Desert Templar",
+    "endonym": "Sur"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Desert",
+        "society": "Cityfolk",
+        "culture": "Warrior"
+      },
+      "ethnicity": {
+        "region": "Vasik Realms",
+        "settlement": "Citystate Stagin"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Heiron",
+          "domains": [
+            {
+              "name": "Avarice",
+              "rank": 5,
+              "opposed": true
+            },
+            {
+              "name": "Order",
+              "rank": 4,
+              "opposed": false
+            },
+            {
+              "name": "Passion",
+              "rank": 1,
+              "opposed": false
+            },
+            {
+              "name": "Avarice",
+              "rank": 5,
+              "opposed": true
+            },
+            {
+              "name": "Order",
+              "rank": 4,
+              "opposed": false
+            },
+            {
+              "name": "Pas",
+              "rank": 0,
+              "opposed": false
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Secretive Deist",
+          "Sensitive"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [
+          "Betrothed a princess but fled from her",
+          "Was given a landed manor but lost it once the wedding was stopped"
+        ],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Knight",
+        "profession": "Templar",
+        "rank": 1,
+        "title": "Lieutenant"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Human",
+      "lineage": "Drusian"
+    },
+    "biology": {
+      "sex": "Male",
+      "ageGroup": "Adult",
+      "ageYearsMonth": 33.6,
+      "heightFeetInches": "6'2\"",
+      "weightPounds": 205,
+      "stature": 52,
+      "build": 51,
+      "profile": 51,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 10,
+    "rca": 10,
+    "ref": 8,
+    "int": 8,
+    "kno": 6,
+    "pre": 11,
+    "pow": 15,
+    "str": 10,
+    "for": 9,
+    "mov": 13,
+    "siz": 13,
+    "zed": 14
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "Flask of Oil",
+      "Flintstone",
+      "Fragrant Soap",
+      "Pouch",
+      "Wardrobe",
+      "Whetting stone"
+    ],
+    "weapons": [
+      "Dagger",
+      "Longsword"
+    ],
+    "armor": [
+      "all are Cultural > Stask",
+      "Breastplate",
+      "Helmet",
+      "Shield"
+    ],
+    "magicItems": [
+      "Banhammer-2"
+    ],
+    "skills": [
+      {
+        "name": "Brawn",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Deity",
+        "rank": 4,
+        "specializations": [
+          {
+            "name": "Heiron",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Discipline",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Sword",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Warhammer",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Grit",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Hunter",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leadership",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Lore",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Magic",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Medic",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Persuade",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Strike",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sturdy",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Desert",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Armor",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Plate",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Zedsurge",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Cher-gulo",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Drusa",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Kahudi",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Lorespeak",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Stask",
+        "rank": 2,
+        "isDefault": true,
+        "accented": false,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": "Note of Passage for employment by the Merchant Geiss to aide a caravan of Silks and Produce from the marketplaces of Pazkanah to the city-state. Employed at 50 sp at the end of each Week .\n\nHave been seeing a friend the Barkeep at the Cheesy Pub Tavern in Town Publuzkan to learn Common language.\n\nWent on a caravan with the merchant and was ambushed by Bandits. Drove away the bandits but was admonished by Commander Blitz because Sir Sur thought it would be better to drive away from the battle with one of the wagons of the caravan. Sergeant Karum.\n\nHas a fear and anger against all forms of giant insects, bugs, spiders. As a result will enthusiastically attack such monsters. Is familiar with Desert Spyider ecology."
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 23,
+      "bodypoints": 13,
+      "recoveryRate": 8,
+      "endurance": 12,
+      "resilience": 13,
+      "resistance": 20
+    },
+    "misc": {
+      "wealthRank": 9,
+      "socialRank": 1,
+      "professionRank": 1,
+      "favorDice": 5,
+      "cellburnLimit": 7,
+      "manapool": 17
+    },
+    "combat": {
+      "actions": 0,
+      "meleeAttack": 2,
+      "meleeDefend": 2,
+      "rangeAttack": 2,
+      "rangeDefend": 1,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 80,
+      "xp": 355
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": 9,
+      "shoulder": 4,
+      "carry": 1
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 10,
+      "run": 13
+    },
+    "throwing": {
+      "lob": -8,
+      "pitch": -2,
+      "hurl": 4
+    },
+    "jumping": {
+      "upward": -8,
+      "broadjump": -3,
+      "downward": 1
+    }
+  }
+}

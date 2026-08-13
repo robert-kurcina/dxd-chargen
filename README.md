@@ -2,13 +2,14 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v109
+## Current state — v110
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
 Background currently supports:
 
-- Region and Settlement;
+- **Starting Region & Settlement as an origin prerequisite**: detailed locales provide settlement population, type, local Environs, current divine sphere, historical setting context, and language/toponym layers; the Corom Region currently has 26 detailed settlement profiles totaling 536.3K;
+- Region and Settlement fallback data for regions without a detailed locale;
 - full Demographics: Sex, Gender, Genetically Female applicability, Handedness, Age Group/Rank, exact Age, and Birth Month;
 - Culture, Environs, and Society Heritage;
 - automatic XLSX-derived Heritage grants with provenance;
@@ -72,6 +73,18 @@ Finalization and library now supports:
 - catalogue-integrity checks for imported Spells, Languages, inventory, and complete-data Magic Items.
 
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
+
+## v110 — Starting Region, Settlement, and Heritage context
+
+v110 makes **Assign Starting Region & Settlement** a rules-bearing origin choice rather than a stand-alone label.
+
+- Added the detailed **Corom Region / Eastlands** locale from `META/locale.citystate-crolm.pdf`: Citystate Corom plus 25 nearby settlements, totaling **536,300** population.
+- Preserved the English settlement labels as table-play glosses while exposing working native forms such as Fanur (Slowriver), Gromor (North Hold), Joro (Jorway), and Joromor (Jorfort).
+- Records the current Marli/Heiron divine spheres and historical Crolm (Ended) context without restricting Belief & Worship.
+- **Heritage now requires a selected Starting Region & Settlement.** Environs Heritage is restricted to terrain present at the selected settlement. Culture and Society remain choices, with local recommendations highlighted rather than forced.
+- Location now also informs default/Heritage language suggestions, contextual Broad Trait Region/Settlement specialization, character-sheet identity, random starting-settlement generation, and existing citystate economy-dependent Wealth/physical adjustments where source data supports them.
+- Detailed Corom settlement randomization is population-weighted. Legacy regions preserve their earlier catalogue weighting.
+- No `CharacterDraft` schema change is required; existing saved Corom IDs remain compatible.
 
 ## v107–v109 QA and repository-structure corrections
 

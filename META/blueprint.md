@@ -22,6 +22,6 @@ React components should render results and dispatch selections. They should not 
 
 ## Current release
 
-v109 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Release hardening is the next tranche.
+v110 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Starting Region & Settlement is now a rules-bearing origin context: detailed locales constrain Environs Heritage and inform language, specialization, deity-context, output identity, and random-origin behavior. Release hardening remains the next tranche.
 
 See `FINAL_PRODUCT_PLAN.md` for the full implementation and release plan.

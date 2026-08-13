@@ -57,6 +57,7 @@ import {
   calculateAttributeDM,
 } from '@/lib/character-logic';
 import type { StaticData } from '@/data';
+import { weightedSettlementPick } from '@/lib/settlement-context';
 import { cn } from '@/lib/utils';
 import { parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
 import { calculateCandidacyProbability } from '@/lib/probability';
@@ -1485,20 +1486,18 @@ const SettlementGenerationTest = ({ data }: { data: StaticData }) => {
     const handleGenerate = () => {
         const empires = data.empires;
         const empire = empires[Math.floor(Math.random() * empires.length)];
-        
-        const settlementOptions = (data.settlements as any)[empire.name];
-        const settlement = settlementOptions[ND6()-1];
+        const settlement = weightedSettlementPick(empire.name, data);
 
         setResult({
-            empire: empire.name,
-            settlement: settlement
+            empire: `${empire.region} / ${empire.name}`,
+            settlement: settlement ? `${settlement.displayName}${settlement.workingGloss ? ` (${settlement.workingGloss})` : ''}` : 'None'
         });
     };
 
     return (
         <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-                Randomly selects an empire and then rolls a D6 to determine a starting settlement from that empire's list.
+                Randomly selects a political region, then uses the region's configured origin weights. Detailed locales such as Corom are population-weighted; legacy regions retain their original catalogue weights.
             </p>
             <Button onClick={handleGenerate}>Generate Settlement</Button>
             {result && (

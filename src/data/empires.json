@@ -60,5 +60,23 @@
       "Drusi",
       "Sarukhen"
     ]
+  },
+  {
+    "id": 7,
+    "name": "Pazkani",
+    "region": "Bendeni",
+    "neighbors": ["Western", "Drusi", "Palten"]
+  },
+  {
+    "id": 8,
+    "name": "Drusi",
+    "region": "Drusi",
+    "neighbors": ["Pazkani", "Western", "Boron"]
+  },
+  {
+    "id": 9,
+    "name": "Galsathil",
+    "region": "Vasik Realms",
+    "neighbors": ["Vashtur", "Palten", "Djorkan"]
   }
 ]

@@ -83,6 +83,50 @@
   }
 }
 
+/* Starting Gear catalogue rows: label | five compact properties | controls. */
+section:has(input[placeholder="Search Weapons, Armor, and Equipment"])
+  .min-w-\[760px\] {
+  min-width: 0;
+  width: 100%;
+}
+
+section:has(input[placeholder="Search Weapons, Armor, and Equipment"])
+  .min-w-\[760px\]
+  > div {
+  grid-template-columns: minmax(0, 1fr) minmax(125px, 375px) 100px;
+  width: 100%;
+}
+
+section:has(input[placeholder="Search Weapons, Armor, and Equipment"])
+  .min-w-\[760px\]
+  > div
+  > div:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+section:has(input[placeholder="Search Weapons, Armor, and Equipment"])
+  .min-w-\[760px\]
+  > div
+  > div:nth-child(2)
+  > div {
+  min-width: 25px;
+  max-width: 75px;
+}
+
+section:has(input[placeholder="Search Weapons, Armor, and Equipment"])
+  .min-w-\[760px\]
+  > div
+  > div:last-child {
+  box-sizing: border-box;
+  min-width: 100px;
+  max-width: 100px;
+  padding-right: 8px;
+  justify-content: flex-end;
+}
+
 /* DXD print sheet */
 @media print {
   @page { margin: 0.35in; }

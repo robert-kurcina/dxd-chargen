@@ -1,175 +1,163 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
-import { Copy, Download, FileUp, Pencil, Plus, Trash2, UserRoundCheck } from 'lucide-react';
-
+import { useEffect, useMemo, useState } from 'react';
+import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 import type { StaticData } from '@/data';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import type { CharacterLibraryState } from '@/lib/character-library';
-import { exportCharacter } from '@/lib/character-library';
-import { validateCharacterDraft } from '@/lib/rules/finalization';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import type { CharacterDraft } from '@/lib/character-draft';
 
-function safeFilename(value: string) {
-  return (value || 'unnamed-character').trim().replace(/[^a-z0-9_-]+/gi, '-').replace(/^-+|-+$/g, '').toLowerCase() || 'unnamed-character';
-}
+type FileCharacter = {
+  idName: string;
+  name: string;
+  speciesId: string | null;
+  lineageId: string | null;
+  tradeId: string | null;
+  professionId: string | null;
+  thumbnailUrl: string | null;
+  updatedAt: string;
+};
 
-function downloadJson(filename: string, value: unknown) {
-  const blob = new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-}
+type SortColumn = 'filename' | 'name' | 'identity' | 'profession' | 'updated';
+type SortDirection = 'asc' | 'desc';
+type Filters = { filename: string; name: string; identity: string; profession: string };
+
+const SORT_STORAGE_KEY = 'dxd-chargen-library-sort';
+const DEFAULT_SORT = { column: 'updated' as SortColumn, direction: 'desc' as SortDirection };
+const EMPTY_FILTERS: Filters = { filename: '', name: '', identity: '', profession: '' };
+const compareText = (left: string, right: string) => left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' });
 
 export default function CharacterLibraryPanel({
   data,
-  library,
-  onSelect,
-  onNew,
-  onDuplicate,
-  onDelete,
-  onImport,
-  onEdit,
-  onOpenSheet,
+  refreshKey,
+  onOpen,
 }: {
   data: StaticData;
-  library: CharacterLibraryState;
-  onSelect: (id: string) => void;
-  onNew: () => void;
-  onDuplicate: (id: string) => void;
-  onDelete: (id: string) => void;
-  onImport: (value: unknown) => void;
-  onEdit: () => void;
-  onOpenSheet: () => void;
+  refreshKey: number;
+  onOpen: (idName: string, draft: CharacterDraft) => void;
 }) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const validations = useMemo(() => new Map(
-    library.entries.map((entry) => [entry.id, validateCharacterDraft(entry.draft, data)]),
-  ), [library.entries, data]);
-  const active = library.entries.find((entry) => entry.id === library.activeId) ?? library.entries[0];
-  const validation = active ? validations.get(active.id) : null;
+  const [characters, setCharacters] = useState<FileCharacter[]>([]);
+  const [error, setError] = useState('');
+  const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
+  const [sort, setSort] = useState(DEFAULT_SORT);
 
-  const handleImport = async (file: File | undefined) => {
-    if (!file) return;
+  useEffect(() => {
     try {
-      onImport(JSON.parse(await file.text()));
-    } catch {
-      window.alert('The selected file is not valid DXD character JSON.');
-    } finally {
-      if (inputRef.current) inputRef.current.value = '';
-    }
+      const saved = JSON.parse(window.localStorage.getItem(SORT_STORAGE_KEY) ?? 'null');
+      if (['filename', 'name', 'identity', 'profession', 'updated'].includes(saved?.column) && ['asc', 'desc'].includes(saved?.direction)) {
+        setSort({ column: saved.column as SortColumn, direction: saved.direction as SortDirection });
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(SORT_STORAGE_KEY, JSON.stringify(sort));
+  }, [sort]);
+
+  useEffect(() => {
+    setError('');
+    void fetch('/api/character-files', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error('Library request failed.');
+        return response.json();
+      })
+      .then((value) => setCharacters(value.characters ?? []))
+      .catch(() => setError('Unable to read the character data directory.'));
+  }, [refreshKey]);
+
+  const identity = (entry: FileCharacter) => {
+    const group = data.species.flatMap((family) => family.groups).find((item) => item.catalogId === entry.speciesId);
+    const family = data.species.find((item) => item.groups.some((candidate) => candidate.catalogId === entry.speciesId));
+    const lineage = group?.lineages.find((name) => `lineage-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` === entry.lineageId);
+    return [family?.displayName, group?.name, lineage].filter(Boolean).join(' / ') || '—';
+  };
+
+  const profession = (entry: FileCharacter) => {
+    const trade = data.tradePackages.find((item) => `trade-${item.trade.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` === entry.tradeId);
+    const specialization = trade?.specializations.find((item) => `specialization-${`${trade.trade}-${item.name}`.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` === entry.professionId);
+    return [trade?.trade, specialization?.name].filter(Boolean).join(' / ') || '—';
+  };
+
+  const rows = useMemo(() => characters.map((entry) => ({ entry, identity: identity(entry), profession: profession(entry) })), [characters, data]);
+  const visibleRows = useMemo(() => {
+    const normalized = Object.fromEntries(Object.entries(filters).map(([key, value]) => [key, value.trim().toLocaleLowerCase()])) as Filters;
+    return rows
+      .filter(({ entry, identity: identityValue, profession: professionValue }) =>
+        entry.idName.toLocaleLowerCase().includes(normalized.filename)
+        && entry.name.toLocaleLowerCase().includes(normalized.name)
+        && identityValue.toLocaleLowerCase().includes(normalized.identity)
+        && professionValue.toLocaleLowerCase().includes(normalized.profession))
+      .sort((left, right) => {
+        const values: Record<SortColumn, [string, string]> = {
+          filename: [left.entry.idName, right.entry.idName],
+          name: [left.entry.name, right.entry.name],
+          identity: [left.identity, right.identity],
+          profession: [left.profession, right.profession],
+          updated: [left.entry.updatedAt, right.entry.updatedAt],
+        };
+        const result = sort.column === 'updated'
+          ? new Date(values.updated[0]).getTime() - new Date(values.updated[1]).getTime()
+          : compareText(...values[sort.column]);
+        return sort.direction === 'asc' ? result : -result;
+      });
+  }, [filters, rows, sort]);
+
+  const open = async (idName: string) => {
+    const response = await fetch(`/api/character-files/${encodeURIComponent(idName)}`, { cache: 'no-store' });
+    if (!response.ok) return setError('Unable to load that character.');
+    const value = await response.json();
+    onOpen(idName, value.draft);
+  };
+
+  const toggleSort = (column: SortColumn) => setSort((current) => current.column === column
+    ? { column, direction: current.direction === 'asc' ? 'desc' : 'asc' }
+    : { column, direction: column === 'updated' ? 'desc' : 'asc' });
+  const setFilter = (column: keyof Filters, value: string) => setFilters((current) => ({ ...current, [column]: value }));
+  const SortHeader = ({ column, children }: { column: SortColumn; children: React.ReactNode }) => {
+    const active = sort.column === column;
+    return <button type="button" onClick={() => toggleSort(column)} className="inline-flex items-center gap-1 whitespace-nowrap font-semibold hover:underline" aria-label={`Sort by ${String(children)}`} aria-sort={active ? (sort.direction === 'asc' ? 'ascending' : 'descending') : 'none'}>{children}{!active ? <ChevronsUpDown className="h-3.5 w-3.5 opacity-50" /> : sort.direction === 'asc' ? <ArrowUp className="h-3.5 w-3.5" /> : <ArrowDown className="h-3.5 w-3.5" />}</button>;
   };
 
   return (
-    <div className="mx-auto w-full max-w-[1240px] space-y-4 pb-8">
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <CardTitle>Character Library</CardTitle>
-                <Badge variant="outline">{library.entries.length} local</Badge>
-              </div>
-              <CardDescription className="mt-1">
-                Characters are stored locally in this browser as structured drafts. Sheet data is projected from the active draft rather than stored separately.
-              </CardDescription>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="outline" onClick={() => inputRef.current?.click()}><FileUp />Import JSON</Button>
-              <input ref={inputRef} type="file" className="hidden" accept="application/json,.json" onChange={(event) => void handleImport(event.target.files?.[0])} />
-              <Button onClick={onNew}><Plus />New Character</Button>
-            </div>
-          </div>
-        </CardHeader>
-      </Card>
-
-      {active && validation && (
-        <Card className={validation.ready ? 'border-emerald-300' : 'border-amber-300'}>
-          <CardHeader>
-            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <CardTitle>{active.draft.utilities.name || 'Unnamed character'}</CardTitle>
-                  <Badge variant={validation.ready ? 'default' : 'secondary'}>
-                    {validation.ready ? 'Ready' : `${validation.incompleteSteps} incomplete`}
-                  </Badge>
-                  {validation.warningSteps > 0 && <Badge variant="outline">{validation.warningSteps} warning steps</Badge>}
-                </div>
-                <CardDescription className="mt-1">
-                  {validation.completeSteps}/{validation.totalSteps} canonical steps complete. Updated {new Date(active.updatedAt).toLocaleString()}.
-                </CardDescription>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Button variant="outline" onClick={onEdit}><Pencil />Edit</Button>
-                <Button variant="outline" onClick={onOpenSheet}><UserRoundCheck />Open Sheet</Button>
-                <Button variant="outline" onClick={() => downloadJson(`${safeFilename(active.draft.utilities.name)}.dxd.json`, exportCharacter(active))}><Download />Export</Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {validation.issues.length === 0 ? (
-              <p className="text-sm">No blocking errors or warnings remain in the current implementation scope.</p>
-            ) : (
-              <div className="space-y-3">
-                {validation.issues.map((issue, index) => (
-                  <div key={`${issue.step}-${index}`} className="rounded-md border p-3 text-sm">
-                    <div className="flex items-center gap-2">
-                      <Badge variant={issue.severity === 'error' ? 'destructive' : 'outline'}>{issue.severity}</Badge>
-                      <span className="font-medium">{issue.stepTitle}</span>
-                    </div>
-                    <p className="mt-1 text-muted-foreground">{issue.message}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
-
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {library.entries.map((entry) => {
-          const current = entry.id === library.activeId;
-          const result = validations.get(entry.id)!;
-          return (
-            <Card key={entry.id} className={current ? 'border-primary' : undefined}>
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <CardTitle className="truncate text-base">{entry.draft.utilities.name || 'Unnamed character'}</CardTitle>
-                    <CardDescription className="mt-1">PML {entry.draft.proficiencies.pml ?? '—'} • {entry.draft.background.ageGroup ?? 'Age unresolved'}</CardDescription>
-                  </div>
-                  <Badge variant={result.ready ? 'default' : result.incompleteSteps ? 'secondary' : 'outline'}>
-                    {result.ready ? 'Ready' : `${result.completeSteps}/${result.totalSteps}`}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="text-xs text-muted-foreground">Updated {new Date(entry.updatedAt).toLocaleString()}</div>
-                <Separator />
-                <div className="flex flex-wrap gap-2">
-                  {!current && <Button size="sm" onClick={() => onSelect(entry.id)}>Open</Button>}
-                  {current && <Button size="sm" variant="secondary" disabled>Active</Button>}
-                  <Button size="sm" variant="outline" onClick={() => onDuplicate(entry.id)}><Copy />Duplicate</Button>
-                  <Button size="sm" variant="outline" onClick={() => downloadJson(`${safeFilename(entry.draft.utilities.name)}.dxd.json`, exportCharacter(entry))}><Download />Export</Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      if (window.confirm(`Delete ${entry.draft.utilities.name || 'this character'}? This removes only the local library copy.`)) onDelete(entry.id);
-                    }}
-                  ><Trash2 />Delete</Button>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+    <div className="mx-auto w-full max-w-[1440px] space-y-4 pb-8">
+      <Card><CardHeader><CardTitle>Character Library</CardTitle><CardDescription>Filesystem characters from data/characters. Filter or sort the table, then select a row to load it into Forge.</CardDescription></CardHeader></Card>
+      {error && <div className="rounded border border-[#990000] p-3 text-sm text-[#990000]">{error}</div>}
+      <div className="overflow-x-auto rounded-lg border">
+        <table className="w-full min-w-[980px] text-sm">
+          <thead className="bg-muted/50">
+            <tr>
+              <th className="p-3 text-left">Portrait</th>
+              <th className="p-3 text-left"><SortHeader column="filename">Filename</SortHeader></th>
+              <th className="p-3 text-left"><SortHeader column="name">Character Name</SortHeader></th>
+              <th className="p-3 text-left"><SortHeader column="identity">Species / Group / Lineage</SortHeader></th>
+              <th className="p-3 text-left"><SortHeader column="profession">Trade / Profession</SortHeader></th>
+              <th className="p-3 text-left"><SortHeader column="updated">Updated</SortHeader></th>
+              <th className="p-3" />
+            </tr>
+            <tr className="border-t">
+              <th className="p-2" />
+              <th className="p-2"><Input value={filters.filename} onChange={(event) => setFilter('filename', event.target.value)} placeholder="Filter filename" aria-label="Filter by filename" className="h-8 bg-background font-normal" /></th>
+              <th className="p-2"><Input value={filters.name} onChange={(event) => setFilter('name', event.target.value)} placeholder="Filter name" aria-label="Filter by character name" className="h-8 bg-background font-normal" /></th>
+              <th className="p-2"><Input value={filters.identity} onChange={(event) => setFilter('identity', event.target.value)} placeholder="Filter species, group, lineage" aria-label="Filter by species, group, or lineage" className="h-8 bg-background font-normal" /></th>
+              <th className="p-2"><Input value={filters.profession} onChange={(event) => setFilter('profession', event.target.value)} placeholder="Filter trade or profession" aria-label="Filter by trade or profession" className="h-8 bg-background font-normal" /></th>
+              <th className="p-2" />
+              <th className="p-2 text-right">{Object.values(filters).some(Boolean) && <Button variant="ghost" size="sm" onClick={() => setFilters(EMPTY_FILTERS)}>Clear</Button>}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {visibleRows.map(({ entry, identity: identityValue, profession: professionValue }) => <tr key={entry.idName} className="border-t hover:bg-muted/30">
+              <td className="p-2">{entry.thumbnailUrl ? <img src={`${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}`} alt="" className="h-16 w-20 rounded border object-cover" /> : <div className="h-16 w-20 rounded border bg-muted" />}</td>
+              <td className="p-3 font-mono text-xs">{entry.idName}</td>
+              <td className="p-3 font-medium">{entry.name || '—'}</td>
+              <td className="p-3">{identityValue}</td>
+              <td className="p-3">{professionValue}</td>
+              <td className="p-3 text-xs text-muted-foreground">{new Date(entry.updatedAt).toLocaleString()}</td>
+              <td className="p-3 text-right"><Button size="sm" onClick={() => void open(entry.idName)}>Load</Button></td>
+            </tr>)}
+            {!visibleRows.length && <tr><td colSpan={7} className="p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</td></tr>}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -318,6 +318,11 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
 export function syncProperties(draft: CharacterDraft, data: StaticData): CharacterDraft {
   const result = calculateProperties(draft, data);
   if (!result) {
+    // A loaded, completed sheet may contain authoritative calculated values from
+    // the legacy character creator even when its historical species/heritage IDs
+    // cannot be replayed by the current Forge catalogues. Do not erase those
+    // persisted values merely because modern recalculation is unavailable.
+    if (draft.completedSteps.includes('properties-calculations') && Object.keys(draft.properties.calculated).length > 0) return draft;
     return {
       ...draft,
       properties: {

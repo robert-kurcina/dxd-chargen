@@ -108,5 +108,25 @@
       "Deserts",
       "River"
     ]
+  },
+  {
+    "name": "Pazkan",
+    "economicStatus": "Average",
+    "environs": ["Forests", "Grassland", "Coastal", "Hills"]
+  },
+  {
+    "name": "Dar",
+    "economicStatus": "Average",
+    "environs": ["Forests", "Grassland", "Coastal", "Hills"]
+  },
+  {
+    "name": "Herost",
+    "economicStatus": "Average",
+    "environs": ["Forests", "Taiga", "Coastal", "Mountain"]
+  },
+  {
+    "name": "Khardik",
+    "economicStatus": "Average",
+    "environs": ["Woods", "Savannah", "Grassland", "Coastal"]
   }
 ]

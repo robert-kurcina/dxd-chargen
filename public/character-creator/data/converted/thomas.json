@@ -1,0 +1,478 @@
+{
+  "name": {
+    "exonym": "Rordon Gamsey",
+    "endonym": "Rorldengamczy"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Mountains",
+        "society": "Tribal",
+        "culture": "Warrior"
+      },
+      "ethnicity": {
+        "region": "Argeleb Twins > Balun",
+        "settlement": "Castle Hol"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Agnostic (Lekteb)",
+          "domains": [
+            {
+              "name": "Envy",
+              "rank": 4,
+              "opposed": true
+            },
+            {
+              "name": "Wisdom",
+              "rank": 4,
+              "opposed": false
+            },
+            {
+              "name": "Life",
+              "rank": 2,
+              "opposed": false
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Curious"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [
+          "Guardian was killed defending Honor"
+        ],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Rogue",
+        "profession": "Spy",
+        "rank": 2,
+        "title": "Lead"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Klenari",
+      "lineage": "Stepmir"
+    },
+    "biology": {
+      "sex": "Male",
+      "ageGroup": "Young Adult",
+      "ageYearsMonth": 21.9,
+      "heightFeetInches": "3'4",
+      "weightPounds": 55,
+      "stature": 25,
+      "build": 34,
+      "profile": 29,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 12,
+    "rca": 12,
+    "ref": 15,
+    "int": 8,
+    "kno": 8,
+    "pre": 6,
+    "pow": 7,
+    "str": 3,
+    "for": 8,
+    "mov": 13,
+    "siz": 7,
+    "zed": 2
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Reinforced"
+    ],
+    "weapons": [
+      "Daggers x 2"
+    ],
+    "armor": [],
+    "magicItems": [
+      "Belt of Silence"
+    ],
+    "skills": [
+      {
+        "name": "Acrobatic",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawl",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawn",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Cautious",
+        "rank": 2,
+        "specializations": [],
+        "disability": true
+      },
+      {
+        "name": "Climb",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Cryptography",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Detect",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Disguise",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Domus",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Martial",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Evasive",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Dagger",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "Throwing Knives",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Forage",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Grit",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Hunter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Knife-fighting",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Lockpicking",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Martialist",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Mountaineering",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nightvision",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Pidgin",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "any Lingo",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Pidgin",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "any Warlang",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Poison",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Politics",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Kazdan",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Politics",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "any Region",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Seduction",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sneaky",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Solitary",
+        "rank": 1,
+        "specializations": [],
+        "disability": true
+      },
+      {
+        "name": "Surefooted",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 5,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tactics",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tracking",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Warfare",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Spycraft",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Warfare",
+        "rank": 2,
+        "specializations": [
+          {
+            "name": "any",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Wise",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Zucked",
+        "rank": 1,
+        "specializations": [],
+        "disability": true
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Kahuzid",
+        "rank": 4,
+        "isDefault": true,
+        "accented": false,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Sarek",
+        "rank": 3,
+        "isDefault": false,
+        "accented": false,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": ""
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 19,
+      "bodypoints": 7,
+      "recoveryRate": 4,
+      "endurance": 11,
+      "resilience": 7,
+      "resistance": 12
+    },
+    "misc": {
+      "wealthRank": 4,
+      "socialRank": 3,
+      "professionRank": 2,
+      "favorDice": 1,
+      "cellburnLimit": 1,
+      "manapool": 2
+    },
+    "combat": {
+      "actions": 1,
+      "meleeAttack": 3,
+      "meleeDefend": 3,
+      "rangeAttack": 3,
+      "rangeDefend": 4,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 25,
+      "xp": 0
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": -1,
+      "shoulder": -2,
+      "carry": -5
+    },
+    "movement": {
+      "walk": 6,
+      "jog": 9,
+      "run": 13
+    },
+    "throwing": {
+      "lob": -15,
+      "pitch": -9,
+      "hurl": -3
+    },
+    "jumping": {
+      "upward": -8,
+      "broadjump": -6,
+      "downward": 1
+    }
+  }
+}

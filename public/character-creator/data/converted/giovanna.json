@@ -1,0 +1,332 @@
+{
+  "name": {
+    "exonym": "Giovanna Manroad",
+    "endonym": "Jorvarnata"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Coastal",
+        "society": "Slumfolk",
+        "culture": "Wilding"
+      },
+      "ethnicity": {
+        "region": "Eastlands",
+        "settlement": "Farton"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Gennalfe",
+          "domains": [
+            {
+              "name": "Generosity",
+              "rank": 3,
+              "opposed": false
+            },
+            {
+              "name": "Banality",
+              "rank": 2,
+              "opposed": true
+            },
+            {
+              "name": "Life",
+              "rank": 2,
+              "opposed": false
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Sleazy"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Rogue",
+        "profession": "Thief",
+        "rank": 2,
+        "title": "Apprentice"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Halfling",
+      "lineage": "Farleen"
+    },
+    "biology": {
+      "sex": "Female",
+      "ageGroup": "Eary Teen",
+      "ageYearsMonth": 14.11,
+      "heightFeetInches": "3'0\"",
+      "weightPounds": 39,
+      "stature": 21,
+      "build": 29,
+      "profile": 25,
+      "pml": 3,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 19,
+    "rca": 18,
+    "ref": 18,
+    "int": 11,
+    "kno": 2,
+    "pre": 9,
+    "pow": 5,
+    "str": 3,
+    "for": 9,
+    "mov": 15,
+    "siz": 5,
+    "zed": 12
+  },
+  "historyNotes": {
+    "allies": [
+      "Adult Camel \"Sonya\"",
+      "Hellhound \"Spot\""
+    ],
+    "equipment": [
+      "Backpack",
+      "Lockpit Kit",
+      "Small Bolt quiver",
+      "Small Bolts x 20",
+      "Stun Poison x 3",
+      "Wardrobe"
+    ],
+    "weapons": [
+      "Dagger",
+      "Small Crossbow"
+    ],
+    "armor": [
+      "Leather Armor"
+    ],
+    "magicItems": [],
+    "skills": [
+      {
+        "name": "Barter",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Climbing",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Compass",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Crafting",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Crossbow",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Daggers",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Detect",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leap",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Lockpicking",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nightvision",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sneaky",
+        "rank": 8,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Swim",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tracking",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Trapmaster",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Wise",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Zucked",
+        "rank": 0,
+        "specializations": [],
+        "disability": true
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 2,
+        "isDefault": true,
+        "accented": false,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Common-Lingo",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Fayeed",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": "Stole from a prince. Jumped out da window. Landed on hay. Very nice horse. Pet the horse and vows to create a genuine connection with every horse she meets.\n\nWhen I was young both my parents drowned in a boating accident. I studied why this occured and learned that water is evil. I started a new religion and I conned followers for years, and used grift and stole all the money and left them hanging. As a result of this formative experience, I am skilled at conning and persuading fools."
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 29,
+      "bodypoints": 5,
+      "recoveryRate": 4,
+      "endurance": 13,
+      "resilience": 7,
+      "resistance": 10
+    },
+    "misc": {
+      "wealthRank": 8,
+      "socialRank": 0,
+      "professionRank": 2,
+      "favorDice": 3,
+      "cellburnLimit": 1,
+      "manapool": 8
+    },
+    "combat": {
+      "actions": 2,
+      "meleeAttack": 6,
+      "meleeDefend": 6,
+      "rangeAttack": 6,
+      "rangeDefend": 6,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 0,
+      "xp": 1860
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": -3,
+      "shoulder": -4,
+      "carry": -7
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 10,
+      "run": 15
+    },
+    "throwing": {
+      "lob": -15,
+      "pitch": -9,
+      "hurl": -3
+    },
+    "jumping": {
+      "upward": -6,
+      "broadjump": -4,
+      "downward": 3
+    }
+  }
+}

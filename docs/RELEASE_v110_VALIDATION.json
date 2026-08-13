@@ -1,0 +1,40 @@
+{
+  "release": "0.110.0",
+  "scope": "origin-aware Starting Region & Settlement integration, Corom locale data, Heritage dependency, and downstream location context",
+  "source": {
+    "coromLocale": "META/locale.citystate-crolm.pdf",
+    "population": 536300,
+    "settlementProfiles": 26,
+    "currentDeitySpheres": [
+      "Marli",
+      "Heiron"
+    ],
+    "historicalDeity": {
+      "name": "Crolm",
+      "status": "Ended"
+    }
+  },
+  "checks": {
+    "dataValidation": "pass: 77 JSON files; 36 Heritage packages; 17 language/name generators; 26 detailed settlement profiles; 1 locale; 11 playable Trades; 100 physical-scale rows; 96/144 complete Magic Items",
+    "coromPopulationReconciliation": "pass: 26 detailed profiles sum exactly to 536,300; origin weights sum to the same 536,300",
+    "heritageDependency": "pass by source/rule inspection: Heritage requires region+settlement; detailed Environs are filtered/validated against selected settlement",
+    "locationChangeInvalidation": "pass by source/rule inspection: stale incompatible Environs and default regional language are cleared on origin change",
+    "downstreamLocationConsumers": "pass by source/rule inspection: language suggestion, Heritage-language context, Region/Settlement specialization, live/finished identity, random origin, Wealth/citystate economy behavior, and Belief local context are wired to shared settlement resolver",
+    "beliefPolicy": "pass: Marli/Heiron/Crolm are displayed as origin context; known-Deity selection remains unrestricted",
+    "typescriptSyntax": "pass: 55 TS/TSX implementation files transpile with global TypeScript syntax diagnostics enabled",
+    "rulesTypecheck": "pass: changed non-React rules/projection modules typecheck under strict project settings with only clsx/tailwind-merge external declaration stubs",
+    "scriptSyntax": "pass: node --check validate-data.mjs/run-local.mjs; bash -n run-local.sh",
+    "diffWhitespace": "pass: git diff --check",
+    "manifestLockSync": "pass: package.json, package-lock root, and package-lock root package are 0.110.0",
+    "characterDraftMigration": "not required: no CharacterDraft schema fields changed; settlement-djorkan-corom remains stable",
+    "dependencyBackedNextBuild": "not executed in sandbox: uploaded source archive does not carry installed dependencies and sandbox has no package-network access; stale .next/node_modules artifacts are excluded rather than represented as a v110 build",
+    "freshExtraction": "pass: source archive re-extracted; data validation, launcher syntax/executable bit, version/lock sync, 536.3K locale reconciliation, provenance PDF presence, and generated-artifact exclusion verified",
+    "zipIntegrity": "pass"
+  },
+  "notes": [
+    "Culture and Society Heritage are locally recommended but intentionally not restricted.",
+    "Detailed-locale random settlement selection is exactly population-weighted; legacy regions retain their earlier catalogue weighting.",
+    "Minor-settlement economic statuses were not invented. Existing citystate economy adjustments continue only where source data already defines them.",
+    "English settlement glosses remain available for table play; working native forms are runtime display names for the detailed Corom locale."
+  ]
+}

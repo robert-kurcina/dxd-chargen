@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sarna Len Character Sheet</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sheet-values.css">
+</head>
+<body>
+  <header class="toolbar">
+    <div class="brand">
+      <span class="brand-mark">SL</span>
+      <div><strong>Sarna Len</strong><span>Character Sheet</span></div>
+    </div>
+    <div class="page-tabs" role="tablist" aria-label="Sheet side">
+      <button class="tab active" data-page="front" role="tab" aria-selected="true">Front</button>
+      <button class="tab" data-page="back" role="tab" aria-selected="false">Back</button>
+    </div>
+    <div class="actions">
+      <label class="character-control">
+        <span>Character</span>
+        <select id="character-select" aria-label="Character" disabled></select>
+      </label>
+      <label class="level-control">PML <input id="pml" type="number" min="0" max="12" value="0" disabled></label>
+      <button id="edit">Edit</button>
+      <button id="undo" class="quiet" hidden>Undo</button>
+      <button id="update" hidden>Update</button>
+      <button id="save" hidden>Save</button>
+      <button id="revert" class="quiet" hidden>Revert</button>
+      <button id="download" class="quiet" title="Download character data">Download</button>
+      <button id="export-pdf" class="quiet" title="Export both sheet sides as PDF">Export PDF</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="sheet-shell">
+      <section id="front" class="sheet-page active" aria-label="Character sheet front">
+        <img class="sheet-art" src="sheet/zoey-sheet-front.png" alt="Sarna Len character sheet front">
+        <div class="sheet-fields" id="front-fields"></div>
+        <img class="portrait" src="portraits/decal-zoey.png" alt="Zoey portrait">
+      </section>
+
+      <section id="back" class="sheet-page" aria-label="Character sheet back" hidden>
+        <img class="sheet-art" src="sheet/zoey-sheet-back.png" alt="Sarna Len character sheet back">
+        <div class="sheet-fields" id="back-fields"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

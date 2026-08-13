@@ -6,6 +6,26 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+const selectCollator = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: "base",
+})
+
+function optionText(node: React.ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node)
+  if (Array.isArray(node)) return node.map(optionText).join("")
+  if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+    return optionText(node.props.children)
+  }
+  return ""
+}
+
+function sortedOptions(children: React.ReactNode) {
+  return React.Children.toArray(children).sort((left, right) =>
+    selectCollator.compare(optionText(left), optionText(right))
+  )
+}
+
 const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
@@ -91,7 +111,7 @@ const SelectContent = React.forwardRef<
             "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
         )}
       >
-        {children}
+        {sortedOptions(children)}
       </SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>

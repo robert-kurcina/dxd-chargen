@@ -1,0 +1,267 @@
+/* Region geometry follows the labeled sections of the printed character sheet. */
+.sheet-page { container-type: inline-size; }
+
+.field-group {
+  position: absolute;
+  z-index: 4;
+  font-size: 1.42cqw;
+}
+
+.field-group .field {
+  position: relative;
+  inset: auto !important;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #080808;
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0;
+  padding: .18cqw .34cqw;
+}
+
+.field-group .field.numeric {
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
+  font-weight: 700;
+  text-align: center !important;
+  text-indent: 0;
+}
+
+.field.derived { background: transparent; color: #111; }
+.field[readonly] { pointer-events: none; }
+.editing .field:not(.derived):hover,
+.editing .field:not(.derived):focus { background: rgba(255, 255, 255, .96); }
+.editing .field:not(.derived) { box-shadow: inset 0 0 0 1px rgba(23, 127, 166, .18); }
+.field.modified { color: #c21f2f !important; }
+.field:invalid { color: #c21f2f; outline: 2px solid #c21f2f; }
+
+/* Name, Details, Character Level. */
+#front .field-group-name { left: 6.7%; top: 5.55%; width: 48.8%; height: 4.4%; }
+#front .field-group-details { left: 6.7%; top: 12%; width: 48.8%; height: 10.8%; }
+#front .field-group-name .field,
+#front .field-group-details .field { width: 100%; height: 100%; }
+#front [data-field="Name"] { font-size: 2.1cqw; line-height: 1.2; }
+#front [data-field="Details"] { font-size: 1.82cqw; }
+#front .portrait { left: 55.7%; top: 2.9%; width: 40.4%; height: 26.7%; object-fit: cover; border: .95cqw solid #050505; }
+#front .field-group-character-level { left: 5.9%; top: 24.95%; width: 46%; height: 3.4%; }
+#front .pml-stars { position: relative; width: 100%; height: 100%; display: flex; align-items: center; gap: .65%; }
+#front .pml-stars img { position: relative; width: 7.2%; height: auto; }
+#front .pml-stars img:nth-child(5),
+#front .pml-stars img:nth-child(9) { margin-left: 3.25%; }
+
+/* Attributes: one positioned region with two relative grid rows. */
+#front .field-group-attributes {
+  left: 5.7%; top: 37.25%; width: 90.6%; height: 7.55%;
+  display: grid;
+  grid-template-columns: repeat(11, 7.95%) 6.5%;
+  grid-template-rows: 58.9% 31.1%;
+  column-gap: .55%;
+  row-gap: 10%;
+}
+#front .field-group-attributes .field { width: 100%; height: 100%; padding: 0; }
+#front .field-group-attributes .field:nth-child(-n + 12) {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3.75cqw;
+  font-weight: 700;
+}
+#front .field-group-attributes .field:nth-child(n + 13) { font-size: 1.95cqw; }
+
+/* Background and History & Notes. */
+#front .field-group-background {
+  left: 7.7%; top: 51.65%; width: 25.1%; height: 24.8%;
+  display: grid;
+  grid-template-rows: 13.71% 8.27% 13.71% 2.82% 9.88% 18.15% 11.49% 8.87% 13.1%;
+  font-size: 1.34cqw;
+}
+#front .field-group-background .field:nth-child(1) { grid-row: 1; }
+#front .field-group-background .field:nth-child(2) { grid-row: 3; }
+#front .field-group-background .field:nth-child(3) { grid-row: 5; }
+#front .field-group-background .field:nth-child(4) { grid-row: 7; }
+#front .field-group-background .field:nth-child(5) { grid-row: 9; }
+#front .field-group-background .field { width: 100%; height: 100%; }
+#front .field-group-background [data-field="Settlement"] {
+  position: absolute;
+  grid-area: auto !important;
+  top: 19% !important;
+  height: 13.71%;
+}
+#front .field-group-background [data-field="Personality"] {
+  position: absolute;
+  grid-area: auto !important;
+  top: 57.5% !important;
+  height: 10.5%;
+}
+#front .field-group-background [data-field="Features"] {
+  position: absolute;
+  grid-area: auto !important;
+  top: 78% !important;
+  height: 14%;
+}
+#front .field-group-history-notes {
+  left: 36.25%; top: 48.95%; width: 59%; height: 27.25%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  font-size: 1.34cqw;
+}
+#front .field-group-history-notes .history-field {
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 1.18em;
+  margin: 0 0 2px;
+  padding: 0;
+  overflow: hidden;
+}
+#front .field-group-history-notes .history-keyword {
+  flex: 0 0 auto;
+  padding: 0;
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive;
+  line-height: 1.18;
+  font-weight: 700;
+  color: #aaa;
+}
+#front .field-group-history-notes .field {
+  position: relative;
+  flex: 1 1 0;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 1.18em;
+  margin: 0;
+  padding: 0 0 0 .28cqw;
+  field-sizing: content;
+  line-height: 1.18;
+}
+
+/* Performance, Concerns, Miscellaneous, and Combat use relative value rows. */
+#front .field-group-performance,
+#front .field-group-concerns,
+#front .field-group-miscellaneous,
+#front .field-group-combat {
+  top: 78.38%;
+  height: 19.45%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+#front .field-group-performance { left: 4.8%; width: 19.2%; }
+#front .field-group-concerns { left: 24.8%; width: 17.2%; }
+#front .field-group-miscellaneous { left: 42.75%; width: 19%; }
+#front .field-group-combat { left: 62.55%; width: 19.2%; }
+#front .field-group-performance .field,
+#front .field-group-concerns .field,
+#front .field-group-miscellaneous .field,
+#front .field-group-combat .field {
+  position: relative;
+  width: 27.35%;
+  height: 14.4%;
+  flex: 0 0 14.4%;
+  padding: 0;
+  font-size: 1.65cqw;
+  line-height: 1;
+  text-indent: .8cqw;
+  transform: translateY(-1cqw);
+  appearance: textfield;
+}
+#front .field-group-performance .field::-webkit-inner-spin-button,
+#front .field-group-concerns .field::-webkit-inner-spin-button,
+#front .field-group-miscellaneous .field::-webkit-inner-spin-button,
+#front .field-group-combat .field::-webkit-inner-spin-button { margin: 0; appearance: none; }
+#front .field-group-concerns .field { width: 30.55%; }
+#front .field-group-miscellaneous .field { width: 27.65%; }
+#front .field-group-gm-notes { left: 82.6%; top: 93.35%; width: 14.7%; height: 5.1%; }
+#front .field-group-gm-notes .field { width: 100%; height: 100%; background: rgba(16,16,16,.92); color: #ff8d9c; font-size: 1.35cqw; }
+
+/* Reverse-side text regions. */
+#back .field-group-back-name { left: 17.25%; top: 1.55%; width: 56%; height: 4.25%; }
+#back .field-group-equipment {
+  left: 5.8%; top: 11.15%; width: 69.7%; height: 35%;
+  display: flex;
+  flex-direction: column;
+}
+#back .field-group-equipment .equipment-row {
+  display: grid;
+  grid-template-columns: 31.1% 68.9%;
+  flex: 0 0 auto;
+  min-height: 0;
+  padding-bottom: .55cqw;
+}
+#back .field-group-equipment .field {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: .15cqw .35cqw;
+  font-size: 1.08cqw;
+  line-height: 1.12;
+}
+#back .field-group-equipment .equipment-item { padding-left: 0; }
+#back .field-group-back-notes { left: 5%; top: 51.5%; width: 69.5%; height: 34%; }
+#back .field-group-back-name .field,
+#back .field-group-back-notes .field { width: 100%; height: 100%; }
+#back [data-field="BackName"] { padding: 0; font-size: 2.1cqw; line-height: 1.08; }
+#back [data-field="BackNotes"] { font-size: 1.42cqw; }
+
+/* Bottom chart values use two fixed rows so every value remains in its box. */
+#back .field-group-universal-chart {
+  left: 4.55%; top: 90.68%; width: 72.25%; height: 5.72%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+#back .field-group-universal-chart .field {
+  width: 6.3%;
+  height: 46.6%;
+  flex: 0 0 6.3%;
+  margin-right: 1.38%;
+  padding: 0;
+  font-size: 1.45cqw;
+  line-height: 1;
+}
+#back .field-group-universal-chart .field:nth-child(3),
+#back .field-group-universal-chart .field:nth-child(6),
+#back .field-group-universal-chart .field:nth-child(9),
+#back .field-group-universal-chart .field:nth-child(15),
+#back .field-group-universal-chart .field:nth-child(18),
+#back .field-group-universal-chart .field:nth-child(21) { margin-right: 4.43%; }
+#back .field-group-universal-chart .field:nth-child(12),
+#back .field-group-universal-chart .field:nth-child(24) { margin-right: 0; }
+
+#back .field-group-universal-center {
+  left: 79.15%; top: 91.48%; width: 18.55%; height: 3.05%;
+  display: grid;
+  grid-template-columns: 37.75% 56.6%;
+  column-gap: 5.65%;
+}
+#back .field-group-universal-center .field {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 2.55cqw;
+  line-height: 1;
+  color: #777;
+}
+#back .field-group-biology {
+  left: 78.15%; top: 96.1%; width: 27.55%; height: 2.45%;
+  display: grid;
+  grid-template-columns: 21.65% 5.525% 26.65% 5.525% 19.65%;
+}
+#back .field-group-biology .field {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 1.5cqw;
+  line-height: 1;
+}
+#back .field-group-biology .field:nth-child(1) { grid-column: 1; }
+#back .field-group-biology .field:nth-child(2) { grid-column: 3; }
+#back .field-group-biology .field:nth-child(3) { grid-column: 5; }
+
+@media (max-width: 600px) {
+  .field { font-weight: 500; }
+}

@@ -7,6 +7,7 @@ import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import {
@@ -32,6 +33,9 @@ import {
   getTradeSpecialization,
   maximumTradeRank,
   nonPlayerAdjustmentsForAttribute,
+  STRIFE_PAIRINGS,
+  getStrifePairing,
+  strifeParents,
   pointBuySpent,
   purchasedAttributeSkillpointCost,
   setAttributeBaseValues,
@@ -45,7 +49,7 @@ import {
   type RolledAttribute,
 } from '@/lib/rules/intrinsics';
 import { personalWealthGp } from '@/lib/rules/utilities';
-import { cn } from '@/lib/utils';
+import { cn, formatNumberWithCommas } from '@/lib/utils';
 
 type IntrinsicsStepProps = {
   stepValue: string;
@@ -106,6 +110,17 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
       .filter((adjustment) => ['species', 'lineage'].includes(adjustment.source) || adjustment.sourceDetail === 'Genetically Female')
       .map((adjustment) => `${attribute} ${formatSigned(adjustment.amount)} (${adjustment.sourceDetail})`),
   );
+  const strifePairing = getStrifePairing(draft);
+  const parents = strifeParents(draft);
+  const groupByName = (name: string) => data.species.flatMap((family) => family.groups).find((group) => group.name === name);
+  const chooseStrifePairing = (pairingId: string) => {
+    const pairing = STRIFE_PAIRINGS.find((item) => item.id === pairingId);
+    if (!pairing) return;
+    const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, 1 + Math.floor(Math.random() * 6)]));
+    const primary = groupByName(pairing.groups[0]);
+    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: true, strifePairingId: pairing.id, strifeFatherLineageId: null, strifeMotherLineageId: null, strifeAttributeRolls: rolls, strifeBonusParent: Math.random() < 0.5 ? 'father' : 'mother', speciesFamilyId: makeCatalogId('species-family', 'Humaniki'), speciesId: primary?.catalogId ?? null, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
+  };
+  const setParentLineage = (role: 'father' | 'mother', lineage: string) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, [role === 'father' ? 'strifeFatherLineageId' : 'strifeMotherLineageId']: makeCatalogId('lineage', lineage) } }, data));
 
   const chooseFamily = (familyId: string) => {
     const family = data.species.find((entry) => entry.catalogId === familyId);
@@ -116,16 +131,24 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
     if (!selectedFamily?.selectable) return;
     const group = selectedFamily.groups.find((entry) => entry.catalogId === groupId);
     if (!group?.selectable) return;
-    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, speciesFamilyId: selectedFamily.catalogId, speciesId: groupId, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
+    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, speciesFamilyId: selectedFamily.catalogId, speciesId: groupId, lineageId: null, strifeFatherLineageId: current.intrinsics.strifeMixedLineage ? null : current.intrinsics.strifeFatherLineageId, strifeMotherLineageId: current.intrinsics.strifeMixedLineage ? null : current.intrinsics.strifeMotherLineageId }, background: { ...current.background, ageYears: null } }, data));
   };
   return <div className="space-y-6">
     <section className="space-y-3">
       <div><h3 className="font-semibold">Species</h3><p className="text-xs text-muted-foreground">Canonical hierarchy: Species → Ancestral Group → Lineage. Cherigili, Kriket, and Stonefolk are visible but unavailable for character creation in this build.</p></div>
       <div className="grid gap-2 sm:grid-cols-3">{data.species.map((family) => <button key={family.catalogId} type="button" disabled={!family.selectable} onClick={() => chooseFamily(family.catalogId)} className={cn('rounded-lg border p-3 text-left', selectedFamily?.catalogId === family.catalogId && 'border-primary bg-primary/5 ring-1 ring-primary', !family.selectable && 'cursor-not-allowed opacity-50')}><div className="font-medium">{family.displayName}</div><div className="mt-1 text-xs text-muted-foreground">{family.groups.length} Group{family.groups.length === 1 ? '' : 's'}{!family.selectable ? ' • unavailable' : ''}</div></button>)}</div>
+      <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.childOfStrife} onCheckedChange={(checked) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: Boolean(checked), speciesFamilyId: checked ? makeCatalogId('species-family', 'Humaniki') : current.intrinsics.speciesFamilyId, strifeMixedLineage: checked ? current.intrinsics.strifeMixedLineage : false, strifePairingId: checked ? current.intrinsics.strifePairingId : null, strifeFatherLineageId: checked ? current.intrinsics.strifeFatherLineageId : null, strifeMotherLineageId: checked ? current.intrinsics.strifeMotherLineageId : null } }, data))} /><span><span className="block font-medium">Child of Strife</span><span className="text-xs text-muted-foreground">Use a viable mixed Humaniki parent pairing from the inter-species guidelines.</span></span></label>
+      {draft.intrinsics.childOfStrife && <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.strifeMotherFirst} onCheckedChange={(checked) => setDraft((current) => ({ ...current, intrinsics: { ...current.intrinsics, strifeMotherFirst: Boolean(checked), strifeFatherLineageId: current.intrinsics.strifeMotherLineageId, strifeMotherLineageId: current.intrinsics.strifeFatherLineageId } }))} /><span><span className="block font-medium">Mother–Father</span><span className="text-xs text-muted-foreground">Reverse which ancestral group supplies the mother and father.</span></span></label>}
+      {draft.intrinsics.childOfStrife && <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.strifeMixedLineage} onCheckedChange={(checked) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, strifeMixedLineage: Boolean(checked), strifePairingId: checked ? null : current.intrinsics.strifePairingId, strifeFatherLineageId: null, strifeMotherLineageId: null, speciesId: checked ? current.intrinsics.speciesId : null, lineageId: null }, background: { ...current.background, ageYears: null } }, data))} /><span><span className="block font-medium">Mixed Lineage</span><span className="text-xs text-muted-foreground">Both parents share one Ancestral Group but come from different Lineages.</span></span></label>}
     </section>
-    {selectedFamily && <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedFamily.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />)}</div></section>}
-    {selectedGroup && <section className="space-y-3"><h3 className="font-semibold">Lineage / Line</h3>{!selectedGroup.selectable && <p className="text-xs text-muted-foreground">{selectedGroup.name} is shown for reference only; its Lines cannot be selected for a player character.</p>}<div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedGroup.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); return <ChoiceCard key={id} selected={draft.intrinsics.lineageId === id} title={lineage} disabled={!selectedGroup.selectable} onClick={() => { if (!selectedGroup.selectable) return; setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, lineageId: id } }, data)); }} />; })}</div></section>}
-    {selectedGroup && <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div><div className="font-medium">Granted Species / Group / Lineage capabilities</div><div className="text-xs text-muted-foreground">Underlining marks overlap with Granted Heritage capabilities.</div></div><div className="mt-3 text-sm leading-relaxed">{biological.length ? [...biological].sort((a,b) => a.name.localeCompare(b.name)).map((item, index) => { const overlap = heritageKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()); return <span key={item.id} className={cn(overlap && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatCapability(item)}</span>; }) : 'Choose Group and Lineage.'}</div>{speciesAdjustmentBadges.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}</div>}</div>}
+    {draft.intrinsics.childOfStrife ? <>
+      <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{draft.intrinsics.strifeMixedLineage ? selectedFamily?.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />) : STRIFE_PAIRINGS.map((pairing) => <ChoiceCard key={pairing.id} selected={strifePairing?.id === pairing.id} title={pairing.exonym} subtitle={`${pairing.meaning} • ${draft.intrinsics.strifeMotherFirst ? `${pairing.groups[0]} mother, ${pairing.groups[1]} father` : `${pairing.groups[0]} father, ${pairing.groups[1]} mother`}`} onClick={() => chooseStrifePairing(pairing.id)} />)}</div></section>
+      {parents && <section className="space-y-4"><h3 className="font-semibold">Lineage / Line</h3>{([['Father', parents.fatherGroup, draft.intrinsics.strifeFatherLineageId, draft.intrinsics.strifeMotherLineageId], ['Mother', parents.motherGroup, draft.intrinsics.strifeMotherLineageId, draft.intrinsics.strifeFatherLineageId]] as const).map(([role, groupName, selectedId, otherId]) => <div key={role} className="space-y-2"><h4 className="text-sm font-semibold">{role} — {groupName}</h4><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{groupByName(groupName)?.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); const sameLineage = draft.intrinsics.strifeMixedLineage && otherId === id; return <ChoiceCard key={`${role}-${lineage}`} selected={selectedId === id} disabled={sameLineage} title={lineage} subtitle={sameLineage ? 'Already selected for the other parent' : undefined} onClick={() => setParentLineage(role.toLowerCase() as 'father' | 'mother', lineage)} />; })}</div></div>)}</section>}
+    </> : <>
+      {selectedFamily && <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedFamily.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />)}</div></section>}
+      {selectedGroup && <section className="space-y-3"><h3 className="font-semibold">Lineage / Line</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedGroup.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); return <ChoiceCard key={id} selected={draft.intrinsics.lineageId === id} title={lineage} onClick={() => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, lineageId: id } }, data))} />; })}</div></section>}
+    </>}
+    {selectedGroup && <div className="rounded-lg border bg-muted/20 p-4"><div><div className="font-medium">Granted Species / Group / Lineage capabilities</div><div className="text-xs text-muted-foreground">Underlining marks overlap with Granted Heritage capabilities.</div></div><div className="mt-3 text-sm leading-relaxed">{biological.length ? [...biological].sort((a,b) => a.name.localeCompare(b.name)).map((item, index) => { const overlap = heritageKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()); return <span key={`${item.id}-${index}`} className={cn(overlap && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatCapability(item)}</span>; }) : 'Choose Group and Lineage.'}</div>{speciesAdjustmentBadges.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}</div>}</div>}
   </div>;
 }
 
@@ -540,7 +563,7 @@ function WealthStep({ data, draft }: Omit<IntrinsicsStepProps, 'stepValue' | 'se
         <div className="mt-1 text-3xl font-semibold">{ready ? draft.intrinsics.wealthRank : '—'}</div>
         <div className="mt-1 text-sm text-muted-foreground">{title ?? 'Complete Heritage, settlement, and Attributes to calculate Wealth.'}</div>
       </div>
-      <div className="grid gap-3 sm:grid-cols-3"><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Personal Wealth</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{scalarText} gp</div><div className="text-xs text-muted-foreground">Starting spendable gp</div></CardContent></Card><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Assets — Valuables</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{assetValuablesGp == null ? '—' : `${assetValuablesGp} gp`}</div><div className="text-xs text-muted-foreground">Banks, family valuables, movable property</div></CardContent></Card><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Assets — Lands</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{assetLandsGp == null ? '—' : `${assetLandsGp} gp`}</div><div className="text-xs text-muted-foreground">Land/family property equivalent</div></CardContent></Card></div>
+      <div className="grid gap-3 sm:grid-cols-3"><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Personal Wealth</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{formatNumberWithCommas(scalarText)} gp</div><div className="text-xs text-muted-foreground">Starting spendable gp</div></CardContent></Card><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Assets — Valuables</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{assetValuablesGp == null ? '—' : `${formatNumberWithCommas(assetValuablesGp)} gp`}</div><div className="text-xs text-muted-foreground">Banks, family valuables, movable property</div></CardContent></Card><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Assets — Lands</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{assetLandsGp == null ? '—' : `${formatNumberWithCommas(assetLandsGp)} gp`}</div><div className="text-xs text-muted-foreground">Land/family property equivalent</div></CardContent></Card></div>
       <div className="grid gap-3 sm:grid-cols-3">
         <Card>
           <CardHeader className="pb-2"><CardTitle className="text-sm">Heritage</CardTitle></CardHeader>

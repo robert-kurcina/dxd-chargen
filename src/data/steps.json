@@ -7,7 +7,7 @@
       {
         "title": "Assign Starting Region & Settlement",
         "value": "background-region-settlement",
-        "description": "Choose the character's starting region and settlement."
+        "description": "Choose the character's geographic region and starting settlement. Detailed settlement context supplies local population, Environs, language, and setting layers used by later Background choices."
       },
       {
         "title": "Assign Demographics",
@@ -17,7 +17,7 @@
       {
         "title": "Assign Heritage",
         "value": "background-heritage",
-        "description": "Choose cultural, environmental, and societal heritage packages."
+        "description": "Choose Culture, Environs, and Society Heritage after origin is established. Environs must be compatible with the selected starting settlement; Culture and Society receive local recommendations."
       },
       {
         "title": "Assign Social Rank",
@@ -151,6 +151,23 @@
         "title": "Assign Relationships",
         "value": "utilities-relationships",
         "description": "Record the important relationships that connect the character to people and organizations."
+      }
+    ]
+  },
+  {
+    "title": "MISCELLANEOUS",
+    "value": "notes",
+    "description": "Review generated character details and record notes and backstory.",
+    "substeps": [
+      {
+        "title": "Notes",
+        "value": "notes-overview",
+        "description": "Review generated personality and origin details, then record concise campaign notes and backstory."
+      },
+      {
+        "title": "Assign Portrait",
+        "value": "notes-portrait",
+        "description": "Upload or link an image, then crop it to the configured character portrait ratio."
       }
     ]
   }

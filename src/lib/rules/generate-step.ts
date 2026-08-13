@@ -1,12 +1,13 @@
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
-import { getAgeInYears, resolveTragedySeed } from '@/lib/character-logic';
+import { resolveTragedySeed } from '@/lib/character-logic';
 import { syncHeritageGrantedSelections, requiredDisabilityCount } from './background';
-import { affinityCandidates, getTradePackage, setAttributeBaseValues, syncIntrinsics, type RolledAttribute, ROLLED_ATTRIBUTES } from './intrinsics';
+import { affinityCandidates, getTradePackage, setAttributeBaseValues, startingAgeForDraft, syncIntrinsics, type RolledAttribute, ROLLED_ATTRIBUTES } from './intrinsics';
 import { addAdditionalSkill, setCoreLanguage, setGrantSpecializationRanks, setPml, specializationOptionsForTrait } from './proficiencies';
 import { effectiveTraitLevel, syncProperties } from './properties';
 import { addInventoryItem, generateCharacterName, personalWealthGp, startingGearTotals, suggestedNameLanguageId, toggleMagicItem, toggleSpell } from './utilities';
+import { allowedEnvironNames, selectedSettlementOption, settlementCatalogId, weightedSettlementPick } from '@/lib/settlement-context';
 
 function d6() { return 1 + Math.floor(Math.random() * 6); }
 function d66() { return d6() * 10 + d6(); }
@@ -24,36 +25,65 @@ function d66AgeGroup(data: StaticData) {
 }
 
 export function canGenerateStep(stepValue: string, draft: CharacterDraft, data: StaticData) {
-  if (stepValue === 'utilities-relationships') return false;
+  if (stepValue === 'utilities-relationships' || stepValue === 'notes-overview' || stepValue === 'notes-portrait') return false;
   if (stepValue === 'utilities-spells') return effectiveTraitLevel(draft, 'v-Magic') > 0;
+  if (stepValue === 'background-heritage') return Boolean(draft.background.regionId && draft.background.settlementId);
   return Boolean(data);
 }
 
 export function generateStep(stepValue: string, draft: CharacterDraft, data: StaticData): CharacterDraft {
   if (stepValue === 'background-region-settlement') {
     const region = pick(data.empires); if (!region) return draft;
-    const names = data.settlements[region.name as keyof typeof data.settlements] ?? [];
-    const settlement = pick(names);
-    return syncIntrinsics({ ...draft, background: { ...draft.background, regionId: region.catalogId, settlementId: settlement ? makeCatalogId('settlement', `${region.name}-${settlement}`) : null } }, data);
+    const settlement = weightedSettlementPick(region.name, data);
+    const next = {
+      ...draft,
+      background: {
+        ...draft.background,
+        regionId: region.catalogId,
+        settlementId: settlement ? settlementCatalogId(region.name, settlement.name) : null,
+        environHeritageId: null,
+      },
+      proficiencies: {
+        ...draft.proficiencies,
+        languages: draft.proficiencies.languages.filter((language) => language.kind !== 'default'),
+      },
+    };
+    return syncIntrinsics(syncHeritageGrantedSelections(next, data), data);
   }
   if (stepValue === 'background-demographics') {
     const sexRoll = Math.floor(Math.random() * 100) + 1;
     const sex: CharacterDraft['background']['sex'] = sexRoll === 100 ? 'Intersex' : sexRoll <= 50 ? 'Female' : 'Male';
     const gender: CharacterDraft['background']['gender'] = pick(['Male','Female','Non-binary'] as const) ?? 'Male';
     const ageGroup = d66AgeGroup(data);
-    const speciesGroup = data.species.flatMap((family) => family.groups).find((group) => group.catalogId === draft.intrinsics.speciesId);
-    const ageYears = speciesGroup?.hasAgeBrackets
-      ? getAgeInYears(speciesGroup.name as keyof StaticData['ageBrackets'], ageGroup, data.ageBrackets, data.ageGroups)
-      : null;
+    const notable = data.notableFeatures.find((entry) => Number(entry.d66) === d66()) ?? pick(data.notableFeatures);
+    const blemishRow = data.physicalBlemishes.find((entry) => Number(entry.d66) === d66()) ?? pick(data.physicalBlemishes);
+    const blemishBand = d6() <= 3 ? '1,2,3' : '4,5,6';
+    const blemish = blemishRow ? String(blemishRow[blemishBand as keyof typeof blemishRow] ?? '') : '';
+    const demographicSelections: SourcedSelection[] = [
+      notable ? { id: makeCatalogId('notable-feature', notable.feature), name: notable.feature, source: 'rule', sourceDetail: `Notable feature D66 ${notable.d66}`, level: 1 } : null,
+      blemish ? { id: makeCatalogId('physical-blemish', blemish), name: blemish, source: 'rule', sourceDetail: `Physical blemish D66 ${blemishRow?.d66}/${blemishBand}`, level: 1 } : null,
+    ].filter(Boolean) as SourcedSelection[];
+    const withDemographics: CharacterDraft = { ...draft, intrinsics: { ...draft.intrinsics, strifeBonusParent: draft.intrinsics.childOfStrife ? (Math.random() < 0.5 ? 'father' : 'mother') : draft.intrinsics.strifeBonusParent }, background: { ...draft.background, demographicSelections, sex, gender, geneticallyFemale: sex === 'Female', handedness: Math.random() < 0.15 ? 'Left' : 'Right', ageGroup, ageYears: null, birthMonth: 1 + Math.floor(Math.random() * 12) } };
+    const ageYears = startingAgeForDraft(withDemographics, data);
     return syncIntrinsics(
-      syncHeritageGrantedSelections({ ...draft, background: { ...draft.background, sex, gender, geneticallyFemale: sex === 'Female', handedness: Math.random() < 0.15 ? 'Left' : 'Right', ageGroup, ageYears, birthMonth: 1 + Math.floor(Math.random() * 12) } }, data),
+      syncHeritageGrantedSelections({ ...withDemographics, background: { ...withDemographics.background, ageYears } }, data),
       data,
     );
   }
   if (stepValue === 'background-heritage') {
-    const culture = pick(data.heritagePackages.filter((p) => p.kind === 'culture'));
-    const environs = pick(data.heritagePackages.filter((p) => p.kind === 'environs'));
-    const society = pick(data.heritagePackages.filter((p) => p.kind === 'society'));
+    if (!draft.background.regionId || !draft.background.settlementId) return draft;
+    const settlement = selectedSettlementOption(draft, data);
+    const allowedEnvirons = new Set(allowedEnvironNames(draft, data));
+    const culturePool = settlement?.cultureRecommendations.length
+      ? data.heritagePackages.filter((p) => p.kind === 'culture' && settlement.cultureRecommendations.includes(p.name))
+      : data.heritagePackages.filter((p) => p.kind === 'culture');
+    const societyPool = settlement?.societyRecommendations.length
+      ? data.heritagePackages.filter((p) => p.kind === 'society' && settlement.societyRecommendations.includes(p.name))
+      : data.heritagePackages.filter((p) => p.kind === 'society');
+    const environPool = data.heritagePackages.filter((p) => p.kind === 'environs' && (!allowedEnvirons.size || allowedEnvirons.has(p.name)));
+    const culture = pick(culturePool);
+    const environs = pick(environPool);
+    const society = pick(societyPool);
     return syncIntrinsics(syncHeritageGrantedSelections({ ...draft, background: { ...draft.background, culturalHeritageId: culture?.id ?? null, environHeritageId: environs?.id ?? null, societalHeritageId: society?.id ?? null } }, data), data);
   }
   if (stepValue === 'background-social-rank') {
@@ -81,6 +111,10 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
     return { ...draft, background: { ...draft.background, beliefId: belief.catalogId, deityId: deity?.catalogId ?? null } };
   }
   if (stepValue === 'intrinsics-species') {
+    if (draft.intrinsics.childOfStrife) {
+      const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, d6()]));
+      return syncIntrinsics({ ...draft, intrinsics: { ...draft.intrinsics, strifeAttributeRolls: rolls, strifeBonusParent: Math.random() < 0.5 ? 'father' : 'mother' }, background: { ...draft.background, ageYears: null } }, data);
+    }
     const family = data.species.find((entry) => entry.selectable); const group = family ? pick(family.groups.filter((entry) => entry.selectable)) : null; if (!family || !group) return draft; const lineage = pick(group.lineages);
     return syncIntrinsics({ ...draft, intrinsics: { ...draft.intrinsics, speciesFamilyId: family.catalogId, speciesId: group.catalogId, lineageId: lineage ? makeCatalogId('lineage', lineage) : null }, background: { ...draft.background, ageYears: null } }, data);
   }
@@ -111,8 +145,9 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   if (stepValue === 'properties-height-weight' || stepValue === 'properties-calculations') return syncProperties(draft, data);
   if (stepValue === 'utilities-spells') { const selected = new Set(draft.utilities.spells.map((item) => item.id)); const spell = pick(data.spells.filter((item) => !selected.has(item.catalogId))); return spell ? toggleSpell(draft, spell.catalogId, data) : draft; }
   if (stepValue === 'utilities-starting-gear') {
-    const budget = personalWealthGp(draft, data); const spent = startingGearTotals(draft).costGp; const remaining = budget == null ? Infinity : Math.max(0, budget - spent);
-    const candidates = data.itemEquipments.filter((item) => Number(item.priceGp) <= remaining); const item = pick(candidates); return item ? addInventoryItem(draft, 'equipment', item.catalogId, data) : draft;
+    const budget = personalWealthGp(draft, data); const spent = startingGearTotals(draft, data).purchasedCostGp; const remaining = budget == null ? Infinity : Math.max(0, budget - spent);
+    const unavailable = new Set(['Feet, Bare', 'Hands, Bare', 'Hands, Claws', 'Feet, Booted', 'Feet, Talons']);
+    const candidates = data.itemEquipments.filter((item) => !unavailable.has(item.name) && Number(item.priceGp) <= remaining); const item = pick(candidates); return item ? addInventoryItem(draft, 'equipment', item.catalogId, data) : draft;
   }
   if (stepValue === 'utilities-magic-items') { const selected = new Set(draft.utilities.magicItems.map((item) => item.id)); const item = pick(data.magicItems.filter((entry) => !selected.has(entry.catalogId))); return item ? toggleMagicItem(draft, item.catalogId, data) : draft; }
   if (stepValue === 'utilities-name') { const languageId = draft.utilities.nameLanguageId ?? suggestedNameLanguageId(draft, data); if (!languageId) return draft; const name = generateCharacterName(languageId, draft.utilities.nameStyle, data); return name ? { ...draft, utilities: { ...draft.utilities, nameLanguageId: languageId, properName: name, name: draft.utilities.name || name } } : draft; }

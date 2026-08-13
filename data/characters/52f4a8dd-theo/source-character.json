@@ -1,0 +1,330 @@
+{
+  "name": {
+    "exonym": "Theo",
+    "endonym": "Theolega Xehal"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Townsfolk",
+        "society": "Coastal",
+        "culture": "Wilding"
+      },
+      "ethnicity": {
+        "region": "Southlands",
+        "settlement": "Citystate Stagin"
+      },
+      "religion": {
+        "practice": "Gnostic",
+        "deity": {
+          "name": "",
+          "domains": []
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Rational"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [
+          "Stole a trunk from my best friend"
+        ],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Rogue",
+        "profession": "Thief",
+        "rank": 1,
+        "title": "Apprentice"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Halfling",
+      "lineage": "Jamaran"
+    },
+    "biology": {
+      "sex": "Female",
+      "ageGroup": "Youth",
+      "ageYearsMonth": 10.11,
+      "heightFeetInches": "2'4\"",
+      "weightPounds": 18,
+      "stature": 18,
+      "build": 10,
+      "profile": 14,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 7,
+    "rca": 13,
+    "ref": 13,
+    "int": 8,
+    "kno": 5,
+    "pre": 2,
+    "pow": 0,
+    "str": 0,
+    "for": 8,
+    "mov": 11,
+    "siz": 3,
+    "zed": 6
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "small purse",
+      "Small sack",
+      "Wardrobe"
+    ],
+    "weapons": [
+      "2 x Stilettoes",
+      "4 x Throwing Knives"
+    ],
+    "armor": [
+      "Leather Armor"
+    ],
+    "magicItems": [],
+    "skills": [
+      {
+        "name": "Barrter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawn",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Climbing",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Cutpurse",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Daggers",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Detect",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Forage",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Gambling",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Knife-fighter",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Mountaineering",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Nightvision",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Persuade",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Read",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sneaky",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Surefooted",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Coastal",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Suss",
+        "rank": 3,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Tracking",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Trapmaster",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Wise",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Zucked",
+        "rank": 1,
+        "specializations": [],
+        "disability": true
+      }
+    ],
+    "traits": [],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Jamarati",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Middle Stask",
+        "rank": 2,
+        "isDefault": true,
+        "accented": false,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": "Found a ring of some sort in the trunk that was stolen from her friend."
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 11,
+      "bodypoints": 3,
+      "recoveryRate": 1,
+      "endurance": 11,
+      "resilience": 3,
+      "resistance": 7
+    },
+    "misc": {
+      "wealthRank": 2,
+      "socialRank": 0,
+      "professionRank": 1,
+      "favorDice": 1,
+      "cellburnLimit": 1,
+      "manapool": 4
+    },
+    "combat": {
+      "actions": 1,
+      "meleeAttack": 0,
+      "meleeDefend": 0,
+      "rangeAttack": 3,
+      "rangeDefend": 3,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 0,
+      "xp": 0
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": -6,
+      "shoulder": -6,
+      "carry": -9
+    },
+    "movement": {
+      "walk": 5,
+      "jog": 8,
+      "run": 11
+    },
+    "throwing": {
+      "lob": -18,
+      "pitch": -12,
+      "hurl": -6
+    },
+    "jumping": {
+      "upward": -9,
+      "broadjump": -8,
+      "downward": -1
+    }
+  }
+}

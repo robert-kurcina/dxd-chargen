@@ -1,0 +1,383 @@
+{
+  "name": {
+    "exonym": "Khao",
+    "endonym": "Khao"
+  },
+  "details": {
+    "background": {
+      "formative": {
+        "environ": "Desert",
+        "society": "Cityfolk",
+        "culture": "Warrior"
+      },
+      "ethnicity": {
+        "region": "Vasik Realms",
+        "settlement": "Citystate Stagin"
+      },
+      "religion": {
+        "practice": "Theist",
+        "deity": {
+          "name": "Gnorg",
+          "domains": [
+            {
+              "name": "Passion",
+              "rank": 4,
+              "opposed": false
+            },
+            {
+              "name": "Hope",
+              "rank": 3,
+              "opposed": false
+            },
+            {
+              "name": "Peace",
+              "rank": 3,
+              "opposed": false
+            }
+          ]
+        }
+      },
+      "personalityFeatures": {
+        "personality": [
+          "Timid"
+        ],
+        "blemishes": [],
+        "descriptors": [],
+        "tragedies": [
+          "Was enslaved but escaped from Citystate Sarken"
+        ],
+        "disabilities": [],
+        "other": []
+      },
+      "profession": {
+        "trade": "Warrior",
+        "profession": "Soldier",
+        "rank": 1,
+        "title": "Soldier"
+      }
+    },
+    "genebase": {
+      "species": "Humaniki",
+      "group": "Drauf",
+      "lineage": "Ferrite"
+    },
+    "biology": {
+      "sex": "Male",
+      "ageGroup": "Early Teen",
+      "ageYearsMonth": 15.1,
+      "heightFeetInches": "4'4\"",
+      "weightPounds": 89,
+      "stature": 41,
+      "build": 37,
+      "profile": 39,
+      "pml": 1,
+      "affinity": "ZED"
+    }
+  },
+  "attributes": {
+    "cca": 11,
+    "rca": 8,
+    "ref": 9,
+    "int": 7,
+    "kno": 8,
+    "pre": 8,
+    "pow": 9,
+    "str": 13,
+    "for": 11,
+    "mov": 14,
+    "siz": 9,
+    "zed": 11
+  },
+  "historyNotes": {
+    "allies": [],
+    "equipment": [
+      "Backpack",
+      "Wardrobe kit"
+    ],
+    "weapons": [
+      "Shortsword"
+    ],
+    "armor": [
+      "Chainmail Hauberk",
+      "Medium Shield"
+    ],
+    "magicItems": [
+      "Bansword-2"
+    ],
+    "skills": [
+      {
+        "name": "Athletics",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Brawn",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Drill",
+        "rank": 4,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 5,
+        "specializations": [
+          {
+            "name": "Sword",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Expert",
+        "rank": 1,
+        "specializations": [
+          {
+            "name": "Bow",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Grit",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "History",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Hunter",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Leadership",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Martialist",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Maths",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Navigation",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Parry",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Politics",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Quick",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Riding",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Strange",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Distrust",
+            "rank": 0
+          }
+        ],
+        "disability": true
+      },
+      {
+        "name": "Strike",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Sturdy",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Survival",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Deserts-2; Read",
+            "rank": 1
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Tactics",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 0,
+        "specializations": [
+          {
+            "name": "Plate",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Trained",
+        "rank": 3,
+        "specializations": [
+          {
+            "name": "Chainmail",
+            "rank": 0
+          }
+        ],
+        "disability": false
+      },
+      {
+        "name": "Warfare",
+        "rank": 2,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "traits": [
+      {
+        "name": "v-Compass",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      },
+      {
+        "name": "v-Rocktaste",
+        "rank": 1,
+        "specializations": [],
+        "disability": false
+      }
+    ],
+    "spells": [],
+    "languages": [
+      {
+        "name": "Common",
+        "rank": 4,
+        "isDefault": true,
+        "accented": true,
+        "incompatibleBiology": false
+      },
+      {
+        "name": "Low Coasts",
+        "rank": 1,
+        "isDefault": false,
+        "accented": true,
+        "incompatibleBiology": false
+      }
+    ],
+    "organizations": [],
+    "sourceNotes": [],
+    "notes": ""
+  },
+  "calculatedScores": {
+    "performance": {
+      "hitpoints": 20,
+      "bodypoints": 9,
+      "recoveryRate": 6,
+      "endurance": 14,
+      "resilience": 9,
+      "resistance": 15
+    },
+    "misc": {
+      "wealthRank": 10,
+      "socialRank": 1,
+      "professionRank": 1,
+      "favorDice": 1,
+      "cellburnLimit": 3,
+      "manapool": 12
+    },
+    "combat": {
+      "actions": 0,
+      "meleeAttack": 2,
+      "meleeDefend": 2,
+      "rangeAttack": 1,
+      "rangeDefend": 1,
+      "maxAdvantage": 1
+    },
+    "resources": {
+      "gold": 100,
+      "xp": 0
+    }
+  },
+  "concerns": {
+    "superficial": 0,
+    "injury": 0,
+    "fatigue": 0,
+    "weariness": 0,
+    "stress": 0,
+    "rads": 0
+  },
+  "items": {
+    "itemWeapons": [],
+    "itemArmors": [],
+    "itemEquipments": []
+  },
+  "calculate": {
+    "carrying": {
+      "lift": 6,
+      "shoulder": 4,
+      "carry": 1
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 10,
+      "run": 14
+    },
+    "throwing": {
+      "lob": -5,
+      "pitch": 1,
+      "hurl": 7
+    },
+    "jumping": {
+      "upward": -2,
+      "broadjump": 2,
+      "downward": 2
+    }
+  }
+}

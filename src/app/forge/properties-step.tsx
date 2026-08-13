@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { calculateProperties, physicalBreakdown, setWeightAdjustment } from '@/lib/rules/properties';
+import { formatNumberWithCommas } from '@/lib/utils';
 
 const signed = (value: number) => `${value >= 0 ? '+' : ''}${value}`;
 const dm = (value: number) => `${value >= 0 ? '+' : ''}${value}`;
@@ -20,7 +21,7 @@ function MeasurementCards({ draft, data }: { draft: CharacterDraft; data: Static
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Stature</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{physical.finalStature}</div><div className="text-xs text-muted-foreground">{physical.height}</div></CardContent></Card>
-      <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Build</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{physical.build}</div><div className="text-xs text-muted-foreground">{physical.weightPounds} lb</div></CardContent></Card>
+      <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Build</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{physical.build}</div><div className="text-xs text-muted-foreground">{formatNumberWithCommas(physical.weightPounds)} lb</div></CardContent></Card>
       <Card><CardHeader className="pb-2"><CardTitle className="text-sm">SIZ</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{physical.siz}</div><div className="text-xs text-muted-foreground">Weight Index</div></CardContent></Card>
       <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Profile</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{physical.profile}</div><div className="text-xs text-muted-foreground">(Stature + Build) / 2</div></CardContent></Card>
     </div>
@@ -73,7 +74,7 @@ function HeightWeightStep({ draft, data, setDraft }: { draft: CharacterDraft; da
 }
 
 function Metric({ label, value, note }: { label: string; value: string | number; note?: string }) {
-  return <Card><CardHeader className="pb-2"><CardTitle className="text-sm">{label}</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{value}</div>{note && <div className="mt-1 text-xs text-muted-foreground">{note}</div>}</CardContent></Card>;
+  return <Card><CardHeader className="pb-2"><CardTitle className="text-sm">{label}</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{formatNumberWithCommas(value)}</div>{note && <div className="mt-1 text-xs text-muted-foreground">{note}</div>}</CardContent></Card>;
 }
 
 function CalculationsStep({ draft, data }: { draft: CharacterDraft; data: StaticData }) {

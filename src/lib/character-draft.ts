@@ -42,6 +42,8 @@ export type InventorySelection = SourcedSelection & {
   quantity: number;
   unitPriceGp: number;
   unitWeight: number;
+  /** Authoritative legacy character-sheet properties, when imported. */
+  sheetProperties?: string;
 };
 
 export type LanguageSelection = SourcedSelection & {
@@ -59,7 +61,7 @@ export type PmlVirtuosityChoice = {
 };
 
 export type CharacterDraft = {
-  schemaVersion: 7;
+  schemaVersion: 8;
   updatedAt: string | null;
   completedSteps: string[];
   warnings: Array<{
@@ -95,6 +97,14 @@ export type CharacterDraft = {
     speciesFamilyId: string | null;
     speciesId: string | null;
     lineageId: string | null;
+    childOfStrife: boolean;
+    strifeMixedLineage: boolean;
+    strifePairingId: string | null;
+    strifeMotherFirst: boolean;
+    strifeFatherLineageId: string | null;
+    strifeMotherLineageId: string | null;
+    strifeAttributeRolls: Record<string, number>;
+    strifeBonusParent: 'father' | 'mother' | null;
     attributeMethod: 'roll' | 'array' | 'point-buy' | null;
     attributeArrayId: 'A' | 'B' | 'C' | null;
     attributes: DraftAttribute[];
@@ -134,6 +144,7 @@ export type CharacterDraft = {
     armor: InventorySelection[];
     equipment: InventorySelection[];
     gearReviewed: boolean;
+    startingGearTrade?: string | null;
     magicItems: SourcedSelection[];
     magicItemsReviewed: boolean;
     magicItemForms: Record<string, string>;
@@ -142,6 +153,10 @@ export type CharacterDraft = {
     name: string;
     properName: string;
     relationships: SourcedSelection[];
+    notes: string;
+    backstory: string;
+    portraitDataUrl: string;
+    portraitSourceDataUrl?: string;
   };
 };
 
@@ -195,13 +210,15 @@ export type LegacyCharacterDraftV1 = Omit<LegacyCharacterDraftV2, 'schemaVersion
 
 export function createEmptyCharacterDraft(): CharacterDraft {
   return {
-    schemaVersion: 7,
+    schemaVersion: 8,
     updatedAt: null,
     completedSteps: [],
     warnings: [],
     background: {
-      regionId: null,
-      settlementId: null,
+      // New characters begin in the canonical Eastlands origin. These IDs are
+      // deterministic runtime catalogue IDs for Djorkan and Citystate Corom.
+      regionId: 'region-djorkan',
+      settlementId: 'settlement-djorkan-corom',
       demographicSelections: [],
       sex: null,
       gender: null,
@@ -227,6 +244,14 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       speciesFamilyId: null,
       speciesId: null,
       lineageId: null,
+      childOfStrife: false,
+      strifeMixedLineage: false,
+      strifePairingId: null,
+      strifeMotherFirst: false,
+      strifeFatherLineageId: null,
+      strifeMotherLineageId: null,
+      strifeAttributeRolls: {},
+      strifeBonusParent: null,
       attributeMethod: null,
       attributeArrayId: null,
       attributes: [],
@@ -266,6 +291,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       armor: [],
       equipment: [],
       gearReviewed: false,
+      startingGearTrade: null,
       magicItems: [],
       magicItemsReviewed: false,
       magicItemForms: {},
@@ -274,6 +300,10 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       name: '',
       properName: '',
       relationships: [],
+      notes: '',
+      backstory: '',
+      portraitDataUrl: '',
+      portraitSourceDataUrl: '',
     },
   };
 }
@@ -282,7 +312,32 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
   if (!value || typeof value !== 'object') return createEmptyCharacterDraft();
 
   const candidate = value as { schemaVersion?: number };
-  if (candidate.schemaVersion === 7) return candidate as CharacterDraft;
+  if (candidate.schemaVersion === 8) {
+    const current = candidate as CharacterDraft;
+    current.utilities.portraitDataUrl ??= '';
+    current.utilities.portraitSourceDataUrl ??= '';
+    return { ...current, intrinsics: { ...current.intrinsics, strifeMixedLineage: current.intrinsics.strifeMixedLineage ?? false, strifeBonusParent: current.intrinsics.strifeBonusParent ?? null } };
+  }
+
+  if (candidate.schemaVersion === 7) {
+    const legacy = candidate as any;
+    return {
+      ...legacy,
+      schemaVersion: 8,
+      intrinsics: {
+        ...legacy.intrinsics,
+        childOfStrife: false,
+        strifeMixedLineage: false,
+        strifePairingId: null,
+        strifeMotherFirst: false,
+        strifeFatherLineageId: null,
+        strifeMotherLineageId: null,
+        strifeAttributeRolls: {},
+        strifeBonusParent: null,
+      },
+      utilities: { ...legacy.utilities, notes: '', backstory: '' },
+    } as CharacterDraft;
+  }
 
   if (candidate.schemaVersion === 6) {
     const legacy = candidate as any;

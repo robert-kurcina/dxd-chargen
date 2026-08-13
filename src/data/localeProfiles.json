@@ -1,0 +1,35 @@
+[
+  {
+    "id": "corom-region",
+    "name": "Corom Region",
+    "regionName": "Djorkan",
+    "geographicRegion": "Eastlands",
+    "focalSettlement": "Corom",
+    "population": 536300,
+    "populationStatus": "AUTHOR_CORRECTED_2026_08_12",
+    "printedSourcePopulation": 482000,
+    "currentDeitySpheres": [
+      "Marli",
+      "Heiron"
+    ],
+    "historicalDeity": {
+      "name": "Crolm",
+      "status": "Ended",
+      "role": "native deity of Citystate Corom during its early years"
+    },
+    "dominantLanguageId": "language-coro",
+    "languageLayers": [
+      "Coro",
+      "Fayeed",
+      "Arikkah contact",
+      "Golbrini Ershthikal substrate",
+      "Cher-gulo substrate",
+      "Jhastrujin Ershthiikal at Jor- inherited sites"
+    ],
+    "source": "locale.citystate-crolm.pdf; author correction 2026-08-12",
+    "notes": [
+      "English settlement glosses are playability conveniences; working native forms are stored in settlementProfiles.json.",
+      "Current deity coverage informs setting context but does not restrict Belief & Worship selection."
+    ]
+  }
+]
