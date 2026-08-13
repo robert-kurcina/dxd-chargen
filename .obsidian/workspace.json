@@ -185,8 +185,9 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "bb60ab24ec7b0daf",
+  "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "src/data/salaryByTradeRank.json",
     "src/data/salaryAdjustmentsByTrade.json",
     "src/data/randomPersonItemDeity.json",
     "src/data/adjustments-attributes-stonefolk.json",
