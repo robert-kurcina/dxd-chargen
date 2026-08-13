@@ -2,15 +2,14 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v106
+## Current state — v109
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
 Background currently supports:
 
 - Region and Settlement;
-- scoped Demographics handling;
-- Age Group and provisional exact age;
+- full Demographics: Sex, Gender, Genetically Female applicability, Handedness, Age Group/Rank, exact Age, and Birth Month;
 - Culture, Environs, and Society Heritage;
 - automatic XLSX-derived Heritage grants with provenance;
 - Social Rank;
@@ -21,7 +20,7 @@ Background currently supports:
 
 Intrinsics currently supports:
 
-- playable Species and Lineage selection with sourced biological adjustments and grants;
+- canonical Species → Ancestral Group → Lineage selection with sourced biological adjustments and grants; Humaniki is the playable Species family; Cherigili is visible but disabled within Humaniki, while Kriket and Stonefolk remain visible but disabled;
 - exact-age generation once Species and Age Group are known;
 - all three canonical Attribute methods: 3D high-two, pre-rolled A/B/C arrays, and 75-point Point Buy;
 - recorded Attribute Rolls kept separate from later sourced and purchased changes;
@@ -35,7 +34,7 @@ Proficiencies currently supports:
 
 - standard PML 1 plus advanced starting PML with Age-floor validation and cumulative creation-effect summaries;
 - PML Virtuosity milestone choices;
-- combined package-grant review with preserved provenance and Broad Skill specialization resolution;
+- combined package-grant review with preserved provenance and inline per-capability specialization controls;
 - Additional Skill purchases from the 296-entry Trait catalogue with source limits, IM pricing, surcharges, and live Skillpoint accounting;
 - Age/PML/Trade Rank/Disability Skillpoint sources with Attribute/ZED creation purchases deducted from the same pool;
 - free regional and Heritage Languages plus separate INT-DM Language proficiency spending across the 17-language conlang catalogue.
@@ -54,7 +53,7 @@ Utilities currently supports:
 
 - searchable selection from the 84-entry Spell catalogue, with Spell Level/AP/mana details and explicit review state;
 - searchable Weapons, Armor, and Equipment catalogues with quantities, prices, recorded Weight, Personal Wealth comparison, and retained over-budget warnings;
-- selection from only the 96 complete Magic Item records approved for runtime use;
+- selection from only the 96 complete Magic Item records approved for runtime use, with label-only search, interchangeable form-factor families, canonical rarity multipliers, and total equivalent value;
 - editable common/proper names generated from the 17 incorporated conlang D66 name-generator datasets;
 - Relationships shown as deliberately deferred and non-blocking.
 
@@ -72,22 +71,34 @@ Finalization and library now supports:
 - print / Save PDF from the live finished sheet;
 - catalogue-integrity checks for imported Spells, Languages, inventory, and complete-data Magic Items.
 
-Kriket is intentionally excluded from playable Species until canonical age brackets exist. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
+Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
+
+## v107–v109 QA and repository-structure corrections
+
+v107 incorporates the post-v106 Forge QA correction specification: sticky Forge header, persistent accordions, section-level Generate controls, restored canonical Demographics, canonical Species/Group/Lineage taxonomy, age-adjusted Heritage grants using canon maturity asterisks, required-Disability tracking/generation, live grant-overlap displays, inline Broad Skill specialization controls, Assets/Personal Wealth display, v-Magic Spell gating, remaining/original gear wealth, Magic Item form/rarity/value handling, and the expanded live Character panel.
+
+Workbook `authorCalibration.stars` remain author package-balance metadata. Character maturity uses separate `maturityStars` transcribed from the canonical Heritage tables and never reuses author-calibration Stars.
+
+v108 makes Cherigili visible but non-selectable for player-character creation. v109 is a repository-structure release: canon-sync and LLM/development meta documents live under `META/`, all executable/validation scripts live under `scripts/`, and `npm run local` is the cross-platform launcher. No DXD rules behavior changes in v109.
 
 ## Run the app
 
 Requirements: a current Node.js LTS release and npm.
 
-macOS/Linux:
+Cross-platform:
 
 ```bash
-./run-local.sh
+npm run local
 ```
 
-Windows:
+Platform-specific launchers are retained under `scripts/`:
+
+```bash
+bash scripts/run-local.sh
+```
 
 ```bat
-run-local.cmd
+scripts\run-local.cmd
 ```
 
 Or manually:
@@ -137,6 +148,8 @@ npm run check
 - `src/app/forge/utilities-step.tsx` — Spells, Starting Gear, Magic Items, Name, and deferred Relationships controls.
 - `src/app/worksheet.tsx` — Character Forge workflow shell and live summary.
 - `src/app/character-sheet.tsx` — presentation-oriented sheet view.
-- `docs/FINAL_PRODUCT_PLAN.md` — implementation roadmap and release definition.
+- `META/` — canon-sync history plus LLM/development architecture and implementation instructions.
+- `scripts/` — local launchers and validation/maintenance scripts.
+- `META/FINAL_PRODUCT_PLAN.md` — implementation roadmap and release definition.
 
 Character creation state is not flattened into the presentation-only character sheet while the user is building a character.

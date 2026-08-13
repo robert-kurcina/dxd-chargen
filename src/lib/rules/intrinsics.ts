@@ -86,17 +86,16 @@ function rowAdjustment(row: AdjustmentRow | undefined, attribute: string) {
 
 function selectedRows(draft: CharacterDraft, data: StaticData) {
   const speciesName = getSpeciesChoice(draft, data)?.group.name;
-  if (!speciesName) return { speciesName: null, baseline: undefined, lineage: undefined, age: undefined };
+  if (!speciesName) return { speciesName: null, baseline: undefined, lineage: undefined, female: undefined, age: undefined };
 
   const table = attributeTableForSpecies(speciesName, data) as AdjustmentRow[];
   const lineageName = getLineageName(draft, data);
   const baseline = table.find((row) => row.lineage === 'BASE-LINE');
   const lineage = lineageName ? table.find((row) => row.lineage === lineageName) : undefined;
-  const ageRank = data.ageGroups.find((entry) => entry.ageGroup === draft.background.ageGroup)?.rank;
-  const ageLabel = draft.background.ageGroup && ageRank ? `${draft.background.ageGroup} [${ageRank}]` : null;
-  const age = ageLabel ? table.find((row) => row.lineage === ageLabel) : undefined;
+  const female = draft.background.geneticallyFemale ? table.find((row) => row.lineage === 'female') : undefined;
+  const age = data.attributeModifiers.find((row) => row.Group === draft.background.ageGroup) as AdjustmentRow | undefined;
 
-  return { speciesName, baseline, lineage, age };
+  return { speciesName, baseline, lineage, female, age };
 }
 
 export function getTradePackage(draft: CharacterDraft, data: StaticData) {
@@ -124,7 +123,7 @@ export function nonPlayerAdjustmentsForAttribute(
   draft: CharacterDraft,
   data: StaticData,
 ): NumericAdjustment[] {
-  const { speciesName, baseline, lineage, age } = selectedRows(draft, data);
+  const { speciesName, baseline, lineage, female, age } = selectedRows(draft, data);
   const lineageName = getLineageName(draft, data);
   const pkg = getTradePackage(draft, data);
   const specialization = getTradeSpecialization(draft, data);
@@ -136,8 +135,17 @@ export function nonPlayerAdjustmentsForAttribute(
 
   if (speciesName) add(rowAdjustment(baseline, attribute), 'species', `${speciesName} baseline`);
   if (speciesName && lineageName) add(rowAdjustment(lineage, attribute), 'lineage', `${lineageName} lineage`);
+  if (speciesName && draft.background.geneticallyFemale) add(rowAdjustment(female, attribute), 'rule', 'Genetically Female');
   if (speciesName && draft.background.ageGroup) {
-    add(rowAdjustment(age, attribute), 'rule', `${speciesName} ${draft.background.ageGroup} age adjustment`);
+    add(rowAdjustment(age, attribute), 'rule', `${draft.background.ageGroup} Age Group modifier`);
+    const bracket = (data.ageBrackets as Record<string, Array<{ group: string; bonus: string }>>)[speciesName]?.find((entry) => entry.group === draft.background.ageGroup);
+    const bonus = bracket?.bonus?.trim() ?? '';
+    const sexMatch = bonus.match(/\((Male|Female)\)/i);
+    const eligible = !sexMatch || (sexMatch[1].toLowerCase() === 'female' ? draft.background.geneticallyFemale : draft.background.sex === 'Male');
+    const attrMatch = bonus.match(/^\+?(\d+)\s+(CCA|RCA|REF|INT|KNO|PRE|POW|STR|FOR|MOV|ZED)\b/i);
+    if (eligible && attrMatch && attrMatch[2].toUpperCase() === attribute.toUpperCase()) {
+      add(Number(attrMatch[1]), 'rule', `${draft.background.ageGroup} Age Group bonus`);
+    }
   }
   if (pkg) add(rowAdjustment(pkg.adjustments as AdjustmentRow, attribute), 'trade', `${pkg.trade} Trade`);
   if (pkg && specialization) {
@@ -148,7 +156,7 @@ export function nonPlayerAdjustmentsForAttribute(
 }
 
 export function candidateAttributeValues(draft: CharacterDraft, data: StaticData): Record<string, number> {
-  const { speciesName, baseline, lineage } = selectedRows(draft, data);
+  const { speciesName, baseline, lineage, female } = selectedRows(draft, data);
   const lineageName = getLineageName(draft, data);
   const values: Record<string, number> = {};
 
@@ -157,7 +165,8 @@ export function candidateAttributeValues(draft: CharacterDraft, data: StaticData
     const base = record?.base ?? 0;
     values[attribute] = base
       + (speciesName ? rowAdjustment(baseline, attribute) : 0)
-      + (lineageName ? rowAdjustment(lineage, attribute) : 0);
+      + (lineageName ? rowAdjustment(lineage, attribute) : 0)
+      + (draft.background.geneticallyFemale ? rowAdjustment(female, attribute) : 0);
   }
   return values;
 }
@@ -235,26 +244,30 @@ function traitCatalogIdForName(name: string, data: StaticData) {
 
 function parseTalentList(
   talentText: string | undefined,
-  source: 'species' | 'lineage',
+  source: 'species' | 'lineage' | 'rule',
   sourceDetail: string,
   data: StaticData,
+  effectiveMaturityRank = 0,
 ): SourcedSelection[] {
   if (!talentText?.trim()) return [];
   return talentText
     .split(/\.\s*/)
     .map((text) => text.trim())
     .filter(Boolean)
-    .map((text, index) => {
+    .flatMap((text, index) => {
       const parsed = parseTalent(text);
-      return {
+      const remainingStars = Math.max(0, parsed.asterisks - Math.max(0, effectiveMaturityRank));
+      const adjustedLevel = parsed.level - remainingStars;
+      if (adjustedLevel < 1) return [];
+      return [{
         id: makeCatalogId('grant', `${sourceDetail}-${parsed.name}-${parsed.specialization ?? ''}-${index}`),
         catalogId: traitCatalogIdForName(parsed.name, data),
         name: parsed.name,
         source,
-        sourceDetail,
-        level: parsed.level,
+        sourceDetail: `${sourceDetail}${parsed.asterisks ? `; maturity *${parsed.asterisks}` : ''}`,
+        level: adjustedLevel,
         specialization: parsed.specialization ?? undefined,
-      } satisfies SourcedSelection;
+      } satisfies SourcedSelection];
     });
 }
 
@@ -268,11 +281,39 @@ function syncIntrinsicGrantedSelections(draft: CharacterDraft, data: StaticData)
 
   if (speciesName) {
     const characteristics = characteristicTableForSpecies(speciesName, data) as Array<{ lineage?: string; talents?: string }>;
+    const ageRankEntry = data.ageGroups.find((entry) => entry.ageGroup === draft.background.ageGroup)?.rank;
+    const parsedAgeRank = Number.parseInt(String(ageRankEntry ?? '0'), 10);
+    const ageRank = Number.isFinite(parsedAgeRank) ? Math.max(0, parsedAgeRank) : 0;
+    // Ancestry maturity uses the higher of Age Rank or PML.
+    const ancestryMaturityRank = Math.max(ageRank, Math.max(0, draft.proficiencies.pml ?? 0));
     const baseline = characteristics.find((row) => row.lineage === 'BASE-LINE');
-    grants.push(...parseTalentList(baseline?.talents, 'species', `${speciesName} baseline`, data));
+    grants.push(...parseTalentList(baseline?.talents, 'species', `${speciesName} Group baseline`, data, ancestryMaturityRank));
     if (lineageName) {
       const lineage = characteristics.find((row) => row.lineage === lineageName);
-      grants.push(...parseTalentList(lineage?.talents, 'lineage', `${lineageName} lineage`, data));
+      grants.push(...parseTalentList(lineage?.talents, 'lineage', `${lineageName} Line`, data, ancestryMaturityRank));
+    }
+    if (draft.background.geneticallyFemale) {
+      const female = characteristics.find((row) => row.lineage === 'female');
+      grants.push(...parseTalentList(female?.talents, 'rule', 'Genetically Female', data, ageRank));
+    }
+    if (draft.background.ageGroup) {
+      const bracket = (data.ageBrackets as Record<string, Array<{ group: string; bonus: string }>>)[speciesName]?.find((entry) => entry.group === draft.background.ageGroup);
+      const bonus = bracket?.bonus?.trim() ?? '';
+      const sexMatch = bonus.match(/\((Male|Female)\)/i);
+      const eligible = !sexMatch || (sexMatch[1].toLowerCase() === 'female' ? draft.background.geneticallyFemale : draft.background.sex === 'Male');
+      const traitMatch = bonus.match(/^\+?(\d+)\s+(.+?)(?:\s+\((?:Male|Female)\))?$/i);
+      if (eligible && traitMatch) {
+        const name = traitMatch[2].trim();
+        const isAttribute = /^(CCA|RCA|REF|INT|KNO|PRE|POW|STR|FOR|MOV|ZED)$/i.test(name);
+        if (!isAttribute) grants.push({
+          id: makeCatalogId('grant', `age-${draft.background.ageGroup}-${name}`),
+          catalogId: traitCatalogIdForName(name, data),
+          name,
+          source: 'rule',
+          sourceDetail: `${draft.background.ageGroup} Age Group bonus`,
+          level: Number(traitMatch[1]),
+        });
+      }
     }
   }
 
@@ -355,12 +396,7 @@ export function affinityCandidates(draft: CharacterDraft, data: StaticData): Rol
 }
 
 export function directZedAdjustment(draft: CharacterDraft, data: StaticData) {
-  const { speciesName, baseline, lineage, age } = selectedRows(draft, data);
-  const lineageName = getLineageName(draft, data);
-  return (speciesName ? rowAdjustment(baseline, 'ZED') : 0)
-    + (lineageName ? rowAdjustment(lineage, 'ZED') : 0)
-    + (speciesName && draft.background.ageGroup ? rowAdjustment(age, 'ZED') : 0)
-    + packageAdjustment('ZED', draft, data);
+  return nonPlayerAdjustmentsForAttribute('ZED', draft, data).reduce((sum, adjustment) => sum + adjustment.amount, 0);
 }
 
 export function calculateZed(draft: CharacterDraft, data: StaticData) {
@@ -477,7 +513,11 @@ export function wealthTitle(rank: number | null, data: StaticData) {
 }
 
 export function syncIntrinsics(draft: CharacterDraft, data: StaticData): CharacterDraft {
-  let next = rebuildAttributeAdjustments(draft, data);
+  const existingChoice = getSpeciesChoice(draft, data);
+  let next = existingChoice && draft.intrinsics.speciesFamilyId !== existingChoice.family.catalogId
+    ? { ...draft, intrinsics: { ...draft.intrinsics, speciesFamilyId: existingChoice.family.catalogId } }
+    : draft;
+  next = rebuildAttributeAdjustments(next, data);
   next = syncIntrinsicGrantedSelections(next, data);
 
   const affinityOptions = affinityCandidates(next, data);
@@ -514,10 +554,12 @@ export function syncIntrinsics(draft: CharacterDraft, data: StaticData): Charact
 
 export function assessIntrinsicStep(stepValue: string, draft: CharacterDraft, data: StaticData): StepAssessment {
   if (stepValue === 'intrinsics-species') {
-    if (!draft.intrinsics.speciesId || !draft.intrinsics.lineageId) {
-      return { status: 'incomplete', messages: ['Choose a playable Species and Lineage.'] };
+    const choice = getSpeciesChoice(draft, data);
+    if (!choice || !choice.family.selectable || !choice.group.selectable || !draft.intrinsics.lineageId) {
+      const unavailable = choice?.group && !choice.group.selectable ? ` ${choice.group.name} is present for reference but unavailable for character creation.` : '';
+      return { status: 'incomplete', messages: [`Choose Humaniki Species, a selectable Ancestral Group, and a Lineage. Cherigili, Kriket, and Stonefolk are visible but unavailable.${unavailable}`] };
     }
-    return { status: 'complete', messages: [] };
+    return { status: 'complete', messages: [`${choice.family.displayName} > ${choice.group.name} > ${getLineageName(draft, data)}`] };
   }
 
   if (stepValue === 'intrinsics-attributes') {

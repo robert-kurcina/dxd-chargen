@@ -40,6 +40,12 @@ for (const pkg of heritage) {
     if (!grant.traitId || !grant.trait || !Number.isFinite(grant.level) || grant.level <= 0) {
       throw new Error(`Invalid Heritage grant in ${pkg.id}`);
     }
+    if (!Number.isInteger(grant.maturityStars) || grant.maturityStars < 0) {
+      throw new Error(`Missing/invalid canonical maturity asterisks in ${pkg.id}: ${grant.trait}`);
+    }
+    if (!Number.isFinite(grant.authorCalibration?.stars) || grant.authorCalibration.stars < 0) {
+      throw new Error(`Missing/invalid author-calibration Stars in ${pkg.id}: ${grant.trait}`);
+    }
   }
 }
 
@@ -84,10 +90,17 @@ for (const mapping of languageDefaults) {
   if (!knownSettlementNames.has(mapping.settlement)) throw new Error(`Unknown default-language settlement: ${mapping.settlement}`);
 }
 
-const playableSpecies = species
-  .flatMap((family) => family.groups.map((group) => group.name))
-  .filter((name) => Object.prototype.hasOwnProperty.call(ageBrackets, name));
-if (playableSpecies.includes('Kriket')) throw new Error('Kriket should remain excluded until age brackets exist.');
+const speciesFamilies = new Map(species.map((family) => [family.name, family]));
+for (const requiredFamily of ['Humaniki', 'Kriketai', 'Stonefolk']) {
+  if (!speciesFamilies.has(requiredFamily)) throw new Error(`Missing canonical Species family ${requiredFamily}.`);
+}
+const humanikiGroups = speciesFamilies.get('Humaniki')?.groups.map((group) => group.name) ?? [];
+const expectedHumanikiGroups = ['Human', 'Drauf', 'Alef', 'Klenari', 'Babbita', 'Gnoan', 'Cherigili'];
+if (expectedHumanikiGroups.some((name) => !humanikiGroups.includes(name))) throw new Error('Humaniki Ancestral Group hierarchy is incomplete.');
+const selectableGroups = humanikiGroups.filter((name) => name !== 'Cherigili' && Object.prototype.hasOwnProperty.call(ageBrackets, name));
+if (selectableGroups.length !== expectedHumanikiGroups.length - 1) throw new Error('Every currently selectable Humaniki Group must have age brackets and Cherigili must remain non-selectable.');
+const stonefolk = speciesFamilies.get('Stonefolk')?.groups.find((group) => group.name === 'Stonefolk');
+if (!stonefolk?.lineages.includes('Plains') || !stonefolk?.lineages.includes('Mountains')) throw new Error('Disabled Stonefolk display should retain canonical Plains/Mountains Lines.');
 
 
 const normalizeTraitFamily = (value) => String(value)
@@ -167,7 +180,7 @@ console.log(`Heritage packages: ${heritage.length}.`);
 console.log(`Languages/name generators: ${languages.length}; structured D66 generators: ${nameGenerators.length}; explicit settlement defaults: ${languageDefaults.length}.`);
 console.log(`Complete playable Trade packages: ${tradePackages.length}.`);
 console.log(`Physical scale: ${physicalScale.length} rows; Heritage body rules: ${heritageCharacteristicAdjustments.length}.`);
-console.log(`Playable species with age data: ${playableSpecies.length} (${playableSpecies.join(', ')}).`);
+console.log(`Selectable Humaniki Groups: ${selectableGroups.length} (${selectableGroups.join(', ')}); Cherigili Group plus Kriket and Stonefolk families retained but disabled.`);
 console.log(`Complete magic items exposed by policy: ${completeMagicItems.length}/${magicItems.length}.`);
 if (duplicateTraitKeys.length) {
   console.warn(`Legacy duplicate Trait keys retained for compatibility: ${[...new Set(duplicateTraitKeys)].join(', ')}`);

@@ -12,8 +12,7 @@ The application uses five top-level phases:
 
 1. **Assign Background**
    - Starting Region & Settlement
-   - Demographics
-   - Age
+   - Demographics (Sex, Gender, Handedness, Age Group/Rank, exact Age, Birth Month)
    - Heritage
    - Social Rank
    - Personality
@@ -351,3 +350,21 @@ Complete as interactive builder steps: PML with Age validation and advanced-PML 
 Complete as interactive builder steps: canonical Stature/Build derivation; exact Height/Weight/SIZ lookup; Underweight/Overweight handling; Profile; allometric Carry/Jump scaling; Movement/MOV; Lob/Pitch/Hurl Method Indexes; carrying and jumping; managed concerns; Hitpoints/Bodypoints/Recovery; Favor/Manapool/Cellburn; Max Advantage; limits; and compact CRS compatibility values. Per-item throwing OR remains runtime-derived from Method minus item Weight rather than inventory state.
 
 Next implementation tranche: **Assign Utilities** — Spells, Starting Gear, Magic Items, and Name. Relationships remain deliberately deferred by scope decision.
+
+
+## v107 QA baseline
+
+The Forge now treats Demographics as a canonical creation step rather than a placeholder and uses the Species → Ancestral Group → Lineage taxonomy. Humaniki is the active playable Species family; Cherigili is retained as a visible but disabled Humaniki Group, while Kriket and Stonefolk are retained as disabled catalogue families.
+
+All major vertical Forge areas are persistent accordions, the Forge header is sticky, and each Assign step exposes a top Generate control when generation is meaningful. The right Character panel is a live projection and must update immediately from upstream choices.
+
+Heritage maturity is driven by canonical asterisk counts stored separately as `maturityStars`. XLSX `authorCalibration.stars` remain package-design metadata only.
+
+
+## v109 repository-structure baseline
+
+- Canon-sync histories and development/LLM architecture instructions live under `META/`.
+- Release notes and validation reports remain under `docs/`.
+- Executable and maintenance scripts live under `scripts/`.
+- `npm run local` delegates to `scripts/run-local.mjs`; platform-specific launchers remain under `scripts/`.
+- Repository reorganization does not change the CharacterDraft schema or DXD rules behavior.

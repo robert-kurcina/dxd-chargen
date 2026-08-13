@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import type { CharacterDraft } from '@/lib/character-draft';
+import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
 import { getAgeInYears, getAttributeDm } from '@/lib/character-logic';
 import {
   ROLLED_ATTRIBUTES,
@@ -44,6 +44,7 @@ import {
   zedPurchaseSkillpointCost,
   type RolledAttribute,
 } from '@/lib/rules/intrinsics';
+import { personalWealthGp } from '@/lib/rules/utilities';
 import { cn } from '@/lib/utils';
 
 type IntrinsicsStepProps = {
@@ -59,18 +60,21 @@ type ChoiceCardProps = {
   subtitle?: string;
   meta?: string;
   warning?: boolean;
+  disabled?: boolean;
   onClick: () => void;
 };
 
-function ChoiceCard({ selected, title, subtitle, meta, warning, onClick }: ChoiceCardProps) {
+function ChoiceCard({ selected, title, subtitle, meta, warning, disabled, onClick }: ChoiceCardProps) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         'relative rounded-lg border p-3 text-left transition-colors hover:bg-muted/60',
         selected && 'border-primary bg-primary/5 ring-1 ring-primary',
         warning && !selected && 'border-amber-300',
+        disabled && 'cursor-not-allowed opacity-50 hover:bg-transparent',
       )}
     >
       {selected && (
@@ -90,108 +94,46 @@ function formatSigned(value: number) {
 }
 
 function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue'>) {
-  const selectedSpecies = getSpeciesChoice(draft, data)?.group ?? null;
+  const choice = getSpeciesChoice(draft, data);
+  const selectedFamily = data.species.find((family) => family.catalogId === draft.intrinsics.speciesFamilyId) ?? choice?.family ?? null;
+  const selectedGroup = choice?.group ?? null;
   const selectedLineage = getLineageName(draft, data);
-  const speciesAdjustmentBadges = ROLLED_ATTRIBUTES.flatMap((attribute) =>
+  const biological = draft.proficiencies.granted.filter((item) => item.source === 'species' || item.source === 'lineage' || item.sourceDetail === 'Genetically Female');
+  const heritageKeys = new Set(draft.proficiencies.granted.filter((item) => item.source === 'heritage').map((item) => item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()));
+  const formatCapability = (item: SourcedSelection) => `${item.name.replace(/\s+X$/, '')}${(item.level ?? 1) > 1 ? ` ${item.level}` : ''}${item.specialization ? ` > ${item.specialization}` : ''}`;
+  const speciesAdjustmentBadges = [...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].flatMap((attribute) =>
     nonPlayerAdjustmentsForAttribute(attribute, draft, data)
-      .filter((adjustment) => adjustment.source === 'species' || adjustment.source === 'lineage')
+      .filter((adjustment) => ['species', 'lineage'].includes(adjustment.source) || adjustment.sourceDetail === 'Genetically Female')
       .map((adjustment) => `${attribute} ${formatSigned(adjustment.amount)} (${adjustment.sourceDetail})`),
   );
 
-  const chooseSpecies = (speciesId: string) => {
-    setDraft((current) => syncIntrinsics({
-      ...current,
-      background: { ...current.background, ageYears: null },
-      intrinsics: {
-        ...current.intrinsics,
-        speciesId,
-        lineageId: null,
-      },
-    }, data));
+  const chooseFamily = (familyId: string) => {
+    const family = data.species.find((entry) => entry.catalogId === familyId);
+    if (!family?.selectable) return;
+    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, speciesFamilyId: familyId, speciesId: null, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
   };
-
+  const chooseGroup = (groupId: string) => {
+    if (!selectedFamily?.selectable) return;
+    const group = selectedFamily.groups.find((entry) => entry.catalogId === groupId);
+    if (!group?.selectable) return;
+    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, speciesFamilyId: selectedFamily.catalogId, speciesId: groupId, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
+  };
   const generateExactAge = () => {
-    if (!selectedSpecies || !draft.background.ageGroup) return;
-    const years = getAgeInYears(
-      selectedSpecies.name as keyof StaticData['ageBrackets'],
-      draft.background.ageGroup,
-      data.ageBrackets,
-      data.ageGroups,
-    );
+    if (!selectedGroup || !draft.background.ageGroup || !selectedGroup.hasAgeBrackets) return;
+    const years = getAgeInYears(selectedGroup.name as keyof StaticData['ageBrackets'], draft.background.ageGroup, data.ageBrackets, data.ageGroups);
     if (years == null) return;
-    setDraft((current) => syncIntrinsics({
-      ...current,
-      background: { ...current.background, ageYears: years },
-    }, data));
+    setDraft((current) => syncIntrinsics({ ...current, background: { ...current.background, ageYears: years } }, data));
   };
 
-  return (
-    <div className="space-y-6">
-      <section className="space-y-3">
-        <div>
-          <h3 className="font-semibold">Playable Sophont Species</h3>
-          <p className="text-xs text-muted-foreground">Kriket remains source data only until its age brackets are defined.</p>
-        </div>
-        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-          {data.species.flatMap((family) => family.groups.map((group) => (
-            <ChoiceCard
-              key={group.catalogId}
-              selected={draft.intrinsics.speciesId === group.catalogId}
-              title={group.name}
-              subtitle={`${family.name} • ${group.lineages.length} lineages`}
-              onClick={() => chooseSpecies(group.catalogId)}
-            />
-          )))}
-        </div>
-      </section>
-
-      {selectedSpecies && (
-        <section className="space-y-3">
-          <h3 className="font-semibold">Lineage</h3>
-          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-            {selectedSpecies.lineages.map((lineage) => {
-              const id = makeCatalogId('lineage', lineage);
-              return (
-                <ChoiceCard
-                  key={id}
-                  selected={draft.intrinsics.lineageId === id}
-                  title={lineage}
-                  onClick={() => setDraft((current) => syncIntrinsics({
-                    ...current,
-                    intrinsics: { ...current.intrinsics, lineageId: id },
-                  }, data))}
-                />
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {selectedSpecies && selectedLineage && (
-        <div className="space-y-3 rounded-lg bg-muted/40 p-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <div className="font-medium">{selectedSpecies.name} — {selectedLineage}</div>
-              <div className="text-xs text-muted-foreground">Species and Lineage adjustments are sourced automatically and remain separate from the recorded Attribute Rolls.</div>
-            </div>
-            {draft.background.ageGroup && (
-              <Button type="button" size="sm" variant="outline" onClick={generateExactAge}>
-                <Dices className="h-4 w-4" /> Generate exact age
-              </Button>
-            )}
-          </div>
-          {speciesAdjustmentBadges.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}
-            </div>
-          )}
-          <div className="text-xs text-muted-foreground">
-            Biological grants currently loaded: {draft.proficiencies.granted.filter((item) => item.source === 'species' || item.source === 'lineage').length}.
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return <div className="space-y-6">
+    <section className="space-y-3">
+      <div><h3 className="font-semibold">Species</h3><p className="text-xs text-muted-foreground">Canonical hierarchy: Species → Ancestral Group → Lineage. Cherigili, Kriket, and Stonefolk are visible but unavailable for character creation in this build.</p></div>
+      <div className="grid gap-2 sm:grid-cols-3">{data.species.map((family) => <button key={family.catalogId} type="button" disabled={!family.selectable} onClick={() => chooseFamily(family.catalogId)} className={cn('rounded-lg border p-3 text-left', selectedFamily?.catalogId === family.catalogId && 'border-primary bg-primary/5 ring-1 ring-primary', !family.selectable && 'cursor-not-allowed opacity-50')}><div className="font-medium">{family.displayName}</div><div className="mt-1 text-xs text-muted-foreground">{family.groups.length} Group{family.groups.length === 1 ? '' : 's'}{!family.selectable ? ' • unavailable' : ''}</div></button>)}</div>
+    </section>
+    {selectedFamily && <section className="space-y-3"><h3 className="font-semibold">Ancestral Group</h3><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedFamily.groups.map((group) => <ChoiceCard key={group.catalogId} selected={draft.intrinsics.speciesId === group.catalogId} title={group.name} subtitle={`${group.lineages.length} Lines${!group.selectable ? ' • unavailable' : ''}`} disabled={!group.selectable} onClick={() => chooseGroup(group.catalogId)} />)}</div></section>}
+    {selectedGroup && <section className="space-y-3"><h3 className="font-semibold">Lineage / Line</h3>{!selectedGroup.selectable && <p className="text-xs text-muted-foreground">{selectedGroup.name} is shown for reference only; its Lines cannot be selected for a player character.</p>}<div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{selectedGroup.lineages.map((lineage) => { const id = makeCatalogId('lineage', lineage); return <ChoiceCard key={id} selected={draft.intrinsics.lineageId === id} title={lineage} disabled={!selectedGroup.selectable} onClick={() => { if (!selectedGroup.selectable) return; setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, lineageId: id } }, data)); }} />; })}</div></section>}
+    {selectedGroup && <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div className="flex flex-wrap items-center justify-between gap-2"><div><div className="font-medium">Granted Species / Group / Lineage capabilities</div><div className="text-xs text-muted-foreground">Underlining marks overlap with Granted Heritage capabilities.</div></div>{draft.background.ageGroup && <Button type="button" size="sm" variant="outline" disabled={!selectedGroup.selectable || !selectedGroup.hasAgeBrackets} onClick={generateExactAge}><Dices className="h-4 w-4" /> Generate age</Button>}</div><div className="mt-3 text-sm leading-relaxed">{biological.length ? [...biological].sort((a,b) => a.name.localeCompare(b.name)).map((item, index) => { const overlap = heritageKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()); return <span key={item.id} className={cn(overlap && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatCapability(item)}</span>; }) : 'Choose Group and Lineage.'}</div>{speciesAdjustmentBadges.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{speciesAdjustmentBadges.map((label) => <Badge key={label} variant="secondary">{label}</Badge>)}</div>}</div>}
+  </div>;
 }
 
 function rollHighTwo() {
@@ -378,6 +320,9 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
   const candidacy = tradeCandidacy(draft, data);
   const maxRank = maximumTradeRank(draft, data);
   const candidateValues = candidateAttributeValues(draft, data);
+  const professionGranted = draft.proficiencies.granted.filter((item) => item.source === 'trade');
+  const otherCapabilityKeys = new Set(draft.proficiencies.granted.filter((item) => item.source !== 'trade').map((item) => item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()));
+  const formatProfessionCapability = (item: SourcedSelection) => `${item.name.replace(/\s+X$/, '')}${(item.level ?? 1) > 1 ? ` ${item.level}` : ''}${item.specialization ? ` > ${item.specialization}` : ''}`;
 
   const chooseTrade = (trade: string) => {
     const tradeId = makeCatalogId('trade', trade);
@@ -396,6 +341,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
 
   return (
     <div className="space-y-6">
+      {selected && <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div className="font-medium">Granted Profession capabilities — {selected.trade}{specialization ? ` > ${specialization.name}` : ''}</div><div className="mt-1 text-xs text-muted-foreground">Underlining marks overlap with another source and will compress during proficiency consolidation.</div><div className="mt-3 text-sm leading-relaxed">{professionGranted.length ? [...professionGranted].sort((a,b) => a.name.localeCompare(b.name)).map((item,index) => <span key={item.id} className={cn(otherCapabilityKeys.has(item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()) && 'underline decoration-2 underline-offset-2')}>{index ? ', ' : ''}{formatProfessionCapability(item)}</span>) : 'No profession grants loaded.'}</div></div>}
       <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
         {data.tradePackages.map((pkg) => {
           const temp = {
@@ -444,7 +390,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
 
           {selected.specializations.length > 0 && (
             <div className="space-y-2">
-              <Label>Specialization</Label>
+              <Label>Profession / Specialization</Label>
               <div className="grid gap-2 sm:grid-cols-2">
                 {selected.specializations.map((entry) => {
                   const id = makeCatalogId('specialization', `${selected.trade}-${entry.name}`);
@@ -591,6 +537,11 @@ function WealthStep({ data, draft }: Omit<IntrinsicsStepProps, 'stepValue' | 'se
   const breakdown = wealthBreakdown(draft, data);
   const title = wealthTitle(draft.intrinsics.wealthRank, data);
   const ready = draft.intrinsics.wealthRank != null;
+  const wealthRank = draft.intrinsics.wealthRank ?? 0;
+  const scalarText = ready ? (data.universalTable.find((entry) => entry.Index === Math.trunc(wealthRank))?.Scalar ?? '0') : '—';
+  const personalGp = ready ? personalWealthGp(draft, data) : null;
+  const assetValuablesGp = personalGp == null ? null : Math.max(0, personalGp * 10);
+  const assetLandsGp = personalGp == null ? null : Math.max(0, personalGp * 100);
 
   return (
     <div className="space-y-6">
@@ -599,6 +550,7 @@ function WealthStep({ data, draft }: Omit<IntrinsicsStepProps, 'stepValue' | 'se
         <div className="mt-1 text-3xl font-semibold">{ready ? draft.intrinsics.wealthRank : '—'}</div>
         <div className="mt-1 text-sm text-muted-foreground">{title ?? 'Complete Heritage, settlement, and Attributes to calculate Wealth.'}</div>
       </div>
+      <div className="grid gap-3 sm:grid-cols-3"><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Personal Wealth</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{scalarText} gp</div><div className="text-xs text-muted-foreground">Starting spendable gp</div></CardContent></Card><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Assets — Valuables</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{assetValuablesGp == null ? '—' : `${assetValuablesGp} gp`}</div><div className="text-xs text-muted-foreground">Banks, family valuables, movable property</div></CardContent></Card><Card><CardHeader className="pb-2"><CardTitle className="text-sm">Assets — Lands</CardTitle></CardHeader><CardContent><div className="text-xl font-semibold">{assetLandsGp == null ? '—' : `${assetLandsGp} gp`}</div><div className="text-xs text-muted-foreground">Land/family property equivalent</div></CardContent></Card></div>
       <div className="grid gap-3 sm:grid-cols-3">
         <Card>
           <CardHeader className="pb-2"><CardTitle className="text-sm">Heritage</CardTitle></CardHeader>

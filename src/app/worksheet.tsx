@@ -4,6 +4,9 @@ import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import {
   AlertTriangle,
   Check,
+  Dices,
+  Maximize2,
+  Minimize2,
   ChevronLeft,
   ChevronRight,
   Circle,
@@ -23,18 +26,22 @@ import {
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { createEmptyCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
+import PersistentAccordionSection from '@/components/persistent-accordion-section';
 import {
   assessBackgroundStep,
   heritageWealthAdjustment,
   isBackgroundStep,
+  syncHeritageGrantedSelections,
 } from '@/lib/rules/background';
 import {
   assessIntrinsicStep,
+  getFinalAttributeValue,
   getLineageName,
   getSpeciesChoice,
   getTradePackage,
   getTradeSpecialization,
   isIntrinsicStep,
+  syncIntrinsics,
 } from '@/lib/rules/intrinsics';
 import BackgroundStep from './forge/background-step';
 import IntrinsicsStep from './forge/intrinsics-step';
@@ -44,11 +51,13 @@ import UtilitiesStep from './forge/utilities-step';
 import {
   assessProficiencyStep,
   isProficiencyStep,
+  compressedCapabilities,
   skillpointBudget,
 } from '@/lib/rules/proficiencies';
 import {
   assessPropertyStep,
   isPropertyStep,
+  syncProperties,
 } from '@/lib/rules/properties';
 import {
   assessUtilityStep,
@@ -56,6 +65,7 @@ import {
   personalWealthGp,
   startingGearTotals,
 } from '@/lib/rules/utilities';
+import { canGenerateStep, generateStep } from '@/lib/rules/generate-step';
 import { cn } from '@/lib/utils';
 
 type CreationPhase = StaticData['steps'][number];
@@ -135,6 +145,7 @@ export default function Worksheet({
   );
 
   const [activeStepValue, setActiveStepValue] = useState(allSteps[0]?.value ?? '');
+  const [panelExpanded, setPanelExpanded] = useState(false);
 
   const updateDraft: Dispatch<SetStateAction<CharacterDraft>> = setDraft;
 
@@ -160,6 +171,21 @@ export default function Worksheet({
   const activeAssessment = activeStep
     ? stepAssessment(activeStep.value)
     : { status: 'incomplete' as const, messages: [] as string[] };
+  // The Character panel is a live projection. Recompute package grants, Intrinsics,
+  // and Properties from the structured inputs rather than waiting for the Player
+  // to revisit later steps after an upstream edit.
+  const panelDraft = useMemo(
+    () => syncProperties(syncIntrinsics(syncHeritageGrantedSelections(draft, data), data), data),
+    [draft, data],
+  );
+  const compressed = compressedCapabilities(panelDraft, data);
+  const compressedSkills = compressed.filter((item) => item.isSkill);
+  const compressedTraits = compressed.filter((item) => !item.isSkill);
+  const unresolvedSteps = allSteps.map((step) => ({ step, assessment: stepAssessment(step.value) })).filter(({ assessment }) => assessment.status !== 'complete');
+  const speciesChoice = getSpeciesChoice(panelDraft, data);
+  const selectedBelief = data.beliefs.find((item) => item.catalogId === panelDraft.background.beliefId);
+  const beliefDisplay = selectedBelief?.isDeity ? (data.deities.find((item) => item.catalogId === panelDraft.background.deityId)?.deity ?? 'Theist — Deity required') : (selectedBelief?.keyword ?? '—');
+  const calc = (key: string) => panelDraft.properties.calculated[key] ?? '—';
 
   const setStepCompletion = (stepValue: string, complete: boolean) => {
     setDraft((current) => {
@@ -187,11 +213,11 @@ export default function Worksheet({
 
   return (
     <div className="mx-auto w-full max-w-[1440px] space-y-4 pb-8">
-      <div className="flex flex-col gap-3 rounded-lg border bg-card p-4 md:flex-row md:items-center md:justify-between">
+      <div className="sticky top-0 z-40 flex flex-col gap-3 rounded-lg border bg-card/95 p-4 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-semibold">Sarna Len Character Forge</h1>
-            <Badge variant="outline">v106 Finalization</Badge>
+            <Badge variant="outline">v107 QA Corrections</Badge>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
             Canonical DXD creation order with all in-scope phases functional. The active structured draft is autosaved into the local Character Library and projected into the finished CRS.
@@ -212,8 +238,8 @@ export default function Worksheet({
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)_300px]">
-        <Card className="h-fit lg:sticky lg:top-2">
+      <div className={cn('grid gap-4', panelExpanded ? 'lg:grid-cols-[280px_minmax(0,1fr)_520px]' : 'lg:grid-cols-[280px_minmax(0,1fr)_300px]')}>
+        <Card className="h-fit lg:sticky lg:top-24">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Creation</CardTitle>
             <CardDescription>
@@ -228,46 +254,29 @@ export default function Worksheet({
               const phaseActive = phase.value === activeStep.phaseValue;
 
               return (
-                <div key={phase.value} className="space-y-1">
-                  <div className="flex items-center gap-2 pb-1 text-xs font-semibold tracking-wide">
-                    {phaseComplete ? (
-                      <Check className="h-3.5 w-3.5" />
-                    ) : phaseActive ? (
-                      <Circle className="h-3.5 w-3.5 fill-current" />
-                    ) : (
-                      <Circle className="h-3.5 w-3.5" />
-                    )}
-                    <span>{phaseIndex + 1}. {phase.title.replace('ASSIGN ', '')}</span>
+                <PersistentAccordionSection
+                  key={phase.value}
+                  id={`phase-${phase.value}`}
+                  title={<span className="flex items-center gap-2 text-xs font-semibold tracking-wide">{phaseComplete ? <Check className="h-3.5 w-3.5" /> : phaseActive ? <Circle className="h-3.5 w-3.5 fill-current" /> : <Circle className="h-3.5 w-3.5" />}{phaseIndex + 1}. {phase.title.replace('ASSIGN ', '')}</span>}
+                  defaultOpen={phaseActive || phaseIndex === 0}
+                  className="border-0 px-0"
+                  triggerClassName="py-2"
+                >
+                  <div className="space-y-1">
+                    {phase.substeps.map((step) => {
+                      const active = step.value === activeStep.value;
+                      const assessment = stepAssessment(step.value);
+                      const complete = assessment.status === 'complete';
+                      const warning = assessment.status === 'warning';
+                      return (
+                        <button type="button" key={step.value} onClick={() => setActiveStepValue(step.value)} className={cn('flex w-full items-start gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors', active ? 'bg-primary text-primary-foreground' : 'hover:bg-muted')}>
+                          {complete ? <Check className="mt-0.5 h-3.5 w-3.5 shrink-0" /> : warning || step.value === 'background-disabilities' ? <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" /> : <Circle className="mt-0.5 h-3.5 w-3.5 shrink-0" />}
+                          <span>{step.title.replace('Assign ', '')}</span>
+                        </button>
+                      );
+                    })}
                   </div>
-                  {phase.substeps.map((step) => {
-                    const active = step.value === activeStep.value;
-                    const assessment = stepAssessment(step.value);
-                    const complete = assessment.status === 'complete';
-                    const warning = assessment.status === 'warning';
-                    return (
-                      <button
-                        type="button"
-                        key={step.value}
-                        onClick={() => setActiveStepValue(step.value)}
-                        className={cn(
-                          'flex w-full items-start gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors',
-                          active
-                            ? 'bg-primary text-primary-foreground'
-                            : 'hover:bg-muted'
-                        )}
-                      >
-                        {complete ? (
-                          <Check className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                        ) : warning ? (
-                          <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                        ) : (
-                          <Circle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                        )}
-                        <span>{step.title.replace('Assign ', '')}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+                </PersistentAccordionSection>
               );
             })}
           </CardContent>
@@ -285,8 +294,10 @@ export default function Worksheet({
             <CardDescription className="text-base">
               {activeStep.description}
             </CardDescription>
+            <div className="pt-2"><Button type="button" size="sm" variant="outline" disabled={!canGenerateStep(activeStep.value, draft, data)} onClick={() => setDraft((current) => generateStep(activeStep.value, current, data))}><Dices className="h-4 w-4" /> Generate</Button></div>
           </CardHeader>
           <CardContent className="space-y-6">
+            <PersistentAccordionSection id={`active-${activeStep.value}`} title="Assignment fields" defaultOpen>
             {isBackgroundStep(activeStep.value) || isIntrinsicStep(activeStep.value) || isProficiencyStep(activeStep.value) || isPropertyStep(activeStep.value) || isUtilityStep(activeStep.value) ? (
               <>
                 {isBackgroundStep(activeStep.value) ? (
@@ -395,6 +406,7 @@ export default function Worksheet({
               </>
             )}
 
+            </PersistentAccordionSection>
             <div className="flex items-center justify-between border-t pt-5">
               <Button
                 variant="outline"
@@ -413,92 +425,17 @@ export default function Worksheet({
           </CardContent>
         </Card>
 
-        <Card className="h-fit lg:sticky lg:top-2">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">Character</CardTitle>
-            <CardDescription>Live draft summary</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm">
-            <div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground">Identity</div>
-              <div className="mt-1 font-medium">
-                {draft.utilities.name || 'Unnamed character'}
-              </div>
-            </div>
-            <Separator />
-            <dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">
-              <dt className="text-muted-foreground">Region</dt>
-              <dd>{data.empires.find((item) => item.catalogId === draft.background.regionId)?.name ?? '—'}</dd>
-              <dt className="text-muted-foreground">Heritage</dt>
-              <dd className="max-w-[150px] text-right">
-                {[draft.background.culturalHeritageId, draft.background.environHeritageId, draft.background.societalHeritageId]
-                  .map((id) => data.heritagePackages.find((pkg) => pkg.id === id)?.name)
-                  .filter(Boolean)
-                  .join(' / ') || '—'}
-              </dd>
-              <dt className="text-muted-foreground">Social Rank</dt>
-              <dd>{draft.background.socialRank ?? '—'}</dd>
-              <dt className="text-muted-foreground">Belief</dt>
-              <dd>{data.beliefs.find((item) => item.catalogId === draft.background.beliefId)?.keyword ?? '—'}</dd>
-              <dt className="text-muted-foreground">Heritage Wealth</dt>
-              <dd>{heritageWealthAdjustment(draft, data) >= 0 ? '+' : ''}{heritageWealthAdjustment(draft, data)}</dd>
-              <dt className="text-muted-foreground">Species</dt>
-              <dd>{getSpeciesChoice(draft, data)?.group.name ?? '—'}{getLineageName(draft, data) ? ` / ${getLineageName(draft, data)}` : ''}</dd>
-              <dt className="text-muted-foreground">Age</dt>
-              <dd>{draft.background.ageYears ?? draft.background.ageGroup ?? '—'}</dd>
-              <dt className="text-muted-foreground">Trade</dt>
-              <dd>{getTradePackage(draft, data)?.trade ?? '—'}{getTradeSpecialization(draft, data) ? ` / ${getTradeSpecialization(draft, data)?.name}` : ''}</dd>
-              <dt className="text-muted-foreground">Affinity / ZED</dt>
-              <dd>{draft.intrinsics.affinityAttribute ? `${draft.intrinsics.affinityAttribute} / ${draft.intrinsics.zed ?? '—'}` : '—'}</dd>
-              <dt className="text-muted-foreground">Height / Weight</dt>
-              <dd>{draft.properties.heightInches == null ? '—' : `${Math.floor(draft.properties.heightInches / 12)}′${draft.properties.heightInches % 12}″ / ${draft.properties.weightPounds ?? '—'} lb`}</dd>
-              <dt className="text-muted-foreground">SIZ / MOV</dt>
-              <dd>{draft.properties.siz ?? '—'} / {draft.properties.calculated.MOV ?? '—'}</dd>
-              <dt className="text-muted-foreground">PML</dt>
-              <dd>{draft.proficiencies.pml ?? '—'}</dd>
-              <dt className="text-muted-foreground">Wealth Rank</dt>
-              <dd>{draft.intrinsics.wealthRank ?? '—'}</dd>
-              <dt className="text-muted-foreground">Skillpoints</dt>
-              <dd>{skillpointBudget(draft, data).remaining ?? '—'} remaining</dd>
-            </dl>
-            <Separator />
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Granted capabilities</span>
-                <span>{draft.proficiencies.granted.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Purchased capabilities</span>
-                <span>{draft.proficiencies.additionalSkills.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Languages</span>
-                <span>{draft.proficiencies.languages.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Spells</span>
-                <span>{draft.utilities.spells.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Starting gear</span>
-                <span>{startingGearTotals(draft).itemCount}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Gear cost / wealth</span>
-                <span>{startingGearTotals(draft).costGp.toFixed(1)} / {personalWealthGp(draft, data)?.toLocaleString() ?? '—'} gp</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Magic items</span>
-                <span>{draft.utilities.magicItems.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Warnings</span>
-                <span>{draft.warnings.length}</span>
-              </div>
-            </div>
-            <p className="rounded-md bg-muted p-3 text-xs text-muted-foreground">
-              Autosaved locally in this browser. Server accounts, cloud synchronization, and character sharing are final-product milestones.
-            </p>
+        <Card className="h-fit lg:sticky lg:top-24">
+          <CardHeader className="pb-3"><div className="flex items-center justify-between"><div><CardTitle className="text-base">Character</CardTitle><CardDescription>Live compressed draft summary</CardDescription></div><Button type="button" size="icon" variant="ghost" onClick={() => setPanelExpanded((value) => !value)} aria-label={panelExpanded ? 'Minimize character panel' : 'Maximize character panel'}>{panelExpanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}</Button></div></CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            <PersistentAccordionSection id="character-identity" title="Identity"><div className="font-medium">{panelDraft.utilities.name || 'Unnamed character'}</div><dl className="mt-3 grid grid-cols-[110px_1fr] gap-x-3 gap-y-2"><dt className="text-muted-foreground">Region</dt><dd>{data.empires.find((item) => item.catalogId === panelDraft.background.regionId)?.name ?? '—'}</dd><dt className="text-muted-foreground">Heritage</dt><dd className="text-left">{[panelDraft.background.culturalHeritageId,panelDraft.background.environHeritageId,panelDraft.background.societalHeritageId].map((id) => data.heritagePackages.find((pkg) => pkg.id === id)?.name).filter(Boolean).join(' / ') || '—'}</dd><dt className="text-muted-foreground">Species</dt><dd>{speciesChoice?.family.displayName ?? '—'}</dd><dt className="text-muted-foreground">Group</dt><dd>{speciesChoice?.group.name ?? '—'}</dd><dt className="text-muted-foreground">Lineage</dt><dd>{getLineageName(panelDraft,data) ?? '—'}</dd><dt className="text-muted-foreground">Age Group</dt><dd>{panelDraft.background.ageGroup ?? '—'}{panelDraft.background.ageYears != null ? ` • ${panelDraft.background.ageYears}` : ''}</dd><dt className="text-muted-foreground">Belief</dt><dd>{beliefDisplay}</dd><dt className="text-muted-foreground">Trade</dt><dd>{getTradePackage(panelDraft,data)?.trade ?? '—'}{getTradeSpecialization(panelDraft,data) ? ` > ${getTradeSpecialization(panelDraft,data)?.name}` : ''}</dd></dl></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-attributes" title="Attributes"><div className="space-y-3"><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Combat</div><div className="grid grid-cols-3 gap-2">{['CCA','RCA','REF'].map((name) => <div key={name} className="rounded border p-2 text-center"><div className="text-xs text-muted-foreground">{name}</div><div className="font-semibold">{getFinalAttributeValue(name,panelDraft) ?? '—'}</div></div>)}</div></div><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Psychological</div><div className="grid grid-cols-4 gap-2">{['INT','KNO','PRE','POW'].map((name) => <div key={name} className="rounded border p-2 text-center"><div className="text-xs text-muted-foreground">{name}</div><div className="font-semibold">{getFinalAttributeValue(name,panelDraft) ?? '—'}</div></div>)}</div></div><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Physical</div><div className="grid grid-cols-3 gap-2">{[['STR',getFinalAttributeValue('STR',panelDraft)],['FOR',getFinalAttributeValue('FOR',panelDraft)],['MOV',calc('MOV')]].map(([name,value]) => <div key={String(name)} className="rounded border p-2 text-center"><div className="text-xs text-muted-foreground">{name}</div><div className="font-semibold">{value ?? '—'}</div></div>)}</div></div><div><div className="mb-1 text-xs font-semibold text-muted-foreground">Magic</div><div className="w-24 rounded border p-2 text-center"><div className="text-xs text-muted-foreground">ZED</div><div className="font-semibold">{panelDraft.intrinsics.zed ?? '—'}</div></div></div></div></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-calculated" title="Calculated Scores"><dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">{[['Stature',panelDraft.properties.stature],['Build',panelDraft.properties.build],['Profile',panelDraft.properties.profile],['Hitpoints',calc('Hitpoints')],['Bodypoints',calc('Bodypoints')],['Resilience',calc('Resilience')],['Resistance',calc('Resistance')],['Endurance',calc('Endurance')],['Recovery Rate',calc('Recovery')]].map(([name,value]) => <><dt key={`${name}-dt`} className="text-muted-foreground">{name}</dt><dd key={`${name}-dd`}>{value ?? '—'}</dd></>)}</dl></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-misc" title="Miscellaneous"><dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2">{[['Wealth Rank',panelDraft.intrinsics.wealthRank],['Social Rank',panelDraft.background.socialRank],['Trade Rank',panelDraft.intrinsics.tradeRank],['Favor Dice',calc('FavorDice')],['Cellburn Limit',calc('Cellburn')],['Manapool',calc('Manapool')]].map(([name,value]) => <><dt key={`${name}-dt`} className="text-muted-foreground">{name}</dt><dd key={`${name}-dd`}>{value ?? '—'}</dd></>)}</dl></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-skills" title={`Skills (${compressedSkills.length})`} defaultOpen={false}><div className="space-y-1 text-xs">{compressedSkills.length ? compressedSkills.map((item) => <div key={item.name}>{item.display}</div>) : '—'}</div></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-traits" title={`Traits (${compressedTraits.length})`} defaultOpen={false}><div className="space-y-1 text-xs">{compressedTraits.length ? compressedTraits.map((item) => <div key={item.name}>{item.display}</div>) : '—'}</div></PersistentAccordionSection>
+            <PersistentAccordionSection id="character-status" title={`Status ${unresolvedSteps.length ? `(!) ${unresolvedSteps.length}` : '✓'}`} defaultOpen={false}><div className="space-y-2">{unresolvedSteps.length ? unresolvedSteps.map(({step,assessment}) => <button type="button" key={step.value} onClick={() => setActiveStepValue(step.value)} className="block w-full rounded border p-2 text-left text-xs"><span className="font-semibold">(!) {step.title}</span><span className="ml-2 text-muted-foreground">{assessment.status}</span></button>) : <div className="text-xs text-muted-foreground">All configured steps are complete.</div>}</div></PersistentAccordionSection>
+            <div className="rounded-md bg-muted p-3 text-xs text-muted-foreground">Skillpoints: {skillpointBudget(panelDraft,data).remaining ?? '—'} remaining. Gear: {startingGearTotals(panelDraft).costGp.toFixed(1)} / {personalWealthGp(panelDraft,data)?.toLocaleString() ?? '—'} gp.</div>
           </CardContent>
         </Card>
       </div>

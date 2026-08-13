@@ -11,6 +11,7 @@ import {
   purchasedAttributeSkillpointCost,
   selectedSettlementName,
   zedPurchaseSkillpointCost,
+  syncIntrinsics,
 } from './intrinsics';
 import type { StepAssessment } from './background';
 
@@ -123,10 +124,10 @@ export function syncPmlGrantedSelections(draft: CharacterDraft, data: StaticData
 
 export function setPml(draft: CharacterDraft, pml: number, data: StaticData) {
   const clamped = Math.max(1, Math.min(40, Math.trunc(pml)));
-  return syncPmlGrantedSelections({
+  return syncIntrinsics(syncPmlGrantedSelections({
     ...draft,
     proficiencies: { ...draft.proficiencies, pml: clamped },
-  }, data);
+  }, data), data);
 }
 
 export function setPmlVirtuosityChoice(
@@ -142,10 +143,10 @@ export function setPmlVirtuosityChoice(
     ...draft.proficiencies.pmlVirtuosityChoices.filter((entry) => entry.milestone !== milestone),
     choice,
   ].sort((a, b) => a.milestone - b.milestone);
-  return syncPmlGrantedSelections({
+  return syncIntrinsics(syncPmlGrantedSelections({
     ...draft,
     proficiencies: { ...draft.proficiencies, pmlVirtuosityChoices: choices },
-  }, data);
+  }, data), data);
 }
 
 function explicitSpecialization(selection: SourcedSelection, draft: CharacterDraft) {
@@ -178,6 +179,105 @@ export function contextualGrantSpecialization(
   return null;
 }
 
+
+const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
+  academics: ['Alchemy', 'Design', 'Engineer', 'Medic', 'Science'],
+  artist: ['Choreography', 'Comedy', 'Composer', 'Painter', 'Playwright', 'Poetry'],
+  craft: ['Apothecary', 'Armorsmith', 'Carpentry', 'Clothier', 'Cosmetics', 'Hidecraft', 'Jewelcraft', 'Magicraft', 'Metalcraft', 'Pottery', 'Stonecraft', 'Textiles', 'Weaponsmith', 'Woodcraft'],
+  design: ['Enterprise', 'Factories', 'Fortresses', 'Gardens', 'Living Spaces', 'Settlements', 'Ships', 'War Engines'],
+  domus: ['Academic', 'Employer', 'Estate', 'Farmer', 'Fisher', 'Herder', 'Martial', 'Rancher', 'Shopkeeper', 'Trader', 'Trapper'],
+  engineer: ['Civil', 'Contraptions', 'Constructs', 'Warfare'],
+  gambling: ['Cards', 'Dice', 'Animal Racing', 'Pit-fighting'],
+  expert: ['Axes', 'Bashing', 'Bludgeons', 'Bolas', 'Bows', 'Chains & Whips', 'Crossbows', 'Daggers & Knives', 'Firearms', 'Polearms', 'Reaping', 'Slings', 'Slingshots & Rocks', 'Spears', 'Staffs', 'Swords', 'Threshing', 'Thrown Weapons', 'Unusual Weapons'],
+  imbue: ['Items', 'Originator', 'Artifice', 'Scrolls', 'Skills'],
+  labor: ['Baker', 'Beautician', 'Bouncer', 'Brewer', 'Butcher', 'Concierge', 'Cook', 'Groundskeeper', 'Miller', 'Wait Staff'],
+  medic: ['Battlefield', 'Dentist', 'Generalist', 'Reproductive', 'Surgeon'],
+  mercantile: ['Overland-trade', 'Sea-trade', 'Local-market', 'Guild-market', 'Cargo', 'Credit', 'Contracts', 'Appraisal'],
+  military: ['Infiltrate', 'Lockpicking', 'Navigation', 'Poisons', 'Siege', 'Tactics', 'Warfare'],
+  office: ['Administration', 'Commerce', 'Courtier', 'Finance', 'Guild', 'Law', 'Magister'],
+  perform: ['Act', 'Acrobatics', 'Dance', 'Humor', 'Music', 'Oration', 'Philosophy', 'Puppetry', 'Sing', 'Storytelling'],
+  poisons: ['Poisons', 'Venoms', 'Toxins'],
+  'rapid-shot': ['Bows', 'Crossbows', 'Longarms', 'Pistols', 'Thrown'],
+  riding: ['Aurochs', 'Bear', 'Bison', 'Camelops', 'Grunks', 'Horse', 'Ostra', 'Sleeth', 'Tarn', 'Torse'],
+  science: ['Chemistry', 'Energy', 'Geology', 'Biology', 'Magiviruses', 'Meterology', 'Picoswarms', 'Psychology', 'Materials', 'Physics'],
+  studies: ['Artist', 'Deity', 'History', 'Investigator', 'Language', 'Lore', 'Maths', 'Peerage', 'Politics', 'Read'],
+  survival: ['Badlands', 'Coastal', 'Chaparral', 'Deserts', 'Forests', 'Grassland', 'Hills', 'Jungle', 'Mangrove', 'Marsh', 'Mountain', 'Steppe', 'River', 'Savannah', 'Swamp', 'Taiga', 'Tundra', 'Woods', 'Arctic', 'Ice Sheet/Glacier', 'Benthic'],
+  tactics: ['Aerial', 'Land', 'Naval', 'Siege', 'Urban'],
+  warfare: ['Siege', 'Tactics', 'Engineering', 'Strategy', 'Logistics', 'Spycraft', 'Torture'],
+  wares: ['Animals', 'Stone', 'Wood', 'Weapons & Armor', 'Jewelry', 'Magic'],
+};
+
+export function specializationOptionsForTrait(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const base = canonicalTraitBase(selection.name);
+  const placeholder = selection.name.includes(' > ') ? selection.name.split(' > ').slice(1).join(' > ').replace(/\s+X$/, '').trim().toLowerCase() : '';
+  if (placeholder === 'region') return data.empires.map((entry) => entry.name).sort();
+  if (placeholder === 'settlement') return Array.from(new Set(Object.values(data.settlements).flat())).sort();
+  if (placeholder === 'deity') return data.deities.map((entry) => entry.deity).sort();
+  if (placeholder === 'language') return data.languages.map((entry) => entry.name).sort();
+  if (placeholder === 'environ') return data.heritagePackages.filter((entry) => entry.kind === 'environs').map((entry) => entry.name).sort();
+  if (placeholder === 'trade') return data.tradePackages.map((entry) => entry.trade).sort();
+  if (placeholder === 'species') return data.species.flatMap((family) => family.groups.map((group) => group.name)).sort();
+  if (placeholder === 'weapon' || placeholder === 'technical weapon') return BROAD_SPECIALIZATIONS.expert;
+  return BROAD_SPECIALIZATIONS[base] ?? [];
+}
+
+function genericSpecialization(value: string | undefined) {
+  return !value || ['any','region','settlement','deity','belief','environ','language','trade','species','weapon','technical weapon','type','field'].includes(value.trim().toLowerCase());
+}
+
+export function specializationRanksForSelection(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const stored = selection.specializationRanks ?? draft.proficiencies.grantSpecializationRanks[selection.id];
+  if (stored && Object.keys(stored).length) return stored;
+  const legacy = draft.proficiencies.grantSpecializations[selection.id];
+  if (legacy?.trim()) return { [legacy.trim()]: 1 };
+  if (!genericSpecialization(selection.specialization)) return { [selection.specialization!.trim()]: 1 };
+  const contextual = contextualGrantSpecialization({ ...selection, specialization: undefined }, draft, data);
+  if (contextual && !genericSpecialization(contextual)) return { [contextual]: 1 };
+  return {};
+}
+
+export function setGrantSpecializationRanks(draft: CharacterDraft, grantId: string, ranks: Record<string, number>) {
+  const grantSpecializationRanks = { ...draft.proficiencies.grantSpecializationRanks };
+  const cleaned = Object.fromEntries(Object.entries(ranks).filter(([name, rank]) => name.trim() && rank > 0).map(([name, rank]) => [name.trim(), Math.max(1, Math.trunc(rank))]));
+  if (Object.keys(cleaned).length) grantSpecializationRanks[grantId] = cleaned;
+  else delete grantSpecializationRanks[grantId];
+  return { ...draft, proficiencies: { ...draft.proficiencies, grantSpecializationRanks } };
+}
+
+export function updateAdditionalSkillSpecializations(draft: CharacterDraft, selectionId: string, ranks: Record<string, number>) {
+  return { ...draft, proficiencies: { ...draft.proficiencies, additionalSkills: draft.proficiencies.additionalSkills.map((selection) => selection.id === selectionId ? { ...selection, specializationRanks: ranks } : selection) } };
+}
+
+export type CompressedCapability = { name: string; level: number; isSkill: boolean; specializations: Record<string, number>; sources: SourcedSelection[]; display: string };
+export function compressedCapabilities(draft: CharacterDraft, data: StaticData): CompressedCapability[] {
+  const all = [
+    ...draft.proficiencies.granted,
+    ...draft.proficiencies.purchased,
+    ...draft.proficiencies.additionalSkills,
+    ...draft.background.disabilities,
+  ];
+  const groups = new Map<string, CompressedCapability>();
+  for (const selection of all) {
+    const baseName = selection.name.split(' > ')[0].replace(/\s+X$/, '').trim();
+    const key = canonicalTraitBase(baseName);
+    const definition = traitDefinitionForSelection(selection, data);
+    const ranks = specializationRanksForSelection(selection, draft, data);
+    const level = Math.max(1, selection.level ?? 1);
+    const current = groups.get(key);
+    if (!current) groups.set(key, { name: baseName, level, isSkill: Boolean(definition?.isSkill), specializations: { ...ranks }, sources: [selection], display: '' });
+    else {
+      current.level = Math.min(10, Math.max(current.level, level) + 1);
+      current.sources.push(selection);
+      for (const [name, rank] of Object.entries(ranks)) current.specializations[name] = (current.specializations[name] ?? 0) + rank;
+    }
+  }
+  for (const item of groups.values()) {
+    const specs = Object.entries(item.specializations).sort(([a],[b]) => a.localeCompare(b)).map(([name, rank]) => `${name}${rank > 1 ? ` ${rank}` : ''}`);
+    item.display = `${item.name}${item.level > 1 ? ` ${item.level}` : ''}${specs.length ? ` > { ${specs.join(', ')} }` : ''}`;
+  }
+  return [...groups.values()].sort((a,b) => a.name.localeCompare(b.name));
+}
+
 export function setGrantSpecialization(draft: CharacterDraft, grantId: string, specialization: string) {
   const grantSpecializations = { ...draft.proficiencies.grantSpecializations };
   const value = specialization.trim();
@@ -187,8 +287,9 @@ export function setGrantSpecialization(draft: CharacterDraft, grantId: string, s
 }
 
 export function unresolvedBroadGrants(draft: CharacterDraft, data: StaticData) {
-  return draft.proficiencies.granted.filter(
-    (selection) => selection.name.includes(' > ') && !contextualGrantSpecialization(selection, draft, data),
+  return draft.proficiencies.granted.filter((selection) =>
+    (selection.name.includes(' > ') || specializationOptionsForTrait(selection, draft, data).length > 0)
+      && Object.keys(specializationRanksForSelection(selection, draft, data)).length === 0,
   );
 }
 
@@ -331,7 +432,7 @@ export function skillpointBudget(draft: CharacterDraft, data: StaticData) {
 
 export function addAdditionalSkill(draft: CharacterDraft, traitId: string, data: StaticData) {
   const trait = traitDefinitionById(traitId, data);
-  if (!trait || !trait.isSkill || trait.isDisability) return draft;
+  if (!trait || trait.isDisability || Math.max(0, parseIM(trait.im)) <= 0) return draft;
   const ordinal = draft.proficiencies.additionalSkills.filter((entry) => entry.catalogId === traitId).length + 1;
   const selection: SourcedSelection = {
     id: `additional-${traitId}-${ordinal}`,
@@ -353,7 +454,7 @@ export function addAdditionalSkill(draft: CharacterDraft, traitId: string, data:
 export function updateAdditionalSkill(
   draft: CharacterDraft,
   selectionId: string,
-  changes: Partial<Pick<SourcedSelection, 'level' | 'specialization'>>,
+  changes: Partial<Pick<SourcedSelection, 'level' | 'specialization' | 'specializationRanks'>>,
 ) {
   const additionalSkills = draft.proficiencies.additionalSkills.map((selection) => {
     if (selection.id !== selectionId) return selection;

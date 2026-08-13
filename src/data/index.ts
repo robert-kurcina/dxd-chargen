@@ -92,22 +92,22 @@ const empires = withCatalogIds(empiresRaw, 'region', (item) => item.name);
 const socialRanks = withCatalogIds(socialRanksRaw, 'social-rank', (item) => item.society);
 const tragedySeeds = withCatalogIds(tragedySeedsRaw, 'tragedy', (item) => `${item.d66}-${item.seed}`);
 
-// A playable Species needs an age-bracket table because Age is a required chargen step.
-// Kriket remains in the source files and XLSX ancestry tables, but is intentionally not
-// selectable until canonical Kriket age brackets exist.
-const species = speciesRaw
-  .map((family) => ({
-    ...family,
-    catalogId: makeCatalogId('species-family', family.name),
-    groups: family.groups
-      .filter((group) => Object.prototype.hasOwnProperty.call(ageBrackets, group.name))
-      .map((group) => ({
-        ...group,
-        catalogId: makeCatalogId('species', group.name),
-        lineageCatalogIds: group.lineages.map((lineage) => makeCatalogId('lineage', lineage)),
-      })),
-  }))
-  .filter((family) => family.groups.length > 0);
+// Keep the canonical Species -> Group -> Lineage hierarchy intact.  Selection policy is
+// applied by the Forge UI/rules rather than deleting source families from the runtime data.
+// Humaniki is currently selectable; Cherigili Group plus Kriket and Stonefolk remain visible but disabled.
+const species = speciesRaw.map((family) => ({
+  ...family,
+  displayName: family.name === 'Kriketai' ? 'Kriket' : family.name,
+  catalogId: makeCatalogId('species-family', family.name),
+  selectable: family.name === 'Humaniki',
+  groups: family.groups.map((group) => ({
+    ...group,
+    catalogId: makeCatalogId('species', group.name),
+    selectable: family.name === 'Humaniki' && group.name !== 'Cherigili',
+    lineageCatalogIds: group.lineages.map((lineage) => makeCatalogId('lineage', lineage)),
+    hasAgeBrackets: Object.prototype.hasOwnProperty.call(ageBrackets, group.name),
+  })),
+}));
 
 const sarnaLenData = {
   ageBrackets,

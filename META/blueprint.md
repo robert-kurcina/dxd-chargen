@@ -22,6 +22,6 @@ React components should render results and dispatch selections. They should not 
 
 ## Current release
 
-v106 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Release hardening is the next tranche.
+v109 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Release hardening is the next tranche.
 
 See `FINAL_PRODUCT_PLAN.md` for the full implementation and release plan.

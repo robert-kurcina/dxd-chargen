@@ -23,6 +23,7 @@ import {
   additionalSkillCost,
   ageRankValue,
   combinedGrantedTraits,
+  compressedCapabilities,
   defaultLanguageSuggestion,
   formatLanguageRecord,
   languageProficiencyPoints,
@@ -35,6 +36,10 @@ import {
   removeProficiencyLanguage,
   setCoreLanguage,
   setGrantSpecialization,
+  setGrantSpecializationRanks,
+  specializationOptionsForTrait,
+  specializationRanksForSelection,
+  updateAdditionalSkillSpecializations,
   setPml,
   setPmlVirtuosityChoice,
   skillpointBudget,
@@ -110,102 +115,75 @@ function PmlStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, 'stepVa
   );
 }
 
+
+function SpecializationControls({ selection, data, draft, onChange }: { selection: import('@/lib/character-draft').SourcedSelection; data: StaticData; draft: CharacterDraft; onChange: (ranks: Record<string, number>) => void }) {
+  const options = specializationOptionsForTrait(selection, draft, data);
+  const ranks = specializationRanksForSelection(selection, draft, data);
+  const entries = Object.entries(ranks);
+  const maxSlots = Math.max(1, selection.level ?? 1);
+  const usedSlots = entries.reduce((sum, [, rank]) => sum + rank, 0);
+  if (!selection.name.includes(' > ') && options.length === 0) return null;
+  const replace = (from: string, to: string) => {
+    if (!to || to === from) return;
+    const next = { ...ranks };
+    const count = next[from] ?? 1;
+    delete next[from];
+    next[to] = (next[to] ?? 0) + count;
+    onChange(next);
+  };
+  const removeOne = (name: string) => {
+    const next = { ...ranks };
+    if ((next[name] ?? 0) > 1) next[name] -= 1;
+    else delete next[name];
+    onChange(next);
+  };
+  const add = () => {
+    const next = { ...ranks };
+    const unused = options.find((option) => !next[option]);
+    const choice = unused ?? entries[0]?.[0] ?? options[0];
+    if (!choice) return;
+    next[choice] = (next[choice] ?? 0) + 1;
+    onChange(next);
+  };
+  return <div className="flex flex-wrap items-center gap-2">
+    {entries.map(([name, rank]) => <div key={name} className="flex items-center gap-1">
+      <Select value={name} onValueChange={(value) => replace(name, value)}><SelectTrigger className="h-8 w-[180px]"><SelectValue /></SelectTrigger><SelectContent>{options.length ? options.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>) : <SelectItem value={name}>{name}</SelectItem>}</SelectContent></Select>
+      {rank > 1 && <Badge variant="secondary">×{rank}</Badge>}
+      <Button type="button" size="icon" variant="ghost" className="h-8 w-8" onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button>
+    </div>)}
+    {usedSlots < maxSlots && options.length > 0 && <Button type="button" size="icon" variant="outline" className="h-8 w-8" onClick={add}><Plus className="h-3.5 w-3.5" /></Button>}
+    {!entries.length && options.length > 0 && <Button type="button" size="sm" variant="outline" onClick={add}><Plus className="h-3.5 w-3.5" /> Specialization</Button>}
+  </div>;
+}
+
 function GrantedTraitsStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, 'stepValue'>) {
   const combined = combinedGrantedTraits(draft, data);
-  const unresolved = unresolvedBroadGrants(draft, data);
   const milestones = pmlVirtuosityMilestones(draft.proficiencies.pml);
   const virtuosity = data.traits.filter((trait) => trait.isVirtuosity && !trait.isDisability);
-
-  return (
-    <div className="space-y-6">
-      {milestones.length > 0 && (
-        <section className="space-y-3">
-          <div>
-            <h3 className="font-semibold">PML Virtuosity choices</h3>
-            <p className="mt-1 text-xs text-muted-foreground">Choose one Virtuosity trait at each reached milestone. These remain sourced from PML rather than purchased from the general Skillpoint pool.</p>
-          </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            {milestones.map((milestone) => {
-              const current = draft.proficiencies.pmlVirtuosityChoices.find((choice) => choice.milestone === milestone);
-              return (
-                <div key={milestone} className="space-y-2 rounded-lg border p-3">
-                  <Label>PML {milestone}</Label>
-                  <Select value={current?.traitId ?? ''} onValueChange={(value) => setDraft((state) => setPmlVirtuosityChoice(state, milestone, value, data))}>
-                    <SelectTrigger><SelectValue placeholder="Choose Virtuosity" /></SelectTrigger>
-                    <SelectContent>
-                      {virtuosity.map((trait) => <SelectItem key={trait.catalogId} value={trait.catalogId}>{trait.trait}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {unresolved.length > 0 && (
-        <section className="space-y-3">
-          <div>
-            <h3 className="font-semibold">Resolve Broad Skill specializations</h3>
-            <p className="mt-1 text-xs text-muted-foreground">Contextual placeholders such as Region, Settlement, Deity, Environ, and the primary Language resolve automatically. The remaining entries need a concrete specialization.</p>
-          </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            {unresolved.map((selection) => (
-              <div key={selection.id} className="space-y-2 rounded-lg border p-3">
-                <div className="font-medium">{selection.name}</div>
-                <div className="text-xs text-muted-foreground">{selection.sourceDetail}</div>
-                <Input
-                  value={draft.proficiencies.grantSpecializations[selection.id] ?? ''}
-                  placeholder="Enter specialization"
-                  onChange={(event) => setDraft((current) => setGrantSpecialization(current, selection.id, event.target.value))}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <div>
-            <h3 className="font-semibold">Granted Skills, Abilities, and Talents</h3>
-            <p className="mt-1 text-xs text-muted-foreground">Duplicate grants are combined for presentation while every original source remains recorded in the draft.</p>
-          </div>
-          <Badge variant="outline">{combined.length} combined entries</Badge>
-        </div>
-        <div className="overflow-x-auto rounded-lg border">
-          <table className="w-full min-w-[680px] text-sm">
-            <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Trait</th><th className="px-3 py-2 text-center">Level</th><th className="px-3 py-2 text-left">Sources</th></tr></thead>
-            <tbody>
-              {combined.map((trait) => (
-                <tr key={trait.key} className="border-t">
-                  <td className="px-3 py-2 font-medium">{trait.name}{trait.specialization ? ` > ${trait.specialization}` : ''}</td>
-                  <td className="px-3 py-2 text-center">{trait.level}</td>
-                  <td className="px-3 py-2 text-xs text-muted-foreground">{trait.sources.map((source) => source.sourceDetail ?? source.source).join(' • ')}</td>
-                </tr>
-              ))}
-              {combined.length === 0 && <tr><td colSpan={3} className="px-3 py-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Lineage, and Trade to load their grants.</td></tr>}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </div>
-  );
+  const grants = [...draft.proficiencies.granted].sort((a,b) => a.name.localeCompare(b.name) || (a.sourceDetail ?? '').localeCompare(b.sourceDetail ?? ''));
+  return <div className="space-y-6">
+    {milestones.length > 0 && <section className="space-y-3"><div><h3 className="font-semibold">PML Virtuosity choices</h3><p className="mt-1 text-xs text-muted-foreground">Choose one Virtuosity trait at each reached milestone.</p></div><div className="grid gap-3 md:grid-cols-2">{milestones.map((milestone) => { const current = draft.proficiencies.pmlVirtuosityChoices.find((choice) => choice.milestone === milestone); return <div key={milestone} className="space-y-2 rounded-lg border p-3"><Label>PML {milestone}</Label><Select value={current?.traitId ?? ''} onValueChange={(value) => setDraft((state) => setPmlVirtuosityChoice(state, milestone, value, data))}><SelectTrigger><SelectValue placeholder="Choose Virtuosity" /></SelectTrigger><SelectContent>{virtuosity.map((trait) => <SelectItem key={trait.catalogId} value={trait.catalogId}>{trait.trait}</SelectItem>)}</SelectContent></Select></div>; })}</div></section>}
+    <section className="space-y-3"><div className="flex flex-wrap items-end justify-between gap-2"><div><h3 className="font-semibold">Granted Skills, Abilities, and Talents</h3><p className="mt-1 text-xs text-muted-foreground">Specialization controls live on the capability row. Duplicate sources remain visible here and compress later.</p></div><Badge variant="outline">{combined.length} compressed • {grants.length} sourced</Badge></div>
+      <div className="space-y-2">{grants.map((selection) => <div key={selection.id} className="grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]"><div><div className="font-medium">{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? selection.source}</div></div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>)}{!grants.length && <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Group/Lineage, and Trade to load grants.</div>}</div>
+    </section>
+  </div>;
 }
 
 function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, 'stepValue'>) {
   const [query, setQuery] = useState('');
   const budget = skillpointBudget(draft, data);
+  const currentCapabilities = compressedCapabilities(draft, data);
   const catalogue = useMemo(() => {
     const q = query.trim().toLowerCase();
     return data.traits
-      .filter((trait) => trait.isSkill && !trait.isDisability)
+      .filter((trait) => !trait.isDisability && Number(trait.im) > 0)
       .filter((trait) => !q || trait.trait.toLowerCase().includes(q) || trait.category.toLowerCase().includes(q))
       .slice(0, 80);
   }, [data.traits, query]);
 
   return (
     <div className="space-y-6">
+      <section className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Current Skills and Traits</div><p className="mt-2 text-sm leading-relaxed">{currentCapabilities.length ? currentCapabilities.map((item) => item.display).join(', ') : 'No capabilities yet.'}</p></section>
       <section className="space-y-3">
         <div>
           <h3 className="font-semibold">Creation Skillpoint budget</h3>
@@ -225,13 +203,13 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
 
       {draft.proficiencies.additionalSkills.length > 0 && (
         <section className="space-y-3">
-          <h3 className="font-semibold">Purchased Skills</h3>
+          <h3 className="font-semibold">Added Skills and Traits</h3>
           <div className="space-y-3">
             {draft.proficiencies.additionalSkills.map((selection) => {
               const definition = traitDefinitionForSelection(selection, data);
               const cost = additionalSkillCost(selection, draft, data);
               const source = startingSkillLimit(selection.name, draft);
-              const broad = selection.name.includes(' > ');
+              const broad = selection.name.includes(' > ') || specializationOptionsForTrait(selection, draft, data).length > 0;
               return (
                 <div key={selection.id} className="rounded-lg border p-3">
                   <div className="flex flex-wrap items-start justify-between gap-3">
@@ -245,14 +223,7 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
                     <Button type="button" size="icon" variant="outline" disabled={(selection.level ?? 1) <= 1} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) - 1 }))}><Minus className="h-4 w-4" /></Button>
                     <div className="min-w-20 text-center text-sm font-medium">Level {selection.level ?? 1}</div>
                     <Button type="button" size="icon" variant="outline" disabled={(selection.level ?? 1) >= 5} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) + 1 }))}><Plus className="h-4 w-4" /></Button>
-                    {broad && (
-                      <Input
-                        className="min-w-[220px] flex-1"
-                        value={selection.specialization ?? ''}
-                        placeholder="Specialization"
-                        onChange={(event) => setDraft((current) => updateAdditionalSkill(current, selection.id, { specialization: event.target.value }))}
-                      />
-                    )}
+                    {broad && <SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => updateAdditionalSkillSpecializations(current, selection.id, ranks))} />}
                   </div>
                 </div>
               );
@@ -263,12 +234,12 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
 
       <section className="space-y-3">
         <div>
-          <h3 className="font-semibold">Skill catalogue</h3>
-          <p className="mt-1 text-xs text-muted-foreground">This is intentionally utilitarian in v103. Search and add a Skill, then set its starting level and specialization above.</p>
+          <h3 className="font-semibold">Trait and Skill catalogue</h3>
+          <p className="mt-1 text-xs text-muted-foreground">Search and add a Skill or purchasable Trait, then set its starting level and any available specialization on the added row.</p>
         </div>
         <div className="relative">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input className="pl-9" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Skills…" />
+          <Input className="pl-9" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Skills and Traits…" />
         </div>
         <div className="max-h-[420px] overflow-y-auto rounded-lg border">
           {catalogue.map((trait) => (

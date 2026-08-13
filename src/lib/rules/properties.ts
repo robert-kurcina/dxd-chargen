@@ -107,6 +107,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   const table = characteristicTable(species, data);
   const baseline = table.find((row) => row.lineage === 'BASE-LINE');
   const lineage = lineageName ? table.find((row) => row.lineage === lineageName) : undefined;
+  const female = draft.background.geneticallyFemale ? table.find((row) => row.lineage === 'female') : undefined;
   if (!baseline) return null;
 
   const age = data.characteristicModifiers.find((row) => row.Group === draft.background.ageGroup);
@@ -121,6 +122,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     { label: `${species} baseline`, stature: num(baseline.stature), build: num(baseline.build), bodypoints: num(baseline.bodypoints) },
   ];
   if (lineageName && lineage) lines.push({ label: `${lineageName} lineage`, stature: num(lineage.stature), build: num(lineage.build), bodypoints: num(lineage.bodypoints) });
+  if (female) lines.push({ label: 'Genetically Female', stature: num(female.stature), build: num(female.build), bodypoints: num(female.bodypoints) });
   if (age) lines.push({ label: `${age.Group} Age Group`, stature: num(age.Stature), build: num(age.Build), bodypoints: num(age.Bodypoints) });
   lines.push(...heritageLines(draft, data));
   if (trade) lines.push({ label: `${trade.trade} Trade`, stature: num(trade.adjustments.stature), build: num(trade.adjustments.build), bodypoints: num(trade.adjustments.bodypoints) });
@@ -130,6 +132,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   const finalStature = Math.trunc(
     num(baseline.stature)
     + num(lineage?.stature)
+    + num(female?.stature)
     + num(age?.Stature)
     + heritageLines(draft, data).reduce((sum, entry) => sum + entry.stature, 0)
     + num(trade?.adjustments.stature)
@@ -142,6 +145,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     finalStature
     + num(baseline.build)
     + num(lineage?.build)
+    + num(female?.build)
     + num(age?.Build)
     + heritageLines(draft, data).reduce((sum, entry) => sum + entry.build, 0)
     + num(trade?.adjustments.build)
@@ -157,6 +161,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   const bodyBuildScale = scaleRow(weightAdjustment > 0 ? baseBuild : build, data);
   const bodyAdjustment = num(baseline.bodypoints)
     + num(lineage?.bodypoints)
+    + num(female?.bodypoints)
     + num(age?.Bodypoints)
     + num(trade?.adjustments.bodypoints)
     + num(specialization?.adjustments.bodypoints);
@@ -250,9 +255,11 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
 
   const hitpoints = Math.max(1, 10 + dm('REF') + dm('POW') + dm('PRE') + movDm + pml * 3);
   const recovery = Math.max(1, Math.trunc(3 + dm('POW') + dm('FOR') + siz / 5 + pml / 3));
-  const endurance = Math.max(1, Math.trunc(3 + attr('FOR') + pml / 2) + athletics + sprint - affliction - prissy);
+  const ageRank = data.ageGroups.find((row) => row.ageGroup === draft.background.ageGroup)?.rank;
+  const femaleConcernBonus = draft.background.geneticallyFemale && Number(ageRank) >= 1 ? 1 : 0;
+  const endurance = Math.max(1, Math.trunc(3 + attr('FOR') + pml / 2) + athletics + sprint - affliction - prissy + femaleConcernBonus);
   const resilienceAge = num(data.characteristicModifiers.find((row) => row.Group === draft.background.ageGroup)?.Resilience);
-  const resilience = Math.max(1, Math.trunc(3 + (2 * attr('POW')) / 3 + pml / 2) + focused + resilienceAge);
+  const resilience = Math.max(1, Math.trunc(3 + (2 * attr('POW')) / 3 + pml / 2) + focused + resilienceAge + femaleConcernBonus);
   const resistance = Math.max(1, Math.trunc(3 + (4 * siz) / 3 + pml / 2) - zucked);
   const manapool = Math.max(0, (draft.intrinsics.zed ?? 0) + getAttributeDm(siz) - zucked);
   const cellburn = Math.max(1, dm('PRE') + dm('KNO') + dm('POW'));

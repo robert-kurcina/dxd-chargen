@@ -14,7 +14,7 @@ This release establishes the character-creation application architecture without
 - Added `src/lib/character-draft.ts` to separate creation state from final character-sheet presentation data.
 - Added provenance-oriented structures for granted, purchased, calculated/rule, and GM-sourced selections.
 - Retained existing data catalogues, tests, Info page, empty sheet, and sample sheet.
-- Added `docs/FINAL_PRODUCT_PLAN.md` covering UX, rule architecture, validation, persistence, milestones, and release criteria.
+- Added `META/FINAL_PRODUCT_PLAN.md` covering UX, rule architecture, validation, persistence, milestones, and release criteria.
 
 ## Important limitation
 

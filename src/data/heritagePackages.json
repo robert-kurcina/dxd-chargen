@@ -17,7 +17,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-surefooted-x",
@@ -29,7 +30,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -41,7 +43,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-tracking-x",
@@ -53,7 +56,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -75,7 +79,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-hunter-x",
@@ -87,7 +92,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-politics-x-region",
@@ -99,7 +105,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-politics-x-region",
@@ -111,7 +118,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-suss-x",
@@ -123,7 +131,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-tactics-x-type",
@@ -135,7 +144,8 @@
           "im": 3,
           "packageValueLevel": 1,
           "skillpoints": 3
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-tracking-x",
@@ -147,7 +157,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-wise-x",
@@ -159,7 +170,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -181,7 +193,8 @@
           "im": 1,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 2.6666666666666665
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-hunter-x",
@@ -193,7 +206,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-leadership-x",
@@ -205,7 +219,8 @@
           "im": 3,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-navigation-x",
@@ -217,7 +232,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-pathfinder-x",
@@ -229,7 +245,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-riding-x-type",
@@ -241,7 +258,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-surefooted-x",
@@ -253,7 +271,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-swim-x",
@@ -265,7 +284,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -287,7 +307,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-fishing-x",
@@ -299,7 +320,8 @@
           "im": 1,
           "packageValueLevel": 2.333333333333333,
           "skillpoints": 2.333333333333333
-        }
+        },
+        "maturityStars": 5
       },
       {
         "traitId": "trait-gossip-x",
@@ -311,7 +333,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-navigation-x",
@@ -323,7 +346,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 4
       },
       {
         "traitId": "trait-swim-x",
@@ -335,7 +359,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -357,7 +382,8 @@
           "im": 3,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-forage-x",
@@ -369,7 +395,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-implore-x",
@@ -381,7 +408,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-mob-x",
@@ -393,7 +421,8 @@
           "im": 10,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 3.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-politics-x-region",
@@ -405,7 +434,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-suss-x",
@@ -417,7 +447,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-wise-x",
@@ -429,7 +460,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -451,7 +483,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-forage-x",
@@ -463,7 +496,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-hunter-x",
@@ -475,7 +509,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-mob-x",
@@ -487,7 +522,8 @@
           "im": 10,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 3.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-navigation-x",
@@ -499,7 +535,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-sneaky-x",
@@ -511,7 +548,8 @@
           "im": 3,
           "packageValueLevel": 1,
           "skillpoints": 3
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-surefooted-x",
@@ -523,7 +561,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-tracking-x",
@@ -535,7 +574,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -557,7 +597,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-navigation-x",
@@ -569,7 +610,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -581,7 +623,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -603,7 +646,8 @@
           "im": 1,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 2.6666666666666665
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-gambling-x-game",
@@ -615,7 +659,8 @@
           "im": 1,
           "packageValueLevel": 3,
           "skillpoints": 3
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-implore-x",
@@ -627,7 +672,8 @@
           "im": 1,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-mob-x",
@@ -639,7 +685,8 @@
           "im": 10,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 3.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-pidgin-x-type-and-region",
@@ -651,7 +698,8 @@
           "im": 1,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.33333333333333337
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-politics-x-region",
@@ -663,7 +711,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-service-x-type",
@@ -675,7 +724,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-suss-x",
@@ -687,7 +737,8 @@
           "im": 1,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 2.6666666666666665
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -709,7 +760,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -721,7 +773,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-expert-x-weapon",
@@ -733,7 +786,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-grit-x",
@@ -745,7 +799,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-hunter-x",
@@ -757,7 +812,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-martialist-x",
@@ -769,7 +825,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-riding-x-type",
@@ -781,7 +838,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-trained-x-type",
@@ -793,7 +851,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-warfare-x-category",
@@ -805,7 +864,8 @@
           "im": 3,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -827,7 +887,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-hunter-x",
@@ -839,7 +900,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-tracking-x",
@@ -851,7 +913,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       }
     ]
   },
@@ -873,7 +936,8 @@
           "im": 4,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 6.666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-artist-x",
@@ -885,7 +949,8 @@
           "im": 4,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 5.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-barter-x",
@@ -897,7 +962,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-design-x-category",
@@ -909,7 +975,8 @@
           "im": 4,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-politics-x-region",
@@ -921,7 +988,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-read-x-language",
@@ -933,7 +1001,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-suss-x",
@@ -945,7 +1014,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -967,7 +1037,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-brawn-x",
@@ -979,7 +1050,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -991,7 +1063,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-forage-x",
@@ -1003,7 +1076,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-greenthumb-x",
@@ -1015,7 +1089,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-husbandry-x",
@@ -1027,7 +1102,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-riding-x-type",
@@ -1039,7 +1115,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-sturdy-x",
@@ -1051,7 +1128,8 @@
           "im": 10,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 6.666666666666668
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -1073,7 +1151,8 @@
           "im": 1,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-forage-x",
@@ -1085,7 +1164,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-husbandry-x",
@@ -1097,7 +1177,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-navigation-x",
@@ -1109,7 +1190,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-riding-x-type",
@@ -1121,7 +1203,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -1143,7 +1226,8 @@
           "im": 4,
           "packageValueLevel": 1,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-section-studies-x-skill",
@@ -1155,7 +1239,8 @@
           "im": 4,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 5.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-history-x-region",
@@ -1167,7 +1252,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-lore-x-field",
@@ -1179,7 +1265,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-politics-x-region",
@@ -1191,7 +1278,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-read-x-language",
@@ -1203,7 +1291,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -1225,7 +1314,8 @@
           "im": 2,
           "packageValueLevel": 3,
           "skillpoints": 6
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-husbandry-x",
@@ -1237,7 +1327,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-navigation-x",
@@ -1249,7 +1340,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-riding-x-type",
@@ -1261,7 +1353,8 @@
           "im": 2,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 4.666666666666667
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -1283,7 +1376,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-forage-x",
@@ -1295,7 +1389,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -1307,7 +1402,8 @@
           "im": 2,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 4.666666666666667
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -1329,7 +1425,8 @@
           "im": -6,
           "packageValueLevel": 3,
           "skillpoints": -18
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-enemies-x-settlement",
@@ -1341,7 +1438,8 @@
           "im": -20,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": -6.666666666666668
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-section-studies-x-skill",
@@ -1353,7 +1451,8 @@
           "im": 4,
           "packageValueLevel": 1,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-connections-x",
@@ -1365,7 +1464,8 @@
           "im": 5,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 8.333333333333334
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-history-x-region",
@@ -1377,7 +1477,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-maths-x",
@@ -1389,7 +1490,8 @@
           "im": 4,
           "packageValueLevel": 1,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-read-x-language",
@@ -1401,7 +1503,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-title-x-region",
@@ -1413,7 +1516,8 @@
           "im": 10,
           "packageValueLevel": 1,
           "skillpoints": 10
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -1435,7 +1539,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -1447,7 +1552,8 @@
           "im": 2,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 5.333333333333333
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-fishing-x",
@@ -1459,7 +1565,8 @@
           "im": 1,
           "packageValueLevel": 2,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-navigation-x",
@@ -1471,7 +1578,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-swim-x",
@@ -1483,7 +1591,8 @@
           "im": 1,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 2.6666666666666665
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-trapmaster-x",
@@ -1495,7 +1604,8 @@
           "im": 3,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -1517,7 +1627,8 @@
           "im": 1,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-brawn-x",
@@ -1529,7 +1640,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-fishing-x",
@@ -1541,7 +1653,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-navigation-x",
@@ -1553,7 +1666,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-surefooted-x",
@@ -1565,7 +1679,8 @@
           "im": 1,
           "packageValueLevel": 2,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -1587,7 +1702,8 @@
           "im": -6,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": -10
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-enemies-x-settlement",
@@ -1599,7 +1715,8 @@
           "im": -20,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": -33.333333333333336
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-section-studies-x-skill",
@@ -1611,7 +1728,8 @@
           "im": 4,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 9.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-connections-x",
@@ -1623,7 +1741,8 @@
           "im": 5,
           "packageValueLevel": 1,
           "skillpoints": 5
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-gambling-x-game",
@@ -1635,7 +1754,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-history-x-region",
@@ -1647,7 +1767,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-peerage-x-region",
@@ -1659,7 +1780,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-read-x-language",
@@ -1671,7 +1793,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-riding-x-type",
@@ -1683,7 +1806,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-suss-x",
@@ -1695,7 +1819,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-title-x-region",
@@ -1707,7 +1832,8 @@
           "im": 10,
           "packageValueLevel": 2,
           "skillpoints": 20
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -1729,7 +1855,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-gossip-x",
@@ -1741,7 +1868,8 @@
           "im": 1,
           "packageValueLevel": 2,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-perform-x-form",
@@ -1753,7 +1881,8 @@
           "im": 2,
           "packageValueLevel": 3,
           "skillpoints": 6
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-seduction-x",
@@ -1765,7 +1894,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-suss-x",
@@ -1777,7 +1907,8 @@
           "im": 1,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 2.3333333333333335
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -1799,7 +1930,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-climb-x",
@@ -1811,7 +1943,8 @@
           "im": 1,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 2.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-mountaineering-x",
@@ -1823,7 +1956,8 @@
           "im": 3,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-surefooted-x",
@@ -1835,7 +1969,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-tracking-x",
@@ -1847,7 +1982,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -1869,7 +2005,8 @@
           "im": -20,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": -53.33333333333333
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-paranoid-x",
@@ -1881,7 +2018,8 @@
           "im": -4,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": -6.666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-section-military-x-skill",
@@ -1893,7 +2031,8 @@
           "im": 4,
           "packageValueLevel": 1,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-connections-x",
@@ -1905,7 +2044,8 @@
           "im": 5,
           "packageValueLevel": 1,
           "skillpoints": 5
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-history-x-region",
@@ -1917,7 +2057,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-leadership-x",
@@ -1929,7 +2070,8 @@
           "im": 3,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-peerage-x-region",
@@ -1941,7 +2083,8 @@
           "im": 2,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 4.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-politics-x-region",
@@ -1953,7 +2096,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-read-x-language",
@@ -1965,7 +2109,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-riding-x-type",
@@ -1977,7 +2122,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-title-x-region",
@@ -1989,7 +2135,8 @@
           "im": 10,
           "packageValueLevel": 3,
           "skillpoints": 30
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -2011,7 +2158,8 @@
           "im": 4,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -2023,7 +2171,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-gossip-x",
@@ -2035,7 +2184,8 @@
           "im": 1,
           "packageValueLevel": 2,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-implore-x",
@@ -2047,7 +2197,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-labor-x-field",
@@ -2059,7 +2210,8 @@
           "im": 1,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 2.6666666666666665
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-lore-x-field",
@@ -2071,7 +2223,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-medic-x-type",
@@ -2083,7 +2236,8 @@
           "im": 3,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2105,7 +2259,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -2117,7 +2272,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-husbandry-x",
@@ -2129,7 +2285,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-navigation-x",
@@ -2141,7 +2298,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2163,7 +2321,8 @@
           "im": -10,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": -23.333333333333336
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-feeble-x",
@@ -2175,7 +2334,8 @@
           "im": -20,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": -26.66666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-paranoid-x",
@@ -2187,7 +2347,8 @@
           "im": -4,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": -9.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-connections-x",
@@ -2199,7 +2360,8 @@
           "im": 5,
           "packageValueLevel": 2.666666666666667,
           "skillpoints": 13.333333333333336
-        }
+        },
+        "maturityStars": 4
       },
       {
         "traitId": "trait-fawn-x",
@@ -2211,7 +2373,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-language-x-language",
@@ -2223,7 +2386,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-leadership-x",
@@ -2235,7 +2399,8 @@
           "im": 3,
           "packageValueLevel": 2,
           "skillpoints": 6
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-peerage-x-region",
@@ -2247,7 +2412,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-politics-x-region",
@@ -2259,7 +2425,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-primp-x",
@@ -2271,7 +2438,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-retinue-x",
@@ -2283,7 +2451,8 @@
           "im": 3,
           "packageValueLevel": 0,
           "skillpoints": 0
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-title-x-region",
@@ -2295,7 +2464,8 @@
           "im": 10,
           "packageValueLevel": 4,
           "skillpoints": 40
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -2317,7 +2487,8 @@
           "im": 4,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-barter-x",
@@ -2329,7 +2500,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -2341,7 +2513,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-wares-x-ware",
@@ -2353,7 +2526,8 @@
           "im": 1,
           "packageValueLevel": 2.6666666666666665,
           "skillpoints": 8
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2375,7 +2549,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-fishing-x",
@@ -2387,7 +2562,8 @@
           "im": 1,
           "packageValueLevel": 2,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-steer-x-type",
@@ -2399,7 +2575,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-suss-x",
@@ -2411,7 +2588,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-swim-x",
@@ -2423,7 +2601,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2445,7 +2624,8 @@
           "im": -10,
           "packageValueLevel": 3.3333333333333335,
           "skillpoints": -33.333333333333336
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-feeble-x",
@@ -2457,7 +2637,8 @@
           "im": -20,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": -6.666666666666668
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-paranoid-x",
@@ -2469,7 +2650,8 @@
           "im": -4,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": -9.333333333333334
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-connections-x",
@@ -2481,7 +2663,8 @@
           "im": 5,
           "packageValueLevel": 1,
           "skillpoints": 5
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-history-x-region",
@@ -2493,7 +2676,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-language-x-language",
@@ -2505,7 +2689,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-leadership-x",
@@ -2517,7 +2702,8 @@
           "im": 3,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-peerage-x-region",
@@ -2529,7 +2715,8 @@
           "im": 2,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 4.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-politics-x-region",
@@ -2541,7 +2728,8 @@
           "im": 2,
           "packageValueLevel": 0.33333333333333337,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-read-x-language",
@@ -2553,7 +2741,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-retinue-x",
@@ -2565,7 +2754,8 @@
           "im": 3,
           "packageValueLevel": 0,
           "skillpoints": 0
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-title-x-region",
@@ -2577,7 +2767,8 @@
           "im": 10,
           "packageValueLevel": 4.333333333333333,
           "skillpoints": 43.33333333333333
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -2599,7 +2790,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-craft-x-tradecraft",
@@ -2611,7 +2803,8 @@
           "im": 2,
           "packageValueLevel": 3,
           "skillpoints": 9
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -2623,7 +2816,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-implore-x",
@@ -2635,7 +2829,8 @@
           "im": 1,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 2.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-suss-x",
@@ -2647,7 +2842,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2669,7 +2865,8 @@
           "im": 1,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 0.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-domus-x-domain",
@@ -2681,7 +2878,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-navigation-x",
@@ -2693,7 +2891,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -2705,7 +2904,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2727,7 +2927,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 3
       },
       {
         "traitId": "trait-navigation-x",
@@ -2739,7 +2940,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -2751,7 +2953,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -2773,7 +2976,8 @@
           "im": 1,
           "packageValueLevel": 2.3333333333333335,
           "skillpoints": 2.3333333333333335
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-steer-x-type",
@@ -2785,7 +2989,8 @@
           "im": 1,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 1.6666666666666667
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -2797,7 +3002,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-swim-x",
@@ -2809,7 +3015,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-wise-x",
@@ -2821,7 +3028,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   },
@@ -2843,7 +3051,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-navigation-x",
@@ -2855,7 +3064,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -2867,7 +3077,8 @@
           "im": 2,
           "packageValueLevel": 1.3333333333333335,
           "skillpoints": 2.666666666666667
-        }
+        },
+        "maturityStars": 2
       }
     ]
   },
@@ -2889,7 +3100,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-navigation-x",
@@ -2901,7 +3113,8 @@
           "im": 2,
           "packageValueLevel": 1,
           "skillpoints": 2
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-surefooted-x",
@@ -2913,7 +3126,8 @@
           "im": 1,
           "packageValueLevel": 1,
           "skillpoints": 1
-        }
+        },
+        "maturityStars": 0
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -2925,7 +3139,8 @@
           "im": 2,
           "packageValueLevel": 2,
           "skillpoints": 4
-        }
+        },
+        "maturityStars": 0
       }
     ]
   },
@@ -2947,7 +3162,8 @@
           "im": 2,
           "packageValueLevel": 1.6666666666666667,
           "skillpoints": 3.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-hunter-x",
@@ -2959,7 +3175,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       },
       {
         "traitId": "trait-survival-x-environ",
@@ -2971,7 +3188,8 @@
           "im": 2,
           "packageValueLevel": 0.6666666666666667,
           "skillpoints": 1.3333333333333335
-        }
+        },
+        "maturityStars": 1
       }
     ]
   }

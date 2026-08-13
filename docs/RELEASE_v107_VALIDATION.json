@@ -1,0 +1,48 @@
+{
+  "release": "0.107.0",
+  "dataValidation": {
+    "jsonFiles": 75,
+    "heritagePackages": 36,
+    "languagesAndNameGenerators": 17,
+    "tradePackages": 11,
+    "physicalScaleRows": 100,
+    "selectableHumanikiGroups": 7,
+    "completeMagicItems": 96,
+    "sourceMagicItems": 144,
+    "passed": true
+  },
+  "sourceValidation": {
+    "strictCoreTypecheck": true,
+    "tsTsxSyntaxFiles": 52,
+    "syntaxErrors": 0,
+    "localImportErrors": 0,
+    "gitDiffCheck": true
+  },
+  "runtimeSmoke": {
+    "geneticallyFemaleAdjustments": true,
+    "heritageMaturityStars": true,
+    "ancestryMaturity": true,
+    "requiredDisabilities": true,
+    "specializationRankCompression": true,
+    "vMagicSpellGate": true,
+    "pmlGenerateSync": true,
+    "magicItemRarityProduct": true,
+    "magicItemEquivalentWorth": true,
+    "magicItemFormInterchange": true,
+    "magicItemFormCleanup": true,
+    "v6ToV7Migration": true,
+    "passed": true
+  },
+  "dependencyInstall": {
+    "attemptedOffline": true,
+    "passed": false,
+    "reason": "npm cache does not contain util-deprecate-1.0.2; registry/network access is unavailable in the generation sandbox (ENOTCACHED offline).",
+    "partialNodeModulesRemoved": true
+  },
+  "archive": {
+    "completeProjectRequired": true,
+    "runLocalShExecutable": true,
+    "nodeModulesIncluded": false,
+    "nextCacheIncluded": false
+  }
+}

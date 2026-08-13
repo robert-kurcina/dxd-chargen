@@ -1,0 +1,20 @@
+{
+  "version": "0.108.0",
+  "characterDraftSchema": 7,
+  "selectableHumanikiGroups": ["Human", "Drauf", "Alef", "Klenari", "Babbita", "Gnoan"],
+  "visibleDisabledGroups": ["Cherigili"],
+  "visibleDisabledSpecies": ["Kriket", "Stonefolk"],
+  "checks": {
+    "jsonValidation": "passed",
+    "typescriptSyntaxFiles": 52,
+    "typescriptSyntaxErrors": 0,
+    "strictCoreTypecheck": "passed",
+    "unresolvedLocalImports": 0,
+    "manifestLockSync": "passed",
+    "gitDiffCheck": "passed",
+    "cherigiliSelectable": false,
+    "speciesGeneratorTrials": 500,
+    "generatorSelectedCherigili": false,
+    "legacyCherigiliAssessment": "incomplete"
+  }
+}

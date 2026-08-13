@@ -1,0 +1,25 @@
+{
+  "release": "0.109.0",
+  "scope": "repository structure only; no DXD runtime/source behavior changes",
+  "checks": {
+    "runtimeSourceUnchangedFromV108": "pass: src/ tree byte-for-byte directory comparison produced no differences",
+    "dataValidation": "pass: 75 JSON files; 36 Heritage packages; 17 structured name generators; 11 playable Trades; 100 physical scale rows; 96/144 complete Magic Items",
+    "metaConsolidation": "pass: 12 CANON_SYNC files (v98-v109) under META/; none at project root",
+    "metaInstructionDocs": "pass: blueprint.md and FINAL_PRODUCT_PLAN.md under META/",
+    "scriptConsolidation": "pass: run-local.sh, run-local.cmd, run-local.mjs, validate-data.mjs under scripts/; no root run-local launchers",
+    "packagePaths": "pass: npm run local -> node scripts/run-local.mjs; validate:data -> node scripts/validate-data.mjs",
+    "launcherResolution": "pass: launcher resolves project root and correctly invokes npm run dev; install branch correctly invokes npm ci before dev",
+    "scriptSyntax": "pass: node --check for MJS scripts; bash -n for run-local.sh",
+    "manifestLockSync": "pass: package.json, package-lock.json and lock root are 0.109.0",
+    "currentDocumentationPaths": "pass: README and v109 release documentation use META/ and scripts/ locations",
+    "generatedArtifactsExcluded": "pass: no node_modules, .next, or tsconfig.tsbuildinfo",
+    "diffWhitespace": "pass: git diff --check",
+    "zipIntegrity": "pass",
+    "freshExtraction": "pass: data validation, script syntax, executable bit, structure, manifest/lock, and npm run local path verified from extracted archive"
+  },
+  "notes": [
+    "Historical RELEASE_v101-v108 and CANON_SYNC notes retain statements about the layouts of those historical releases where appropriate.",
+    "v109 does not change CharacterDraft schema or require browser-local character migration.",
+    "No dependency-backed Next build was required for this structure-only release because src/ is unchanged from validated v108; the sandbox network limitation for clean npm installation remains unchanged."
+  ]
+}

@@ -25,6 +25,7 @@ export type SourcedSelection = {
   sourceDetail?: string;
   level?: number;
   specialization?: string;
+  specializationRanks?: Record<string, number>;
 };
 
 export type DraftAttribute = {
@@ -58,7 +59,7 @@ export type PmlVirtuosityChoice = {
 };
 
 export type CharacterDraft = {
-  schemaVersion: 6;
+  schemaVersion: 7;
   updatedAt: string | null;
   completedSteps: string[];
   warnings: Array<{
@@ -70,8 +71,13 @@ export type CharacterDraft = {
     regionId: string | null;
     settlementId: string | null;
     demographicSelections: SourcedSelection[];
+    sex: 'Male' | 'Female' | 'Intersex' | null;
+    gender: 'Male' | 'Female' | 'Non-binary' | null;
+    geneticallyFemale: boolean;
+    handedness: 'Left' | 'Right' | null;
     ageGroup: string | null;
     ageYears: number | null;
+    birthMonth: number | null;
     culturalHeritageId: string | null;
     environHeritageId: string | null;
     societalHeritageId: string | null;
@@ -86,6 +92,7 @@ export type CharacterDraft = {
     deityId: string | null;
   };
   intrinsics: {
+    speciesFamilyId: string | null;
     speciesId: string | null;
     lineageId: string | null;
     attributeMethod: 'roll' | 'array' | 'point-buy' | null;
@@ -103,6 +110,7 @@ export type CharacterDraft = {
     pml: number | null;
     pmlVirtuosityChoices: PmlVirtuosityChoice[];
     grantSpecializations: Record<string, string>;
+    grantSpecializationRanks: Record<string, Record<string, number>>;
     granted: SourcedSelection[];
     purchased: SourcedSelection[];
     additionalSkills: SourcedSelection[];
@@ -128,6 +136,7 @@ export type CharacterDraft = {
     gearReviewed: boolean;
     magicItems: SourcedSelection[];
     magicItemsReviewed: boolean;
+    magicItemForms: Record<string, string>;
     nameLanguageId: string | null;
     nameStyle: 'any' | 'masculine' | 'feminine';
     name: string;
@@ -186,7 +195,7 @@ export type LegacyCharacterDraftV1 = Omit<LegacyCharacterDraftV2, 'schemaVersion
 
 export function createEmptyCharacterDraft(): CharacterDraft {
   return {
-    schemaVersion: 6,
+    schemaVersion: 7,
     updatedAt: null,
     completedSteps: [],
     warnings: [],
@@ -194,8 +203,13 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       regionId: null,
       settlementId: null,
       demographicSelections: [],
+      sex: null,
+      gender: null,
+      geneticallyFemale: false,
+      handedness: null,
       ageGroup: null,
       ageYears: null,
+      birthMonth: null,
       culturalHeritageId: null,
       environHeritageId: null,
       societalHeritageId: null,
@@ -210,6 +224,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       deityId: null,
     },
     intrinsics: {
+      speciesFamilyId: null,
       speciesId: null,
       lineageId: null,
       attributeMethod: null,
@@ -227,6 +242,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       pml: null,
       pmlVirtuosityChoices: [],
       grantSpecializations: {},
+      grantSpecializationRanks: {},
       granted: [],
       purchased: [],
       additionalSkills: [],
@@ -252,6 +268,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       gearReviewed: false,
       magicItems: [],
       magicItemsReviewed: false,
+      magicItemForms: {},
       nameLanguageId: null,
       nameStyle: 'any',
       name: '',
@@ -265,14 +282,44 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
   if (!value || typeof value !== 'object') return createEmptyCharacterDraft();
 
   const candidate = value as { schemaVersion?: number };
-  if (candidate.schemaVersion === 6) return candidate as CharacterDraft;
+  if (candidate.schemaVersion === 7) return candidate as CharacterDraft;
+
+  if (candidate.schemaVersion === 6) {
+    const legacy = candidate as any;
+    return {
+      ...legacy,
+      schemaVersion: 7,
+      background: {
+        ...legacy.background,
+        sex: legacy.background.sex ?? null,
+        gender: legacy.background.gender ?? null,
+        geneticallyFemale: Boolean(legacy.background.geneticallyFemale),
+        handedness: legacy.background.handedness ?? null,
+        birthMonth: legacy.background.birthMonth ?? null,
+      },
+      intrinsics: {
+        ...legacy.intrinsics,
+        speciesFamilyId: legacy.intrinsics.speciesFamilyId ?? null,
+      },
+      proficiencies: {
+        ...legacy.proficiencies,
+        grantSpecializationRanks: legacy.proficiencies.grantSpecializationRanks ?? Object.fromEntries(
+          Object.entries(legacy.proficiencies.grantSpecializations ?? {}).map(([id, specialization]) => [id, specialization ? { [String(specialization)]: 1 } : {}]),
+        ),
+      },
+      utilities: {
+        ...legacy.utilities,
+        magicItemForms: legacy.utilities.magicItemForms ?? {},
+      },
+    } as CharacterDraft;
+  }
 
   if (candidate.schemaVersion === 5) {
     const legacy = candidate as unknown as LegacyCharacterDraftV5;
     const toInventory = (items: SourcedSelection[]): InventorySelection[] => items.map((item) => ({
       ...item, quantity: 1, unitPriceGp: 0, unitWeight: 0,
     }));
-    return {
+    return migrateCharacterDraft({
       ...legacy,
       schemaVersion: 6,
       utilities: {
@@ -286,7 +333,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
         nameLanguageId: null,
         nameStyle: 'any',
       },
-    };
+    });
   }
 
   const upgradeProperties = (legacy: { heightInches: number | null; weightPounds: number | null; calculated: Record<string, number | string> }): CharacterDraft['properties'] => ({
@@ -317,6 +364,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
     ...legacy,
     pmlVirtuosityChoices: [],
     grantSpecializations: {},
+    grantSpecializationRanks: {},
     languages: legacy.languages.map((language, index) => ({
       ...language,
       kind: index === 0 ? 'default' : index === 1 ? 'heritage' : 'proficiency',

@@ -10,7 +10,7 @@ import {
   selectedSettlementName,
 } from '@/lib/rules/intrinsics';
 import {
-  combinedGrantedTraits,
+  compressedCapabilities,
   formatLanguageRecord,
 } from '@/lib/rules/proficiencies';
 
@@ -61,25 +61,7 @@ function selectionRecord(selection: SourcedSelection) {
 }
 
 function projectedSkills(draft: CharacterDraft, data: StaticData) {
-  const records = new Map<string, { name: string; level: number; specialization: string | null }>();
-  for (const trait of combinedGrantedTraits(draft, data)) {
-    const key = `${trait.name.toLowerCase()}::${(trait.specialization ?? '').toLowerCase()}`;
-    records.set(key, { name: trait.name, level: trait.level, specialization: trait.specialization });
-  }
-
-  for (const selection of [...draft.proficiencies.purchased, ...draft.proficiencies.additionalSkills]) {
-    const name = selection.name.split(' > ')[0].replace(/\s+X$/, '');
-    const specialization = selection.specialization?.trim() || null;
-    const key = `${name.toLowerCase()}::${(specialization ?? '').toLowerCase()}`;
-    const level = Math.max(1, selection.level ?? 1);
-    const existing = records.get(key);
-    if (!existing || level > existing.level) records.set(key, { name, level, specialization });
-  }
-
-  return [...records.values()]
-    .sort((a, b) => a.name.localeCompare(b.name) || (a.specialization ?? '').localeCompare(b.specialization ?? ''))
-    .map((entry) => `${entry.name} ${entry.level}${entry.specialization ? ` > ${entry.specialization}` : ''}`)
-    .join(', ');
+  return compressedCapabilities(draft, data).map((entry) => entry.display).join(', ');
 }
 
 function heightText(inches: number | null) {
@@ -89,7 +71,9 @@ function heightText(inches: number | null) {
 }
 
 export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): CharacterSheetData {
-  const species = getSpeciesChoice(draft, data)?.group.name ?? '';
+  const speciesChoice = getSpeciesChoice(draft, data);
+  const species = speciesChoice?.family.displayName ?? '';
+  const group = speciesChoice?.group.name ?? '';
   const lineage = getLineageName(draft, data) ?? '';
   const trade = getTradePackage(draft, data)?.trade ?? '';
   const specialization = getTradeSpecialization(draft, data)?.name ?? '';
@@ -100,7 +84,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const heritage = [draft.background.environHeritageId, draft.background.societalHeritageId, draft.background.culturalHeritageId]
     .map((id) => data.heritagePackages.find((entry) => entry.id === id)?.name)
     .filter((value): value is string => Boolean(value));
-  const demographic = draft.background.demographicSelections.map((entry) => entry.name);
+  const demographic = [draft.background.sex, draft.background.gender, draft.background.handedness ? `${draft.background.handedness}-handed` : null, draft.background.geneticallyFemale ? 'Genetically Female' : null].filter((value): value is string => Boolean(value));
   const calculated = draft.properties.calculated;
   const numberCalc = (key: string) => Number(calculated[key]) || 0;
   const mov = numberCalc('MOV');
@@ -116,6 +100,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const bioParts = [...demographic];
   if (draft.background.ageGroup) bioParts.push(draft.background.ageGroup);
   if (draft.background.ageYears != null) bioParts.push(`age ${draft.background.ageYears}`);
+  if (draft.background.birthMonth != null) bioParts.push(`birth month ${draft.background.birthMonth}`);
 
   return {
     name: draft.utilities.name,
@@ -123,7 +108,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     affinityAttribute: draft.intrinsics.affinityAttribute,
     details: {
       environ: heritage.join(' > '),
-      species: [species, lineage].filter(Boolean).join(' > '),
+      species: [species, group, lineage].filter(Boolean).join(' > '),
       bio: bioParts.join(' > '),
       physique: [heightText(draft.properties.heightInches), draft.properties.weightPounds != null ? `${draft.properties.weightPounds}-pounds` : ''].filter(Boolean).join(' and '),
     },
@@ -143,7 +128,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
       equipment: listInventory(draft.utilities.equipment),
       weapons: listInventory(draft.utilities.weapons),
       armor: listInventory(draft.utilities.armor),
-      magicItems: draft.utilities.magicItems.map((entry) => entry.name).join(', '),
+      magicItems: draft.utilities.magicItems.map((entry) => `${entry.name}${entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`).join(', '),
       spells: draft.utilities.spells.map((entry) => entry.name).join(', '),
       skills: projectedSkills(draft, data),
       languages: draft.proficiencies.languages.map(formatLanguageRecord).join(', '),

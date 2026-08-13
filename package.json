@@ -1,9 +1,10 @@
 {
   "name": "dxd-chargen",
-  "version": "0.106.0",
+  "version": "0.109.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "local": "node scripts/run-local.mjs",
     "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",

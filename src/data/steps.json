@@ -15,11 +15,6 @@
         "description": "Establish demographic details used by later background and biological choices."
       },
       {
-        "title": "Assign Age",
-        "value": "background-age",
-        "description": "Choose the character's age group and age, respecting species and PML limits."
-      },
-      {
         "title": "Assign Heritage",
         "value": "background-heritage",
         "description": "Choose cultural, environmental, and societal heritage packages."

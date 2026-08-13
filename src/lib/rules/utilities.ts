@@ -105,10 +105,70 @@ export function toggleSpell(draft: CharacterDraft, catalogId: string, data: Stat
   return { ...draft, utilities: { ...draft.utilities, spells: [...draft.utilities.spells, selection] } };
 }
 
+
+export const MAGIC_ITEM_GRADE_RULES = {
+  Common: { rarityExponent: 1, worthMultiplier: 10, equivalentGp: 100 },
+  Lesser: { rarityExponent: 3, worthMultiplier: 100, equivalentGp: 1_000 },
+  Greater: { rarityExponent: 5, worthMultiplier: 1_000, equivalentGp: 10_000 },
+  Wondrous: { rarityExponent: 7, worthMultiplier: 10_000, equivalentGp: 100_000 },
+  Legendary: { rarityExponent: 9, worthMultiplier: 100_000, equivalentGp: 1_000_000 },
+} as const;
+
+function canonicalMagicGrade(value: string) {
+  if (value in MAGIC_ITEM_GRADE_RULES) return value as keyof typeof MAGIC_ITEM_GRADE_RULES;
+  const first = value.split(/[–—-]/)[0]?.trim();
+  return first && first in MAGIC_ITEM_GRADE_RULES ? first as keyof typeof MAGIC_ITEM_GRADE_RULES : 'Common';
+}
+
+export function magicItemGradeMetrics(item: StaticData['magicItems'][number]) {
+  const grade = canonicalMagicGrade(item.gradeAvailability);
+  return { grade, ...MAGIC_ITEM_GRADE_RULES[grade] };
+}
+
+const ACCESSORY_FORMS = ['Ring', 'Bangle', 'Bracer', 'Bracelet', 'Bracers', 'Amulet', 'Anklet', 'Anklets', 'Pendant', 'Necklace', 'Circlet'];
+const HEAD_FORMS = ['Crown', 'Helm', 'Helmet', 'Hat', 'Goggles', 'Mask', 'Circlet', 'Veil'];
+const WEAPON_FORMS = ['Weapon', 'Blade', 'Dagger', 'Knife', 'Mace', 'Club', 'Sword', 'Spear', 'Axe', 'Hammer', 'Glaive', 'Staff', 'Pistol'];
+const ARMOR_FORMS = ['Shield', 'Armor', 'Suit', 'Breastplate', 'Robe', 'Raiment', 'Harness', 'Rig'];
+const CARRIED_FORMS = ['Orb', 'Lens'];
+const AMMUNITION_FORMS = ['Arrow', 'Arrows', 'Bolt', 'Bolts', 'Pellet', 'Pellets', 'Darts'];
+
+export function magicItemFormOptions(item: StaticData['magicItems'][number]) {
+  const value = item.form.trim();
+  const group = [ACCESSORY_FORMS, HEAD_FORMS, WEAPON_FORMS, ARMOR_FORMS, CARRIED_FORMS, AMMUNITION_FORMS]
+    .find((forms) => forms.some((form) => form.toLowerCase() === value.toLowerCase()));
+  if (!group) return value ? [value] : [];
+  return Array.from(new Set([value, ...group])).filter(Boolean);
+}
+
+export function setMagicItemForm(draft: CharacterDraft, catalogId: string, form: string) {
+  const magicItemForms = { ...draft.utilities.magicItemForms };
+  if (form.trim()) magicItemForms[catalogId] = form.trim(); else delete magicItemForms[catalogId];
+  return { ...draft, utilities: { ...draft.utilities, magicItemForms } };
+}
+
+export function magicItemTotals(draft: CharacterDraft, data: StaticData) {
+  let rarityProduct = 1;
+  let worthGp = 0;
+  for (const selection of draft.utilities.magicItems) {
+    const item = data.magicItems.find((entry) => entry.catalogId === selection.catalogId);
+    if (!item) continue;
+    const metrics = magicItemGradeMetrics(item);
+    rarityProduct *= metrics.worthMultiplier;
+    worthGp += metrics.equivalentGp;
+  }
+  const selectedCount = draft.utilities.magicItems.length;
+  const rarityProductLabel = selectedCount
+    ? `×${Number.isSafeInteger(rarityProduct) ? rarityProduct.toLocaleString('en-US') : rarityProduct.toExponential(0)}`
+    : '×1';
+  return { rarityProduct, rarityProductLabel, worthGp };
+}
+
 export function toggleMagicItem(draft: CharacterDraft, catalogId: string, data: StaticData): CharacterDraft {
   const exists = draft.utilities.magicItems.some((entry) => entry.catalogId === catalogId);
   if (exists) {
-    return { ...draft, utilities: { ...draft.utilities, magicItems: draft.utilities.magicItems.filter((entry) => entry.catalogId !== catalogId) } };
+    const magicItemForms = { ...draft.utilities.magicItemForms };
+    delete magicItemForms[catalogId];
+    return { ...draft, utilities: { ...draft.utilities, magicItems: draft.utilities.magicItems.filter((entry) => entry.catalogId !== catalogId), magicItemForms } };
   }
   const item = data.magicItems.find((entry) => entry.catalogId === catalogId);
   if (!item) return draft;

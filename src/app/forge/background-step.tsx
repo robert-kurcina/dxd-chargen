@@ -20,12 +20,16 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
-import { resolveTragedySeed } from '@/lib/character-logic';
+import { getAgeInYears, resolveTragedySeed } from '@/lib/character-logic';
 import {
+  ageBonusText,
+  ageGroupRank,
+  formatGrantedCapabilities,
   heritageWealthAdjustment,
+  requiredDisabilityCount,
   syncHeritageGrantedSelections,
 } from '@/lib/rules/background';
-import { syncIntrinsics } from '@/lib/rules/intrinsics';
+import { getSpeciesChoice, syncIntrinsics } from '@/lib/rules/intrinsics';
 import { cn } from '@/lib/utils';
 
 type BackgroundStepProps = {
@@ -158,13 +162,70 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
   );
 }
 
-function DemographicsStep() {
+function DemographicsStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
+  const group = getSpeciesChoice(draft, data)?.group ?? null;
+  const rank = ageGroupRank(draft, data);
+  const bonus = ageBonusText(draft, data);
+  const ageModifier = data.attributeModifiers.find((entry) => entry.Group === draft.background.ageGroup);
+  const secondary = data.characteristicModifiers.find((entry) => entry.Group === draft.background.ageGroup);
+  const setBackground = (changes: Partial<CharacterDraft['background']>) => {
+    setDraft((current) => syncIntrinsics(
+      syncHeritageGrantedSelections({ ...current, background: { ...current.background, ...changes } }, data),
+      data,
+    ));
+  };
+  const generateAge = () => {
+    if (!group || !draft.background.ageGroup || !group.hasAgeBrackets) return;
+    const years = getAgeInYears(group.name as keyof StaticData['ageBrackets'], draft.background.ageGroup, data.ageBrackets, data.ageGroups);
+    if (years != null) setBackground({ ageYears: years });
+  };
+  const generateDemographics = () => {
+    const ageRoll = (1 + Math.floor(Math.random() * 6)) * 10 + (1 + Math.floor(Math.random() * 6));
+    const ageGroup = data.ageGroups.find((entry) => {
+      const source = String(entry.d66 ?? '');
+      if (!/\d/.test(source)) return false;
+      const [lo, hi = lo] = source.split('-').map(Number);
+      return ageRoll >= lo && ageRoll <= hi;
+    })?.ageGroup ?? 'Youth';
+    const sexRoll = Math.floor(Math.random() * 100) + 1;
+    const sex: CharacterDraft['background']['sex'] = sexRoll === 100 ? 'Intersex' : sexRoll <= 50 ? 'Female' : 'Male';
+    const generatedYears = group?.hasAgeBrackets ? getAgeInYears(group.name as keyof StaticData['ageBrackets'], ageGroup, data.ageBrackets, data.ageGroups) : null;
+    const genderOptions: NonNullable<CharacterDraft['background']['gender']>[] = ['Male', 'Female', 'Non-binary'];
+    const gender = genderOptions[Math.floor(Math.random() * genderOptions.length)];
+    setDraft((current) => syncIntrinsics(
+      syncHeritageGrantedSelections({
+        ...current,
+        background: {
+          ...current.background,
+          sex,
+          gender,
+          geneticallyFemale: sex === 'Female',
+          handedness: Math.random() < 0.15 ? 'Left' : 'Right',
+          ageGroup,
+          ageYears: generatedYears,
+          birthMonth: 1 + Math.floor(Math.random() * 12),
+        },
+      }, data),
+      data,
+    ));
+  };
+
   return (
-    <div className="rounded-lg border bg-muted/30 p-5">
-      <h3 className="font-medium">No additional demographic inputs required in this build</h3>
-      <p className="mt-2 text-sm text-muted-foreground">
-        The canonical step remains in the workflow, but fine-grained demographic probabilities and presentation details are intentionally deferred. Age is handled separately and Species is assigned in Intrinsics.
-      </p>
+    <div className="space-y-6">
+      <div className="flex justify-end"><Button type="button" size="sm" variant="outline" onClick={generateDemographics}><Dices className="h-4 w-4" /> Generate</Button></div>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-2"><Label>Sex</Label><Select value={draft.background.sex ?? undefined} onValueChange={(sex) => setBackground({ sex: sex as CharacterDraft['background']['sex'], geneticallyFemale: sex === 'Male' ? false : draft.background.geneticallyFemale })}><SelectTrigger><SelectValue placeholder="Choose Sex" /></SelectTrigger><SelectContent>{['Male','Female','Intersex'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2"><Label>Gender</Label><Select value={draft.background.gender ?? undefined} onValueChange={(gender) => setBackground({ gender: gender as CharacterDraft['background']['gender'] })}><SelectTrigger><SelectValue placeholder="Choose Gender" /></SelectTrigger><SelectContent>{['Male','Female','Non-binary'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2"><Label>Handedness</Label><Select value={draft.background.handedness ?? undefined} onValueChange={(handedness) => setBackground({ handedness: handedness as CharacterDraft['background']['handedness'] })}><SelectTrigger><SelectValue placeholder="Choose handedness" /></SelectTrigger><SelectContent><SelectItem value="Right">Right</SelectItem><SelectItem value="Left">Left</SelectItem></SelectContent></Select></div>
+        <label className={cn('flex items-center gap-3 rounded-lg border p-3', draft.background.sex === 'Male' && 'opacity-50')}><Checkbox disabled={draft.background.sex === 'Male' || !draft.background.sex} checked={draft.background.geneticallyFemale} onCheckedChange={(value) => setBackground({ geneticallyFemale: Boolean(value) })} /><span><span className="block font-medium">Apply Genetically Female adjustments</span><span className="text-xs text-muted-foreground">Available for non-Male Sex; applies the Group's structured female Attribute, characteristic, Trait, and managed-concern adjustments.</span></span></label>
+      </div>
+      <Separator />
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="space-y-2"><Label>Age Group</Label><Select value={draft.background.ageGroup ?? undefined} onValueChange={(ageGroup) => setBackground({ ageGroup, ageYears: null })}><SelectTrigger><SelectValue placeholder="Choose Age Group" /></SelectTrigger><SelectContent>{data.ageGroups.map((entry) => <SelectItem key={`${entry.rank}-${entry.ageGroup}`} value={entry.ageGroup}>{entry.ageGroup} [{entry.rank}]</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2"><div className="flex items-center justify-between"><Label>Age in years</Label><Button type="button" variant="ghost" size="sm" disabled={!group || !draft.background.ageGroup || !group.hasAgeBrackets} onClick={generateAge}><Dices className="h-4 w-4" /> Generate</Button></div><Input type="number" min={0} value={draft.background.ageYears ?? ''} onChange={(event) => setBackground({ ageYears: event.target.value === '' ? null : Math.max(0, Number.parseInt(event.target.value, 10) || 0) })} placeholder={group ? `Generate for ${group.name}` : 'Set now or after Group'} /></div>
+        <div className="space-y-2"><Label>Birth Month</Label><Select value={draft.background.birthMonth?.toString()} onValueChange={(value) => setBackground({ birthMonth: Number(value) })}><SelectTrigger><SelectValue placeholder="Month 1–12" /></SelectTrigger><SelectContent>{Array.from({ length: 12 }, (_, index) => index + 1).map((month) => <SelectItem key={month} value={String(month)}>Month {month}</SelectItem>)}</SelectContent></Select></div>
+      </div>
+      {draft.background.ageGroup && <div className="rounded-lg border bg-muted/30 p-4 text-sm"><div className="flex flex-wrap gap-2"><Badge variant="outline">Age Rank {rank ?? '?'}</Badge>{bonus && <Badge variant="secondary">Bonus {bonus}</Badge>}<Badge variant="outline">Required Disads {requiredDisabilityCount(draft, data)}</Badge></div><div className="mt-3 text-xs text-muted-foreground">Age Group modifiers: {ageModifier ? `CCA ${ageModifier.CCA}, RCA ${ageModifier.RCA}, REF ${ageModifier.REF}, INT ${ageModifier.INT}, KNO ${ageModifier.KNO}, PRE ${ageModifier.PRE}, POW ${ageModifier.POW}, STR ${ageModifier.STR}, FOR ${ageModifier.FOR}, MOV ${ageModifier.MOV}, ZED ${ageModifier.ZED}` : 'none'}; secondary Body {secondary?.Bodypoints ?? 0}, Build {secondary?.Build ?? 0}, Stature {secondary?.Stature ?? 0}, Resilience {secondary?.Resilience ?? 0}.</div></div>}
     </div>
   );
 }
@@ -234,6 +295,12 @@ function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'step
     ? data.citystates.find((item) => item.name === selectedSettlementName)
     : undefined;
   const recommendedEnvirons = new Set(settlementCitystate?.environs ?? []);
+  const heritageGranted = draft.proficiencies.granted.filter((item) => item.source === 'heritage');
+  const heritageCapabilityText = formatGrantedCapabilities(heritageGranted);
+  const heritageRankAdjustment = [draft.background.culturalHeritageId, draft.background.environHeritageId, draft.background.societalHeritageId]
+    .filter(Boolean)
+    .map((id) => data.heritagePackages.find((pkg) => pkg.id === id)?.social ?? 0)
+    .reduce((sum, value) => sum + value, 0);
 
   const categories = [
     { kind: 'culture', title: 'Culture', selectedId: draft.background.culturalHeritageId },
@@ -244,15 +311,20 @@ function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'step
   const selectPackage = (kind: 'culture' | 'environs' | 'society', id: string) => {
     setDraft((current) => {
       const background = { ...current.background };
-      if (kind === 'culture') background.culturalHeritageId = id;
-      if (kind === 'environs') background.environHeritageId = id;
-      if (kind === 'society') background.societalHeritageId = id;
+      if (kind === 'culture') background.culturalHeritageId = background.culturalHeritageId === id ? null : id;
+      if (kind === 'environs') background.environHeritageId = background.environHeritageId === id ? null : id;
+      if (kind === 'society') background.societalHeritageId = background.societalHeritageId === id ? null : id;
       return syncIntrinsics(syncHeritageGrantedSelections({ ...current, background }, data), data);
     });
   };
 
   return (
     <div className="space-y-7">
+      <div className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur">
+        <div className="flex flex-wrap items-center gap-2"><Badge variant="outline">Wealth {heritageWealthAdjustment(draft, data) >= 0 ? '+' : ''}{heritageWealthAdjustment(draft, data)}</Badge><Badge variant="outline">Rank {heritageRankAdjustment >= 0 ? '+' : ''}{heritageRankAdjustment}</Badge><Badge variant="secondary">Age Group {draft.background.ageGroup ?? 'unassigned'}</Badge></div>
+        <div className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Granted Heritage capabilities</div>
+        <p className="mt-1 text-sm leading-relaxed">{heritageCapabilityText.length ? heritageCapabilityText.join(', ') : 'Select Culture, Environs, and Society.'}</p>
+      </div>
       {categories.map((category) => {
         const packages = data.heritagePackages.filter((pkg) => pkg.kind === category.kind);
         return (
@@ -282,27 +354,6 @@ function HeritageStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'step
         );
       })}
 
-      <Separator />
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-muted/40 p-4">
-        <div>
-          <div className="text-sm font-medium">Heritage effects</div>
-          <div className="text-xs text-muted-foreground">
-            Grants are written into the draft with Heritage provenance. Stars remain author-calibration metadata only.
-          </div>
-        </div>
-        <Badge variant="outline">Wealth adjustment {heritageWealthAdjustment(draft, data) >= 0 ? '+' : ''}{heritageWealthAdjustment(draft, data)}</Badge>
-      </div>
-      {draft.proficiencies.granted.filter((item) => item.source === 'heritage').length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {draft.proficiencies.granted
-            .filter((item) => item.source === 'heritage')
-            .map((item) => (
-              <Badge key={item.id} variant="secondary">
-                {item.name.replace(' X', '')}{item.level && item.level > 1 ? ` ${item.level}` : ''}{item.specialization ? ` > ${item.specialization}` : ''}
-              </Badge>
-            ))}
-        </div>
-      )}
     </div>
   );
 }
@@ -470,6 +521,24 @@ function DisabilitiesStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
     item.disability.toLowerCase().includes(query.toLowerCase()),
   );
   const selectedIds = new Set(draft.background.disabilities.map((item) => item.id));
+  const required = requiredDisabilityCount(draft, data);
+  const generateRequired = () => {
+    const generated: SourcedSelection[] = [];
+    const used = new Set<string>();
+    for (let index = 0; index < required; index += 1) {
+      let item: StaticData['disabilities'][number] | undefined;
+      for (let attempt = 0; attempt < 20 && !item; attempt += 1) {
+        const roll = (1 + Math.floor(Math.random() * 6)) * 10 + (1 + Math.floor(Math.random() * 6));
+        const candidate = data.disabilities.find((entry) => Number(entry.d66) === roll);
+        if (candidate && !used.has(candidate.catalogId)) item = candidate;
+      }
+      item ??= data.disabilities.find((entry) => !used.has(entry.catalogId));
+      if (!item) break;
+      used.add(item.catalogId);
+      generated.push({ id: item.catalogId, catalogId: item.catalogId, name: item.disability, source: 'player', sourceDetail: `Disability table ${item.d66}`, level: 1 });
+    }
+    setDraft((current) => ({ ...current, background: { ...current.background, disabilities: generated, disabilitiesReviewed: true } }));
+  };
 
   const toggle = (item: StaticData['disabilities'][number]) => {
     setDraft((current) => {
@@ -495,6 +564,7 @@ function DisabilitiesStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
 
   return (
     <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-muted/30 p-4"><div><div className="font-medium">Required Disads: {required}</div><div className="text-xs text-muted-foreground">Selected {draft.background.disabilities.length}. Extra negotiated Disabilities may remain selected.</div></div><div className="flex gap-2"><Button type="button" size="sm" variant="outline" onClick={generateRequired}><Dices className="h-4 w-4" /> {draft.background.disabilities.length ? 'Re-roll' : 'Generate'}</Button><Button type="button" size="sm" variant={draft.background.disabilitiesReviewed ? 'secondary' : 'outline'} onClick={() => setDraft((current) => ({ ...current, background: { ...current.background, disabilitiesReviewed: true } }))}>Review complete</Button></div></div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -586,7 +656,7 @@ export default function BackgroundStep(props: BackgroundStepProps) {
 
   switch (props.stepValue) {
     case 'background-region-settlement': return <RegionSettlementStep {...common} />;
-    case 'background-demographics': return <DemographicsStep />;
+    case 'background-demographics': return <DemographicsStep {...common} />;
     case 'background-age': return <AgeStep {...common} />;
     case 'background-heritage': return <HeritageStep {...common} />;
     case 'background-social-rank': return <SocialRankStep {...common} />;

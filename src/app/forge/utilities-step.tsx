@@ -18,10 +18,15 @@ import {
 } from '@/components/ui/select';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { effectiveTraitLevel } from '@/lib/rules/properties';
+import { getTradePackage, getTradeSpecialization } from '@/lib/rules/intrinsics';
 import {
   addInventoryItem,
   generateCharacterName,
+  magicItemFormOptions,
+  magicItemGradeMetrics,
+  magicItemTotals,
   personalWealthGp,
+  setMagicItemForm,
   setInventoryQuantity,
   startingGearTotals,
   suggestedNameLanguageId,
@@ -52,6 +57,8 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
   const [level, setLevel] = useState('all');
   const selected = new Set(draft.utilities.spells.map((entry) => entry.catalogId));
   const vMagic = effectiveTraitLevel(draft, 'v-Magic');
+  const trade = getTradePackage(draft, data);
+  const profession = getTradeSpecialization(draft, data);
   const filtered = useMemo(() => data.spells.filter((spell) => {
     const search = query.trim().toLowerCase();
     const matchesSearch = !search || `${spell.name} ${spell.description}`.toLowerCase().includes(search);
@@ -69,7 +76,7 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
             Select only Spells the character is actually granted or allowed to begin with. The current catalogue records Spell Level, AP, mana, and effect text; this screen does not invent a starting-spell allotment where the source rule is silent.
           </p>
           <div className="mt-2 flex flex-wrap gap-2">
-            <Badge variant={vMagic > 0 ? 'secondary' : 'outline'}>v-Magic {vMagic || 'not present'}</Badge>
+            <Badge variant="outline">{trade?.trade ?? 'No Trade'}{profession ? ` > ${profession.name}` : ''}</Badge><Badge variant={vMagic > 0 ? 'secondary' : 'destructive'}>v-Magic {vMagic || 'not present'}</Badge>
             <Badge variant="outline">{draft.utilities.spells.length} selected</Badge>
           </div>
         </div>
@@ -98,7 +105,7 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
         {filtered.map((spell) => {
           const active = selected.has(spell.catalogId);
           return (
-            <Card key={spell.catalogId} className={cn(active && 'border-primary')}>
+            <Card key={spell.catalogId} className={cn(active && 'border-primary', vMagic <= 0 && !active && 'opacity-50')}>
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-3">
                   <div>
@@ -109,7 +116,7 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
                       <Badge variant="outline">{spell.costMana} mana</Badge>
                     </div>
                   </div>
-                  <Button type="button" size="sm" variant={active ? 'secondary' : 'outline'} onClick={() => setDraft((current) => toggleSpell(current, spell.catalogId, data))}>
+                  <Button type="button" size="sm" variant={active ? 'secondary' : 'outline'} disabled={vMagic <= 0 && !active} onClick={() => setDraft((current) => toggleSpell(current, spell.catalogId, data))}>
                     {active ? 'Remove' : 'Add'}
                   </Button>
                 </div>
@@ -135,11 +142,12 @@ function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
   });
   const selected = [...draft.utilities.weapons.map((item) => ({ ...item, category: 'weapons' as const })), ...draft.utilities.armor.map((item) => ({ ...item, category: 'armor' as const })), ...draft.utilities.equipment.map((item) => ({ ...item, category: 'equipment' as const }))];
   const over = budget != null && totals.costGp > budget;
+  const remaining = budget == null ? null : budget - totals.costGp;
 
   return (
     <div className="space-y-5">
       <div className="grid gap-3 sm:grid-cols-4">
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Personal Wealth</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{budget == null ? '—' : `${budget.toLocaleString()} gp`}</div><div className="text-xs text-muted-foreground">Wealth Rank as Index gp</div></CardContent></Card>
+        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Personal Wealth</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{budget == null ? '—' : `${Math.max(0, remaining ?? 0).toLocaleString()} / ${budget.toLocaleString()} gp`}</div><div className="text-xs text-muted-foreground">remaining / original Personal Wealth</div></CardContent></Card>
         <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Gear Cost</CardTitle></CardHeader><CardContent><div className={cn('text-2xl font-semibold', over && 'text-destructive')}>{totals.costGp.toFixed(2)} gp</div><div className="text-xs text-muted-foreground">recorded purchases</div></CardContent></Card>
         <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Recorded Weight</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{totals.weight.toFixed(1)}</div><div className="text-xs text-muted-foreground">sum of item Weight fields</div></CardContent></Card>
         <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Items</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{totals.itemCount}</div><ReviewButton reviewed={draft.utilities.gearReviewed} label="Gear" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, gearReviewed: !current.utilities.gearReviewed } }))} /></CardContent></Card>
@@ -198,13 +206,14 @@ function MagicItemsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'ste
   const grades = Array.from(new Set(data.magicItems.map((item) => item.gradeAvailability))).sort();
   const filtered = data.magicItems.filter((item) => {
     const search = query.trim().toLowerCase();
-    return (!search || `${item.name} ${item.form} ${item.description}`.toLowerCase().includes(search)) && (grade === 'all' || item.gradeAvailability === grade);
+    return (!search || item.name.toLowerCase().includes(search)) && (grade === 'all' || item.gradeAvailability === grade);
   });
+  const totals = magicItemTotals(draft, data);
 
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-start justify-between gap-3 rounded-lg border bg-muted/20 p-4">
-        <div><div className="font-medium">Complete-data Magic Items only</div><p className="mt-1 text-sm text-muted-foreground">The runtime catalogue excludes placeholder records. Starting entitlement and exceptional availability remain explicit campaign/GM decisions rather than being inferred from incomplete pricing data.</p><Badge className="mt-2" variant="outline">{data.magicItems.length} usable records • {draft.utilities.magicItems.length} selected</Badge></div>
+        <div><div className="font-medium">Complete-data Magic Items only</div><p className="mt-1 text-sm text-muted-foreground">Search matches item labels only. Numeric rarity uses the canonical worth multiplier (Common ×10, Lesser ×100, and so on); combined uncommonality multiplies those values. gp is the grade-equivalent value using the canonical Common ≈100 gp baseline.</p><div className="mt-2 flex flex-wrap gap-2"><Badge variant="outline">{data.magicItems.length} usable • {draft.utilities.magicItems.length} selected</Badge><Badge variant="secondary">Combined rarity {totals.rarityProductLabel}</Badge><Badge variant="secondary">Total equivalent {totals.worthGp.toLocaleString()} gp</Badge></div></div>
         <ReviewButton reviewed={draft.utilities.magicItemsReviewed} label="Magic Items" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, magicItemsReviewed: !current.utilities.magicItemsReviewed } }))} />
       </div>
       <div className="grid gap-3 sm:grid-cols-[1fr_190px]">
@@ -214,7 +223,10 @@ function MagicItemsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'ste
       <div className="grid gap-3 xl:grid-cols-2">
         {filtered.map((item) => {
           const active = selected.has(item.catalogId);
-          return <Card key={item.catalogId} className={cn(active && 'border-primary')}><CardHeader className="pb-2"><div className="flex items-start justify-between gap-3"><div><CardTitle className="text-base">{item.name}</CardTitle><div className="mt-1 flex gap-1.5"><Badge variant="outline">{item.gradeAvailability}</Badge><Badge variant="outline">{item.form}</Badge></div></div><Button size="sm" variant={active ? 'secondary' : 'outline'} onClick={() => setDraft((current) => toggleMagicItem(current, item.catalogId, data))}>{active ? 'Remove' : 'Add'}</Button></div></CardHeader><CardContent><p className="line-clamp-5 text-xs leading-relaxed text-muted-foreground">{item.description}</p></CardContent></Card>;
+          const metrics = magicItemGradeMetrics(item);
+          const forms = magicItemFormOptions(item);
+          const form = draft.utilities.magicItemForms[item.catalogId] ?? item.form;
+          return <Card key={item.catalogId} className={cn(active && 'border-primary')}><CardHeader className="pb-2"><div className="flex items-start justify-between gap-3"><div><CardTitle className="text-base">{item.name}</CardTitle><div className="mt-1 flex flex-wrap gap-1.5"><Badge variant="outline">{item.gradeAvailability}</Badge><Badge variant="outline">Frequency 1 per 10^{metrics.rarityExponent}</Badge><Badge variant="outline">Numeric rarity ×{metrics.worthMultiplier.toLocaleString()}</Badge><Badge variant="secondary">≈ {metrics.equivalentGp.toLocaleString()} gp</Badge></div></div><Button size="sm" variant={active ? 'secondary' : 'outline'} onClick={() => setDraft((current) => toggleMagicItem(current, item.catalogId, data))}>{active ? 'Remove' : 'Add'}</Button></div></CardHeader><CardContent><div className="mb-2">{forms.length > 1 ? <Select value={form} onValueChange={(value) => setDraft((current) => setMagicItemForm(current, item.catalogId, value))}><SelectTrigger className="h-8"><SelectValue /></SelectTrigger><SelectContent>{forms.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select> : <Badge variant="outline">{form || 'Variable form'}</Badge>}</div><p className="line-clamp-5 text-xs leading-relaxed text-muted-foreground">{item.description}</p></CardContent></Card>;
         })}
       </div>
     </div>
