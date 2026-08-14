@@ -402,8 +402,9 @@
       },
       {
         "id": "import-magic-missile",
-        "name": "Magic Missile",
-        "source": "player"
+        "name": "Magic Missle",
+        "source": "player",
+        "catalogId": "spell-magic-missle"
       },
       {
         "id": "import-winkback",

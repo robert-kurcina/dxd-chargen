@@ -404,7 +404,9 @@ export function assessPropertyStep(stepValue: string, draft: CharacterDraft, dat
     if (result.clamped) messages.push('A Stature or Build value falls outside the current 0–99 physical lookup table and was clamped for display.');
     if (result.weightAdjustment > 0) messages.push(`Overweight ${result.weightAdjustment}: Bodypoints use pre-Overweight Build as required by the creation rule.`);
     if (result.weightAdjustment < 0) messages.push(`Underweight ${Math.abs(result.weightAdjustment)} is recorded as a Build adjustment.`);
-    const unresolvedPhysicalTraits = ['Tall', 'Sturdy'].filter((trait) => effectiveTraitLevel(draft, trait) > 0);
+    // Sturdy has no Stature or Build adjustment. Tall remains unresolved until
+    // its canonical numeric physical adjustment is represented in static data.
+    const unresolvedPhysicalTraits = ['Tall'].filter((trait) => effectiveTraitLevel(draft, trait) > 0);
     if (unresolvedPhysicalTraits.length) {
       messages.push(`${unresolvedPhysicalTraits.join(' / ')} is present, but the current structured sources do not specify its numeric Stature/Build adjustment. Review that physical adjustment manually.`);
     }

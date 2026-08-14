@@ -458,13 +458,14 @@
       },
       {
         "id": "import-middle-qua",
-        "name": "Middle Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 5,
         "improvements": 0,
         "accentRemoved": false,
+        "catalogId": "language-qua",
         "modifiers": []
       },
       {
@@ -541,9 +542,10 @@
         "catalogId": "spell-bless"
       },
       {
-        "id": "import-cure-minor-wounds-guidance",
-        "name": "Cure Minor Wounds Guidance",
-        "source": "player"
+        "id": "import-guidance",
+        "name": "Guidance",
+        "source": "player",
+        "catalogId": "spell-guidance"
       },
       {
         "id": "import-cure-poison",
@@ -563,8 +565,9 @@
       },
       {
         "id": "import-detect-undead",
-        "name": "Detect Undead",
-        "source": "player"
+        "name": "Detect Undying",
+        "source": "player",
+        "catalogId": "spell-detect-undying"
       },
       {
         "id": "import-faith-shield",
@@ -592,8 +595,9 @@
       },
       {
         "id": "import-life-sense",
-        "name": "Life Sense",
-        "source": "player"
+        "name": "Lifesense",
+        "source": "player",
+        "catalogId": "spell-lifesense"
       },
       {
         "id": "import-light",

@@ -274,13 +274,14 @@
       },
       {
         "id": "import-golbrin",
-        "name": "Golbrin",
+        "name": "Ershthiikal",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
         "accentRemoved": false,
+        "catalogId": "language-ershthikal",
         "modifiers": []
       },
       {
@@ -311,13 +312,14 @@
       },
       {
         "id": "import-middle-qua",
-        "name": "Middle Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
         "accentRemoved": false,
+        "catalogId": "language-qua",
         "modifiers": []
       },
       {
@@ -416,8 +418,9 @@
       },
       {
         "id": "import-magic-missile",
-        "name": "Magic Missile",
-        "source": "player"
+        "name": "Magic Missle",
+        "source": "player",
+        "catalogId": "spell-magic-missle"
       }
     ],
     "spellsReviewed": true,

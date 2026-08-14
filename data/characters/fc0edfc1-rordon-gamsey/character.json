@@ -594,13 +594,14 @@
       },
       {
         "id": "import-kahuzid",
-        "name": "Kahuzid",
+        "name": "Kahadi",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 4,
         "improvements": 0,
         "accentRemoved": true,
+        "catalogId": "language-kahadi",
         "modifiers": []
       },
       {

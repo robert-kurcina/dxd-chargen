@@ -447,18 +447,6 @@
     "additionalSkills": [],
     "languages": [
       {
-        "id": "import-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-kahadi",
-        "modifiers": []
-      },
-      {
         "id": "import-blacktongue",
         "name": "Blacktongue",
         "source": "player",
@@ -472,13 +460,14 @@
       },
       {
         "id": "import-middle-kahadi",
-        "name": "Middle Kahadi",
+        "name": "Kahadi",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 6,
         "improvements": 0,
         "accentRemoved": false,
+        "catalogId": "language-kahadi",
         "modifiers": []
       }
     ]

@@ -90,6 +90,9 @@ const LANGUAGE_ALIASES: Record<string, { name: string; modifiers?: LanguageModif
   ershthikal: { name: 'Ershthiikal' },
   bamini: { name: 'Heimneshi' },
   common: { name: 'Coro' },
+  golbrin: { name: 'Ershthiikal' },
+  jamarati: { name: 'Borensk', modifiers: ['Low'] },
+  kahuzid: { name: 'Kahadi' },
   'common-lingo': { name: 'Coro', modifiers: ['Lingo'] },
   lorespeak: { name: 'Blacktongue', modifiers: ['Low'] },
   vanry: { name: 'Rasiya', modifiers: ['High'] },
@@ -110,6 +113,7 @@ function normalizeLanguageSelection(language: LanguageSelection): LanguageSelect
     const baseWords: string[] = [];
     for (const word of words) {
       const token = word.replace(/[^a-z]/gi, '').toLowerCase();
+      if (token === 'middle') continue;
       const modifier = token === 'warlang' ? 'War' : LANGUAGE_MODIFIER_ORDER.find((candidate) => candidate.toLowerCase() === token);
       if (modifier) modifiers.push(modifier);
       else baseWords.push(word);
@@ -127,6 +131,29 @@ function normalizeLanguageSelection(language: LanguageSelection): LanguageSelect
     ...(definition ? { catalogId: definition.id, name: definition.name } : { name: mapped.name }),
     modifiers: LANGUAGE_MODIFIER_ORDER.filter((modifier) => selected.has(modifier)),
   };
+}
+
+function normalizeLanguages(languages: LanguageSelection[]) {
+  const grouped = new Map<string, LanguageSelection>();
+  for (const language of languages.map(normalizeLanguageSelection)) {
+    const modifiers = language.modifiers ?? [];
+    const key = `${language.catalogId ?? language.name.toLowerCase()}|${modifiers.join('|').toLowerCase()}`;
+    const existing = grouped.get(key);
+    if (!existing) {
+      grouped.set(key, language);
+      continue;
+    }
+    const defaultLanguage = existing.kind === 'default' ? existing : language.kind === 'default' ? language : existing;
+    grouped.set(key, {
+      ...defaultLanguage,
+      kind: existing.kind === 'default' || language.kind === 'default' ? 'default' : 'proficiency',
+      primary: existing.primary || language.primary,
+      baseLevel: Math.max(existing.baseLevel, language.baseLevel),
+      improvements: Math.max(existing.improvements, language.improvements),
+      accentRemoved: existing.accentRemoved || language.accentRemoved,
+    });
+  }
+  return [...grouped.values()];
 }
 
 const CAPABILITY_ALIASES: Record<string, string> = {
@@ -254,10 +281,18 @@ const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
 };
 const SPELL_ALIASES: Record<string, string> = {
   armor: 'Armored Carapace',
+  disintegrate: 'Woundshell',
+  disentigrate: 'Woundshell',
+  'detect undead': 'Detect Undying',
   dispel: 'Dispel Magic',
   'faith shield': 'Faithshield',
   heal: 'Cure Major Wounds',
+  'life sense': 'Lifesense',
+  lifesense: 'Lifesense',
   light: 'Light',
+  'magic missile': 'Magic Missle',
+  'magick missile': 'Magic Missle',
+  'magick missiles': 'Magic Missle',
   prismafan: 'Prismafan of Lightning',
   'turn undead': 'Turn Undying',
   'cure minor wound': 'Cure Minor Wounds',
@@ -322,13 +357,23 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
   return [...grouped.values()];
 }
 function normalizeSpells(items: SourcedSelection[]) {
-  const normalized = items.map((item) => {
-    const requested = SPELL_ALIASES[item.name.trim().toLowerCase()] ?? item.name.trim();
-    const key = requested.replace(/±$/, '').trim();
-    const definition = sarnaLenData.spells.find((spell) => spell.name.replace(/±$/, '').trim().localeCompare(key, undefined, { sensitivity: 'base' }) === 0);
-    return definition
-      ? { ...item, catalogId: definition.catalogId, name: definition.name }
-      : item;
+  const normalized = items.flatMap((item) => {
+    const rawName = item.name.trim();
+    const requestedNames = rawName.toLowerCase() === 'cure minor wounds guidance'
+      ? ['Cure Minor Wounds', 'Guidance']
+      : [SPELL_ALIASES[rawName.toLowerCase()] ?? rawName];
+    return requestedNames.map((requested) => {
+      const key = requested.replace(/±$/, '').trim();
+      const definition = sarnaLenData.spells.find((spell) => spell.name.replace(/±$/, '').trim().localeCompare(key, undefined, { sensitivity: 'base' }) === 0);
+      return definition
+        ? {
+            ...item,
+            ...(requestedNames.length > 1 ? { id: makeCatalogId('import', definition.name) } : {}),
+            catalogId: definition.catalogId,
+            name: definition.name,
+          }
+        : item;
+    });
   });
   const seen = new Set<string>();
   return normalized.filter((item) => {
@@ -455,7 +500,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       environHeritageId,
       societalHeritageId,
     },
-    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased, languages: draft.proficiencies.languages.map(normalizeLanguageSelection) },
+    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased, languages: normalizeLanguages(draft.proficiencies.languages) },
     intrinsics: {
       ...draft.intrinsics,
       speciesFamilyId: identity ? 'species-family-humaniki' : draft.intrinsics.speciesFamilyId,

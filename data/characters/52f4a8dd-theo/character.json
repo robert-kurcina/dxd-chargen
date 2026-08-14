@@ -357,24 +357,28 @@
       },
       {
         "id": "import-jamarati",
-        "name": "Jamarati",
+        "name": "Borensk",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
         "accentRemoved": false,
-        "modifiers": []
+        "catalogId": "language-borensk",
+        "modifiers": [
+          "Low"
+        ]
       },
       {
         "id": "import-middle-stask",
-        "name": "Middle Stask",
+        "name": "Stask",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 2,
         "improvements": 0,
         "accentRemoved": true,
+        "catalogId": "language-stask",
         "modifiers": []
       }
     ]

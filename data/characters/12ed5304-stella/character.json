@@ -370,8 +370,9 @@
       },
       {
         "id": "import-magick-missile",
-        "name": "Magick Missile",
-        "source": "player"
+        "name": "Magic Missle",
+        "source": "player",
+        "catalogId": "spell-magic-missle"
       }
     ],
     "spellsReviewed": true,

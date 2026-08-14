@@ -329,7 +329,7 @@
     "description": "Knowledge Dominance, Transformation Type - Divine Range - Self Area - Target Keywords: Prayer > DoS, Agents, Fatigue 1-Minute, Duration 1-Hour, Sophontic Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Spindly silver threads of picoswarms extend from the skull of the target outward in multiple directions seeking living Sophonts. As the threads seek outward, they fade into higher dimensional containers in order to rapidly travel the face of Sarna Len. If the Sophont has a greater Language or Pidgin skill level than the target , the target uses their level. However, the ZOR is ZED miles and apply penalty DMs for any ZORM. The maximum ZORM allowed is 6. Using this spell causes a great amount of Fatigue because the mind, lips, tongue, jaws, and throat of the target need to recognize and move using unfamiliar patterns."
   },
   {
-    "name": "Lifesense±",
+    "name": "Lifesense",
     "costAp": 1,
     "costMana": 1,
     "level": 2,
@@ -357,7 +357,7 @@
     "description": "Eldritch Conjuration, Knowledge Type - Arcane Range - Existing Link; nodes within ZED OR when joined Area - Shared Link endpoint Keywords: Restricted > Warlock, Sacred Spell, Shared Link, Persistent while maintained Tests: Prayer=-, Link=Y, Weave=-, Sanity=-. A Warlock who already holds one ordinary Link may turn that endpoint into a shared mesh for willing participants. The original Link remains the anchor and keeps its ordinary target-specific POW commitment, Stress, Manapool reduction, upkeep, Trace, Delink, and other consequences. Choose a Node Index from the R125 progression. R125 Index 0 supports 1 node; each Excess Mana raises the Node Index by +1, to a maximum of Index 6. Node count and mesh Linkage are read directly from the table. The Mesh Linkage is an aggregate POW commitment paid by the Warlock equal to the R125 Node Index. It replaces repeating the target-specific POW commitment for every branch; the anchor Link's own ordinary POW commitment remains separate. At Index 0, sharing the anchor with one node adds no further POW burden beyond the anchor itself. Each willing node joined to the mesh treats the anchor target as Visible and within LOS for magic which can use a Link. A node takes the ordinary non-POW consequences of participating in that Link: DM -1 to Tests, 1D Stress when joining a Living or active godcloud endpoint, Manapool -1, and normal Link upkeep appropriate to the target. Do not also charge that node the target's POW -1/-3/-6; the mesh's R125 Linkage already accounts for the branching POW burden. The mesh does not grant control of the target, reveal unrelated thoughts, or share any other Links held by the participants. The Warlock may voluntarily lower Node Index when enough nodes leave, immediately restoring the corresponding committed POW. Increasing Node Index again requires the additional Excess Mana. Normal participant upkeep remains individual; use Group/Ritual abstraction when a large NPC body is maintaining the mesh and individual accounting would not matter to play. If the anchor Link ends, the Linkmesh collapses immediately. A node which becomes unwilling, Unconscious, Dead, or otherwise unable to participate drops out without breaking the remaining mesh. Linkmesh cannot recurse through another Linkmesh and cannot be used to combine unrelated endpoints into one network."
   },
   {
-    "name": "Magick Missiles",
+    "name": "Magic Missle",
     "costAp": 3,
     "costMana": 1,
     "level": 2,
