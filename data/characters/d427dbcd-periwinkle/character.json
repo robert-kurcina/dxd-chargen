@@ -244,10 +244,11 @@
         "level": 2
       },
       {
-        "id": "import-title-lady",
-        "name": "Title-Lady",
+        "id": "import-title",
+        "catalogId": "trait-title-x-region",
+        "name": "Title",
         "source": "player",
-        "level": 0
+        "level": 1
       }
     ],
     "additionalSkills": [],

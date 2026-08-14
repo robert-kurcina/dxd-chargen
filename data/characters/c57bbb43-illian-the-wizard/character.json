@@ -340,10 +340,11 @@
         "level": 0
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
-        "level": 0
+        "level": 5
       },
       {
         "id": "import-maths",
@@ -418,8 +419,9 @@
         "level": 3
       },
       {
-        "id": "import-zedsurge",
-        "name": "Zedsurge",
+        "id": "import-v-zedsurge",
+        "catalogId": "trait-v-zedsurge-x",
+        "name": "v-Zedsurge",
         "source": "player",
         "level": 2
       },

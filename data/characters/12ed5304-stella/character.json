@@ -177,10 +177,12 @@
         "level": 2
       },
       {
-        "id": "import-blacksmith",
-        "name": "Blacksmith",
+        "id": "import-craft-blacksmithing",
+        "catalogId": "trait-craft-x-tradecraft",
+        "name": "Craft X > Tradecraft",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "specialization": "Blacksmithing"
       },
       {
         "id": "import-brawn",
@@ -189,10 +191,12 @@
         "level": 2
       },
       {
-        "id": "import-dance",
-        "name": "Dance",
+        "id": "import-perform-dance",
+        "catalogId": "trait-perform-x-form",
+        "name": "Perform X > Form",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Dance"
       },
       {
         "id": "import-gossip",
@@ -201,14 +205,9 @@
         "level": 1
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
-        "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
         "level": 3
       },
@@ -231,8 +230,9 @@
         "level": 1
       },
       {
-        "id": "import-zedsurge",
-        "name": "Zedsurge",
+        "id": "import-v-zedsurge",
+        "catalogId": "trait-v-zedsurge-x",
+        "name": "v-Zedsurge",
         "source": "player",
         "level": 3
       }

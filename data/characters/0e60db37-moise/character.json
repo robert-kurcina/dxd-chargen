@@ -179,10 +179,12 @@
     "granted": [],
     "purchased": [
       {
-        "id": "import-agriculture",
-        "name": "Agriculture",
+        "id": "import-domus-farmer",
+        "catalogId": "trait-domus-x-domain",
+        "name": "Domus X > Domain",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "specialization": "Farmer"
       },
       {
         "id": "import-archery",
@@ -305,10 +307,11 @@
         "level": 1
       },
       {
-        "id": "import-title-lord",
-        "name": "Title (Lord)",
+        "id": "import-title",
+        "catalogId": "trait-title-x-region",
+        "name": "Title",
         "source": "player",
-        "level": 0
+        "level": 1
       },
       {
         "id": "import-tracking",
@@ -335,8 +338,9 @@
         "level": 1
       },
       {
-        "id": "import-zedsurge",
-        "name": "Zedsurge",
+        "id": "import-v-zedsurge",
+        "catalogId": "trait-v-zedsurge-x",
+        "name": "v-Zedsurge",
         "source": "player",
         "level": 2
       }

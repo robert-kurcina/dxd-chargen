@@ -76,7 +76,7 @@ function traitDefinitionById(id: string | undefined, data: StaticData) {
 }
 
 function canonicalTraitBase(value: string) {
-  return value
+  const base = value
     .replace(/^[§$]\s*/, '')
     .replace(/^\[/, '')
     .replace(/\]$/, '')
@@ -84,6 +84,7 @@ function canonicalTraitBase(value: string) {
     .replace(/\s+X$/, '')
     .trim()
     .toLowerCase();
+  return base === 'zedsurge' ? 'v-zedsurge' : base;
 }
 
 export function traitDefinitionForSelection(selection: SourcedSelection, data: StaticData) {
@@ -269,8 +270,9 @@ export function compressedCapabilities(draft: CharacterDraft, data: StaticData):
   }
   const groups = new Map<string, CompressedCapability>();
   for (const selection of all) {
-    const baseName = selection.name.split(' > ')[0].replace(/\s+X$/, '').trim();
-    const key = canonicalTraitBase(baseName);
+    const selectedName = selection.name.split(' > ')[0].replace(/\s+X$/, '').trim();
+    const key = canonicalTraitBase(selectedName);
+    const baseName = key === 'v-zedsurge' ? 'v-Zedsurge' : selectedName;
     const definition = traitDefinitionForSelection(selection, data);
     const ranks = specializationRanksForSelection(selection, draft, data);
     const level = Math.max(1, selection.level ?? 1);

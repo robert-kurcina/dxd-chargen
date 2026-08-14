@@ -310,8 +310,16 @@
         "level": 2
       },
       {
-        "id": "import-gentry",
-        "name": "Gentry",
+        "id": "import-peerage",
+        "catalogId": "trait-peerage-x-region",
+        "name": "Peerage",
+        "source": "player",
+        "level": 1
+      },
+      {
+        "id": "import-title",
+        "catalogId": "trait-title-x-region",
+        "name": "Title",
         "source": "player",
         "level": 1
       },
@@ -334,10 +342,12 @@
         "level": 3
       },
       {
-        "id": "import-magicraft",
-        "name": "Magicraft",
+        "id": "import-craft-magicraft",
+        "catalogId": "trait-craft-x-tradecraft",
+        "name": "Craft X > Tradecraft",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "specialization": "Magicraft"
       },
       {
         "id": "import-parry",

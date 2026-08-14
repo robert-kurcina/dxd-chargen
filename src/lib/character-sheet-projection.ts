@@ -15,6 +15,7 @@ import {
   formatLanguageRecord,
   specializationOptionsForTrait,
   specializationRanksForSelection,
+  traitDefinitionForSelection,
 } from '@/lib/rules/proficiencies';
 import { calculateProperties } from '@/lib/rules/properties';
 import { displayInventoryName, magicItemInventoryForm } from '@/lib/rules/utilities';
@@ -79,12 +80,11 @@ function projectedCapabilities(draft: CharacterDraft, data: StaticData) {
   const capabilities = compressedCapabilities(draft, data);
   const isTraitOrTalent = (entry: typeof capabilities[number]) => {
     if (entry.name.replace(/^\[/, '').replace(/\s+X\]?$/, '').toLowerCase() === 'hatred') return false;
-    const definitions = entry.sources.map((source) => data.traits.find((trait) => trait.catalogId === (source.catalogId ?? source.id)
-      || trait.trait.replace(/\s+X$/, '').toLowerCase() === source.name.replace(/\s+X$/, '').toLowerCase()));
+    const definitions = entry.sources.map((source) => traitDefinitionForSelection(source, data));
     return definitions.some((definition) => definition && (!definition.isSkill || definition.isVirtuosity));
   };
   const requiresSpecialization = (entry: typeof capabilities[number]) => entry.sources.some((source) => specializationOptionsForTrait(source, draft, data).length > 0 && Object.keys(specializationRanksForSelection(source, draft, data)).length === 0);
-  const isDisability = (entry: typeof capabilities[number]) => entry.sources.some((source) => data.traits.find((trait) => trait.catalogId === (source.catalogId ?? source.id))?.isDisability);
+  const isDisability = (entry: typeof capabilities[number]) => entry.sources.some((source) => traitDefinitionForSelection(source, data)?.isDisability);
   const format = (entry: typeof capabilities[number]) => {
     const disability = isDisability(entry);
     const name = entry.name.replace(/^[§$]\s*/, '').replace(/^\[/, '').replace(/\]$/, '').replace(/\s+X$/, '');

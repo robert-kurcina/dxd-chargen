@@ -291,10 +291,11 @@
         "level": 0
       },
       {
-        "id": "import-persuasion",
-        "name": "Persuasion",
+        "id": "import-persuade",
+        "catalogId": "trait-persuade-x",
+        "name": "Persuade",
         "source": "player",
-        "level": 0
+        "level": 1
       },
       {
         "id": "import-pidgin",
@@ -406,6 +407,7 @@
       },
       {
         "id": "import-v-zedsurge",
+        "catalogId": "trait-v-zedsurge-x",
         "name": "v-Zedsurge",
         "source": "player",
         "level": 0

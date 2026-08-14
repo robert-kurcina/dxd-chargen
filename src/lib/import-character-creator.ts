@@ -201,9 +201,8 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       ]
     : draft.background.demographicSelections;
   const normalizedPurchased = draft.proficiencies.purchased.map((item) => {
-    if (!sirMandalore) return item;
-    if (/^brawn$/i.test(item.name)) return { ...item, level: 3 };
-    if (/^(?:v-)?zedsurge$/i.test(item.name)) return { ...item, id: 'import-v-zedsurge', catalogId: makeCatalogId('trait', 'v-Zedsurge X'), name: 'v-Zedsurge', level: 2 };
+    if (/^(?:v-)?zedsurge$/i.test(item.name)) return { ...item, id: 'import-v-zedsurge', catalogId: makeCatalogId('trait', 'v-Zedsurge X'), name: 'v-Zedsurge', ...(sirMandalore ? { level: 2 } : {}) };
+    if (sirMandalore && /^brawn$/i.test(item.name)) return { ...item, level: 3 };
     return item;
   });
   const normalizedAttributes = draft.intrinsics.attributes.map((attribute) =>

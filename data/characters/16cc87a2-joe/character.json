@@ -412,8 +412,9 @@
         "level": 2
       },
       {
-        "id": "import-zedsurge",
-        "name": "Zedsurge",
+        "id": "import-v-zedsurge",
+        "catalogId": "trait-v-zedsurge-x",
+        "name": "v-Zedsurge",
         "source": "player",
         "level": 2
       }

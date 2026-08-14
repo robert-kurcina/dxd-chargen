@@ -329,12 +329,6 @@
         "level": 2
       },
       {
-        "id": "import-light",
-        "name": "Light",
-        "source": "player",
-        "level": 2
-      },
-      {
         "id": "import-lore",
         "name": "Lore",
         "source": "player",
@@ -365,10 +359,12 @@
         "level": 3
       },
       {
-        "id": "import-stews",
-        "name": "Stews",
+        "id": "import-craft-cooking",
+        "catalogId": "trait-craft-x-tradecraft",
+        "name": "Craft X > Tradecraft",
         "source": "player",
-        "level": 5
+        "level": 5,
+        "specialization": "Cooking"
       },
       {
         "id": "import-survival",
@@ -401,8 +397,9 @@
         "level": 4
       },
       {
-        "id": "import-zedsurge",
-        "name": "Zedsurge",
+        "id": "import-v-zedsurge",
+        "catalogId": "trait-v-zedsurge-x",
+        "name": "v-Zedsurge",
         "source": "player",
         "level": 1
       },
@@ -508,7 +505,14 @@
     "buildAdjustment": -2
   },
   "utilities": {
-    "spells": [],
+    "spells": [
+      {
+        "id": "import-light",
+        "catalogId": "spell-light",
+        "name": "Light",
+        "source": "player"
+      }
+    ],
     "spellsReviewed": true,
     "weapons": [
       {
