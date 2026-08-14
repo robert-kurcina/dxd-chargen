@@ -70,6 +70,7 @@ import {
   assessProficiencyStep,
   isProficiencyStep,
   compressedCapabilities,
+  formatLanguageRecord,
   skillpointBudget,
 } from "@/lib/rules/proficiencies";
 import {
@@ -81,6 +82,8 @@ import {
 import {
   assessUtilityStep,
   displayInventoryName,
+  displayInventoryQuantity,
+  displaySpellName,
   isUtilityStep,
   magicItemInventoryForm,
   personalWealthGp,
@@ -484,6 +487,12 @@ export default function Worksheet({
   );
   const activeStep = allSteps[activeIndex] ?? allSteps[0];
   const stepAssessment = (stepValue: string) => {
+    // Persisted completion approves reconstructed legacy values, but it must not
+    // hide a concrete Broad Skill/Trait specialization still requiring review.
+    if (stepValue === "proficiencies-skills-abilities-talents") {
+      const assessment = assessProficiencyStep(stepValue, draft, data);
+      if (assessment.status !== "complete") return assessment;
+    }
     // A persisted completion is an explicit approval of the recorded values.
     // This is especially important for completed legacy character sheets, whose
     // display values may not have one-to-one IDs in the newer Forge catalogues.
@@ -1262,8 +1271,7 @@ export default function Worksheet({
                 {panelLanguages.length
                   ? panelLanguages.map((item) => (
                       <div key={item.id}>
-                        {item.name}
-                        {item.level != null ? ` ${item.level}` : ""}
+                        {formatLanguageRecord(item)}
                       </div>
                     ))
                   : "—"}
@@ -1306,7 +1314,7 @@ export default function Worksheet({
                 <dt className="text-muted-foreground">Spells</dt>
                 <dd>
                   {panelDraft.utilities.spells
-                    .map((item) => item.name)
+                    .map((item) => displaySpellName(item.name))
                     .join(", ") ||
                     (panelDraft.utilities.spellsReviewed ? "None" : "—")}
                 </dd>
@@ -1315,7 +1323,7 @@ export default function Worksheet({
                   {panelInventory
                     .map(
                       (item) =>
-                        `${displayInventoryName(item.name)}${item.quantity > 1 ? ` ×${item.quantity}` : ""}`,
+                        displayInventoryQuantity(item.name, item.quantity),
                     )
                     .join(", ") ||
                     (panelDraft.utilities.gearReviewed ? "None" : "—")}
@@ -1397,7 +1405,7 @@ export default function Worksheet({
                               sensitivity: "base",
                             }),
                           )
-                          .map((item) => label === "Spells" ? item.name : displayInventoryName(item.name))
+                          .map((item) => label === "Spells" ? displaySpellName(item.name) : displayInventoryQuantity(item.name, "quantity" in item ? item.quantity : 1))
                           .join(label === "Spells" ? ", " : "; ") || "—"}
                       </dd>
                     </Fragment>

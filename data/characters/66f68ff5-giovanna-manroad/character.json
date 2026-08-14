@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Craft, Nightvision, Riding."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-farton",
@@ -94,9 +99,11 @@
     "tragedySeedText": null,
     "disabilities": [
       {
-        "id": "import-zucked",
-        "name": "Zucked",
-        "source": "player"
+        "id": "disability-22-zucked-x",
+        "name": "[Zucked X]",
+        "source": "player",
+        "catalogId": "trait-zucked-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -188,150 +195,172 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-climbing",
-        "name": "Climbing",
+        "name": "Climb X",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-climb-x"
       },
       {
         "id": "import-compass",
-        "name": "Compass",
+        "name": "v-Compass X",
+        "source": "player",
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
+      },
+      {
+        "id": "import-craft",
+        "catalogId": "trait-craft-x-tradecraft",
+        "name": "Craft X > Tradecraft",
         "source": "player",
         "level": 1
       },
       {
-        "id": "import-crafting",
-        "name": "Crafting",
+        "id": "import-expert-crossbow",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "specialization": "Crossbow"
       },
       {
-        "id": "import-crossbow",
-        "name": "Crossbow",
+        "id": "import-expert-dagger",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 1
-      },
-      {
-        "id": "import-daggers",
-        "name": "Daggers",
-        "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Dagger"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-leap",
         "name": "Leap",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-leap-x"
       },
       {
         "id": "import-lockpicking",
         "name": "Lockpicking",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-lockpicking-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 8
+        "level": 8,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-trapmaster",
         "name": "Trapmaster",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-trapmaster-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 1
-      },
-      {
-        "id": "import-zucked",
-        "name": "Zucked",
-        "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-wise-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-common-lingo",
-        "name": "Common-Lingo",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "Lingo"
+        ]
       },
       {
         "id": "import-fayeed",
@@ -341,7 +370,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
       }
     ]
   },
@@ -394,7 +425,7 @@
       },
       {
         "id": "import-dagger-standard-siz-6",
-        "name": "Dagger, Standard SIZ 6",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
@@ -404,7 +435,7 @@
       },
       {
         "id": "import-crossbow-light-siz-6",
-        "name": "Crossbow, Light SIZ 6",
+        "name": "Crossbow, Light",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
@@ -425,7 +456,7 @@
       },
       {
         "id": "import-armor-light-siz-6",
-        "name": "Armor, Light SIZ 6",
+        "name": "Armor, Light",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
@@ -437,12 +468,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-lockpick-kit",

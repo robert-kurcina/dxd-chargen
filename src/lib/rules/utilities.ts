@@ -18,8 +18,18 @@ export type InventoryCategory = 'weapons' | 'armor' | 'equipment';
 /** Convert canonical catalogue labels to natural reading order for display only. */
 export function displayInventoryName(name: string) {
   const [noun, ...modifiers] = name.split(',').map((part) => part.trim());
+  if (/^dagger$/i.test(noun) && modifiers.some((part) => /^stiletto$/i.test(part))) return 'Stiletto';
   const meaningful = modifiers.filter((part) => !/^(?:standard|medium|average)$/i.test(part));
   return meaningful.length ? `${meaningful.join(' ')} ${noun}` : noun;
+}
+
+export function displayInventoryQuantity(name: string, quantity = 1) {
+  const display = displayInventoryName(name);
+  return quantity > 1 ? `${quantity} × ${display}` : display;
+}
+
+export function displaySpellName(name: string) {
+  return name.replace(/±$/, '').trim();
 }
 
 export function magicItemInventoryForm(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {

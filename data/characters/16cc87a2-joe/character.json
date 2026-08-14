@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Medic, Strike, Tactics."
+    }
+  ],
   "background": {
     "regionId": "region-other",
     "settlementId": "settlement-other",
@@ -293,123 +298,144 @@
     "purchased": [
       {
         "id": "import-archer",
-        "name": "Archer",
+        "name": "Archery X",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-archery-x"
       },
       {
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-disguise",
         "name": "Disguise",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-disguise-x"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-history",
-        "name": "History",
+        "name": "History X > Region",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-history-x-region"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-husbandry",
         "name": "Husbandry",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-husbandry-x"
       },
       {
         "id": "import-intimidate",
         "name": "Intimidate",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-intimidate-x"
       },
       {
         "id": "import-medic",
-        "name": "Medic",
+        "name": "Medic X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-medic-x-type"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-parry",
         "name": "Parry",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-parry-x"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-strike",
-        "name": "Strike",
+        "name": "Strike X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-strike-x-type"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-surefooted-x"
       },
       {
-        "id": "import-sword",
-        "name": "Sword",
+        "id": "import-expert-sword",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Sword"
       },
       {
         "id": "import-tactics",
-        "name": "Tactics",
+        "name": "Tactics X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-tactics-x-type"
       },
       {
         "id": "import-teach",
         "name": "Teach",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-teach-x"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-v-zedsurge",
@@ -423,23 +449,29 @@
     "languages": [
       {
         "id": "import-common-barter",
-        "name": "Common Barter",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "Barter"
+        ]
       },
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-cher-gulo",
@@ -449,7 +481,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
       }
     ]
   },
@@ -491,30 +525,27 @@
     "spells": [
       {
         "id": "import-cure-minor-wound",
-        "name": "Cure Minor Wound",
-        "source": "player"
-      },
-      {
-        "id": "import-cure-wounds",
-        "name": "Cure Wounds",
-        "source": "player"
+        "name": "Cure Minor Wounds",
+        "source": "player",
+        "catalogId": "spell-cure-minor-wounds"
       },
       {
         "id": "import-guidance",
         "name": "Guidance",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-guidance"
       }
     ],
     "spellsReviewed": true,
     "weapons": [
       {
         "id": "import-longsword",
-        "name": "Longsword",
+        "name": "Sword, Long",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "weapon-longsword"
+        "catalogId": "weapon-sword-long"
       },
       {
         "id": "import-small-knife",
@@ -525,16 +556,6 @@
         "unitWeight": 0,
         "sheetProperties": "ORa -6   Acc +0  Impact +3   Damage 1D\n[1H, Stub, Hafted]. Swift 2.",
         "catalogId": "weapon-small-knife"
-      },
-      {
-        "id": "import-sword-long",
-        "name": "Sword, Long",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.",
-        "catalogId": "weapon-sword-long"
       },
       {
         "id": "import-bow-medium",
@@ -589,12 +610,12 @@
       },
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-large-sack",

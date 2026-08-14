@@ -27,6 +27,7 @@ import {
   compressedCapabilities,
   defaultLanguageSuggestion,
   formatLanguageRecord,
+  LANGUAGE_MODIFIERS,
   languageProficiencyPoints,
   languageProficiencySpent,
   minimumAgeRankForPml,
@@ -162,12 +163,16 @@ function GrantedTraitsStep({ data, draft, setDraft }: Omit<ProficienciesStepProp
   const milestones = pmlVirtuosityMilestones(draft.proficiencies.pml);
   const virtuosity = data.traits.filter((trait) => trait.isVirtuosity && !trait.isDisability);
   const grants = [...draft.proficiencies.granted].sort((a,b) => a.name.localeCompare(b.name) || (a.sourceDetail ?? '').localeCompare(b.sourceDetail ?? ''));
+  const purchasedBroad = [...draft.proficiencies.purchased, ...draft.background.disabilities]
+    .filter((selection) => selection.name.includes(' > ') || specializationOptionsForTrait(selection, draft, data).length > 0)
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }));
   const unresolvedIds = new Set(unresolvedBroadGrants(draft, data).map((selection) => selection.id));
   return <div className="space-y-6">
     {milestones.length > 0 && <section className="space-y-3"><div><h3 className="font-semibold">PML Virtuosity choices</h3><p className="mt-1 text-xs text-muted-foreground">Choose one Virtuosity trait at each reached milestone.</p></div><div className="grid gap-3 md:grid-cols-2">{milestones.map((milestone) => { const current = draft.proficiencies.pmlVirtuosityChoices.find((choice) => choice.milestone === milestone); return <div key={milestone} className="space-y-2 rounded-lg border p-3"><Label>PML {milestone}</Label><Select value={current?.traitId ?? ''} onValueChange={(value) => setDraft((state) => setPmlVirtuosityChoice(state, milestone, value, data))}><SelectTrigger><SelectValue placeholder="Choose Virtuosity" /></SelectTrigger><SelectContent>{virtuosity.map((trait) => <SelectItem key={trait.catalogId} value={trait.catalogId}>{trait.trait}</SelectItem>)}</SelectContent></Select></div>; })}</div></section>}
     <section className="space-y-3"><div className="flex flex-wrap items-end justify-between gap-2"><div><h3 className="font-semibold">Granted Skills, Abilities, and Talents</h3><p className="mt-1 text-xs text-muted-foreground">Specialization controls live on the capability row. Duplicate sources remain visible here and compress later.</p></div><Badge variant="outline">{combined.length} compressed • {grants.length} sourced</Badge></div>
       <div className="space-y-2">{grants.map((selection) => { const unresolved = unresolvedIds.has(selection.id); return <div key={selection.id} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? selection.source}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}{!grants.length && <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Group/Lineage, and Trade to load grants.</div>}</div>
     </section>
+    {purchasedBroad.length > 0 && <section className="space-y-3"><div><h3 className="font-semibold">Imported Skill and Trait specializations</h3><p className="mt-1 text-xs text-muted-foreground">Loaded broad capabilities retain their rank, but require a concrete specialization where one was not recorded.</p></div><div className="space-y-2">{purchasedBroad.map((selection, index) => { const unresolved = unresolvedIds.has(selection.id); return <div key={`${selection.id}-${index}`} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? 'Loaded character'}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}</div></section>}
   </div>;
 }
 
@@ -294,6 +299,24 @@ function LanguageCard({ language, data, setDraft }: { language: LanguageSelectio
           {language.accentRemoved ? <><Check className="h-4 w-4" /> Accent removed</> : 'Remove accent (1 point)'}
         </Button>
       </div>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <span className="text-xs font-medium text-muted-foreground">Language modifiers</span>
+        {LANGUAGE_MODIFIERS.map((modifier) => {
+          const active = language.modifiers?.includes(modifier) ?? false;
+          return <Button
+            key={modifier}
+            type="button"
+            size="sm"
+            variant={active ? 'secondary' : 'outline'}
+            aria-pressed={active}
+            onClick={() => setDraft((current) => updateLanguage(current, language.id, {
+              modifiers: active
+                ? (language.modifiers ?? []).filter((value) => value !== modifier)
+                : [...(language.modifiers ?? []), modifier],
+            }))}
+          >{active ? <Check className="h-4 w-4" /> : null}+{modifier}</Button>;
+        })}
+      </div>
     </div>
   );
 }
@@ -308,7 +331,6 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
   const heritageSuggestions = settlement?.heritageLanguageIds
     .map((id) => data.languages.find((language) => language.id === id)?.name)
     .filter((name): name is string => Boolean(name)) ?? [];
-  const known = new Set(draft.proficiencies.languages.map((language) => language.catalogId));
 
   return (
     <div className="space-y-6">
@@ -325,7 +347,7 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
             <Label>Default regional language</Label>
             <Select value={defaultLanguage?.catalogId ?? ''} onValueChange={(value) => setDraft((current) => setCoreLanguage(current, 'default', value, data))}>
               <SelectTrigger><SelectValue placeholder={suggestion ? `Suggested: ${suggestion.name}` : 'Choose regional language'} /></SelectTrigger>
-              <SelectContent>{data.languages.filter((language) => language.id === defaultLanguage?.catalogId || !known.has(language.id)).map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
+              <SelectContent>{data.languages.map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
             </Select>
             {suggestion && <div className="text-xs text-muted-foreground">Settlement suggestion: {suggestion.name}</div>}
             {settlement?.languageLayers.length ? <div className="text-xs text-muted-foreground">Toponym/language layers: {settlement.languageLayers.join(' • ')}</div> : null}
@@ -334,7 +356,7 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
             <Label>Heritage language</Label>
             <Select value={heritageLanguage?.catalogId ?? ''} onValueChange={(value) => setDraft((current) => setCoreLanguage(current, 'heritage', value, data))}>
               <SelectTrigger><SelectValue placeholder={heritageSuggestions.length ? `Local layers: ${heritageSuggestions.join(', ')}` : 'Choose Heritage language'} /></SelectTrigger>
-              <SelectContent>{data.languages.filter((language) => language.id === heritageLanguage?.catalogId || !known.has(language.id)).map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
+              <SelectContent>{data.languages.map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
             </Select>
             {heritageSuggestions.length > 0 && <div className="text-xs text-muted-foreground">Locally supported Heritage-language choices: {heritageSuggestions.join(', ')}. This remains a suggestion rather than a restriction.</div>}
           </div>
@@ -354,9 +376,9 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
           <p className="mt-1 text-xs text-muted-foreground">A new accented Language costs 1 Language proficiency point. Its starting level declines with the number already known.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {data.languages.filter((language) => !known.has(language.id)).map((language) => (
+          {data.languages.map((language) => (
             <Button key={language.id} type="button" size="sm" variant="outline" disabled={spent >= available} onClick={() => setDraft((current) => addProficiencyLanguage(current, language.id, data))}>
-              <Plus className="h-4 w-4" /> {language.name}
+              <Plus className="h-4 w-4" /> {language.name}{draft.proficiencies.languages.some((known) => known.catalogId === language.id) ? ' variant' : ''}
             </Button>
           ))}
         </div>

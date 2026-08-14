@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Academics, Comrade, Domus, Expert, Lore, Pidgin, Read, Steer, Strike, Studies, Tactics, Trained."
+    }
+  ],
   "background": {
     "regionId": "region-galsathil",
     "settlementId": "settlement-galsathil-khardik",
@@ -82,14 +87,18 @@
     "tragedySeedText": null,
     "disabilities": [
       {
-        "id": "import-comrade",
-        "name": "Comrade",
-        "source": "player"
+        "id": "disability-35-comrade-x-target",
+        "name": "[Comrade > Target]",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-comrade-target"
       },
       {
         "id": "import-empathy",
-        "name": "Empathy",
-        "source": "player"
+        "name": "[Empathy X]",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-empathy-x"
       }
     ],
     "disabilitiesReviewed": true,
@@ -179,244 +188,270 @@
     "purchased": [
       {
         "id": "import-academics",
-        "name": "Academics",
+        "name": "§Academics X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-section-academics-x-type"
       },
       {
         "id": "import-archery",
         "name": "Archery",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-archery-x"
       },
       {
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-comrade",
-        "name": "Comrade",
-        "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-domus",
-        "name": "Domus",
+        "name": "Domus X > Domain",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-domus-x-domain"
       },
       {
         "id": "import-drill",
         "name": "Drill",
         "source": "player",
-        "level": 3
-      },
-      {
-        "id": "import-empathy",
-        "name": "Empathy",
-        "source": "player",
-        "level": 2
+        "level": 3,
+        "catalogId": "trait-drill-x"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 5
+        "level": 5,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-fishing",
         "name": "Fishing",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-fishing-x"
       },
       {
         "id": "import-history",
-        "name": "History",
+        "name": "History X > Region",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-history-x-region"
       },
       {
         "id": "import-knife-fighter",
         "name": "Knife-fighter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-knife-fighter-x"
       },
       {
         "id": "import-leadership",
         "name": "Leadership",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-leadership-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-martialist",
         "name": "Martialist",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-martialist-x"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-nimble",
         "name": "Nimble",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-nimble-x"
       },
       {
         "id": "import-parry",
         "name": "Parry",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-parry-x"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-pidgin",
-        "name": "Pidgin",
+        "name": "Pidgin X > Type & Region",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-pidgin-x-type-and-region"
       },
       {
         "id": "import-politics",
-        "name": "Politics",
+        "name": "Politics X > Region",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-politics-x-region"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-steer",
-        "name": "Steer",
+        "name": "Steer X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-steer-x-type"
       },
       {
         "id": "import-strike",
-        "name": "Strike",
+        "name": "Strike X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-strike-x-type"
       },
       {
         "id": "import-studies",
-        "name": "Studies",
+        "name": "§Studies X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-section-studies-x-type"
       },
       {
         "id": "import-sturdy",
         "name": "Sturdy",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-sturdy-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-tactics",
-        "name": "Tactics",
+        "name": "Tactics X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-tactics-x-type"
       },
       {
         "id": "import-trained",
-        "name": "Trained",
+        "name": "Trained > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-trained-type"
       },
       {
         "id": "import-trained",
-        "name": "Trained",
+        "name": "Trained > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-trained-type"
       },
       {
         "id": "import-trapmaster",
         "name": "Trapmaster",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-trapmaster-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-heimneshi",
@@ -426,7 +461,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-heimneshi",
+        "modifiers": []
       },
       {
         "id": "import-stask",
@@ -436,7 +473,9 @@
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-stask",
+        "modifiers": []
       },
       {
         "id": "import-coro",
@@ -446,7 +485,9 @@
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       }
     ]
   },
@@ -500,13 +541,13 @@
       },
       {
         "id": "import-dagger",
-        "name": "Dagger",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
-        "catalogId": "weapon-dagger"
+        "catalogId": "weapon-dagger-standard"
       }
     ],
     "armor": [
@@ -552,12 +593,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-boatcloak",

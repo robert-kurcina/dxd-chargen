@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Lore, Riding, Strike, Tactics, Title."
+    }
+  ],
   "background": {
     "regionId": "region-pazkani",
     "settlementId": "settlement-pazkani-pazkan",
@@ -88,9 +93,11 @@
     "tragedySeedText": "Step-brother killed during an expedition",
     "disabilities": [
       {
-        "id": "import-coward",
-        "name": "Coward",
-        "source": "player"
+        "id": "disability-36-coward-x",
+        "name": "[Coward X]",
+        "source": "player",
+        "catalogId": "trait-coward-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -190,65 +197,76 @@
         "id": "import-archery",
         "name": "Archery",
         "source": "player",
-        "level": 5
+        "level": 5,
+        "catalogId": "trait-archery-x"
       },
       {
         "id": "import-compass",
-        "name": "Compass",
+        "name": "v-Compass X",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
       },
       {
         "id": "import-connections",
         "name": "Connections",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-connections-x"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-discipline",
         "name": "Discipline",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-discipline-x"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-history",
-        "name": "History",
+        "name": "History X > Region",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-history-x-region"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-husbandry",
         "name": "Husbandry",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-husbandry-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
         "level": 1
       },
@@ -256,60 +274,69 @@
         "id": "import-maths",
         "name": "Maths",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-maths-x"
       },
       {
         "id": "import-parry",
         "name": "Parry",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-parry-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-rider",
-        "name": "Rider",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-stirke",
-        "name": "Stirke",
+        "name": "Strike X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-strike-x-type"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-tactics",
-        "name": "Tactics",
+        "name": "Tactics X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-tactics-x-type"
       },
       {
         "id": "import-title",
         "catalogId": "trait-title-x-region",
-        "name": "Title",
+        "name": "Title X > Region",
         "source": "player",
         "level": 1
       },
@@ -317,25 +344,29 @@
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-trapmaster",
         "name": "Trapmaster",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-trapmaster-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-wise-x"
       },
       {
         "id": "import-v-zedsurge",
@@ -355,7 +386,9 @@
         "primary": true,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-kahadi",
+        "modifiers": []
       },
       {
         "id": "import-orukugu",
@@ -365,7 +398,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-orukugu",
+        "modifiers": []
       }
     ]
   },
@@ -408,17 +443,20 @@
       {
         "id": "import-guidance",
         "name": "Guidance",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-guidance"
       },
       {
         "id": "import-radioresistance",
         "name": "Radioresistance",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-radioresistance"
       },
       {
         "id": "import-turn-undying",
         "name": "Turn Undying",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-turn-undying"
       }
     ],
     "spellsReviewed": true,

@@ -185,8 +185,9 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "bb60ab24ec7b0daf",
+  "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "scripts/audit-character-gaps.ts",
     "scripts/stop-local.mjs",
     "data/peoples/holotypes/humaniki-heights.png",
     "data/peoples/_pairs/ancestral.pairs-30.png",
@@ -212,7 +213,6 @@
     "data/characters/480c0db9-zoey-the-short/source-sheet.json",
     "data/characters/33b701a6-twinkles/source-sheet.json",
     "data/characters/43608ef5-lord-thor/source-sheet.json",
-    "data/characters/fc0edfc1-rordon-gamsey/source-sheet.json",
     "META/releases/RELEASE_v110.md",
     "META/releases/RELEASE_v109.md",
     "META/releases/RELEASE_v108.md",

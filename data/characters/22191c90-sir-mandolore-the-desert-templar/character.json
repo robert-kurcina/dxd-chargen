@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Expert, Lore, Medic, Riding, Strike, Trained."
+    }
+  ],
   "background": {
     "regionId": "region-vashtur",
     "settlementId": "settlement-vashtur-stagin",
@@ -187,121 +192,141 @@
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-deity",
-        "name": "Deity",
+        "name": "Deity X > Deity",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-deity-x-deity"
       },
       {
         "id": "import-discipline",
         "name": "Discipline",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-discipline-x"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-leadership",
         "name": "Leadership",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-leadership-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-medic",
-        "name": "Medic",
+        "name": "Medic X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-medic-x-type"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-strike",
-        "name": "Strike",
+        "name": "Strike X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-strike-x-type"
       },
       {
         "id": "import-sturdy",
         "name": "Sturdy",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-sturdy-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-trained",
-        "name": "Trained",
+        "name": "Trained > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-trained-type"
       },
       {
         "id": "import-trained",
-        "name": "Trained",
+        "name": "Trained > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-trained-type"
       },
       {
         "id": "import-v-zedsurge",
@@ -321,7 +346,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
       },
       {
         "id": "import-ithuuikal",
@@ -331,7 +358,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
       },
       {
         "id": "import-kahadi",
@@ -341,17 +370,23 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
       },
       {
         "id": "import-lorespeak",
-        "name": "Lorespeak",
+        "name": "Blacktongue",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
       },
       {
         "id": "import-stask",
@@ -361,7 +396,9 @@
         "primary": true,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-stask",
+        "modifiers": []
       }
     ]
   },
@@ -405,23 +442,23 @@
     "weapons": [
       {
         "id": "import-dagger",
-        "name": "Dagger",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
-        "catalogId": "weapon-dagger"
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-longsword",
-        "name": "Longsword",
+        "name": "Sword, Long",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.",
-        "catalogId": "weapon-longsword"
+        "catalogId": "weapon-sword-long"
       },
       {
         "id": "import-banhammer-2",
@@ -487,12 +524,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-flask-of-oil",

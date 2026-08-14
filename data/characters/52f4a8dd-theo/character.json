@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Gambling, Nightvision, Riding."
+    }
+  ],
   "background": {
     "regionId": "region-vashtur",
     "settlementId": "settlement-vashtur-stagin",
@@ -88,9 +93,11 @@
     "tragedySeedText": "Stole a trunk from my best friend",
     "disabilities": [
       {
-        "id": "import-zucked",
-        "name": "Zucked",
-        "source": "player"
+        "id": "disability-22-zucked-x",
+        "name": "[Zucked X]",
+        "source": "player",
+        "catalogId": "trait-zucked-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -180,154 +187,173 @@
     "purchased": [
       {
         "id": "import-barrter",
-        "name": "Barrter",
+        "name": "Barter X",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-climbing",
-        "name": "Climbing",
+        "name": "Climb X",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-climb-x"
       },
       {
         "id": "import-cutpurse",
         "name": "Cutpurse",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-cutpurse-x"
       },
       {
-        "id": "import-daggers",
-        "name": "Daggers",
+        "id": "import-expert-dagger",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Dagger"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-gambling",
-        "name": "Gambling",
+        "name": "Gambling X > Game",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-gambling-x-game"
       },
       {
         "id": "import-knife-fighter",
         "name": "Knife-fighter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-knife-fighter-x"
       },
       {
         "id": "import-mountaineering",
         "name": "Mountaineering",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-mountaineering-x"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-trapmaster",
         "name": "Trapmaster",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-trapmaster-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 1
-      },
-      {
-        "id": "import-zucked",
-        "name": "Zucked",
-        "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-wise-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-jamarati",
@@ -337,7 +363,8 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "modifiers": []
       },
       {
         "id": "import-middle-stask",
@@ -347,7 +374,8 @@
         "primary": true,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "modifiers": []
       }
     ]
   },
@@ -391,35 +419,25 @@
     "weapons": [
       {
         "id": "import-2-x-stilettos",
-        "name": "2 x Stilettos",
+        "name": "Dagger, Stiletto",
         "source": "player",
-        "quantity": 1,
+        "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "weapon-2-x-stilettos"
+        "catalogId": "weapon-dagger-stiletto"
       },
       {
         "id": "import-4-x-throwing-knives",
-        "name": "4 x Throwing Knives",
+        "name": "Throwing Knives",
         "source": "player",
-        "quantity": 1,
+        "quantity": 4,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "catalogId": "weapon-4-x-throwing-knives"
       },
       {
-        "id": "import-dagger-stiletto-siz-6",
-        "name": "Dagger, Stiletto SIZ 6",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "sheetProperties": "ORa -4  Acc +4  Impact 8  Damage 1D-5 0.1#\n[1H, Stub, Awkward]. Swift 2. Throwable.",
-        "catalogId": "weapon-dagger-stiletto"
-      },
-      {
         "id": "import-knife-throwing-siz-6",
-        "name": "Knife, Throwing SIZ 6",
+        "name": "Knife, Throwing",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
@@ -440,7 +458,7 @@
       },
       {
         "id": "import-armor-light-siz-6",
-        "name": "Armor, Light SIZ 6",
+        "name": "Armor, Light",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
@@ -452,12 +470,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-small-purse",

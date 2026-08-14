@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Academics, Lore, Nightvision, Pidgin, Read, Strange, Wares."
+    }
+  ],
   "background": {
     "regionId": "region-galsathil",
     "settlementId": "settlement-galsathil-khardik",
@@ -88,8 +93,10 @@
     "disabilities": [
       {
         "id": "import-strange",
-        "name": "Strange",
-        "source": "player"
+        "name": "[Strange X > Prejudice]",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-strange-x-prejudice"
       }
     ],
     "disabilitiesReviewed": true,
@@ -179,111 +186,122 @@
     "purchased": [
       {
         "id": "import-academics",
-        "name": "Academics",
+        "name": "§Academics X > Type",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-section-academics-x-type"
       },
       {
         "id": "import-alchemy",
         "name": "Alchemy",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-alchemy-x"
       },
       {
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-climb",
         "name": "Climb",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-climb-x"
       },
       {
         "id": "import-cutpurse",
         "name": "Cutpurse",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-cutpurse-x"
       },
       {
         "id": "import-disguise",
         "name": "Disguise",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-disguise-x"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-lockpicking",
         "name": "Lockpicking",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-lockpicking-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-pidgin",
-        "name": "Pidgin",
+        "name": "Pidgin X > Type & Region",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-pidgin-x-type-and-region"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-strange",
-        "name": "Strange",
-        "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-wares",
-        "name": "Wares",
+        "name": "Wares X > Ware",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-wares-x-ware"
       }
     ],
     "additionalSkills": [],
@@ -296,7 +314,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-stask",
+        "modifiers": []
       }
     ]
   },
@@ -362,12 +382,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-wardrobe",

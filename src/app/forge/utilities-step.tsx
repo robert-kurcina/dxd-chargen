@@ -25,6 +25,7 @@ import {
   adjustedGearValues,
   clearStartingGear,
   displayInventoryName,
+  displaySpellName,
   gearSizeAdjustment,
   magicItemFormOptions,
   magicItemGradeMetrics,
@@ -114,7 +115,7 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <CardTitle className="text-base">{spell.name}</CardTitle>
+                    <CardTitle className="text-base">{displaySpellName(spell.name)}</CardTitle>
                     <div className="mt-1 flex flex-wrap gap-1.5 text-xs">
                       <Badge variant="outline">Level {spell.level}</Badge>
                       <Badge variant="outline">{spell.costAp} AP</Badge>

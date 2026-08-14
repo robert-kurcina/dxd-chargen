@@ -1,6 +1,7 @@
 import type { StaticData } from '@/data';
 import type {
   CharacterDraft,
+  LanguageModifier,
   LanguageSelection,
   PmlVirtuosityChoice,
   SourcedSelection,
@@ -24,6 +25,8 @@ const PROFICIENCY_STEPS = new Set([
 ]);
 
 const PML_VIRTUOSITY_MILESTONES = [4, 8, 12, 16, 20] as const;
+
+export const LANGUAGE_MODIFIERS: readonly LanguageModifier[] = ['Old', 'High', 'Low', 'War', 'Lingo', 'Barter'];
 
 export function isProficiencyStep(stepValue: string) {
   return PROFICIENCY_STEPS.has(stepValue);
@@ -166,6 +169,10 @@ export function contextualGrantSpecialization(
   if (!selection.name.includes(' > ')) return null;
 
   const placeholder = selection.name.split(' > ').slice(1).join(' > ').toLowerCase();
+  // A Title is jurisdictional character data, not an origin-derived grant. Even
+  // when the character has a known starting region, require the player to state
+  // the Region in which the Title is held.
+  if (canonicalTraitBase(selection.name) === 'title' && placeholder === 'region') return null;
   const region = geographicRegionName(draft, data);
   const settlement = selectedSettlementName(draft, data);
   const deity = data.deities.find((entry) => entry.catalogId === draft.background.deityId)?.deity ?? null;
@@ -214,7 +221,10 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
 export function specializationOptionsForTrait(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
   const base = canonicalTraitBase(selection.name);
   const placeholder = selection.name.includes(' > ') ? selection.name.split(' > ').slice(1).join(' > ').replace(/\s+X$/, '').trim().toLowerCase() : '';
-  if (placeholder === 'region') return Array.from(new Set(data.empires.map((entry) => entry.region))).sort();
+  if (placeholder === 'region') return Array.from(new Set([
+    ...data.empires.map((entry) => entry.region),
+    geographicRegionName(draft, data),
+  ].filter((value): value is string => Boolean(value)))).sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base', numeric: true }));
   if (placeholder === 'settlement') return Array.from(new Set([
     ...Object.values(data.settlements).flat(),
     ...data.settlementProfiles.map((entry) => entry.name),
@@ -224,7 +234,11 @@ export function specializationOptionsForTrait(selection: SourcedSelection, draft
   if (placeholder === 'environ') return data.heritagePackages.filter((entry) => entry.kind === 'environs').map((entry) => entry.name).sort();
   if (placeholder === 'trade') return data.tradePackages.map((entry) => entry.trade).sort();
   if (placeholder === 'species') return data.species.flatMap((family) => family.groups.map((group) => group.name)).sort();
-  if (placeholder === 'weapon' || placeholder === 'technical weapon') return BROAD_SPECIALIZATIONS.expert;
+  if (placeholder === 'weapon' || placeholder === 'technical weapon') return Array.from(new Set([
+    ...BROAD_SPECIALIZATIONS.expert,
+    ...Object.keys(specializationRanksForSelection(selection, draft, data)),
+    !genericSpecialization(selection.specialization) ? selection.specialization!.trim() : null,
+  ].filter((value): value is string => Boolean(value)))).sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base', numeric: true }));
   return BROAD_SPECIALIZATIONS[base] ?? [];
 }
 
@@ -300,7 +314,12 @@ export function setGrantSpecialization(draft: CharacterDraft, grantId: string, s
 }
 
 export function unresolvedBroadGrants(draft: CharacterDraft, data: StaticData) {
-  return draft.proficiencies.granted.filter((selection) =>
+  return [
+    ...draft.proficiencies.granted,
+    ...draft.proficiencies.purchased,
+    ...draft.proficiencies.additionalSkills,
+    ...draft.background.disabilities,
+  ].filter((selection) =>
     (selection.name.includes(' > ')
       || (canonicalTraitBase(selection.name) !== 'detect' && specializationOptionsForTrait(selection, draft, data).length > 0))
       && Object.keys(specializationRanksForSelection(selection, draft, data)).length === 0,
@@ -573,6 +592,7 @@ function buildLanguageSelection(
     level: baseLevel,
     improvements: 0,
     accentRemoved: false,
+    modifiers: [],
   };
 }
 
@@ -582,8 +602,6 @@ export function setCoreLanguage(
   languageId: string,
   data: StaticData,
 ) {
-  const other = draft.proficiencies.languages.find((language) => language.kind !== kind && language.catalogId === languageId);
-  if (other) return draft;
   const selection = buildLanguageSelection(languageId, kind, draft, data);
   if (!selection) return draft;
   const retained = draft.proficiencies.languages.filter((language) => language.kind !== kind);
@@ -592,17 +610,20 @@ export function setCoreLanguage(
 }
 
 export function addProficiencyLanguage(draft: CharacterDraft, languageId: string, data: StaticData) {
-  if (draft.proficiencies.languages.some((language) => language.catalogId === languageId)) return draft;
   const selection = buildLanguageSelection(languageId, 'proficiency', draft, data);
   if (!selection) return draft;
-  const next = { ...draft, proficiencies: { ...draft.proficiencies, languages: [...draft.proficiencies.languages, selection] } };
+  let ordinal = 1;
+  const ids = new Set(draft.proficiencies.languages.map((language) => language.id));
+  while (ids.has(`${selection.id}-${ordinal}`)) ordinal += 1;
+  const variant = { ...selection, id: `${selection.id}-${ordinal}` };
+  const next = { ...draft, proficiencies: { ...draft.proficiencies, languages: [...draft.proficiencies.languages, variant] } };
   return { ...next, proficiencies: { ...next.proficiencies, languages: recalculateLanguages(next.proficiencies.languages, next) } };
 }
 
 export function updateLanguage(
   draft: CharacterDraft,
   selectionId: string,
-  changes: Partial<Pick<LanguageSelection, 'improvements' | 'accentRemoved'>>,
+  changes: Partial<Pick<LanguageSelection, 'improvements' | 'accentRemoved' | 'modifiers'>>,
 ) {
   const languages = draft.proficiencies.languages.map((language) => {
     if (language.id !== selectionId) return language;
@@ -634,7 +655,9 @@ export function languageProficiencySpent(draft: CharacterDraft) {
 }
 
 export function formatLanguageRecord(language: LanguageSelection) {
-  const core = `${language.name} ${language.level ?? 1}`;
+  const selected = new Set(language.modifiers ?? []);
+  const compound = [...LANGUAGE_MODIFIERS].filter((modifier) => selected.has(modifier));
+  const core = `${[...compound, language.name].join(' ')} ${language.level ?? 1}`;
   const accented = language.accentRemoved ? core : `[${core}]`;
   return `${language.primary ? '+' : ''}${accented}`;
 }
@@ -683,7 +706,7 @@ export function assessProficiencyStep(stepValue: string, draft: CharacterDraft, 
     const unresolved = unresolvedBroadGrants(draft, data).length;
     if (unresolved > 0) {
       const names = unresolvedBroadGrants(draft, data).map((selection) => `${selection.name.split(' > ')[0].replace(/\s+X$/, '')} (${selection.sourceDetail ?? selection.source})`);
-      return { status: 'warning', messages: [`${unresolved} granted Broad Skill/Trait specialization${unresolved === 1 ? '' : 's'} still need a concrete specialization: ${names.join('; ')}.`] };
+      return { status: 'warning', messages: [`${unresolved} Broad Skill/Trait specialization${unresolved === 1 ? '' : 's'} still need a concrete specialization: ${names.join('; ')}.`] };
     }
     return { status: 'complete', messages: [] };
   }

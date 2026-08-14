@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Gambling, Lore, Riding."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-drayport",
@@ -164,85 +169,99 @@
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-deity",
-        "name": "Deity",
+        "name": "Deity X > Deity",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-deity-x-deity"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-gambling",
-        "name": "Gambling",
+        "name": "Gambling X > Game",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-gambling-x-game"
       },
       {
         "id": "import-gossip",
         "name": "Gossip",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-gossip-x"
       },
       {
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
         "level": 1
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-seduction",
         "name": "Seduction",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-seduction-x"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-wise-x"
       },
       {
         "id": "import-v-zedsurge",
@@ -256,43 +275,56 @@
     "languages": [
       {
         "id": "import-bamini",
-        "name": "Bamini",
+        "name": "Heimneshi",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-heimneshi",
+        "modifiers": []
       },
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-lorespeak",
-        "name": "Lorespeak",
+        "name": "Blacktongue",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
       },
       {
         "id": "import-old-high-qua",
-        "name": "Old High Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "Old",
+          "High"
+        ]
       }
     ]
   },
@@ -334,33 +366,39 @@
     "spells": [
       {
         "id": "import-armor",
-        "name": "Armor",
-        "source": "player"
+        "name": "Armored Carapace",
+        "source": "player",
+        "catalogId": "spell-armored-carapace"
       },
       {
         "id": "import-charm",
         "name": "Charm",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-charm"
       },
       {
         "id": "import-detect-magic",
         "name": "Detect Magic",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-detect-magic"
       },
       {
         "id": "import-dispel",
-        "name": "Dispel",
-        "source": "player"
+        "name": "Dispel Magic",
+        "source": "player",
+        "catalogId": "spell-dispel-magic"
       },
       {
         "id": "import-frostbite",
-        "name": "Frostbite",
-        "source": "player"
+        "name": "Frostbite±",
+        "source": "player",
+        "catalogId": "spell-frostbite"
       },
       {
         "id": "import-light",
         "name": "Light",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-light"
       },
       {
         "id": "import-magic-missile",
@@ -370,7 +408,8 @@
       {
         "id": "import-winkback",
         "name": "Winkback",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-winkback"
       }
     ],
     "spellsReviewed": true,
@@ -400,12 +439,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-small-box",

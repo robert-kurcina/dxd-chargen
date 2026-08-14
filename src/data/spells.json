@@ -336,7 +336,7 @@
     "description": "Knowledge Dominance, Transformation Type - Divine Range - ZED OR Area - Pulse Keywords: Detect, Prayer > DoS, Agents, Duration 1-Minute Tests: Prayer=Y, Link=-, Weave=-, Sanity=-. Allows the Spellcaster to determine if there are living creatures within range. Perform a Lifesense Test INT TN=7+ to succeed . Upon pass , the Spellcaster gets a reading of the environment and how far away and generally how many creatures are detected and their SIZ."
   },
   {
-    "name": "Light±",
+    "name": "Light",
     "costAp": 1,
     "costMana": 1,
     "level": 3,

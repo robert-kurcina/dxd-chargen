@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Craft, Enemies, Lore, Nightvision, Riding, Title."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-drayport",
@@ -83,13 +88,17 @@
     "disabilities": [
       {
         "id": "import-enemies",
-        "name": "Enemies",
-        "source": "player"
+        "name": "[Enemies X > Settlement]",
+        "source": "player",
+        "catalogId": "trait-enemies-x-settlement",
+        "level": 1
       },
       {
-        "id": "import-paranoid",
-        "name": "Paranoid",
-        "source": "player"
+        "id": "disability-45-paranoid-x",
+        "name": "[Paranoid X]",
+        "source": "player",
+        "catalogId": "trait-paranoid-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -179,74 +188,72 @@
     "purchased": [
       {
         "id": "import-compass",
-        "name": "Compass",
+        "name": "v-Compass X",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
       },
       {
         "id": "import-craft",
-        "name": "Craft",
+        "name": "Craft X > Tradecraft",
         "source": "player",
-        "level": 4
-      },
-      {
-        "id": "import-enemies",
-        "name": "Enemies",
-        "source": "player",
-        "level": 1
+        "level": 4,
+        "catalogId": "trait-craft-x-tradecraft"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-lore-x-field"
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
         "level": 3
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-paranoid",
-        "name": "Paranoid",
-        "source": "player",
-        "level": 1
+        "level": 2,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-peerage",
-        "name": "Peerage",
+        "name": "Peerage X > Region",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-peerage-x-region"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-riding-x-type"
       },
       {
-        "id": "import-sword",
-        "name": "Sword",
+        "id": "import-expert-sword",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Sword"
       },
       {
         "id": "import-title",
         "catalogId": "trait-title-x-region",
-        "name": "Title",
+        "name": "Title X > Region",
         "source": "player",
         "level": 1
       }
@@ -255,13 +262,15 @@
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 5,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-golbrin",
@@ -271,17 +280,22 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "modifiers": []
       },
       {
         "id": "import-lorespeak",
-        "name": "Lorespeak",
+        "name": "Blacktongue",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
       },
       {
         "id": "import-cher-gulo",
@@ -291,7 +305,9 @@
         "primary": false,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
       },
       {
         "id": "import-middle-qua",
@@ -301,7 +317,8 @@
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "modifiers": []
       },
       {
         "id": "import-orukugu",
@@ -311,17 +328,23 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-orukugu",
+        "modifiers": []
       },
       {
         "id": "import-vanry",
-        "name": "Vanry",
+        "name": "Rasiya",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-rasiya",
+        "modifiers": [
+          "High"
+        ]
       }
     ]
   },
@@ -363,28 +386,33 @@
     "spells": [
       {
         "id": "import-armor",
-        "name": "Armor",
-        "source": "player"
+        "name": "Armored Carapace",
+        "source": "player",
+        "catalogId": "spell-armored-carapace"
       },
       {
         "id": "import-detect-magic",
         "name": "Detect Magic",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-detect-magic"
       },
       {
         "id": "import-dispel",
-        "name": "Dispel",
-        "source": "player"
+        "name": "Dispel Magic",
+        "source": "player",
+        "catalogId": "spell-dispel-magic"
       },
       {
         "id": "import-heatbeam",
-        "name": "Heatbeam",
-        "source": "player"
+        "name": "Heatbeam±",
+        "source": "player",
+        "catalogId": "spell-heatbeam"
       },
       {
         "id": "import-light",
         "name": "Light",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-light"
       },
       {
         "id": "import-magic-missile",
@@ -449,12 +477,12 @@
       },
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-jewelry-box",

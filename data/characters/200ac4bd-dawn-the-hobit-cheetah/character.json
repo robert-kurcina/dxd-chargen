@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Nightvision, Sprint."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-corom",
@@ -70,14 +75,11 @@
     "tragedySeedText": "Father killed by a criminal",
     "disabilities": [
       {
-        "id": "import-talkative",
-        "name": "Talkative",
-        "source": "player"
-      },
-      {
-        "id": "import-talkative",
-        "name": "Talkative",
-        "source": "player"
+        "id": "disability-56-talkative-x",
+        "name": "[Talkative X]",
+        "source": "player",
+        "catalogId": "trait-talkative-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -169,152 +171,173 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-bite",
         "name": "Bite",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-bite-x"
       },
       {
         "id": "import-claws",
         "name": "Claws",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-claws-x"
       },
       {
-        "id": "import-crossbow",
-        "name": "Crossbow",
+        "id": "import-expert-crossbow",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Crossbow"
       },
       {
-        "id": "import-dagger",
-        "name": "Dagger",
+        "id": "import-expert-dagger",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Dagger"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-disguise",
         "name": "Disguise",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-disguise-x"
       },
       {
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-intimidate",
         "name": "Intimidate",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-intimidate-x"
       },
       {
         "id": "import-leap",
         "name": "Leap",
         "source": "player",
-        "level": 6
+        "level": 6,
+        "catalogId": "trait-leap-x"
       },
       {
         "id": "import-mob",
         "name": "Mob",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-mob-x"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-nimble",
         "name": "Nimble",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-nimble-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-slippery",
-        "name": "Slippery",
+        "name": "v-Slippery X",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-v-slippery-x"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 5
+        "level": 5,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-sprint",
-        "name": "Sprint",
+        "name": "Sprint X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-sprint-x-type"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
-        "id": "import-sword",
-        "name": "Sword",
+        "id": "import-expert-sword",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 1
-      },
-      {
-        "id": "import-talkative",
-        "name": "Talkative",
-        "source": "player",
-        "level": 1
+        "level": 1,
+        "specialization": "Sword"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-coro",
@@ -324,7 +347,9 @@
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-fayeed",
@@ -334,7 +359,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
       }
     ]
   },
@@ -388,25 +415,25 @@
       },
       {
         "id": "import-shortsword",
-        "name": "Shortsword",
+        "name": "Sword, Short",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -5    Acc +1  Impact +6   Damage 1D-1\n[1H]. Cleave. Swift. Parry. Throwable.",
-        "catalogId": "weapon-shortsword"
+        "catalogId": "weapon-sword-short"
       }
     ],
     "armor": [],
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-small-bolt-quiver",

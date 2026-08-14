@@ -3,7 +3,7 @@ import { mkdir, readFile, readdir, rename, stat, writeFile } from 'node:fs/promi
 import path from 'node:path';
 import { NextResponse } from 'next/server';
 import { migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { normalizeCharacterLibrary } from '@/lib/import-character-creator';
+import { normalizeCharacterDraftForStorage, normalizeCharacterLibrary } from '@/lib/import-character-creator';
 
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
@@ -28,7 +28,7 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   const body = await request.json() as { idName?: string | null; draft?: CharacterDraft };
-  const draft = migrateCharacterDraft(body.draft);
+  const draft = normalizeCharacterDraftForStorage(migrateCharacterDraft(body.draft));
   await mkdir(ROOT, { recursive: true });
   const previous = safeId(body.idName);
   const stableId = previous?.split('-')[0] || randomUUID().replace(/-/g, '').slice(0, 8);

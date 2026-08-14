@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Domus, Expert, Nightvision, Pidgin, Poison, Riding, Tactics, Warfare."
+    }
+  ],
   "background": {
     "regionId": "region-other",
     "settlementId": "settlement-other",
@@ -214,19 +219,25 @@
     "tragedySeedText": "Guardian was killed defending Honor",
     "disabilities": [
       {
-        "id": "import-cautious",
-        "name": "Cautious",
-        "source": "player"
+        "id": "disability-33-cautious-x",
+        "name": "[Cautious X]",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-cautious-x"
       },
       {
-        "id": "import-solitary",
-        "name": "Solitary",
-        "source": "player"
+        "id": "disability-53-solitary-x",
+        "name": "[Solitary X]",
+        "source": "player",
+        "catalogId": "trait-solitary-x",
+        "level": 1
       },
       {
-        "id": "import-zucked",
-        "name": "Zucked",
-        "source": "player"
+        "id": "disability-22-zucked-x",
+        "name": "[Zucked X]",
+        "source": "player",
+        "catalogId": "trait-zucked-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -318,248 +329,268 @@
         "id": "import-acrobatic",
         "name": "Acrobatic",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-acrobatic-x"
       },
       {
         "id": "import-brawl",
         "name": "Brawl",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-brawl-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 3
-      },
-      {
-        "id": "import-cautious",
-        "name": "Cautious",
-        "source": "player",
-        "level": 2
+        "level": 3,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-climb",
         "name": "Climb",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-climb-x"
       },
       {
         "id": "import-cryptography",
         "name": "Cryptography",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-cryptography-x"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-disguise",
         "name": "Disguise",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-disguise-x"
       },
       {
         "id": "import-domus",
-        "name": "Domus",
+        "name": "Domus X > Domain",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-domus-x-domain"
       },
       {
         "id": "import-evasive",
         "name": "Evasive",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-evasive-x"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-knife-fighting",
-        "name": "Knife-fighting",
+        "name": "Knife-fighter X",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-knife-fighter-x"
       },
       {
         "id": "import-lockpicking",
         "name": "Lockpicking",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-lockpicking-x"
       },
       {
         "id": "import-martialist",
         "name": "Martialist",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-martialist-x"
       },
       {
         "id": "import-mountaineering",
         "name": "Mountaineering",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-mountaineering-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-pidgin",
-        "name": "Pidgin",
+        "name": "Pidgin X > Type & Region",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-pidgin-x-type-and-region"
       },
       {
         "id": "import-pidgin",
-        "name": "Pidgin",
+        "name": "Pidgin X > Type & Region",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-pidgin-x-type-and-region"
       },
       {
         "id": "import-poison",
-        "name": "Poison",
+        "name": "Poison X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-poison-x-type"
       },
       {
         "id": "import-politics",
-        "name": "Politics",
+        "name": "Politics X > Region",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-politics-x-region"
       },
       {
         "id": "import-politics",
-        "name": "Politics",
+        "name": "Politics X > Region",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-politics-x-region"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-seduction",
         "name": "Seduction",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-seduction-x"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 3
-      },
-      {
-        "id": "import-solitary",
-        "name": "Solitary",
-        "source": "player",
-        "level": 1
+        "level": 3,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 5
+        "level": 5,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-tactics",
-        "name": "Tactics",
+        "name": "Tactics X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-tactics-x-type"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-warfare",
-        "name": "Warfare",
+        "name": "Warfare X > Category",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-warfare-x-category"
       },
       {
         "id": "import-warfare",
-        "name": "Warfare",
+        "name": "Warfare X > Category",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-warfare-x-category"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 1
-      },
-      {
-        "id": "import-zucked",
-        "name": "Zucked",
-        "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-wise-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-kahuzid",
@@ -569,7 +600,8 @@
         "primary": true,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "modifiers": []
       },
       {
         "id": "import-sarek",
@@ -579,7 +611,9 @@
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-sarek",
+        "modifiers": []
       }
     ]
   },
@@ -623,7 +657,7 @@
     "weapons": [
       {
         "id": "import-dagger-standard-siz-6",
-        "name": "Dagger, Standard SIZ 6",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 2,
         "unitPriceGp": 0,
@@ -633,17 +667,7 @@
       }
     ],
     "armor": [],
-    "equipment": [
-      {
-        "id": "import-reinforced",
-        "name": "Reinforced",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "catalogId": "equipment-reinforced"
-      }
-    ],
+    "equipment": [],
     "gearReviewed": true,
     "startingGearTrade": null,
     "magicItems": [

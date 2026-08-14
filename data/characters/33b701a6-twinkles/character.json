@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Lore, Riding, Title."
+    }
+  ],
   "background": {
     "regionId": "region-other",
     "settlementId": "settlement-other",
@@ -207,9 +212,11 @@
     "tragedySeedText": null,
     "disabilities": [
       {
-        "id": "import-coward",
-        "name": "Coward",
-        "source": "player"
+        "id": "disability-36-coward-x",
+        "name": "[Coward X]",
+        "source": "player",
+        "catalogId": "trait-coward-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -299,27 +306,29 @@
     "purchased": [
       {
         "id": "import-deity",
-        "name": "Deity",
+        "name": "Deity X > Deity",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-deity-x-deity"
       },
       {
         "id": "import-discipline",
         "name": "Discipline",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-discipline-x"
       },
       {
         "id": "import-peerage",
         "catalogId": "trait-peerage-x-region",
-        "name": "Peerage",
+        "name": "Peerage X > Region",
         "source": "player",
         "level": 1
       },
       {
         "id": "import-title",
         "catalogId": "trait-title-x-region",
-        "name": "Title",
+        "name": "Title X > Region",
         "source": "player",
         "level": 1
       },
@@ -327,17 +336,20 @@
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
         "level": 3
       },
@@ -353,72 +365,84 @@
         "id": "import-parry",
         "name": "Parry",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-parry-x"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-wise-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 6,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-ershthikal",
-        "name": "Ershthikal",
+        "name": "Ershthiikal",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "modifiers": [],
+        "catalogId": "language-ershthikal"
       },
       {
         "id": "import-ithuuikal",
@@ -428,7 +452,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
       },
       {
         "id": "import-middle-qua",
@@ -438,27 +464,37 @@
         "primary": false,
         "baseLevel": 5,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "modifiers": []
       },
       {
         "id": "import-old-high-qua",
-        "name": "Old High Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "Old",
+          "High"
+        ]
       },
       {
         "id": "import-vanry",
-        "name": "Vanry",
+        "name": "Rasiya",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-rasiya",
+        "modifiers": [
+          "High"
+        ]
       }
     ]
   },
@@ -501,7 +537,8 @@
       {
         "id": "import-bless",
         "name": "Bless",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-bless"
       },
       {
         "id": "import-cure-minor-wounds-guidance",
@@ -515,8 +552,9 @@
       },
       {
         "id": "import-cure-wounds",
-        "name": "Cure Wounds",
-        "source": "player"
+        "name": "Cure Minor Wounds",
+        "source": "player",
+        "catalogId": "spell-cure-minor-wounds"
       },
       {
         "id": "import-detect-evil",
@@ -530,23 +568,27 @@
       },
       {
         "id": "import-faith-shield",
-        "name": "Faith Shield",
-        "source": "player"
+        "name": "Faithshield",
+        "source": "player",
+        "catalogId": "spell-faithshield"
       },
       {
         "id": "import-heal",
-        "name": "Heal",
-        "source": "player"
+        "name": "Cure Major Wounds",
+        "source": "player",
+        "catalogId": "spell-cure-major-wounds"
       },
       {
         "id": "import-hydrate",
-        "name": "Hydrate",
-        "source": "player"
+        "name": "Hydrate±",
+        "source": "player",
+        "catalogId": "spell-hydrate"
       },
       {
         "id": "import-lance-of-faith",
         "name": "Lance of Faith",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-lance-of-faith"
       },
       {
         "id": "import-life-sense",
@@ -556,7 +598,8 @@
       {
         "id": "import-light",
         "name": "Light",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-light"
       },
       {
         "id": "import-pray-everia",
@@ -566,17 +609,20 @@
       {
         "id": "import-protection",
         "name": "Protection",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-protection"
       },
       {
         "id": "import-purify",
         "name": "Purify",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-purify"
       },
       {
         "id": "import-turn-undead",
-        "name": "Turn Undead",
-        "source": "player"
+        "name": "Turn Undying",
+        "source": "player",
+        "catalogId": "spell-turn-undying"
       }
     ],
     "spellsReviewed": true,
@@ -637,12 +683,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-handful-of-gems",

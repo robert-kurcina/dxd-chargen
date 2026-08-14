@@ -5,7 +5,7 @@ import type { StaticData } from '@/data';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { projectCharacterSheet, type CharacterSheetData } from '@/lib/character-sheet-projection';
 import { calculateProperties } from '@/lib/rules/properties';
-import { displayInventoryName } from '@/lib/rules/utilities';
+import { displayInventoryQuantity } from '@/lib/rules/utilities';
 
 function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: StaticData) {
   const derived = calculateProperties(draft, data);
@@ -15,7 +15,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
   // equipment list in History & Notes. Preserve that exact rendition when present.
   const inventory = (allInventory.some((item) => item.sheetProperties) ? allInventory.filter((item) => item.sheetProperties) : allInventory)
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }));
-  const equipmentProperties = inventory.map((item) => item.sheetProperties || [item.quantity > 1 ? `Qty ${item.quantity}` : '', `${item.unitPriceGp} gp`, `${item.unitWeight}#`].filter(Boolean).join('; '));
+  const equipmentProperties = inventory.map((item) => item.sheetProperties || [`${item.unitPriceGp} gp`, `${item.unitWeight}#`].filter(Boolean).join('; '));
   return {
     Slug: (sheet.name || 'character').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
     Portrait: draft.utilities.portraitDataUrl,
@@ -43,7 +43,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
       `Traits; ${sheet.history.traits}`,
       `Languages; ${sheet.history.languages}`,
     ].join('\n'),
-    WeaponsArmorEquipment: inventory.map((item) => displayInventoryName(item.name)).join('\n\n'),
+    WeaponsArmorEquipment: inventory.map((item) => displayInventoryQuantity(item.name, item.quantity)).join('\n\n'),
     WeaponsArmorEquipmentProperties: equipmentProperties.join('\n\n'),
     BackNotes: [draft.utilities.notes, draft.utilities.backstory].filter(Boolean).join('\n\n'),
     BackName: sheet.name,

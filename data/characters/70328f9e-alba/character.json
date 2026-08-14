@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Domus, Gambling, Lore, Medic, Nightvision, Pidgin, Service, Steer, Strange, v-Imbue, v-Spellshaper."
+    }
+  ],
   "background": {
     "regionId": "region-pazkani",
     "settlementId": "settlement-pazkani-dar",
@@ -87,14 +92,18 @@
     "tragedySeedText": null,
     "disabilities": [
       {
-        "id": "import-paranoid",
-        "name": "Paranoid",
-        "source": "player"
+        "id": "disability-45-paranoid-x",
+        "name": "[Paranoid X]",
+        "source": "player",
+        "catalogId": "trait-paranoid-x",
+        "level": 1
       },
       {
         "id": "import-strange",
-        "name": "Strange",
-        "source": "player"
+        "name": "[Strange X > Prejudice]",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-strange-x-prejudice"
       }
     ],
     "disabilitiesReviewed": true,
@@ -186,109 +195,120 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-connections",
         "name": "Connections",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-connections-x"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-domus",
-        "name": "Domus",
+        "name": "Domus X > Domain",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-domus-x-domain"
       },
       {
         "id": "import-fencer",
         "name": "Fencer",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-fencer-x"
       },
       {
         "id": "import-fishing",
         "name": "Fishing",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-fishing-x"
       },
       {
         "id": "import-gambling",
-        "name": "Gambling",
+        "name": "Gambling X > Game",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-gambling-x-game"
       },
       {
         "id": "import-history",
-        "name": "History",
+        "name": "History X > Region",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-history-x-region"
       },
       {
         "id": "import-implore",
         "name": "Implore",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-implore-x"
       },
       {
         "id": "import-investigate",
         "name": "Investigate",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-investigate-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-medic",
-        "name": "Medic",
+        "name": "Medic X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-medic-x-type"
       },
       {
         "id": "import-mob",
         "name": "Mob",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-mob-x"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-paranoid",
-        "name": "Paranoid",
-        "source": "player",
-        "level": 0
+        "level": 2,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-persuade",
@@ -299,118 +319,129 @@
       },
       {
         "id": "import-pidgin",
-        "name": "Pidgin",
+        "name": "Pidgin X > Type & Region",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-pidgin-x-type-and-region"
       },
       {
         "id": "import-politics",
-        "name": "Politics",
+        "name": "Politics X > Region",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-politics-x-region"
       },
       {
         "id": "import-prestidigitation",
         "name": "Prestidigitation",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-prestidigitation-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-service",
-        "name": "Service",
+        "name": "Service X > Type",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-service-x-type"
       },
       {
         "id": "import-sophistry",
         "name": "Sophistry",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-sophistry"
       },
       {
         "id": "import-steer",
-        "name": "Steer",
+        "name": "Steer X > Type",
         "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-strange",
-        "name": "Strange",
-        "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-steer-x-type"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-trapmaster",
         "name": "Trapmaster",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-trapmaster-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-wise-x"
       },
       {
         "id": "import-v-compass",
         "name": "v-Compass",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
       },
       {
         "id": "import-v-imbue",
-        "name": "v-Imbue",
+        "name": "v-Imbue X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-v-imbue-x-type"
       },
       {
         "id": "import-v-magic",
         "name": "v-Magic",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-v-magic-x"
       },
       {
         "id": "import-v-spellshaper",
-        "name": "v-Spellshaper",
+        "name": "v-Spellshaper X > Spell",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-v-spellshaper-x-spell"
       },
       {
         "id": "import-v-zedsurge",
         "catalogId": "trait-v-zedsurge-x",
         "name": "v-Zedsurge",
         "source": "player",
-        "level": 0
+        "level": 1
       }
     ],
     "additionalSkills": [],
@@ -423,7 +454,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
       },
       {
         "id": "import-blacktongue",
@@ -433,7 +466,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": []
       },
       {
         "id": "import-middle-kahadi",
@@ -443,7 +478,8 @@
         "primary": true,
         "baseLevel": 6,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "modifiers": []
       }
     ]
   },
@@ -520,12 +556,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-wardrobe",

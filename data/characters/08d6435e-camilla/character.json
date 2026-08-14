@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Domus, Enemies, Expert, Gambling, Hatred, Nightvision, Poison, Poisons, Riding, Steer, Studies, Title."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-corom",
@@ -82,17 +87,34 @@
     "tragedySeedText": "Hunted by Temple of Thaktha",
     "disabilities": [
       {
-        "id": "import-hatred",
-        "name": "Hatred",
-        "source": "player",
-        "catalogId": "trait-hatred-x-demographic"
-      },
-      {
-        "id": "import-coward",
-        "name": "Coward",
+        "id": "disability-36-coward-x",
+        "name": "[Coward X]",
         "source": "player",
         "catalogId": "trait-coward-x",
         "level": 3
+      },
+      {
+        "id": "import-enemies",
+        "name": "[Enemies X > Settlement]",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-enemies-x-settlement"
+      },
+      {
+        "id": "disability-43-hatred-x-demographic",
+        "name": "[Hatred X > Demographic]",
+        "source": "player",
+        "catalogId": "trait-hatred-x-demographic",
+        "level": 1
+      },
+      {
+        "id": "grant-alef-group-baseline-strange-disarming-3",
+        "catalogId": "trait-strange-x-prejudice",
+        "name": "[Strange X > Prejudice]",
+        "source": "species",
+        "sourceDetail": "Alef Group baseline",
+        "level": 2,
+        "specialization": "Disarming"
       }
     ],
     "disabilitiesReviewed": true,
@@ -408,7 +430,7 @@
       {
         "id": "grant-alef-group-baseline-nightvision-0",
         "catalogId": "trait-nightvision-x-type",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "species",
         "sourceDetail": "Alef Group baseline",
         "level": 2
@@ -416,7 +438,7 @@
       {
         "id": "grant-alef-group-baseline-survival-1",
         "catalogId": "trait-survival-x-environ",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "species",
         "sourceDetail": "Alef Group baseline",
         "level": 1
@@ -428,15 +450,6 @@
         "source": "species",
         "sourceDetail": "Alef Group baseline; maturity *2",
         "level": 1
-      },
-      {
-        "id": "grant-alef-group-baseline-strange-disarming-3",
-        "catalogId": "trait-strange-x-prejudice",
-        "name": "Strange",
-        "source": "species",
-        "sourceDetail": "Alef Group baseline",
-        "level": 2,
-        "specialization": "Disarming"
       },
       {
         "id": "grant-akrunai-line-v-compass-0",
@@ -514,7 +527,7 @@
       {
         "id": "grant-trade-rogue-assassin-expert-x-weapon-1",
         "catalogId": "trait-expert-x-technical-weapon",
-        "name": "Expert X > Weapon",
+        "name": "Expert X > Technical Weapon",
         "source": "trade",
         "sourceDetail": "Rogue — Assassin",
         "level": 2
@@ -547,235 +560,267 @@
     "purchased": [
       {
         "id": "import-acrobatics",
-        "name": "Acrobatics",
+        "name": "Acrobatic X",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-acrobatic-x"
       },
       {
         "id": "import-athletics",
         "name": "Athletics",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-athletics-x"
       },
       {
         "id": "import-beauty",
         "name": "Beauty",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-beauty-x"
       },
       {
         "id": "import-climb",
         "name": "Climb",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-climb-x"
       },
       {
         "id": "import-connections",
         "name": "Connections",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-connections-x"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-domus",
-        "name": "Domus",
+        "name": "Domus X > Domain",
         "source": "player",
-        "level": 2
-      },
-      {
-        "id": "import-enemies",
-        "name": "Enemies",
-        "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-domus-x-domain"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-fishing",
         "name": "Fishing",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-fishing-x"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-forage-x"
       },
       {
         "id": "import-gambling",
-        "name": "Gambling",
+        "name": "Gambling X > Game",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-gambling-x-game"
       },
       {
         "id": "import-gambling",
-        "name": "Gambling",
+        "name": "Gambling X > Game",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-gambling-x-game"
       },
       {
         "id": "import-gossip",
         "name": "Gossip",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-gossip-x"
       },
       {
         "id": "import-herbalism",
-        "name": "Herbalism",
+        "name": "Herbalism X > Environ",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-herbalism-x-environ"
       },
       {
         "id": "import-history",
-        "name": "History",
+        "name": "History X > Region",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-history-x-region"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-leadership",
         "name": "Leadership",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-leadership-x"
       },
       {
         "id": "import-lockpicking",
         "name": "Lockpicking",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-lockpicking-x"
       },
       {
         "id": "import-mob",
         "name": "Mob",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-mob-x"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-peerage",
-        "name": "Peerage",
+        "name": "Peerage X > Region",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-peerage-x-region"
       },
       {
         "id": "import-peerage",
-        "name": "Peerage",
+        "name": "Peerage X > Region",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-peerage-x-region"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-poison",
-        "name": "Poison",
+        "name": "Poison X > Type",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-poison-x-type"
       },
       {
         "id": "import-prestidigitation",
         "name": "Prestidigitation",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-prestidigitation-x"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-reasoning",
         "name": "Reasoning",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-reasoning-x"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-steer",
-        "name": "Steer",
+        "name": "Steer X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-steer-x-type"
       },
       {
         "id": "import-studies",
-        "name": "Studies",
+        "name": "§Studies X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-section-studies-x-type"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-title",
-        "name": "Title",
+        "catalogId": "trait-title-x-region",
+        "name": "Title X > Region",
         "source": "player",
         "level": 2
       },
@@ -783,19 +828,22 @@
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-wise-x"
       },
       {
         "id": "import-v-compass",
         "name": "v-Compass",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
       }
     ],
     "additionalSkills": [],
@@ -809,7 +857,9 @@
         "baseLevel": 8,
         "improvements": 0,
         "accentRemoved": false,
-        "level": 8
+        "level": 8,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-rasiya",
@@ -820,7 +870,9 @@
         "baseLevel": 4,
         "improvements": 0,
         "accentRemoved": false,
-        "level": 4
+        "level": 4,
+        "catalogId": "language-rasiya",
+        "modifiers": []
       }
     ]
   },
@@ -876,33 +928,23 @@
     "weapons": [
       {
         "id": "import-shortsword",
-        "name": "Shortsword",
+        "name": "Sword, Short",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
-        "catalogId": "weapon-shortsword"
+        "catalogId": "weapon-sword-short"
       },
       {
         "id": "import-dagger-standard-siz-6",
-        "name": "Dagger, Standard SIZ 6",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 2,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
-      },
-      {
-        "id": "inventory-weapons-weapon-dagger-standard",
-        "catalogId": "weapon-dagger-standard",
-        "name": "Dagger, Standard",
-        "source": "trade",
-        "sourceDetail": "Canonical Starting Gear",
-        "quantity": 1,
-        "unitPriceGp": 2.5,
-        "unitWeight": 1
       }
     ],
     "armor": [
@@ -967,11 +1009,11 @@
       },
       {
         "id": "inventory-equipment-equipment-pouch-small-10",
-        "catalogId": "equipment-pouch-small-10",
-        "name": "Pouch, Small × 10",
+        "catalogId": "equipment-pouch-small-1",
+        "name": "Pouch, Small",
         "source": "trade",
         "sourceDetail": "Canonical Starting Gear",
-        "quantity": 1,
+        "quantity": 10,
         "unitPriceGp": 0.1,
         "unitWeight": 0.4
       }

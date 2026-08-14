@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Expert, Nightvision."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-corom",
@@ -164,80 +169,94 @@
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-climbing",
-        "name": "Climbing",
+        "name": "Climb X",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-climb-x"
       },
       {
-        "id": "import-daggers",
-        "name": "Daggers",
+        "id": "import-expert-dagger",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Dagger"
       },
       {
         "id": "import-detect",
         "name": "Detect",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-detect-x-type"
       },
       {
         "id": "import-expert",
-        "name": "Expert",
+        "name": "Expert X > Technical Weapon",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-expert-x-technical-weapon"
       },
       {
         "id": "import-husbandry",
         "name": "Husbandry",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-husbandry-x"
       },
       {
         "id": "import-nightvision",
-        "name": "Nightvision",
+        "name": "Nightvision X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-nightvision-x-type"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-sneaky",
         "name": "Sneaky",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-sneaky-x"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-suss-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-coro",
@@ -247,7 +266,9 @@
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-fayeed",
@@ -257,7 +278,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
       },
       {
         "id": "import-kahadi",
@@ -267,7 +290,9 @@
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
       }
     ]
   },
@@ -321,7 +346,7 @@
       },
       {
         "id": "import-dagger-standard-siz-6",
-        "name": "Dagger, Standard SIZ 6",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 2,
         "unitPriceGp": 0,
@@ -344,12 +369,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-small-bolt-quiver",

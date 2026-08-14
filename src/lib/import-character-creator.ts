@@ -2,9 +2,10 @@ import { createHash } from 'node:crypto';
 import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sarnaLenData from '@/data';
-import { createEmptyCharacterDraft, type CharacterDraft, type InventorySelection, type SourcedSelection } from '@/lib/character-draft';
+import { createEmptyCharacterDraft, type CharacterDraft, type InventorySelection, type LanguageModifier, type LanguageSelection, type SourcedSelection } from '@/lib/character-draft';
 import { makeCatalogId } from '@/data/catalog-policy';
 import { physicalBreakdown } from '@/lib/rules/properties';
+import { unresolvedBroadGrants } from '@/lib/rules/proficiencies';
 
 type LegacyCharacter = Record<string, any>;
 
@@ -40,10 +41,16 @@ const COMPLETED_CREATOR_STEPS = [
 const slug = (value: string) => value.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'unnamed';
 const label = (value: unknown) => typeof value === 'string' ? value : value && typeof value === 'object' && 'name' in value ? String((value as { name: unknown }).name ?? '') : String(value ?? '');
 const selection = (value: unknown, source: SourcedSelection['source'] = 'player', level?: number): SourcedSelection => { const name = label(value); return { id: makeCatalogId('import', name), name, source, ...(level == null ? {} : { level }) }; };
+function inventoryQuantity(value: string) {
+  const prefix = value.trim().match(/^(\d+)\s*[x×]\s*(.+)$/i);
+  if (prefix) return { name: prefix[2].trim(), quantity: Number(prefix[1]) };
+  const suffix = value.trim().match(/^(.+?)\s*[x×]\s*(\d+)$/i);
+  if (suffix) return { name: suffix[1].trim(), quantity: Number(suffix[2]) };
+  return { name: value.trim(), quantity: 1 };
+}
 const inventory = (name: string, sheetProperties?: string): InventorySelection => {
-  const quantityMatch = name.match(/(?:\s+x\s*|^)(\d+)$/i);
-  const cleanName = quantityMatch ? name.slice(0, quantityMatch.index).trim() : name.trim();
-  return { ...selection(cleanName), quantity: quantityMatch ? Number(quantityMatch[1]) : 1, unitPriceGp: 0, unitWeight: 0, ...(sheetProperties ? { sheetProperties } : {}) };
+  const parsed = inventoryQuantity(name);
+  return { ...selection(parsed.name), quantity: parsed.quantity, unitPriceGp: 0, unitWeight: 0, ...(sheetProperties ? { sheetProperties } : {}) };
 };
 const heightInches = (value: unknown) => {
   const match = String(value ?? '').match(/(\d+)'\s*(\d+)/);
@@ -77,19 +84,184 @@ const HERITAGE_ALIASES: Record<string, string> = {
   Wilding: 'Wildling', Desert: 'Deserts', Forest: 'Forests', Mountains: 'Mountain',
   Herder: 'Herding', Aristocrat: 'Aristocrats', Gentry: 'Landed',
 };
-const LANGUAGE_ALIASES: Record<string, string> = {
-  Restani: 'Rasiya', Resta: 'Rasiya', Oruguku: 'Orukugu',
-  'Kadahdi Barter': 'Kahadi', 'Kahadi Barter': 'Kahadi', Kahudi: 'Kahadi', Warkahad: 'Kahadi',
-  'Kardik Barter': 'Stask', 'Khardik Barter': 'Stask', 'Middle Khardik': 'Stask', 'War Vasikha': 'Stask',
-  'Coro-Lingo': 'Coro', Coromu: 'Coro', 'Corumu Lingo': 'Coro', 'Coromur Lingo': 'Coro', 'Middle Coro': 'Coro',
-  Drusa: 'Ithuuikal', Drusi: 'Ithuuikal', Drusian: 'Ithuuikal',
-  'Low Coasts': 'Cher-gulo', Magespeak: 'Blacktongue',
+const LANGUAGE_MODIFIER_ORDER: LanguageModifier[] = ['Old', 'High', 'Low', 'War', 'Lingo', 'Barter'];
+const LANGUAGE_ALIASES: Record<string, { name: string; modifiers?: LanguageModifier[] }> = {
+  auldfar: { name: 'Ershthiikal' },
+  ershthikal: { name: 'Ershthiikal' },
+  bamini: { name: 'Heimneshi' },
+  common: { name: 'Coro' },
+  'common-lingo': { name: 'Coro', modifiers: ['Lingo'] },
+  lorespeak: { name: 'Blacktongue', modifiers: ['Low'] },
+  vanry: { name: 'Rasiya', modifiers: ['High'] },
+  restani: { name: 'Rasiya' }, resta: { name: 'Rasiya' }, oruguku: { name: 'Orukugu' },
+  'kadahdi barter': { name: 'Kahadi', modifiers: ['Barter'] }, 'kahadi barter': { name: 'Kahadi', modifiers: ['Barter'] }, kahudi: { name: 'Kahadi' }, warkahad: { name: 'Kahadi', modifiers: ['War'] },
+  'kardik barter': { name: 'Stask', modifiers: ['Barter'] }, 'khardik barter': { name: 'Stask', modifiers: ['Barter'] }, 'middle khardik': { name: 'Stask' }, 'war vasikha': { name: 'Stask', modifiers: ['War'] },
+  'coro-lingo': { name: 'Coro', modifiers: ['Lingo'] }, coromu: { name: 'Coro' }, 'corumu lingo': { name: 'Coro', modifiers: ['Lingo'] }, 'coromur lingo': { name: 'Coro', modifiers: ['Lingo'] }, 'middle coro': { name: 'Coro' },
+  drusa: { name: 'Ithuuikal' }, drusi: { name: 'Ithuuikal' }, drusian: { name: 'Ithuuikal' },
+  'low coasts': { name: 'Cher-gulo', modifiers: ['Low'] }, magespeak: { name: 'Blacktongue' },
 };
+
+function normalizeLanguageSelection(language: LanguageSelection): LanguageSelection {
+  const raw = language.name.trim();
+  let mapped = LANGUAGE_ALIASES[raw.toLowerCase()];
+  if (!mapped) {
+    const words = raw.split(/\s+/);
+    const modifiers: LanguageModifier[] = [];
+    const baseWords: string[] = [];
+    for (const word of words) {
+      const token = word.replace(/[^a-z]/gi, '').toLowerCase();
+      const modifier = token === 'warlang' ? 'War' : LANGUAGE_MODIFIER_ORDER.find((candidate) => candidate.toLowerCase() === token);
+      if (modifier) modifiers.push(modifier);
+      else baseWords.push(word);
+    }
+    const base = baseWords.join(' ');
+    const baseAlias = LANGUAGE_ALIASES[base.toLowerCase()];
+    mapped = baseAlias
+      ? { name: baseAlias.name, modifiers: [...(baseAlias.modifiers ?? []), ...modifiers] }
+      : { name: base, modifiers };
+  }
+  const definition = sarnaLenData.languages.find((entry) => entry.name.localeCompare(mapped.name, undefined, { sensitivity: 'base' }) === 0);
+  const selected = new Set<LanguageModifier>([...(language.modifiers ?? []), ...(mapped.modifiers ?? [])]);
+  return {
+    ...language,
+    ...(definition ? { catalogId: definition.id, name: definition.name } : { name: mapped.name }),
+    modifiers: LANGUAGE_MODIFIER_ORDER.filter((modifier) => selected.has(modifier)),
+  };
+}
+
+const CAPABILITY_ALIASES: Record<string, string> = {
+  acrobatics: 'Acrobatic X',
+  archer: 'Archery X',
+  barrter: 'Barter X',
+  climbing: 'Climb X',
+  compass: 'v-Compass X',
+  'knife-fighting': 'Knife-fighter X',
+  leader: 'Leadership X',
+  rider: 'Riding X > Type',
+  slippery: 'v-Slippery X',
+  stirke: 'Strike X > Type',
+};
+
+function capabilityBase(value: string) {
+  const base = value.replace(/^[§$]\s*/, '').replace(/^\[/, '').replace(/\]$/, '').split(' > ')[0].replace(/\s+X$/, '').trim().toLowerCase();
+  return base === 'zedsurge' ? 'v-zedsurge' : base;
+}
+
+function capabilityDefinition(selection: SourcedSelection) {
+  const byId = selection.catalogId
+    ? sarnaLenData.traits.find((trait) => trait.catalogId === selection.catalogId)
+    : null;
+  if (byId) return byId;
+  const base = capabilityBase(selection.name);
+  return sarnaLenData.traits.find((trait) => capabilityBase(trait.trait) === base) ?? null;
+}
+
+function normalizeCapabilitySelection(selection: SourcedSelection): SourcedSelection {
+  const alias = CAPABILITY_ALIASES[selection.name.trim().toLowerCase()];
+  const aliased = alias ? { ...selection, name: alias } : selection;
+  const definition = capabilityDefinition(aliased);
+  const level = Math.max(1, Math.trunc(selection.level ?? 1));
+  if (!definition) return { ...aliased, level };
+  // Ordinary Detect is a Skill and remains unspecialized. Explicit Detect X is
+  // the catalogue's Genetic Trait and retains its required Type specialization.
+  const canonicalBroadName = capabilityBase(aliased.name) !== 'detect' && definition.trait.includes(' > ')
+    ? definition.trait
+    : aliased.name;
+  return { ...aliased, catalogId: definition.catalogId, name: canonicalBroadName, level };
+}
+
+function disabilitySelection(selection: SourcedSelection) {
+  return Boolean(capabilityDefinition(selection)?.isDisability);
+}
+
+function disabilityKey(selection: SourcedSelection) {
+  const ranks = Object.entries(selection.specializationRanks ?? {}).sort(([left], [right]) => left.localeCompare(right));
+  return `${capabilityBase(selection.name)}|${selection.specialization?.trim().toLowerCase() ?? ''}|${JSON.stringify(ranks)}`;
+}
+
+function normalizeCapabilityStorage(draft: CharacterDraft): CharacterDraft {
+  const granted = draft.proficiencies.granted.map(normalizeCapabilitySelection);
+  const purchased = draft.proficiencies.purchased.map(normalizeCapabilitySelection);
+  const additionalSkills = draft.proficiencies.additionalSkills.map(normalizeCapabilitySelection);
+  const existingDisabilities = draft.background.disabilities.map(normalizeCapabilitySelection);
+  const movedDisabilities = [
+    ...granted.filter(disabilitySelection),
+    ...purchased.filter(disabilitySelection),
+    ...additionalSkills.filter(disabilitySelection),
+  ];
+  const disabilities = new Map<string, SourcedSelection>();
+  for (const selection of [...existingDisabilities, ...movedDisabilities]) {
+    const definition = capabilityDefinition(selection);
+    const tableEntry = sarnaLenData.disabilities.find((entry) => capabilityBase(entry.disability) === capabilityBase(selection.name));
+    const normalized = {
+      ...selection,
+      ...(tableEntry ? { id: tableEntry.catalogId } : {}),
+      ...(definition ? { catalogId: definition.catalogId, name: definition.trait } : {}),
+      level: Math.max(1, Math.trunc(selection.level ?? 1)),
+    };
+    const key = disabilityKey(normalized);
+    const current = disabilities.get(key);
+    if (!current || (normalized.level ?? 1) > (current.level ?? 1)) disabilities.set(key, normalized);
+  }
+  let normalizedDraft: CharacterDraft = {
+    ...draft,
+    background: {
+      ...draft.background,
+      disabilities: [...disabilities.values()].sort((left, right) => left.name.localeCompare(right.name, undefined, { sensitivity: 'base', numeric: true })),
+      disabilitiesReviewed: draft.background.disabilitiesReviewed || disabilities.size > 0,
+    },
+    proficiencies: {
+      ...draft.proficiencies,
+      granted: granted.filter((selection) => !disabilitySelection(selection)),
+      purchased: purchased.filter((selection) => !disabilitySelection(selection)),
+      additionalSkills: additionalSkills.filter((selection) => !disabilitySelection(selection)),
+    },
+  };
+  const unresolved = unresolvedBroadGrants(normalizedDraft, sarnaLenData);
+  const warningCode = 'unresolved-broad-specializations';
+  const warnings = normalizedDraft.warnings.filter((warning) => warning.code !== warningCode);
+  if (unresolved.length) {
+    const names = Array.from(new Set(unresolved.map((selection) => selection.name.split(' > ')[0].replace(/^[§$\[]\s*/, '').replace(/\s+X\]?$/, '')))).sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base', numeric: true }));
+    warnings.push({
+      step: 'proficiencies-skills-abilities-talents',
+      code: warningCode,
+      message: `Broad Skill/Trait specializations still require review: ${names.join(', ')}.`,
+    });
+  }
+  normalizedDraft = {
+    ...normalizedDraft,
+    warnings,
+    completedSteps: unresolved.length
+      ? normalizedDraft.completedSteps.filter((step) => step !== 'proficiencies-skills-abilities-talents')
+      : normalizedDraft.completedSteps,
+  };
+  return normalizedDraft;
+}
 const ITEM_ALIASES: Record<string, string> = {
   'Fanny-pacl': 'Fanny-pack', 'Lockpit Kit': 'Lockpick kit', Lockpicks: 'Lockpick kit',
   'Leather armor': 'Leather Armor', 'Stilettoes': 'Stilettos', Garrotte: 'Garrote',
   'Milita Arrow issued by the Pazkani Army': 'Militia Arrow issued by the Pazkani Army',
   'Bracers of Repellation': 'Bracers of Repulsion',
+};
+const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
+  backpack: 'Backpack, Frameless',
+  dagger: 'Dagger, Standard', daggers: 'Dagger, Standard', daggres: 'Dagger, Standard',
+  'war hammer': 'Hammer, War', warhammer: 'Hammer, War',
+  longsword: 'Sword, Long', longswords: 'Sword, Long', 'long sword': 'Sword, Long', 'long swords': 'Sword, Long',
+  shortsword: 'Sword, Short', shortswords: 'Sword, Short', 'short sword': 'Sword, Short', 'short swords': 'Sword, Short',
+  spear: 'Spear, Medium', spears: 'Spear, Medium',
+  stiletto: 'Dagger, Stiletto', stilettos: 'Dagger, Stiletto', stilleto: 'Dagger, Stiletto', stilletos: 'Dagger, Stiletto',
+};
+const SPELL_ALIASES: Record<string, string> = {
+  armor: 'Armored Carapace',
+  dispel: 'Dispel Magic',
+  'faith shield': 'Faithshield',
+  heal: 'Cure Major Wounds',
+  light: 'Light',
+  prismafan: 'Prismafan of Lightning',
+  'turn undead': 'Turn Undying',
+  'cure minor wound': 'Cure Minor Wounds',
+  'cure wounds': 'Cure Minor Wounds',
 };
 const TRADE_CRITICAL_ATTRIBUTES: Record<string, string[]> = {
   Academic: ['INT','KNO','POW'], Cleric: ['INT','KNO','PRE','POW'], Entertainer: ['REF','INT','PRE'],
@@ -102,24 +274,30 @@ const normalizeItemName = (value: string) => {
   for (const [from, to] of Object.entries(ITEM_ALIASES)) name = name.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), to);
   return name.replace(/\s+/g, ' ').trim();
 };
-function normalizeSelections<T extends SourcedSelection>(items: T[], aliases: Record<string, string> = {}) {
-  const seen = new Set<string>();
-  return items.map((item) => {
-    const name = aliases[item.name] ?? item.name;
-    return name === item.name ? item : { ...item, id: makeCatalogId('import', name), name };
-  }).filter((item) => {
-    const key = item.name.toLocaleLowerCase();
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
+const inventoryLookupKey = (value: string) => value
+  .replace(/\s+SIZ\s+\d+\b/ig, '')
+  .replace(/[,_-]+/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim()
+  .toLowerCase()
+  .split(' ')
+  .map((word) => word === 'knives' ? 'knife'
+    : word === 'staves' ? 'staff'
+      : /[^s]ies$/.test(word) ? `${word.slice(0, -3)}y`
+        : word.length > 3 && /[^s]s$/.test(word) ? word.slice(0, -1)
+          : word)
+  .join(' ');
 function normalizeInventory(items: InventorySelection[], category: 'weapons' | 'armor' | 'equipment') {
+  const catalogue = category === 'weapons' ? sarnaLenData.itemWeapons : category === 'armor' ? sarnaLenData.itemArmors : sarnaLenData.itemEquipments;
   const normalized = items.map((item) => {
-    const name = normalizeItemName(item.name);
-    const catalogueName = name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
-    const catalogId = item.catalogId ?? makeCatalogId(category === 'weapons' ? 'weapon' : category === 'armor' ? 'armor' : 'equipment', catalogueName);
-    return { ...item, id: item.id || `inventory-${category}-${catalogId}`, catalogId, name };
+    const parsed = inventoryQuantity(normalizeItemName(item.name));
+    const importedName = parsed.name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
+    const alias = INVENTORY_CATALOG_ALIASES[inventoryLookupKey(importedName)];
+    const candidate = alias ?? importedName;
+    const definition = catalogue.find((entry) => inventoryLookupKey(entry.name) === inventoryLookupKey(candidate));
+    const name = definition?.name ?? importedName;
+    const catalogId = definition?.catalogId ?? item.catalogId ?? makeCatalogId(category === 'weapons' ? 'weapon' : category === 'armor' ? 'armor' : 'equipment', name);
+    return { ...item, id: item.id || `inventory-${category}-${catalogId}`, catalogId, name, quantity: Math.max(1, item.quantity, parsed.quantity) };
   });
   const detailedOnly = normalized.filter((item, index, all) => {
     const broad = item.name.toLocaleLowerCase().replace(/s$/, '');
@@ -132,10 +310,33 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
   for (const item of detailedOnly) {
     const key = `${item.catalogId ?? ''}|${item.name.toLocaleLowerCase()}`;
     const existing = grouped.get(key);
-    if (existing) existing.quantity += Math.max(1, item.quantity);
+    // Legacy imports contain the same owned item once in History and again in
+    // the sheet property table. Treat matching rows as two renditions of one
+    // selection; Forge itself stores repeated items by incrementing quantity.
+    if (existing) {
+      existing.quantity = Math.max(existing.quantity, Math.max(1, item.quantity));
+      if (!existing.sheetProperties && item.sheetProperties) existing.sheetProperties = item.sheetProperties;
+    }
     else grouped.set(key, { ...item, quantity: Math.max(1, item.quantity) });
   }
   return [...grouped.values()];
+}
+function normalizeSpells(items: SourcedSelection[]) {
+  const normalized = items.map((item) => {
+    const requested = SPELL_ALIASES[item.name.trim().toLowerCase()] ?? item.name.trim();
+    const key = requested.replace(/±$/, '').trim();
+    const definition = sarnaLenData.spells.find((spell) => spell.name.replace(/±$/, '').trim().localeCompare(key, undefined, { sensitivity: 'base' }) === 0);
+    return definition
+      ? { ...item, catalogId: definition.catalogId, name: definition.name }
+      : item;
+  });
+  const seen = new Set<string>();
+  return normalized.filter((item) => {
+    const key = item.catalogId ?? item.name.toLocaleLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 function normalizeMagicItems(items: SourcedSelection[]) {
   return items.map((item) => {
@@ -202,6 +403,22 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
     : draft.background.demographicSelections;
   const normalizedPurchased = draft.proficiencies.purchased.map((item) => {
     if (/^(?:v-)?zedsurge$/i.test(item.name)) return { ...item, id: 'import-v-zedsurge', catalogId: makeCatalogId('trait', 'v-Zedsurge X'), name: 'v-Zedsurge', ...(sirMandalore ? { level: 2 } : {}) };
+    if (/^magic$/i.test(item.name)) return { ...item, id: 'import-v-magic', catalogId: makeCatalogId('trait', 'v-Magic X'), name: 'v-Magic' };
+    if (normalizedName === 'giovanna manroad' && /^crafting$/i.test(item.name)) return { ...item, id: 'import-craft', catalogId: makeCatalogId('trait', 'Craft X > Tradecraft'), name: 'Craft X > Tradecraft' };
+    const importedWeaponSkill = item.name.match(/^(crossbow|daggers?|spear|sword)$/i)?.[1];
+    if (importedWeaponSkill) {
+      const specialization = /^daggers?$/i.test(importedWeaponSkill)
+        ? 'Dagger'
+        : importedWeaponSkill.replace(/^./, (letter) => letter.toUpperCase());
+      return {
+        ...item,
+        id: `import-expert-${specialization.toLowerCase()}`,
+        catalogId: makeCatalogId('trait', 'Expert X > Weapon'),
+        name: 'Expert X > Weapon',
+        specialization,
+      };
+    }
+    if (/^title(?:\s*\([^)]*\)|-[a-z]+)?$/i.test(item.name)) return { ...item, id: 'import-title', catalogId: makeCatalogId('trait', 'Title X > Region'), name: 'Title X > Region' };
     if (sirMandalore && /^brawn$/i.test(item.name)) return { ...item, level: 3 };
     return item;
   });
@@ -227,7 +444,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
   const buildDifference = statureFramed && targetProperties.build != null ? targetProperties.build - statureFramed.build : 0;
   const buildAdjustment = sirMandalore ? -2 : Math.max(-2, Math.min(2, buildDifference));
   const weightAdjustment = sirMandalore ? -2 : Math.max(-9, Math.min(9, buildDifference - buildAdjustment));
-  return {
+  const normalized: CharacterDraft = {
     ...draft,
     background: {
       ...draft.background,
@@ -238,7 +455,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       environHeritageId,
       societalHeritageId,
     },
-    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased, languages: normalizeSelections(draft.proficiencies.languages, LANGUAGE_ALIASES) },
+    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased, languages: draft.proficiencies.languages.map(normalizeLanguageSelection) },
     intrinsics: {
       ...draft.intrinsics,
       speciesFamilyId: identity ? 'species-family-humaniki' : draft.intrinsics.speciesFamilyId,
@@ -266,8 +483,14 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       properName: /^\[?error\]?$/i.test(draft.utilities.properName.trim()) ? '' : draft.utilities.properName,
       weapons: normalizeInventory(draft.utilities.weapons, 'weapons'), armor: normalizeInventory(draft.utilities.armor, 'armor'),
       equipment: normalizeInventory(draft.utilities.equipment, 'equipment'), magicItems: normalizeMagicItems(draft.utilities.magicItems),
+      spells: normalizeSpells(draft.utilities.spells),
     },
   };
+  return normalizeCapabilityStorage(normalized);
+}
+
+export function normalizeCharacterDraftForStorage(draft: CharacterDraft) {
+  return normalizeImportedDraft(draft);
 }
 
 function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCharacter = {}) {

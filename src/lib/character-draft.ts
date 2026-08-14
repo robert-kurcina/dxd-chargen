@@ -46,12 +46,16 @@ export type InventorySelection = SourcedSelection & {
   sheetProperties?: string;
 };
 
+export type LanguageModifier = 'Old' | 'High' | 'Low' | 'War' | 'Lingo' | 'Barter';
+
 export type LanguageSelection = SourcedSelection & {
   kind: 'default' | 'heritage' | 'proficiency';
   primary: boolean;
   baseLevel: number;
   improvements: number;
   accentRemoved: boolean;
+  /** Register/mode prefixes which form compounds such as Old High Coro. */
+  modifiers?: LanguageModifier[];
 };
 
 export type PmlVirtuosityChoice = {

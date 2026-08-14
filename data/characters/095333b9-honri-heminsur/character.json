@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Lore, Medic, Warfare."
+    }
+  ],
   "background": {
     "regionId": "region-other",
     "settlementId": "settlement-other",
@@ -290,73 +295,86 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 5
+        "level": 5,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-drill",
         "name": "Drill",
         "source": "player",
-        "level": 6
+        "level": 6,
+        "catalogId": "trait-drill-x"
       },
       {
         "id": "import-fishing",
         "name": "Fishing",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-fishing-x"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-implore",
         "name": "Implore",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-implore-x"
       },
       {
         "id": "import-leader",
-        "name": "Leader",
+        "name": "Leadership X",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-leadership-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-medic",
-        "name": "Medic",
+        "name": "Medic X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-medic-x-type"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-shield",
         "name": "Shield",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-shield-x"
       },
       {
-        "id": "import-spear",
-        "name": "Spear",
+        "id": "import-expert-spear",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "specialization": "Spear"
       },
       {
         "id": "import-craft-cooking",
@@ -368,33 +386,39 @@
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
-        "id": "import-sword",
-        "name": "Sword",
+        "id": "import-expert-sword",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "specialization": "Sword"
       },
       {
         "id": "import-teach",
         "name": "Teach",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-teach-x"
       },
       {
         "id": "import-warfare",
-        "name": "Warfare",
+        "name": "Warfare X > Category",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-warfare-x-category"
       },
       {
         "id": "import-v-zedsurge",
@@ -407,36 +431,42 @@
         "id": "import-v-focused",
         "name": "v-Focused",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-v-focused-x"
       },
       {
         "id": "import-v-powerhouse",
         "name": "v-Powerhouse",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-v-powerhouse-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-auldfar",
-        "name": "Auldfar",
+        "name": "Ershthiikal",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-ershthikal",
+        "modifiers": []
       },
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 7,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-fayeed",
@@ -446,27 +476,38 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
       },
       {
         "id": "import-old-high-qua",
-        "name": "Old High Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "Old",
+          "High"
+        ]
       },
       {
         "id": "import-warlang-qua",
-        "name": "Warlang Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "War"
+        ]
       }
     ]
   },
@@ -526,21 +567,11 @@
       },
       {
         "id": "import-stiletto",
-        "name": "Stiletto",
+        "name": "Dagger, Stiletto",
         "source": "player",
         "quantity": 4,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "weapon-stiletto"
-      },
-      {
-        "id": "import-dagger-stiletto",
-        "name": "Dagger, Stiletto",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "sheetProperties": "ORa -7   Acc +4  Impact +8   Damage 1D-2\n[1H, Stub, Awkward]. Swift 2. Throwable.",
         "catalogId": "weapon-dagger-stiletto"
       },
       {

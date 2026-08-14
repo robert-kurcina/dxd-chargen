@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Medic, Riding, Strike, Tactics, Warfare."
+    }
+  ],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-drayport",
@@ -170,121 +175,144 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-barter-x"
       },
       {
-        "id": "import-dagger",
-        "name": "Dagger",
+        "id": "import-expert-dagger",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Dagger"
       },
       {
         "id": "import-gossip",
         "name": "Gossip",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-gossip-x"
       },
       {
         "id": "import-grit",
         "name": "Grit",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-grit-x"
       },
       {
         "id": "import-hunter",
         "name": "Hunter",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-hunter-x"
       },
       {
         "id": "import-leader",
-        "name": "Leader",
+        "name": "Leadership X",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-leadership-x"
       },
       {
         "id": "import-martialist",
         "name": "Martialist",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-martialist-x"
       },
       {
         "id": "import-medic",
-        "name": "Medic",
+        "name": "Medic X > Type",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-medic-x-type"
       },
       {
         "id": "import-quick",
         "name": "Quick",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-quick-x"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-riding",
-        "name": "Riding",
+        "name": "Riding X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-riding-x-type"
       },
       {
         "id": "import-shield",
         "name": "Shield",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-shield-x"
       },
       {
-        "id": "import-spear",
-        "name": "Spear",
+        "id": "import-expert-spear",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "specialization": "Spear"
       },
       {
         "id": "import-strike",
-        "name": "Strike",
+        "name": "Strike X > Type",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-strike-x-type"
       },
       {
         "id": "import-sturdy",
         "name": "Sturdy",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-sturdy-x"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
-        "id": "import-sword",
-        "name": "Sword",
+        "id": "import-expert-sword",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "specialization": "Sword"
       },
       {
         "id": "import-tactics",
-        "name": "Tactics",
+        "name": "Tactics X > Type",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-tactics-x-type"
       },
       {
         "id": "import-warfare",
-        "name": "Warfare",
+        "name": "Warfare X > Category",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-warfare-x-category"
       },
       {
         "id": "import-v-zedsurge",
@@ -297,20 +325,23 @@
         "id": "import-v-fortitude",
         "name": "v-Fortitude",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-v-fortitude-x"
       }
     ],
     "additionalSkills": [],
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-ithuuikal",
@@ -320,17 +351,23 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
       },
       {
         "id": "import-warlang-common",
-        "name": "Warlang Common",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "War"
+        ]
       }
     ]
   },

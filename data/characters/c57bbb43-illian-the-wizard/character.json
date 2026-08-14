@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Design, Lore, Perform, Science, Wares."
+    }
+  ],
   "background": {
     "regionId": "region-other",
     "settlementId": "settlement-other",
@@ -202,14 +207,18 @@
     "tragedySeedText": null,
     "disabilities": [
       {
-        "id": "import-cautious",
-        "name": "Cautious",
-        "source": "player"
+        "id": "disability-33-cautious-x",
+        "name": "[Cautious X]",
+        "source": "player",
+        "catalogId": "trait-cautious-x",
+        "level": 1
       },
       {
-        "id": "import-paranoid",
-        "name": "Paranoid",
-        "source": "player"
+        "id": "disability-45-paranoid-x",
+        "name": "[Paranoid X]",
+        "source": "player",
+        "catalogId": "trait-paranoid-x",
+        "level": 1
       }
     ],
     "disabilitiesReviewed": true,
@@ -301,43 +310,50 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 8
+        "level": 8,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-connections",
         "name": "Connections",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-connections-x"
       },
       {
         "id": "import-design",
-        "name": "Design",
+        "name": "Design X > Category",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-design-x-category"
       },
       {
         "id": "import-disguise",
         "name": "Disguise",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-disguise-x"
       },
       {
         "id": "import-fishing",
         "name": "Fishing",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-fishing-x"
       },
       {
         "id": "import-gossip",
         "name": "Gossip",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-gossip-x"
       },
       {
         "id": "import-lore",
-        "name": "Lore",
+        "name": "Lore X > Field",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-lore-x-field"
       },
       {
         "id": "import-v-magic",
@@ -350,73 +366,78 @@
         "id": "import-maths",
         "name": "Maths",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-maths-x"
       },
       {
         "id": "import-navigation",
         "name": "Navigation",
         "source": "player",
-        "level": 0
-      },
-      {
-        "id": "import-paranoid",
-        "name": "Paranoid",
-        "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-navigation-x"
       },
       {
         "id": "import-perform",
-        "name": "Perform",
+        "name": "Perform X > Form",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-perform-x-form"
       },
       {
         "id": "import-persuade",
         "name": "Persuade",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-persuade-x"
       },
       {
         "id": "import-politics",
-        "name": "Politics",
+        "name": "Politics X > Region",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-politics-x-region"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-science",
-        "name": "Science",
+        "name": "Science X > Field",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-science-x-field"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 0
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-wares",
-        "name": "Wares",
+        "name": "Wares X > Ware",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-wares-x-ware"
       },
       {
         "id": "import-v-zedsurge",
@@ -429,7 +450,8 @@
         "id": "import-v-intense",
         "name": "v-Intense",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-v-intense-x"
       }
     ],
     "additionalSkills": [],
@@ -442,17 +464,21 @@
         "primary": false,
         "baseLevel": 5,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": []
       },
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 6,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-ithuuikal",
@@ -462,7 +488,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
       },
       {
         "id": "import-kahadi",
@@ -472,17 +500,23 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
       },
       {
         "id": "import-lorespeak",
-        "name": "Lorespeak",
+        "name": "Blacktongue",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
       },
       {
         "id": "import-orukugu",
@@ -492,7 +526,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-orukugu",
+        "modifiers": []
       }
     ]
   },
@@ -550,7 +586,8 @@
       {
         "id": "import-detect-magic",
         "name": "Detect Magic",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-detect-magic"
       },
       {
         "id": "import-disentigrate",
@@ -559,8 +596,9 @@
       },
       {
         "id": "import-dispel",
-        "name": "Dispel",
-        "source": "player"
+        "name": "Dispel Magic",
+        "source": "player",
+        "catalogId": "spell-dispel-magic"
       },
       {
         "id": "import-fearshell",
@@ -570,27 +608,32 @@
       {
         "id": "import-float",
         "name": "Float",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-float"
       },
       {
         "id": "import-gills",
         "name": "Gills",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-gills"
       },
       {
         "id": "import-heatbeam",
-        "name": "Heatbeam",
-        "source": "player"
+        "name": "Heatbeam±",
+        "source": "player",
+        "catalogId": "spell-heatbeam"
       },
       {
         "id": "import-identify",
         "name": "Identify",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-identify"
       },
       {
         "id": "import-illusion",
         "name": "Illusion",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-illusion"
       },
       {
         "id": "import-magic-missile",
@@ -599,25 +642,27 @@
       },
       {
         "id": "import-prismafan",
-        "name": "Prismafan",
-        "source": "player"
+        "name": "Prismafan of Lightning",
+        "source": "player",
+        "catalogId": "spell-prismafan-of-lightning"
       },
       {
         "id": "import-winkback",
         "name": "Winkback",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-winkback"
       }
     ],
     "spellsReviewed": true,
     "weapons": [
       {
         "id": "import-dagger",
-        "name": "Dagger",
+        "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "weapon-dagger"
+        "catalogId": "weapon-dagger-standard"
       },
       {
         "id": "import-magestick-small-wand-manaclamp",

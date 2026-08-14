@@ -16,7 +16,6 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-skills-abilities-talents",
     "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
@@ -29,7 +28,13 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [],
+  "warnings": [
+    {
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Perform."
+    }
+  ],
   "background": {
     "regionId": "region-boron",
     "settlementId": "settlement-boron-dellen-near-kell",
@@ -169,35 +174,41 @@
         "id": "import-archery",
         "name": "Archery",
         "source": "player",
-        "level": 4
+        "level": 4,
+        "catalogId": "trait-archery-x"
       },
       {
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-compass",
-        "name": "Compass",
+        "name": "v-Compass X",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
       },
       {
         "id": "import-forage",
         "name": "Forage",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-forage-x"
       },
       {
-        "id": "import-magic",
-        "name": "Magic",
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
         "source": "player",
         "level": 1
       },
@@ -205,67 +216,78 @@
         "id": "import-parry",
         "name": "Parry",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-parry-x"
       },
       {
         "id": "import-perform",
-        "name": "Perform",
+        "name": "Perform X > Form",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-perform-x-form"
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-seduction",
         "name": "Seduction",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-seduction-x"
       },
       {
         "id": "import-surefooted",
         "name": "Surefooted",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-surefooted-x"
       },
       {
         "id": "import-survival",
-        "name": "Survival",
+        "name": "Survival X > Environ",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-survival-x-environ"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-tracking",
         "name": "Tracking",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-tracking-x"
       },
       {
         "id": "import-trapmaster",
         "name": "Trapmaster",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-trapmaster-x"
       },
       {
         "id": "import-wise",
         "name": "Wise",
         "source": "player",
-        "level": 3
+        "level": 3,
+        "catalogId": "trait-wise-x"
       },
       {
         "id": "import-v-zedsurge",
@@ -279,13 +301,15 @@
     "languages": [
       {
         "id": "import-common",
-        "name": "Common",
+        "name": "Coro",
         "source": "player",
         "kind": "default",
         "primary": true,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
       },
       {
         "id": "import-rasiya",
@@ -295,7 +319,9 @@
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-rasiya",
+        "modifiers": []
       }
     ]
   },
@@ -337,8 +363,9 @@
     "spells": [
       {
         "id": "import-cure-wounds",
-        "name": "Cure Wounds",
-        "source": "player"
+        "name": "Cure Minor Wounds",
+        "source": "player",
+        "catalogId": "spell-cure-minor-wounds"
       }
     ],
     "spellsReviewed": true,
@@ -354,13 +381,13 @@
       },
       {
         "id": "import-shortsword",
-        "name": "Shortsword",
+        "name": "Sword, Short",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
-        "catalogId": "weapon-shortsword"
+        "catalogId": "weapon-sword-short"
       },
       {
         "id": "import-staff-quarter",

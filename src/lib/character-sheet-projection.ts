@@ -18,7 +18,7 @@ import {
   traitDefinitionForSelection,
 } from '@/lib/rules/proficiencies';
 import { calculateProperties } from '@/lib/rules/properties';
-import { displayInventoryName, magicItemInventoryForm } from '@/lib/rules/utilities';
+import { displayInventoryQuantity, displaySpellName, magicItemInventoryForm } from '@/lib/rules/utilities';
 
 export type CharacterSheetData = {
   name: string;
@@ -63,10 +63,10 @@ function signed(value: number) {
 function listInventory(items: CharacterDraft['utilities']['equipment']) {
   const grouped = new Map<string, number>();
   for (const item of items) {
-    const name = displayInventoryName(item.name);
+    const name = item.name;
     grouped.set(name, (grouped.get(name) ?? 0) + Math.max(1, item.quantity));
   }
-  return [...grouped].map(([name, quantity]) => quantity > 1 ? `${name} ×${quantity}` : name).join('; ');
+  return [...grouped].map(([name, quantity]) => displayInventoryQuantity(name, quantity)).join('; ');
 }
 
 function selectionRecord(selection: SourcedSelection) {
@@ -191,7 +191,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
         const form = magicItemInventoryForm(entry, draft, data);
         return `${entry.name}${form ? ` [${form.displayName}, ${form.weight}#]` : entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`;
       }).join(', '),
-      spells: draft.utilities.spells.map((entry) => entry.name).join(', '),
+      spells: draft.utilities.spells.map((entry) => displaySpellName(entry.name)).join(', '),
       skills: capabilities.skills,
       traits: capabilities.traits,
       skillsUnresolved: capabilities.skillsUnresolved,

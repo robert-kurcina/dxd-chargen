@@ -174,7 +174,8 @@
         "id": "import-barter",
         "name": "Barter",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-barter-x"
       },
       {
         "id": "import-craft-blacksmithing",
@@ -188,7 +189,8 @@
         "id": "import-brawn",
         "name": "Brawn",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-brawn-x"
       },
       {
         "id": "import-perform-dance",
@@ -202,7 +204,8 @@
         "id": "import-gossip",
         "name": "Gossip",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-gossip-x"
       },
       {
         "id": "import-v-magic",
@@ -213,21 +216,24 @@
       },
       {
         "id": "import-read",
-        "name": "Read",
+        "name": "Read X > Language",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-read-x-language"
       },
       {
         "id": "import-suss",
         "name": "Suss",
         "source": "player",
-        "level": 2
+        "level": 2,
+        "catalogId": "trait-suss-x"
       },
       {
         "id": "import-swim",
         "name": "Swim",
         "source": "player",
-        "level": 1
+        "level": 1,
+        "catalogId": "trait-swim-x"
       },
       {
         "id": "import-v-zedsurge",
@@ -241,33 +247,43 @@
     "languages": [
       {
         "id": "import-bamini",
-        "name": "Bamini",
+        "name": "Heimneshi",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-heimneshi",
+        "modifiers": []
       },
       {
         "id": "import-common-warlang",
-        "name": "Common Warlang",
+        "name": "Coro",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 1,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "War"
+        ]
       },
       {
         "id": "import-lorespeak",
-        "name": "Lorespeak",
+        "name": "Blacktongue",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 2,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
       },
       {
         "id": "import-cher-gulo",
@@ -277,17 +293,24 @@
         "primary": true,
         "baseLevel": 4,
         "improvements": 0,
-        "accentRemoved": true
+        "accentRemoved": true,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
       },
       {
         "id": "import-old-high-qua",
-        "name": "Old High Qua",
+        "name": "Qua",
         "source": "player",
         "kind": "proficiency",
         "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "Old",
+          "High"
+        ]
       }
     ]
   },
@@ -330,17 +353,20 @@
       {
         "id": "import-detect-magic",
         "name": "Detect Magic",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-detect-magic"
       },
       {
         "id": "import-float",
         "name": "Float",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-float"
       },
       {
         "id": "import-illusion",
         "name": "Illusion",
-        "source": "player"
+        "source": "player",
+        "catalogId": "spell-illusion"
       },
       {
         "id": "import-magick-missile",
@@ -375,12 +401,12 @@
     "equipment": [
       {
         "id": "import-backpack",
-        "name": "Backpack",
+        "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
-        "catalogId": "equipment-backpack"
+        "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-jewelry-box",
