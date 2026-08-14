@@ -340,18 +340,6 @@
         "modifiers": []
       },
       {
-        "id": "import-coro",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
         "id": "import-fayeed",
         "name": "Fayeed",
         "source": "player",

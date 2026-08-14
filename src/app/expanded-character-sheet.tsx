@@ -89,5 +89,5 @@ export default function ExpandedCharacterSheet({ draft, data }: { draft: Charact
     send();
     return () => window.removeEventListener('message', receive);
   }, [send]);
-  return <iframe ref={iframe} title="Sarna Len character sheet" src="/character-creator/index.html?embed=1" onLoad={send} sandbox="allow-scripts allow-same-origin allow-downloads" className="h-[calc(100vh-7rem)] min-h-[720px] w-full rounded-lg border bg-white" />;
+  return <iframe ref={iframe} title="Sarna Len character sheet" src="/character-creator/index.html?embed=1" onLoad={send} sandbox="allow-scripts allow-same-origin allow-downloads" className="block h-full min-h-0 w-full overscroll-contain border-0 bg-white md:rounded-lg md:border" />;
 }

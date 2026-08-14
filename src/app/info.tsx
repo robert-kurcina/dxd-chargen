@@ -2,7 +2,8 @@
 
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { BookOpen } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -33,6 +34,16 @@ import {
 import { cn, parseNumberWithSuffix, formatNumberWithSuffix, calculateRelativeShares } from '@/lib/utils';
 import type { StaticData } from '@/data';
 import { calculateBonusSkillpointCost, calculateAttributeSkillpointCost, calculateTraitSkillpointCost, formatPositiveNumber, parseLineageString } from '@/lib/character-logic';
+import { ContextualSectionNavigation } from '@/components/contextual-section-navigation';
+
+const INFO_SECTION_TITLES = [
+  'Military Hierarchy', 'Adjustments by Lineage', 'Adjustments by Age Group', 'Age Brackets',
+  'Characteristic Costs', 'Age Groups', 'Attribute Arrays', 'Attribute Definitions', 'Beliefs & Deities',
+  'Calculated Abilities', 'City States', 'Descriptors', 'Disabilities', 'Economic Statuses', 'Empires',
+  'Heritage', 'Professions & Titles', 'Notable Features', 'Physical Blemishes', 'PML Titles',
+  'Point Buy Costs', 'Salary', 'Settlements', 'Social Groups', 'Social Ranks', 'Species', 'Tragedy Seeds',
+  'Traits', 'Universal Table', 'Wealth Titles',
+];
 
 const isNumber = (value: any): boolean => {
     if (value === null || value === undefined || typeof value === 'boolean' || Array.isArray(value)) return false;
@@ -1184,6 +1195,17 @@ const MilitaryHierarchyCard = ({ data }: { data: any }) => {
 
 // Main Info component
 export default function Info({ data }: { data: StaticData }) {
+  const sectionRoot = useRef<HTMLDivElement>(null);
+  const navigateToSection = (title: string) => {
+    const trigger = Array.from(sectionRoot.current?.querySelectorAll<HTMLButtonElement>('button[data-radix-collection-item]') ?? []).find((item) => item.textContent?.trim() === title);
+    if (!trigger) return;
+    if (trigger.dataset.state === 'closed') trigger.click();
+    trigger.style.scrollMarginTop = '5rem';
+    window.setTimeout(() => {
+      trigger.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      trigger.focus({ preventScroll: true });
+    }, 50);
+  };
   const {
     ageBrackets,
     attributeModifiers,
@@ -1227,7 +1249,9 @@ export default function Info({ data }: { data: StaticData }) {
   } = data;
 
   return (
-    <Accordion type="multiple" className="space-y-8 max-w-[960px] mx-auto">
+    <ContextualSectionNavigation title="Reference Sections" label="Info" items={INFO_SECTION_TITLES} icon={BookOpen} onSelect={navigateToSection}>
+      <div ref={sectionRoot}>
+      <Accordion type="multiple" className="space-y-8">
       <MilitaryHierarchyCard data={militaryHierarchy} />
       <AdjustmentsByLineageCard data={data} />
       <AdjustmentsByAgeGroupCard attributeModifiers={attributeModifiers} characteristicModifiers={characteristicModifiers} />
@@ -1258,6 +1282,8 @@ export default function Info({ data }: { data: StaticData }) {
       <TraitsCard data={traits} />
       <UniversalTableCard data={universalTable} />
       <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
-    </Accordion>
+      </Accordion>
+      </div>
+    </ContextualSectionNavigation>
   );
 }

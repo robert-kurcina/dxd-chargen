@@ -74,6 +74,7 @@ function ChoiceCard({ selected, title, subtitle, meta, warning, disabled, onClic
       type="button"
       onClick={onClick}
       disabled={disabled}
+      aria-pressed={selected}
       className={cn(
         'relative rounded-lg border p-3 text-left transition-colors hover:bg-muted/60',
         selected && 'border-primary bg-primary/5 ring-1 ring-primary',
@@ -213,7 +214,7 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
       <div><h3 className="font-semibold">Species</h3><p className="text-xs text-muted-foreground">Canonical hierarchy: Species → Ancestral Group → Lineage. Cherigili, Kriket, and Stonefolk are visible but unavailable for character creation in this build.</p></div>
       <ExampleToggle checked={showSpeciesExamples} onCheckedChange={setShowSpeciesExamples} />
       {showSpeciesExamples && <PeopleExample src="/api/data-assets/peoples/humaniki-heights.png" label="Humaniki Species height examples" />}
-      <div className="grid gap-2 sm:grid-cols-3">{data.species.map((family) => <button key={family.catalogId} type="button" disabled={!family.selectable} onClick={() => chooseFamily(family.catalogId)} className={cn('rounded-lg border p-3 text-left', selectedFamily?.catalogId === family.catalogId && 'border-primary bg-primary/5 ring-1 ring-primary', !family.selectable && 'cursor-not-allowed opacity-50')}><div className="font-medium">{family.displayName}</div><div className="mt-1 text-xs text-muted-foreground">{family.groups.length} Group{family.groups.length === 1 ? '' : 's'}{!family.selectable ? ' • unavailable' : ''}</div></button>)}</div>
+      <div className="grid gap-2 sm:grid-cols-3">{data.species.map((family) => <button key={family.catalogId} type="button" disabled={!family.selectable} aria-pressed={selectedFamily?.catalogId === family.catalogId} onClick={() => chooseFamily(family.catalogId)} className={cn('rounded-lg border p-3 text-left', selectedFamily?.catalogId === family.catalogId && 'border-primary bg-primary/5 ring-1 ring-primary', !family.selectable && 'cursor-not-allowed opacity-50')}><div className="font-medium">{family.displayName}</div><div className="mt-1 text-xs text-muted-foreground">{family.groups.length} Group{family.groups.length === 1 ? '' : 's'}{!family.selectable ? ' • unavailable' : ''}</div></button>)}</div>
       <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.childOfStrife} onCheckedChange={(checked) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: Boolean(checked), speciesFamilyId: checked ? makeCatalogId('species-family', 'Humaniki') : current.intrinsics.speciesFamilyId, strifeMixedLineage: checked ? current.intrinsics.strifeMixedLineage : false, strifePairingId: checked ? current.intrinsics.strifePairingId : null, strifeFatherLineageId: checked ? current.intrinsics.strifeFatherLineageId : null, strifeMotherLineageId: checked ? current.intrinsics.strifeMotherLineageId : null } }, data))} /><span><span className="block font-medium">Child of Strife</span><span className="text-xs text-muted-foreground">Use a viable mixed Humaniki parent pairing from the inter-species guidelines.</span></span></label>
       {draft.intrinsics.childOfStrife && <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.strifeMotherFirst} onCheckedChange={(checked) => setDraft((current) => ({ ...current, intrinsics: { ...current.intrinsics, strifeMotherFirst: Boolean(checked), strifeFatherLineageId: current.intrinsics.strifeMotherLineageId, strifeMotherLineageId: current.intrinsics.strifeFatherLineageId } }))} /><span><span className="block font-medium">Mother–Father</span><span className="text-xs text-muted-foreground">Reverse which ancestral group supplies the mother and father.</span></span></label>}
       {draft.intrinsics.childOfStrife && <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={draft.intrinsics.strifeMixedLineage} onCheckedChange={(checked) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, strifeMixedLineage: Boolean(checked), strifePairingId: checked ? null : current.intrinsics.strifePairingId, strifeFatherLineageId: null, strifeMotherLineageId: null, speciesId: checked ? current.intrinsics.speciesId : null, lineageId: null }, background: { ...current.background, ageYears: null } }, data))} /><span><span className="block font-medium">Mixed Lineage</span><span className="text-xs text-muted-foreground">Both parents share one Ancestral Group but come from different Lineages.</span></span></label>}
@@ -277,8 +278,9 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
 
   return (
     <div className="space-y-4">
-      <div className="overflow-x-auto rounded-lg border">
-        <table className="w-full min-w-[690px] text-sm">
+      <div className="attribute-assignment-scroll overflow-x-auto rounded-lg border">
+        <table className="attribute-assignment-table w-full min-w-[690px] text-sm">
+          <caption className="sr-only">Attribute rolls, adjustments, purchased increases, and final values</caption>
           <thead className="bg-muted/50 text-xs">
             <tr>
               <th className="px-3 py-2 text-left">Attribute</th>
@@ -299,33 +301,33 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
               const canPurchaseMore = purchased < 2 && purchasedTotal < 4;
               return (
                 <tr key={attribute} className="border-t">
-                  <td className="px-3 py-2 font-medium">{attribute}</td>
-                  <td className="px-3 py-2 text-center font-mono">{values[attribute]}</td>
-                  <td className="px-3 py-2">
+                  <td data-label="Attribute" className="px-3 py-2 font-medium">{attribute}</td>
+                  <td data-label="Recorded roll" className="px-3 py-2 text-center font-mono">{values[attribute]}</td>
+                  <td data-label="Assign" className="px-3 py-2">
                     <div className="flex justify-center gap-1">
                       {method === 'point-buy' ? (
                         <>
-                          <Button type="button" size="icon" variant="ghost" className="h-7 w-7" disabled={values[attribute] <= 6} onClick={() => changePointBuy(attribute, -1)}><Minus className="h-3.5 w-3.5" /></Button>
-                          <Button type="button" size="icon" variant="ghost" className="h-7 w-7" disabled={values[attribute] >= 12} onClick={() => changePointBuy(attribute, 1)}><Plus className="h-3.5 w-3.5" /></Button>
+                          <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Decrease ${attribute}`} disabled={values[attribute] <= 6} onClick={() => changePointBuy(attribute, -1)}><Minus className="h-3.5 w-3.5" /></Button>
+                          <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Increase ${attribute}`} disabled={values[attribute] >= 12} onClick={() => changePointBuy(attribute, 1)}><Plus className="h-3.5 w-3.5" /></Button>
                         </>
                       ) : (
                         <>
-                          <Button type="button" size="icon" variant="ghost" className="h-7 w-7" disabled={index === 0} onClick={() => swap(index, -1)}><ChevronUp className="h-3.5 w-3.5" /></Button>
-                          <Button type="button" size="icon" variant="ghost" className="h-7 w-7" disabled={index === ROLLED_ATTRIBUTES.length - 1} onClick={() => swap(index, 1)}><ChevronDown className="h-3.5 w-3.5" /></Button>
+                          <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Move ${attribute} up`} disabled={index === 0} onClick={() => swap(index, -1)}><ChevronUp className="h-3.5 w-3.5" /></Button>
+                          <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Move ${attribute} down`} disabled={index === ROLLED_ATTRIBUTES.length - 1} onClick={() => swap(index, 1)}><ChevronDown className="h-3.5 w-3.5" /></Button>
                         </>
                       )}
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-center">{sourced === 0 ? '—' : formatSigned(sourced)}</td>
-                  <td className="px-3 py-2">
+                  <td data-label="Sourced adjustment" className="px-3 py-2 text-center">{sourced === 0 ? '—' : formatSigned(sourced)}</td>
+                  <td data-label="Purchased" className="px-3 py-2">
                     <div className="flex items-center justify-center gap-1">
-                      <Button type="button" size="icon" variant="ghost" className="h-7 w-7" disabled={purchased <= 0} onClick={() => changePurchased(attribute, -1)}><Minus className="h-3.5 w-3.5" /></Button>
+                      <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Remove purchased ${attribute} increase`} disabled={purchased <= 0} onClick={() => changePurchased(attribute, -1)}><Minus className="h-3.5 w-3.5" /></Button>
                       <span className="w-5 text-center">+{purchased}</span>
-                      <Button type="button" size="icon" variant="ghost" className="h-7 w-7" disabled={!canPurchaseMore} onClick={() => changePurchased(attribute, 1)}><Plus className="h-3.5 w-3.5" /></Button>
+                      <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Purchase ${attribute} increase`} disabled={!canPurchaseMore} onClick={() => changePurchased(attribute, 1)}><Plus className="h-3.5 w-3.5" /></Button>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-center font-semibold">{finalValue}</td>
-                  <td className="px-3 py-2 text-center">{formatSigned(getAttributeDm(finalValue))}</td>
+                  <td data-label="Final" className="px-3 py-2 text-center font-semibold">{finalValue}</td>
+                  <td data-label="DM" className="px-3 py-2 text-center">{formatSigned(getAttributeDm(finalValue))}</td>
                 </tr>
               );
             })}
@@ -482,7 +484,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
 
           {selected.specializations.length > 0 && (
             <div className="space-y-2">
-              <Label>Profession / Specialization</Label>
+              <div className="text-sm font-medium" id="profession-specialization-label">Profession / Specialization</div>
               <div className="grid gap-2 sm:grid-cols-2">
                 {selected.specializations.map((entry) => {
                   const id = makeCatalogId('specialization', `${selected.trade}-${entry.name}`);
@@ -506,7 +508,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label>Starting Trade Rank</Label>
+              <Label htmlFor="starting-trade-rank">Starting Trade Rank</Label>
               <Select
                 value={String(draft.intrinsics.tradeRank ?? 1)}
                 onValueChange={(value) => setDraft((current) => syncIntrinsics({
@@ -514,7 +516,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
                   intrinsics: { ...current.intrinsics, tradeRank: Number(value) },
                 }, data))}
               >
-                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectTrigger id="starting-trade-rank"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {Array.from({ length: maxRank }, (_, index) => index + 1).map((rank) => (
                     <SelectItem key={rank} value={String(rank)}>Rank {rank}</SelectItem>
@@ -604,12 +606,12 @@ function ZedStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue
               <div className="text-xs text-muted-foreground">Counts against the same standard novice +4 purchased raw-Attribute limit.</div>
             </div>
             <div className="flex items-center gap-2">
-              <Button type="button" size="icon" variant="outline" disabled={draft.intrinsics.zedPurchasedIncrease <= 0} onClick={() => setDraft((current) => syncIntrinsics({
+              <Button type="button" size="icon" variant="outline" aria-label="Decrease purchased ZED increase" disabled={draft.intrinsics.zedPurchasedIncrease <= 0} onClick={() => setDraft((current) => syncIntrinsics({
                 ...current,
                 intrinsics: { ...current.intrinsics, zedPurchasedIncrease: Math.max(0, current.intrinsics.zedPurchasedIncrease - 1) },
               }, data))}><Minus className="h-4 w-4" /></Button>
               <span className="min-w-8 text-center font-semibold">+{draft.intrinsics.zedPurchasedIncrease}</span>
-              <Button type="button" size="icon" variant="outline" disabled={draft.intrinsics.zedPurchasedIncrease >= 2 || totalPurchased >= 4} onClick={() => setDraft((current) => syncIntrinsics({
+              <Button type="button" size="icon" variant="outline" aria-label="Increase purchased ZED" disabled={draft.intrinsics.zedPurchasedIncrease >= 2 || totalPurchased >= 4} onClick={() => setDraft((current) => syncIntrinsics({
                 ...current,
                 intrinsics: { ...current.intrinsics, zedPurchasedIncrease: Math.min(2, current.intrinsics.zedPurchasedIncrease + 1) },
               }, data))}><Plus className="h-4 w-4" /></Button>

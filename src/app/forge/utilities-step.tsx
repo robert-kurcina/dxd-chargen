@@ -96,10 +96,10 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
       <div className="grid gap-3 sm:grid-cols-[1fr_180px]">
         <div className="relative">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search 84 Spells" className="pl-9" />
+          <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search 84 Spells" aria-label="Search spells" className="pl-9" />
         </div>
         <Select value={level} onValueChange={setLevel}>
-          <SelectTrigger><SelectValue /></SelectTrigger>
+          <SelectTrigger aria-label="Filter spells by level"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Spell Levels</SelectItem>
             {levels.map((value) => <SelectItem key={value} value={String(value)}>Level {value}</SelectItem>)}
@@ -183,18 +183,19 @@ function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
       {selected.length > 0 && (
         <section className="space-y-2">
           <h3 className="font-semibold">Selected starting gear</h3>
-          {(['weapons', 'armor', 'equipment'] as const).map((selectedCategory) => selected.some((item) => item.category === selectedCategory) && <div key={selectedCategory} className="overflow-x-auto rounded-lg border">
+          {(['weapons', 'armor', 'equipment'] as const).map((selectedCategory) => selected.some((item) => item.category === selectedCategory) && <div key={selectedCategory} className="selected-gear-scroll overflow-x-auto rounded-lg border">
             <div className="bg-muted/50 px-3 py-2 text-sm font-semibold capitalize">{selectedCategory === 'armor' ? 'Armor' : selectedCategory}</div>
-            <table className="w-full min-w-[700px] text-sm">
+            <table className="selected-gear-table w-full min-w-[700px] text-sm">
+              <caption className="sr-only">Selected {selectedCategory === 'armor' ? 'armor' : selectedCategory}</caption>
               <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Item</th><th className="px-3 py-2">Qty</th><th className="px-3 py-2 text-right">Unit gp</th><th className="px-3 py-2 text-right">Weight</th><th className="px-3 py-2"></th></tr></thead>
               <tbody>
                 {selected.filter((item) => item.category === selectedCategory).map((item, index) => { const catalogueItem = (item.category === 'weapons' ? data.itemWeapons : item.category === 'armor' ? data.itemArmors : data.itemEquipments).find((entry) => entry.catalogId === item.catalogId); const values = catalogueItem ? adjustedGearValues(item.category, catalogueItem, draft, data) : { priceGp: item.unitPriceGp, weight: item.unitWeight, tca: 0 }; return (
                   <tr key={`${item.category}-${item.catalogId ?? item.id ?? item.name}-${index}`} className="border-t">
-                    <td className="px-3 py-2"><div className="font-medium">{displayInventoryName(item.name)}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && item.category !== 'equipment' ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : item.category}{values.tca ? ` • TCA ${values.tca > 0 ? '+' : ''}${values.tca}` : ''}</div></td>
-                    <td className="px-3 py-2"><div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center">{item.quantity}</span><Button size="icon" variant="ghost" onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1))}><Plus className="h-3.5 w-3.5" /></Button></div></td>
-                    <td className="px-3 py-2 text-right">{formatNumberWithCommas(values.priceGp)}</td>
-                    <td className="px-3 py-2 text-right">{formatNumberWithCommas(values.weight)}#</td>
-                    <td className="px-3 py-2 text-right"><Button size="icon" variant="ghost" onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', 0))}><Trash2 className="h-4 w-4" /></Button></td>
+                    <td data-label="Item" className="px-3 py-2"><div className="font-medium">{displayInventoryName(item.name)}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && item.category !== 'equipment' ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : item.category}{values.tca ? ` • TCA ${values.tca > 0 ? '+' : ''}${values.tca}` : ''}</div></td>
+                    <td data-label="Quantity" className="px-3 py-2"><div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" aria-label={`Decrease ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center" aria-label={`${item.quantity} selected`}>{item.quantity}</span><Button size="icon" variant="ghost" aria-label={`Increase ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1))}><Plus className="h-3.5 w-3.5" /></Button></div></td>
+                    <td data-label="Unit gp" className="px-3 py-2 text-right">{formatNumberWithCommas(values.priceGp)}</td>
+                    <td data-label="Weight" className="px-3 py-2 text-right">{formatNumberWithCommas(values.weight)}#</td>
+                    <td data-label="Controls" className="px-3 py-2 text-right"><Button size="icon" variant="ghost" aria-label={`Remove ${displayInventoryName(item.name)}`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', 0))}><Trash2 className="h-4 w-4" /></Button></td>
                   </tr>
                 ); })}
               </tbody>
@@ -205,7 +206,7 @@ function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
       )}
 
       <section className="space-y-3">
-        <div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Weapons, Armor, and Equipment" className="pl-9" /></div>
+        <div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Weapons, Armor, and Equipment" aria-label="Search weapons, armor, and equipment" className="pl-9" /></div>
         <Accordion type="multiple" defaultValue={['Weapons', 'Armors', 'Equipment']} className="space-y-3">{catalogGroups.map(({ title, category, subgroups }) => subgroups.some((group) => group.items.length) && <AccordionItem key={title} value={title} className="overflow-hidden rounded-lg border px-4"><AccordionTrigger className="text-base font-semibold">{title}</AccordionTrigger><AccordionContent className="space-y-4">{subgroups.map((subgroup) => subgroup.items.length > 0 && <section key={subgroup.title} className="overflow-x-auto rounded-md border"><h4 className="bg-muted/50 px-3 py-2 text-sm font-semibold">{subgroup.title}</h4><div className="min-w-[760px] divide-y">{subgroup.items.slice(0, 90).map((item) => { const values = adjustedGearValues(category, item, draft, data); const weapon = category === 'weapons' ? values as ReturnType<typeof adjustedGearValues> & { ora?: number; damageOffset?: number; minStr?: number } : null; const armor = category === 'armor' ? values as ReturnType<typeof adjustedGearValues> & { armorRating?: number; deflectRating?: number } : null; const column = 'flex min-w-[50px] max-w-[100px] flex-1 items-center justify-end px-2 text-right text-xs tabular-nums'; return <div key={item.catalogId} className={cn('grid min-h-8 grid-cols-[minmax(180px,1fr)_minmax(250px,500px)_minmax(90px,100px)] items-stretch', unavailableItems.has(item.name) && 'opacity-50')}><div className="flex min-w-[180px] items-center px-3 text-sm font-medium">{item.name}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && category !== 'equipment' ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="flex items-stretch justify-end"><div className={column}>{formatNumberWithCommas(values.priceGp)} gp</div><div className={column}>{formatNumberWithCommas(values.weight)}#</div>{weapon ? <><div className={column}>OR {weapon.ora}</div><div className={column}>STR {weapon.minStr}</div><div className={column}>Dmg {weapon.damageOffset}</div></> : armor ? <><div className={column}>D {armor.deflectRating}</div><div className={column}>AR {armor.armorRating}</div><div className={column}>TCA {values.tca > 0 ? '+' : ''}{values.tca}</div></> : <><div className={column}>{item.traits[0] ?? '—'}</div><div className={column}>{item.traits[1] ?? '—'}</div><div className={column}>TCA {values.tca > 0 ? '+' : ''}{values.tca}</div></>}</div><div className="flex min-w-[90px] max-w-[100px] items-center justify-end px-2"><Button type="button" size="sm" variant="outline" disabled={unavailableItems.has(item.name)} onClick={() => setDraft((current) => addInventoryItem(current, category, item.catalogId, data))}>{unavailableItems.has(item.name) ? 'Unavailable' : 'Add'}</Button></div></div>; })}</div></section>)}</AccordionContent></AccordionItem>)}</Accordion>
       </section>
     </div>
@@ -230,8 +231,8 @@ function MagicItemsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'ste
         <div className="flex gap-2"><Button type="button" variant="outline" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, magicItems: [], magicItemForms: {}, magicItemsReviewed: false } }))}>Reset</Button><ReviewButton reviewed={draft.utilities.magicItemsReviewed} label="Magic Items" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, magicItemsReviewed: !current.utilities.magicItemsReviewed } }))} /></div>
       </div>
       <div className="grid gap-3 sm:grid-cols-[1fr_190px]">
-        <div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Magic Items" className="pl-9" /></div>
-        <Select value={grade} onValueChange={setGrade}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All grades</SelectItem>{grades.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
+        <div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Magic Items" aria-label="Search magic items" className="pl-9" /></div>
+        <Select value={grade} onValueChange={setGrade}><SelectTrigger aria-label="Filter magic items by grade"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All grades</SelectItem>{grades.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
       </div>
       <div className="grid gap-3 xl:grid-cols-2">
         {filtered.map((item) => {
@@ -257,19 +258,19 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
         <div><h3 className="font-semibold">Conlang name generator</h3><p className="mt-1 text-xs text-muted-foreground">Uses the existing D66 generator tables incorporated from the conlang source. The generated result is editable; the generator does not replace player choice.</p></div>
         <div className="grid gap-3 md:grid-cols-[1fr_180px]">
           <Select value={languageId} onValueChange={(value) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, nameLanguageId: value } }))}>
-            <SelectTrigger><SelectValue placeholder="Choose naming language" /></SelectTrigger>
+            <SelectTrigger aria-label="Naming language"><SelectValue placeholder="Choose naming language" /></SelectTrigger>
             <SelectContent>{data.languages.filter((entry) => data.nameGenerators.some((generatorEntry) => generatorEntry.languageId === entry.id)).map((entry) => <SelectItem key={entry.id} value={entry.id}>{entry.name}</SelectItem>)}</SelectContent>
           </Select>
           <Select value={draft.utilities.nameStyle} onValueChange={(value) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, nameStyle: value as CharacterDraft['utilities']['nameStyle'] } }))}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Name ending style"><SelectValue /></SelectTrigger>
             <SelectContent><SelectItem value="any">Any personal ending</SelectItem><SelectItem value="masculine">Masculine ending</SelectItem><SelectItem value="feminine">Feminine ending</SelectItem></SelectContent>
           </Select>
         </div>
         <div className="flex flex-wrap gap-2 text-xs"><Badge variant="outline">{language?.name ?? 'No language'}</Badge>{language?.locus && <Badge variant="outline">{language.locus}</Badge>}{languageId === suggested && <Badge variant="secondary">Suggested from known language</Badge>}{generator && <Badge variant="outline">{generator.source}</Badge>}</div>
       </section>
       <section className="grid gap-4 lg:grid-cols-2">
-        <div className="space-y-2"><Label>Table / common name</Label><Input value={draft.utilities.name} onChange={(event) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, name: event.target.value } }))} placeholder="Name used during play" /></div>
-        <div className="space-y-2"><Label>Proper / formal name</Label><Input value={draft.utilities.properName} onChange={(event) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, properName: event.target.value } }))} placeholder="Formal or birth name" /></div>
+        <div className="space-y-2"><Label htmlFor="character-common-name">Table / common name</Label><Input id="character-common-name" value={draft.utilities.name} onChange={(event) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, name: event.target.value } }))} placeholder="Name used during play" /></div>
+        <div className="space-y-2"><Label htmlFor="character-proper-name">Proper / formal name</Label><Input id="character-proper-name" value={draft.utilities.properName} onChange={(event) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, properName: event.target.value } }))} placeholder="Formal or birth name" /></div>
       </section>
     </div>
   );

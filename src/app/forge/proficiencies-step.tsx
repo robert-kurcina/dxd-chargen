@@ -76,14 +76,14 @@ function PmlStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, 'stepVa
           <p className="mt-1 text-sm text-muted-foreground">Standard player-characters begin at PML 1. Higher values are available for advanced campaigns and remain constrained by Age.</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Button type="button" size="icon" variant="outline" disabled={pml <= 1} onClick={() => setDraft((current) => setPml(current, pml - 1, data))}>
+          <Button type="button" size="icon" variant="outline" aria-label="Decrease PML" disabled={pml <= 1} onClick={() => setDraft((current) => setPml(current, pml - 1, data))}>
             <Minus className="h-4 w-4" />
           </Button>
           <div className="min-w-24 rounded-lg border px-5 py-3 text-center">
             <div className="text-xs uppercase tracking-wide text-muted-foreground">PML</div>
             <div className="text-3xl font-semibold">{pml}</div>
           </div>
-          <Button type="button" size="icon" variant="outline" disabled={pml >= 20} onClick={() => setDraft((current) => setPml(current, pml + 1, data))}>
+          <Button type="button" size="icon" variant="outline" aria-label="Increase PML" disabled={pml >= 20} onClick={() => setDraft((current) => setPml(current, pml + 1, data))}>
             <Plus className="h-4 w-4" />
           </Button>
           <Button type="button" variant="secondary" onClick={() => setDraft((current) => setPml(current, 1, data))}>Reset to standard PML 1</Button>
@@ -151,9 +151,9 @@ function SpecializationControls({ selection, data, draft, onChange }: { selectio
     {entries.map(([name, rank]) => <div key={name} className="flex items-center gap-1">
       <Select value={name} onValueChange={(value) => replace(name, value)}><SelectTrigger className="h-8 w-[180px]"><SelectValue /></SelectTrigger><SelectContent>{options.length ? options.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>) : <SelectItem value={name}>{name}</SelectItem>}</SelectContent></Select>
       {rank > 1 && <Badge variant="secondary">×{rank}</Badge>}
-      <Button type="button" size="icon" variant="ghost" className="h-8 w-8" onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button>
+      <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-8 sm:w-8" aria-label={`Remove ${name} specialization`} onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button>
     </div>)}
-    {usedSlots < maxSlots && options.length > 0 && <Button type="button" size="icon" variant="outline" className="h-8 w-8" onClick={add}><Plus className="h-3.5 w-3.5" /></Button>}
+    {usedSlots < maxSlots && options.length > 0 && <Button type="button" size="icon" variant="outline" className="h-11 w-11 sm:h-8 sm:w-8" aria-label={`Add ${selection.name} specialization`} onClick={add}><Plus className="h-3.5 w-3.5" /></Button>}
     {!entries.length && options.length > 0 && <Button type="button" size="sm" variant="outline" onClick={add}><Plus className="h-3.5 w-3.5" /> Specialization</Button>}
   </div>;
 }
@@ -224,12 +224,12 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
                       <div className="font-medium">{definition?.trait ?? selection.name}</div>
                       <div className="mt-1 text-xs text-muted-foreground">IM {cost.im} • source limit {source.limit} ({source.strength}) • cost {cost.total}{cost.surcharge ? ` including +${cost.surcharge} surcharge` : ''}</div>
                     </div>
-                    <Button type="button" size="icon" variant="ghost" onClick={() => setDraft((current) => removeAdditionalSkill(current, selection.id))}><Trash2 className="h-4 w-4" /></Button>
+                    <Button type="button" size="icon" variant="ghost" aria-label={`Remove ${selection.name}`} onClick={() => setDraft((current) => removeAdditionalSkill(current, selection.id))}><Trash2 className="h-4 w-4" /></Button>
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2">
-                    <Button type="button" size="icon" variant="outline" disabled={(selection.level ?? 1) <= 1} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) - 1 }))}><Minus className="h-4 w-4" /></Button>
+                    <Button type="button" size="icon" variant="outline" aria-label={`Decrease ${selection.name} level`} disabled={(selection.level ?? 1) <= 1} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) - 1 }))}><Minus className="h-4 w-4" /></Button>
                     <div className="min-w-20 text-center text-sm font-medium">Level {selection.level ?? 1}</div>
-                    <Button type="button" size="icon" variant="outline" disabled={(selection.level ?? 1) >= 5} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) + 1 }))}><Plus className="h-4 w-4" /></Button>
+                    <Button type="button" size="icon" variant="outline" aria-label={`Increase ${selection.name} level`} disabled={(selection.level ?? 1) >= 5} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) + 1 }))}><Plus className="h-4 w-4" /></Button>
                     {broad && <SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => updateAdditionalSkillSpecializations(current, selection.id, ranks))} />}
                   </div>
                 </div>
@@ -246,7 +246,7 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
         </div>
         <div className="relative">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input className="pl-9" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Skills and Traits…" />
+          <Input className="pl-9" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Skills and Traits…" aria-label="Search skills and traits" />
         </div>
         <div className="max-h-[420px] overflow-y-auto rounded-lg border">
           {catalogue.map((trait) => (
@@ -283,12 +283,12 @@ function LanguageCard({ language, data, setDraft }: { language: LanguageSelectio
           <div className="flex flex-wrap items-center gap-2"><span className="font-medium">{formatLanguageRecord(language)}</span><Badge variant="outline">{language.kind}</Badge><Badge variant="secondary">{languageBenefit(level)}</Badge></div>
           <div className="mt-1 text-xs text-muted-foreground">{record?.utility ?? 'Language'}{record?.locus ? ` • ${record.locus}` : ''}{record?.beatified ? ' • Beatified' : ''}</div>
         </div>
-        {language.kind === 'proficiency' && <Button type="button" size="icon" variant="ghost" onClick={() => setDraft((current) => removeProficiencyLanguage(current, language.id))}><Trash2 className="h-4 w-4" /></Button>}
+        {language.kind === 'proficiency' && <Button type="button" size="icon" variant="ghost" aria-label={`Remove ${language.name}`} onClick={() => setDraft((current) => removeProficiencyLanguage(current, language.id))}><Trash2 className="h-4 w-4" /></Button>}
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <Button type="button" size="icon" variant="outline" disabled={language.improvements <= 0} onClick={() => setDraft((current) => updateLanguage(current, language.id, { improvements: language.improvements - 1 }))}><Minus className="h-4 w-4" /></Button>
+        <Button type="button" size="icon" variant="outline" aria-label={`Decrease ${language.name} proficiency`} disabled={language.improvements <= 0} onClick={() => setDraft((current) => updateLanguage(current, language.id, { improvements: language.improvements - 1 }))}><Minus className="h-4 w-4" /></Button>
         <span className="min-w-28 text-center text-sm">+{language.improvements} proficiency</span>
-        <Button type="button" size="icon" variant="outline" onClick={() => setDraft((current) => updateLanguage(current, language.id, { improvements: language.improvements + 1 }))}><Plus className="h-4 w-4" /></Button>
+        <Button type="button" size="icon" variant="outline" aria-label={`Increase ${language.name} proficiency`} onClick={() => setDraft((current) => updateLanguage(current, language.id, { improvements: language.improvements + 1 }))}><Plus className="h-4 w-4" /></Button>
         <Button
           type="button"
           size="sm"
@@ -344,18 +344,18 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
         </div>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="space-y-2 rounded-lg border p-3">
-            <Label>Default regional language</Label>
+            <Label htmlFor="default-regional-language">Default regional language</Label>
             <Select value={defaultLanguage?.catalogId ?? ''} onValueChange={(value) => setDraft((current) => setCoreLanguage(current, 'default', value, data))}>
-              <SelectTrigger><SelectValue placeholder={suggestion ? `Suggested: ${suggestion.name}` : 'Choose regional language'} /></SelectTrigger>
+              <SelectTrigger id="default-regional-language"><SelectValue placeholder={suggestion ? `Suggested: ${suggestion.name}` : 'Choose regional language'} /></SelectTrigger>
               <SelectContent>{data.languages.map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
             </Select>
             {suggestion && <div className="text-xs text-muted-foreground">Settlement suggestion: {suggestion.name}</div>}
             {settlement?.languageLayers.length ? <div className="text-xs text-muted-foreground">Toponym/language layers: {settlement.languageLayers.join(' • ')}</div> : null}
           </div>
           <div className="space-y-2 rounded-lg border p-3">
-            <Label>Heritage language</Label>
+            <Label htmlFor="heritage-language">Heritage language</Label>
             <Select value={heritageLanguage?.catalogId ?? ''} onValueChange={(value) => setDraft((current) => setCoreLanguage(current, 'heritage', value, data))}>
-              <SelectTrigger><SelectValue placeholder={heritageSuggestions.length ? `Local layers: ${heritageSuggestions.join(', ')}` : 'Choose Heritage language'} /></SelectTrigger>
+              <SelectTrigger id="heritage-language"><SelectValue placeholder={heritageSuggestions.length ? `Local layers: ${heritageSuggestions.join(', ')}` : 'Choose Heritage language'} /></SelectTrigger>
               <SelectContent>{data.languages.map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
             </Select>
             {heritageSuggestions.length > 0 && <div className="text-xs text-muted-foreground">Locally supported Heritage-language choices: {heritageSuggestions.join(', ')}. This remains a suggestion rather than a restriction.</div>}

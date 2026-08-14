@@ -68,6 +68,7 @@ button, .level-control, .character-control {
 }
 button { padding: 0 14px; cursor: pointer; }
 button:hover { background: #333; }
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #176f91; outline-offset: 2px; }
 .tab { min-width: 78px; border: 0; border-radius: 0; background: transparent; color: #666; }
 .tab.active { color: var(--ink); box-shadow: 0 2px 0 var(--red); }
 .quiet { background: transparent; color: var(--ink); border-color: #aaa; }
@@ -99,7 +100,7 @@ button:disabled { cursor: wait; opacity: .68; }
 }
 
 main { padding: 26px 16px 60px; }
-.sheet-shell { width: min(960px, 100%); margin: 0 auto; }
+.sheet-shell { width: min(calc(960px * var(--sheet-zoom, 1)), calc(100% * var(--sheet-zoom, 1))); margin: 0 auto; }
 .sheet-page {
   position: relative;
   width: 100%;
@@ -163,8 +164,11 @@ body.embedded { min-width: 0; background: #eee; }
 body.embedded .toolbar { grid-template-columns: 1fr auto; }
 body.embedded .brand { display: none; }
 body.embedded .page-tabs { justify-self: start; }
-body.embedded .actions > :not(#export-pdf) { display: none; }
+body.embedded .actions > :not(#export-pdf):not(.view-controls) { display: none; }
 body.embedded main { padding: 12px 5px 24px; }
+.view-controls { display: flex; align-items: center; gap: 4px; }
+.view-controls button { min-width: 36px; padding-inline: 8px; }
+.view-controls output { min-width: 44px; color: #555; text-align: center; font-size: 12px; }
 
 @media (max-width: 720px) {
   .toolbar { grid-template-columns: 1fr auto; padding: 8px 10px; }
@@ -172,10 +176,16 @@ body.embedded main { padding: 12px 5px 24px; }
   .page-tabs { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
   .actions { gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
   .actions button { padding: 0 9px; }
+  .view-controls #fit-width { display: none; }
+  .view-controls output { min-width: 38px; }
   .level-control, .character-control { padding-left: 8px; }
   .character-control span { display: none; }
   .character-control select { width: 128px; }
   main { padding: 12px 5px 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
 @media print {

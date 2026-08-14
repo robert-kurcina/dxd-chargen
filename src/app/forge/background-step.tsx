@@ -55,6 +55,7 @@ function ChoiceCard({ selected, title, subtitle, meta, onClick, disabled = false
       type="button"
       onClick={onClick}
       disabled={disabled}
+      aria-pressed={selected}
       className={cn(
         'relative rounded-lg border p-3 text-left transition-colors hover:bg-muted/60',
         selected && 'border-primary bg-primary/5 ring-1 ring-primary',
@@ -140,9 +141,9 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
       <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={custom} onCheckedChange={(value) => toggleCustom(Boolean(value))} /><span><span className="block font-medium">Other</span><span className="text-xs text-muted-foreground">Use a custom Region and Settlement outside the standard catalog.</span></span></label>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <Label>Starting region</Label>
-          {custom ? <Input value={customRegion?.name ?? ''} onChange={(event) => setCustomLocation('region', event.target.value)} placeholder="Custom region" maxLength={100} /> : <Select value={draft.background.regionId ?? undefined} onValueChange={chooseRegion}>
-            <SelectTrigger><SelectValue placeholder="Choose a region" /></SelectTrigger>
+          <Label htmlFor="starting-region">Starting region</Label>
+          {custom ? <Input id="starting-region" value={customRegion?.name ?? ''} onChange={(event) => setCustomLocation('region', event.target.value)} placeholder="Custom region" maxLength={100} /> : <Select value={draft.background.regionId ?? undefined} onValueChange={chooseRegion}>
+            <SelectTrigger id="starting-region"><SelectValue placeholder="Choose a region" /></SelectTrigger>
             <SelectContent>
               {data.empires.map((item) => (
                 <SelectItem key={item.catalogId} value={item.catalogId}>
@@ -153,13 +154,13 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
           </Select>}
         </div>
         <div className="space-y-2">
-          <Label>Starting settlement</Label>
-          {custom ? <Input value={customSettlement?.name ?? ''} onChange={(event) => setCustomLocation('settlement', event.target.value)} placeholder="Custom settlement" maxLength={100} /> : <Select
+          <Label htmlFor="starting-settlement">Starting settlement</Label>
+          {custom ? <Input id="starting-settlement" value={customSettlement?.name ?? ''} onChange={(event) => setCustomLocation('settlement', event.target.value)} placeholder="Custom settlement" maxLength={100} /> : <Select
             value={draft.background.settlementId ?? undefined}
             onValueChange={chooseSettlement}
             disabled={!region}
           >
-            <SelectTrigger><SelectValue placeholder={region ? 'Choose a settlement' : 'Choose a region first'} /></SelectTrigger>
+            <SelectTrigger id="starting-settlement"><SelectValue placeholder={region ? 'Choose a settlement' : 'Choose a region first'} /></SelectTrigger>
             <SelectContent>
               {settlementOptions.map((item) => (
                 <SelectItem key={item.id} value={item.id}>
@@ -225,16 +226,16 @@ function DemographicsStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2"><Label>Sex</Label><Select value={draft.background.sex ?? undefined} onValueChange={(sex) => setBackground({ sex: sex as CharacterDraft['background']['sex'], geneticallyFemale: sex === 'Male' ? false : draft.background.geneticallyFemale })}><SelectTrigger><SelectValue placeholder="Choose Sex" /></SelectTrigger><SelectContent>{['Male','Female','Intersex'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
-        <div className="space-y-2"><Label>Gender</Label><Select value={draft.background.gender ?? undefined} onValueChange={(gender) => setBackground({ gender: gender as CharacterDraft['background']['gender'] })}><SelectTrigger><SelectValue placeholder="Choose Gender" /></SelectTrigger><SelectContent>{['Male','Female','Non-binary'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
-        <div className="space-y-2 md:col-span-2"><Label>Handedness</Label><Select value={draft.background.handedness ?? 'Right'} onValueChange={(handedness) => setBackground({ handedness: handedness as CharacterDraft['background']['handedness'] })}><SelectTrigger><SelectValue placeholder="Choose handedness" /></SelectTrigger><SelectContent><SelectItem value="Right">Right-handed</SelectItem><SelectItem value="Left">Left-handed</SelectItem></SelectContent></Select></div>
+        <div className="space-y-2"><Label htmlFor="demographic-sex">Sex</Label><Select value={draft.background.sex ?? undefined} onValueChange={(sex) => setBackground({ sex: sex as CharacterDraft['background']['sex'], geneticallyFemale: sex === 'Male' ? false : draft.background.geneticallyFemale })}><SelectTrigger id="demographic-sex"><SelectValue placeholder="Choose Sex" /></SelectTrigger><SelectContent>{['Male','Female','Intersex'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2"><Label htmlFor="demographic-gender">Gender</Label><Select value={draft.background.gender ?? undefined} onValueChange={(gender) => setBackground({ gender: gender as CharacterDraft['background']['gender'] })}><SelectTrigger id="demographic-gender"><SelectValue placeholder="Choose Gender" /></SelectTrigger><SelectContent>{['Male','Female','Non-binary'].map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2 md:col-span-2"><Label htmlFor="demographic-handedness">Handedness</Label><Select value={draft.background.handedness ?? 'Right'} onValueChange={(handedness) => setBackground({ handedness: handedness as CharacterDraft['background']['handedness'] })}><SelectTrigger id="demographic-handedness"><SelectValue placeholder="Choose handedness" /></SelectTrigger><SelectContent><SelectItem value="Right">Right-handed</SelectItem><SelectItem value="Left">Left-handed</SelectItem></SelectContent></Select></div>
         <label className={cn('flex items-start gap-3 rounded-lg border p-3 md:col-span-2', draft.background.sex === 'Male' && 'opacity-50')}><Checkbox disabled={draft.background.sex === 'Male' || !draft.background.sex} checked={draft.background.geneticallyFemale} onCheckedChange={(value) => setBackground({ geneticallyFemale: Boolean(value) })} /><span><span className="block font-medium">Female Differentiation</span><span className="text-xs text-muted-foreground">Apply genetically female adjustments. Available for non-Male Sex; applies the Group's structured female Attribute, characteristic, Trait, and managed-concern adjustments.</span></span></label>
       </div>
       <Separator />
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="space-y-2"><Label>Age Group</Label><Select value={draft.background.ageGroup ?? undefined} onValueChange={(ageGroup) => setBackground({ ageGroup, ageYears: null })}><SelectTrigger><SelectValue placeholder="Choose Age Group" /></SelectTrigger><SelectContent>{data.ageGroups.map((entry) => <SelectItem key={`${entry.rank}-${entry.ageGroup}`} value={entry.ageGroup}>{entry.ageGroup} [{entry.rank}]</SelectItem>)}</SelectContent></Select></div>
-        <div className="space-y-2"><Label>Age in years</Label><Input type="number" min={0} value={draft.background.ageYears ?? ''} onChange={(event) => setBackground({ ageYears: event.target.value === '' ? null : Math.max(0, Number.parseInt(event.target.value, 10) || 0) })} placeholder={group ? `Generated for ${group.name} or enter manually` : 'Set now or after Group'} /></div>
-        <div className="space-y-2"><Label>Birth Month</Label><Select value={draft.background.birthMonth?.toString()} onValueChange={(value) => setBackground({ birthMonth: Number(value) })}><SelectTrigger><SelectValue placeholder="Month 1–12" /></SelectTrigger><SelectContent>{Array.from({ length: 12 }, (_, index) => index + 1).map((month) => <SelectItem key={month} value={String(month)}>Month {month}</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2"><Label htmlFor="demographic-age-group">Age Group</Label><Select value={draft.background.ageGroup ?? undefined} onValueChange={(ageGroup) => setBackground({ ageGroup, ageYears: null })}><SelectTrigger id="demographic-age-group"><SelectValue placeholder="Choose Age Group" /></SelectTrigger><SelectContent>{data.ageGroups.map((entry) => <SelectItem key={`${entry.rank}-${entry.ageGroup}`} value={entry.ageGroup}>{entry.ageGroup} [{entry.rank}]</SelectItem>)}</SelectContent></Select></div>
+        <div className="space-y-2"><Label htmlFor="demographic-age-years">Age in years</Label><Input id="demographic-age-years" type="number" min={0} value={draft.background.ageYears ?? ''} onChange={(event) => setBackground({ ageYears: event.target.value === '' ? null : Math.max(0, Number.parseInt(event.target.value, 10) || 0) })} placeholder={group ? `Generated for ${group.name} or enter manually` : 'Set now or after Group'} /></div>
+        <div className="space-y-2"><Label htmlFor="demographic-birth-month">Birth Month</Label><Select value={draft.background.birthMonth?.toString()} onValueChange={(value) => setBackground({ birthMonth: Number(value) })}><SelectTrigger id="demographic-birth-month"><SelectValue placeholder="Month 1–12" /></SelectTrigger><SelectContent>{Array.from({ length: 12 }, (_, index) => index + 1).map((month) => <SelectItem key={month} value={String(month)}>Month {month}</SelectItem>)}</SelectContent></Select></div>
       </div>
       {draft.background.ageGroup && <div className="rounded-lg border bg-muted/30 p-4 text-sm"><div className="flex flex-wrap gap-2"><Badge variant="outline">Age Rank {rank ?? '?'}</Badge>{bonus && <Badge variant="secondary">Bonus {bonus}</Badge>}<Badge variant="outline">Required Disads {requiredDisabilityCount(draft, data)}</Badge></div><div className="mt-3 text-xs text-muted-foreground">Age Group modifiers: {ageModifier ? `CCA ${ageModifier.CCA}, RCA ${ageModifier.RCA}, REF ${ageModifier.REF}, INT ${ageModifier.INT}, KNO ${ageModifier.KNO}, PRE ${ageModifier.PRE}, POW ${ageModifier.POW}, STR ${ageModifier.STR}, FOR ${ageModifier.FOR}, MOV ${ageModifier.MOV}, ZED ${ageModifier.ZED}` : 'none'}; secondary Body {secondary?.Bodypoints ?? 0}, Build {secondary?.Build ?? 0}, Stature {secondary?.Stature ?? 0}, Resilience {secondary?.Resilience ?? 0}.</div></div>}
     </div>
@@ -246,7 +247,7 @@ function AgeStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue
     <div className="space-y-5">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <Label>Age group</Label>
+          <Label htmlFor="age-group">Age group</Label>
           <Select
             value={draft.background.ageGroup ?? undefined}
             onValueChange={(ageGroup) =>
@@ -256,7 +257,7 @@ function AgeStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue
               }, data))
             }
           >
-            <SelectTrigger><SelectValue placeholder="Choose an age group" /></SelectTrigger>
+            <SelectTrigger id="age-group"><SelectValue placeholder="Choose an age group" /></SelectTrigger>
             <SelectContent>
               {data.ageGroups.map((item) => (
                 <SelectItem key={`${item.rank}-${item.ageGroup}`} value={item.ageGroup}>
@@ -464,7 +465,7 @@ function PersonalityStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 's
     <div className="space-y-4">
       <div className="relative">
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search 108 descriptors" className="pl-9" />
+        <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search 108 descriptors" aria-label="Search personality descriptors" className="pl-9" />
       </div>
       {draft.background.personality.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -518,7 +519,7 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
             if (item) resolve(item);
           }}
         >
-          <SelectTrigger className="flex-1"><SelectValue placeholder="Choose a tragedy template" /></SelectTrigger>
+          <SelectTrigger className="flex-1" aria-label="Tragedy template"><SelectValue placeholder="Choose a tragedy template" /></SelectTrigger>
           <SelectContent>
             {imported && <SelectItem value={draft.background.tragedySeedId!}>Imported: {draft.background.tragedySeedText}</SelectItem>}
             {data.tragedySeeds.map((item) => (
@@ -576,7 +577,7 @@ function DisabilitiesStep({ data, draft, setDraft }: Omit<BackgroundStepProps, '
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search disabilities" className="pl-9" />
+          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search disabilities" aria-label="Search disabilities" className="pl-9" />
         </div>
         <Button
           type="button"
@@ -652,7 +653,7 @@ function BeliefStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepVa
       </div>
       {selectedBelief?.isDeity && (
         <div className="space-y-2 rounded-lg border p-4">
-          <Label>Deity</Label>
+          <Label htmlFor="belief-deity">Deity</Label>
           <p className="text-xs text-muted-foreground">Any known deity may be chosen; no regional restriction is imposed.</p>
           <Select
             value={draft.background.deityId ?? undefined}
@@ -663,7 +664,7 @@ function BeliefStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepVa
               }))
             }
           >
-            <SelectTrigger><SelectValue placeholder="Choose a deity" /></SelectTrigger>
+            <SelectTrigger id="belief-deity"><SelectValue placeholder="Choose a deity" /></SelectTrigger>
             <SelectContent>
               {data.deities.map((deity) => {
                 const local = deity.deity === settlement?.currentDeity;

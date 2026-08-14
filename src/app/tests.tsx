@@ -64,6 +64,18 @@ import { calculateCandidacyProbability } from '@/lib/probability';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ListChecks } from 'lucide-react';
+import { ContextualSectionNavigation } from '@/components/contextual-section-navigation';
+
+const TEST_SECTION_TITLES = [
+  'Military Unit Generator', 'Salary Expectations', 'Candidacy Expression Evaluator', 'Candidacy Simulation',
+  'Salary Calculation', 'Heritage Generation', 'Profession & Title Generation', 'Settlement Generation',
+  'Number Suffix Formatting Tests', 'ND6 Function Tests', 'Attribute Array Generation', 'Simple Data Tables',
+  'Dice Roller Demo', 'isDisability Function Tests', 'Talent Parser Demo', 'getAgeRankValue Function Tests',
+  'Age Rank/Group Converters', 'parseMaturityString Function Tests', 'calculateMaturityDifference Function Tests',
+  'adjustTalentByMaturity Function Tests', 'Skillpoint Cost Calculation Tests', 'Age Generation Tests',
+  'D66 Lookup Tests', 'getScalar & getIndex Function Tests', 'Tragedy Seed Tests',
+];
 
 // Component to display a test case
 const TestCase = ({ title, result, expected, pass }: { title: string, result: any, expected: any, pass: boolean }) => (
@@ -76,7 +88,7 @@ const TestCase = ({ title, result, expected, pass }: { title: string, result: an
 
 // Component for a group of tests
 const TestSuite = ({ title, children, value, defaultValue }: { title: string; children: React.ReactNode; value: string, defaultValue?: string }) => (
-    <Card>
+    <Card className="scroll-mt-20">
       <AccordionItem value={value} className="border-b-0">
         <AccordionTrigger className="w-full p-6 hover:no-underline">
           <CardTitle className="flex-1 text-left">{title}</CardTitle>
@@ -579,11 +591,11 @@ const CustomizeGroupPay = ({ data }: { data: StaticData }) => {
                 </TableCell>
                 <TableCell>
                   {index === 0 ? (
-                    <Button variant="ghost" size="icon" onClick={handleAddRow}>
+                    <Button variant="ghost" size="icon" aria-label="Add salary adjustment row" onClick={handleAddRow}>
                       [+]
                     </Button>
                   ) : (
-                    <Button variant="ghost" size="icon" onClick={() => handleRemoveRow(row.id)}>
+                    <Button variant="ghost" size="icon" aria-label="Remove salary adjustment row" onClick={() => handleRemoveRow(row.id)}>
                       (x)
                     </Button>
                   )}
@@ -1538,6 +1550,18 @@ const SimpleDisplayCardTest = ({ title, data }: { title: string, data: any[] }) 
 export default function Tests({ data }: { data: StaticData }) {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
   const [ageGroup, setAgeGroup] = useState<any | null>(null);
+  const sectionRoot = useRef<HTMLDivElement>(null);
+
+  const navigateToSection = (title: string) => {
+    const trigger = Array.from(sectionRoot.current?.querySelectorAll<HTMLButtonElement>('button[data-radix-collection-item]') ?? []).find((item) => item.textContent?.trim() === title);
+    if (!trigger) return;
+    if (trigger.dataset.state === 'closed') trigger.click();
+    trigger.style.scrollMarginTop = '5rem';
+    window.setTimeout(() => {
+      trigger.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      trigger.focus({ preventScroll: true });
+    }, 50);
+  };
 
   const handleRoll = () => {
     const roll = D66();
@@ -1645,7 +1669,9 @@ export default function Tests({ data }: { data: StaticData }) {
 
 
   return (
-    <Accordion type="multiple" defaultValue={['salary-expectations']} className="space-y-8 mt-4 max-w-[960px] mx-auto">
+    <ContextualSectionNavigation title="Test Suites" label="Tests" items={TEST_SECTION_TITLES} icon={ListChecks} onSelect={navigateToSection}>
+      <div ref={sectionRoot}>
+      <Accordion type="multiple" defaultValue={['salary-expectations']} className="space-y-8 mt-4">
        <TestSuite title="Military Unit Generator" value="military-unit-generator">
         <MilitaryUnitGeneratorTest data={data} />
       </TestSuite>
@@ -1856,12 +1882,11 @@ export default function Tests({ data }: { data: StaticData }) {
       <TestSuite title="Tragedy Seed Tests" value="tragedy-seed-tests">
           <TragedySeedTest data={data} />
       </TestSuite>
-    </Accordion>
+      </Accordion>
+      </div>
+    </ContextualSectionNavigation>
   );
 }
-
-
-
 
 
 

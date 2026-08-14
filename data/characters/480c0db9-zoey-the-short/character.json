@@ -252,21 +252,9 @@
         "source": "player",
         "kind": "default",
         "primary": true,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-coro",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
         "baseLevel": 3,
         "improvements": 0,
-        "accentRemoved": false,
+        "accentRemoved": true,
         "catalogId": "language-coro",
         "modifiers": []
       },

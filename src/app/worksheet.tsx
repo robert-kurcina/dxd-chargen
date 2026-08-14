@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 
 import type { StaticData } from "@/data";
+import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
+import { MobileNavigationOverlay } from "@/components/mobile-navigation-overlay";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -212,12 +214,14 @@ function NotesEditor({
       </section>
       <section className="space-y-2 rounded-lg border p-4">
         <div className="flex justify-between">
-          <label className="font-medium">Notes</label>
-          <span className="text-xs text-muted-foreground">
+          <label htmlFor="misc-notes" className="font-medium">Notes</label>
+          <span id="misc-notes-count" className="text-xs text-muted-foreground">
             {formatNumberWithCommas(draft.utilities.notes.length)}/1,000
           </span>
         </div>
         <Textarea
+          id="misc-notes"
+          aria-describedby="misc-notes-count"
           maxLength={1000}
           value={draft.utilities.notes}
           onChange={(event) => update("notes", event.target.value)}
@@ -226,12 +230,14 @@ function NotesEditor({
       </section>
       <section className="space-y-2 rounded-lg border p-4">
         <div className="flex justify-between">
-          <label className="font-medium">Backstory</label>
-          <span className="text-xs text-muted-foreground">
+          <label htmlFor="misc-backstory" className="font-medium">Backstory</label>
+          <span id="misc-backstory-count" className="text-xs text-muted-foreground">
             {formatNumberWithCommas(draft.utilities.backstory.length)}/1,000
           </span>
         </div>
         <Textarea
+          id="misc-backstory"
+          aria-describedby="misc-backstory-count"
           maxLength={1000}
           value={draft.utilities.backstory}
           onChange={(event) => update("backstory", event.target.value)}
@@ -470,10 +476,12 @@ export default function Worksheet({
   const [activeStepValue, setActiveStepValue] = useState(
     allSteps[0]?.value ?? "",
   );
+  const mobileNav = useMobileNavigation();
   const assignmentPanelRef = useRef<HTMLDivElement>(null);
 
   const selectStep = (stepValue: string) => {
     setActiveStepValue(stepValue);
+    mobileNav.close();
     requestAnimationFrame(() =>
       assignmentPanelRef.current?.scrollTo({ top: 0, behavior: "auto" }),
     );
@@ -666,7 +674,7 @@ export default function Worksheet({
 
   return (
     <div className="mx-auto w-full max-w-[1440px] space-y-4 pb-8">
-      <div className="sticky top-14 z-40 flex flex-col gap-3 rounded-lg border bg-card/95 p-4 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between">
+      <div data-forge-modal-background className="sticky top-14 z-40 flex flex-col gap-3 rounded-lg border bg-card/95 p-3 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between md:p-4">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-semibold">
@@ -674,13 +682,13 @@ export default function Worksheet({
             </h1>
             <Badge variant="outline">v107 QA Corrections</Badge>
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
             Canonical DXD creation order with all in-scope phases functional.
             The active structured draft is autosaved into the local Character
             Library and projected into the finished CRS.
           </p>
         </div>
-        <div className="flex min-w-[260px] items-center gap-3">
+        <div className="flex w-full min-w-0 items-center gap-3 md:w-auto md:min-w-[260px]">
           <div className="flex-1">
             <div className="mb-1 flex justify-between text-xs text-muted-foreground">
               <span>Creation progress</span>
@@ -688,7 +696,7 @@ export default function Worksheet({
                 {completeCount}/{allSteps.length}
               </span>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2" aria-label="Character creation progress" />
           </div>
           <Button variant="outline" size="sm" onClick={resetDraft}>
             <RotateCcw />
@@ -697,10 +705,25 @@ export default function Worksheet({
         </div>
       </div>
 
+      <MobileNavigationOverlay
+        isOpen={mobileNav.isOpen}
+        activeMode={mobileNav.activeMode}
+        onClose={mobileNav.close}
+        onSwitchMode={mobileNav.switchMode}
+      />
+
       <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)_300px]">
-        <Card className="h-fit lg:sticky lg:top-44 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain">
+        <Card
+          id="mobile-forge-navigation-panel"
+          className={cn(
+            mobileNav.isOpen && mobileNav.activeMode === "navigation"
+              ? "fixed inset-x-0 bottom-0 top-14 z-[60] block overflow-y-auto rounded-none border-x-0"
+              : "hidden",
+            "lg:sticky lg:inset-auto lg:top-44 lg:z-auto lg:block lg:h-fit lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-xl lg:border",
+          )}
+        >
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Creation</CardTitle>
+            <CardTitle className="text-base" role="heading" aria-level={2}>Creation</CardTitle>
             <CardDescription>
               Future steps remain visible. Only genuine rule dependencies should
               lock a choice.
@@ -744,6 +767,8 @@ export default function Worksheet({
                           type="button"
                           key={step.value}
                           onClick={() => selectStep(step.value)}
+                          aria-current={active ? "step" : undefined}
+                          aria-label={`${step.title}. ${complete ? "Complete" : warning ? "Warning: review or approve" : "Alert: fix required"}`}
                           className={cn(
                             "flex w-full items-start gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
                             active
@@ -771,6 +796,11 @@ export default function Worksheet({
 
         <Card
           ref={assignmentPanelRef}
+          data-forge-modal-background
+          role="region"
+          aria-labelledby="active-step-title"
+          aria-describedby={activeAssessment.messages.length ? "active-step-assessment" : undefined}
+          aria-invalid={activeAssessment.status === "incomplete" || undefined}
           className="min-h-[560px] lg:sticky lg:top-44 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain"
         >
           <CardHeader>
@@ -780,7 +810,7 @@ export default function Worksheet({
                 Step {activeIndex + 1} of {allSteps.length}
               </span>
             </div>
-            <CardTitle>{activeStep.title}</CardTitle>
+            <CardTitle id="active-step-title" role="heading" aria-level={2}>{activeStep.title}</CardTitle>
             <CardDescription className="text-base">
               {activeStep.description}
             </CardDescription>
@@ -867,6 +897,9 @@ export default function Worksheet({
 
                   {activeAssessment.messages.length > 0 && (
                     <div
+                      id="active-step-assessment"
+                      role={activeAssessment.status === "incomplete" ? "alert" : "status"}
+                      aria-live={activeAssessment.status === "incomplete" ? "assertive" : "polite"}
                       className={cn(
                         "my-[2px] rounded-lg border p-4 text-sm",
                         activeAssessment.status === "warning" &&
@@ -964,15 +997,18 @@ export default function Worksheet({
                 </>
               )}
             </PersistentAccordionSection>
-            <div className="flex items-center justify-between border-t pt-5">
+            <div className="sticky bottom-0 z-20 -mx-6 flex items-center justify-between border-t bg-card/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-6px_14px_rgba(0,0,0,0.06)] backdrop-blur lg:static lg:mx-0 lg:bg-transparent lg:px-0 lg:pb-0 lg:pt-5 lg:shadow-none">
               <Button
+                className="h-11 lg:h-10"
                 variant="outline"
                 disabled={activeIndex === 0}
                 onClick={() => goToIndex(activeIndex - 1)}
               >
                 <ChevronLeft /> Back
               </Button>
+              <span className="text-xs font-medium text-muted-foreground lg:hidden" aria-live="polite">{activeIndex + 1} / {allSteps.length}</span>
               <Button
+                className="h-11 lg:h-10"
                 disabled={activeIndex >= allSteps.length - 1}
                 onClick={() => goToIndex(activeIndex + 1)}
               >
@@ -982,7 +1018,15 @@ export default function Worksheet({
           </CardContent>
         </Card>
 
-        <Card className="h-fit w-full lg:sticky lg:top-44 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain">
+        <Card
+          id="mobile-forge-character-panel"
+          className={cn(
+            mobileNav.isOpen && mobileNav.activeMode === "character"
+              ? "fixed inset-x-0 bottom-0 top-14 z-[60] block w-full overflow-y-auto rounded-none border-x-0"
+              : "hidden",
+            "lg:sticky lg:inset-auto lg:top-44 lg:z-auto lg:block lg:h-fit lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-xl lg:border",
+          )}
+        >
           <CardHeader className="pb-3">
             <div className="flex items-start gap-3">
               <img
@@ -991,7 +1035,7 @@ export default function Worksheet({
                 className="aspect-[294/248] w-28 rounded border object-cover"
               />
               <div>
-                <CardTitle className="text-base">Character</CardTitle>
+                <CardTitle className="text-base" role="heading" aria-level={2}>Character</CardTitle>
                 <CardDescription>Live compressed draft summary</CardDescription>
               </div>
             </div>

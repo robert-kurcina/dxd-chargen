@@ -628,11 +628,42 @@ import {
     }
   }
 
-  document.querySelectorAll(".tab").forEach((tab) => tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach((item) => { item.classList.toggle("active", item === tab); item.setAttribute("aria-selected", item === tab); });
+  function activateSheetPage(tab, focus = false) {
+    document.querySelectorAll(".tab").forEach((item) => {
+      item.classList.toggle("active", item === tab);
+      item.setAttribute("aria-selected", item === tab);
+      item.tabIndex = item === tab ? 0 : -1;
+    });
     document.querySelectorAll(".sheet-page").forEach((page) => { page.classList.toggle("active", page.id === tab.dataset.page); page.hidden = page.id !== tab.dataset.page; });
     if (tab.dataset.page === "back") resizeEquipmentRows();
-  }));
+    if (focus) tab.focus();
+  }
+  const sheetTabs = [...document.querySelectorAll(".tab")];
+  sheetTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activateSheetPage(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? sheetTabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + sheetTabs.length) % sheetTabs.length;
+      activateSheetPage(sheetTabs[nextIndex], true);
+    });
+  });
+
+  let sheetZoom = 1;
+  const setSheetZoom = (value) => {
+    sheetZoom = Math.max(.5, Math.min(2, Math.round(value * 10) / 10));
+    document.documentElement.style.setProperty("--sheet-zoom", String(sheetZoom));
+    document.querySelector("#zoom-value").value = `${Math.round(sheetZoom * 100)}%`;
+  };
+  document.querySelector("#zoom-out").addEventListener("click", () => setSheetZoom(sheetZoom - .1));
+  document.querySelector("#zoom-in").addEventListener("click", () => setSheetZoom(sheetZoom + .1));
+  document.querySelector("#fit-width").addEventListener("click", () => setSheetZoom(1));
+  document.querySelector("#fit-page").addEventListener("click", () => {
+    const toolbarHeight = document.querySelector(".toolbar").getBoundingClientRect().height;
+    const baseWidth = Math.min(960, Math.max(1, window.innerWidth - 10));
+    const baseHeight = baseWidth * 21 / 16;
+    setSheetZoom(Math.min(1, Math.max(.5, (window.innerHeight - toolbarHeight - 36) / baseHeight)));
+  });
   window.addEventListener("resize", resizeEquipmentRows);
   document.querySelector("#character-select").addEventListener("change", (event) => {
     switchCharacter(event.currentTarget.value);

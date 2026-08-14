@@ -576,13 +576,13 @@
       },
       {
         "id": "import-hand-garrote",
-        "name": "Hand, Garrote",
+        "name": "Hands, Garrote",
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0,
         "unitWeight": 0,
         "sheetProperties": "ORa -10  Acc -3  Impact +0   Damage 2D-1\n[2H, Stub, Awkward]. Entangle.",
-        "catalogId": "weapon-hand-garrote"
+        "catalogId": "weapon-hands-garrote"
       }
     ],
     "armor": [

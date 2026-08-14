@@ -14,10 +14,17 @@
       <div><strong>Sarna Len</strong><span>Character Sheet</span></div>
     </div>
     <div class="page-tabs" role="tablist" aria-label="Sheet side">
-      <button class="tab active" data-page="front" role="tab" aria-selected="true">Front</button>
-      <button class="tab" data-page="back" role="tab" aria-selected="false">Back</button>
+      <button id="front-tab" class="tab active" data-page="front" role="tab" aria-controls="front" aria-selected="true" tabindex="0">Front</button>
+      <button id="back-tab" class="tab" data-page="back" role="tab" aria-controls="back" aria-selected="false" tabindex="-1">Back</button>
     </div>
     <div class="actions">
+      <div class="view-controls" role="group" aria-label="Sheet zoom">
+        <button id="zoom-out" class="quiet" type="button" aria-label="Zoom out">−</button>
+        <output id="zoom-value" aria-live="polite">100%</output>
+        <button id="zoom-in" class="quiet" type="button" aria-label="Zoom in">+</button>
+        <button id="fit-page" class="quiet" type="button">Fit page</button>
+        <button id="fit-width" class="quiet" type="button">Fit width</button>
+      </div>
       <label class="character-control">
         <span>Character</span>
         <select id="character-select" aria-label="Character" disabled></select>
@@ -35,14 +42,14 @@
 
   <main>
     <div class="sheet-shell">
-      <section id="front" class="sheet-page active" aria-label="Character sheet front">
+      <section id="front" class="sheet-page active" role="tabpanel" aria-labelledby="front-tab" aria-label="Character sheet front">
         <img class="sheet-art" src="/character-creator/img/crs-front.png" alt="Sarna Len character sheet front">
         <div class="sheet-fields" id="front-fields"></div>
         <img id="affinity-decal" class="affinity-decal" src="/api/data-assets/decals/decal-zed-affinity.png" alt="Magic affinity">
         <img class="portrait" src="/character-creator/img/portrait-placeholder.png" alt="Character portrait">
       </section>
 
-      <section id="back" class="sheet-page" aria-label="Character sheet back" hidden>
+      <section id="back" class="sheet-page" role="tabpanel" aria-labelledby="back-tab" aria-label="Character sheet back" hidden>
         <img class="sheet-art" src="/character-creator/img/crs-back.png" alt="Sarna Len character sheet back">
         <div class="sheet-fields" id="back-fields"></div>
       </section>
