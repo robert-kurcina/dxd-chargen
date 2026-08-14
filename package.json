@@ -3,10 +3,13 @@
   "version": "0.110.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/stop-local.mjs",
     "dev": "next dev --turbopack",
     "local": "node scripts/run-local.mjs",
     "build": "NODE_ENV=production next build",
+    "prestart": "node scripts/stop-local.mjs",
     "start": "next start",
+    "stop": "node scripts/stop-local.mjs",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "validate:data": "node scripts/validate-data.mjs",
