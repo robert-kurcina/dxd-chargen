@@ -476,6 +476,7 @@ export default function Worksheet({
   const [activeStepValue, setActiveStepValue] = useState(
     allSteps[0]?.value ?? "",
   );
+  const [showResetConfirmation, setShowResetConfirmation] = useState(false);
   const mobileNav = useMobileNavigation();
   const assignmentPanelRef = useRef<HTMLDivElement>(null);
 
@@ -654,11 +655,34 @@ export default function Worksheet({
     });
   };
 
+  const handleConfirmReset = () => {
+    // Create a completely fresh draft with all fields zeroed
+    const emptyDraft: CharacterDraft = {
+      ...createEmptyCharacterDraft(),
+      completedSteps: [],
+      background: {
+        ...createEmptyCharacterDraft().background,
+        disabilitiesReviewed: false,
+      },
+      utilities: {
+        ...createEmptyCharacterDraft().utilities,
+        spellsReviewed: false,
+        gearReviewed: false,
+        magicItemsReviewed: false,
+      },
+    };
+    
+    if (onReset) {
+      onReset();
+    } else {
+      setDraft(emptyDraft);
+    }
+    
+    setShowResetConfirmation(false);
+  };
+
   const resetDraft = () => {
-    const empty = createEmptyCharacterDraft();
-    if (onReset) onReset();
-    else setDraft(empty);
-    selectStep(allSteps[0]?.value ?? "");
+    setShowResetConfirmation(true);
   };
 
   const goToIndex = (index: number) => {
@@ -711,6 +735,36 @@ export default function Worksheet({
         onClose={mobileNav.close}
         onSwitchMode={mobileNav.switchMode}
       />
+
+      {showResetConfirmation && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4">
+          <Card className="w-full max-w-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 text-amber-600" />
+                Reset Character Forge?
+              </CardTitle>
+              <CardDescription>
+                This will zero all properties and start a new character from scratch. This action cannot be undone.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex gap-2 justify-end">
+              <Button
+                variant="outline"
+                onClick={() => setShowResetConfirmation(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={handleConfirmReset}
+              >
+                Confirm Reset
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)_300px]">
         <Card
