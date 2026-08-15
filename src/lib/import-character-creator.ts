@@ -272,6 +272,7 @@ const ITEM_ALIASES: Record<string, string> = {
 };
 const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
   backpack: 'Backpack, Frameless',
+  breastplate: 'Cuirass, Metal',
   dagger: 'Dagger, Standard', daggers: 'Dagger, Standard', daggres: 'Dagger, Standard',
   'war hammer': 'Hammer, War', warhammer: 'Hammer, War',
   longsword: 'Sword, Long', longswords: 'Sword, Long', 'long sword': 'Sword, Long', 'long swords': 'Sword, Long',
@@ -322,9 +323,14 @@ const inventoryLookupKey = (value: string) => value
         : word.length > 3 && /[^s]s$/.test(word) ? word.slice(0, -1)
           : word)
   .join(' ');
+function culturalInventoryMarker(value: string) {
+  const match = value.trim().match(/^(?:all\s+are\s+)?cultural\s*>\s*(.+)$/i);
+  return match ? `Cultural > ${match[1].trim()}` : null;
+}
 function normalizeInventory(items: InventorySelection[], category: 'weapons' | 'armor' | 'equipment') {
   const catalogue = category === 'weapons' ? sarnaLenData.itemWeapons : category === 'armor' ? sarnaLenData.itemArmors : sarnaLenData.itemEquipments;
-  const normalized = items.map((item) => {
+  const inheritedCultural = items.map((item) => culturalInventoryMarker(item.name)).find((value): value is string => Boolean(value));
+  const normalized = items.filter((item) => !culturalInventoryMarker(item.name)).map((item) => {
     const parsed = inventoryQuantity(normalizeItemName(item.name));
     const importedName = parsed.name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
     const alias = INVENTORY_CATALOG_ALIASES[inventoryLookupKey(importedName)];
@@ -332,7 +338,18 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
     const definition = catalogue.find((entry) => inventoryLookupKey(entry.name) === inventoryLookupKey(candidate));
     const name = definition?.name ?? importedName;
     const catalogId = definition?.catalogId ?? item.catalogId ?? makeCatalogId(category === 'weapons' ? 'weapon' : category === 'armor' ? 'armor' : 'equipment', name);
-    return { ...item, id: item.id || `inventory-${category}-${catalogId}`, catalogId, name, quantity: Math.max(1, item.quantity, parsed.quantity) };
+    return {
+      ...item,
+      id: item.id || `inventory-${category}-${catalogId}`,
+      catalogId,
+      name,
+      quantity: Math.max(1, item.quantity, parsed.quantity),
+      ...(definition ? {
+        unitPriceGp: Number(definition.priceGp) || 0,
+        unitWeight: Number(definition.weight) || 0,
+      } : {}),
+      ...(!item.cultural && inheritedCultural ? { cultural: inheritedCultural } : {}),
+    };
   });
   const detailedOnly = normalized.filter((item, index, all) => {
     const broad = item.name.toLocaleLowerCase().replace(/s$/, '');
@@ -351,6 +368,7 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
     if (existing) {
       existing.quantity = Math.max(existing.quantity, Math.max(1, item.quantity));
       if (!existing.sheetProperties && item.sheetProperties) existing.sheetProperties = item.sheetProperties;
+      if (!existing.cultural && item.cultural) existing.cultural = item.cultural;
     }
     else grouped.set(key, { ...item, quantity: Math.max(1, item.quantity) });
   }

@@ -5,15 +5,58 @@ import type { StaticData } from '@/data';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { projectCharacterSheet, type CharacterSheetData } from '@/lib/character-sheet-projection';
 import { calculateProperties } from '@/lib/rules/properties';
-import { displayInventoryQuantity } from '@/lib/rules/utilities';
+import { adjustedGearValues, displayInventoryQuantity, type InventoryCategory } from '@/lib/rules/utilities';
+
+const statureFrameLabels: Record<number, string> = {
+  [-2]: 'Shorter',
+  [-1]: 'Short',
+  0: 'Average',
+  1: 'Tall',
+  2: 'Taller',
+};
+const buildFrameLabels: Record<number, string> = {
+  [-2]: 'Gracile',
+  [-1]: 'Slim',
+  0: 'Average',
+  1: 'Stout',
+  2: 'Robust',
+};
+const displayMeasure = (value: number) => Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+const culturalMarker = (value: string) => {
+  const match = value.trim().match(/^(?:all\s+are\s+)?cultural\s*>\s*(.+)$/i);
+  return match ? `Cultural > ${match[1].trim()}` : null;
+};
 
 function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: StaticData) {
   const derived = calculateProperties(draft, data);
   const value = (group: Array<{ name: string; value: number | string }>, name: string) => group.find((item) => item.name === name)?.value ?? 0;
-  const allInventory = [...draft.utilities.weapons, ...draft.utilities.armor, ...draft.utilities.equipment];
-  const inventory = [...allInventory]
-    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }));
-  const equipmentProperties = inventory.map((item) => item.sheetProperties || [`${item.unitPriceGp} gp`, `${item.unitWeight}#`].filter(Boolean).join('; '));
+  const categoryInventory = (category: InventoryCategory, items: CharacterDraft['utilities']['equipment']) => {
+    const inheritedCultural = items.map((item) => culturalMarker(item.name)).find((entry): entry is string => Boolean(entry)) ?? '';
+    return items
+      .filter((item) => !culturalMarker(item.name))
+      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }))
+      .map((item) => ({ category, item, cultural: item.cultural ?? inheritedCultural }));
+  };
+  const inventory = [
+    ...categoryInventory('weapons', draft.utilities.weapons),
+    ...categoryInventory('armor', draft.utilities.armor),
+    ...categoryInventory('equipment', draft.utilities.equipment),
+  ];
+  const equipmentNames = inventory.map(({ item }) => displayInventoryQuantity(item.name, item.quantity));
+  const equipmentProperties = inventory.map(({ category, item }) => {
+    if (item.sheetProperties) return item.sheetProperties;
+    const catalogue = category === 'weapons' ? data.itemWeapons : category === 'armor' ? data.itemArmors : data.itemEquipments;
+    const definition = catalogue.find((entry) => entry.catalogId === item.catalogId)
+      ?? catalogue.find((entry) => entry.name.localeCompare(item.name, undefined, { sensitivity: 'base' }) === 0);
+    const values = definition
+      ? adjustedGearValues(category, definition, draft, data)
+      : { priceGp: item.unitPriceGp, weight: item.unitWeight };
+    return `${displayMeasure(Number(values.priceGp) || 0)} gp; ${displayMeasure(Number(values.weight) || 0)}#`;
+  });
+  const equipmentCategories = Object.fromEntries(equipmentNames.map((name, index) => [name, inventory[index].category]));
+  const equipmentCultures = Object.fromEntries(equipmentNames.map((name, index) => [name, inventory[index].cultural]).filter(([, cultural]) => Boolean(cultural)));
+  const statureAdjustment = derived?.statureAdjustment ?? draft.properties.statureAdjustment ?? 0;
+  const buildAdjustment = derived?.buildAdjustment ?? draft.properties.buildAdjustment ?? 0;
   const weightAdjustment = derived?.weightAdjustment ?? draft.properties.weightAdjustment ?? 0;
   const weightStatus = weightAdjustment < 0
     ? `Underweight ${Math.abs(weightAdjustment)}`
@@ -47,8 +90,10 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
       `Traits; ${sheet.history.traits}`,
       `Languages; ${sheet.history.languages}`,
     ].join('\n'),
-    WeaponsArmorEquipment: inventory.map((item) => displayInventoryQuantity(item.name, item.quantity)).join('\n\n'),
+    WeaponsArmorEquipment: equipmentNames.join('\n\n'),
     WeaponsArmorEquipmentProperties: equipmentProperties.join('\n\n'),
+    EquipmentCategories: equipmentCategories,
+    EquipmentCultures: equipmentCultures,
     BackNotes: [draft.utilities.notes, draft.utilities.backstory].filter(Boolean).join('\n\n'),
     BackName: sheet.name,
     Hitpoints: value(sheet.performance, 'Hitpoints'),
@@ -72,9 +117,9 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     Profile: draft.properties.profile ?? derived?.profile ?? 0,
     Stature: draft.properties.stature ?? derived?.finalStature ?? 0,
     Build: draft.properties.build ?? derived?.build ?? 0,
-    Frame: draft.properties.baseBuild ?? derived?.baseBuild ?? 0,
-    adjustmentStature: derived?.statureAdjustment ?? draft.properties.statureAdjustment ?? 0,
-    adjustmentBuild: derived?.buildAdjustment ?? draft.properties.buildAdjustment ?? 0,
+    Frame: `${statureAdjustment}/${buildAdjustment}`,
+    adjustmentStature: statureFrameLabels[statureAdjustment] ?? String(statureAdjustment),
+    adjustmentBuild: buildFrameLabels[buildAdjustment] ?? String(buildAdjustment),
     WeightStatus: weightStatus,
     Physicality: derived?.physicality ?? 0,
     GaspLimit: derived ? `${derived.gaspTurnsScalar}` : '',

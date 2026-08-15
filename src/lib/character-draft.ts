@@ -44,6 +44,8 @@ export type InventorySelection = SourcedSelection & {
   unitWeight: number;
   /** Authoritative legacy character-sheet properties, when imported. */
   sheetProperties?: string;
+  /** Cultural provenance displayed with the item on the character sheet. */
+  cultural?: string;
 };
 
 export type LanguageModifier = 'Old' | 'High' | 'Low' | 'War' | 'Lingo' | 'Barter';

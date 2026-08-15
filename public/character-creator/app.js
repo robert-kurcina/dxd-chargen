@@ -41,8 +41,18 @@ import {
     "Walk", "Jog", "Run",
     "Lift", "Shoulder", "Carry",
     "Hurl", "Pitch", "Lob",
-    "Up", "Broad", "Down",
+    "Up", "Down", "Broad",
   ];
+  const universalScalarUnits = {
+    ScalarWalk: "'", ScalarJog: "'", ScalarRun: "'",
+    ScalarLift: "#", ScalarShoulder: "#", ScalarCarry: "#",
+    ScalarHurl: "#", ScalarPitch: "#", ScalarLob: "#",
+    ScalarUp: "'", ScalarDown: "'", ScalarBroad: "'",
+  };
+  const equipmentCategoryRank = { weapons: 0, armor: 1, equipment: 2 };
+  const orderedEquipmentRows = (rows) => [...rows].sort((left, right) =>
+    (equipmentCategoryRank[left.category] ?? 2) - (equipmentCategoryRank[right.category] ?? 2)
+    || left.item.localeCompare(right.item, undefined, { sensitivity: "base", numeric: true }));
   const backGroups = [
     group("back-name", [field("BackName", "area")]),
     group("equipment", [], { equipmentRows: true }),
@@ -80,7 +90,12 @@ import {
     generatedOverrideFields.forEach((fieldName) => {
       calculationSource[fieldName] = sourceData[fieldName] ?? "";
     });
-    return { ...currentState, ...calculateCharacterSheet(calculationSource, decals).values };
+    const calculated = calculateCharacterSheet(calculationSource, decals).values;
+    Object.entries(universalScalarUnits).forEach(([fieldName, suffix]) => {
+      const current = calculated[fieldName];
+      if (current !== "" && current != null) calculated[fieldName] = `${current}${suffix}`;
+    });
+    return { ...currentState, ...calculated };
   }
 
   function calculate() {
@@ -90,12 +105,33 @@ import {
   }
 
   function normalizeEquipmentState(currentState) {
+    const metadata = new Map((currentState.EquipmentRows ?? []).map((row) => [row.item, {
+      category: row.category,
+      cultural: row.cultural,
+    }]));
     const serialized = serializeEquipmentRows(currentState.EquipmentRows ?? []);
-    currentState.EquipmentRows = parseEquipmentRows(
+    currentState.EquipmentRows = orderedEquipmentRows(parseEquipmentRows(
       serialized.WeaponsArmorEquipment,
       serialized.WeaponsArmorEquipmentProperties,
-    );
+    ).map((row) => ({ ...row, ...(metadata.get(row.item) ?? {}) })));
     Object.assign(currentState, serializeEquipmentRows(currentState.EquipmentRows));
+  }
+
+  function equipmentRowsFromSource(sourceData) {
+    const categories = sourceData.EquipmentCategories && typeof sourceData.EquipmentCategories === "object"
+      ? sourceData.EquipmentCategories
+      : {};
+    const cultures = sourceData.EquipmentCultures && typeof sourceData.EquipmentCultures === "object"
+      ? sourceData.EquipmentCultures
+      : {};
+    return orderedEquipmentRows(parseEquipmentRows(
+      sourceData.WeaponsArmorEquipment,
+      sourceData.WeaponsArmorEquipmentProperties,
+    ).map((row) => ({
+      ...row,
+      category: Object.hasOwn(equipmentCategoryRank, categories[row.item]) ? categories[row.item] : "equipment",
+      cultural: cultures[row.item] ?? "",
+    })));
   }
 
   function historyValues(sections) {
@@ -124,10 +160,7 @@ import {
       ...sourceData,
       ...historyValues(historySections),
       HistoryNotes: serializeHistoryNotes(historySections),
-      EquipmentRows: parseEquipmentRows(
-        sourceData.WeaponsArmorEquipment,
-        sourceData.WeaponsArmorEquipmentProperties,
-      ),
+      EquipmentRows: equipmentRowsFromSource(sourceData),
       Damage: 0, Injury: 0, Fatigue: 0, Weariness: 0, Stress: 0, Rads: 0,
     };
     const initialState = calculateState({ ...defaults, PML: Number(sourceData.PML ?? 0) }, sourceData);
@@ -286,6 +319,27 @@ import {
     });
   }
 
+  function richEquipmentProperties(value, cultural) {
+    const rich = document.createElement("div");
+    rich.className = "equipment-properties-rich";
+    const text = String(value ?? "");
+    if (!cultural) {
+      rich.textContent = text;
+      return rich;
+    }
+    const weight = text.match(/\b\d+(?:\.\d+)?(?:[KMG])?#/i);
+    const firstLineEnd = text.indexOf("\n");
+    const insertAt = weight?.index != null
+      ? weight.index + weight[0].length
+      : firstLineEnd >= 0 ? firstLineEnd : text.length;
+    rich.append(document.createTextNode(text.slice(0, insertAt)));
+    const marker = document.createElement("span");
+    marker.className = "equipment-cultural";
+    marker.textContent = `${insertAt ? " " : ""}${cultural}`;
+    rich.append(marker, document.createTextNode(text.slice(insertAt)));
+    return rich;
+  }
+
   function renderEquipmentRows(container) {
     container.replaceChildren();
     const rows = state.EquipmentRows ?? [];
@@ -306,7 +360,15 @@ import {
           recordEquipmentEdit(input);
           resizeEquipmentRows();
         });
-        rowElement.append(input);
+        if (property === "properties") {
+          const cell = document.createElement("div");
+          cell.className = "equipment-properties-cell";
+          input.classList.add("equipment-properties-editor");
+          cell.append(input, richEquipmentProperties(input.value, row.cultural));
+          rowElement.append(cell);
+        } else {
+          rowElement.append(input);
+        }
       });
       container.append(rowElement);
     });
@@ -315,7 +377,7 @@ import {
 
   function resizeEquipmentRows() {
     document.querySelectorAll("#back .equipment-row").forEach((row) => {
-      const fields = [...row.querySelectorAll(".field")];
+      const fields = [...row.querySelectorAll(".field, .equipment-properties-rich")];
       row.style.height = "auto";
       fields.forEach((input) => { input.style.height = "0px"; });
       const contentHeight = Math.max(...fields.map((input) => input.scrollHeight));
@@ -538,7 +600,7 @@ import {
       );
     }
 
-    const textElements = page.querySelectorAll(".history-keyword, .field");
+    const textElements = page.querySelectorAll(".history-keyword, .field, .equipment-properties-rich");
     textElements.forEach((element) => {
       const rect = element.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
