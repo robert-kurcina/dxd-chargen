@@ -11,11 +11,15 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
   const derived = calculateProperties(draft, data);
   const value = (group: Array<{ name: string; value: number | string }>, name: string) => group.find((item) => item.name === name)?.value ?? 0;
   const allInventory = [...draft.utilities.weapons, ...draft.utilities.armor, ...draft.utilities.equipment];
-  // Legacy sheets have a curated back-page item table distinct from the broader
-  // equipment list in History & Notes. Preserve that exact rendition when present.
-  const inventory = (allInventory.some((item) => item.sheetProperties) ? allInventory.filter((item) => item.sheetProperties) : allInventory)
+  const inventory = [...allInventory]
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }));
   const equipmentProperties = inventory.map((item) => item.sheetProperties || [`${item.unitPriceGp} gp`, `${item.unitWeight}#`].filter(Boolean).join('; '));
+  const weightAdjustment = derived?.weightAdjustment ?? draft.properties.weightAdjustment ?? 0;
+  const weightStatus = weightAdjustment < 0
+    ? `Underweight ${Math.abs(weightAdjustment)}`
+    : weightAdjustment > 0
+      ? `Overweight ${weightAdjustment}`
+      : 'Average';
   return {
     Slug: (sheet.name || 'character').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
     Portrait: draft.utilities.portraitDataUrl,
@@ -65,9 +69,13 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     RangeAttack: value(sheet.combat, 'Range Attack'),
     RangeDefend: value(sheet.combat, 'Range Defend'),
     MaxAdvantage: value(sheet.combat, 'Max Advantage'),
-    Profile: draft.properties.profile ?? 0,
-    Stature: draft.properties.stature ?? 0,
-    Build: draft.properties.build ?? 0,
+    Profile: draft.properties.profile ?? derived?.profile ?? 0,
+    Stature: draft.properties.stature ?? derived?.finalStature ?? 0,
+    Build: draft.properties.build ?? derived?.build ?? 0,
+    Frame: draft.properties.baseBuild ?? derived?.baseBuild ?? 0,
+    adjustmentStature: derived?.statureAdjustment ?? draft.properties.statureAdjustment ?? 0,
+    adjustmentBuild: derived?.buildAdjustment ?? draft.properties.buildAdjustment ?? 0,
+    WeightStatus: weightStatus,
     Physicality: derived?.physicality ?? 0,
     GaspLimit: derived ? `${derived.gaspTurnsScalar}` : '',
     SleepLimit: derived ? `${derived.sleepHoursScalar}` : '',

@@ -37,7 +37,12 @@ import {
     group("gm-notes", [field("GMNotes", "area")]),
   ];
 
-  const universalIndexes = ["Lift", "Shoulder", "Carry", "Walk", "Jog", "Run", "Hurl", "Pitch", "Lob", "Up", "Broad", "Down"];
+  const universalIndexes = [
+    "Walk", "Jog", "Run",
+    "Lift", "Shoulder", "Carry",
+    "Hurl", "Pitch", "Lob",
+    "Up", "Broad", "Down",
+  ];
   const backGroups = [
     group("back-name", [field("BackName", "area")]),
     group("equipment", [], { equipmentRows: true }),
@@ -49,6 +54,8 @@ import {
       ...universalIndexes.map((name) => field(`Scalar${name}`, "derived")),
     ]),
     group("biology", [field("Profile", "derived"), field("Stature", "number"), field("Build", "number")]),
+    group("frame", [field("Frame", "derived"), field("adjustmentStature", "derived"), field("adjustmentBuild", "derived")]),
+    group("weight-status", [field("WeightStatus", "derived")]),
   ];
 
   const clone = (value) => structuredClone(value);
