@@ -24,7 +24,10 @@ export async function GET(
     const bytes = await readFile(path.join(process.cwd(), directory, filename));
     const extension = path.extname(filename).toLowerCase();
     const contentType = extension === '.png' ? 'image/png' : extension === '.jpg' || extension === '.jpeg' ? 'image/jpeg' : extension === '.webp' ? 'image/webp' : extension === '.pdf' ? 'application/pdf' : 'application/octet-stream';
-    return new NextResponse(bytes, { headers: { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=31536000, immutable' } });
+    const cacheControl = process.env.NODE_ENV === 'production'
+      ? 'public, max-age=31536000, immutable'
+      : 'no-store, no-cache, must-revalidate, proxy-revalidate';
+    return new NextResponse(bytes, { headers: { 'Content-Type': contentType, 'Cache-Control': cacheControl } });
   } catch {
     return new NextResponse(null, { status: 404 });
   }
