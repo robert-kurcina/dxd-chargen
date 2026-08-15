@@ -487,7 +487,6 @@ export function calculateCharacterSheet(
   set("IndexUp", jumpUp); set("ScalarUp", getScalarValue(jumpUp));
   set("IndexBroad", jumpBroad); set("ScalarBroad", getScalarValue(jumpBroad));
   set("IndexDown", jumpDown); set("ScalarDown", getScalarValue(jumpDown));
-  set("ScalarUC", getScalarValue(get("IndexUC")));
 
   const dm = (field: string): number => numberValue(getDMByValue(get(field)));
   const hitpoints = Math.max(1, 10 + pml * 3 + dm("REF") + dm("POW") + dm("PRE") + dm("MOV"));

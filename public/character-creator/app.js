@@ -42,13 +42,12 @@ import {
     group("back-name", [field("BackName", "area")]),
     group("equipment", [], { equipmentRows: true }),
     group("back-notes", [field("BackNotes", "area")]),
-    group("derived-scores", [field("Physicality", "derived"), field("GaspLimit", "derived"), field("SleepLimit", "derived")], { labeled: true }),
+    group("derived-scores", [field("Physicality", "derived"), field("GaspLimit", "derived"), field("SleepLimit", "derived")]),
     group("movement-extras", [field("ScalarAgility", "derived"), field("ScalarMphRun", "derived")]),
     group("universal-chart", [
       ...universalIndexes.map((name) => field(`Index${name}`, "derived")),
       ...universalIndexes.map((name) => field(`Scalar${name}`, "derived")),
     ]),
-    group("universal-center", [field("IndexUC", "number"), field("ScalarUC", "derived")]),
     group("biology", [field("Profile", "derived"), field("Stature", "number"), field("Build", "number")]),
   ];
 
@@ -116,7 +115,6 @@ import {
     const historySections = parseHistoryNotes(sourceData.HistoryNotes);
     const defaults = {
       ...sourceData,
-      IndexUC: sourceData.IndexUC ?? 0,
       ...historyValues(historySections),
       HistoryNotes: serializeHistoryNotes(historySections),
       EquipmentRows: parseEquipmentRows(
@@ -132,7 +130,7 @@ import {
       characterData: sourceData,
       sourceFieldNames: [...new Set([
         ...Object.keys(sourceData).filter((name) => name !== "CharacterLevel"),
-        "PML", "IndexUC",
+        "PML",
       ])],
       state: initialState,
       loadedState: clone(initialState),
@@ -237,7 +235,7 @@ import {
         if (type === "number") {
           input.step = "1";
           input.inputMode = "numeric";
-          if (["Damage", "Injury", "Fatigue", "Weariness", "Stress", "Rads", "WealthRank", "SocialRank", "ProfessionRank", "IndexUC", "Stature", "Build"].includes(name)) input.min = "0";
+          if (["Damage", "Injury", "Fatigue", "Weariness", "Stress", "Rads", "WealthRank", "SocialRank", "ProfessionRank", "Stature", "Build"].includes(name)) input.min = "0";
         } else if (type === "area" || type === "history") {
           input.maxLength = 4000;
         }

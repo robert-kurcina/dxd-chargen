@@ -69,8 +69,8 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     Stature: draft.properties.stature ?? 0,
     Build: draft.properties.build ?? 0,
     Physicality: derived?.physicality ?? 0,
-    GaspLimit: derived ? `${derived.gaspTurnsScalar} Turns` : '',
-    SleepLimit: derived ? `${derived.sleepHoursScalar} Hours` : '',
+    GaspLimit: derived ? `${derived.gaspTurnsScalar}` : '',
+    SleepLimit: derived ? `${derived.sleepHoursScalar}` : '',
     ScalarAgility: derived ? Number(derived.agilityFeet.toFixed(2)) : 0,
     ScalarMphRun: derived?.runMph ?? 0,
   };

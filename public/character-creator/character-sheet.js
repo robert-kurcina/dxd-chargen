@@ -393,7 +393,6 @@ export function calculateCharacterSheet(source, decals = []) {
     set("ScalarBroad", getScalarValue(jumpBroad));
     set("IndexDown", jumpDown);
     set("ScalarDown", getScalarValue(jumpDown));
-    set("ScalarUC", getScalarValue(get("IndexUC")));
     const dm = (field) => numberValue(getDMByValue(get(field)));
     const hitpoints = Math.max(1, 10 + pml * 3 + dm("REF") + dm("POW") + dm("PRE") + dm("MOV"));
     const recovery = Math.max(1, dm("POW") + dm("FOR") + 3);
