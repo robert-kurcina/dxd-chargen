@@ -662,8 +662,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "catalogId": "weapon-dagger-standard"
       },
       {

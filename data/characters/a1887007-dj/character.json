@@ -384,8 +384,8 @@
         "name": "Sword, Short",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 8,
+        "unitWeight": 1.5,
         "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
         "catalogId": "weapon-sword-short"
       },
@@ -394,8 +394,8 @@
         "name": "Staff, Quarter",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 4,
         "sheetProperties": "ORa -10  Acc +0  Impact +0   Damage 2D-3\n[2H, Hafted, Blunt]. Reach. Swift. Stun.",
         "catalogId": "weapon-staff-quarter"
       },
@@ -404,8 +404,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
       }
@@ -455,8 +455,8 @@
         "name": "Lamp",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 0.2,
+        "unitWeight": 1,
         "catalogId": "equipment-lamp"
       },
       {
@@ -464,8 +464,8 @@
         "name": "Lockpick kit",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 5,
+        "unitWeight": 4,
         "catalogId": "equipment-lockpick-kit"
       },
       {

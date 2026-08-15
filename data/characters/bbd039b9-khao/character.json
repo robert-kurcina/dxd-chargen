@@ -432,8 +432,8 @@
         "name": "Sword, Short",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 8,
+        "unitWeight": 1.5,
         "catalogId": "weapon-sword-short"
       },
       {
@@ -484,8 +484,8 @@
         "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 1.8,
+        "unitWeight": 6,
         "catalogId": "equipment-backpack-frameless"
       },
       {

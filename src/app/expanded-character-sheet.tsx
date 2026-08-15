@@ -44,14 +44,33 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
   ];
   const equipmentNames = inventory.map(({ item }) => displayInventoryQuantity(item.name, item.quantity));
   const equipmentProperties = inventory.map(({ category, item }) => {
-    if (item.sheetProperties) return item.sheetProperties;
     const catalogue = category === 'weapons' ? data.itemWeapons : category === 'armor' ? data.itemArmors : data.itemEquipments;
     const definition = catalogue.find((entry) => entry.catalogId === item.catalogId)
       ?? catalogue.find((entry) => entry.name.localeCompare(item.name, undefined, { sensitivity: 'base' }) === 0);
     const values = definition
       ? adjustedGearValues(category, definition, draft, data)
       : { priceGp: item.unitPriceGp, weight: item.unitWeight };
-    return `${displayMeasure(Number(values.priceGp) || 0)} gp; ${displayMeasure(Number(values.weight) || 0)}#`;
+    const priceKnown = Boolean(definition) || Number(item.unitPriceGp) !== 0;
+    const weightKnown = Boolean(definition) || Number(item.unitWeight) !== 0;
+    const priceText = priceKnown ? `${displayMeasure(Number(values.priceGp) || 0)} gp` : '— gp';
+    const weightText = weightKnown ? `${displayMeasure(Number(values.weight) || 0)}#` : '—#';
+    const details = item.sheetProperties?.trim();
+    if (!details) return `${priceText}; ${weightText}`;
+
+    const lines = details.split('\n');
+    let firstLine = lines[0];
+    const hasPrice = /\b\d+(?:\.\d+)?\s*gp\b/i.test(details);
+    const hasWeight = /(?:\b\d+(?:\.\d+)?(?:[KMG])?|—)#/i.test(details);
+    if (!hasPrice) {
+      const weight = firstLine.match(/(?:\b\d+(?:\.\d+)?(?:[KMG])?|—)#/i);
+      if (weight?.index != null) {
+        firstLine = `${firstLine.slice(0, weight.index).trimEnd()}  ${priceText}  ${firstLine.slice(weight.index)}`;
+      } else {
+        firstLine = `${firstLine.trimEnd()}  ${priceText}`;
+      }
+    }
+    if (!hasWeight) firstLine = `${firstLine.trimEnd()}  ${weightText}`;
+    return [firstLine, ...lines.slice(1)].join('\n');
   });
   const equipmentCategories = Object.fromEntries(equipmentNames.map((name, index) => [name, inventory[index].category]));
   const equipmentCultures = Object.fromEntries(equipmentNames.map((name, index) => [name, inventory[index].cultural]).filter(([, cultural]) => Boolean(cultural)));

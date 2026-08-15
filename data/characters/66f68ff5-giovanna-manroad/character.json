@@ -428,8 +428,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
       },
@@ -438,8 +438,8 @@
         "name": "Crossbow, Light",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 6,
+        "unitWeight": 3,
         "sheetProperties": "ORa [9]  Acc +0  Impact +8   Damage 1D+1  0.8#\n[2H, Reload 2, Bulky].",
         "catalogId": "weapon-crossbow-light"
       }
@@ -471,8 +471,8 @@
         "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 1.8,
+        "unitWeight": 6,
         "catalogId": "equipment-backpack-frameless"
       },
       {
@@ -480,8 +480,8 @@
         "name": "Lockpick kit",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 5,
+        "unitWeight": 4,
         "catalogId": "equipment-lockpick-kit"
       },
       {
@@ -516,8 +516,8 @@
         "name": "Wardrobe",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 10,
+        "unitWeight": 4,
         "catalogId": "equipment-wardrobe"
       }
     ],

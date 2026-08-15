@@ -423,8 +423,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 4,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
       },
@@ -433,8 +433,8 @@
         "name": "Sword, Great",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 25,
+        "unitWeight": 8,
         "sheetProperties": "ORa -10  Acc -2   Impact +7   Damage 2D+3\n[2H]. Parry. Impale. Stun. Battle",
         "catalogId": "weapon-sword-great"
       }
@@ -454,8 +454,8 @@
         "name": "Helmet, Full",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 25,
+        "unitWeight": 5,
         "sheetProperties": "Deflect +5  AR 18  5#\n[Blinders]. Sturdy. Block",
         "catalogId": "armor-helmet-full"
       },
@@ -474,8 +474,8 @@
         "name": "Shield, Medium",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 6,
+        "unitWeight": 10,
         "sheetProperties": "Deflect +3  AR 9  10#\n[1H]. Block. Screen. Coverage.",
         "catalogId": "armor-shield-medium"
       }
@@ -495,8 +495,8 @@
         "name": "Whetting Kit",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 0.1,
+        "unitWeight": 1,
         "catalogId": "equipment-whetting-kit"
       },
       {

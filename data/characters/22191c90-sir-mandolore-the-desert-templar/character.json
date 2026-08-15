@@ -445,8 +445,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "sheetProperties": "ORa -7    Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
       },
@@ -455,8 +455,8 @@
         "name": "Sword, Long",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 25,
+        "unitWeight": 4,
         "sheetProperties": "ORa -10  Acc +0  Impact +4   Damage 1D+4\n[1H]. Parry. Impale. Pierce-Cleave.",
         "catalogId": "weapon-sword-long"
       },
@@ -473,52 +473,37 @@
     ],
     "armor": [
       {
-        "id": "import-all-are-cultural-stask",
-        "name": "all are Cultural > Stask",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "catalogId": "armor-all-are-cultural-stask"
-      },
-      {
         "id": "import-breastplate",
-        "name": "Breastplate",
+        "name": "Cuirass, Metal",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "catalogId": "armor-breastplate"
+        "unitPriceGp": 100,
+        "unitWeight": 30,
+        "catalogId": "armor-cuirass-metal",
+        "cultural": "Cultural > Stask",
+        "sheetProperties": "Deflect +5  AR 21  30#  Cuirass\n[Fitted 3]."
       },
       {
         "id": "import-helmet-full",
         "name": "Helmet, Full",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 25,
+        "unitWeight": 5,
         "sheetProperties": "Deflect +5  AR 18  5#\n[Blinders]. Sturdy. Protective.",
-        "catalogId": "armor-helmet-full"
-      },
-      {
-        "id": "import-cuirass-metal",
-        "name": "Cuirass, Metal",
-        "source": "player",
-        "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "sheetProperties": "Deflect +5  AR 21  30#  Cuirass\n[Fitted 3].",
-        "catalogId": "armor-cuirass-metal"
+        "catalogId": "armor-helmet-full",
+        "cultural": "Cultural > Stask"
       },
       {
         "id": "import-shield-medium",
         "name": "Shield, Medium",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 6,
+        "unitWeight": 10,
         "sheetProperties": "Deflect +3  AR 12  10#\n[1H]. Screen. Coverage.",
-        "catalogId": "armor-shield-medium"
+        "catalogId": "armor-shield-medium",
+        "cultural": "Cultural > Stask"
       }
     ],
     "equipment": [
@@ -527,18 +512,18 @@
         "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 1.8,
+        "unitWeight": 6,
         "catalogId": "equipment-backpack-frameless"
       },
       {
         "id": "import-flask-of-oil",
-        "name": "Flask of Oil",
+        "name": "Oil Flask",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "catalogId": "equipment-flask-of-oil"
+        "unitPriceGp": 0.2,
+        "unitWeight": 1,
+        "catalogId": "equipment-oil-flask"
       },
       {
         "id": "import-flintstone",
@@ -572,18 +557,18 @@
         "name": "Wardrobe",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 10,
+        "unitWeight": 4,
         "catalogId": "equipment-wardrobe"
       },
       {
         "id": "import-whetting-stone",
-        "name": "Whetting stone",
+        "name": "Whetting Kit",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
-        "catalogId": "equipment-whetting-stone"
+        "unitPriceGp": 0.1,
+        "unitWeight": 1,
+        "catalogId": "equipment-whetting-kit"
       }
     ],
     "gearReviewed": true,

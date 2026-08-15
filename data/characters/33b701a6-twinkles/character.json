@@ -636,8 +636,8 @@
         "name": "Club, Wood",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 0.8,
+        "unitWeight": 0.8,
         "sheetProperties": "ORa -10  Acc +0  Impact -2   Damage 1D+1\n[1H, Blunt 4]. Stun.",
         "catalogId": "weapon-club-wood"
       },
@@ -646,8 +646,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "sheetProperties": "ORa -7   Acc +0  Impact +3   Damage 1D+1\n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
       },
@@ -656,8 +656,8 @@
         "name": "Spear, Medium",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 6,
+        "unitWeight": 4,
         "sheetProperties": "ORa +0   Acc +0  Impact +8   Damage 2D-1\n[2H]. Reach. Charge. Throwable.",
         "catalogId": "weapon-spear-medium"
       },
@@ -690,8 +690,8 @@
         "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 1.8,
+        "unitWeight": 6,
         "catalogId": "equipment-backpack-frameless"
       },
       {
@@ -717,8 +717,8 @@
         "name": "Wardrobe",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 10,
+        "unitWeight": 4,
         "catalogId": "equipment-wardrobe"
       }
     ],

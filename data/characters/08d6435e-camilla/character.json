@@ -931,8 +931,8 @@
         "name": "Sword, Short",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 8,
+        "unitWeight": 1.5,
         "sheetProperties": "ORa -8    Acc +1  Impact +6   Damage 1D+2\n[1H]. Cleave. Swift. Parry. Throwable.",
         "catalogId": "weapon-sword-short"
       },
@@ -941,8 +941,8 @@
         "name": "Dagger, Standard",
         "source": "player",
         "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 2.5,
+        "unitWeight": 1,
         "sheetProperties": "ORa -4    Acc +0  Impact +3   Damage 1D-2  0.3# \n[1H, Stub]. Throwable. Swift.",
         "catalogId": "weapon-dagger-standard"
       }
@@ -993,8 +993,8 @@
         "name": "Wardrobe",
         "source": "player",
         "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 10,
+        "unitWeight": 4,
         "catalogId": "equipment-wardrobe"
       },
       {
@@ -1015,7 +1015,7 @@
         "sourceDetail": "Canonical Starting Gear",
         "quantity": 10,
         "unitPriceGp": 0.1,
-        "unitWeight": 0.4
+        "unitWeight": 0.2
       }
     ],
     "gearReviewed": false,

@@ -543,8 +543,8 @@
         "name": "Sword, Long",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 25,
+        "unitWeight": 4,
         "catalogId": "weapon-sword-long"
       },
       {
@@ -562,8 +562,8 @@
         "name": "Bow, Medium",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 3,
+        "unitWeight": 2,
         "sheetProperties": "ORa -4   Acc +2  Impact +7   Damage 1D+2\n[2H, Reload].",
         "catalogId": "weapon-bow-medium"
       }
@@ -613,8 +613,8 @@
         "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 1.8,
+        "unitWeight": 6,
         "catalogId": "equipment-backpack-frameless"
       },
       {
@@ -631,8 +631,8 @@
         "name": "Wardrobe",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 10,
+        "unitWeight": 4,
         "catalogId": "equipment-wardrobe"
       }
     ],

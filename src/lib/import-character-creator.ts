@@ -273,6 +273,8 @@ const ITEM_ALIASES: Record<string, string> = {
 const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
   backpack: 'Backpack, Frameless',
   breastplate: 'Cuirass, Metal',
+  'flask of oil': 'Oil Flask',
+  'whetting stone': 'Whetting Kit',
   dagger: 'Dagger, Standard', daggers: 'Dagger, Standard', daggres: 'Dagger, Standard',
   'war hammer': 'Hammer, War', warhammer: 'Hammer, War',
   longsword: 'Sword, Long', longswords: 'Sword, Long', 'long sword': 'Sword, Long', 'long swords': 'Sword, Long',

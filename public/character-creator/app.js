@@ -327,7 +327,7 @@ import {
       rich.textContent = text;
       return rich;
     }
-    const weight = text.match(/\b\d+(?:\.\d+)?(?:[KMG])?#/i);
+    const weight = text.match(/(?:\b\d+(?:\.\d+)?(?:[KMG])?|—)#/i);
     const firstLineEnd = text.indexOf("\n");
     const insertAt = weight?.index != null
       ? weight.index + weight[0].length

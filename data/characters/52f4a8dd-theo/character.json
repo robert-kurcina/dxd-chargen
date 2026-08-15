@@ -426,8 +426,8 @@
         "name": "Dagger, Stiletto",
         "source": "player",
         "quantity": 2,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 4,
+        "unitWeight": 0.4,
         "catalogId": "weapon-dagger-stiletto"
       },
       {
@@ -477,8 +477,8 @@
         "name": "Backpack, Frameless",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 1.8,
+        "unitWeight": 6,
         "catalogId": "equipment-backpack-frameless"
       },
       {
@@ -504,8 +504,8 @@
         "name": "Wardrobe",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 0,
-        "unitWeight": 0,
+        "unitPriceGp": 10,
+        "unitWeight": 4,
         "catalogId": "equipment-wardrobe"
       }
     ],
