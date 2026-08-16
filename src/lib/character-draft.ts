@@ -46,10 +46,12 @@ export type InventorySelection = SourcedSelection & {
   quantity: number;
   unitPriceGp: number;
   unitWeight: number;
-  /** Authoritative legacy character-sheet properties, when imported. */
+  /** Legacy source-sheet properties retained only until catalog normalization. */
   sheetProperties?: string;
   /** Cultural provenance displayed with the item on the character sheet. */
   cultural?: string;
+  /** Physical SIZ bracket this fitted/scaled item was made for. Standard is SIZ 12. */
+  sizedForSiz?: number;
 };
 
 export type LanguageModifier = 'Old' | 'High' | 'Low' | 'War' | 'Lingo' | 'Barter';

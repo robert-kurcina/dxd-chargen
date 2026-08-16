@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v117
+## Current state — v121
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -75,9 +75,14 @@ Finalization and library now supports:
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
 
 
-## v117 — Carried Weight and Shoulder Burden
 
-v117 fills the printed reverse-sheet **Total** and **Burden** boxes. Total is the summed carried weight of structured Weapons, Armor, Equipment, and non-Jewelry/non-Gemstone Magic Item physical forms. Notes, ordinary ammunition, Jewelry, and Gemstones do not contribute. Burden compares the ceiling Weight Index of that total against Basic Shoulder and prints `0` when within Shoulder or the negative excess Index when burdened (for example, Weight Index 5 against Shoulder 3 prints `-2`).
+## v121 — Physical Equipment Scaling Refinement
+
+v121 refines the page-192 fitted-equipment model. Weapons use Weight Index `-4/-2/0/+2/+4` at SIZ 6/9/12/15/18 with symmetric OR `+2/+1/0/-1/-2`, Damage `-2/-1/0/+1/+2`, and minSTR `-4/-2/0/+2/+4`. Armor and fitted/worn Equipment use surface-area-like Weight scaling `-4/-2/0/+2/+4`; Armor retains its canonical AR and Deflect because protective material thickness is unchanged. Armor TCA follows the Weight Index adjustment one-for-one. Sheet Back values are regenerated from these fitted values. Character Record Sheet numeric fields are rendered without native browser spinner controls.
+
+## v119 — Carried Weight and Shoulder Burden
+
+v119 fills the printed reverse-sheet **Total** and **Burden** boxes using the canonical carrying rules. Total is the floor-integer pound sum of structured carried Weapons, Equipment, non-helmet Armor, the lightest owned Armor Set, and non-Jewelry/non-Gemstone Magic Item physical forms. Notes, ordinary ammunition, Jewelry, Gemstones, and Helmets do not contribute. Burden converts Total pounds to the floor R10 Weight Index, compares that Index against Basic Shoulder after Allometric Scaling and Brawn X, and prints `0` when within Shoulder or the negative excess Index when burdened.
 
 
 ## v116 — Jewelry, gemstones, physical forms, and historical Gold

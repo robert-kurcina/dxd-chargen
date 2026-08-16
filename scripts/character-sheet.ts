@@ -449,9 +449,12 @@ export function calculateCharacterSheet(
   const fortitude = get("FOR");
   const stature = get("Stature");
 
-  const lift = Math.floor(strength / 2 + size) - 9;
-  const shoulder = Math.max(strength, size) - 9;
-  const carry = Math.min(shoulder, strength) - 3;
+  const brawn = Math.max(0, Math.floor(numberValue(source.BrawnLevel)));
+  const allometricCarryAdjustment = Math.floor(numberValue(source.AllometricCarryAdjustment));
+  const physicality = Math.max(strength, size);
+  const lift = Math.floor(strength / 2 + size) - 9 + allometricCarryAdjustment + brawn;
+  const shoulder = physicality - 9 + allometricCarryAdjustment + brawn;
+  const carry = Math.min(physicality - 9, strength) - 3 + allometricCarryAdjustment + brawn;
   set("IndexLift", lift); set("ScalarLift", getScalarValue(lift));
   set("IndexShoulder", shoulder); set("ScalarShoulder", getScalarValue(shoulder));
   set("IndexCarry", carry); set("ScalarCarry", getScalarValue(carry));

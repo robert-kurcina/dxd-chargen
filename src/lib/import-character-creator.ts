@@ -51,7 +51,9 @@ function inventoryQuantity(value: string) {
 }
 const inventory = (name: string, sheetProperties?: string): InventorySelection => {
   const parsed = inventoryQuantity(name);
-  return { ...selection(parsed.name), quantity: parsed.quantity, unitPriceGp: 0, unitWeight: 0, ...(sheetProperties ? { sheetProperties } : {}) };
+  const sizeMatch = parsed.name.match(/\s+SIZ\s+(\d+)\b/i);
+  const cleanName = parsed.name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
+  return { ...selection(cleanName), quantity: parsed.quantity, unitPriceGp: 0, unitWeight: 0, ...(sizeMatch ? { sizedForSiz: Number(sizeMatch[1]) } : {}), ...(sheetProperties ? { sheetProperties } : {}) };
 };
 const heightInches = (value: unknown) => {
   const match = String(value ?? '').match(/(\d+)'\s*(\d+)/);
@@ -409,6 +411,8 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
   const inheritedCultural = items.map((item) => culturalInventoryMarker(item.name)).find((value): value is string => Boolean(value));
   const normalized = items.filter((item) => !culturalInventoryMarker(item.name)).map((item) => {
     const parsed = inventoryQuantity(normalizeItemName(item.name));
+    const sizeMatch = parsed.name.match(/\s+SIZ\s+(\d+)\b/i);
+    const sizedForSiz = item.sizedForSiz ?? (sizeMatch ? Number(sizeMatch[1]) : undefined);
     let importedName = parsed.name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
     let customAppend = item.customAppend?.trim() || '';
     const originalLookup = inventoryLookupKey(importedName);
@@ -438,10 +442,12 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
       catalogId,
       name,
       quantity: Math.max(1, item.quantity, parsed.quantity),
+      ...(sizedForSiz ? { sizedForSiz } : { sizedForSiz: undefined }),
       ...(customAppend && definition && category === 'equipment' && inventoryAllowsCustomAppend(definition.name) ? { customAppend } : { customAppend: undefined }),
       ...(definition ? {
         unitPriceGp: Number(definition.priceGp) || 0,
         unitWeight: Number(definition.weight) || 0,
+        sheetProperties: undefined,
       } : {}),
       ...(!item.cultural && inheritedCultural ? { cultural: inheritedCultural } : {}),
     };
@@ -455,7 +461,7 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
   });
   const grouped = new Map<string, InventorySelection>();
   for (const item of detailedOnly) {
-    const key = `${item.catalogId ?? ''}|${item.name.toLocaleLowerCase()}|${item.customAppend?.trim().toLocaleLowerCase() ?? ''}`;
+    const key = `${item.catalogId ?? ''}|${item.name.toLocaleLowerCase()}|siz:${item.sizedForSiz ?? 12}|${item.customAppend?.trim().toLocaleLowerCase() ?? ''}`;
     const existing = grouped.get(key);
     // Legacy imports contain the same owned item once in History and again in
     // the sheet property table. Treat matching rows as two renditions of one
@@ -465,6 +471,7 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
       existing.quantity = Math.max(existing.quantity, Math.max(1, item.quantity));
       if (!existing.sheetProperties && item.sheetProperties) existing.sheetProperties = item.sheetProperties;
       if (!existing.cultural && item.cultural) existing.cultural = item.cultural;
+      if (!existing.sizedForSiz && item.sizedForSiz) existing.sizedForSiz = item.sizedForSiz;
     }
     else grouped.set(key, { ...item, quantity: Math.max(1, item.quantity) });
   }
@@ -1041,7 +1048,10 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
   for (const item of curatedSheetInventory(sheet)) {
     const collections = [draft.utilities.weapons, draft.utilities.armor, draft.utilities.equipment];
     const existing = collections.flat().find((candidate) => itemKey(candidate.name) === itemKey(item.name));
-    if (existing) existing.sheetProperties = item.sheetProperties;
+    if (existing) {
+      existing.sheetProperties = item.sheetProperties;
+      if (item.sizedForSiz) existing.sizedForSiz = item.sizedForSiz;
+    }
     else if (/\bdeflect\b|\barmor\b/i.test(item.sheetProperties ?? '') || /helm|armor|cuirass|shield/i.test(item.name)) draft.utilities.armor.push(item);
     else if (/\bora\b|damage/i.test(item.sheetProperties ?? '')) draft.utilities.weapons.push(item);
     else draft.utilities.equipment.push(item);
@@ -1106,7 +1116,7 @@ export async function importCharacterCreatorData(root: string) {
       const repairInventory = (current: InventorySelection[], source: InventorySelection[]) => {
         const repairedItems: InventorySelection[] = current.map((item) => {
           const sheetItem = source.find((candidate) => itemKey(candidate.name) === itemKey(item.name) && candidate.sheetProperties);
-          return { ...item, ...(sheetItem ? { name: sheetItem.name, sheetProperties: sheetItem.sheetProperties } : { sheetProperties: undefined }) };
+          return { ...item, ...(sheetItem ? { name: sheetItem.name, sheetProperties: sheetItem.sheetProperties, ...(sheetItem.sizedForSiz ? { sizedForSiz: sheetItem.sizedForSiz } : {}) } : { sheetProperties: undefined }) };
         });
         for (const sourceItem of source.filter((item) => item.sheetProperties)) if (!repairedItems.some((item) => itemKey(item.name) === itemKey(sourceItem.name))) repairedItems.push(sourceItem);
         return repairedItems;

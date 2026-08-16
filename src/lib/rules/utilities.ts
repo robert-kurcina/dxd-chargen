@@ -266,34 +266,74 @@ export function commitPendingGold(draft: CharacterDraft): CharacterDraft {
 }
 
 const SIZE_ADJUSTMENTS = {
-  0: { weaponWeightIndex: -8, weaponOr: 6, weaponDamage: -6, weaponMinStr: -8, weaponTca: -16, armorWeight: -12, armorRating: -8, armorDeflect: -4, armorTca: -8 },
-  3: { weaponWeightIndex: -6, weaponOr: 4, weaponDamage: -4, weaponMinStr: -6, weaponTca: -12, armorWeight: -9, armorRating: -6, armorDeflect: -3, armorTca: -6 },
-  6: { weaponWeightIndex: -4, weaponOr: 3, weaponDamage: -3, weaponMinStr: -4, weaponTca: -8, armorWeight: -6, armorRating: -4, armorDeflect: -2, armorTca: -4 },
-  9: { weaponWeightIndex: -2, weaponOr: 2, weaponDamage: -1, weaponMinStr: -2, weaponTca: -4, armorWeight: -3, armorRating: -2, armorDeflect: -1, armorTca: -2 },
-  12: { weaponWeightIndex: 0, weaponOr: 0, weaponDamage: 0, weaponMinStr: 0, weaponTca: 0, armorWeight: 0, armorRating: 0, armorDeflect: 0, armorTca: 0 },
-  15: { weaponWeightIndex: 2, weaponOr: -2, weaponDamage: 1, weaponMinStr: 2, weaponTca: 4, armorWeight: 3, armorRating: 2, armorDeflect: 1, armorTca: 2 },
-  18: { weaponWeightIndex: 4, weaponOr: -3, weaponDamage: 3, weaponMinStr: 4, weaponTca: 8, armorWeight: 6, armorRating: 4, armorDeflect: 2, armorTca: 4 },
+  // Refined page-192 fitted-size bands. Weapons retain the practical two-Index
+  // progression; armor and worn shell-like gear scale by surface area and keep
+  // the same protective thickness, AR, and Deflect.
+  6: { weaponWeightIndex: -4, weaponOr: 2, weaponDamage: -2, weaponMinStr: -4, weaponTca: -8, armorWeightIndex: -4, armorRating: 0, armorDeflect: 0, armorTca: -4 },
+  9: { weaponWeightIndex: -2, weaponOr: 1, weaponDamage: -1, weaponMinStr: -2, weaponTca: -4, armorWeightIndex: -2, armorRating: 0, armorDeflect: 0, armorTca: -2 },
+  12: { weaponWeightIndex: 0, weaponOr: 0, weaponDamage: 0, weaponMinStr: 0, weaponTca: 0, armorWeightIndex: 0, armorRating: 0, armorDeflect: 0, armorTca: 0 },
+  15: { weaponWeightIndex: 2, weaponOr: -1, weaponDamage: 1, weaponMinStr: 2, weaponTca: 4, armorWeightIndex: 2, armorRating: 0, armorDeflect: 0, armorTca: 2 },
+  18: { weaponWeightIndex: 4, weaponOr: -2, weaponDamage: 2, weaponMinStr: 4, weaponTca: 8, armorWeightIndex: 4, armorRating: 0, armorDeflect: 0, armorTca: 4 },
 } as const;
 
-export function gearSizeAdjustment(draft: CharacterDraft) {
-  if (draft.properties.siz == null) return null;
-  const presumedSiz = Math.max(0, Math.min(18, Math.round(draft.properties.siz / 3) * 3)) as keyof typeof SIZE_ADJUSTMENTS;
-  return { actualSiz: draft.properties.siz, presumedSiz, direction: presumedSiz < 12 ? 'smaller' as const : presumedSiz > 12 ? 'larger' as const : 'standard' as const, ...SIZE_ADJUSTMENTS[presumedSiz] };
+type GearSizedItem = {
+  name?: string;
+  notes?: string[];
+  weight: number;
+  priceGp: number;
+  ora?: number;
+  acc?: number;
+  impact?: number;
+  isBracket?: boolean;
+  damageDice?: number;
+  damageOffset?: number;
+  armorRating?: number;
+  deflectRating?: number;
+  traits?: string[];
+  tca?: number;
+};
+
+/** Clothing and fitted harness-like gear scale with the wearer for mass, like Armor. */
+export function isWornEquipment(item: Pick<GearSizedItem, 'name' | 'notes'>) {
+  const notes = item.notes?.join(' ') ?? '';
+  return /Category:\s*Clothing\b/i.test(notes)
+    || /^(?:Backpack|Quiver),/i.test(item.name ?? '');
 }
 
+function fittedSizBracket(value: number) {
+  const bracket = Math.round(Number(value) / 3) * 3;
+  return Math.max(6, Math.min(18, bracket)) as keyof typeof SIZE_ADJUSTMENTS;
+}
+
+export function gearSizeAdjustment(draft: CharacterDraft, sizedForSiz?: number | null) {
+  const actualSiz = draft.properties.siz;
+  const sourceSiz = sizedForSiz ?? actualSiz;
+  if (sourceSiz == null) return null;
+  const presumedSiz = fittedSizBracket(sourceSiz);
+  return { actualSiz: actualSiz ?? sourceSiz, presumedSiz, direction: presumedSiz < 12 ? 'smaller' as const : presumedSiz > 12 ? 'larger' as const : 'standard' as const, ...SIZE_ADJUSTMENTS[presumedSiz] };
+}
+
+/** Convert a scalar to its R10 floor Index, then apply an Index adjustment. */
 function indexedScalar(value: number, adjustment: number, data: StaticData) {
-  if (!value || !adjustment) return value;
-  const closest = [...data.universalTable].sort((a, b) => Math.abs(scalarNumber(a.Scalar) - value) - Math.abs(scalarNumber(b.Scalar) - value))[0];
-  const target = data.universalTable.find((row) => row.Index === closest.Index + adjustment);
+  if (!Number.isFinite(value) || value <= 0 || !adjustment) return value;
+  const rows = data.universalTable
+    .map((row) => ({ ...row, scalar: scalarNumber(row.Scalar) }))
+    .filter((row) => Number.isFinite(row.scalar) && row.scalar > 0)
+    .sort((a, b) => a.scalar - b.scalar);
+  const floor = rows.filter((row) => row.scalar <= value + 1e-9).at(-1) ?? rows[0];
+  const target = data.universalTable.find((row) => row.Index === floor.Index + adjustment);
   return target ? scalarNumber(target.Scalar) : value;
 }
 
-export function adjustedGearValues(category: InventoryCategory, item: { weight: number; priceGp: number; ora?: number; damageOffset?: number; armorRating?: number; deflectRating?: number; notes?: string[]; tca?: number }, draft: CharacterDraft, data: StaticData) {
-  const adjustment = gearSizeAdjustment(draft);
+export function adjustedGearValues(category: InventoryCategory, item: GearSizedItem, draft: CharacterDraft, data: StaticData, sizedForSiz?: number | null) {
+  const adjustment = gearSizeAdjustment(draft, sizedForSiz);
   const baseTca = Number(item.tca) || 0;
-  if (!adjustment || adjustment.direction === 'standard' || category === 'equipment') return { ...item, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0), tca: baseTca };
-  if (category === 'weapons') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.weaponWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.weaponTca, data) / 10, ora: Number(item.ora ?? 0) + adjustment.weaponOr, damageOffset: Number(item.damageOffset ?? 0) + adjustment.weaponDamage, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0) + adjustment.weaponMinStr, tca: baseTca + adjustment.weaponTca };
-  return { ...item, weight: Math.max(0.1, Number(item.weight) + adjustment.armorWeight), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.armorTca, data) / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: baseTca + adjustment.armorTca };
+  const minStr = Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0);
+  if (!adjustment || adjustment.direction === 'standard') return { ...item, minStr, tca: baseTca };
+  if (category === 'weapons') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.weaponWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.weaponTca, data) / 10, ora: Number(item.ora ?? 0) + adjustment.weaponOr, damageOffset: Number(item.damageOffset ?? 0) + adjustment.weaponDamage, minStr: minStr + adjustment.weaponMinStr, tca: baseTca + adjustment.weaponTca };
+  if (category === 'armor') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.armorWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.armorTca, data) / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: baseTca + adjustment.armorTca };
+  if (isWornEquipment(item)) return { ...item, weight: indexedScalar(Number(item.weight), adjustment.armorWeightIndex, data), minStr: 0, tca: baseTca };
+  return { ...item, minStr, tca: baseTca };
 }
 
 export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
@@ -302,7 +342,7 @@ export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
     (total, item) => {
       const category: InventoryCategory = draft.utilities.weapons.includes(item) ? 'weapons' : draft.utilities.armor.includes(item) ? 'armor' : 'equipment';
       const catalogueItem = data && item.catalogId ? inventoryCatalogue(category, data).find((entry) => entry.catalogId === item.catalogId) : null;
-      const values = catalogueItem && data ? adjustedGearValues(category, catalogueItem, draft, data) : { priceGp: item.unitPriceGp, weight: item.unitWeight };
+      const values = catalogueItem && data ? adjustedGearValues(category, catalogueItem, draft, data, item.sizedForSiz) : { priceGp: item.unitPriceGp, weight: item.unitWeight };
       return ({
       costGp: total.costGp + Math.max(0, item.quantity) * Math.max(0, values.priceGp),
       purchasedCostGp: total.purchasedCostGp + (item.sourceDetail === 'Canonical Starting Gear' ? 0 : Math.max(0, item.quantity) * Math.max(0, values.priceGp)),
@@ -332,26 +372,49 @@ export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
  */
 export function carriedItemWeight(draft: CharacterDraft, data: StaticData) {
   let weight = 0;
-  const addInventory = (category: InventoryCategory, selections: InventorySelection[]) => {
+
+  const selectionWeight = (category: InventoryCategory, selection: InventorySelection) => {
     const catalogue = inventoryCatalogue(category, data);
-    for (const selection of selections) {
-      const definition = catalogue.find((entry) => entry.catalogId === selection.catalogId)
-        ?? catalogue.find((entry) => entry.name.localeCompare(selection.name, undefined, { sensitivity: 'base' }) === 0);
-      const canonicalName = definition?.name ?? selection.name;
-      if (category === 'equipment') {
-        if (/^(?:Jewelry|Gemstone),/i.test(canonicalName)) continue;
-        if (ammunitionPackage(canonicalName)) continue;
-      }
-      const values = definition
-        ? adjustedGearValues(category, definition, draft, data)
-        : { weight: selection.unitWeight };
-      weight += Math.max(0, Math.trunc(selection.quantity || 1)) * Math.max(0, Number(values.weight) || 0);
-    }
+    const definition = catalogue.find((entry) => entry.catalogId === selection.catalogId)
+      ?? catalogue.find((entry) => entry.name.localeCompare(selection.name, undefined, { sensitivity: 'base' }) === 0);
+    const canonicalName = definition?.name ?? selection.name;
+    const values = definition
+      ? adjustedGearValues(category, definition, draft, data, selection.sizedForSiz)
+      : { weight: selection.unitWeight };
+    return {
+      canonicalName,
+      unitWeight: Math.max(0, Number(values.weight) || 0),
+      quantity: Math.max(0, Math.trunc(selection.quantity || 1)),
+    };
   };
 
-  addInventory('weapons', draft.utilities.weapons);
-  addInventory('armor', draft.utilities.armor);
-  addInventory('equipment', draft.utilities.equipment);
+  for (const selection of draft.utilities.weapons) {
+    const values = selectionWeight('weapons', selection);
+    weight += values.quantity * values.unitWeight;
+  }
+
+  // Helmets are optional wear and do not contribute to the sheet Shoulder burden.
+  // A character can wear only one Armor Set at a time; when several are owned,
+  // use the lightest set for this carried/worn burden calculation.
+  let lightestArmorSetWeight: number | null = null;
+  for (const selection of draft.utilities.armor) {
+    const values = selectionWeight('armor', selection);
+    if (/^Helmet,/i.test(values.canonicalName)) continue;
+    if (/^Armor Set,/i.test(values.canonicalName)) {
+      const candidate = values.unitWeight; // one worn set, regardless of owned quantity
+      lightestArmorSetWeight = lightestArmorSetWeight == null ? candidate : Math.min(lightestArmorSetWeight, candidate);
+      continue;
+    }
+    weight += values.quantity * values.unitWeight;
+  }
+  if (lightestArmorSetWeight != null) weight += lightestArmorSetWeight;
+
+  for (const selection of draft.utilities.equipment) {
+    const values = selectionWeight('equipment', selection);
+    if (/^(?:Jewelry|Gemstone),/i.test(values.canonicalName)) continue;
+    if (ammunitionPackage(values.canonicalName)) continue;
+    weight += values.quantity * values.unitWeight;
+  }
 
   for (const selection of draft.utilities.magicItems) {
     const form = magicItemInventoryForm(selection, draft, data);
@@ -393,7 +456,10 @@ function canonicalStartingGear(draft: CharacterDraft, data: StaticData): Charact
     }
     const current = next.utilities[category];
     const existing = current.find((selection) => selection.catalogId === item.catalogId);
-    const selection: InventorySelection = { id: `inventory-${category}-${item.catalogId}`, catalogId: item.catalogId, name: item.name, source: 'trade', sourceDetail: 'Canonical Starting Gear', quantity, unitPriceGp: Number(item.priceGp) || 0, unitWeight: Number(item.weight) || 0 };
+    const sizeAdjustment = gearSizeAdjustment(next);
+    const fitted = category === 'weapons' || category === 'armor' || (category === 'equipment' && isWornEquipment(item));
+    const sizedForSiz = fitted && sizeAdjustment && sizeAdjustment.presumedSiz !== 12 ? sizeAdjustment.presumedSiz : undefined;
+    const selection: InventorySelection = { id: `inventory-${category}-${item.catalogId}`, catalogId: item.catalogId, name: item.name, source: 'trade', sourceDetail: 'Canonical Starting Gear', quantity, unitPriceGp: Number(item.priceGp) || 0, unitWeight: Number(item.weight) || 0, ...(sizedForSiz ? { sizedForSiz } : {}) };
     next.utilities[category] = existing
       ? current.map((entry) => entry.catalogId === item.catalogId && entry.sourceDetail === 'Canonical Starting Gear' ? { ...entry, quantity: Math.max(entry.quantity, quantity) } : entry)
       : [...current, selection];
@@ -434,6 +500,9 @@ export function addInventoryItem(
     }
   }
   const current = draft.utilities[category];
+  const sizeAdjustment = gearSizeAdjustment(draft);
+  const fitted = category === 'weapons' || category === 'armor' || (category === 'equipment' && isWornEquipment(item));
+  const sizedForSiz = fitted && sizeAdjustment && sizeAdjustment.presumedSiz !== 12 ? sizeAdjustment.presumedSiz : undefined;
   const separateInstance = category === 'equipment' && inventoryAllowsCustomAppend(item.name);
   const existing = separateInstance ? undefined : current.find((entry) => entry.catalogId === catalogId);
   let ordinal = 1;
@@ -450,6 +519,7 @@ export function addInventoryItem(
         unitPriceGp: Number(item.priceGp) || 0,
         unitWeight: Number(item.weight) || 0,
         ...(/^Jewelry,/i.test(item.name) ? { level: 1 } : {}),
+        ...(sizedForSiz ? { sizedForSiz } : {}),
       }];
   return { ...draft, utilities: { ...draft.utilities, [category]: next } };
 }
@@ -796,15 +866,20 @@ export function syncUtilities(draft: CharacterDraft, data: StaticData): Characte
   draft = { ...draft, utilities: { ...draft.utilities, equipment: retainedEquipment, notes } };
   const hydrateInventory = (category: InventoryCategory): InventorySelection[] => {
     const catalogue = inventoryCatalogue(category, data);
+    const defaultSize = gearSizeAdjustment(draft);
     return draft.utilities[category].map((selection) => {
       const item = catalogue.find((entry) => entry.catalogId === selection.catalogId);
-      return item ? {
+      if (!item) return selection;
+      const fitted = category === 'weapons' || category === 'armor' || (category === 'equipment' && isWornEquipment(item));
+      const sizedForSiz = selection.sizedForSiz ?? (fitted && defaultSize && defaultSize.presumedSiz !== 12 ? defaultSize.presumedSiz : undefined);
+      return {
         ...selection,
         name: item.name,
         quantity: Math.max(1, Math.trunc(selection.quantity || 1)),
         unitPriceGp: Number(item.priceGp) || 0,
         unitWeight: Number(item.weight) || 0,
-      } : selection;
+        ...(sizedForSiz ? { sizedForSiz } : { sizedForSiz: undefined }),
+      };
     });
   };
   const nameLanguageId = draft.utilities.nameLanguageId

@@ -1,5 +1,7 @@
 # Canon Sync v117 — Carried Weight and Shoulder Burden
 
+> **Superseded by v119** for Weight Index direction, armor-set/helmet burden accounting, and Brawn-adjusted Shoulder.
+
 ## Character-sheet Total
 
 The reverse Character Record Sheet `Total` box is the sum, in pounds, of carried structured Weapons, Armor, and Equipment plus the normalized physical weight of structured X=1 Magic Items.

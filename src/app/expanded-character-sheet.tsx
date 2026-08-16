@@ -5,7 +5,7 @@ import type { StaticData } from '@/data';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { projectCharacterSheet, type CharacterSheetData } from '@/lib/character-sheet-projection';
 import { calculateProperties } from '@/lib/rules/properties';
-import { adjustedGearValues, carriedItemWeight, displayInventoryQuantity, type InventoryCategory } from '@/lib/rules/utilities';
+import { adjustedGearValues, carriedItemWeight, displayInventoryQuantity, gearSizeAdjustment, isWornEquipment, type InventoryCategory } from '@/lib/rules/utilities';
 
 const statureFrameLabels: Record<number, string> = {
   [-2]: 'Shorter',
@@ -42,35 +42,47 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     ...categoryInventory('armor', draft.utilities.armor),
     ...categoryInventory('equipment', draft.utilities.equipment),
   ];
-  const equipmentNames = inventory.map(({ item }) => displayInventoryQuantity(item.name, item.quantity, item.customAppend));
+  const itemSize = (category: InventoryCategory, item: CharacterDraft['utilities']['equipment'][number], definition?: { name?: string; notes?: string[] }) => {
+    const scalable = category === 'weapons' || category === 'armor' || (category === 'equipment' && definition && isWornEquipment(definition));
+    if (!scalable) return null;
+    const adjustment = gearSizeAdjustment(draft, item.sizedForSiz);
+    return adjustment && adjustment.presumedSiz !== 12 ? adjustment.presumedSiz : null;
+  };
+  const equipmentNames = inventory.map(({ category, item }) => {
+    const catalogue = category === 'weapons' ? data.itemWeapons : category === 'armor' ? data.itemArmors : data.itemEquipments;
+    const definition = catalogue.find((entry) => entry.catalogId === item.catalogId)
+      ?? catalogue.find((entry) => entry.name.localeCompare(item.name, undefined, { sensitivity: 'base' }) === 0);
+    const base = displayInventoryQuantity(item.name, item.quantity, item.customAppend);
+    const sized = itemSize(category, item, definition);
+    return sized ? `${base} SIZ ${sized}` : base;
+  });
   const equipmentProperties = inventory.map(({ category, item }) => {
     const catalogue = category === 'weapons' ? data.itemWeapons : category === 'armor' ? data.itemArmors : data.itemEquipments;
     const definition = catalogue.find((entry) => entry.catalogId === item.catalogId)
       ?? catalogue.find((entry) => entry.name.localeCompare(item.name, undefined, { sensitivity: 'base' }) === 0);
     const values = definition
-      ? adjustedGearValues(category, definition, draft, data)
+      ? adjustedGearValues(category, definition, draft, data, item.sizedForSiz)
       : { priceGp: item.unitPriceGp, weight: item.unitWeight };
     const priceKnown = Boolean(definition) || Number(item.unitPriceGp) !== 0;
     const weightKnown = Boolean(definition) || Number(item.unitWeight) !== 0;
     const priceText = priceKnown ? `${displayMeasure(Number(values.priceGp) || 0)} gp` : '— gp';
     const weightText = weightKnown ? `${displayMeasure(Number(values.weight) || 0)}#` : '—#';
-    const details = item.sheetProperties?.trim();
-    if (!details) return `${priceText}; ${weightText}`;
-
-    const lines = details.split('\n');
-    let firstLine = lines[0];
-    const hasPrice = /\b\d+(?:\.\d+)?\s*gp\b/i.test(details);
-    const hasWeight = /(?:\b\d+(?:\.\d+)?(?:[KMG])?|—)#/i.test(details);
-    if (!hasPrice) {
-      const weight = firstLine.match(/(?:\b\d+(?:\.\d+)?(?:[KMG])?|—)#/i);
-      if (weight?.index != null) {
-        firstLine = `${firstLine.slice(0, weight.index).trimEnd()}  ${priceText}  ${firstLine.slice(weight.index)}`;
-      } else {
-        firstLine = `${firstLine.trimEnd()}  ${priceText}`;
-      }
+    if (definition && category === 'weapons') {
+      const weapon = values as typeof values & { ora?: number; isBracket?: boolean; acc?: number; impact?: number; damageDice?: number; damageOffset?: number; traits?: string[] };
+      const signed = (value: number) => value > 0 ? `+${value}` : String(value);
+      const ora = weapon.isBracket ? `[${Number(weapon.ora ?? 0)}]` : (Number(weapon.ora ?? 0) === 0 ? '-' : signed(Number(weapon.ora ?? 0)));
+      const dice = Math.max(1, Math.trunc(Number(weapon.damageDice ?? 1) || 1));
+      const offset = Math.trunc(Number(weapon.damageOffset ?? 0) || 0);
+      const damage = `${dice}D${offset > 0 ? `+${offset}` : offset < 0 ? offset : ''}`;
+      const traits = (weapon.traits ?? []).length ? `[${(weapon.traits ?? []).join(', ')}].` : '';
+      return `ORa ${ora}  Acc ${signed(Number(weapon.acc ?? 0))}  Impact ${signed(Number(weapon.impact ?? 0))}  Damage ${damage}  ${weightText}  ${priceText}${traits ? `\n${traits}` : ''}`;
     }
-    if (!hasWeight) firstLine = `${firstLine.trimEnd()}  ${weightText}`;
-    return [firstLine, ...lines.slice(1)].join('\n');
+    if (definition && category === 'armor') {
+      const armor = values as typeof values & { armorRating?: number; deflectRating?: number; traits?: string[] };
+      const traits = (armor.traits ?? []).length ? `[${(armor.traits ?? []).join(', ')}].` : '';
+      return `Deflect +${Math.trunc(Number(armor.deflectRating ?? 0))}  AR ${Math.trunc(Number(armor.armorRating ?? 0))}  ${weightText}  ${priceText}${traits ? `\n${traits}` : ''}`;
+    }
+    return `${priceText}; ${weightText}`;
   });
   const equipmentCategories = Object.fromEntries(equipmentNames.map((name, index) => [name, inventory[index].category]));
   const equipmentCultures = Object.fromEntries(equipmentNames.map((name, index) => [name, inventory[index].cultural]).filter(([, cultural]) => Boolean(cultural)));
@@ -90,6 +102,8 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     Details: [sheet.details.environ, sheet.details.species, sheet.details.bio, sheet.details.physique].filter(Boolean).join('\n'),
     PML: sheet.pml,
     AffinityAttribute: sheet.affinityAttribute ?? '',
+    BrawnLevel: derived?.traitAdjustments.brawn ?? 0,
+    AllometricCarryAdjustment: derived?.allometric ?? 0,
     SkillsUnresolved: sheet.history.skillsUnresolved,
     TraitsUnresolved: sheet.history.traitsUnresolved,
     SkillsTerms: sheet.history.skillTerms,
@@ -114,7 +128,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     WeaponsArmorEquipmentProperties: equipmentProperties.join('\n\n'),
     EquipmentCategories: equipmentCategories,
     EquipmentCultures: equipmentCultures,
-    EquipmentTotalWeight: `${displayMeasure(carriedWeight)}#`,
+    EquipmentTotalWeight: `${Math.floor(carriedWeight)}#`,
     BackNotes: [draft.utilities.notes, draft.utilities.backstory].filter(Boolean).join('\n\n'),
     BackName: sheet.name,
     Hitpoints: value(sheet.performance, 'Hitpoints'),

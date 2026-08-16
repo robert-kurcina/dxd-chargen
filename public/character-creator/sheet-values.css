@@ -29,6 +29,18 @@
   text-indent: 0;
 }
 
+/* Number fields are rendered as handwritten sheet values, never browser spinboxes. */
+.field-group input.field[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.field-group input.field[type="number"]::-webkit-outer-spin-button,
+.field-group input.field[type="number"]::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .field.derived { background: transparent; color: #111; }
 .field[readonly] { pointer-events: none; }
 .editing .field:not(.derived):hover,

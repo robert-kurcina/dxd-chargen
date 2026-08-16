@@ -94,12 +94,10 @@ import {
     return Number(match[1]) * multiplier;
   }
 
-  function ceilingWeightIndex(value) {
+  function floorWeightIndex(value) {
     const pounds = Math.max(0, Number.parseFloat(String(value ?? "").replace(/[^0-9.+-]/g, "")) || 0);
     if (!(pounds > 0)) return null;
-    let index = getIndex(pounds);
-    if (scalarNumber(getScalarValue(index)) + 1e-9 < pounds) index += 1;
-    return index;
+    return getIndex(pounds);
   }
 
   function calculateState(currentState, sourceData) {
@@ -114,7 +112,7 @@ import {
       const current = calculated[fieldName];
       if (current !== "" && current != null) calculated[fieldName] = `${current}${suffix}`;
     });
-    const totalIndex = ceilingWeightIndex(currentState.EquipmentTotalWeight ?? sourceData.EquipmentTotalWeight);
+    const totalIndex = floorWeightIndex(currentState.EquipmentTotalWeight ?? sourceData.EquipmentTotalWeight);
     const shoulderIndex = Number(calculated.IndexShoulder) || 0;
     const burden = totalIndex == null ? 0 : Math.max(0, totalIndex - shoulderIndex);
     calculated.ShoulderBurden = burden > 0 ? `-${burden}` : "0";
@@ -287,7 +285,9 @@ import {
           ? document.createElement("textarea")
           : document.createElement("input");
         const derived = type === "derived" || name === "BackName";
-        if (input.tagName === "INPUT") input.type = type === "number" ? "number" : "text";
+        // Sheet numeric fields use text inputs with numeric parsing so Firefox and
+        // Chromium never render browser spinner controls over the printed sheet.
+        if (input.tagName === "INPUT") input.type = "text";
         input.className = `field ${type === "number" || type === "derived" ? "numeric" : ""} ${derived ? "derived" : ""}`;
         input.dataset.field = name;
         input.value = state[name] ?? "";
@@ -298,6 +298,7 @@ import {
         if (type === "number") {
           input.step = "1";
           input.inputMode = "numeric";
+          input.pattern = "-?[0-9]*";
           if (["Damage", "Injury", "Fatigue", "Weariness", "Stress", "Rads", "WealthRank", "SocialRank", "ProfessionRank", "Stature", "Build"].includes(name)) input.min = "0";
         } else if (type === "area" || type === "history") {
           input.maxLength = 4000;
@@ -422,8 +423,10 @@ import {
   }
 
   function readInputValue(input) {
-    if (input.type !== "number") return input.value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
-    return input.value === "" ? "" : Number(input.value);
+    if (input.dataset.type !== "number") return input.value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
+    if (input.value === "") return "";
+    const parsed = Number(input.value);
+    return Number.isFinite(parsed) ? parsed : "";
   }
 
   function recordEdit(input) {

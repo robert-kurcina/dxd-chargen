@@ -1,0 +1,47 @@
+{
+  "version": "v120",
+  "characterCount": 23,
+  "structuredAssignments": 152,
+  "fittedAssignments": 51,
+  "fittedBracketCounts": {
+    "SIZ6": 24,
+    "SIZ9": 24,
+    "SIZ15": 3
+  },
+  "catalogNameMismatches": 0,
+  "activeStaleSheetProperties": 0,
+  "preservedSourceProvenanceChanged": 0,
+  "zoey": {
+    "species": "Klenari",
+    "personalSiz": 4,
+    "allometricCarryingAdjustment": 2,
+    "brawn": 1,
+    "shoulderIndex": -2,
+    "normalizedFittedItems": {
+      "Dagger, Standard SIZ 6": {
+        "weightLb": 0.4,
+        "ora": -4,
+        "damage": "1D-2"
+      },
+      "Crossbow, Hand SIZ 6": {
+        "weightLb": 0.5,
+        "ora": "[5]",
+        "damage": "1D-5"
+      },
+      "Backpack, Frameless SIZ 6": {
+        "weightLb": 1.5
+      },
+      "Wardrobe SIZ 6": {
+        "weightLb": 1
+      }
+    }
+  },
+  "checks": [
+    "77 static JSON files validated",
+    "Modified TS/TSX files transpile with zero syntax diagnostics",
+    "Static character-sheet JavaScript passes node --check",
+    "All active catalog-backed items match canonical catalog names",
+    "All active catalog-backed legacy sheetProperties removed",
+    "Only active character.json records changed in character archive; source/provenance files remain byte-identical"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "release": "v119",
+  "equipmentTotalWeight": "Math.floor(carried pounds)",
+  "weightIndex": "R10 floor via getIndex()",
+  "shoulder": "max(STR,SIZ)-9 + allometric + Brawn X",
+  "armorPolicy": {
+    "helmets": "excluded",
+    "multipleArmorSets": "lightest only",
+    "otherArmor": "counted"
+  },
+  "iskender": {
+    "STR": 9,
+    "SIZ": 12,
+    "Brawn": 3,
+    "allometric": 0,
+    "physicality": 12,
+    "shoulder": 6,
+    "expectedCurrentProjectedTotalLb": 55,
+    "expectedWeightIndex": 7,
+    "expectedBurden": "-1"
+  }
+}

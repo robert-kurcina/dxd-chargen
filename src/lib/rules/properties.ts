@@ -195,14 +195,25 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
   const attr = (name: string) => propertyAttributeValue(name, draft) ?? 0;
   const dm = (name: string) => getAttributeDm(attr(name));
   const pml = Math.max(1, draft.proficiencies.pml ?? 1);
+  const allometricSpeciesName = getSpeciesChoice(draft, data)?.group.name;
   const allometricSpeciesBuild = (() => {
-    const species = getSpeciesChoice(draft, data)?.group.name;
-    if (!species) return 50;
-    const baseline = characteristicTable(species, data).find((row) => row.lineage === 'BASE-LINE');
+    if (!allometricSpeciesName) return 50;
+    const baseline = characteristicTable(allometricSpeciesName, data).find((row) => row.lineage === 'BASE-LINE');
     return num(baseline?.stature) + num(baseline?.build);
   })();
   const speciesSiz = scaleRow(allometricSpeciesBuild, data).row.siz;
-  const allometric = Math.floor((13 - speciesSiz) / 3);
+  // Page 114 provides canonical species SIZ bands for playable Sophonts. Use
+  // those named bands where established; the scalar formula remains a fallback
+  // for species not listed in the reference table.
+  const canonicalAllometricBySpecies: Record<string, number> = {
+    Human: 0, Alef: 0,
+    Drauf: 1, Babbita: 1,
+    Klenari: 2, Gnoan: 2, Kriket: 2,
+    Stonefolk: -1,
+  };
+  const allometric = allometricSpeciesName && allometricSpeciesName in canonicalAllometricBySpecies
+    ? canonicalAllometricBySpecies[allometricSpeciesName]
+    : Math.floor((13 - speciesSiz) / 3);
   const brawn = physical.brawn;
   const thrower = effectiveTraitLevel(draft, 'Thrower');
   const leap = effectiveTraitLevel(draft, 'Leap');
