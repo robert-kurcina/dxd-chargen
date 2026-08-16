@@ -1,0 +1,40 @@
+{
+  "release": "v117",
+  "characterFiles": 23,
+  "structuredAssignments": 152,
+  "validationErrors": [],
+  "status": "pass",
+  "notes": {
+    "carriedWeight": "Weapons, Armor, Equipment, and eligible Magic Item physical forms; Jewelry/Gemstones/Notes/Ammunition excluded.",
+    "burden": "max(0, ceiling Weight Index - Basic Shoulder), presented as 0 or negative excess.",
+    "sourcePreservation": "Character archive is intended to remain data-identical to v116; this release changes deterministic sheet projection only."
+  },
+  "structuredMagicItems": 11,
+  "characterArchiveDataIdenticalToV116": true,
+  "page293BurdenExample": {
+    "totalLb": 30,
+    "totalIndex": 5,
+    "shoulderIndex": 3,
+    "displayBurden": "-2"
+  },
+  "capacityCeilingChecks": {
+    "20lb": 3,
+    "20.01lb": 4,
+    "30lb": 5,
+    "93lb": 10
+  },
+  "iskenderProjectionCheck": {
+    "expectedTotalLb": 93.01,
+    "totalWeightIndex": 10,
+    "displayedShoulderIndex": 3,
+    "expectedBurden": "-7"
+  },
+  "typescriptSyntaxTranspile": {
+    "filesChecked": 2,
+    "status": "pass"
+  },
+  "staticDataValidation": "pass (77 JSON files)",
+  "publicJavascriptSyntax": "pass",
+  "fullTypecheckBuild": "not completed: supplied archive lacks installed React/Next/Node dependencies; unchanged environment limitation",
+  "zipIntegrity": "pass after final packaging"
+}

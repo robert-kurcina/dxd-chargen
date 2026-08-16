@@ -20,8 +20,12 @@ The Forge is the primary DXD character-creation interface. The character sheet i
 
 React components should render results and dispatch selections. They should not become the authoritative location for DXD formulas.
 
+## Inventory and Notes boundary
+
+Canonical catalogues define purchasable/assignable records. Durable assigned possessions retain catalogue-backed `InventorySelection` records. Notes remain editable free text with no catalogue relationship, quantity field, price, weight, provenance, or other mechanical behavior. Ordinary ammunition purchase units (Arrow/Bolt/Bullet/Round/Pellet packages) convert to Notes when assigned; do not introduce consumable counters or active-play resource tracking. Presentation aliases never alter stored canonical names.
+
 ## Current release
 
-v110 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Starting Region & Settlement is now a rules-bearing origin context: detailed locales constrain Environs Heritage and inform language, specialization, deity-context, output identity, and random-origin behavior. Release hardening remains the next tranche.
+v114 has functional Background, Intrinsics, Proficiencies, Properties, and in-scope Utilities phases, plus whole-character validation, deterministic live CRS projection, and a browser-local multi-character library with JSON portability. Starting Region & Settlement is a rules-bearing origin context. Inventory normalization now distinguishes durable catalogue items from unstructured historical/ad hoc Notes and removes source-annotation glyphs from canonical Magestick identities. Release hardening remains the next tranche.
 
 See `FINAL_PRODUCT_PLAN.md` for the full implementation and release plan.

@@ -1,0 +1,14 @@
+{
+  "release": "v113",
+  "packageVersion": "0.113.0",
+  "scope": "treat ordinary ammunition as catalogue purchase units that become unstructured Notes on assignment; normalize historical containers, Magestick names, Bedroll, and Skill Tome (Cook)",
+  "checks": {
+    "staticDataValidation": "passed: scripts/validate-data.mjs validated 77 JSON files and exposed 96/144 complete magic items",
+    "changedTypeScriptSyntax": "passed: TypeScript transpileModule reported no syntax errors for src/lib/rules/utilities.ts, src/lib/import-character-creator.ts, or src/app/forge/utilities-step.tsx",
+    "fullTypecheck": "not executable from the supplied archive because node_modules/dependency type packages are absent; global tsc reports unresolved Next/React/Node dependencies rather than a local v113 syntax failure",
+    "characterJson": "passed: all 23 active character.json files parse",
+    "assignedItemResolution": "passed: all 154 structured Weapon, Armor, Equipment, and Magic Item assignments resolve by canonical name plus catalogId; 0 ordinary ammunition purchase-unit rows remain structured",
+    "migration": "passed: 20 targeted assertions cover quiver/case splits, ammunition Notes, Bed roll, Simple, clean Magestick, single-unit Pouch/Small Bag Notes, and Honri Note Skill Tome (Cook)",
+    "sourceProvenance": "passed: all 92 non-active/source/provenance files in the character archive remain byte-identical to v112"
+  }
+}

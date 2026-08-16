@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v110
+## Current state — v117
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -54,7 +54,7 @@ Utilities currently supports:
 
 - searchable selection from the 84-entry Spell catalogue, with Spell Level/AP/mana details and explicit review state;
 - searchable Weapons, Armor, and Equipment catalogues with quantities, prices, recorded Weight, Personal Wealth comparison, and retained over-budget warnings;
-- selection from only the 96 complete Magic Item records approved for runtime use, with label-only search, interchangeable form-factor families, canonical rarity multipliers, and total equivalent value;
+- selection from complete Magic Item records approved for runtime use, with X fixed at 1 for structured selections, canonical physical-form normalization where the item catalog supports it, optional presentation-only instance text, canonical rarity multipliers, and total equivalent value;
 - editable common/proper names generated from the 17 incorporated conlang D66 name-generator datasets;
 - Relationships shown as deliberately deferred and non-blocking.
 
@@ -73,6 +73,26 @@ Finalization and library now supports:
 - catalogue-integrity checks for imported Spells, Languages, inventory, and complete-data Magic Items.
 
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
+
+
+## v117 — Carried Weight and Shoulder Burden
+
+v117 fills the printed reverse-sheet **Total** and **Burden** boxes. Total is the summed carried weight of structured Weapons, Armor, Equipment, and non-Jewelry/non-Gemstone Magic Item physical forms. Notes, ordinary ammunition, Jewelry, and Gemstones do not contribute. Burden compares the ceiling Weight Index of that total against Basic Shoulder and prints `0` when within Shoulder or the negative excess Index when burdened (for example, Weight Index 5 against Shoulder 3 prints `-2`).
+
+
+## v116 — Jewelry, gemstones, physical forms, and historical Gold
+
+v116 adds the economical Jewelry form catalog, ordinary gemstone grades, Ornate X/TCA handling, Magic Item form-weight completion with a 0.01 lb fallback for otherwise unsupported tiny forms, the generic `Armor X` Magic Item family, ammunition purchase-to-Notes behavior using current available Gold, and normalized Magazine/Pouch identities. Jewelry and Gemstones support presentation-only `customAppend`. Imported recorded Gold is retained as authoritative available gp rather than reconstructed from inventory or Wealth Rank.
+
+## v115 — Instance text for Magic Items and written works
+
+v115 adds an optional `customAppend` to assigned Magic Items and to Tome, Codex, and Scroll equipment. The append is presentation-only: `Skill Tome` with append `Cook` displays as `Skill Tome (Cook)` without changing catalog identity, weight, price, X, or mechanics. Append-capable books/scrolls may be assigned as separate instances so different subjects can coexist. Legacy `Cookbook` now imports as canonical `Skill Tome` with `customAppend: "Cook"`. Mechanically customized items, including structured Magic Items above X=1, remain Notes-only.
+
+## v114 — Catalog cleanup and Magic Item physical forms
+
+v114 removes source Wingding prefixes from canonical item names, generalizes quantity-first catalog presentation, keeps ordinary ammunition as unstructured Notes, and normalizes supported Magic Item physical forms to actual item-catalog records for weight. `Banweapon X` remains the canonical page-561 catalog name and, like `Vorpal Weapon X`, can select any eligible catalog weapon form except natural/improvised feet, claws, talons, boots, gauntlets, and comparable non-object attack forms. Structured Magic Items are X=1 only; GM-granted X=2+ instances are Notes.
+
+Historical character cleanup keeps Illian's upgraded Magewand, John's Vorpal Sword, Khao's Bansword-2, Sir Mandolore's Banhammer-2, and Periwinkle's future Bracelet Armor as Notes-only custom possessions.
 
 ## v110 — Starting Region, Settlement, and Heritage context
 

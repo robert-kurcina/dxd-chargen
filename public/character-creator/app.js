@@ -1,5 +1,7 @@
 import {
   calculateCharacterSheet,
+  getIndex,
+  getScalarValue,
   HISTORY_NOTE_KEYWORDS,
   parseEquipmentRows,
   parseHistoryNotes,
@@ -56,6 +58,7 @@ import {
   const backGroups = [
     group("back-name", [field("BackName", "area")]),
     group("equipment", [], { equipmentRows: true }),
+    group("load-summary", [field("EquipmentTotalWeight", "derived"), field("ShoulderBurden", "derived")]),
     group("back-notes", [field("BackNotes", "area")]),
     group("derived-scores", [field("Physicality", "derived"), field("GaspLimit", "derived"), field("SleepLimit", "derived")]),
     group("movement-extras", [field("ScalarAgility", "derived"), field("ScalarMphRun", "derived")]),
@@ -83,6 +86,22 @@ import {
   let editMode = false;
   let pendingChanges = false;
 
+  function scalarNumber(value) {
+    const text = String(value ?? "").trim().toUpperCase().replace(/\s+/g, "");
+    const match = text.match(/^(-?\d+(?:\.\d+)?)([KMG])?$/);
+    if (!match) return 0;
+    const multiplier = match[2] === "K" ? 1e3 : match[2] === "M" ? 1e6 : match[2] === "G" ? 1e9 : 1;
+    return Number(match[1]) * multiplier;
+  }
+
+  function ceilingWeightIndex(value) {
+    const pounds = Math.max(0, Number.parseFloat(String(value ?? "").replace(/[^0-9.+-]/g, "")) || 0);
+    if (!(pounds > 0)) return null;
+    let index = getIndex(pounds);
+    if (scalarNumber(getScalarValue(index)) + 1e-9 < pounds) index += 1;
+    return index;
+  }
+
   function calculateState(currentState, sourceData) {
     const pml = Math.max(0, Math.min(12, Number(currentState.PML) || 0));
     const decals = Array.from({ length: pml }, () => ({ name: "star" }));
@@ -95,6 +114,10 @@ import {
       const current = calculated[fieldName];
       if (current !== "" && current != null) calculated[fieldName] = `${current}${suffix}`;
     });
+    const totalIndex = ceilingWeightIndex(currentState.EquipmentTotalWeight ?? sourceData.EquipmentTotalWeight);
+    const shoulderIndex = Number(calculated.IndexShoulder) || 0;
+    const burden = totalIndex == null ? 0 : Math.max(0, totalIndex - shoulderIndex);
+    calculated.ShoulderBurden = burden > 0 ? `-${burden}` : "0";
     return { ...currentState, ...calculated };
   }
 

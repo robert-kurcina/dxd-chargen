@@ -1,0 +1,14 @@
+{
+  "release": "v112",
+  "packageVersion": "0.112.0",
+  "scope": "move residual unmapped legacy possessions to Notes and prevent synthetic/dangling assigned-item mappings",
+  "checks": {
+    "staticDataValidation": "passed: scripts/validate-data.mjs validated 77 JSON files and exposed 96/144 complete magic items",
+    "changedTypeScriptSyntax": "passed: TypeScript transpileModule reported no syntax errors for src/lib/import-character-creator.ts",
+    "fullTypecheck": "not executable from the supplied archive because dependency type packages are absent; global tsc reports unresolved Next/React/Node dependencies, with no new local diagnostic at the v112 possession-cleanup code",
+    "characterJson": "passed: all 23 active character.json files parse",
+    "assignedItemResolution": "passed: 0 unresolved Weapon, Armor, Equipment, or Magic Item assignments remain across all active characters",
+    "migration": "passed: 37 unresolved structured rows were removed and preserved as 33 unique Note entries after collapsing duplicate legacy history/sheet representations",
+    "sourceProvenance": "passed: 90 pre-existing non-active files in the supplied v111 character archive match byte-for-byte; active character.json files were the only pre-existing character files edited"
+  }
+}

@@ -23,9 +23,9 @@ export function makeCatalogId(namespace: string, label: string): string {
 
 /**
  * Adds deterministic IDs without changing the original source records.
- * Duplicate display labels receive a stable source-order suffix. This specifically
- * prevents records such as the distinct "Magazine" and "Pouch, Small" equipment
- * variants from colliding when selected by the builder.
+ * Duplicate display labels receive a stable source-order suffix as a defensive
+ * fallback. Current equipment normalization avoids known Magazine/Pouch identity
+ * collisions by using distinct canonical names or instance-level customAppend text.
  */
 export function withCatalogIds<T extends object>(
   items: T[],

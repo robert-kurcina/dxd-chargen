@@ -62,7 +62,9 @@
   {
     "name": "Pouch, Small",
     "notes": [
-      "20-cubic inches. Holds 150 large Rounds, 300 Rounds, 600 small Rounds, 1200 very small Rounds",
+      "20-cubic inches. May be designated for Rounds or Bullets with a presentation-only custom append.",
+      "Rounds capacity: 150 large Rounds, 300 Rounds, 600 small Rounds, 1200 very small Rounds.",
+      "Bullets capacity: 100 large Bullets, 300 Bullets, 500 small Bullets.",
       "Category: Ammunition / Weapon Supply."
     ],
     "weight": 0.2,
@@ -200,7 +202,7 @@
     "traits": []
   },
   {
-    "name": "Magazine",
+    "name": "Magazine, Crossbow",
     "notes": [
       "Holds 5 Bolts for a Repeating Crossbow",
       "Category: Ammunition / Weapon Supply."
@@ -210,7 +212,7 @@
     "traits": []
   },
   {
-    "name": "Magazine",
+    "name": "Magazine, Hvy Crossbow",
     "notes": [
       "Holds 8 Heavy Bolts for a Heavy Repeating Crossbow",
       "Category: Ammunition / Weapon Supply."
@@ -377,16 +379,6 @@
     "traits": [
       "Stun"
     ]
-  },
-  {
-    "name": "Pouch, Small",
-    "notes": [
-      "20-cubic inches. Holds 100 large Bullets, 300 Bullets, 500 small Bullets",
-      "Category: Ammunition / Weapon Supply."
-    ],
-    "weight": 0.2,
-    "priceGp": 0.1,
-    "traits": []
   },
   {
     "name": "Scroll, Plain",
@@ -688,7 +680,7 @@
     "traits": []
   },
   {
-    "name": "Skill Book",
+    "name": "Skill Tome",
     "notes": [
       "As a Lore tome, but includes rubrics and practice exercises.",
       "Category: Tomes."
@@ -944,42 +936,6 @@
     ],
     "weight": 3,
     "priceGp": 1.2,
-    "traits": []
-  },
-  {
-    "name": "Rings",
-    "notes": [
-      "Each hand can wear 3 rings, each ear-nose-bellybutton-cheek allows 1 ring piercing.",
-      "Category: Clothing.",
-      "Canonical price: 1D sp (non-fixed value).",
-      "Canonical weight: .."
-    ],
-    "weight": 0,
-    "priceGp": 0,
-    "traits": []
-  },
-  {
-    "name": "Bracelets & Bangles",
-    "notes": [
-      "A person can wear 2 necklaces, and 1 bracelet (or anklet) per arm or foot",
-      "Category: Clothing.",
-      "Canonical price: 1D sp (non-fixed value).",
-      "Canonical weight: .."
-    ],
-    "weight": 0,
-    "priceGp": 0,
-    "traits": []
-  },
-  {
-    "name": "Necklaces & Amulets",
-    "notes": [
-      "A person can wear a single necklace plus another simpler chain with a pendant or amulet.",
-      "Category: Clothing.",
-      "Canonical price: 1D sp (non-fixed value).",
-      "Canonical weight: .."
-    ],
-    "weight": 0,
-    "priceGp": 0,
     "traits": []
   },
   {
@@ -1576,6 +1532,160 @@
     ],
     "weight": 80,
     "priceGp": 12,
+    "traits": []
+  },
+  {
+    "name": "Jewelry, Ring",
+    "notes": [
+      "Ring. Covers ordinary finger rings and comparable small ring jewelry.",
+      "Ornate X; default X=1. Each +1 Ornate provides +2 TCA.",
+      "Jewelry material and narrative appraisal are not mechanically fixed; an otherwise common item may be worthless or priceless by context.",
+      "Weight is negligible for ordinary Sophont character-sheet accounting.",
+      "Category: Jewelry."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Ornate 1"
+    ],
+    "ornateLevel": 1,
+    "tca": 2
+  },
+  {
+    "name": "Jewelry, Bracelet",
+    "notes": [
+      "Bracelet. Covers bracelets, bangles, and anklets.",
+      "Ornate X; default X=1. Each +1 Ornate provides +2 TCA.",
+      "Jewelry material and narrative appraisal are not mechanically fixed; an otherwise common item may be worthless or priceless by context.",
+      "Weight is negligible for ordinary Sophont character-sheet accounting.",
+      "Category: Jewelry."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Ornate 1"
+    ],
+    "ornateLevel": 1,
+    "tca": 2
+  },
+  {
+    "name": "Jewelry, Necklace",
+    "notes": [
+      "Necklace. Covers necklaces, pendants, and amulets.",
+      "Ornate X; default X=1. Each +1 Ornate provides +2 TCA.",
+      "Jewelry material and narrative appraisal are not mechanically fixed; an otherwise common item may be worthless or priceless by context.",
+      "Weight is negligible for ordinary Sophont character-sheet accounting.",
+      "Category: Jewelry."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Ornate 1"
+    ],
+    "ornateLevel": 1,
+    "tca": 2
+  },
+  {
+    "name": "Jewelry, Circlet",
+    "notes": [
+      "Circlet. Covers circlets, tiaras, and crowns.",
+      "Ornate X; default X=1. Each +1 Ornate provides +2 TCA.",
+      "Jewelry material and narrative appraisal are not mechanically fixed; an otherwise common item may be worthless or priceless by context.",
+      "Weight is negligible for ordinary Sophont character-sheet accounting.",
+      "Category: Jewelry."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Ornate 1"
+    ],
+    "ornateLevel": 1,
+    "tca": 2
+  },
+  {
+    "name": "Jewelry, Belt",
+    "notes": [
+      "Belt. Covers jewelry belts and girdles.",
+      "Ornate X; default X=1. Each +1 Ornate provides +2 TCA.",
+      "Jewelry material and narrative appraisal are not mechanically fixed; an otherwise common item may be worthless or priceless by context.",
+      "Weight is negligible for ordinary Sophont character-sheet accounting.",
+      "Category: Jewelry."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Ornate 1"
+    ],
+    "ornateLevel": 1,
+    "tca": 2
+  },
+  {
+    "name": "Jewelry, Ornament",
+    "notes": [
+      "Ornament. Covers charms, earrings, brooches, pins, tassels, and similar small jewelry.",
+      "Ornate X; default X=1. Each +1 Ornate provides +2 TCA.",
+      "Jewelry material and narrative appraisal are not mechanically fixed; an otherwise common item may be worthless or priceless by context.",
+      "Weight is negligible for ordinary Sophont character-sheet accounting.",
+      "Category: Jewelry."
+    ],
+    "weight": 0,
+    "priceGp": 0,
+    "traits": [
+      "Ornate 1"
+    ],
+    "ornateLevel": 1,
+    "tca": 2
+  },
+  {
+    "name": "Gemstone, Valuable",
+    "notes": [
+      "Valuable ordinary gemstone; standard appraisal 100 gp per stone.",
+      "Ordinary gemstone weight is negligible for character-sheet accounting.",
+      "Provenance model: approximately 1000 standard gemstones per pound; about 2.27 carats each, rounded to roughly 2 carats for rules provenance.",
+      "Wildstone is separate and continues to use cubic-inch (cuin) measurement.",
+      "Category: Gemstones."
+    ],
+    "weight": 0,
+    "priceGp": 100,
+    "traits": []
+  },
+  {
+    "name": "Gemstone, Precious",
+    "notes": [
+      "Precious ordinary gemstone; standard appraisal 10 gp per stone.",
+      "Ordinary gemstone weight is negligible for character-sheet accounting.",
+      "Provenance model: approximately 1000 standard gemstones per pound; about 2.27 carats each, rounded to roughly 2 carats for rules provenance.",
+      "Wildstone is separate and continues to use cubic-inch (cuin) measurement.",
+      "Category: Gemstones."
+    ],
+    "weight": 0,
+    "priceGp": 10,
+    "traits": []
+  },
+  {
+    "name": "Gemstone, Semi-precious",
+    "notes": [
+      "Semi-precious ordinary gemstone; standard appraisal 1 gp per stone.",
+      "Ordinary gemstone weight is negligible for character-sheet accounting.",
+      "Provenance model: approximately 1000 standard gemstones per pound; about 2.27 carats each, rounded to roughly 2 carats for rules provenance.",
+      "Wildstone is separate and continues to use cubic-inch (cuin) measurement.",
+      "Category: Gemstones."
+    ],
+    "weight": 0,
+    "priceGp": 1,
+    "traits": []
+  },
+  {
+    "name": "Gemstone, Common",
+    "notes": [
+      "Common ordinary gemstone; standard appraisal 0.1 gp per stone.",
+      "Ordinary gemstone weight is negligible for character-sheet accounting.",
+      "Provenance model: approximately 1000 standard gemstones per pound; about 2.27 carats each, rounded to roughly 2 carats for rules provenance.",
+      "Wildstone is separate and continues to use cubic-inch (cuin) measurement.",
+      "Category: Gemstones."
+    ],
+    "weight": 0,
+    "priceGp": 0.1,
     "traits": []
   },
   {

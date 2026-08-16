@@ -5,7 +5,7 @@ import type { StaticData } from '@/data';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { projectCharacterSheet, type CharacterSheetData } from '@/lib/character-sheet-projection';
 import { calculateProperties } from '@/lib/rules/properties';
-import { adjustedGearValues, displayInventoryQuantity, type InventoryCategory } from '@/lib/rules/utilities';
+import { adjustedGearValues, carriedItemWeight, displayInventoryQuantity, type InventoryCategory } from '@/lib/rules/utilities';
 
 const statureFrameLabels: Record<number, string> = {
   [-2]: 'Shorter',
@@ -42,7 +42,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     ...categoryInventory('armor', draft.utilities.armor),
     ...categoryInventory('equipment', draft.utilities.equipment),
   ];
-  const equipmentNames = inventory.map(({ item }) => displayInventoryQuantity(item.name, item.quantity));
+  const equipmentNames = inventory.map(({ item }) => displayInventoryQuantity(item.name, item.quantity, item.customAppend));
   const equipmentProperties = inventory.map(({ category, item }) => {
     const catalogue = category === 'weapons' ? data.itemWeapons : category === 'armor' ? data.itemArmors : data.itemEquipments;
     const definition = catalogue.find((entry) => entry.catalogId === item.catalogId)
@@ -82,6 +82,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     : weightAdjustment > 0
       ? `Overweight ${weightAdjustment}`
       : 'Average';
+  const carriedWeight = carriedItemWeight(draft, data);
   return {
     Slug: (sheet.name || 'character').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
     Portrait: draft.utilities.portraitDataUrl,
@@ -113,6 +114,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
     WeaponsArmorEquipmentProperties: equipmentProperties.join('\n\n'),
     EquipmentCategories: equipmentCategories,
     EquipmentCultures: equipmentCultures,
+    EquipmentTotalWeight: `${displayMeasure(carriedWeight)}#`,
     BackNotes: [draft.utilities.notes, draft.utilities.backstory].filter(Boolean).join('\n\n'),
     BackName: sheet.name,
     Hitpoints: value(sheet.performance, 'Hitpoints'),

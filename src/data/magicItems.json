@@ -63,6 +63,13 @@
     "description": "Lesser. Provide DM +X for specific Order Magicka."
   },
   {
+    "name": "Armor X",
+    "form": "Wearable",
+    "gradeLevel": 1,
+    "gradeAvailability": "Lesser",
+    "description": "Lesser. Choose a physical wearable form; presentation is “${formFactor} of Armor X”. Provides +X Deflect and +3X Armor. Structured character-builder instances are X=1; higher-X or otherwise customized instances belong in Notes. The selected physical form determines weight."
+  },
+  {
     "name": "Arrows of Unfailing Accuracy X",
     "form": "Arrows",
     "gradeLevel": 1,
@@ -106,10 +113,10 @@
   },
   {
     "name": "Banweapon X",
-    "form": "",
+    "form": "Weapon",
     "gradeLevel": 1,
     "gradeAvailability": "Lesser",
-    "description": "Lesser.[2H, Hafted]. Manapump > { Pierce +X. Blinding X + 3 Electroshock X.} Specify Warhammer, Broadsword, Greataxe, Mace, or Spear. Whenever this weapon strikes, it creates a flash of lightning which will causing Blinding for those unprepared, and Noise equal to 110 dB + 5 dB each mana. If striking a living target, creates Electroshock X."
+    "description": "Lesser.[2H, Hafted]. Manapump > { Pierce +X. Blinding X + 3 Electroshock X.} Specify an eligible catalog Weapon form. Whenever this weapon strikes, it creates a flash of lightning which will causing Blinding for those unprepared, and Noise equal to 110 dB + 5 dB each mana. If striking a living target, creates Electroshock X."
   },
   {
     "name": "Battlebundle X",

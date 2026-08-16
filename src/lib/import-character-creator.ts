@@ -6,6 +6,7 @@ import { createEmptyCharacterDraft, type CharacterDraft, type InventorySelection
 import { makeCatalogId } from '@/data/catalog-policy';
 import { physicalBreakdown } from '@/lib/rules/properties';
 import { unresolvedBroadGrants } from '@/lib/rules/proficiencies';
+import { ammunitionNote, inventoryAllowsCustomAppend } from '@/lib/rules/utilities';
 
 type LegacyCharacter = Record<string, any>;
 
@@ -272,15 +273,84 @@ const ITEM_ALIASES: Record<string, string> = {
 };
 const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
   backpack: 'Backpack, Frameless',
+  'armor light': 'Armor Set, Light (Boiled)',
+  'armor light [thickened]': 'Armor Set, Light (Boiled)',
+  'armor medium': 'Armor Set, Medium (Mail)',
+  'armor heavy': 'Armor Set, Heavy (Reinforced + Plate)',
+  boatcloak: 'Cloak Or Cape',
+  bedroll: 'Bed roll, Simple',
+  'arrow quiver': 'Quiver, Small',
+  'small bolt quiver': 'Case, Small',
+  'skill book': 'Skill Tome',
+  cookbook: 'Skill Tome',
+  spellbook: 'Blank Codex',
+  'boiled leather': 'Armor Set, Light (Boiled)',
+  'boiled leather armor': 'Armor Set, Light (Boiled)',
   breastplate: 'Cuirass, Metal',
+  broadsword: 'Sword, Broad',
+  'chainmail hauberk': 'Armor Set, Medium (Mail)',
+  claw: 'Hands, Claws',
+  cuirass: 'Cuirass, Metal',
   'flask of oil': 'Oil Flask',
+  flintstone: 'Tinderbox',
+  'fragrant soap': 'Bathing Kit',
+  'full helm': 'Helmet, Full',
+  garrote: 'Hands, Garrote',
+  greatsword: 'Sword, Great',
+  'half helm & mantle': 'Helmet, Half Mantled',
+  'hand crossbow': 'Crossbow, Hand',
+  'hunting knife': 'Knife, Hunting',
+  'jewelry box': 'Chest, Small',
+  rings: 'Jewelry, Ring',
+  'bracelets & bangles': 'Jewelry, Bracelet',
+  'necklaces & amulets': 'Jewelry, Necklace',
+  'knife and spit': 'Cooking kit',
+  'leather armor': 'Armor Set, Light (Boiled)',
+  'large sack': 'Bag, Large × 1',
+  'magestick staff': 'Magestick, Staff',
+  'magestick wand': 'Magestick, Wand',
+  'magestick small wand +manaclamp': 'Magestick, Small Wand',
+  'medium bow': 'Bow, Medium',
+  'medium shield': 'Shield, Medium',
+  cookware: 'Cooking kit',
+  'knives and spit': 'Cooking kit',
+  'knives and spits': 'Cooking kit',
+  silverware: 'Dining kit',
+  'soap and perfume': 'Bathing Kit',
+  'spice bag': 'Herbs & Spices × 100',
+  'spice bags': 'Herbs & Spices × 100',
+  rapier: 'Sword, Rapier',
+  'short bow': 'Bow, Short', shortbow: 'Bow, Short',
+  'small crossbow': 'Crossbow, Light',
+  'small knife': 'Knife, Small',
+  'small shield': 'Shield, Small',
+  'small purse': 'Purse',
+  'small box': 'Chest, Small',
   'whetting stone': 'Whetting Kit',
+  'wardrobe kit': 'Wardrobe',
+  'whetting stone + oils': 'Whetting Kit',
   dagger: 'Dagger, Standard', daggers: 'Dagger, Standard', daggres: 'Dagger, Standard',
   'war hammer': 'Hammer, War', warhammer: 'Hammer, War',
   longsword: 'Sword, Long', longswords: 'Sword, Long', 'long sword': 'Sword, Long', 'long swords': 'Sword, Long',
   shortsword: 'Sword, Short', shortswords: 'Sword, Short', 'short sword': 'Sword, Short', 'short swords': 'Sword, Short',
   spear: 'Spear, Medium', spears: 'Spear, Medium',
   stiletto: 'Dagger, Stiletto', stilettos: 'Dagger, Stiletto', stilleto: 'Dagger, Stiletto', stilletos: 'Dagger, Stiletto',
+};
+const MAGIC_ITEM_CATALOG_ALIASES: Record<string, { name: string; level?: number; quantity?: number }> = {
+  '10 x gems of radiance': { name: 'Gems of Radiance X', quantity: 10 },
+  '10 × gems of radiance': { name: 'Gems of Radiance X', quantity: 10 },
+  'bangle of hygiene': { name: 'Bangle of Hygiene X' },
+  'banhammer-2': { name: 'Greater Banhammer X', level: 2 },
+  'bansword-2': { name: 'Banweapon X', level: 2 },
+  'belt of silence': { name: 'Belt of Silence X' },
+  'dagger of stabbing': { name: 'Dagger of Stabbing X' },
+  'goggles of night': { name: 'Goggles of Nightvision X' },
+  'mask of bardic oration': { name: 'Mask of Bardic Oration X' },
+  'militia arrow issued by the pazkani army': { name: 'Militia Arrow X' },
+  'robe of many colors': { name: 'Robe of Many Colors X' },
+  suncloak: { name: 'Suncloak X' },
+  'vorpal sword': { name: 'Vorpal Weapon X' },
+  whetcoin: { name: 'Whetcoin X' },
 };
 const SPELL_ALIASES: Record<string, string> = {
   armor: 'Armored Carapace',
@@ -312,6 +382,11 @@ const normalizeItemName = (value: string) => {
   for (const [from, to] of Object.entries(ITEM_ALIASES)) name = name.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), to);
   return name.replace(/\s+/g, ' ').trim();
 };
+function trailingCustomAppend(value: string) {
+  const match = value.trim().match(/^(.*?)\s*\(([^()]*)\)\s*$/);
+  if (!match || !match[1].trim() || !match[2].trim()) return null;
+  return { base: match[1].trim(), append: match[2].trim() };
+}
 const inventoryLookupKey = (value: string) => value
   .replace(/\s+SIZ\s+\d+\b/ig, '')
   .replace(/[,_-]+/g, ' ')
@@ -334,10 +409,27 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
   const inheritedCultural = items.map((item) => culturalInventoryMarker(item.name)).find((value): value is string => Boolean(value));
   const normalized = items.filter((item) => !culturalInventoryMarker(item.name)).map((item) => {
     const parsed = inventoryQuantity(normalizeItemName(item.name));
-    const importedName = parsed.name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
-    const alias = INVENTORY_CATALOG_ALIASES[inventoryLookupKey(importedName)];
-    const candidate = alias ?? importedName;
-    const definition = catalogue.find((entry) => inventoryLookupKey(entry.name) === inventoryLookupKey(candidate));
+    let importedName = parsed.name.replace(/\s+SIZ\s+\d+\b/i, '').trim();
+    let customAppend = item.customAppend?.trim() || '';
+    const originalLookup = inventoryLookupKey(importedName);
+    const resolveDefinition = (value: string) => {
+      const alias = INVENTORY_CATALOG_ALIASES[inventoryLookupKey(value)];
+      const candidate = alias ?? value;
+      return catalogue.find((entry) => inventoryLookupKey(entry.name) === inventoryLookupKey(candidate));
+    };
+    let definition = resolveDefinition(importedName);
+    if (!definition && category === 'equipment') {
+      const parsedAppend = trailingCustomAppend(importedName);
+      if (parsedAppend) {
+        const appendedDefinition = resolveDefinition(parsedAppend.base);
+        if (appendedDefinition && inventoryAllowsCustomAppend(appendedDefinition.name)) {
+          definition = appendedDefinition;
+          importedName = parsedAppend.base;
+          if (!customAppend) customAppend = parsedAppend.append;
+        }
+      }
+    }
+    if (category === 'equipment' && originalLookup === 'cookbook') customAppend = customAppend || 'Cook';
     const name = definition?.name ?? importedName;
     const catalogId = definition?.catalogId ?? item.catalogId ?? makeCatalogId(category === 'weapons' ? 'weapon' : category === 'armor' ? 'armor' : 'equipment', name);
     return {
@@ -346,6 +438,7 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
       catalogId,
       name,
       quantity: Math.max(1, item.quantity, parsed.quantity),
+      ...(customAppend && definition && category === 'equipment' && inventoryAllowsCustomAppend(definition.name) ? { customAppend } : { customAppend: undefined }),
       ...(definition ? {
         unitPriceGp: Number(definition.priceGp) || 0,
         unitWeight: Number(definition.weight) || 0,
@@ -362,11 +455,12 @@ function normalizeInventory(items: InventorySelection[], category: 'weapons' | '
   });
   const grouped = new Map<string, InventorySelection>();
   for (const item of detailedOnly) {
-    const key = `${item.catalogId ?? ''}|${item.name.toLocaleLowerCase()}`;
+    const key = `${item.catalogId ?? ''}|${item.name.toLocaleLowerCase()}|${item.customAppend?.trim().toLocaleLowerCase() ?? ''}`;
     const existing = grouped.get(key);
     // Legacy imports contain the same owned item once in History and again in
     // the sheet property table. Treat matching rows as two renditions of one
-    // selection; Forge itself stores repeated items by incrementing quantity.
+    // selection; Forge itself stores repeated append-capable books/scrolls as
+    // distinct assigned instances so different appends can coexist.
     if (existing) {
       existing.quantity = Math.max(existing.quantity, Math.max(1, item.quantity));
       if (!existing.sheetProperties && item.sheetProperties) existing.sheetProperties = item.sheetProperties;
@@ -405,10 +499,275 @@ function normalizeSpells(items: SourcedSelection[]) {
 }
 function normalizeMagicItems(items: SourcedSelection[]) {
   return items.map((item) => {
-    const name = normalizeItemName(item.name);
-    return name === item.name ? item : { ...item, id: makeCatalogId('import', name), name };
+    let normalized = normalizeItemName(item.name).replace(/\s*\[[^\]]*\]\s*$/, '').trim();
+    let customAppend = item.customAppend?.trim() || '';
+    const parsedAppend = trailingCustomAppend(normalized);
+    if (parsedAppend) {
+      const possibleBase = parsedAppend.base;
+      const possibleAlias = MAGIC_ITEM_CATALOG_ALIASES[possibleBase.toLowerCase()];
+      const possibleDefinition = sarnaLenData.magicItems.find((entry) =>
+        entry.name.localeCompare(possibleAlias?.name ?? possibleBase, undefined, { sensitivity: 'base' }) === 0
+        || entry.name.replace(/\s+X$/i, '').localeCompare(possibleAlias?.name ?? possibleBase, undefined, { sensitivity: 'base' }) === 0,
+      );
+      if (possibleDefinition) {
+        normalized = possibleBase;
+        if (!customAppend) customAppend = parsedAppend.append;
+      }
+    }
+    const explicitLevel = normalized.match(/^(.*?)[ -](\d+)$/);
+    const baseName = explicitLevel ? explicitLevel[1].trim() : normalized;
+    const alias = MAGIC_ITEM_CATALOG_ALIASES[normalized.toLowerCase()] ?? MAGIC_ITEM_CATALOG_ALIASES[baseName.toLowerCase()];
+    const requested = alias?.name ?? baseName;
+    const definition = sarnaLenData.magicItems.find((entry) =>
+      entry.name.localeCompare(requested, undefined, { sensitivity: 'base' }) === 0
+      || entry.name.replace(/\s+X$/i, '').localeCompare(requested, undefined, { sensitivity: 'base' }) === 0,
+    );
+    if (!definition) return normalized === item.name ? item : { ...item, id: makeCatalogId('import', normalized), name: normalized };
+    const level = alias?.level ?? (explicitLevel ? Math.max(1, Number(explicitLevel[2])) : item.level ?? definition.gradeLevel ?? 1);
+    return {
+      ...item,
+      id: item.id || makeCatalogId('import', definition.name),
+      catalogId: definition.catalogId,
+      name: definition.name,
+      level,
+      ...(customAppend ? { customAppend } : { customAppend: undefined }),
+      ...(alias?.quantity ? { quantity: alias.quantity } : {}),
+    };
   });
 }
+function appendLegacyNote(notes: string, value: string) {
+  const existing = notes.trimEnd();
+  if (existing.split(/\r?\n/).some((line) => line.trim().localeCompare(value, undefined, { sensitivity: 'base' }) === 0)) return notes;
+  return `${existing}${existing ? '\n\n' : ''}${value}`;
+}
+
+function removeLegacyNote(notes: string, value: string) {
+  const lines = notes.split(/\r?\n/);
+  const filtered = lines.filter((line) => line.trim().localeCompare(value, undefined, { sensitivity: 'base' }) !== 0);
+  return filtered.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function unresolvedPossessionNote(characterName: string, item: { name: string; quantity?: number; level?: number }) {
+  const name = item.name.trim().replace(/,+$/, '');
+  const key = `${characterName}|${name}`.toLowerCase();
+  // Legacy sheet detail duplicates: preserve the owner's original possession once.
+  if (key === 'theo|knife, throwing') return null;
+  if (key === 'khao|banweapon x') return null;
+  if (/^bracers of repulsion$/i.test(name)) return 'Bracers of Repulsion';
+  if (/^bracelet armor$/i.test(name)) return 'Bracelet Armor';
+  if (/^small sack$/i.test(name)) return 'Small Bag';
+  const looseAmmunition = name.match(/^(?:(small|large|heavy|very small|very very small)\s+)?(arrows?|bolts?|bullets?|rounds?|pellets?|arrowheads?|boltheads?|shots?)\s*[x×]\s*(\d+)$/i);
+  if (looseAmmunition) {
+    const count = Math.max(1, Number(looseAmmunition[3]) || 1);
+    const size = looseAmmunition[1] ? `${looseAmmunition[1].replace(/\b\w/g, (letter) => letter.toUpperCase())} ` : '';
+    const noun = looseAmmunition[2].replace(/s$/i, '');
+    return `${count} x ${size}${count === 1 ? noun : `${noun}s`}`;
+  }
+  const quantity = Math.max(1, Math.trunc(item.quantity ?? 1));
+  const quantityAmmunition = name.match(/^(?:(small|large|heavy|very small|very very small)\s+)?(arrows?|bolts?|bullets?|rounds?|pellets?|arrowheads?|boltheads?|shots?)$/i);
+  if (quantity > 1 && quantityAmmunition) {
+    const size = quantityAmmunition[1] ? `${quantityAmmunition[1].replace(/\b\w/g, (letter) => letter.toUpperCase())} ` : '';
+    const noun = quantityAmmunition[2].replace(/s$/i, '');
+    return `${quantity} x ${size}${noun}s`;
+  }
+  if (quantity > 1) return `${name} x ${quantity}`;
+  if (/\s+X$/i.test(name) && (item.level ?? 1) > 1) return `${name.replace(/\s+X$/i, '')} ${Math.trunc(item.level!)}`;
+  return name;
+}
+
+/**
+ * After legacy aliases and explicit possession decisions, an assigned item must
+ * resolve to an actual runtime catalogue record.  Unresolved legacy possessions
+ * are retained in Notes instead of being stored under synthetic catalogue IDs.
+ */
+function moveUnmappedPossessionsToNotes(draft: CharacterDraft): CharacterDraft {
+  const characterName = draft.utilities.name.trim().toLowerCase();
+  let notes = draft.utilities.notes;
+  const keepInventory = (category: 'weapons' | 'armor' | 'equipment', items: InventorySelection[]) => {
+    const catalogue = category === 'weapons' ? sarnaLenData.itemWeapons : category === 'armor' ? sarnaLenData.itemArmors : sarnaLenData.itemEquipments;
+    return items.filter((item) => {
+      const mapped = Boolean(item.catalogId && catalogue.some((entry) => entry.catalogId === item.catalogId && entry.name === item.name));
+      if (mapped && category === 'equipment') {
+        const expendableNote = ammunitionNote(item.name, item.quantity);
+        if (expendableNote) {
+          notes = appendLegacyNote(notes, expendableNote);
+          return false;
+        }
+      }
+      if (!mapped) {
+        const note = unresolvedPossessionNote(characterName, item);
+        if (note) notes = appendLegacyNote(notes, note);
+      }
+      return mapped;
+    });
+  };
+  const magicItems = draft.utilities.magicItems.filter((item) => {
+    const mapped = Boolean(item.catalogId && sarnaLenData.magicItems.some((entry) => entry.catalogId === item.catalogId && entry.name === item.name));
+    const customLevel = (item.level ?? 1) > 1;
+    if (!mapped || customLevel) {
+      const note = unresolvedPossessionNote(characterName, item);
+      if (note) notes = appendLegacyNote(notes, note);
+      return false;
+    }
+    return true;
+  });
+  const validMagicIds = new Set(magicItems.map((item) => item.catalogId).filter(Boolean));
+  const magicItemForms = Object.fromEntries(Object.entries(draft.utilities.magicItemForms).filter(([catalogId]) => validMagicIds.has(catalogId)));
+  return {
+    ...draft,
+    utilities: {
+      ...draft.utilities,
+      weapons: keepInventory('weapons', draft.utilities.weapons),
+      armor: keepInventory('armor', draft.utilities.armor),
+      equipment: keepInventory('equipment', draft.utilities.equipment),
+      magicItems,
+      magicItemForms,
+      notes,
+    },
+  };
+}
+
+function applyLegacyPossessionDecisions(draft: CharacterDraft): CharacterDraft {
+  const name = draft.utilities.name.trim().toLowerCase();
+  let notes = removeLegacyNote(draft.utilities.notes, 'Spellbook');
+  let weapons = [...draft.utilities.weapons];
+  let armor = [...draft.utilities.armor];
+  let equipment = [...draft.utilities.equipment];
+  let magicItems = [...draft.utilities.magicItems];
+  let magicItemForms = { ...draft.utilities.magicItemForms };
+  const addNotes = (...values: string[]) => { for (const value of values) notes = appendLegacyNote(notes, value); };
+  const addCatalogEquipment = (canonicalName: string, source: SourcedSelection['source'] = 'player') => {
+    const definition = sarnaLenData.itemEquipments.find((item) => item.name === canonicalName);
+    if (!definition || equipment.some((item) => item.catalogId === definition.catalogId || item.name === definition.name)) return;
+    equipment.push({
+      id: makeCatalogId('import', definition.name),
+      catalogId: definition.catalogId,
+      name: definition.name,
+      source,
+      quantity: 1,
+      unitPriceGp: Number(definition.priceGp) || 0,
+      unitWeight: Number(definition.weight) || 0,
+    });
+  };
+
+  // Historical combined quiver descriptions split into a durable catalogue container
+  // plus an unstructured ammunition Note.  The Note has no price/weight relationship.
+  const combinedQuivers = equipment.filter((item) => /^quiver of \d+ arrows$/i.test(item.name.trim()));
+  if (combinedQuivers.length) {
+    equipment = equipment.filter((item) => !/^quiver of \d+ arrows$/i.test(item.name.trim()));
+    for (const item of combinedQuivers) {
+      const count = Number(item.name.match(/\d+/)?.[0] ?? 0);
+      if (count <= 0) continue;
+      addCatalogEquipment(count > 20 ? 'Quiver, Large' : count > 10 ? 'Quiver, Small' : 'Quiver, Belt', item.source);
+      addNotes(`${count} x Arrows`);
+    }
+  }
+
+  // Some legacy histories listed the Magestick physical form under Magic Items while
+  // the detailed sheet correctly records the same object as a weapon.  Keep only the
+  // canonical weapon record; do not duplicate the legacy label in Notes.
+  magicItems = magicItems.filter((item) => {
+    const target = INVENTORY_CATALOG_ALIASES[item.name.trim().toLowerCase()];
+    return !(target?.startsWith('Magestick,') && weapons.some((weapon) => weapon.name === target));
+  });
+
+  // Spellbook is legacy/presentation terminology for the canonical Blank Codex.
+  // Equipment Spellbooks have already normalized through INVENTORY_CATALOG_ALIASES;
+  // older characters sometimes stored Spellbook under Magic Items, so migrate those
+  // to equipment and preserve the canonical catalogue data there.
+  const magicSpellbooks = magicItems.filter((item) => item.name.localeCompare('Spellbook', undefined, { sensitivity: 'base' }) === 0);
+  if (magicSpellbooks.length) {
+    magicItems = magicItems.filter((item) => item.name.localeCompare('Spellbook', undefined, { sensitivity: 'base' }) !== 0);
+    const definition = sarnaLenData.itemEquipments.find((item) => item.name === 'Blank Codex');
+    if (definition && !equipment.some((item) => item.name === definition.name)) {
+      const source = magicSpellbooks[0]?.source ?? 'player';
+      equipment.push({
+        id: magicSpellbooks[0]?.id || 'import-blank-codex',
+        catalogId: definition.catalogId,
+        name: definition.name,
+        source,
+        quantity: 1,
+        unitPriceGp: Number(definition.priceGp) || 0,
+        unitWeight: Number(definition.weight) || 0,
+      });
+    }
+  }
+
+  if (name === 'periwinkle') {
+    equipment = equipment.filter((item) => item.name !== 'Alchemy kit');
+    weapons = weapons.filter((item) => item.name !== 'Sentient Flaming Sword');
+    magicItems = magicItems.filter((item) => item.name !== 'Sentient Ornate (Dragon) Flaming Sword');
+    addNotes('Alchemy kit', 'Dragon Sword (Flaming Soulbound)');
+  } else if (name === 'twinkles') {
+    equipment = equipment.filter((item) => item.name.toLowerCase() !== 'handful of gems');
+    magicItems = magicItems.filter((item) => !['Dragon Teeth x 2', 'Prayer Beads [+1 Prayer]'].includes(item.name));
+    addNotes('Handful of Gems', 'Dragon Teeth x 2', 'Prayer Beads +1');
+  } else if (name === 'honri heminsur') {
+    equipment = equipment.filter((item) => !['Fishing rod x 2 with tackle box', 'Trapping Kit'].includes(item.name));
+    notes = removeLegacyNote(removeLegacyNote(notes, 'Cookbook'), 'Skill Tome (Cook)');
+    const skillTome = sarnaLenData.itemEquipments.find((item) => item.name === 'Skill Tome');
+    if (skillTome && !equipment.some((item) => item.catalogId === skillTome.catalogId && item.customAppend?.trim().toLowerCase() === 'cook')) {
+      equipment.push({
+        id: 'import-skill-tome-cook',
+        catalogId: skillTome.catalogId,
+        name: skillTome.name,
+        source: 'player',
+        sourceDetail: 'Legacy possession — Cookbook',
+        quantity: 1,
+        unitPriceGp: Number(skillTome.priceGp) || 0,
+        unitWeight: Number(skillTome.weight) || 0,
+        customAppend: 'Cook',
+      });
+    }
+  } else if (name === 'giovanna manroad') {
+    equipment = equipment.filter((item) => item.name !== 'Stun Poison');
+    addNotes('Stun Poison x 3');
+  } else if (name === 'moise') {
+    equipment = equipment.filter((item) => item.name !== 'Telescope');
+    addNotes('Telescope +3');
+  } else if (name === 'illian the wizard') {
+    equipment = equipment.filter((item) => item.name !== 'Goggles of Night');
+    armor = armor.filter((item) => item.name !== 'Robe of Armor');
+    // Illian's Magewand is an upgraded/customized Magestick (+Manaclamp), not the
+    // ordinary catalogue weapon. Preserve it only as an editable historical Note.
+    weapons = weapons.filter((item) => !(item.name === 'Lesser Staff of Power' || (item.name === 'Magestick, Small Wand' && /manaclamp/i.test(item.sheetProperties ?? ''))));
+    magicItems = magicItems.filter((item) => !['Robe of Armor', 'Lesser Staff', 'Magewand'].includes(item.name));
+    addNotes('Robe of Armor', 'Magewand');
+  } else if (name === 'margiela') {
+    weapons = weapons.filter((item) => !item.name.startsWith("Poisoner's Awl"));
+    addNotes("Poisoner's Awl");
+  } else if (name === 'dj') {
+    magicItems = magicItems.filter((item) => item.name !== 'Has a Wyvern egg');
+    addNotes('Wyvern egg');
+  } else if (name === 'stella') {
+    // Ordinary Magestick is structured inventory; remove the older duplicate Note.
+    if (weapons.some((item) => item.name === 'Magestick, Staff')) notes = removeLegacyNote(notes, 'Magestick');
+  } else if (name === 'zoey the short') {
+    // X=1 Dagger of Stabbing remains structured; the legacy Note is redundant.
+    notes = removeLegacyNote(notes, 'Dagger of Stabbing');
+    const dagger = magicItems.find((item) => item.name === 'Dagger of Stabbing X' && (item.level ?? 1) === 1);
+    if (dagger?.catalogId) magicItemForms[dagger.catalogId] = 'Dagger, Standard';
+  } else if (name === 'john stone') {
+    // Historical Vorpal Sword remains an ad hoc Note even though X=1 Vorpal Weapon
+    // is available to newly created characters with a normalized weapon form.
+    for (const item of magicItems.filter((entry) => entry.name === 'Vorpal Weapon X')) if (item.catalogId) delete magicItemForms[item.catalogId];
+    magicItems = magicItems.filter((item) => item.name !== 'Vorpal Weapon X');
+    addNotes('Vorpal Sword');
+  } else if (/sir mand[ao]lore/i.test(name)) {
+    // The historical Banhammer is X=2, so it is GM/custom Notes-only material.
+    for (const item of magicItems.filter((entry) => /banhammer|banweapon/i.test(entry.name))) if (item.catalogId) delete magicItemForms[item.catalogId];
+    magicItems = magicItems.filter((item) => !/banhammer|banweapon/i.test(item.name));
+    addNotes('Banhammer-2');
+  } else if (name === 'khao') {
+    // Historical Bansword is an X=2 form of Banweapon and remains Notes-only.
+    for (const item of magicItems.filter((entry) => entry.name === 'Banweapon X')) if (item.catalogId) delete magicItemForms[item.catalogId];
+    magicItems = magicItems.filter((item) => item.name !== 'Banweapon X');
+    addNotes('Bansword-2');
+  }
+
+  return { ...draft, utilities: { ...draft.utilities, weapons, armor, equipment, magicItems, magicItemForms, notes } };
+}
+
 function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
   const heritageIds: Record<string, string> = {
     'heritage-culture-herder': 'heritage-culture-herding',
@@ -551,7 +910,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       spells: normalizeSpells(draft.utilities.spells),
     },
   };
-  return normalizeCapabilityStorage(normalized);
+  return normalizeCapabilityStorage(moveUnmappedPossessionsToNotes(applyLegacyPossessionDecisions(normalized)));
 }
 
 export function normalizeCharacterDraftForStorage(draft: CharacterDraft) {
@@ -675,6 +1034,7 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
   draft.properties.weightPounds = biology.weightPounds ?? null;
   draft.properties.siz = attributes.siz ?? null;
   draft.properties.calculated = { ...(calculated.performance ?? {}), ...(calculated.misc ?? {}), ...(calculated.combat ?? {}), ...(calculated.resources ?? {}) };
+  if (Number.isFinite(calculated.resources?.gold)) draft.finances.availableGp = Number(calculated.resources.gold);
   draft.utilities.weapons = (history.weapons ?? []).map((name: string) => inventory(name));
   draft.utilities.armor = (history.armor ?? []).map((name: string) => inventory(name));
   draft.utilities.equipment = (history.equipment ?? []).map((name: string) => inventory(name));

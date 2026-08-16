@@ -24,6 +24,10 @@ export type SourcedSelection = {
   source: SelectionSource;
   sourceDetail?: string;
   level?: number;
+  /** Number of identical selections when legacy/imported data records a stack. */
+  quantity?: number;
+  /** Presentation-only instance text for Magic Items, Tomes, Codexes, Scrolls, Jewelry, Gemstones, and designated physical variants. */
+  customAppend?: string;
   specialization?: string;
   specializationRanks?: Record<string, number>;
 };
@@ -67,7 +71,7 @@ export type PmlVirtuosityChoice = {
 };
 
 export type CharacterDraft = {
-  schemaVersion: 8;
+  schemaVersion: 9;
   updatedAt: string | null;
   completedSteps: string[];
   warnings: Array<{
@@ -121,6 +125,14 @@ export type CharacterDraft = {
     zedPurchasedIncrease: number;
     zed: number | null;
     wealthRank: number | null;
+  };
+  finances: {
+    /** Authoritative current gp when known. Null falls back to Wealth Rank until the first committed purchase. */
+    availableGp: number | null;
+    /** Purchases committed through the Forge; imported historical spending is not reconstructed. */
+    gpSpent: number;
+    /** Current-session purchases that become historical when the character is saved/unloaded. */
+    pendingSpentGp: number;
   };
   proficiencies: {
     pml: number | null;
@@ -218,7 +230,7 @@ export type LegacyCharacterDraftV1 = Omit<LegacyCharacterDraftV2, 'schemaVersion
 
 export function createEmptyCharacterDraft(): CharacterDraft {
   return {
-    schemaVersion: 8,
+    schemaVersion: 9,
     updatedAt: null,
     completedSteps: [],
     warnings: [],
@@ -271,6 +283,11 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       zed: null,
       wealthRank: null,
     },
+    finances: {
+      availableGp: null,
+      gpSpent: 0,
+      pendingSpentGp: 0,
+    },
     proficiencies: {
       pml: null,
       pmlVirtuosityChoices: [],
@@ -322,20 +339,40 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
   if (!value || typeof value !== 'object') return createEmptyCharacterDraft();
 
   const candidate = value as { schemaVersion?: number };
-  if (candidate.schemaVersion === 8) {
+  if (candidate.schemaVersion === 9) {
     const current = candidate as CharacterDraft;
     current.utilities.portraitDataUrl ??= '';
     current.utilities.portraitSourceDataUrl ??= '';
+    const pending = Math.max(0, Number(current.finances?.pendingSpentGp) || 0);
     return {
       ...current,
+      finances: {
+        availableGp: Number.isFinite(current.finances?.availableGp) ? Number(current.finances.availableGp) : null,
+        gpSpent: Math.max(0, Number(current.finances?.gpSpent) || 0) + pending,
+        pendingSpentGp: 0,
+      },
       intrinsics: { ...current.intrinsics, strifeMixedLineage: current.intrinsics.strifeMixedLineage ?? false, strifeBonusParent: current.intrinsics.strifeBonusParent ?? null },
       properties: { ...current.properties, statureAdjustment: current.properties.statureAdjustment ?? 0, buildAdjustment: current.properties.buildAdjustment ?? 0 },
     };
   }
 
+  if (candidate.schemaVersion === 8) {
+    const legacy = candidate as any;
+    const legacyGold = legacy.properties?.calculated?.gold;
+    return migrateCharacterDraft({
+      ...legacy,
+      schemaVersion: 9,
+      finances: {
+        availableGp: Number.isFinite(legacyGold) ? Number(legacyGold) : null,
+        gpSpent: 0,
+        pendingSpentGp: 0,
+      },
+    });
+  }
+
   if (candidate.schemaVersion === 7) {
     const legacy = candidate as any;
-    return {
+    return migrateCharacterDraft({
       ...legacy,
       schemaVersion: 8,
       intrinsics: {
@@ -350,7 +387,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
         strifeBonusParent: null,
       },
       utilities: { ...legacy.utilities, notes: '', backstory: '' },
-    } as CharacterDraft;
+    });
   }
 
   if (candidate.schemaVersion === 6) {

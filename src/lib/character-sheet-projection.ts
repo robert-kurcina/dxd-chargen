@@ -18,7 +18,7 @@ import {
   traitDefinitionForSelection,
 } from '@/lib/rules/proficiencies';
 import { calculateProperties } from '@/lib/rules/properties';
-import { displayInventoryQuantity, displaySpellName, magicItemInventoryForm } from '@/lib/rules/utilities';
+import { displayInventoryQuantity, displayMagicItemSelection, displaySpellName, magicItemInventoryForm } from '@/lib/rules/utilities';
 
 export type CharacterSheetData = {
   name: string;
@@ -61,12 +61,15 @@ function signed(value: number) {
 }
 
 function listInventory(items: CharacterDraft['utilities']['equipment']) {
-  const grouped = new Map<string, number>();
+  const grouped = new Map<string, { name: string; customAppend?: string; quantity: number }>();
   for (const item of items) {
-    const name = item.name;
-    grouped.set(name, (grouped.get(name) ?? 0) + Math.max(1, item.quantity));
+    const append = item.customAppend?.trim() || '';
+    const key = `${item.name}\u0000${append}`;
+    const existing = grouped.get(key);
+    if (existing) existing.quantity += Math.max(1, item.quantity);
+    else grouped.set(key, { name: item.name, ...(append ? { customAppend: append } : {}), quantity: Math.max(1, item.quantity) });
   }
-  return [...grouped].map(([name, quantity]) => displayInventoryQuantity(name, quantity)).join('; ');
+  return [...grouped.values()].map(({ name, quantity, customAppend }) => displayInventoryQuantity(name, quantity, customAppend)).join('; ');
 }
 
 function selectionRecord(selection: SourcedSelection) {
@@ -189,7 +192,8 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
       armor: listInventory(draft.utilities.armor),
       magicItems: draft.utilities.magicItems.map((entry) => {
         const form = magicItemInventoryForm(entry, draft, data);
-        return `${entry.name}${form ? ` [${form.displayName}, ${form.weight}#]` : entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`;
+        const displayName = displayMagicItemSelection(entry, draft, data);
+        return `${displayName}${form ? ` [${form.displayName}, ${form.weight}#]` : entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`;
       }).join(', '),
       spells: draft.utilities.spells.map((entry) => displaySpellName(entry.name)).join(', '),
       skills: capabilities.skills,

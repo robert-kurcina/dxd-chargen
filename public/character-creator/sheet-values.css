@@ -223,6 +223,21 @@
 .editing #back .field-group-equipment .equipment-properties-editor { display: block; }
 .editing #back .field-group-equipment .equipment-properties-rich { display: none; }
 #back .field-group-equipment .equipment-cultural { color: #990000; }
+#back .field-group-load-summary {
+  left: 63.61%; top: 7.55%; width: 12.66%; height: 2.16%;
+  display: grid;
+  grid-template-columns: 46.05% 46.71%;
+  column-gap: 7.24%;
+}
+#back .field-group-load-summary .field {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 1.5cqw;
+  line-height: 1;
+  text-align: center !important;
+  text-indent: 0;
+}
 #back .field-group-back-notes { left: 5%; top: 49%; width: 69.5%; height: 34%; }
 #back .field-group-back-name .field,
 #back .field-group-back-notes .field { width: 100%; height: 100%; }

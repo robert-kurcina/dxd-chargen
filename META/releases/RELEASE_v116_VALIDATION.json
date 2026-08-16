@@ -1,0 +1,36 @@
+{
+  "release": "v116",
+  "characterFiles": 23,
+  "structuredAssignments": 152,
+  "structuredMagicItems": 11,
+  "charactersWithExplicitRecordedGold": 22,
+  "preservedSourceProvenanceFiles": 90,
+  "equipmentCatalogRecords": 163,
+  "magicItemSourceRecords": 145,
+  "jewelryForms": 6,
+  "gemstoneGrades": 4,
+  "magicItemFallbackWeightLb": 0.01,
+  "duplicateCanonicalNames": 0,
+  "structuredAmmunitionAssignments": 0,
+  "structuredMagicItemsAboveX1": 0,
+  "validationErrors": [],
+  "status": "pass",
+  "notes": {
+    "gold": "Imported explicit Gold is authoritative availableGp; historical inventory/Notes are not repriced.",
+    "ammunition": "New ammunition purchases deduct current available gp and become Notes; pending spend commits on save/load migration.",
+    "sourcePreservation": "All non-active character source/provenance/image files remain byte-identical to v115."
+  },
+  "magicItemPhysicalForms": {
+    "singleCanonicalForm": 45,
+    "requiresFormChoice": 17,
+    "fallback0_01Lb": 35,
+    "negligibleZeroWeightFallback": 1,
+    "completeMagicItems": 98
+  },
+  "typescriptSyntaxTranspile": {
+    "filesChecked": 6,
+    "status": "pass"
+  },
+  "fullTypecheckBuild": "not completed: supplied archive lacks installed React/Next/Node dependencies; this is the same environment limitation as prior releases",
+  "zipIntegrity": "pass after final packaging"
+}

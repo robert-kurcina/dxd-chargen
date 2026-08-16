@@ -15,45 +15,202 @@ const UTILITY_STEPS = new Set([
 
 export type InventoryCategory = 'weapons' | 'armor' | 'equipment';
 
+type CataloguePackage = { baseName: string; packageSize: number };
+type AmmunitionPackage = { noun: string; modifier: string; packageSize: number };
+
+function cataloguePackage(name: string): CataloguePackage | null {
+  const match = name.trim().match(/^(.*?)\s*[×x]\s*(\d+)$/i);
+  if (!match) return null;
+  return { baseName: match[1].trim(), packageSize: Math.max(1, Number(match[2]) || 1) };
+}
+
+const AMMUNITION_NOUNS: Record<string, string> = {
+  arrow: 'Arrow', arrows: 'Arrow',
+  bolt: 'Bolt', bolts: 'Bolt',
+  bullet: 'Bullet', bullets: 'Bullet',
+  round: 'Round', rounds: 'Round',
+  pellet: 'Pellet', pellets: 'Pellet',
+  arrowhead: 'Arrowhead', arrowheads: 'Arrowhead',
+  bolthead: 'Bolthead', boltheads: 'Bolthead',
+  shot: 'Shot',
+  gunpowder: 'Gunpowder', blackpowder: 'Blackpowder',
+};
+
+/** Ordinary ammunition is purchased in catalogue packages but becomes unstructured Notes once assigned. */
+export function ammunitionPackage(name: string): AmmunitionPackage | null {
+  const pack = cataloguePackage(name);
+  if (!pack) return null;
+  const match = pack.baseName.match(/^([^,]+?)(?:,\s*(.+))?$/);
+  if (!match) return null;
+  const noun = AMMUNITION_NOUNS[match[1].trim().toLowerCase()];
+  if (!noun) return null;
+  return { noun, modifier: (match[2] ?? '').trim(), packageSize: pack.packageSize };
+}
+
+function titleModifier(value: string) {
+  return value.replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function pluralizeDisplayLabel(value: string) {
+  const parts = value.trim().split(/\s+/);
+  if (!parts.length) return value;
+  const last = parts[parts.length - 1];
+  const lower = last.toLowerCase();
+  const irregular: Record<string, string> = {
+    knife: 'Knives', pouch: 'Pouches', box: 'Boxes', battery: 'Batteries',
+    manica: 'Manicas', staff: 'Staves', foot: 'Feet', tooth: 'Teeth',
+  };
+  if (irregular[lower]) parts[parts.length - 1] = irregular[lower];
+  else if (/s$/i.test(last) && !/(?:ss|us)$/i.test(last)) return value;
+  else if (/(?:s|x|z|ch|sh)$/i.test(last)) parts[parts.length - 1] = `${last}es`;
+  else if (/[^aeiou]y$/i.test(last)) parts[parts.length - 1] = `${last.slice(0, -1)}ies`;
+  else parts[parts.length - 1] = `${last}s`;
+  return parts.join(' ');
+}
+
+/** Convert an ammunition catalogue purchase unit to its plain Notes wording. */
+export function ammunitionNote(name: string, packageQuantity = 1) {
+  const parsed = ammunitionPackage(name);
+  if (!parsed) return null;
+  const count = parsed.packageSize * Math.max(1, Math.trunc(packageQuantity || 1));
+  const singular = `${parsed.modifier ? `${titleModifier(parsed.modifier)} ` : ''}${parsed.noun}`;
+  return `${count} x ${count === 1 ? singular : pluralizeDisplayLabel(singular)}`;
+}
+
+function appendUnstructuredNote(notes: string, value: string) {
+  const existing = notes.trimEnd();
+  if (existing.split(/\r?\n/).some((line) => line.trim().localeCompare(value, undefined, { sensitivity: 'base' }) === 0)) return notes;
+  return `${existing}${existing ? '\n\n' : ''}${value}`;
+}
+
 /** Convert canonical catalogue labels to natural reading order for display only. */
-export function displayInventoryName(name: string) {
+export function displayInventoryName(name: string): string {
+  const pack = cataloguePackage(name);
+  if (pack) {
+    if (/^Pouch,\s*Small$/i.test(pack.baseName)) return pack.packageSize > 1 ? `${pack.packageSize} x Small Pouches` : 'Pouch, Small';
+    const base = displayInventoryName(pack.baseName);
+    return pack.packageSize > 1 ? `${pack.packageSize} x ${pluralizeDisplayLabel(base)}` : base;
+  }
+  const aliases: Record<string, string> = {
+    'blank codex': 'Spellbook',
+    'bow, short': 'Shortbow',
+    'cloak or cape': 'Cloak or Cape',
+    'helmet, full': 'Full Helm',
+    'helmet, half mantled': 'Half Helm & Mantle',
+    'knife, small': 'Small Knife',
+    'pouch, small': 'Pouch, Small',
+    'jewelry, ring': 'Ring',
+    'jewelry, bracelet': 'Bracelet',
+    'jewelry, necklace': 'Necklace',
+    'jewelry, circlet': 'Circlet',
+    'jewelry, belt': 'Belt',
+    'jewelry, ornament': 'Ornament',
+    'sword, broad': 'Broadsword',
+    'sword, great': 'Greatsword',
+    'sword, rapier': 'Rapier',
+  };
+  const alias = aliases[name.trim().toLowerCase()];
+  if (alias) return alias;
   const [noun, ...modifiers] = name.split(',').map((part) => part.trim());
   if (/^dagger$/i.test(noun) && modifiers.some((part) => /^stiletto$/i.test(part))) return 'Stiletto';
   const meaningful = modifiers.filter((part) => !/^(?:standard|medium|average)$/i.test(part));
-  return meaningful.length ? `${meaningful.join(' ')} ${noun}` : noun;
+  return meaningful.length ? `${meaningful.map(titleModifier).join(' ')} ${noun}` : noun;
 }
 
-export function displayInventoryQuantity(name: string, quantity = 1) {
+function cleanCustomAppend(value?: string) {
+  return value?.trim().replace(/^\(([\s\S]*)\)$/, '$1').trim() ?? '';
+}
+
+/** Append nonmechanical instance text without changing catalogue identity. */
+export function displayCustomAppend(base: string, customAppend?: string) {
+  const append = cleanCustomAppend(customAppend);
+  return append ? `${base} (${append})` : base;
+}
+
+/** Tomes, Codexes, Scrolls, Jewelry, Gemstones, and designated pouch variants may carry presentation-only instance text. */
+export function inventoryAllowsCustomAppend(name: string) {
+  const normalized = name.trim();
+  if (/^(?:Case,|Scroll Case\b)/i.test(normalized)) return false;
+  if (/^(?:Jewelry,|Gemstone,)/i.test(normalized)) return true;
+  if (/^Pouch,\s*Small$/i.test(normalized)) return true;
+  return /\b(?:Tome|Codex|Scroll)\b/i.test(normalized);
+}
+
+export function displayInventoryQuantity(name: string, quantity = 1, customAppend?: string) {
+  if (/^Pouch,\s*Small$/i.test(name.trim()) && cleanCustomAppend(customAppend)) {
+    const base = quantity > 1 ? `${quantity} x Small Pouches` : 'Pouch, Small';
+    return displayCustomAppend(base, customAppend);
+  }
+  const pack = cataloguePackage(name);
+  if (pack) {
+    const count = pack.packageSize * Math.max(1, Math.trunc(quantity || 1));
+    if (/^Pouch,\s*Small$/i.test(pack.baseName)) return displayCustomAppend(count > 1 ? `${count} x Small Pouches` : 'Pouch, Small', customAppend);
+    const base = displayInventoryName(pack.baseName);
+    const display = count > 1 ? `${count} x ${pluralizeDisplayLabel(base)}` : base;
+    return displayCustomAppend(display, customAppend);
+  }
   const display = displayInventoryName(name);
-  return quantity > 1 ? `${quantity} × ${display}` : display;
+  return displayCustomAppend(quantity > 1 ? `${quantity} x ${pluralizeDisplayLabel(display)}` : display, customAppend);
+}
+
+/** Present a canonical Foo X Magic Item without changing its stored catalogue name. */
+export function displayMagicItemName(name: string, level = 1) {
+  const normalizedLevel = Math.max(1, Math.trunc(level || 1));
+  if (!/\s+X$/i.test(name.trim())) return name.trim();
+  const base = name.trim().replace(/\s+X$/i, '');
+  return normalizedLevel > 1 ? `${base} ${normalizedLevel}` : base;
+}
+
+export function displayMagicItemQuantity(name: string, level = 1, quantity = 1, customAppend?: string) {
+  const display = displayMagicItemName(name, level);
+  return displayCustomAppend(quantity > 1 ? `${quantity} × ${display}` : display, customAppend);
+}
+
+/** Display a selected Magic Item, including form-driven names such as Bracelet of Armor. */
+export function displayMagicItemSelection(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const definition = data.magicItems.find((entry) => entry.catalogId === selection.catalogId);
+  let base = displayMagicItemName(selection.name, selection.level ?? 1);
+  if (definition?.name === 'Armor X') {
+    const form = magicItemInventoryForm(selection, draft, data);
+    if (form && !form.fallback) base = `${form.displayName} of Armor`;
+  }
+  const quantity = Math.max(1, selection.quantity ?? 1);
+  const display = quantity > 1 ? `${quantity} × ${base}` : base;
+  return displayCustomAppend(display, selection.customAppend);
 }
 
 export function displaySpellName(name: string) {
   return name.replace(/±$/, '').trim();
 }
 
+export const MAGIC_ITEM_FALLBACK_WEIGHT_LB = 0.01;
+
 export function magicItemInventoryForm(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
-  const configured = selection.catalogId ? draft.utilities.magicItemForms[selection.catalogId] : null;
   const definition = data.magicItems.find((entry) => entry.catalogId === selection.catalogId);
-  const form = configured ?? definition?.form ?? '';
-  const magicName = selection.name.replace(/-\d+$/, '').trim();
-  const canonicalName = /banhammer/i.test(magicName)
-    ? 'Hammer, War'
-    : form
-      ? [data.itemWeapons, data.itemArmors, data.itemEquipments]
-          .flat()
-          .find((item) => item.name.localeCompare(form, undefined, { sensitivity: 'base' }) === 0)?.name
+  if (!definition) return null;
+  const options = magicItemFormOptions(definition, data);
+  const configured = selection.catalogId ? draft.utilities.magicItemForms[selection.catalogId] : null;
+  const canonicalName = configured && options.includes(configured)
+    ? configured
+    : options.length === 1
+      ? options[0]
       : null;
-  if (!canonicalName) return null;
+  if (!canonicalName) {
+    const zeroWeight = /^(?:Gems?|Jewelry|Ring|Amulet|Pendant|Necklace|Bangle|Bracelets?|Anklets?|Belt|Girdle|Circlet|Crown|Charm)$/i.test(definition.form.trim());
+    return { category: 'equipment' as const, name: definition.form, displayName: definition.form, weight: zeroWeight ? 0 : MAGIC_ITEM_FALLBACK_WEIGHT_LB, fallback: true };
+  }
   const category: InventoryCategory = data.itemWeapons.some((item) => item.name === canonicalName)
     ? 'weapons'
     : data.itemArmors.some((item) => item.name === canonicalName)
       ? 'armor'
       : 'equipment';
   const item = inventoryCatalogue(category, data).find((entry) => entry.name === canonicalName);
-  if (!item) return null;
+  if (!item) return { category: 'equipment' as const, name: canonicalName, displayName: displayInventoryName(canonicalName), weight: MAGIC_ITEM_FALLBACK_WEIGHT_LB, fallback: true };
   const adjusted = adjustedGearValues(category, item, draft, data);
-  return { category, name: item.name, displayName: displayInventoryName(item.name), weight: Number(adjusted.weight) || 0 };
+  const pack = category === 'equipment' ? cataloguePackage(item.name) : null;
+  const weight = pack ? (Number(adjusted.weight) || 0) / pack.packageSize : Number(adjusted.weight) || 0;
+  const displayName = pack ? displayInventoryName(pack.baseName) : displayInventoryName(item.name);
+  return { category, name: item.name, displayName, weight, fallback: false };
 }
 
 export function isUtilityStep(stepValue: string) {
@@ -72,6 +229,40 @@ export function personalWealthGp(draft: CharacterDraft, data: StaticData) {
   if (draft.intrinsics.wealthRank == null) return null;
   const row = data.universalTable.find((entry) => entry.Index === Math.trunc(draft.intrinsics.wealthRank!));
   return row ? scalarNumber(row.Scalar) : null;
+}
+
+/** Current spendable Gold. Imported/recorded gp is authoritative; otherwise Wealth Rank supplies the initial amount. */
+export function availableGoldGp(draft: CharacterDraft, data: StaticData) {
+  return draft.finances.availableGp ?? personalWealthGp(draft, data);
+}
+
+function spendPendingGold(draft: CharacterDraft, amountGp: number, data: StaticData) {
+  const amount = Math.max(0, Number(amountGp) || 0);
+  if (amount <= 0) return draft;
+  const available = availableGoldGp(draft, data);
+  if (available != null && amount > available + 1e-9) return null;
+  return {
+    ...draft,
+    finances: {
+      ...draft.finances,
+      availableGp: available == null ? null : Math.max(0, available - amount),
+      pendingSpentGp: draft.finances.pendingSpentGp + amount,
+    },
+  } as CharacterDraft;
+}
+
+/** Commit current-session spending when a character is saved/unloaded. */
+export function commitPendingGold(draft: CharacterDraft): CharacterDraft {
+  const pending = Math.max(0, Number(draft.finances.pendingSpentGp) || 0);
+  if (!pending) return draft;
+  return {
+    ...draft,
+    finances: {
+      ...draft.finances,
+      gpSpent: Math.max(0, Number(draft.finances.gpSpent) || 0) + pending,
+      pendingSpentGp: 0,
+    },
+  };
 }
 
 const SIZE_ADJUSTMENTS = {
@@ -97,11 +288,12 @@ function indexedScalar(value: number, adjustment: number, data: StaticData) {
   return target ? scalarNumber(target.Scalar) : value;
 }
 
-export function adjustedGearValues(category: InventoryCategory, item: { weight: number; priceGp: number; ora?: number; damageOffset?: number; armorRating?: number; deflectRating?: number; notes?: string[] }, draft: CharacterDraft, data: StaticData) {
+export function adjustedGearValues(category: InventoryCategory, item: { weight: number; priceGp: number; ora?: number; damageOffset?: number; armorRating?: number; deflectRating?: number; notes?: string[]; tca?: number }, draft: CharacterDraft, data: StaticData) {
   const adjustment = gearSizeAdjustment(draft);
-  if (!adjustment || adjustment.direction === 'standard' || category === 'equipment') return { ...item, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0), tca: 0 };
-  if (category === 'weapons') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.weaponWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.weaponTca, data) / 10, ora: Number(item.ora ?? 0) + adjustment.weaponOr, damageOffset: Number(item.damageOffset ?? 0) + adjustment.weaponDamage, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0) + adjustment.weaponMinStr, tca: adjustment.weaponTca };
-  return { ...item, weight: Math.max(0.1, Number(item.weight) + adjustment.armorWeight), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.armorTca, data) / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: adjustment.armorTca };
+  const baseTca = Number(item.tca) || 0;
+  if (!adjustment || adjustment.direction === 'standard' || category === 'equipment') return { ...item, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0), tca: baseTca };
+  if (category === 'weapons') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.weaponWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.weaponTca, data) / 10, ora: Number(item.ora ?? 0) + adjustment.weaponOr, damageOffset: Number(item.damageOffset ?? 0) + adjustment.weaponDamage, minStr: Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0) + adjustment.weaponMinStr, tca: baseTca + adjustment.weaponTca };
+  return { ...item, weight: Math.max(0.1, Number(item.weight) + adjustment.armorWeight), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.armorTca, data) / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: baseTca + adjustment.armorTca };
 }
 
 export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
@@ -128,6 +320,49 @@ export function startingGearTotals(draft: CharacterDraft, data?: StaticData) {
   return totals;
 }
 
+
+/**
+ * Weight currently carried for Shoulder/Burden sheet accounting.
+ *
+ * Notes and ordinary ammunition are intentionally unstructured and therefore do not
+ * contribute. Jewelry and ordinary gemstones are deliberately weight-negligible for
+ * character-sheet accounting even if later catalogue provenance records physical mass.
+ * Structured X=1 Magic Items contribute the weight of their normalized physical form,
+ * except Jewelry/Gemstone forms.
+ */
+export function carriedItemWeight(draft: CharacterDraft, data: StaticData) {
+  let weight = 0;
+  const addInventory = (category: InventoryCategory, selections: InventorySelection[]) => {
+    const catalogue = inventoryCatalogue(category, data);
+    for (const selection of selections) {
+      const definition = catalogue.find((entry) => entry.catalogId === selection.catalogId)
+        ?? catalogue.find((entry) => entry.name.localeCompare(selection.name, undefined, { sensitivity: 'base' }) === 0);
+      const canonicalName = definition?.name ?? selection.name;
+      if (category === 'equipment') {
+        if (/^(?:Jewelry|Gemstone),/i.test(canonicalName)) continue;
+        if (ammunitionPackage(canonicalName)) continue;
+      }
+      const values = definition
+        ? adjustedGearValues(category, definition, draft, data)
+        : { weight: selection.unitWeight };
+      weight += Math.max(0, Math.trunc(selection.quantity || 1)) * Math.max(0, Number(values.weight) || 0);
+    }
+  };
+
+  addInventory('weapons', draft.utilities.weapons);
+  addInventory('armor', draft.utilities.armor);
+  addInventory('equipment', draft.utilities.equipment);
+
+  for (const selection of draft.utilities.magicItems) {
+    const form = magicItemInventoryForm(selection, draft, data);
+    if (!form) continue;
+    if (/^(?:Jewelry|Gemstone),/i.test(form.name)) continue;
+    if (/^(?:Gems?|Jewelry)$/i.test(form.name.trim())) continue;
+    weight += Math.max(1, Math.trunc(selection.quantity ?? 1)) * Math.max(0, Number(form.weight) || 0);
+  }
+  return Number(weight.toFixed(6));
+}
+
 const CANONICAL_STARTING_GEAR: Record<string, Array<[InventoryCategory, string, number?]>> = {
   Academic: [['equipment', 'Wardrobe']],
   Cleric: [['equipment', 'Idol or Figurine'], ['weapons', 'Club, Wood'], ['armor', 'Armor Set, Light (Soft)'], ['armor', 'Shield, Small'], ['weapons', 'Knife, Small']],
@@ -139,7 +374,7 @@ const CANONICAL_STARTING_GEAR: Record<string, Array<[InventoryCategory, string, 
   Service: [['equipment', 'Wardrobe', 2]],
   Rogue: [['equipment', 'Lockpick kit'], ['armor', 'Armor Set, Light (Soft)'], ['weapons', 'Dagger, Standard'], ['equipment', 'Pouch, Small × 10']],
   Warrior: [['weapons', 'Sword, Long'], ['armor', 'Armor Set, Medium (Mail)'], ['armor', 'Shield, Medium']],
-  Wizard: [['equipment', 'Large Book'], ['weapons', '❶ Magestick, Wand'], ['armor', 'Armor Set, Light (Soft)'], ['weapons', 'Knife, Small']],
+  Wizard: [['equipment', 'Large Book'], ['weapons', 'Magestick, Wand'], ['armor', 'Armor Set, Light (Soft)'], ['weapons', 'Knife, Small']],
 };
 
 function canonicalStartingGear(draft: CharacterDraft, data: StaticData): CharacterDraft {
@@ -151,6 +386,11 @@ function canonicalStartingGear(draft: CharacterDraft, data: StaticData): Charact
   for (const [category, name, quantity = 1] of entries) {
     const item = inventoryCatalogue(category, data).find((candidate) => candidate.name === name);
     if (!item) continue;
+    const expendableNote = category === 'equipment' ? ammunitionNote(item.name, quantity) : null;
+    if (expendableNote) {
+      next.utilities.notes = appendUnstructuredNote(next.utilities.notes, expendableNote);
+      continue;
+    }
     const current = next.utilities[category];
     const existing = current.find((selection) => selection.catalogId === item.catalogId);
     const selection: InventorySelection = { id: `inventory-${category}-${item.catalogId}`, catalogId: item.catalogId, name: item.name, source: 'trade', sourceDetail: 'Canonical Starting Gear', quantity, unitPriceGp: Number(item.priceGp) || 0, unitWeight: Number(item.weight) || 0 };
@@ -184,12 +424,24 @@ export function addInventoryItem(
 ): CharacterDraft {
   const item = inventoryCatalogue(category, data).find((entry) => entry.catalogId === catalogId);
   if (!item) return draft;
+  if (category === 'equipment') {
+    const expendableNote = ammunitionNote(item.name);
+    if (expendableNote) {
+      const paid = spendPendingGold(draft, Number(item.priceGp) || 0, data);
+      if (!paid) return draft;
+      const notes = appendUnstructuredNote(paid.utilities.notes, expendableNote);
+      return { ...paid, utilities: { ...paid.utilities, notes } };
+    }
+  }
   const current = draft.utilities[category];
-  const existing = current.find((entry) => entry.catalogId === catalogId);
+  const separateInstance = category === 'equipment' && inventoryAllowsCustomAppend(item.name);
+  const existing = separateInstance ? undefined : current.find((entry) => entry.catalogId === catalogId);
+  let ordinal = 1;
+  if (separateInstance) while (current.some((entry) => entry.id === `inventory-${category}-${catalogId}-${ordinal}`)) ordinal += 1;
   const next: InventorySelection[] = existing
     ? current.map((entry) => entry.catalogId === catalogId ? { ...entry, quantity: entry.quantity + 1 } : entry)
     : [...current, {
-        id: `inventory-${category}-${catalogId}`,
+        id: `inventory-${category}-${catalogId}${separateInstance ? `-${ordinal}` : ''}`,
         catalogId,
         name: item.name,
         source: 'player',
@@ -197,6 +449,7 @@ export function addInventoryItem(
         quantity: 1,
         unitPriceGp: Number(item.priceGp) || 0,
         unitWeight: Number(item.weight) || 0,
+        ...(/^Jewelry,/i.test(item.name) ? { level: 1 } : {}),
       }];
   return { ...draft, utilities: { ...draft.utilities, [category]: next } };
 }
@@ -206,11 +459,42 @@ export function setInventoryQuantity(
   category: InventoryCategory,
   catalogId: string,
   quantity: number,
+  selectionId?: string,
 ): CharacterDraft {
   const value = Math.max(0, Math.min(999, Math.trunc(quantity)));
+  const matches = (entry: InventorySelection) => selectionId ? entry.id === selectionId : entry.catalogId === catalogId;
   const next = value === 0
-    ? draft.utilities[category].filter((entry) => entry.catalogId !== catalogId)
-    : draft.utilities[category].map((entry) => entry.catalogId === catalogId ? { ...entry, quantity: value } : entry);
+    ? draft.utilities[category].filter((entry) => !matches(entry))
+    : draft.utilities[category].map((entry) => matches(entry) ? { ...entry, quantity: value } : entry);
+  return { ...draft, utilities: { ...draft.utilities, [category]: next } };
+}
+
+export function setInventoryCustomAppend(
+  draft: CharacterDraft,
+  category: InventoryCategory,
+  catalogId: string,
+  value: string,
+  selectionId?: string,
+): CharacterDraft {
+  const append = cleanCustomAppend(value);
+  const matches = (entry: InventorySelection) => selectionId ? entry.id === selectionId : entry.catalogId === catalogId;
+  const next = draft.utilities[category].map((entry) => matches(entry)
+    ? { ...entry, ...(append ? { customAppend: append } : { customAppend: undefined }) }
+    : entry);
+  return { ...draft, utilities: { ...draft.utilities, [category]: next } };
+}
+
+/** Jewelry uses the existing selection level as Ornate X; default X=1. */
+export function setInventoryOrnateLevel(
+  draft: CharacterDraft,
+  category: InventoryCategory,
+  catalogId: string,
+  level: number,
+  selectionId?: string,
+): CharacterDraft {
+  const value = Math.max(1, Math.min(12, Math.trunc(level || 1)));
+  const matches = (entry: InventorySelection) => selectionId ? entry.id === selectionId : entry.catalogId === catalogId;
+  const next = draft.utilities[category].map((entry) => matches(entry) ? { ...entry, level: value } : entry);
   return { ...draft, utilities: { ...draft.utilities, [category]: next } };
 }
 
@@ -252,25 +536,139 @@ export function magicItemGradeMetrics(item: StaticData['magicItems'][number]) {
   return { grade, ...MAGIC_ITEM_GRADE_RULES[grade] };
 }
 
-const ACCESSORY_FORMS = ['Ring', 'Bangle', 'Bracer', 'Bracelet', 'Bracers', 'Amulet', 'Anklet', 'Anklets', 'Pendant', 'Necklace', 'Circlet'];
-const HEAD_FORMS = ['Crown', 'Helm', 'Helmet', 'Hat', 'Goggles', 'Mask', 'Circlet', 'Veil'];
-const WEAPON_FORMS = ['Weapon', 'Blade', 'Dagger', 'Knife', 'Mace', 'Club', 'Sword', 'Spear', 'Axe', 'Hammer', 'Glaive', 'Staff', 'Pistol'];
-const ARMOR_FORMS = ['Shield', 'Armor', 'Suit', 'Breastplate', 'Robe', 'Raiment', 'Harness', 'Rig'];
-const CARRIED_FORMS = ['Orb', 'Lens'];
-const AMMUNITION_FORMS = ['Arrow', 'Arrows', 'Bolt', 'Bolts', 'Pellet', 'Pellets', 'Darts'];
+const GENERIC_WEAPON_FORMS = new Set(['Weapon']);
 
-export function magicItemFormOptions(item: StaticData['magicItems'][number]) {
-  const value = item.form.trim();
-  const group = [ACCESSORY_FORMS, HEAD_FORMS, WEAPON_FORMS, ARMOR_FORMS, CARRIED_FORMS, AMMUNITION_FORMS]
-    .find((forms) => forms.some((form) => form.toLowerCase() === value.toLowerCase()));
-  if (!group) return value ? [value] : [];
-  return Array.from(new Set([value, ...group])).filter(Boolean);
+function eligibleMagicWeaponForms(data: StaticData) {
+  return data.itemWeapons.filter((item) => {
+    const name = item.name;
+    if (/^(?:1H|2H)\b/i.test(name)) return false; // rocks / improvised forms
+    if (/^Feet,/i.test(name)) return false; // bare feet, boots, talons
+    if (/^Hands,\s*(?:Bare|Claws|Gauntlet)/i.test(name)) return false;
+    if (/^Spiked,\s*(?:Boot|Gauntlet)/i.test(name)) return false;
+    return true;
+  });
+}
+
+function weaponClassOptions(form: string, data: StaticData) {
+  const weapons = eligibleMagicWeaponForms(data);
+  if (GENERIC_WEAPON_FORMS.has(form)) return weapons.map((item) => item.name);
+  const patterns: Record<string, RegExp> = {
+    Axe: /^Axe,/i,
+    Club: /^Club,/i,
+    Dagger: /^Dagger,/i,
+    Glaive: /^Polearm,\s*Glaive$/i,
+    Hammer: /^(?:Hammer,|War Hammer,)/i,
+    Knife: /^Knife,/i,
+    Mace: /(?:^|,\s*)(?:War |Spiked )?Mace$/i,
+    Pistol: /^Pistol,/i,
+    Spear: /^Spear,/i,
+    Staff: /^Staff,/i,
+    Sword: /^Sword,/i,
+  };
+  const pattern = patterns[form];
+  return pattern ? weapons.filter((item) => pattern.test(item.name)).map((item) => item.name) : [];
+}
+
+function armorClassOptions(form: string, data: StaticData) {
+  const patterns: Record<string, RegExp> = {
+    Armor: /^Armor Set,/i,
+    Breastplate: /^Breastplate,/i,
+    Bracer: /^Vambraces,/i,
+    Bracers: /^Vambraces,/i,
+    Helm: /^Helmet,/i,
+    Helmet: /^Helmet,/i,
+    Leggings: /^Leggings,/i,
+    Shield: /^Shield,/i,
+    Sleeve: /^Sleeve,/i,
+  };
+  const pattern = patterns[form];
+  return pattern ? data.itemArmors.filter((item) => pattern.test(item.name)).map((item) => item.name) : [];
+}
+
+function wearableFormOptions(data: StaticData) {
+  const allowed = new Set([
+    'Cloak Or Cape', 'Headgear, Cap or Hat', 'Robe', 'Sandals', 'Shirt, Leather',
+    'Boots, Fashion', 'Boots, Rugged', 'Boots, Soft', 'Glove, Leather × 2', 'Glove, Silk × 2',
+    'Jewelry, Ring', 'Jewelry, Bracelet', 'Jewelry, Necklace', 'Jewelry, Circlet', 'Jewelry, Belt', 'Jewelry, Ornament',
+  ]);
+  return data.itemEquipments.filter((item) => allowed.has(item.name)).map((item) => item.name);
+}
+
+function equipmentFormOptions(form: string, data: StaticData) {
+  const exact = data.itemEquipments.find((item) => item.name.localeCompare(form, undefined, { sensitivity: 'base' }) === 0);
+  if (exact) return [exact.name];
+  if (form === 'Wearable') return wearableFormOptions(data);
+  const aliases: Record<string, string> = {
+    Anklets: 'Jewelry, Bracelet',
+    Amulet: 'Jewelry, Necklace',
+    Bangle: 'Jewelry, Bracelet',
+    Belt: 'Jewelry, Belt',
+    Bracelet: 'Jewelry, Bracelet',
+    Bracelets: 'Jewelry, Bracelet',
+    Brooch: 'Jewelry, Ornament',
+    Charm: 'Jewelry, Ornament',
+    Circlet: 'Jewelry, Circlet',
+    Earrings: 'Jewelry, Ornament',
+    Cloak: 'Cloak Or Cape',
+    Crown: 'Jewelry, Circlet',
+    Flask: 'Flasks × 10',
+    Girdle: 'Jewelry, Belt',
+    Hat: 'Headgear, Cap or Hat',
+    Necklace: 'Jewelry, Necklace',
+    Ornament: 'Jewelry, Ornament',
+    Pendant: 'Jewelry, Necklace',
+    Pin: 'Jewelry, Ornament',
+    Ring: 'Jewelry, Ring',
+    'Ring (traditional; variable worn form)': 'Jewelry, Ring',
+    Raiment: 'Raiments',
+    Tassel: 'Jewelry, Ornament',
+    Tiara: 'Jewelry, Circlet',
+    Tome: 'Blank Tome',
+  };
+  const alias = aliases[form];
+  if (alias && data.itemEquipments.some((item) => item.name === alias)) return [alias];
+  if (form === 'Bag') return data.itemEquipments.filter((item) => /^Bag,/i.test(item.name)).map((item) => item.name);
+  if (/^Jewelry$/i.test(form)) return data.itemEquipments.filter((item) => /^Jewelry,/i.test(item.name)).map((item) => item.name);
+
+  // Magic ammunition is a structured Magic Item even though ordinary ammunition
+  // becomes Notes. Resolve a singular physical projectile to the standard purchase
+  // package so its unit weight can be derived without creating a resource datatype.
+  const ammunitionBase: Record<string, string> = {
+    Arrow: 'Arrow × 10', Arrows: 'Arrow × 10',
+    Bolt: 'Bolt × 10', Bolts: 'Bolt × 10',
+    Pellet: 'Pellets × 100', Pellets: 'Pellets × 100',
+  };
+  const ammo = ammunitionBase[form];
+  return ammo && data.itemEquipments.some((item) => item.name === ammo) ? [ammo] : [];
+}
+
+/** Canonical physical catalogue forms available to a structured X=1 Magic Item. */
+export function magicItemFormOptions(item: StaticData['magicItems'][number], data: StaticData) {
+  const form = item.form.trim();
+  if (!form) return [];
+  const directWeapon = data.itemWeapons.find((entry) => entry.name.localeCompare(form, undefined, { sensitivity: 'base' }) === 0);
+  if (directWeapon) return [directWeapon.name];
+  const directArmor = data.itemArmors.find((entry) => entry.name.localeCompare(form, undefined, { sensitivity: 'base' }) === 0);
+  if (directArmor) return [directArmor.name];
+  const weapons = weaponClassOptions(form, data);
+  if (weapons.length) return weapons;
+  const armor = armorClassOptions(form, data);
+  if (armor.length) return armor;
+  return equipmentFormOptions(form, data);
 }
 
 export function setMagicItemForm(draft: CharacterDraft, catalogId: string, form: string) {
   const magicItemForms = { ...draft.utilities.magicItemForms };
   if (form.trim()) magicItemForms[catalogId] = form.trim(); else delete magicItemForms[catalogId];
   return { ...draft, utilities: { ...draft.utilities, magicItemForms } };
+}
+
+export function setMagicItemCustomAppend(draft: CharacterDraft, catalogId: string, value: string) {
+  const append = cleanCustomAppend(value);
+  const magicItems = draft.utilities.magicItems.map((entry) => entry.catalogId === catalogId
+    ? { ...entry, ...(append ? { customAppend: append } : { customAppend: undefined }) }
+    : entry);
+  return { ...draft, utilities: { ...draft.utilities, magicItems } };
 }
 
 export function magicItemTotals(draft: CharacterDraft, data: StaticData) {
@@ -307,7 +705,7 @@ export function toggleMagicItem(draft: CharacterDraft, catalogId: string, data: 
     name: item.name,
     source: 'player',
     sourceDetail: `Starting Magic Item — ${item.gradeAvailability}`,
-    level: item.gradeLevel,
+    level: 1,
   };
   return { ...draft, utilities: { ...draft.utilities, magicItems: [...draft.utilities.magicItems, selection] } };
 }
@@ -388,6 +786,14 @@ export function generateCharacterName(
 
 export function syncUtilities(draft: CharacterDraft, data: StaticData): CharacterDraft {
   draft = canonicalStartingGear(draft, data);
+  let notes = draft.utilities.notes;
+  const retainedEquipment = draft.utilities.equipment.filter((selection) => {
+    const note = ammunitionNote(selection.name, selection.quantity);
+    if (!note) return true;
+    notes = appendUnstructuredNote(notes, note);
+    return false;
+  });
+  draft = { ...draft, utilities: { ...draft.utilities, equipment: retainedEquipment, notes } };
   const hydrateInventory = (category: InventoryCategory): InventorySelection[] => {
     const catalogue = inventoryCatalogue(category, data);
     return draft.utilities[category].map((selection) => {
@@ -432,15 +838,24 @@ export function assessUtilityStep(stepValue: string, draft: CharacterDraft, data
     return { status: 'complete', messages: [`${draft.utilities.spells.length} starting Spell${draft.utilities.spells.length === 1 ? '' : 's'} recorded.`] };
   }
   if (stepValue === 'utilities-starting-gear') {
-    const budget = personalWealthGp(draft, data);
+    const budget = availableGoldGp(draft, data);
     const totals = startingGearTotals(draft, data);
     if (!draft.utilities.gearReviewed) return { status: 'warning', messages: ['Review and approve the canonical Starting Gear package. Its worth is informational and is not deducted from Personal Wealth.'] };
     if (budget != null && totals.purchasedCostGp > budget) {
-      return { status: 'warning', messages: [`Additional purchased gear costs ${formatNumberWithCommas(totals.purchasedCostGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp, above Personal Wealth ${formatNumberWithCommas(budget, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp.`] };
+      return { status: 'warning', messages: [`Additional purchased gear costs ${formatNumberWithCommas(totals.purchasedCostGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp, above currently available Gold ${formatNumberWithCommas(budget, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp.`] };
     }
     return { status: 'complete', messages: [`${formatNumberWithCommas(totals.itemCount)} item${totals.itemCount === 1 ? '' : 's'} recorded; ${formatNumberWithCommas(totals.costGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp total.`] };
   }
   if (stepValue === 'utilities-magic-items') {
+    const unresolvedForms = draft.utilities.magicItems.filter((selection) => {
+      const item = data.magicItems.find((entry) => entry.catalogId === selection.catalogId);
+      if (!item) return false;
+      const options = magicItemFormOptions(item, data);
+      if (options.length <= 1) return false;
+      const configured = selection.catalogId ? draft.utilities.magicItemForms[selection.catalogId] : null;
+      return !configured || !options.includes(configured);
+    });
+    if (unresolvedForms.length) return { status: 'incomplete', messages: [`Choose a canonical physical form for ${unresolvedForms.map((item) => displayMagicItemName(item.name, 1)).join(', ')} so its weight can be determined.`] };
     if (!draft.utilities.magicItemsReviewed) return { status: 'warning', messages: ['Review and approve the Magic Item selection, including when none are assigned.'] };
     return { status: 'complete', messages: [`${draft.utilities.magicItems.length} complete-data Magic Item${draft.utilities.magicItems.length === 1 ? '' : 's'} recorded.`] };
   }

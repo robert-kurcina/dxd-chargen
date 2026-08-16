@@ -1,0 +1,26 @@
+{
+  "release": "v111",
+  "packageVersion": "0.111.0",
+  "scope": "inventory normalization, display-only aliases, Spellbook-to-Blank-Codex normalization, Magic Item X presentation, and legacy-character possession migration",
+  "checks": {
+    "staticDataValidation": "passed: scripts/validate-data.mjs validated 77 JSON files and exposed 96/144 complete magic items",
+    "changedTypeScriptSyntax": "passed: TypeScript transpileModule reported no syntax errors for all six modified TS/TSX files",
+    "fullTypecheck": "not executable from the supplied archive because node_modules/dependency type packages are not present; global tsc fails on unresolved Next/React/Node dependencies before project-level checking can be meaningful",
+    "characterJson": "passed: all 23 active character.json files parse",
+    "requestedPossessionChanges": "passed: 76/76 requested possession, Spellbook normalization, and stored-name assertions",
+    "sourceProvenance": "passed: 92 non-active source-character, source-sheet, portrait, source-image, and archive metadata files match the original characters.zip byte-for-byte; only active character.json records were edited"
+  },
+  "presentationExamples": {
+    "Dagger, Standard": "Dagger",
+    "Bow, Medium": "Bow",
+    "Sword, Broad": "Broadsword",
+    "Bow, Short": "Shortbow",
+    "Knife, Small": "Small Knife",
+    "Helmet, Full": "Full Helm",
+    "Cloak Or Cape": "Cloak or Cape",
+    "Whetcoin X level 1": "Whetcoin",
+    "Whetcoin X level 2": "Whetcoin 2",
+    "Gems of Radiance X level 1 quantity 10": "10 × Gems of Radiance",
+    "Blank Codex": "Spellbook"
+  }
+}

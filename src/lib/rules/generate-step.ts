@@ -6,7 +6,7 @@ import { syncHeritageGrantedSelections, requiredDisabilityCount } from './backgr
 import { affinityCandidates, getTradePackage, setAttributeBaseValues, startingAgeForDraft, syncIntrinsics, type RolledAttribute, ROLLED_ATTRIBUTES } from './intrinsics';
 import { addAdditionalSkill, setCoreLanguage, setGrantSpecializationRanks, setPml, specializationOptionsForTrait } from './proficiencies';
 import { effectiveTraitLevel, syncProperties } from './properties';
-import { addInventoryItem, generateCharacterName, personalWealthGp, startingGearTotals, suggestedNameLanguageId, toggleMagicItem, toggleSpell } from './utilities';
+import { addInventoryItem, availableGoldGp, generateCharacterName, startingGearTotals, suggestedNameLanguageId, toggleMagicItem, toggleSpell } from './utilities';
 import { allowedEnvironNames, selectedSettlementOption, settlementCatalogId, weightedSettlementPick } from '@/lib/settlement-context';
 
 function d6() { return 1 + Math.floor(Math.random() * 6); }
@@ -145,7 +145,7 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   if (stepValue === 'properties-height-weight' || stepValue === 'properties-calculations') return syncProperties(draft, data);
   if (stepValue === 'utilities-spells') { const selected = new Set(draft.utilities.spells.map((item) => item.id)); const spell = pick(data.spells.filter((item) => !selected.has(item.catalogId))); return spell ? toggleSpell(draft, spell.catalogId, data) : draft; }
   if (stepValue === 'utilities-starting-gear') {
-    const budget = personalWealthGp(draft, data); const spent = startingGearTotals(draft, data).purchasedCostGp; const remaining = budget == null ? Infinity : Math.max(0, budget - spent);
+    const budget = availableGoldGp(draft, data); const spent = startingGearTotals(draft, data).purchasedCostGp; const remaining = budget == null ? Infinity : Math.max(0, budget - spent);
     const unavailable = new Set(['Feet, Bare', 'Hands, Bare', 'Hands, Claws', 'Feet, Booted', 'Feet, Talons']);
     const candidates = data.itemEquipments.filter((item) => !unavailable.has(item.name) && Number(item.priceGp) <= remaining); const item = pick(candidates); return item ? addInventoryItem(draft, 'equipment', item.catalogId, data) : draft;
   }

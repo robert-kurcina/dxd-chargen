@@ -1,0 +1,28 @@
+{
+  "release": "v115",
+  "packageVersion": "0.115.0",
+  "validation": {
+    "staticDataValidation": "passed: scripts/validate-data.mjs validated 77 JSON files and exposed 97/144 complete magic items",
+    "characterJson": "passed: 23 active character records parse",
+    "structuredInventory": "passed: 152 structured Weapon/Armor/Equipment/Magic Item assignments resolve by exact canonical name + runtime catalogId",
+    "customAppendMigration": "passed: Honri Heminsur owns canonical Skill Tome with customAppend Cook; stale Cookbook/Skill Tome (Cook) Notes removed",
+    "customAppendScope": "passed: current inventory customAppend values occur only on eligible Tome/Codex/Scroll Equipment; all structured Magic Items remain eligible by class",
+    "ordinaryAmmunition": "passed: no ordinary ammunition remains in structured character Equipment",
+    "magicItemX": "passed: every structured character Magic Item remains X=1",
+    "sourceProvenance": "passed: 90 source/provenance/image files in the character archive remain byte-identical to v114",
+    "modifiedTypeScriptSyntax": "passed: transpileModule reported zero syntax diagnostics for character-draft.ts, utilities.ts, import-character-creator.ts, character-sheet-projection.ts, utilities-step.tsx, expanded-character-sheet.tsx, and worksheet.tsx",
+    "fullTypecheck": "not complete from supplied archive: global tsc reports unresolved Next/React/Node dependencies and resulting JSX/type errors because node_modules/dependency type packages are absent"
+  },
+  "behavior": {
+    "customAppend": "presentation-only instance text; no price, weight, quantity, X, effect, or physical-form semantics",
+    "eligibleEquipment": "Tomes, Codexes, and Scrolls; Scroll Cases and Tome Cases are excluded",
+    "magicItems": "all structured X=1 Magic Items may carry customAppend",
+    "multipleWrittenWorks": "Forge creates separate assigned Tome/Codex/Scroll instances so different appends can coexist",
+    "legacyParsing": "eligible trailing parentheticals may normalize to customAppend only after canonical/base resolution; exact canonical names are matched first"
+  },
+  "knownDeferred": {
+    "magicPhysicalForms": "Many complete Magic Items still use jewelry/jewel/sundry form factors for which no accepted physical catalog record exists; these remain unresolved rather than synthetic.",
+    "ammunitionPurchaseAccounting": "Assigned ammunition becomes Notes and therefore does not remain in startingGearTotals; whether initial purchase cost should be retained requires an explicit transaction/accounting rule.",
+    "duplicateEquipmentLabels": "The equipment catalog still contains duplicate visible Magazine and Pouch, Small records requiring a naming/consolidation decision."
+  }
+}

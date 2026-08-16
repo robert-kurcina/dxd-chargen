@@ -1,0 +1,23 @@
+{
+  "release": "v114",
+  "packageVersion": "0.114.0",
+  "validation": {
+    "staticDataValidation": "passed: scripts/validate-data.mjs validated 77 JSON files and exposed 97/144 complete magic items",
+    "catalogWingdingScan": "passed: no circled-number/Wingding source markers remain in src/data catalog names",
+    "banweaponCanon": "passed: Banweapon X is exposed as magic-item-banweapon-x with Weapon form",
+    "characterJson": "passed: 23 active character records parse",
+    "structuredInventory": "passed: 151 structured Weapon/Armor/Equipment/Magic Item assignments resolve by exact canonical name + runtime catalogId",
+    "ordinaryAmmunition": "passed: no ordinary ammunition remains in structured character Equipment",
+    "magicItemX": "passed: every structured character Magic Item is X=1",
+    "historicalPossessions": "passed: Illian Magewand, John Vorpal Sword, Khao Bansword-2, Sir Mandolore Banhammer-2, and Periwinkle Bracelet Armor remain Notes-only as specified",
+    "duplicateCleanup": "passed: Stella Magestick and Zoey Dagger of Stabbing redundant Notes removed; Zoey Dagger of Stabbing physical form is Dagger, Standard",
+    "sourceProvenance": "passed: 90 meaningful source/provenance/image files in the character archive remain byte-identical to v113; Finder/__MACOSX metadata is omitted",
+    "modifiedTypeScriptSyntax": "passed: transpileModule reported zero syntax diagnostics for utilities.ts, import-character-creator.ts, and utilities-step.tsx",
+    "fullTypecheck": "not executable from supplied archive because node_modules/dependency type packages are absent; global tsc reports unresolved Next/React/Node dependencies"
+  },
+  "knownDeferred": {
+    "magicPhysicalForms": "Many complete Magic Items still use jewelry/jewel/sundry form factors for which no accepted physical catalog record exists; these remain unresolved rather than synthetic.",
+    "ammunitionPurchaseAccounting": "Assigned ammunition becomes Notes and therefore does not remain in startingGearTotals; whether initial purchase cost should be retained requires an explicit transaction/accounting rule.",
+    "duplicateEquipmentLabels": "The equipment catalog still contains duplicate visible Magazine and Pouch, Small records requiring a naming/consolidation decision."
+  }
+}

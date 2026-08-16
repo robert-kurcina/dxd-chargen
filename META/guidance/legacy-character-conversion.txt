@@ -220,3 +220,61 @@ calculate: { /** leave all of these empty string or 0 **/
 		downward: 0 
 	}
 }
+
+Expendable ammunition / Notes rule (v113)
+------------------------------------------
+Ordinary Arrow, Bolt, Bullet, Round, and Pellet catalogue rows are purchase units.
+When assigned, convert the purchased/current amount to plain Notes text such as
+`10 x Arrows` or `20 x Small Bolts` and do not retain a structured inventory row.
+Notes are editable free text and do not carry price, weight, quantity, provenance,
+or any other mechanical data. Do not introduce a consumable/resource counter.
+
+Historical container wording is normalized independently: `Quiver of 24 Arrows`
+becomes `Quiver, Large` plus Note `24 x Arrows`; `Small Bolt quiver` becomes
+`Case, Small`; `Bedroll` becomes `Bed roll, Simple`. A single `Pouch` or `Small Bag`
+remains Notes because the catalogue purchase units are `Pouch × 10` and
+`Bag, Small × 10`. Historical `Cookbook` now normalizes to structured catalogue
+`Skill Tome` with presentation-only `customAppend: "Cook"`, displaying as
+`Skill Tome (Cook)`; the relevant Skill is `Labor > { Cook }`.
+
+
+Magic Item / catalog normalization (v114)
+-----------------------------------------
+Canonical item names must not contain source Wingding/circled-number prefixes.
+Structured Magic Items always use X=1. Any GM/custom X=2+ instance is removed from
+the structured Magic Item list and preserved as editable Notes text.
+
+`Banweapon X` is the canonical catalog entry. `Banhammer` and `Bansword` describe
+physical forms/instances of Banweapon; historical X=2 examples remain Notes.
+`Vorpal Weapon X` and `Banweapon X` use an actual eligible weapon-catalog entry as
+the physical form so weight can be derived. Exclude natural/improvised attacks and
+feet/claws/talons/boots/gauntlets. Other Magic Items likewise normalize to a real
+physical catalog form when one currently exists; jewelry/jewels/sundry form gaps are
+left unresolved rather than filled with invented records. Bracelet Armor remains Notes
+until its future Magic Item definition is introduced.
+
+Ordinary ammunition includes Arrows, Bolts, Bullets, Rounds, Pellets, Arrowheads,
+Boltheads, and analogous ammunition purchase units. When assigned, it becomes plain
+Notes and is no longer mechanically tracked. Magic ammunition remains a Magic Item.
+
+
+Custom append normalization (v115)
+----------------------------------
+Assigned Magic Items and Tome/Codex/Scroll equipment may carry optional `customAppend`
+text. This text is instance-level presentation only and is rendered in parentheses after
+the normalized display name. It does not alter catalog identity, form, weight, price, X,
+or effects. If residual legacy text represents changed mechanics rather than description,
+subject, provenance, inscription, or nickname, keep the entire customized object in Notes.
+
+Legacy imports may recognize a trailing parenthetical as `customAppend` only when the base
+name resolves to an eligible canonical item. This must not reinterpret parentheses that are
+part of a canonical item name. Multiple Tome/Codex/Scroll instances may use the same catalog
+record with different appends.
+
+
+[v116] Jewelry/Gemstones/Gold
+- Imported explicit Gold is authoritative available gp; do not reconstruct historical spending from inventory or Notes.
+- Ordinary ammunition is converted to quantity-first Notes and is not priced or weighed retroactively.
+- Legacy Rings / Bracelets & Bangles / Necklaces & Amulets normalize to the economical Jewelry form catalog.
+- Pouch, Small (Rounds/Bullets) resolves to canonical Pouch, Small plus customAppend.
+- Structured Magic Items remain X=1; higher-X or mechanically customized instances remain Notes.

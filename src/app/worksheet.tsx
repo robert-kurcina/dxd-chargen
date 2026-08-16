@@ -85,6 +85,7 @@ import {
   assessUtilityStep,
   displayInventoryName,
   displayInventoryQuantity,
+  displayMagicItemQuantity,
   displaySpellName,
   isUtilityStep,
   magicItemInventoryForm,
@@ -1421,7 +1422,7 @@ export default function Worksheet({
                   {panelInventory
                     .map(
                       (item) =>
-                        displayInventoryQuantity(item.name, item.quantity),
+                        displayInventoryQuantity(item.name, item.quantity, item.customAppend),
                     )
                     .join(", ") ||
                     (panelDraft.utilities.gearReviewed ? "None" : "—")}
@@ -1431,7 +1432,8 @@ export default function Worksheet({
                   {panelDraft.utilities.magicItems
                     .map((item) => {
                       const form = magicItemInventoryForm(item, panelDraft, data);
-                      return `${item.name}${form ? ` [${form.displayName}, ${formatNumberWithCommas(form.weight)}#]` : ""}`;
+                      const displayName = displayMagicItemQuantity(item.name, item.level ?? 1, item.quantity ?? 1, item.customAppend);
+                      return `${displayName}${form ? ` [${form.displayName}, ${formatNumberWithCommas(form.weight)}#]` : ""}`;
                     })
                     .join(", ") ||
                     (panelDraft.utilities.magicItemsReviewed ? "None" : "—")}
@@ -1503,7 +1505,7 @@ export default function Worksheet({
                               sensitivity: "base",
                             }),
                           )
-                          .map((item) => label === "Spells" ? displaySpellName(item.name) : displayInventoryQuantity(item.name, "quantity" in item ? item.quantity : 1))
+                          .map((item) => label === "Spells" ? displaySpellName(item.name) : displayInventoryQuantity(item.name, "quantity" in item ? item.quantity : 1, "customAppend" in item ? item.customAppend : undefined))
                           .join(label === "Spells" ? ", " : "; ") || "—"}
                       </dd>
                     </Fragment>
