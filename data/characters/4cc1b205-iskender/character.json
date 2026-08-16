@@ -511,7 +511,7 @@
       "xp": 0
     },
     "statureAdjustment": 1,
-    "buildAdjustment": -1
+    "buildAdjustment": 0
   },
   "utilities": {
     "spells": [],

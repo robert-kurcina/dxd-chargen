@@ -516,7 +516,7 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 1.2,
-        "unitWeight": 2,
+        "unitWeight": 2.0,
         "catalogId": "equipment-quiver-large"
       }
     ],

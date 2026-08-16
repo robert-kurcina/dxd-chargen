@@ -92,16 +92,16 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   const table = characteristicTable(species, data);
   const baseline = table.find((row) => row.lineage === 'BASE-LINE');
   const lineage = lineageName ? table.find((row) => row.lineage === lineageName) : undefined;
-  const female = draft.background.geneticallyFemale ? table.find((row) => row.lineage === 'female') : undefined;
+  const physicalAgeRank = data.ageGroups.find((row) => row.ageGroup === draft.background.ageGroup)?.rank;
+  const adultOrOlder = physicalAgeRank != null && /^\d+$/.test(physicalAgeRank) && Number(physicalAgeRank) >= 4;
+  const female = draft.background.geneticallyFemale && adultOrOlder ? table.find((row) => row.lineage === 'female') : undefined;
   if (!baseline) return null;
 
   const age = data.characteristicModifiers.find((row) => row.Group === draft.background.ageGroup);
   const trade = getTradePackage(draft, data);
   const specialization = getTradeSpecialization(draft, data);
-  const str = propertyAttributeValue('STR', draft);
-  const ref = propertyAttributeValue('REF', draft);
   const fort = propertyAttributeValue('FOR', draft);
-  if (str == null || ref == null || fort == null) return null;
+  if (fort == null) return null;
 
   const lines: AdjustmentLine[] = [
     { label: `${species} baseline`, stature: num(baseline.stature), build: num(baseline.build), bodypoints: num(baseline.bodypoints) },
@@ -122,7 +122,6 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     + num(age?.Stature)
     + num(trade?.adjustments.stature)
     + num(specialization?.adjustments.stature)
-    + getAttributeDm(str)
     + statureAdjustment
   );
 
@@ -136,7 +135,6 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     + num(trade?.adjustments.build)
     + num(specialization?.adjustments.build)
     + getAttributeDm(fort)
-    - getAttributeDm(ref)
     + brawn
     + buildAdjustment
   );

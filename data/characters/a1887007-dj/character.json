@@ -452,7 +452,7 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0.8,
-        "unitWeight": 1,
+        "unitWeight": 1.0,
         "catalogId": "equipment-quiver-small"
       }
     ],

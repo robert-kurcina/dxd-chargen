@@ -1,0 +1,45 @@
+{
+  "version": "v122",
+  "ageGroupAudit": {
+    "activeImportedCharacters": 23,
+    "nonCanonicalActiveAgeGroups": 0,
+    "legacyAliasNormalized": {
+      "Eary Teen": "Early Teen"
+    },
+    "affectedActiveCharacters": ["Giovanna Manroad"]
+  },
+  "propertyFormula": {
+    "stature": "Species/Lineage/Age/Trade/Specialization plus applicable Adult+ Sex adjustment and Body Frame; no STR DM",
+    "build": "Final Stature plus Species/Lineage/Age/Trade/Specialization plus applicable Adult+ Sex adjustment, FOR DM, Brawn X, Body Frame, then optional Underweight/Overweight; no REF DM"
+  },
+  "giovanna": {
+    "ageGroup": "Early Teen",
+    "statureBreakdown": {
+      "klenariBaseline": 25,
+      "farleen": 0,
+      "earlyTeen": -4,
+      "rogue": 0,
+      "thief": -1,
+      "adultFemale": 0,
+      "bodyFrame": 1,
+      "final": 21
+    },
+    "buildBreakdown": {
+      "finalStature": 21,
+      "klenariBuild": 6,
+      "farleen": 1,
+      "earlyTeen": 2,
+      "rogue": 0,
+      "thief": 0,
+      "adultFemale": 0,
+      "forDm": 1,
+      "brawn": 0,
+      "bodyFrame": -2,
+      "underweightOverweight": 0,
+      "final": 29
+    },
+    "weightPounds": 39,
+    "siz": 5,
+    "profile": 25
+  }
+}

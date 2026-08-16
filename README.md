@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v121
+## Current state — v122
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -42,7 +42,7 @@ Proficiencies currently supports:
 
 Properties currently supports:
 
-- canonical Stature and Build derivation from Species, Lineage, Age Group, Heritage, Trade/Specialization, Attribute DMs, and Brawn;
+- canonical Stature and Build derivation from Species, Lineage, Age Group, Heritage, Trade/Specialization, FOR DM, and Brawn;
 - optional Underweight/Overweight Build adjustment with the pre-Overweight Bodypoints rule;
 - exact 0–99 Height/Weight/SIZ lookup table and Profile derivation;
 - allometric Carrying and Jump scaling by Species size;
@@ -75,6 +75,11 @@ Finalization and library now supports:
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
 
 
+
+
+## v122 — Stature/Build Reconciliation
+
+v122 removes STR DM from Stature and REF DM from Build. Build retains FOR DM and Brawn X. Genetically Female Stature/Build adjustments now apply only at Adult Age Group or older, matching the printed creation procedure. Legacy `Eary Teen` imports normalize to `Early Teen`; source provenance remains unchanged. Giovanna Manroad now reconciles to Stature 21 / Build 29 with Tall +1, Gracile -2, and no Underweight/Overweight adjustment.
 
 ## v121 — Physical Equipment Scaling Refinement
 

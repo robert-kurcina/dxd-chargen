@@ -993,13 +993,13 @@
       },
       {
         "id": "inventory-equipment-equipment-pouch-small-10",
-        "catalogId": "equipment-pouch-small",
-        "name": "Pouch, Small",
+        "catalogId": "equipment-pouch-small-10",
+        "name": "Pouch, Small × 10",
         "source": "trade",
         "sourceDetail": "Canonical Starting Gear",
-        "quantity": 10,
+        "quantity": 1,
         "unitPriceGp": 0.1,
-        "unitWeight": 0.2
+        "unitWeight": 0.4
       }
     ],
     "gearReviewed": false,

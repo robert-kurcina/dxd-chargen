@@ -694,7 +694,7 @@
         "source": "player",
         "quantity": 1,
         "unitPriceGp": 0.2,
-        "unitWeight": 5,
+        "unitWeight": 5.0,
         "catalogId": "equipment-bed-roll-simple"
       }
     ],

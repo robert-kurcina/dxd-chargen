@@ -80,7 +80,7 @@
     "gender": "Female",
     "geneticallyFemale": true,
     "handedness": null,
-    "ageGroup": "Eary Teen",
+    "ageGroup": "Early Teen",
     "ageYears": 14,
     "birthMonth": 1,
     "culturalHeritageId": "heritage-culture-wildling",
@@ -379,8 +379,8 @@
   "properties": {
     "stature": 21,
     "build": 29,
-    "baseBuild": 24,
-    "weightAdjustment": 5,
+    "baseBuild": 29,
+    "weightAdjustment": 0,
     "heightInches": 36,
     "weightPounds": 39,
     "siz": 5,
@@ -408,7 +408,7 @@
       "xp": 1860
     },
     "statureAdjustment": 1,
-    "buildAdjustment": 2
+    "buildAdjustment": -2
   },
   "utilities": {
     "spells": [],
@@ -482,7 +482,7 @@
         "name": "Case, Small",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 1,
+        "unitPriceGp": 1.0,
         "unitWeight": 0.6,
         "catalogId": "equipment-case-small"
       }

@@ -924,6 +924,12 @@ export function normalizeCharacterDraftForStorage(draft: CharacterDraft) {
   return normalizeImportedDraft(draft);
 }
 
+function normalizeLegacyAgeGroup(value: string | null | undefined) {
+  const normalized = value?.trim() ?? '';
+  if (/^eary teen$/i.test(normalized)) return 'Early Teen';
+  return normalized || null;
+}
+
 function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCharacter = {}) {
   const draft = createEmptyCharacterDraft();
   const details = raw.details ?? {};
@@ -984,7 +990,7 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
   draft.background.sex = ['Male', 'Female', 'Intersex'].includes(biology.sex) ? biology.sex : null;
   draft.background.geneticallyFemale = biology.sex === 'Female';
   draft.background.gender = biology.sex === 'Female' ? 'Female' : biology.sex === 'Male' ? 'Male' : null;
-  draft.background.ageGroup = biology.ageGroup ?? null;
+  draft.background.ageGroup = normalizeLegacyAgeGroup(biology.ageGroup);
   if (typeof biology.ageYearsMonth === 'number') {
     draft.background.ageYears = Math.trunc(biology.ageYearsMonth);
     draft.background.birthMonth = Math.round((biology.ageYearsMonth % 1) * 10);
