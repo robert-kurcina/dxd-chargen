@@ -370,7 +370,7 @@
         "name": "Case, Small",
         "source": "player",
         "quantity": 1,
-        "unitPriceGp": 1.0,
+        "unitPriceGp": 1,
         "unitWeight": 0.6,
         "catalogId": "equipment-case-small"
       }
