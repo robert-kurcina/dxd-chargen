@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "9e7ad4212ff04d83",
+        "id": "deb1567525d42698",
         "type": "tabs",
         "children": [
           {
-            "id": "bb60ab24ec7b0daf",
+            "id": "1583389f99ff3e42",
             "type": "leaf",
             "state": {
-              "type": "image",
-              "state": {
-                "file": "public/armor/hit-locations_male.svg"
-              },
-              "icon": "lucide-image",
-              "title": "hit-locations_male"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -185,7 +183,7 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "bb60ab24ec7b0daf",
+  "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
     "dxd-chargen.zip",
     "Archive.zip",
