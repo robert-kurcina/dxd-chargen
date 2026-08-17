@@ -8,24 +8,29 @@ export const ADMIN_SETTINGS_STORAGE_KEY = 'dxd-chargen-admin-settings-v1';
 export const ADMIN_SETTINGS_EVENT = 'dxd-chargen-admin-settings-changed';
 
 export const DEFAULT_ADMIN_SETTINGS: AdminSettings = {
-  randomSeed: 2044,
+  randomSeed: 0,
   randomSequence: 0,
   libraryTags: [],
 };
 
-function cleanTags(value: unknown): string[] {
+export function sortLibraryTags(tags: string[]): string[] {
+  return [...tags].sort((left, right) => left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' }));
+}
+
+export function cleanLibraryTags(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
-  return Array.from(new Set(value
+  const unique = Array.from(new Map(value
     .map((entry) => String(entry ?? '').trim())
-    .filter(Boolean)))
-    .slice(0, 64);
+    .filter(Boolean)
+    .map((entry) => [entry.toLocaleLowerCase(), entry] as const)).values());
+  return sortLibraryTags(unique).slice(0, 64);
 }
 
 export function normalizeAdminSettings(value: unknown): AdminSettings {
   const candidate = value && typeof value === 'object' ? value as Partial<AdminSettings> : {};
   const randomSeed = Number.isFinite(Number(candidate.randomSeed)) ? Math.trunc(Number(candidate.randomSeed)) : DEFAULT_ADMIN_SETTINGS.randomSeed;
   const randomSequence = Number.isFinite(Number(candidate.randomSequence)) ? Math.max(0, Math.trunc(Number(candidate.randomSequence))) : 0;
-  return { randomSeed, randomSequence, libraryTags: cleanTags(candidate.libraryTags) };
+  return { randomSeed, randomSequence, libraryTags: cleanLibraryTags(candidate.libraryTags) };
 }
 
 export function readAdminSettings(): AdminSettings {

@@ -1,0 +1,52 @@
+{
+  "release": "v134",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "TypeScript 5.8.3 transpileModule diagnostics",
+      "filesChecked": 22
+    },
+    "staticSheetJavaScriptSyntax": {
+      "status": "pass",
+      "command": "node --check public/character-creator/app.js"
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 113
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_inventory-normalized_v133_META-repaired.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "Only root/package release version fields changed from 0.133.0 to 0.134.0."
+    },
+    "uiFeatureAssertions": {
+      "status": "pass",
+      "assertions": [
+        "Admin has route pages for Global, Characters, Tests, and Info.",
+        "Forge, Sheet, and Library are route pages under a shared workspace layout.",
+        "Default seed is 0 and seed editing is protected/confirmed.",
+        "Global Library tags use protected token editing and counted read-only spans.",
+        "Library default columns are Portrait, Character Name, and Tags.",
+        "Tags are sortable/filterable.",
+        "Admin Characters has row selection, protected tag editing, and batch PDF export.",
+        "Sheet Back Movement/Carrying values translate 10px right.",
+        "Legacy single-component tab shells were removed."
+      ]
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The execution environment did not contain the archive's node_modules, and npm dependency installation timed out. Syntax/transpile checks, static JavaScript syntax checks, data validation, JSON validation, import-target checks, and drift checks were run instead."
+    }
+  }
+}

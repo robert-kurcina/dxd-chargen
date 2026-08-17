@@ -1,6 +1,7 @@
-import sarnaLenData from '@/data';
-import AdminApp from './admin-app';
+import { Suspense } from 'react';
+import GlobalAdminPanel from './global-panel';
+import AdminTabSpinner from './tab-spinner';
 
-export default function AdminPage() {
-  return <AdminApp data={sarnaLenData} />;
+export default function AdminGlobalPage() {
+  return <Suspense fallback={<AdminTabSpinner />}><GlobalAdminPanel /></Suspense>;
 }

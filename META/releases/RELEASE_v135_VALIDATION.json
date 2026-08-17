@@ -1,0 +1,59 @@
+{
+  "release": "v135",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "Global TypeScript transpileModule diagnostics",
+      "filesChecked": 2,
+      "files": [
+        "src/app/character-library-panel.tsx",
+        "src/app/admin/admin-shell.tsx"
+      ]
+    },
+    "staticSheetJavaScriptSyntax": {
+      "status": "pass",
+      "commands": [
+        "node --check public/character-creator/app.js",
+        "node --check public/character-creator/character-sheet.js"
+      ]
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 115
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_v134_admin-library-refactor.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "package-lock.json is otherwise identical to v134 after normalizing the intended 0.134.0 -> 0.135.0 root/package version change."
+    },
+    "uiFeatureAssertions": {
+      "status": "pass",
+      "assertions": [
+        "Administration title is no longer sticky; the four-tab navigation remains sticky at 44px.",
+        "Admin Characters action banner is compact and omits the redundant description.",
+        "Desktop headers, filters, and character rows share one CSS Grid track definition.",
+        "Desktop Library header/filter grid is sticky beneath the Admin tab strip and remains in normal document flow.",
+        "Mobile active column defaults to the first checked visible column and falls back when that column is hidden.",
+        "Portrait is the default mobile active column with the default Columns set.",
+        "Character-name search only renders when Character Name is the active mobile column.",
+        "Timestamp is not a hard-coded mobile default.",
+        "Default Library ordering is Character Name ascending and the sort-storage key was advanced to v3."
+      ]
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The archive does not contain node_modules in this execution environment. Changed TS/TSX files were syntax-transpiled with the available global TypeScript compiler; runtime data, JSON, and static JavaScript checks were also run."
+    }
+  }
+}

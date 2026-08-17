@@ -108,7 +108,7 @@ function noteCatalogProperties(notes: string, data: StaticData) {
   }).filter((entry): entry is [number, string] => Boolean(entry)));
 }
 
-function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: StaticData) {
+export function buildCharacterSheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: StaticData) {
   const derived = calculateProperties(draft, data);
   const value = (group: Array<{ name: string; value: number | string }>, name: string) => group.find((item) => item.name === name)?.value ?? 0;
   const categoryInventory = (category: InventoryCategory, items: CharacterDraft['utilities']['equipment']) => {
@@ -251,7 +251,7 @@ function sheetPayload(draft: CharacterDraft, sheet: CharacterSheetData, data: St
 export default function ExpandedCharacterSheet({ draft, data }: { draft: CharacterDraft; data: StaticData }) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const sheet = useMemo(() => projectCharacterSheet(draft, data), [draft, data]);
-  const payload = useMemo(() => sheetPayload(draft, sheet, data), [draft, sheet, data]);
+  const payload = useMemo(() => buildCharacterSheetPayload(draft, sheet, data), [draft, sheet, data]);
   const send = useCallback(() => iframe.current?.contentWindow?.postMessage({ type: 'dxd-character-sheet', payload }, window.location.origin), [payload]);
   useEffect(() => {
     const receive = (event: MessageEvent) => {

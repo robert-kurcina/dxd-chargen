@@ -374,6 +374,11 @@
 #back .field-group-universal-chart .field:nth-child(-n + 12) { grid-row: 1; }
 #back .field-group-universal-chart .field:nth-child(n + 13) { grid-row: 2; }
 
+/* Sheet Back alignment: Movement (Walk/Jog/Run) and Carrying (Lift/Shoulder/Carry)
+   index/scalar values align 10px to the right of their previous positions. */
+#back .field-group-universal-chart .field:nth-child(-n + 6),
+#back .field-group-universal-chart .field:nth-child(n + 13):nth-child(-n + 18) { transform: translateX(10px); }
+
 #back .field-group-universal-center {
   left: 79.15%; top: 91.48%; width: 18.55%; height: 3.05%;
   display: grid;

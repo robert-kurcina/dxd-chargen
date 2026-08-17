@@ -721,12 +721,9 @@ import {
     return new Blob(chunks, { type: "application/pdf" });
   }
 
-  async function exportPdf() {
-    const button = document.querySelector("#export-pdf");
+  async function renderPdfPageImages() {
     const pages = [...document.querySelectorAll(".sheet-page")];
     const originalPages = pages.map((page) => ({ hidden: page.hidden, active: page.classList.contains("active") }));
-    button.disabled = true;
-    button.textContent = "Exporting...";
     document.body.classList.add("pdf-exporting");
     pages.forEach((page) => { page.hidden = false; page.classList.add("active"); });
     try {
@@ -734,7 +731,19 @@ import {
       await document.fonts.ready;
       const canvases = [];
       for (const page of pages) canvases.push(await renderSheetPage(page));
-      const pdf = createPdf(canvases.map((canvas) => canvas.toDataURL("image/jpeg", .95)));
+      return canvases.map((canvas) => canvas.toDataURL("image/jpeg", .95));
+    } finally {
+      pages.forEach((page, index) => { page.hidden = originalPages[index].hidden; page.classList.toggle("active", originalPages[index].active); });
+      document.body.classList.remove("pdf-exporting");
+    }
+  }
+
+  async function exportPdf() {
+    const button = document.querySelector("#export-pdf");
+    button.disabled = true;
+    button.textContent = "Exporting...";
+    try {
+      const pdf = createPdf(await renderPdfPageImages());
       const link = document.createElement("a");
       link.href = URL.createObjectURL(pdf);
       link.download = `${currentSlug || "character"}-character-sheet.pdf`;
@@ -744,8 +753,6 @@ import {
     } catch (error) {
       notify(`PDF export failed: ${String(error)}`);
     } finally {
-      pages.forEach((page, index) => { page.hidden = originalPages[index].hidden; page.classList.toggle("active", originalPages[index].active); });
-      document.body.classList.remove("pdf-exporting");
       button.disabled = false;
       button.textContent = "Export PDF";
     }
@@ -873,14 +880,26 @@ import {
     document.body.classList.add("embedded");
     renderGroups(frontGroups, "front-fields");
     renderGroups(backGroups, "back-fields");
-    window.addEventListener("message", (event) => {
-      if (event.data?.type !== "dxd-character-sheet") return;
-      const payload = event.data.payload ?? {};
-      const entry = { slug: payload.Slug || "character", name: payload.Name || "Character", portrait: payload.Portrait || "" };
-      useSession(createSession(entry, payload));
-      syncPortrait(entry);
-      syncAllFields();
-      syncActions();
+    window.addEventListener("message", async (event) => {
+      if (event.data?.type === "dxd-character-sheet") {
+        const payload = event.data.payload ?? {};
+        const entry = { slug: payload.Slug || "character", name: payload.Name || "Character", portrait: payload.Portrait || "" };
+        useSession(createSession(entry, payload));
+        syncPortrait(entry);
+        syncAllFields();
+        syncActions();
+        window.parent.postMessage({ type: "dxd-character-sheet-loaded", requestId: event.data.requestId ?? null }, "*");
+        return;
+      }
+      if (event.data?.type === "dxd-character-sheet-export-request") {
+        const requestId = event.data.requestId ?? null;
+        try {
+          const pages = await renderPdfPageImages();
+          window.parent.postMessage({ type: "dxd-character-sheet-export-result", requestId, pages }, "*");
+        } catch (error) {
+          window.parent.postMessage({ type: "dxd-character-sheet-export-error", requestId, error: String(error) }, "*");
+        }
+      }
     });
     window.parent.postMessage({ type: "dxd-character-sheet-ready" }, "*");
     return;

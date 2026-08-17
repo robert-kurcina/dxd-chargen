@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v133
+## Current state — v135
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -75,6 +75,27 @@ Finalization and library now supports:
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
 
 
+
+
+## v135 — Admin Characters sticky-header UX
+
+- Administration chrome is compacted: the page title is no longer part of the sticky layer, while the four Admin tabs remain available in a 44px sticky navigation bar.
+- **Characters Library - Admin** uses a compact action banner without the redundant explanatory paragraph.
+- The desktop character header/filter region is a viewport-sticky CSS Grid rather than a sticky `<thead>` inside an overflow container. This preserves header/record alignment and prevents the first character from being covered.
+- Desktop character records use the same dynamic grid tracks as their headers, including optional Columns-editor fields.
+- Mobile Library controls are driven by the checked Columns set. The active mobile column defaults to the first checked column (normally **Portrait**) and falls back to the next checked column if that column is hidden.
+- **Search character names** appears only when **Character Name** is the active mobile column; **Timestamp** is no longer a hard-coded mobile default.
+- Default Library ordering is Character Name ascending. The Library sort-storage key is advanced so stale Timestamp defaults from v134 do not survive the UX correction.
+
+
+## v134 — Route-based UI, Admin character operations, Library columns
+
+- Forge, Sheet, and Library are separate Next/React routes under a shared workspace layout. Admin Global, Characters, Tests, and Info are separate routes as well. Route loading boundaries display a spinner while tab content and its client bundle become available.
+- Admin opens on **Global**. The Seed number defaults to `0`, remains disabled until **Change Seed Number** is checked, requires confirmation before Save, and locks again after a successful update. **Revery** discards an unsaved seed edit.
+- Global Library tags use the same protected edit model. Read-only tags render as alphanumerically sorted spans with filesystem-character counts; edit mode uses a token field and confirmation before the vocabulary is saved.
+- Library defaults to the **Portrait**, **Character Name**, and **Tags** columns. **Columns** can also expose **Ancestry**, **Profession**, **Timestamp**, and **Filename**. Tags have their own column, sorting, and filtering.
+- **Characters Library - Admin** adds per-record selection, protected token-field tag editing, batch tag persistence, and selected-character PDF export. The batch PDF contains each selected character's front and back CRS pages ordered alphanumerically by character name.
+- Sheet Back Movement and Carrying chart values are aligned 10px to the right within the existing fixed CSS Grid.
 
 
 ## v133 — Administration, Library metadata, Sheet editing
@@ -207,9 +228,9 @@ npm run check
 - `src/lib/character-library.ts` — versioned browser-local multi-character library, legacy promotion, duplication, delete, and JSON import/export.
 - `src/lib/character-sheet-projection.ts` — deterministic `CharacterDraft` → CRS presentation projection.
 - `src/lib/rules/finalization.ts` — whole-character validation and imported-catalogue integrity checks.
-- `src/app/character-app.tsx` — client application shell coordinating Forge, live Sheet, Library, Save confirmation, and the `/admin` entry point.
-- `src/app/character-library-panel.tsx` — filesystem Character Library with sorting/filtering, imported profession-label fallback, and administrator-exposed tags.
-- `src/app/admin/` — accordion administration page for cross-character settings, Library presentation, Tests, and Info.
+- `src/app/(workspace)/` — route-backed Forge, Sheet, and Library pages sharing persistent client workspace state through a common layout/provider.
+- `src/app/character-library-panel.tsx` — shared filesystem Character Library/Admin Library with column selection, sorting/filtering, tag editing, selection, and batch PDF export.
+- `src/app/admin/` — route-backed Global, Characters, Tests, and Info administration pages.
 - `src/lib/admin-settings.ts` — browser-persistent cross-character seed/sequence and Library-tag configuration.
 - `src/app/forge/background-step.tsx` — functional Background controls.
 - `src/app/forge/intrinsics-step.tsx` — functional Intrinsics controls.
