@@ -187,6 +187,8 @@
   },
   "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "META/guidance/CANON_SYNC_v142.md",
+    "META/releases/RELEASE_v142.md",
     "META/releases/RELEASE_v141_ADMIN_TESTS_INFO_REBUILD.md",
     "META/releases/RELEASE_v140_VALIDATION.json",
     "META/releases/RELEASE_v140.md",
@@ -229,8 +231,6 @@
     "META/releases/CHARACTER_ARMOR_NORMALIZATION_v131.md",
     "META/guidance/CANON_SYNC_v133.md",
     "META/releases/RELEASE_v133.md",
-    "META/guidance/CANON_SYNC_v132.md",
-    "META/releases/RELEASE_v132.md",
     "data/peoples/_pairs/ancestral.pairs-01.png",
     "public/armor/hit-locations.svg"
   ]

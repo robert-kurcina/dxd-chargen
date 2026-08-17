@@ -1,0 +1,62 @@
+{
+  "release": "v143",
+  "scope": "Second Admin Tests/Info compatibility and reachability pass",
+  "validation": [
+    {
+      "check": "runtime data validator",
+      "result": "PASS — scripts/validate-data.mjs validates 77 runtime JSON files"
+    },
+    {
+      "check": "JSON parse before validation record",
+      "result": "PASS — all 122 pre-existing JSON files parse; this record raises the packaged total to 123"
+    },
+    {
+      "check": "changed TypeScript syntax/transpile",
+      "result": "PASS — legacy-developer-tools.tsx, legacy-info.tsx, and contextual-section-navigation.tsx transpile without syntax diagnostics using TypeScript 5"
+    },
+    {
+      "check": "Developer Tools reachability",
+      "result": "PASS — all 25 registered Developer Tool sections are mounted exactly once; v142 mounted only 9"
+    },
+    {
+      "check": "Legacy Info reachability",
+      "result": "PASS — all 30 registered Legacy Reference Explorer sections are mounted exactly once and exposed through contextual navigation"
+    },
+    {
+      "check": "current candidacy simulation",
+      "result": "PASS — all 11 current tradePackages resolve to profession candidacy bridges and produce valid 0..1 results using deterministic 50,000-character 3D-high-two samples; deferred Merchant is excluded"
+    },
+    {
+      "check": "restored military generator runtime",
+      "result": "PASS — Band, Squad, Group, Company, Detachment, Formation, and Division generate valid leaders against current militaryHierarchy/runtime data"
+    },
+    {
+      "check": "salary snapshot",
+      "result": "PASS — Academic Rank 1 resolves to current WR -10, 1 sp daily, 30 sp monthly"
+    },
+    {
+      "check": "legacy reference corrections",
+      "result": "PASS — Empires first column is labeled ID rather than D6; Heritage Wealth Clamp values are explicitly marked legacy/not used by current Forge"
+    },
+    {
+      "check": "src/data drift",
+      "result": "PASS — all 96 src/data files are byte-identical to uploaded v142"
+    },
+    {
+      "check": "package-lock drift",
+      "result": "PASS — package-lock differs from v142 only in the intended 0.142.0 -> 0.143.0 root/package version fields"
+    },
+    {
+      "check": "static JavaScript syntax",
+      "result": "PASS — public/character-creator/app.js and character-sheet.js pass node --check"
+    },
+    {
+      "check": "generated cache/build artifacts",
+      "result": "PASS — no node_modules, .next, validation stubs, or tsconfig.tsbuildinfo artifacts are included"
+    },
+    {
+      "check": "full npm typecheck/build",
+      "result": "NOT RUN — the source archive does not contain node_modules; changed TS/TSX files were syntax-transpiled and the relevant restored rule paths were runtime-tested through a temporary ts-node harness"
+    }
+  ]
+}

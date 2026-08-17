@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v142
+## Current state — v143
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -74,6 +74,19 @@ Finalization and library now supports:
 
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
 
+
+
+
+## v143 — Admin Tests / Info second compatibility pass
+
+- Restores the remaining pre-v141 Developer Tools that v142 had recovered in source but had not actually mounted in the Tests UI. The Developer Tools suite now exposes 25 sections, including Candidacy Simulation, Salary Calculation, Number Suffix Formatting, ND6, current Attribute Array generation, simple data tables, dice roller, disability/talent parsers, Age Rank converters, maturity tools, Skillpoint cost tools, and the previously restored military/salary/Heritage/Trade/settlement/D66/Scalar/Tragedy tools.
+- Adds searchable contextual navigation for all Developer Tools and all 30 Legacy Reference Explorer sections.
+- Updates Candidacy Expression and Candidacy Simulation utilities to use a deterministic 50,000-character sample of the current 3D-high-two Attribute method and current selectable `tradePackages`; deferred Merchant remains excluded.
+- Updates Attribute Array Generation to current 3D-high-two rather than the legacy 2D6 method.
+- Corrects the current Academic Rank 1 salary expectation to WR -10 / 1 sp daily / 30 sp monthly.
+- Preserves legacy Heritage Wealth Clamp values only as explicitly labeled legacy annotations; current Forge does not apply those clamps.
+- Corrects the Legacy Empires reference-table first column from `D6` to `ID`.
+- Keeps current v141+ deterministic diagnostics and runtime-oriented Info above all compatibility material; this remains a superset restoration, not a rollback.
 
 
 

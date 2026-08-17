@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { BookOpen } from 'lucide-react';
 import {
   Card,
@@ -611,7 +611,7 @@ const HeritageCard = ({ cultural, environ, societal }: { cultural: any[]; enviro
             {selectedFilter === 'all' && (
                 <>
                     <h4 className="text-lg font-sans">{title}</h4>
-                    <p className="text-xs text-muted-foreground -mt-2 mb-2">Wealth Clamp: {wealthClamp}</p>
+                    <p className="text-xs text-muted-foreground -mt-2 mb-2">Legacy Wealth Clamp annotation: {wealthClamp} (not used by current Forge)</p>
                 </>
             )}
             <Table>
@@ -784,7 +784,7 @@ const EmpiresCard = ({ data }: { data: any[] }) => {
                         <Table>
                         <TableHeader>
                             <TableRow className="border-b-2 border-black">
-                            <TableHead className="font-bold text-lg h-8 px-2 text-right">D6</TableHead>
+                            <TableHead className="font-bold text-lg h-8 px-2 text-right">ID</TableHead>
                             <TableHead className="font-bold text-lg h-8 px-2">Name</TableHead>
                             <TableHead className="font-bold text-lg h-8 px-2">Region</TableHead>
                             <TableHead className="font-bold text-lg h-8 px-2">Neighbors</TableHead>
@@ -1233,36 +1233,79 @@ export default function LegacyInfo({ data }: { data: StaticData }) {
     militaryHierarchy,
   } = data;
 
-  return <Accordion type="multiple" className="space-y-4">
-      <MilitaryHierarchyCard data={militaryHierarchy} />
-      <AdjustmentsByLineageCard data={data} />
-      <AdjustmentsByAgeGroupCard attributeModifiers={attributeModifiers} characteristicModifiers={characteristicModifiers} />
-      <FilterableTableCard title="Age Brackets" data={ageBrackets} />
-      <SimpleTableCard title="Characteristic Costs" data={characteristicCosts} />
-      <SimpleTableCard title="Age Groups" data={ageGroups} />
-      <FilterableTableCard title="Attribute Arrays" data={attributeArrays} />
-      <AttributeDefinitionsCard data={attributeDefinitions} />
-      <BeliefsAndDeitiesCard beliefs={beliefs} deities={deities} />
-      <CalculatedAbilitiesCard data={calculatedAbilities} />
-      <SimpleTableCard title="City States" data={citystates} />
-      <SimpleTableCard title="Descriptors" data={descriptors} headers={['d66', '1,2', '3,4', '5,6']} />
-      <SimpleTableCard title="Disabilities" data={disabilities} />
-      <ListCard title="Economic Statuses" data={economicStatuses} />
-      <EmpiresCard data={empires} />
-      <HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} />
-      <ProfessionsAndTitlesCard professions={professions} titles={namingPracticeTitles} />
-      <SimpleTableCard title="Notable Features" data={notableFeatures} />
-      <SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']} />
-      <SimpleTableCard title="PML Titles" data={pmlTitles} />
-      <SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} />
-      <SalaryCard rankData={salaryByTradeRank} adjustmentData={salaryAdjustmentsByTrade} />
-      <FilterableTableCard title="Settlements" data={settlements} />
-      <SimpleTableCard title="Social Groups" data={socialGroups} />
-      <SimpleTableCard title="Social Ranks" data={socialRanks} />
-      <SpeciesCard data={species} />
-      <TragedySeedsCard tragedySeeds={tragedySeeds} randomPersonItemDeity={data.randomPersonItemDeity} />
-      <TraitsCard data={traits} />
-      <UniversalTableCard data={universalTable} />
-      <SimpleTableCard title="Wealth Titles" data={wealthTitles} />
-    </Accordion>;
+  const sectionValues: Record<string, string> = {
+    'Military Hierarchy': 'military-hierarchy',
+    'Adjustments by Lineage': 'adjustments-by-lineage',
+    'Adjustments by Age Group': 'adjustments-by-age-group',
+    'Age Brackets': 'age-brackets',
+    'Characteristic Costs': 'characteristic-costs',
+    'Age Groups': 'age-groups',
+    'Attribute Arrays': 'attribute-arrays',
+    'Attribute Definitions': 'attribute-definitions',
+    'Beliefs & Deities': 'beliefs-and-deities',
+    'Calculated Abilities': 'calculated-abilities',
+    'City States': 'city-states',
+    'Descriptors': 'descriptors',
+    'Disabilities': 'disabilities',
+    'Economic Statuses': 'economic-statuses',
+    'Empires': 'empires',
+    'Heritage': 'heritage',
+    'Professions & Titles': 'professions-and-titles',
+    'Notable Features': 'notable-features',
+    'Physical Blemishes': 'physical-blemishes',
+    'PML Titles': 'pml-titles',
+    'Point Buy Costs': 'point-buy-costs',
+    'Salary': 'salary',
+    'Settlements': 'settlements',
+    'Social Groups': 'social-groups',
+    'Social Ranks': 'social-ranks',
+    'Species': 'species',
+    'Tragedy Seeds': 'tragedy-seeds',
+    'Traits': 'traits',
+    'Universal Table': 'universal-table',
+    'Wealth Titles': 'wealth-titles',
+  };
+  const [openSections, setOpenSections] = useState<string[]>([]);
+  const selectSection = (title: string) => {
+    const value = sectionValues[title];
+    if (!value) return;
+    setOpenSections((current) => current.includes(value) ? current : [...current, value]);
+    window.requestAnimationFrame(() => document.getElementById(`legacy-info-${value}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+  const Section = ({ title, children }: { title: string; children: React.ReactNode }) => <div id={`legacy-info-${sectionValues[title]}`} className="scroll-mt-20">{children}</div>;
+
+  return <ContextualSectionNavigation title="Legacy Reference" label="reference section" items={INFO_SECTION_TITLES} icon={BookOpen} onSelect={selectSection}>
+    <Accordion type="multiple" value={openSections} onValueChange={setOpenSections} className="space-y-4">
+      <Section title="Military Hierarchy"><MilitaryHierarchyCard data={militaryHierarchy} /></Section>
+      <Section title="Adjustments by Lineage"><AdjustmentsByLineageCard data={data} /></Section>
+      <Section title="Adjustments by Age Group"><AdjustmentsByAgeGroupCard attributeModifiers={attributeModifiers} characteristicModifiers={characteristicModifiers} /></Section>
+      <Section title="Age Brackets"><FilterableTableCard title="Age Brackets" data={ageBrackets} /></Section>
+      <Section title="Characteristic Costs"><SimpleTableCard title="Characteristic Costs" data={characteristicCosts} /></Section>
+      <Section title="Age Groups"><SimpleTableCard title="Age Groups" data={ageGroups} /></Section>
+      <Section title="Attribute Arrays"><FilterableTableCard title="Attribute Arrays" data={attributeArrays} /></Section>
+      <Section title="Attribute Definitions"><AttributeDefinitionsCard data={attributeDefinitions} /></Section>
+      <Section title="Beliefs & Deities"><BeliefsAndDeitiesCard beliefs={beliefs} deities={deities} /></Section>
+      <Section title="Calculated Abilities"><CalculatedAbilitiesCard data={calculatedAbilities} /></Section>
+      <Section title="City States"><SimpleTableCard title="City States" data={citystates} /></Section>
+      <Section title="Descriptors"><SimpleTableCard title="Descriptors" data={descriptors} headers={['d66', '1,2', '3,4', '5,6']} /></Section>
+      <Section title="Disabilities"><SimpleTableCard title="Disabilities" data={disabilities} /></Section>
+      <Section title="Economic Statuses"><ListCard title="Economic Statuses" data={economicStatuses} /></Section>
+      <Section title="Empires"><EmpiresCard data={empires} /></Section>
+      <Section title="Heritage"><HeritageCard cultural={culturalHeritage} environ={environHeritage} societal={societalHeritage} /></Section>
+      <Section title="Professions & Titles"><ProfessionsAndTitlesCard professions={professions} titles={namingPracticeTitles} /></Section>
+      <Section title="Notable Features"><SimpleTableCard title="Notable Features" data={notableFeatures} /></Section>
+      <Section title="Physical Blemishes"><SimpleTableCard title="Physical Blemishes" data={physicalBlemishes} headers={['d66', '1,2,3', '4,5,6']} /></Section>
+      <Section title="PML Titles"><SimpleTableCard title="PML Titles" data={pmlTitles} /></Section>
+      <Section title="Point Buy Costs"><SimpleTableCard title="Point Buy Costs" data={pointBuyCosts} /></Section>
+      <Section title="Salary"><SalaryCard rankData={salaryByTradeRank} adjustmentData={salaryAdjustmentsByTrade} /></Section>
+      <Section title="Settlements"><FilterableTableCard title="Settlements" data={settlements} /></Section>
+      <Section title="Social Groups"><SimpleTableCard title="Social Groups" data={socialGroups} /></Section>
+      <Section title="Social Ranks"><SimpleTableCard title="Social Ranks" data={socialRanks} /></Section>
+      <Section title="Species"><SpeciesCard data={species} /></Section>
+      <Section title="Tragedy Seeds"><TragedySeedsCard tragedySeeds={tragedySeeds} randomPersonItemDeity={data.randomPersonItemDeity} /></Section>
+      <Section title="Traits"><TraitsCard data={traits} /></Section>
+      <Section title="Universal Table"><UniversalTableCard data={universalTable} /></Section>
+      <Section title="Wealth Titles"><SimpleTableCard title="Wealth Titles" data={wealthTitles} /></Section>
+    </Accordion>
+  </ContextualSectionNavigation>;
 }

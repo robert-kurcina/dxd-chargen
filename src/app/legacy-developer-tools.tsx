@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -60,7 +60,6 @@ import type { StaticData } from '@/data';
 import { weightedSettlementPick } from '@/lib/settlement-context';
 import { cn } from '@/lib/utils';
 import { parseNumberWithSuffix, formatNumberWithSuffix } from '@/lib/utils';
-import { calculateCandidacyProbability } from '@/lib/probability';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -68,13 +67,12 @@ import { ListChecks } from 'lucide-react';
 import { ContextualSectionNavigation } from '@/components/contextual-section-navigation';
 
 const TEST_SECTION_TITLES = [
-  'Military Unit Generator', 'Salary Expectations', 'Candidacy Expression Evaluator', 'Candidacy Simulation',
-  'Salary Calculation', 'Heritage Generation', 'Profession & Title Generation', 'Settlement Generation',
-  'Number Suffix Formatting Tests', 'ND6 Function Tests', 'Attribute Array Generation', 'Simple Data Tables',
-  'Dice Roller Demo', 'isDisability Function Tests', 'Talent Parser Demo', 'getAgeRankValue Function Tests',
-  'Age Rank/Group Converters', 'parseMaturityString Function Tests', 'calculateMaturityDifference Function Tests',
-  'adjustTalentByMaturity Function Tests', 'Skillpoint Cost Calculation Tests', 'Age Generation Tests',
-  'D66 Lookup Tests', 'getScalar & getIndex Function Tests', 'Tragedy Seed Tests',
+  'Military Unit Generator', 'Salary / Contractor Planner', 'Candidacy Expression Evaluator', 'Candidacy Simulation',
+  'Salary Calculation', 'Heritage Generator', 'Profession & Title Generator', 'Settlement Generator',
+  'Number Suffix Formatting', 'ND6 Function', 'Attribute Array Generation', 'Simple Data Tables',
+  'Dice Roller', 'isDisability', 'Talent Parser', 'Age Rank Value', 'Age Rank / Group Converters',
+  'Maturity Parser', 'Maturity Difference', 'Adjust Talent by Maturity', 'Skillpoint Cost Calculations',
+  'Age Generator', 'D66 Lookup Tools', 'Scalar / Index Calculator', 'Tragedy Seed Generator',
 ];
 
 // Component to display a test case
@@ -101,6 +99,112 @@ const TestSuite = ({ title, children, value, defaultValue }: { title: string; ch
       </AccordionItem>
     </Card>
   );
+
+
+const ROLLED_ATTRIBUTE_NAMES = ['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR'] as const;
+
+function rollHighTwo3d6() {
+  const values = [ND6(), ND6(), ND6()].sort((a, b) => b - a);
+  return values[0] + values[1];
+}
+
+function seededRandom(seed: number) {
+  let state = seed >>> 0;
+  return () => {
+    state += 0x6D2B79F5;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function rollHighTwoFromRandom(random: () => number) {
+  const values = [1 + Math.floor(random() * 6), 1 + Math.floor(random() * 6), 1 + Math.floor(random() * 6)].sort((a, b) => b - a);
+  return values[0] + values[1];
+}
+
+function calculateCurrentCandidacyProbability(expression: string | null | undefined, samples = 50000) {
+  if (!expression) return -1;
+  if (expression.trim().toLowerCase() === 'any') return 1;
+  const referenced = ROLLED_ATTRIBUTE_NAMES.filter((attribute) => new RegExp(`\\b${attribute}\\b`, 'i').test(expression));
+  if (!referenced.length) return -1;
+  const random = seededRandom(0x445844); // "DXD" — deterministic developer-tool sample.
+  let successful = 0;
+  const values: Record<string, number> = {};
+  for (let sample = 0; sample < samples; sample += 1) {
+    for (const attribute of referenced) values[attribute] = rollHighTwoFromRandom(random);
+    if (evaluateCandidacy(expression, values)) successful += 1;
+  }
+  return successful / samples;
+}
+
+const UtilityResultGrid = ({ rows }: { rows: { label: string; result: React.ReactNode; expected?: React.ReactNode; pass?: boolean }[] }) => <div className="grid gap-2 lg:grid-cols-2">
+  {rows.map((row) => <div key={row.label} className={`rounded-md border p-3 text-sm ${row.pass === false ? 'border-destructive/60 bg-destructive/5' : ''}`}>
+    <div className="font-medium">{row.label}</div>
+    <div className="mt-1 font-mono text-xs">Result: {row.result}</div>
+    {row.expected !== undefined && <div className="font-mono text-xs text-muted-foreground">Expected: {row.expected}</div>}
+  </div>)}
+</div>;
+
+const NumberSuffixFormattingTest = () => {
+  const values = [0, 1, 10, 1000, 1500, 1000000, -2500];
+  return <UtilityResultGrid rows={values.map((value) => { const formatted = formatNumberWithSuffix(value); const parsed = parseNumberWithSuffix(formatted); return { label: String(value), result: `${formatted} -> ${parsed}`, expected: value, pass: parsed === value }; })} />;
+};
+
+const DiceRollerDemo = () => {
+  const [rolls, setRolls] = useState<Record<string, number | null>>({ D6: null, '2D6': null, '3D6': null, D66: null, '3D high-two': null });
+  const roll = (key: string) => setRolls((current) => ({ ...current, [key]: key === 'D6' ? ND6() : key === '2D6' ? ND6(2) : key === '3D6' ? ND6(3) : key === 'D66' ? D66() : rollHighTwo3d6() }));
+  return <div className="flex flex-wrap gap-2">{Object.entries(rolls).map(([key, value]) => <Button key={key} variant="outline" onClick={() => roll(key)}>{key}: {value ?? 'Roll'}</Button>)}</div>;
+};
+
+const DisabilityFunctionTest = () => <UtilityResultGrid rows={[
+  { label: '[Coward 2]', result: String(isDisability('[Coward 2]')), expected: 'true', pass: isDisability('[Coward 2]') },
+  { label: 'Coward 2', result: String(isDisability('Coward 2')), expected: 'false', pass: !isDisability('Coward 2') },
+  { label: ' [Hatred > Elves] ', result: String(isDisability(' [Hatred > Elves] ')), expected: 'true', pass: isDisability(' [Hatred > Elves] ') },
+]} />;
+
+const TalentParserTest = () => {
+  const examples = ['***[Hatred 2 > Elves]', 'Athletics 3', 'Cook > Baking', '*Focused 2'];
+  return <div className="space-y-2">{examples.map((example) => <div key={example} className="rounded-md border p-3"><div className="font-mono text-sm">{example}</div><pre className="mt-1 overflow-x-auto text-xs text-muted-foreground">{JSON.stringify(parseTalent(example), null, 2)}</pre></div>)}</div>;
+};
+
+const AgeRankValueTest = () => <UtilityResultGrid rows={['A', 'B', 'C', '0', '1', '5', '10'].map((rank) => ({ label: `Rank ${rank}`, result: getAgeRankValue(rank) }))} />;
+
+const AgeRankGroupTest = ({ data }: { data: StaticData }) => <div className="grid gap-3 lg:grid-cols-2"><div><div className="mb-2 font-medium">Age Group → Rank</div><UtilityResultGrid rows={data.ageGroups.map((entry) => ({ label: entry.ageGroup, result: getAgeRank(entry.ageGroup, data.ageGroups) ?? '—', expected: entry.rank, pass: getAgeRank(entry.ageGroup, data.ageGroups) === entry.rank }))} /></div><div><div className="mb-2 font-medium">Rank → Age Group</div><UtilityResultGrid rows={data.ageGroups.map((entry) => ({ label: entry.rank, result: getAgeGroup(entry.rank, data.ageGroups) ?? '—', expected: entry.ageGroup, pass: getAgeGroup(entry.rank, data.ageGroups) === entry.ageGroup }))} /></div></div>;
+
+const MaturityParserTest = ({ data }: { data: StaticData }) => {
+  const examples = ['Youth[0]', 'Young Adult[2]', 'Youth[0] or Genera[4]', ''];
+  return <UtilityResultGrid rows={examples.map((value) => ({ label: value || '(empty)', result: JSON.stringify(parseMaturityString(value, data)) }))} />;
+};
+
+const MaturityDifferenceTest = () => <UtilityResultGrid rows={[
+  { label: 'Age 4/Profession 2 vs Age 2/Profession 1', result: calculateMaturityDifference({ ageRank: 4, professionRank: 2 }, { ageRank: 2, professionRank: 1 }), expected: 2, pass: calculateMaturityDifference({ ageRank: 4, professionRank: 2 }, { ageRank: 2, professionRank: 1 }) === 2 },
+  { label: 'Age 2/Profession 5 vs Age 4/Profession 2', result: calculateMaturityDifference({ ageRank: 2, professionRank: 5 }, { ageRank: 4, professionRank: 2 }), expected: 3, pass: calculateMaturityDifference({ ageRank: 2, professionRank: 5 }, { ageRank: 4, professionRank: 2 }) === 3 },
+]} />;
+
+const AdjustTalentMaturityTest = () => <UtilityResultGrid rows={[
+  { label: '***Foo 5, difference 0', result: adjustTalentByMaturity('***Foo 5', 0) },
+  { label: '***Foo 5, difference 2', result: adjustTalentByMaturity('***Foo 5', 2) },
+  { label: '*[Hatred 2 > Elves], difference 1', result: adjustTalentByMaturity('*[Hatred 2 > Elves]', 1) || '(disqualified)' },
+]} />;
+
+const SkillpointCostTest = ({ data }: { data: StaticData }) => {
+  const examples = [
+    { label: 'Attribute +1 CCA', value: calculateAttributeSkillpointCost('+1 CCA', data) },
+    { label: 'Attribute +2 STR', value: calculateAttributeSkillpointCost('+2 STR', data) },
+    { label: 'Bonus +1 Brawn', value: calculateBonusSkillpointCost('+1 Brawn', data) },
+    { label: 'Bonus +2 Climb', value: calculateBonusSkillpointCost('+2 Climb', data) },
+  ];
+  return <UtilityResultGrid rows={examples.map((entry) => ({ label: entry.label, result: entry.value }))} />;
+};
+
+const SimpleDataTablesTest = ({ data }: { data: StaticData }) => <div className="space-y-6">
+  <SimpleDisplayCardTest title="Age Groups" data={data.ageGroups} />
+  <SimpleDisplayCardTest title="PML Titles" data={data.pmlTitles} />
+  <SimpleDisplayCardTest title="Wealth Titles" data={data.wealthTitles} />
+  <SimpleDisplayCardTest title="Point Buy Costs" data={data.pointBuyCosts} />
+</div>;
 
 const D66LookupTest = ({ title, tableData }: { title: string; tableData: any[]; }) => {
   const [d66Roll, setD66Roll] = useState<number | null>(null);
@@ -318,7 +422,7 @@ type ProfessionResult = {
     relativeShare: number;
 }
 
-const CandidacySimulationTest = ({ professions }: { professions: StaticData['professions'] }) => {
+const CandidacySimulationTest = ({ data }: { data: StaticData }) => {
     const [results, setResults] = useState<ProfessionResult[] | null>(null);
     const [calculating, setCalculating] = useState(false);
 
@@ -326,10 +430,11 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
         setCalculating(true);
         // Use a timeout to prevent blocking the UI thread on a long-running task
         setTimeout(() => {
-            const professionProbs = professions.map(prof => {
-                const prob = calculateCandidacyProbability(prof.candidacy);
-                return { ...prof, prob };
-            });
+            const professionProbs = data.tradePackages.map(pkg => {
+                const prof = data.professions.find(entry => entry.trade === pkg.trade);
+                const prob = calculateCurrentCandidacyProbability(prof?.candidacy ?? null);
+                return { trade: pkg.trade, candidacy: prof?.candidacy ?? null, namingPractice: prof?.namingPractice ?? 'Generic', specializations: pkg.specializations.map(spec => spec.name), prob };
+            }).filter(entry => entry.prob >= 0);
 
             const totalProb = professionProbs.reduce((sum, res) => sum + res.prob, 0);
 
@@ -350,7 +455,7 @@ const CandidacySimulationTest = ({ professions }: { professions: StaticData['pro
     return (
         <div className="space-y-4">
             <p className="text-sm text-muted-foreground -mb-2">
-              This test calculates the probability of a character qualifying for each trade based on 2D6 attribute rolls.
+              This deterministic 50,000-character simulation estimates base qualification probabilities for current selectable Trades using the Forge's 3D-high-two Attribute distribution. It models unadjusted base rolls before Lineage, Age, or purchased increases.
               <br />• <b>Likelihood</b>: The chance out of 1000 that a random character will qualify for that specific trade.
               <br />• <b>Relative Share</b>: Of all the characters that qualify for *any* trade, this shows the distribution of trades they are likely to have.
             </p>
@@ -387,7 +492,7 @@ const CandidacyEvaluatorTest = () => {
     const [result, setResult] = useState<number | null>(null);
 
     const handleEvaluate = () => {
-        const prob = calculateCandidacyProbability(expression);
+        const prob = calculateCurrentCandidacyProbability(expression);
         setResult(prob);
     };
     
@@ -403,7 +508,7 @@ const CandidacyEvaluatorTest = () => {
     return (
         <div className="space-y-4">
             <p className="text-sm text-muted-foreground -mb-2">
-              Enter a candidacy expression to see its likelihood of success out of 1000.
+              Enter a candidacy expression to estimate its likelihood of success out of 1000 using the Forge's current 3D-high-two Attribute method.
             </p>
             <Textarea 
                 value={expression}
@@ -428,7 +533,7 @@ const CandidacyEvaluatorTest = () => {
 
 const SalaryCalculationTest = ({ data }: { data: StaticData }) => {
     const tests = [
-        { trade: 'Academic', rank: 1, expected: { wr: -3, daily: 5, monthly: 150 } },
+        { trade: 'Academic', rank: 1, expected: { wr: -10, daily: 1, monthly: 30 } },
         { trade: 'Academic', rank: 4, expected: { wr: 4, daily: 25, monthly: 750 } },
         { trade: 'Academic', rank: 8, expected: { wr: 22, daily: 1500, monthly: 45000 } },
         { trade: 'Knight', rank: 1, expected: { wr: -7, daily: 2, monthly: 60 } },
@@ -1385,14 +1490,14 @@ const AttributeArrayTest = () => {
     const [rolls, setRolls] = useState<number[]>([]);
 
     const handleRoll = () => {
-        const newRolls = Array.from({ length: 9 }, () => ND6(2));
+        const newRolls = Array.from({ length: 9 }, () => rollHighTwo3d6());
         setRolls(newRolls.sort((a, b) => b - a));
     };
 
     return (
         <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-                Generate a set of 9 attribute scores by rolling 2D6 for each. The results are sorted in descending order.
+                Generate the Forge's current nine Attribute scores using 3D high-two for each. Results are sorted descending for inspection.
             </p>
             <Button onClick={handleRoll}>Generate Attribute Scores</Button>
             {rolls.length > 0 && (
@@ -1495,27 +1600,46 @@ const SimpleDisplayCardTest = ({ title, data }: { title: string, data: any[] }) 
 };
 
 export default function LegacyDeveloperTools({ data }: { data: StaticData }) {
-  return <Accordion type="multiple" defaultValue={['military-unit-generator']} className="space-y-3">
-    <TestSuite title="Military Unit Generator" value="military-unit-generator"><MilitaryUnitGeneratorTest data={data} /></TestSuite>
-    <TestSuite title="Salary / Contractor Planner" value="salary-expectations"><SalaryExpectationsTest data={data} /></TestSuite>
-    <TestSuite title="Candidacy Expression Evaluator" value="candidacy-evaluator"><CandidacyEvaluatorTest /></TestSuite>
-    <TestSuite title="Heritage Generator" value="heritage-generation"><HeritageGenerationTest data={data} /></TestSuite>
-    <TestSuite title="Profession & Title Generator" value="profession-title-generation"><ProfessionAndTitleTest data={data} /></TestSuite>
-    <TestSuite title="Settlement Generator" value="settlement-generation"><SettlementGenerationTest data={data} /></TestSuite>
-    <TestSuite title="Age Generator" value="age-generation-tests">
-      <div className="space-y-3">
-        <AgeGenerationTest species="Alef" ageGroup="Young Adult" data={data} expectedRange="24-35" />
-        <AgeGenerationTest species="Drauf" ageGroup="Child" data={data} expectedRange="6-11" />
-      </div>
-    </TestSuite>
-    <TestSuite title="D66 Lookup Tools" value="d66-lookup-tests">
-      <D66LookupTest title="Age Groups" tableData={data.ageGroups} />
-      <D66AndD6LookupTest title="Descriptors" tableData={data.descriptors} />
-      <D66LookupTest title="Disabilities" tableData={data.disabilities} />
-      <D66AndD6LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} />
-      <D66LookupTest title="Notable Features" tableData={data.notableFeatures} />
-    </TestSuite>
-    <TestSuite title="Scalar / Index Calculator" value="get-scalar-get-index-tests"><ScalarIndexTester /></TestSuite>
-    <TestSuite title="Tragedy Seed Generator" value="tragedy-seed-tests"><TragedySeedTest data={data} /></TestSuite>
-  </Accordion>;
+  const sectionValues = useMemo(() => Object.fromEntries(TEST_SECTION_TITLES.map((title) => [title, title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')])), []);
+  const [openSections, setOpenSections] = useState<string[]>([sectionValues['Military Unit Generator']]);
+  const selectSection = (title: string) => {
+    const value = sectionValues[title];
+    if (!value) return;
+    setOpenSections((current) => current.includes(value) ? current : [...current, value]);
+    window.requestAnimationFrame(() => document.getElementById(`developer-tool-${value}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+  const Suite = ({ title, children }: { title: string; children: React.ReactNode }) => {
+    const value = sectionValues[title];
+    return <div id={`developer-tool-${value}`} className="scroll-mt-20"><TestSuite title={title} value={value}>{children}</TestSuite></div>;
+  };
+
+  return <ContextualSectionNavigation title="Developer Tools" label="developer tool" items={TEST_SECTION_TITLES} icon={ListChecks} onSelect={selectSection}>
+    <Accordion type="multiple" value={openSections} onValueChange={setOpenSections} className="space-y-3">
+      <Suite title="Military Unit Generator"><MilitaryUnitGeneratorTest data={data} /></Suite>
+      <Suite title="Salary / Contractor Planner"><SalaryExpectationsTest data={data} /></Suite>
+      <Suite title="Candidacy Expression Evaluator"><CandidacyEvaluatorTest /></Suite>
+      <Suite title="Candidacy Simulation"><CandidacySimulationTest data={data} /></Suite>
+      <Suite title="Salary Calculation"><SalaryCalculationTest data={data} /></Suite>
+      <Suite title="Heritage Generator"><HeritageGenerationTest data={data} /></Suite>
+      <Suite title="Profession & Title Generator"><ProfessionAndTitleTest data={data} /></Suite>
+      <Suite title="Settlement Generator"><SettlementGenerationTest data={data} /></Suite>
+      <Suite title="Number Suffix Formatting"><NumberSuffixFormattingTest /></Suite>
+      <Suite title="ND6 Function"><ND6Test /></Suite>
+      <Suite title="Attribute Array Generation"><AttributeArrayTest /></Suite>
+      <Suite title="Simple Data Tables"><SimpleDataTablesTest data={data} /></Suite>
+      <Suite title="Dice Roller"><DiceRollerDemo /></Suite>
+      <Suite title="isDisability"><DisabilityFunctionTest /></Suite>
+      <Suite title="Talent Parser"><TalentParserTest /></Suite>
+      <Suite title="Age Rank Value"><AgeRankValueTest /></Suite>
+      <Suite title="Age Rank / Group Converters"><AgeRankGroupTest data={data} /></Suite>
+      <Suite title="Maturity Parser"><MaturityParserTest data={data} /></Suite>
+      <Suite title="Maturity Difference"><MaturityDifferenceTest /></Suite>
+      <Suite title="Adjust Talent by Maturity"><AdjustTalentMaturityTest /></Suite>
+      <Suite title="Skillpoint Cost Calculations"><SkillpointCostTest data={data} /></Suite>
+      <Suite title="Age Generator"><div className="space-y-3"><AgeGenerationTest species="Alef" ageGroup="Young Adult" data={data} expectedRange="24-35" /><AgeGenerationTest species="Drauf" ageGroup="Child" data={data} expectedRange="6-11" /></div></Suite>
+      <Suite title="D66 Lookup Tools"><D66LookupTest title="Age Groups" tableData={data.ageGroups} /><D66AndD6LookupTest title="Descriptors" tableData={data.descriptors} /><D66LookupTest title="Disabilities" tableData={data.disabilities} /><D66AndD6LookupTest title="Physical Blemishes" tableData={data.physicalBlemishes} /><D66LookupTest title="Notable Features" tableData={data.notableFeatures} /></Suite>
+      <Suite title="Scalar / Index Calculator"><ScalarIndexTester /></Suite>
+      <Suite title="Tragedy Seed Generator"><TragedySeedTest data={data} /></Suite>
+    </Accordion>
+  </ContextualSectionNavigation>;
 }
