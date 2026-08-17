@@ -126,6 +126,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
   );
 
   const brawn = effectiveTraitLevel(draft, 'Brawn');
+  const fortDm = getAttributeDm(fort);
   const baseBuild = Math.trunc(
     finalStature
     + num(baseline.build)
@@ -134,7 +135,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     + num(age?.Build)
     + num(trade?.adjustments.build)
     + num(specialization?.adjustments.build)
-    + getAttributeDm(fort)
+    + fortDm
     + brawn
     + buildAdjustment
   );
@@ -170,6 +171,7 @@ export function physicalBreakdown(draft: CharacterDraft, data: StaticData) {
     profile: Math.trunc((finalStature + build) / 2),
     clamped: statureScale.clamped || buildScale.clamped || bodyBuildScale.clamped,
     brawn,
+    fortDm,
   };
 }
 

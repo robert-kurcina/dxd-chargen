@@ -190,7 +190,7 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
 
   return (
     <div className="space-y-6">
-      <section className="sticky top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Current Skills and Traits</div><p className="mt-2 text-sm leading-relaxed">{currentCapabilities.length ? currentCapabilities.map((item) => item.display).join(', ') : 'No capabilities yet.'}</p></section>
+      <section className="top-20 z-10 rounded-lg border bg-background/95 p-4 shadow-sm backdrop-blur"><div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Current Skills and Traits</div><p className="mt-2 text-sm leading-relaxed">{currentCapabilities.length ? currentCapabilities.map((item) => item.display).join(', ') : 'No capabilities yet.'}</p></section>
       <section className="space-y-3">
         <div>
           <h3 className="font-semibold">Creation Skillpoint budget</h3>
