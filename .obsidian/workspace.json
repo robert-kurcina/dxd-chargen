@@ -187,6 +187,7 @@
   },
   "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "META/guidance/CANON_SYNC_v140.md",
     "src/app/(workspace)/sheet/page.tsx",
     "src/app/(workspace)/sheet/loading.tsx",
     "src/app/(workspace)/library/page.tsx",
@@ -197,7 +198,6 @@
     "src/app/(workspace)/sheet",
     "src/app/(workspace)/page.tsx",
     "src/app/(workspace)/loading.tsx",
-    "src/app/(workspace)/library",
     "META/guidance/CANON_SYNC_v139.md",
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",

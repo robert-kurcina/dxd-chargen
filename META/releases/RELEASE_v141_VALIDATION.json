@@ -1,0 +1,42 @@
+{
+  "release": "v141",
+  "scope": "Admin Tests and Info rebuild against current Forge runtime data",
+  "validation": [
+    {
+      "check": "runtime data validator",
+      "result": "PASS \u2014 scripts/validate-data.mjs validates 77 runtime JSON files"
+    },
+    {
+      "check": "JSON parse",
+      "result": "PASS \u2014 all 121 JSON files in the archive parse"
+    },
+    {
+      "check": "changed TypeScript syntax/transpile",
+      "result": "PASS \u2014 src/lib/admin-diagnostics.ts, src/app/tests.tsx, and src/app/info.tsx transpile without syntax diagnostics using TypeScript 5"
+    },
+    {
+      "check": "semantic diagnostic mirror",
+      "result": "PASS \u2014 current Baminati/Baminat exact-name failures are detected; current Heritage base-name Trait resolution and language/name-generator/settlement references pass"
+    },
+    {
+      "check": "expected Admin Tests state",
+      "result": "14 pass, 2 fail, 2 warn. Failures are the Baminati missing adjustment-row check and corresponding Baminat orphan-row check. Warnings are the inactive calculateAttributeDM helper divergence and reference-only favoredTradesByLineage drift."
+    },
+    {
+      "check": "src/data drift",
+      "result": "PASS \u2014 all 96 src/data files are byte-identical to v140"
+    },
+    {
+      "check": "package-lock drift",
+      "result": "PASS \u2014 package-lock differs from v140 only in the intended 0.140.0 -> 0.141.0 root/package version fields"
+    },
+    {
+      "check": "generated cache/build artifacts",
+      "result": "PASS \u2014 no .next or tsconfig.tsbuildinfo artifacts included"
+    },
+    {
+      "check": "full npm typecheck/build",
+      "result": "NOT RUN \u2014 the source archive does not contain node_modules; no dependency installation was performed for this metadata/UI-only rebuild"
+    }
+  ]
+}
