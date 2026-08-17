@@ -38,7 +38,7 @@
   },
   {
     "trade": "Merchant",
-    "candidacy": null,
+    "candidacy": "INT + KNO + PRE + POW >= 28, and KNO or PRE or POW 10+",
     "namingPractice": "Guild",
     "specializations": [
       "Broker",
@@ -46,8 +46,7 @@
       "Caravaner",
       "Port Factor"
     ],
-    "per100K": null,
-    "note": "Current iterated canon defines Merchant as a Trade, but does not yet provide a Professional Candidate formula or per-100K distribution in Book III."
+    "per100K": 6000
   },
   {
     "trade": "Ranger",
@@ -127,6 +126,6 @@
     "candidacy": "Any",
     "namingPractice": "-",
     "specializations": [],
-    "per100K": 70700
+    "per100K": 64700
   }
 ]

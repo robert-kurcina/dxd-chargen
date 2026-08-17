@@ -1,22 +1,29 @@
-# v142 — Admin Tests / Info compatibility restoration
+# v142 — Merchant Trade activation
 
-v142 corrects the over-narrow v141 Admin Tests/Info refactor. The v141 current-runtime diagnostics and current-data Info model remain authoritative, but useful pre-v141 interactive developer/reference behavior is restored beneath them.
+Merchant is promoted from deferred compatibility data into the selectable Forge Trade catalogue using the corrected Merchant workbook and synchronized book-rewrite Merchant canon.
 
-## Tests
+## Runtime changes
 
-- Keeps the v141 deterministic Forge diagnostic layer and its pass/warn/fail totals unchanged.
-- Restores the original interactive Military Unit Generator with Band, Squad, Group, Company, Detachment, Formation, and Division generation, nested personnel display, Trade Rank/title display, and aggregate salary totals.
-- Restores the Salary/Contractor planner, Candidacy Expression evaluator, Heritage generator, Profession & Title generator, Settlement generator, Age generator, D66 lookup tools, Scalar/Index calculator, and Tragedy Seed generator.
-- These tools are explicitly labeled Developer Tools and do not contribute to regression-test totals.
-- Reconciles the restored generators where a current structured source exists: Heritage uses `heritagePackages`; Profession generation uses `tradePackages`; Military `Any` Trade selection uses current selectable `tradePackages` and therefore does not randomly generate deferred Merchant.
-- `professions` remains a compatibility bridge for naming-practice and salary metadata used by these setting/developer utilities.
+- Adds Merchant as the twelfth complete selectable Trade.
+- Uses candidacy `INT + KNO + PRE + POW >= 28, and KNO or PRE or POW 10+`.
+- Sets Merchant distribution to 6,000 per 100K, matching Warrior; Rabble becomes 64,700 so the Trade distribution remains exactly 100,000.
+- Adds Broker, Factor, Caravaner, and Port Factor as Merchant Professions.
+- Adds the corrected Merchant baseline and Profession Attribute adjustments and grants.
+- Preserves Merchant professional asterisks as player-facing maturity metadata. Merchant grants carry explicit `maturityRank`; acquired level uses the higher of Age Group Rank or Trade Rank and reduces the listed level by one for each remaining asterisk.
+- Keeps package-calibration `Level - Stars/3` separate from player-facing acquired levels and pricing.
+- Adds the Merchant Rank 0–10 title ladder: Clerk, Hawker, Agent, Trader, Merchant, Senior Merchant, Master Merchant, Commissioner, Trade Syndic, Exchequer, Grand Merchant.
+- Restricts Mercantile Channel choices to the canonical Overland-trade and Sea-trade channels.
+- Surfaces Favored of Iaxxil as a conditional Merchant rule. It is not added unconditionally to calculated Favor Dice.
+- Updates visible Trade terminology from Trade/Specialization to Trade/Profession while retaining internal compatibility field names.
 
-## Info
+## Admin Tests / Info
 
-- Keeps the v141 runtime-oriented seven-phase Info page and Active/Bridge/Reference registry.
-- Restores the pre-v141 reference explorer beneath it, including Military Hierarchy, Lineage/Age adjustments, Age/Attribute tables, Beliefs & Deities, Calculated Abilities reference prose, City States, Heritage source tables, Professions & Titles, Salary, Settlements, Species, Tragedy Seeds, Traits, Universal Table, and related reference sections.
-- The restored explorer is explicitly labeled legacy/reference. It does not supersede current executable Forge rules or structured runtime datasets shown above it.
+- Replaces the Merchant-deferred diagnostic with current Merchant activation and maturity checks.
+- Info identifies Merchant as active and lists subordinate choices as Professions.
+- Existing unrelated diagnostic findings, including exact-name Lineage-reference problems, remain visible rather than being silently repaired by this release.
 
-## Data policy
+## Provenance
 
-No `src/data` record is changed by v142. Existing semantic findings surfaced by v141 diagnostics, including Baminati/Baminat and Attribute-DM helper drift, remain visible rather than being silently corrected in this compatibility-restoration release.
+- Workbook: `sarna-len.characters_merchant-trade_maturity-corrected.xlsx`
+- Book-rewrite: `book-rewrite_merchant-maturity-corrected_20260817.zip`
+- Previous Forge: `dxd-chargen_v141_admin-tests-info-rebuild.zip`

@@ -403,19 +403,31 @@ function syncIntrinsicGrantedSelections(draft: CharacterDraft, data: StaticData)
   const specialization = getTradeSpecialization(draft, data);
   if (pkg) {
     const addTradeGrants = (
-      items: Array<{ trait: string; specialization: string | null; level: number }>,
+      items: Array<{ trait: string; specialization: string | null; level: number; stars: number; maturityRank?: number }>,
       detail: string,
       prefix: string,
     ) => {
-      items.forEach((grant, index) => grants.push({
-        id: makeCatalogId('grant', `${prefix}-${grant.trait}-${grant.specialization ?? ''}-${index}`),
-        catalogId: traitCatalogIdForName(grant.trait, data),
-        name: grant.trait,
-        source: 'trade',
-        sourceDetail: detail,
-        level: grant.level,
-        specialization: grant.specialization ?? undefined,
-      }));
+      const ageRankEntry = data.ageGroups.find((entry) => entry.ageGroup === draft.background.ageGroup)?.rank;
+      const ageRank = ageRankEntry == null ? 0 : Math.max(0, getAgeRankValue(ageRankEntry));
+      const tradeRank = Math.max(0, draft.intrinsics.tradeRank ?? 0);
+      const professionalRank = Math.max(ageRank, tradeRank);
+      items.forEach((grant, index) => {
+        const maturityRank = Number.isFinite(grant.maturityRank) ? Math.max(0, Number(grant.maturityRank)) : null;
+        const remainingStars = maturityRank == null
+          ? 0
+          : Math.max(0, Math.max(0, Number(grant.stars ?? 0)) - (professionalRank - maturityRank));
+        const level = grant.level - remainingStars;
+        if (level < 1) return;
+        grants.push({
+          id: makeCatalogId('grant', `${prefix}-${grant.trait}-${grant.specialization ?? ''}-${index}`),
+          catalogId: traitCatalogIdForName(grant.trait, data),
+          name: grant.trait,
+          source: 'trade',
+          sourceDetail: `${detail}${maturityRank == null ? '' : `; maturity rank ${maturityRank}`}`,
+          level,
+          specialization: grant.specialization ?? undefined,
+        });
+      });
     };
     addTradeGrants(pkg.grants, `${pkg.trade} Trade`, `trade-${pkg.trade}`);
     if (specialization) {
@@ -679,9 +691,9 @@ export function assessIntrinsicStep(stepValue: string, draft: CharacterDraft, da
 
   if (stepValue === 'intrinsics-trade-specialization') {
     const pkg = getTradePackage(draft, data);
-    if (!pkg) return { status: 'incomplete', messages: ['Choose a Trade. Merchant remains deferred until its chargen data is complete.'] };
+    if (!pkg) return { status: 'incomplete', messages: ['Choose a Trade.'] };
     if (pkg.specializations.length > 0 && !getTradeSpecialization(draft, data)) {
-      return { status: 'incomplete', messages: ['Choose a Specialization for this Trade.'] };
+      return { status: 'incomplete', messages: ['Choose a Profession for this Trade.'] };
     }
     const candidacy = tradeCandidacy(draft, data);
     const messages: string[] = [];

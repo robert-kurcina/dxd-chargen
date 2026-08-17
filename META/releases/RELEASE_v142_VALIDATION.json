@@ -1,46 +1,109 @@
 {
   "release": "v142",
-  "scope": "Restore pre-v141 Admin developer/reference behavior while retaining v141 diagnostics and current-runtime Info",
-  "validation": [
-    {
-      "check": "runtime data validator",
-      "result": "PASS — scripts/validate-data.mjs validates 77 runtime JSON files"
+  "version": "0.142.0",
+  "sources": {
+    "workbook": {
+      "file": "sarna-len.characters_merchant-trade_maturity-corrected.xlsx",
+      "sha256": "1bcf3d8f1b36948a3d3dddb5a191e2148bfb2d704f26d22b5c4c5eb0a798d177"
     },
-    {
-      "check": "JSON parse before validation record",
-      "result": "PASS — all 121 pre-existing JSON files parse; this validation record raises the packaged total to 122"
+    "bookRewrite": {
+      "file": "book-rewrite_merchant-maturity-corrected_20260817.zip",
+      "sha256": "6cb3cab9441cd1f742d3b473dbe317b0316c391e5d6e30b8b4ef8aefcb6736db"
     },
-    {
-      "check": "changed TypeScript syntax/transpile",
-      "result": "PASS — tests.tsx, info.tsx, legacy-developer-tools.tsx, legacy-info.tsx, character-logic.ts, and admin-diagnostics.ts transpile without syntax diagnostics using TypeScript 5"
-    },
-    {
-      "check": "restored military generator runtime",
-      "result": "PASS — Band, Squad, Group, Company, Detachment, Formation, and Division each generate positive member counts and finite aggregate monthly salaries against current militaryHierarchy/runtime data"
-    },
-    {
-      "check": "restored Any-Trade generator policy",
-      "result": "PASS — 500 generated rank-3 Any contractors all resolve to current tradePackages; deferred Merchant is never generated"
-    },
-    {
-      "check": "restored structured generator sources",
-      "result": "PASS — Heritage generator uses heritagePackages; Profession & Title generator uses tradePackages and only bridges to professions for naming practice"
-    },
-    {
-      "check": "v141 diagnostic preservation",
-      "result": "PASS BY SCOPE — admin-diagnostics.ts and src/data are unchanged from v141, so the v141 14 pass / 2 fail / 2 warn semantic findings remain intact"
-    },
-    {
-      "check": "src/data drift",
-      "result": "PASS — all 96 src/data files are byte-identical to uploaded v141"
-    },
-    {
-      "check": "static JavaScript syntax",
-      "result": "PASS — public/character-creator/app.js and character-sheet.js pass node --check"
-    },
-    {
-      "check": "full npm typecheck/build",
-      "result": "NOT RUN — uploaded source archive does not contain node_modules; changed TS/TSX files were syntax-transpiled and the restored military rule path was executed through a compiled runtime harness"
+    "previousForge": {
+      "file": "dxd-chargen_v141_admin-tests-info-rebuild.zip",
+      "sha256": "2a461734c0e1da79f9c87147c535c974fb0f40cd513810ec274ead9a172d0ffe"
     }
-  ]
+  },
+  "checks": [
+    {
+      "name": "runtime data validator",
+      "result": "PASS — 77 runtime JSON files; 12 complete playable Trade packages"
+    },
+    {
+      "name": "Merchant candidacy",
+      "result": "PASS — INT + KNO + PRE + POW >= 28, and KNO or PRE or POW 10+"
+    },
+    {
+      "name": "Trade distribution",
+      "result": "PASS — Merchant 6000; Rabble 64700; total 100000 per 100K"
+    },
+    {
+      "name": "Merchant Professions",
+      "result": "PASS — Broker, Factor, Caravaner, Port Factor"
+    },
+    {
+      "name": "Merchant maturity metadata",
+      "result": "PASS — baseline rank 0; Broker/Caravaner 2; Factor/Port Factor 3 on every grant"
+    },
+    {
+      "name": "Merchant package calibration",
+      "result": "PASS — baseline 71; Broker 102.3333333333; Factor 101.6666666667; Caravaner 106.3333333333; Port Factor 105.3333333333"
+    },
+    {
+      "name": "Merchant rank titles",
+      "result": "PASS — 11 titles, Clerk through Grand Merchant"
+    },
+    {
+      "name": "Mercantile Channels",
+      "result": "PASS — Overland-trade, Sea-trade"
+    },
+    {
+      "name": "Favored of Iaxxil",
+      "result": "PASS — surfaced as conditional rule; numeric Favor total remains PML + Deity Trait"
+    },
+    {
+      "name": "JSON parse",
+      "result": "PASS — 122 JSON files parse"
+    },
+    {
+      "name": "TypeScript syntax transpile",
+      "result": "PASS — 6 changed TS/TSX files"
+    },
+    {
+      "name": "ZIP integrity",
+      "result": "PASS — verified after package creation"
+    },
+    {
+      "name": "static character-sheet JavaScript",
+      "result": "PASS — node --check"
+    },
+    {
+      "name": "src/data drift",
+      "result": "PASS — 93/96 files byte-identical to v141; only professions.json, steps.json, tradePackages.json changed"
+    },
+    {
+      "name": "package-lock drift",
+      "result": "PASS — version fields only"
+    },
+    {
+      "name": "full npm build/typecheck",
+      "result": "NOT RUN — source archive does not include node_modules"
+    }
+  ],
+  "merchant": {
+    "criticalAttributes": [
+      "INT",
+      "KNO",
+      "PRE",
+      "POW"
+    ],
+    "minimumAgeGroup": "Youth",
+    "baseGrantCount": 10,
+    "professionCount": 4,
+    "rankTitles": [
+      "Clerk",
+      "Hawker",
+      "Agent",
+      "Trader",
+      "Merchant",
+      "Senior Merchant",
+      "Master Merchant",
+      "Commissioner",
+      "Trade Syndic",
+      "Exchequer",
+      "Grand Merchant"
+    ],
+    "populationPer100K": 6000
+  }
 }

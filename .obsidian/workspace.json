@@ -13,10 +13,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "data/peoples/_pairs/ancestral.pairs-01.png"
+                "file": "public/armor/hit-locations_male.svg"
               },
               "icon": "lucide-image",
-              "title": "ancestral.pairs-01"
+              "title": "hit-locations_male"
             }
           }
         ]
@@ -185,8 +185,11 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "0ce12929ac9101b1",
+  "active": "bb60ab24ec7b0daf",
   "lastOpenFiles": [
+    "public/armor/hit-locations_female.svg",
+    "public/armor/hit-locations_male.svg",
+    "public/armor/hit-locations.svg",
     "META/guidance/CANON_SYNC_v142.md",
     "META/releases/RELEASE_v142.md",
     "META/releases/RELEASE_v141_ADMIN_TESTS_INFO_REBUILD.md",
@@ -206,8 +209,6 @@
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",
     "META/releases/RELEASE_v138.md",
-    "public/armor/hit-locations_male.svg",
-    "public/armor/hit-locations_female.svg",
     "META/guidance/CANON_SYNC_v136.md",
     "META/guidance/CANON_SYNC_v137.md",
     "META/releases/RELEASE_v137.md",
@@ -230,8 +231,6 @@
     "META/releases/CHARACTER_LIBRARY_METADATA_v133.md",
     "META/releases/CHARACTER_ARMOR_NORMALIZATION_v131.md",
     "META/guidance/CANON_SYNC_v133.md",
-    "META/releases/RELEASE_v133.md",
-    "data/peoples/_pairs/ancestral.pairs-01.png",
-    "public/armor/hit-locations.svg"
+    "data/peoples/_pairs/ancestral.pairs-01.png"
   ]
 }

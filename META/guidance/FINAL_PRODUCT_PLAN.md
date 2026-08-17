@@ -22,7 +22,7 @@ The application uses five top-level phases:
 2. **Assign Intrinsics**
    - Sophont Species
    - Attributes
-   - Trade and Specialization
+   - Trade and Profession
    - Zed
    - Wealth
 3. **Assign Proficiencies**
@@ -339,7 +339,7 @@ Complete as interactive builder steps: Region/Settlement, scoped Demographics, A
 
 ### v102 — Intrinsics functional tranche
 
-Complete as interactive builder steps: playable Species/Lineage, all three Attribute-generation methods, creation-only Attribute purchases, Trade/Specialization and candidacy, Trade Rank, Affinity/ZED, and calculated Wealth. Trade packages are normalized from the character XLSX and Stars remain author-calibration metadata only. Kriket remains excluded until canonical age data exists; Merchant remains deferred by explicit scope decision.
+Complete as interactive builder steps: playable Species/Lineage, all three Attribute-generation methods, creation-only Attribute purchases, Trade/Profession and candidacy, Trade Rank, Affinity/ZED, and calculated Wealth. Trade packages are normalized from the character XLSX. Merchant is now complete and selectable from the corrected Merchant workbook/book-rewrite canon pair. Merchant professional grants carry explicit maturity-rank metadata so their asterisks affect acquired Trait levels under the Professional Trait rule; package-calibration Stars/3 remains author-only and is never used for character pricing. Kriket remains excluded until canonical age data exists.
 
 ### v103 — Proficiencies functional tranche
 

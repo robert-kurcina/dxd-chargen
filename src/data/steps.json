@@ -62,9 +62,9 @@
         "description": "Generate or purchase the character's attributes and apply sourced adjustments."
       },
       {
-        "title": "Assign Trade and Specialization",
+        "title": "Assign Trade and Profession",
         "value": "intrinsics-trade-specialization",
-        "description": "Choose Trade, specialization, and starting professional rank."
+        "description": "Choose Trade, Profession, and starting professional rank."
       },
       {
         "title": "Assign Zed",

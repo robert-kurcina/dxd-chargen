@@ -7,7 +7,6 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import LegacyInfo from '@/app/legacy-info';
 
 const DATASET_REGISTRY = [
   { status: 'Active', name: 'steps', use: 'Seven-phase Forge creation flow and substeps.' },
@@ -16,8 +15,8 @@ const DATASET_REGISTRY = [
   { status: 'Active', name: 'heritagePackages', use: 'Culture, Environs, and Society Heritage choices and grants.' },
   { status: 'Active', name: 'settlementProfiles + localeProfiles + citystates', use: 'Settlement context, Environs, languages, population, and Wealth context.' },
   { status: 'Active', name: 'attributeArrays + pointBuyCosts + attributeCreationRules', use: 'Attribute generation and post-array purchase rules.' },
-  { status: 'Active', name: 'tradePackages', use: 'Selectable Trades, critical Attributes, adjustments, grants, and specializations.' },
-  { status: 'Bridge', name: 'professions', use: 'Compatibility metadata still consulted for Trade candidacy/naming; Merchant remains deferred.' },
+  { status: 'Active', name: 'tradePackages', use: 'Selectable Trades, critical Attributes, adjustments, grants, and Professions.' },
+  { status: 'Bridge', name: 'professions', use: 'Compatibility metadata still consulted for Trade candidacy, distribution, and naming practice.' },
   { status: 'Active', name: 'pmlRules + pmlAgeMinimums + pmlTitles', use: 'PML creation limits, progression effects, and titles.' },
   { status: 'Active', name: 'traits + languages + languageDefaults + nameGenerators', use: 'Capabilities, language assignment, and current conlang name generation.' },
   { status: 'Active', name: 'physicalScale', use: 'Height/Weight/SIZ scale used by Properties.' },
@@ -79,7 +78,7 @@ export default function Info({ data }: { data: StaticData }) {
       <AccordionItem value="intrinsics" className="rounded-lg border bg-card px-4"><AccordionTrigger className="hover:no-underline"><span className="font-semibold">2. Intrinsics</span></AccordionTrigger><AccordionContent><div className="space-y-5 pb-4">
         <div><div className="mb-2 text-sm font-medium">Selectable Species groups and Lineages</div><Table><TableHeader><TableRow><TableHead>Family</TableHead><TableHead>Group</TableHead><TableHead>Lineages</TableHead><TableHead>Age Brackets</TableHead></TableRow></TableHeader><TableBody>{activeGroups.map(({ family, group }) => <TableRow key={group.catalogId}><TableCell>{family.displayName}</TableCell><TableCell className="font-medium">{group.name}</TableCell><TableCell>{group.lineages.join(', ')}</TableCell><TableCell>{group.hasAgeBrackets ? 'Yes' : 'No'}</TableCell></TableRow>)}</TableBody></Table></div>
         <div><div className="mb-2 text-sm font-medium">Attribute definitions</div><Table><TableHeader><TableRow><TableHead>Attribute</TableHead><TableHead>Abbr.</TableHead><TableHead>Ordinary IM</TableHead><TableHead>Creation IM</TableHead></TableRow></TableHeader><TableBody>{attrDefs.map((attribute) => <TableRow key={attribute.abbreviation}><TableCell>{attribute.name}</TableCell><TableCell>{attribute.abbreviation}</TableCell><TableCell>{attribute.im}</TableCell><TableCell>{attribute.creationIm}</TableCell></TableRow>)}</TableBody></Table><p className="mt-2 text-xs text-muted-foreground">Default method: 3D high-two, nine values assigned freely. Arrays: {Object.entries(data.attributeArrays).map(([name, values]) => `${name} [${values.join(', ')}]`).join(' • ')}. Point Buy uses values 6–12 with a 75-point cap in the Forge.</p></div>
-        <div><div className="mb-2 text-sm font-medium">Selectable Trades</div><Table><TableHeader><TableRow><TableHead>Trade</TableHead><TableHead>Minimum Age</TableHead><TableHead>Critical Attributes</TableHead><TableHead>Base Grants</TableHead><TableHead>Specializations</TableHead></TableRow></TableHeader><TableBody>{data.tradePackages.map((pkg) => <TableRow key={pkg.trade}><TableCell className="font-medium">{pkg.trade}</TableCell><TableCell>{pkg.minimumAgeGroup}+</TableCell><TableCell>{pkg.criticalAttributes.join(', ')}</TableCell><TableCell>{pkg.grants.length}</TableCell><TableCell>{pkg.specializations.length}</TableCell></TableRow>)}</TableBody></Table><p className="mt-2 text-xs text-muted-foreground">Merchant remains deferred: it is present in the compatibility <code>professions</code> table but omitted from <code>tradePackages</code> until its candidacy/Affinity data is complete.</p></div>
+        <div><div className="mb-2 text-sm font-medium">Selectable Trades</div><Table><TableHeader><TableRow><TableHead>Trade</TableHead><TableHead>Minimum Age</TableHead><TableHead>Critical Attributes</TableHead><TableHead>Base Grants</TableHead><TableHead>Professions</TableHead></TableRow></TableHeader><TableBody>{data.tradePackages.map((pkg) => <TableRow key={pkg.trade}><TableCell className="font-medium">{pkg.trade}</TableCell><TableCell>{pkg.minimumAgeGroup}+</TableCell><TableCell>{pkg.criticalAttributes.join(', ')}</TableCell><TableCell>{pkg.grants.length}</TableCell><TableCell>{pkg.specializations.length}</TableCell></TableRow>)}</TableBody></Table><p className="mt-2 text-xs text-muted-foreground">Merchant is a selectable Trade with Broker, Factor, Caravaner, and Port Factor Professions. Its maturity-star metadata is applied during character creation.</p></div>
       </div></AccordionContent></AccordionItem>
 
       <AccordionItem value="proficiencies" className="rounded-lg border bg-card px-4"><AccordionTrigger className="hover:no-underline"><span className="font-semibold">3. Proficiencies</span></AccordionTrigger><AccordionContent><div className="space-y-4 pb-4">
@@ -103,10 +102,5 @@ export default function Info({ data }: { data: StaticData }) {
     </Accordion>
 
     {(counts.fail > 0 || counts.warn > 0) && <Card><CardHeader className="pb-3"><CardTitle className="text-lg">Current diagnostic findings</CardTitle><CardDescription>These are calculated from the current runtime rather than copied from legacy Info prose.</CardDescription></CardHeader><CardContent><div className="space-y-2">{diagnostics.filter((test) => test.status !== 'pass').map((test) => <div key={test.id} className="rounded-md border p-3"><div className="flex items-center gap-2"><Badge variant={test.status === 'fail' ? 'destructive' : 'secondary'}>{test.status.toUpperCase()}</Badge><span className="font-medium">{test.title}</span></div><p className="mt-1 text-sm text-muted-foreground">{test.summary}</p>{test.details?.length ? <div className="mt-2 text-xs font-mono text-muted-foreground">{test.details.slice(0, 6).join(' • ')}{test.details.length > 6 ? ` • +${test.details.length - 6} more` : ''}</div> : null}</div>)}</div></CardContent></Card>}
-
-    <Card>
-      <CardHeader className="pb-3"><CardTitle className="text-lg">Legacy Reference Explorer</CardTitle><CardDescription>The pre-v141 Info tables are preserved here for setting/reference lookup. They are not promoted above the active runtime registry; where legacy prose conflicts with executable Forge rules, the current sections above remain authoritative.</CardDescription></CardHeader>
-      <CardContent><LegacyInfo data={data} /></CardContent>
-    </Card>
   </div>;
 }

@@ -75,7 +75,7 @@ export function ContextualSectionNavigation({ title, label, items, icon: Icon, o
       <SectionLinks items={items} onSelect={onSelect} />
     </aside>
 
-    <section className="min-w-0" aria-label={title}><h2 className="sr-only">{title}</h2>{children}</section>
+    <main className="min-w-0"><h1 className="sr-only">{title}</h1>{children}</main>
 
     <Button ref={opener} type="button" size="icon" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 rounded-full shadow-lg xl:hidden" onClick={() => setOpen(true)} aria-label={`Open ${label} navigation`} aria-expanded={open}>
       <Icon className="h-5 w-5" />

@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v143
+## Current state — v142
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -26,7 +26,7 @@ Intrinsics currently supports:
 - all three canonical Attribute methods: 3D high-two, pre-rolled A/B/C arrays, and 75-point Point Buy;
 - recorded Attribute Rolls kept separate from later sourced and purchased changes;
 - creation-only purchased Attribute increases with Skillpoint/Months accounting and novice caps;
-- XLSX-normalized Trade and Specialization packages with candidacy testing and package provenance;
+- XLSX-normalized Trade and Profession packages with candidacy testing and package provenance;
 - age-capped starting Trade Rank and its starting Skillpoint benefit;
 - Affinity selection from the highest recorded Critical Attribute Rolls and automatic ZED calculation;
 - calculated Wealth Rank from Heritage, KNO DM, and applicable starting-economy adjustments.
@@ -77,28 +77,18 @@ Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef
 
 
 
-## v143 — Admin Tests / Info second compatibility pass
 
-- Restores the remaining pre-v141 Developer Tools that v142 had recovered in source but had not actually mounted in the Tests UI. The Developer Tools suite now exposes 25 sections, including Candidacy Simulation, Salary Calculation, Number Suffix Formatting, ND6, current Attribute Array generation, simple data tables, dice roller, disability/talent parsers, Age Rank converters, maturity tools, Skillpoint cost tools, and the previously restored military/salary/Heritage/Trade/settlement/D66/Scalar/Tragedy tools.
-- Adds searchable contextual navigation for all Developer Tools and all 30 Legacy Reference Explorer sections.
-- Updates Candidacy Expression and Candidacy Simulation utilities to use a deterministic 50,000-character sample of the current 3D-high-two Attribute method and current selectable `tradePackages`; deferred Merchant remains excluded.
-- Updates Attribute Array Generation to current 3D-high-two rather than the legacy 2D6 method.
-- Corrects the current Academic Rank 1 salary expectation to WR -10 / 1 sp daily / 30 sp monthly.
-- Preserves legacy Heritage Wealth Clamp values only as explicitly labeled legacy annotations; current Forge does not apply those clamps.
-- Corrects the Legacy Empires reference-table first column from `D6` to `ID`.
-- Keeps current v141+ deterministic diagnostics and runtime-oriented Info above all compatibility material; this remains a superset restoration, not a rollback.
+## v142 — Merchant Trade
 
-
-
-## v142 — Admin Tests / Info compatibility restoration
-
-- Restores the useful pre-v141 **Developer Tools** underneath the current deterministic Admin Tests diagnostics instead of treating the v141 rebuild as a replacement.
-- Restored interactive utilities include the hierarchical Military Unit Generator (Band, Squad, Group, Company, Detachment, Formation, Division), salary/contractor planner, candidacy expression evaluator, Heritage generator, Profession & Title generator, Settlement generator, Age generator, D66 lookup tools, Scalar/Index calculator, and Tragedy Seed generator.
-- Military generator **Any** Trade selection now uses the current selectable `tradePackages`, while `professions` remains only the naming/salary compatibility bridge; deferred Merchant is not selected randomly.
-- Heritage generation now uses current structured `heritagePackages`; Profession & Title generation draws from current selectable Trades.
-- Restores the pre-v141 Info reference explorer beneath the current runtime-oriented Info sections. The restored tables are explicitly labeled legacy/reference so they do not override current executable Forge rules.
-- The v141 deterministic diagnostics and Active/Bridge/Reference registry remain intact. This release is a superset restoration rather than a rollback.
-
+- Merchant is now a selectable Trade at 6,000 per 100K, matching Warrior.
+- Merchant candidacy is `INT + KNO + PRE + POW >= 28, and KNO or PRE or POW 10+`.
+- Broker, Factor, Caravaner, and Port Factor are selectable Merchant Professions.
+- Merchant Attribute and Trait grants are synchronized to the corrected Merchant workbook/book-rewrite canon pair.
+- Merchant asterisked professional grants carry explicit maturity ranks and are reduced at character creation using the higher of Age Group Rank or Trade Rank.
+- Merchant rank titles run Clerk through Grand Merchant; the Forge shows those titles alongside starting Trade Rank.
+- Mercantile channel choices are Overland-trade and Sea-trade.
+- Favored of Iaxxil is surfaced as a conditional Merchant rule rather than incorrectly adding an unconditional Favor die to the calculated total.
+- Rabble distribution is reduced to 64,700 per 100K so the Trade population table remains exactly 100,000.
 
 ## v137 — Visual Armor Coverage
 

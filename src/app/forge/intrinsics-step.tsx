@@ -418,6 +418,10 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
   const professionGranted = draft.proficiencies.granted.filter((item) => item.source === 'trade');
   const otherCapabilityKeys = new Set(draft.proficiencies.granted.filter((item) => item.source !== 'trade').map((item) => item.name.replace(/\s+X$/, '').split(' > ')[0].toLowerCase()));
   const formatProfessionCapability = (item: SourcedSelection) => `${item.name.replace(/\s+X$/, '')}${(item.level ?? 1) > 1 ? ` ${item.level}` : ''}${item.specialization ? ` > ${item.specialization}` : ''}`;
+  const rankTitles = selected && 'rankTitles' in selected && Array.isArray(selected.rankTitles) ? selected.rankTitles : null;
+  const specialRules = selected && 'specialRules' in selected && Array.isArray(selected.specialRules) ? selected.specialRules : [];
+  const tradeMaturity = selected && 'maturityLabel' in selected && typeof selected.maturityLabel === 'string' ? selected.maturityLabel : null;
+  const professionMaturity = specialization && 'maturityLabel' in specialization && typeof specialization.maturityLabel === 'string' ? specialization.maturityLabel : null;
 
   const chooseTrade = (trade: string) => {
     const tradeId = makeCatalogId('trade', trade);
@@ -457,8 +461,6 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
           );
         })}
       </div>
-      <p className="text-xs text-muted-foreground">Merchant is intentionally omitted from selectable Trades until its current candidacy/Affinity data is complete.</p>
-
       {selected && (
         <div className="space-y-5 rounded-lg border p-4">
           <div className="grid gap-4 md:grid-cols-2">
@@ -480,12 +482,12 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
           <Separator />
           <div>
             <div className="text-sm font-medium">Trade adjustment</div>
-            <div className="mt-1 text-xs text-muted-foreground">{adjustmentText(selected.adjustments)}</div>
+            <div className="mt-1 text-xs text-muted-foreground">{adjustmentText(selected.adjustments)}</div>{tradeMaturity && <div className="mt-1 text-xs text-muted-foreground">Professional maturity: {tradeMaturity}.</div>}
           </div>
 
           {selected.specializations.length > 0 && (
             <div className="space-y-2">
-              <div className="text-sm font-medium" id="profession-specialization-label">Profession / Specialization</div>
+              <div className="text-sm font-medium" id="profession-specialization-label">Profession</div>
               <div className="grid gap-2 sm:grid-cols-2">
                 {selected.specializations.map((entry) => {
                   const id = makeCatalogId('specialization', `${selected.trade}-${entry.name}`);
@@ -495,7 +497,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
                       selected={draft.intrinsics.specializationId === id}
                       title={entry.name}
                       subtitle={adjustmentText(entry.adjustments)}
-                      meta={`${entry.grants.length} grants`}
+                      meta={`${entry.grants.length} grants${'maturityLabel' in entry && entry.maturityLabel ? ` • ${entry.maturityLabel}` : ''}`}
                       onClick={() => setDraft((current) => syncIntrinsics({
                         ...current,
                         intrinsics: { ...current.intrinsics, specializationId: id },
@@ -506,6 +508,10 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
               </div>
             </div>
           )}
+
+          {professionMaturity && <div className="rounded-lg bg-muted/40 p-3 text-sm"><span className="font-medium">Profession maturity:</span> <span className="text-muted-foreground">{professionMaturity}.</span></div>}
+
+          {specialRules.length > 0 && <div className="space-y-2">{specialRules.map((rule) => <div key={rule.name} className="rounded-lg border p-3 text-sm"><div className="font-medium">{rule.name}</div><div className="mt-1 text-muted-foreground">{rule.description}</div></div>)}</div>}
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
@@ -520,7 +526,7 @@ function TradeStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepVal
                 <SelectTrigger id="starting-trade-rank"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {Array.from({ length: maxRank }, (_, index) => index + 1).map((rank) => (
-                    <SelectItem key={rank} value={String(rank)}>Rank {rank}</SelectItem>
+                    <SelectItem key={rank} value={String(rank)}>Rank {rank}{rankTitles?.[rank] ? ` — ${rankTitles[rank]}` : ''}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

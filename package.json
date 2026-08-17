@@ -1,6 +1,6 @@
 {
   "name": "dxd-chargen",
-  "version": "0.143.0",
+  "version": "0.142.0",
   "private": true,
   "scripts": {
     "predev": "node scripts/stop-local.mjs",

@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { calculateProperties, physicalBreakdown, setBodyFrameAdjustment, setWeightAdjustment } from '@/lib/rules/properties';
+import { getTradePackage } from '@/lib/rules/intrinsics';
 import { formatNumberWithCommas } from '@/lib/utils';
 
 const signed = (value: number) => `${value >= 0 ? '+' : ''}${value}`;
@@ -88,6 +89,7 @@ function Metric({ label, value, note }: { label: string; value: string | number;
 
 function CalculationsStep({ draft, data }: { draft: CharacterDraft; data: StaticData }) {
   const c = calculateProperties(draft, data);
+  const merchant = getTradePackage(draft, data)?.trade === 'Merchant';
   if (!c) return <p className="text-sm text-muted-foreground">Complete the prerequisites before calculating abilities.</p>;
   return (
     <div className="space-y-7">
@@ -108,7 +110,7 @@ function CalculationsStep({ draft, data }: { draft: CharacterDraft; data: Static
       <section className="space-y-3">
         <h3 className="font-semibold">Magic resources</h3>
         <div className="grid gap-3 sm:grid-cols-3">
-          <Metric label="Favor dice" value={c.favorDice} note="PML + Deity Trait" />
+          <Metric label="Favor dice" value={c.favorDice} note={merchant ? "PML + Deity Trait; Merchant has +1 additional conditional Iaxxil Favor die when used for an aligned Domain" : "PML + Deity Trait"} />
           <Metric label="Manapool" value={c.manapool} note="ZED + SIZ DM − Zucked" />
           <Metric label="Cellburn Limit" value={c.cellburn} note="max(1, PRE DM + KNO DM + POW DM)" />
         </div>

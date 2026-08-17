@@ -136,13 +136,36 @@ export function buildForgeDiagnostics(data: StaticData): ForgeDiagnostic[] {
   ));
 
   const merchantBridge = professionByTrade.get('Merchant');
-  const merchantSelectable = data.tradePackages.some((pkg) => pkg.trade === 'Merchant');
+  const merchantPackage = data.tradePackages.find((pkg) => pkg.trade === 'Merchant');
+  const merchantProfessions = merchantBridge?.specializations ?? [];
+  const expectedMerchantProfessions = ['Broker', 'Factor', 'Caravaner', 'Port Factor'];
+  const merchantActiveProblems = [
+    !merchantPackage ? 'Merchant is not selectable.' : null,
+    merchantBridge?.candidacy !== 'INT + KNO + PRE + POW >= 28, and KNO or PRE or POW 10+' ? 'Merchant candidacy formula differs from canon.' : null,
+    merchantBridge?.per100K !== 6000 ? `Merchant distribution is ${merchantBridge?.per100K ?? 'null'}, expected 6000 per 100K.` : null,
+    JSON.stringify(merchantProfessions) !== JSON.stringify(expectedMerchantProfessions) ? `Merchant Professions are ${merchantProfessions.join(', ') || 'missing'}.` : null,
+  ].filter((entry): entry is string => Boolean(entry));
   tests.push(result(
-    'merchant-deferred', 'Trades', 'Merchant remains explicitly deferred',
-    merchantSelectable || merchantBridge?.candidacy ? 'warn' : 'pass',
-    merchantSelectable || merchantBridge?.candidacy
-      ? 'Merchant no longer matches the Forge’s documented deferred state; review the Trade UI and bridge data.'
-      : 'Merchant exists only in the compatibility Trade table with null candidacy and is not selectable.',
+    'merchant-active', 'Trades', 'Merchant is a complete selectable Trade',
+    merchantActiveProblems.length ? 'fail' : 'pass',
+    merchantActiveProblems.length ? `${merchantActiveProblems.length} Merchant integration problems.` : 'Merchant is selectable at 6,000 per 100K with current candidacy and four Professions.',
+    merchantActiveProblems,
+  ));
+
+  const merchantMaturityProblems: string[] = [];
+  if (merchantPackage) {
+    for (const grant of merchantPackage.grants) if (!('maturityRank' in grant) || grant.maturityRank !== 0) merchantMaturityProblems.push(`Baseline: ${grant.trait}`);
+    const expectedRanks = new Map([['Broker', 2], ['Factor', 3], ['Caravaner', 2], ['Port Factor', 3]]);
+    for (const profession of merchantPackage.specializations) {
+      const expected = expectedRanks.get(profession.name);
+      for (const grant of profession.grants) if (expected == null || !('maturityRank' in grant) || grant.maturityRank !== expected) merchantMaturityProblems.push(`${profession.name}: ${grant.trait}`);
+    }
+  }
+  tests.push(result(
+    'merchant-maturity', 'Trades', 'Merchant grants preserve Professional maturity',
+    merchantMaturityProblems.length ? 'fail' : 'pass',
+    merchantMaturityProblems.length ? `${merchantMaturityProblems.length} Merchant grants lack the canonical maturity rank.` : 'Merchant baseline and Profession grants carry their canonical maturity ranks for asterisk resolution.',
+    merchantMaturityProblems,
   ));
 
   const heritageIds = data.heritagePackages.map((pkg) => pkg.id);

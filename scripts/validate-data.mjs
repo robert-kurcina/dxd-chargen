@@ -159,7 +159,6 @@ const tradeIds = new Set();
 for (const pkg of tradePackages) {
   if (!pkg.trade || tradeIds.has(pkg.trade)) throw new Error(`Duplicate or blank Trade package: ${pkg.trade}`);
   tradeIds.add(pkg.trade);
-  if (pkg.trade === 'Merchant') throw new Error('Merchant must remain deferred until candidacy/Affinity data is complete.');
   if (!professionByTrade.has(pkg.trade)) throw new Error(`Trade package missing profession catalogue entry: ${pkg.trade}`);
   if (!Array.isArray(pkg.criticalAttributes) || pkg.criticalAttributes.length === 0) throw new Error(`Trade has no Critical Attributes: ${pkg.trade}`);
   for (const attribute of pkg.criticalAttributes) {
@@ -178,11 +177,28 @@ for (const pkg of tradePackages) {
     for (const grant of grants) {
       if (!grant.trait || !Number.isFinite(grant.level) || grant.level <= 0) throw new Error(`Invalid Trade grant in ${source}`);
       if (!traitFamilies.has(normalizeTraitFamily(grant.trait))) throw new Error(`Unresolved Trade Trait ${grant.trait} in ${source}`);
-      if (!Number.isFinite(grant.stars) || grant.stars < 0) throw new Error(`Invalid author-calibration Stars in ${source}`);
+      if (!Number.isFinite(grant.stars) || grant.stars < 0) throw new Error(`Invalid Stars metadata in ${source}`);
+      if ('maturityRank' in grant && (!Number.isInteger(grant.maturityRank) || grant.maturityRank < 0)) throw new Error(`Invalid maturity rank in ${source}: ${grant.trait}`);
     }
   }
 }
-if (tradePackages.length !== 11) throw new Error(`Expected 11 complete playable Trade packages; found ${tradePackages.length}.`);
+if (tradePackages.length !== 12) throw new Error(`Expected 12 complete playable Trade packages; found ${tradePackages.length}.`);
+
+const merchantPackage = tradePackages.find((pkg) => pkg.trade === 'Merchant');
+const merchantProfession = professionByTrade.get('Merchant');
+if (!merchantPackage) throw new Error('Merchant must be a selectable Trade package.');
+if (merchantProfession?.candidacy !== 'INT + KNO + PRE + POW >= 28, and KNO or PRE or POW 10+') throw new Error('Merchant candidacy formula mismatch.');
+if (merchantProfession?.per100K !== 6000) throw new Error('Merchant population must be 6000 per 100K.');
+if (professions.reduce((sum, item) => sum + (Number(item.per100K) || 0), 0) !== 100000) throw new Error('Trade population distribution must total 100000.');
+const merchantExpectedMaturity = new Map([['Broker', 2], ['Factor', 3], ['Caravaner', 2], ['Port Factor', 3]]);
+for (const grant of merchantPackage.grants) if (grant.maturityRank !== 0) throw new Error(`Merchant baseline maturity mismatch: ${grant.trait}`);
+for (const profession of merchantPackage.specializations) {
+  const expectedRank = merchantExpectedMaturity.get(profession.name);
+  if (expectedRank == null) throw new Error(`Unexpected Merchant Profession: ${profession.name}`);
+  for (const grant of profession.grants) if (grant.maturityRank !== expectedRank) throw new Error(`Merchant Profession maturity mismatch: ${profession.name} / ${grant.trait}`);
+}
+const merchantRankTitles = ['Clerk','Hawker','Agent','Trader','Merchant','Senior Merchant','Master Merchant','Commissioner','Trade Syndic','Exchequer','Grand Merchant'];
+if (JSON.stringify(merchantPackage.rankTitles) !== JSON.stringify(merchantRankTitles)) throw new Error('Merchant rank-title ladder mismatch.');
 
 
 if (physicalScale.length !== 100) throw new Error(`Expected 100 physical-scale rows; found ${physicalScale.length}.`);

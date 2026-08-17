@@ -1383,6 +1383,433 @@
     "source": "sarna-len.characters(2).xlsx"
   },
   {
+    "trade": "Merchant",
+    "criticalAttributes": [
+      "INT",
+      "KNO",
+      "PRE",
+      "POW"
+    ],
+    "minimumAgeGroup": "Youth",
+    "minimumAgeRank": 0,
+    "maturityLabel": "Youth [0] or Clerk [0]",
+    "adjustments": {
+      "CCA": 0,
+      "RCA": 0,
+      "REF": 0,
+      "INT": 1,
+      "KNO": 1,
+      "PRE": 2,
+      "POW": 1,
+      "STR": 0,
+      "FOR": 0,
+      "MOV": 0,
+      "ZED": 0,
+      "stature": 0,
+      "build": 0,
+      "bodypoints": 0
+    },
+    "grants": [
+      {
+        "trait": "Banter X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Barter X",
+        "specialization": null,
+        "level": 3,
+        "stars": 3,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Connections X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Domus X > Domain",
+        "specialization": "Trader",
+        "level": 2,
+        "stars": 2,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Gossip X",
+        "specialization": null,
+        "level": 2,
+        "stars": 1,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Mercantile X > Channel",
+        "specialization": "Any",
+        "level": 3,
+        "stars": 3,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Persuade X",
+        "specialization": null,
+        "level": 2,
+        "stars": 2,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Politics X > Region",
+        "specialization": "Any",
+        "level": 1,
+        "stars": 1,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Suss X",
+        "specialization": null,
+        "level": 1,
+        "stars": 0,
+        "maturityRank": 0
+      },
+      {
+        "trait": "Wares X > Ware",
+        "specialization": "Any",
+        "level": 2,
+        "stars": 2,
+        "maturityRank": 0
+      }
+    ],
+    "specializations": [
+      {
+        "name": "Broker",
+        "maturityLabel": "Teenager [2] or Agent [2]",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 1,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Banter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Domus X > Domain",
+            "specialization": "Trader",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Fawn X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Gossip X",
+            "specialization": null,
+            "level": 2,
+            "stars": 1,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Mercantile X > Channel",
+            "specialization": "Any",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Politics X > Region",
+            "specialization": "Any",
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Wares X > Ware",
+            "specialization": "Any",
+            "level": 2,
+            "stars": 1,
+            "maturityRank": 2
+          }
+        ]
+      },
+      {
+        "name": "Factor",
+        "maturityLabel": "Young Adult [3] or Trader [3]",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 1,
+          "PRE": 0,
+          "POW": 1,
+          "STR": 0,
+          "FOR": 0,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Banter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Connections X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Domus X > Domain",
+            "specialization": "Trader",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "History X > Region",
+            "specialization": "Any",
+            "level": 2,
+            "stars": 1,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Mercantile X > Channel",
+            "specialization": "Any",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          }
+        ]
+      },
+      {
+        "name": "Caravaner",
+        "maturityLabel": "Teenager [2] or Agent [2]",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 0,
+          "PRE": 1,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Banter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Domus X > Domain",
+            "specialization": "Trader",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Leadership X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Mercantile X > Channel",
+            "specialization": "Overland-trade",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Navigation X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Riding X > Type",
+            "specialization": "Any",
+            "level": 2,
+            "stars": 1,
+            "maturityRank": 2
+          },
+          {
+            "trait": "Survival X > Environ",
+            "specialization": "Any",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 2
+          }
+        ]
+      },
+      {
+        "name": "Port Factor",
+        "maturityLabel": "Young Adult [3] or Trader [3]",
+        "adjustments": {
+          "CCA": 0,
+          "RCA": 0,
+          "REF": 0,
+          "INT": 0,
+          "KNO": 1,
+          "PRE": 0,
+          "POW": 0,
+          "STR": 0,
+          "FOR": 1,
+          "MOV": 0,
+          "ZED": 0,
+          "stature": 0,
+          "build": 0,
+          "bodypoints": 0
+        },
+        "grants": [
+          {
+            "trait": "Barter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Banter X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Connections X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Domus X > Domain",
+            "specialization": "Trader",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "History X > Region",
+            "specialization": "Any",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Mercantile X > Channel",
+            "specialization": "Sea-trade",
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Peerage X > Region",
+            "specialization": "Any",
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Seafaring X",
+            "specialization": null,
+            "level": 1,
+            "stars": 1,
+            "maturityRank": 3
+          },
+          {
+            "trait": "Swim X",
+            "specialization": null,
+            "level": 1,
+            "stars": 0,
+            "maturityRank": 3
+          }
+        ]
+      }
+    ],
+    "rankTitles": [
+      "Clerk",
+      "Hawker",
+      "Agent",
+      "Trader",
+      "Merchant",
+      "Senior Merchant",
+      "Master Merchant",
+      "Commissioner",
+      "Trade Syndic",
+      "Exchequer",
+      "Grand Merchant"
+    ],
+    "specialRules": [
+      {
+        "name": "Favored of Iaxxil",
+        "description": "At the start of each game Session, a Merchant has one additional Favor die if it is used for the well-being of Iaxxil's Domains of Power: Gluttony-6, Sadness-2, or War-1. In a temple or place blessed by Iaxxil, the Merchant receives DM +1 for Tests aligned with Iaxxil."
+      }
+    ],
+    "source": "sarna-len.characters_merchant-trade_maturity-corrected.xlsx / book-rewrite Merchant canonization"
+  },
+  {
     "trade": "Rabble",
     "criticalAttributes": [
       "REF",

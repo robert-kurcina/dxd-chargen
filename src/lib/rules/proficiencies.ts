@@ -203,7 +203,7 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
   imbue: ['Items', 'Originator', 'Artifice', 'Scrolls', 'Skills'],
   labor: ['Baker', 'Beautician', 'Bouncer', 'Brewer', 'Butcher', 'Concierge', 'Cook', 'Groundskeeper', 'Miller', 'Wait Staff'],
   medic: ['Battlefield', 'Dentist', 'Generalist', 'Reproductive', 'Surgeon'],
-  mercantile: ['Overland-trade', 'Sea-trade', 'Local-market', 'Guild-market', 'Cargo', 'Credit', 'Contracts', 'Appraisal'],
+  mercantile: ['Overland-trade', 'Sea-trade'],
   military: ['Infiltrate', 'Lockpicking', 'Navigation', 'Poisons', 'Siege', 'Tactics', 'Warfare'],
   office: ['Administration', 'Commerce', 'Courtier', 'Finance', 'Guild', 'Law', 'Magister'],
   perform: ['Act', 'Acrobatics', 'Dance', 'Humor', 'Music', 'Oration', 'Philosophy', 'Puppetry', 'Sing', 'Storytelling'],
