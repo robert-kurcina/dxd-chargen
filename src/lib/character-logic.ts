@@ -799,10 +799,13 @@ export function generateContractor(
   let professionInfo;
 
   if (!chosenTrade || chosenTrade === 'Any') {
-    const availableTrades = data.professions.filter(p => p.trade !== 'Rabble');
+    // Developer/military generators draw from the current selectable Trade
+    // packages. professions remains the compatibility bridge for naming
+    // practice and salary metadata, but deferred Merchant is not generated.
+    const availableTrades = data.tradePackages.map((entry) => entry.trade);
     if (availableTrades.length === 0) return null;
-    professionInfo = availableTrades[Math.floor(Math.random() * availableTrades.length)];
-    chosenTrade = professionInfo.trade;
+    chosenTrade = availableTrades[Math.floor(Math.random() * availableTrades.length)];
+    professionInfo = data.professions.find((entry) => entry.trade === chosenTrade);
   } else {
     professionInfo = data.professions.find(p => p.trade === chosenTrade);
   }

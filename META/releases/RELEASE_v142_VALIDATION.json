@@ -1,0 +1,46 @@
+{
+  "release": "v142",
+  "scope": "Restore pre-v141 Admin developer/reference behavior while retaining v141 diagnostics and current-runtime Info",
+  "validation": [
+    {
+      "check": "runtime data validator",
+      "result": "PASS — scripts/validate-data.mjs validates 77 runtime JSON files"
+    },
+    {
+      "check": "JSON parse before validation record",
+      "result": "PASS — all 121 pre-existing JSON files parse; this validation record raises the packaged total to 122"
+    },
+    {
+      "check": "changed TypeScript syntax/transpile",
+      "result": "PASS — tests.tsx, info.tsx, legacy-developer-tools.tsx, legacy-info.tsx, character-logic.ts, and admin-diagnostics.ts transpile without syntax diagnostics using TypeScript 5"
+    },
+    {
+      "check": "restored military generator runtime",
+      "result": "PASS — Band, Squad, Group, Company, Detachment, Formation, and Division each generate positive member counts and finite aggregate monthly salaries against current militaryHierarchy/runtime data"
+    },
+    {
+      "check": "restored Any-Trade generator policy",
+      "result": "PASS — 500 generated rank-3 Any contractors all resolve to current tradePackages; deferred Merchant is never generated"
+    },
+    {
+      "check": "restored structured generator sources",
+      "result": "PASS — Heritage generator uses heritagePackages; Profession & Title generator uses tradePackages and only bridges to professions for naming practice"
+    },
+    {
+      "check": "v141 diagnostic preservation",
+      "result": "PASS BY SCOPE — admin-diagnostics.ts and src/data are unchanged from v141, so the v141 14 pass / 2 fail / 2 warn semantic findings remain intact"
+    },
+    {
+      "check": "src/data drift",
+      "result": "PASS — all 96 src/data files are byte-identical to uploaded v141"
+    },
+    {
+      "check": "static JavaScript syntax",
+      "result": "PASS — public/character-creator/app.js and character-sheet.js pass node --check"
+    },
+    {
+      "check": "full npm typecheck/build",
+      "result": "NOT RUN — uploaded source archive does not contain node_modules; changed TS/TSX files were syntax-transpiled and the restored military rule path was executed through a compiled runtime harness"
+    }
+  ]
+}

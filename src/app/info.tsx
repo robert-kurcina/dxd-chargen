@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import LegacyInfo from '@/app/legacy-info';
 
 const DATASET_REGISTRY = [
   { status: 'Active', name: 'steps', use: 'Seven-phase Forge creation flow and substeps.' },
@@ -102,5 +103,10 @@ export default function Info({ data }: { data: StaticData }) {
     </Accordion>
 
     {(counts.fail > 0 || counts.warn > 0) && <Card><CardHeader className="pb-3"><CardTitle className="text-lg">Current diagnostic findings</CardTitle><CardDescription>These are calculated from the current runtime rather than copied from legacy Info prose.</CardDescription></CardHeader><CardContent><div className="space-y-2">{diagnostics.filter((test) => test.status !== 'pass').map((test) => <div key={test.id} className="rounded-md border p-3"><div className="flex items-center gap-2"><Badge variant={test.status === 'fail' ? 'destructive' : 'secondary'}>{test.status.toUpperCase()}</Badge><span className="font-medium">{test.title}</span></div><p className="mt-1 text-sm text-muted-foreground">{test.summary}</p>{test.details?.length ? <div className="mt-2 text-xs font-mono text-muted-foreground">{test.details.slice(0, 6).join(' • ')}{test.details.length > 6 ? ` • +${test.details.length - 6} more` : ''}</div> : null}</div>)}</div></CardContent></Card>}
+
+    <Card>
+      <CardHeader className="pb-3"><CardTitle className="text-lg">Legacy Reference Explorer</CardTitle><CardDescription>The pre-v141 Info tables are preserved here for setting/reference lookup. They are not promoted above the active runtime registry; where legacy prose conflicts with executable Forge rules, the current sections above remain authoritative.</CardDescription></CardHeader>
+      <CardContent><LegacyInfo data={data} /></CardContent>
+    </Card>
   </div>;
 }

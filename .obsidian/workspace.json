@@ -187,6 +187,9 @@
   },
   "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "META/releases/RELEASE_v141_ADMIN_TESTS_INFO_REBUILD.md",
+    "META/releases/RELEASE_v140_VALIDATION.json",
+    "META/releases/RELEASE_v140.md",
     "META/guidance/CANON_SYNC_v140.md",
     "src/app/(workspace)/sheet/page.tsx",
     "src/app/(workspace)/sheet/loading.tsx",
@@ -197,7 +200,6 @@
     "src/app/(workspace)/workspace-provider.tsx",
     "src/app/(workspace)/sheet",
     "src/app/(workspace)/page.tsx",
-    "src/app/(workspace)/loading.tsx",
     "META/guidance/CANON_SYNC_v139.md",
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",
@@ -230,8 +232,6 @@
     "META/guidance/CANON_SYNC_v132.md",
     "META/releases/RELEASE_v132.md",
     "data/peoples/_pairs/ancestral.pairs-01.png",
-    "META/guidance/CANON_SYNC_v131.md",
-    "META/releases/RELEASE_v131.md",
     "public/armor/hit-locations.svg"
   ]
 }

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import LegacyDeveloperTools from '@/app/legacy-developer-tools';
 
 function StatusIcon({ status }: { status: ForgeDiagnostic['status'] }) {
   if (status === 'pass') return <CheckCircle2 className="h-4 w-4 text-green-700" />;
@@ -93,6 +94,12 @@ export default function Tests({ data }: { data: StaticData }) {
             <div className="rounded-md bg-muted/40 p-3"><div className="text-xs text-muted-foreground">2D6</div><div className="text-xl font-semibold">{dice.twoD6}</div></div>
             <div className="rounded-md bg-muted/40 p-3"><div className="text-xs text-muted-foreground">3D high-two</div><div className="text-xl font-semibold">{dice.highTwo}</div><div className="text-xs text-muted-foreground">Rolls: {dice.rolls.join(', ')}</div></div>
           </div> : null}
+        </div>
+        <div className="mt-4 border-t pt-4">
+          <div className="mb-3 rounded-md bg-muted/40 p-3 text-sm text-muted-foreground">
+            Preserved developer generators from the pre-v141 Forge. Their interactive behavior is retained, while current structured Heritage/Trade/Settlement data is used where the old tool can consume it safely. Military hierarchy and salary generation remain setting/developer utilities rather than player-character creation rules.
+          </div>
+          <LegacyDeveloperTools data={data} />
         </div>
       </CardContent>
     </Card>
