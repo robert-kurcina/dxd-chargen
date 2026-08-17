@@ -12,4 +12,4 @@
 - Rebuilt all seven optional Armor Set decomposition examples to avoid forbidden overlap. Cuirass + Breastplate and similar layered duplicate coverage is no longer proposed or selectable.
 - Corrected runtime structured `Backplate, Metal` body-part metadata to `Back Torso`.
 - Aggregate custom Suit D/AR calculations now group sectional protection by actual left/right Arm and Leg rather than allowing multiple pieces on one limb to masquerade as multiple Hit Locations.
-- Added `ARMOR_OCCUPANCY_PARITY_v127.csv` for later book-rewrite parity.
+- Added `META/releases/ARMOR_OCCUPANCY_PARITY_v127.csv` for later book-rewrite parity.

@@ -21,7 +21,7 @@ Scope: `dxd-chargen` armor weights only. Character archives and book-rewrite rem
 - `Sollerets, Metal`: 10# -> 3.5#.
 - `Leggings, Metal`: 20# -> 14#.
 
-The complete row-by-row record is `ARMOR_WEIGHT_AUDIT_v130.csv`.
+The complete row-by-row record is `META/releases/ARMOR_WEIGHT_AUDIT_v130.csv`.
 
 ## Deliberately retained abstractions
 

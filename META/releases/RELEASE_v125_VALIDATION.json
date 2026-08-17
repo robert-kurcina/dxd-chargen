@@ -37,7 +37,7 @@
   ],
   "bookParity": {
     "status": "pending during editor iteration",
-    "ledger": "META/guidance/ARMOR_SECTIONAL_PARITY_v125.csv"
+    "ledger": "META/releases/ARMOR_SECTIONAL_PARITY_v125.csv"
   },
   "deferred": {
     "characterNormalization": true,

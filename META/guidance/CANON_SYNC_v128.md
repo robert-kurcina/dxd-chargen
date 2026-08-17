@@ -16,7 +16,7 @@ These are source-table corrections where the listed value conflicts with the pag
 
 ## Full numeric audit
 
-`ARMOR_NUMERIC_AUDIT_v128.csv` records Price, Weight, D, AR, material baselines, implied Parts Ratios, and audit status for every armor record. Many source entries imply different Parts Ratios from Price versus Weight. Those are flagged rather than automatically rewritten because component form/workmanship can legitimately alter cost, while the exact granular Parts Ratio model is still being iterated.
+`META/releases/ARMOR_NUMERIC_AUDIT_v128.csv` records Price, Weight, D, AR, material baselines, implied Parts Ratios, and audit status for every armor record. Many source entries imply different Parts Ratios from Price versus Weight. Those are flagged rather than automatically rewritten because component form/workmanship can legitimately alter cost, while the exact granular Parts Ratio model is still being iterated.
 
 ## Deferred
 

@@ -19,7 +19,7 @@
     "Leggings, Boiled": "AR 10 -> 6"
   },
   "armorRecordCount": 93,
-  "auditLedger": "META/guidance/ARMOR_NUMERIC_AUDIT_v128.csv",
+  "auditLedger": "META/releases/ARMOR_NUMERIC_AUDIT_v128.csv",
   "validation": {
     "json": "pass",
     "typescriptSyntax": "pass via TypeScript transpile diagnostics on modified TS/TSX files",

@@ -25,8 +25,8 @@
   },
   "bookParity": {
     "status": "deferred",
-    "sectionalLedger": "META/guidance/ARMOR_SECTIONAL_PARITY_v125.csv",
-    "occupancyLedger": "META/guidance/ARMOR_OCCUPANCY_PARITY_v127.csv"
+    "sectionalLedger": "META/releases/ARMOR_SECTIONAL_PARITY_v125.csv",
+    "occupancyLedger": "META/releases/ARMOR_OCCUPANCY_PARITY_v127.csv"
   },
   "validation": {
     "json": "pass",

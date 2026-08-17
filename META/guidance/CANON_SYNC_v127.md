@@ -24,4 +24,4 @@ Keep Armor Sets as optional DXD abstractions, but make detailed Sectional Armor 
 
 ## Deferred book parity
 
-No book-rewrite changes in v127. `ARMOR_SECTIONAL_PARITY_v125.csv` remains the ledger for added sectional records. `ARMOR_OCCUPANCY_PARITY_v127.csv` records the granular coverage/side metadata to be reconciled into the book-write armor tables and guidance after the editor stabilizes.
+No book-rewrite changes in v127. `META/releases/ARMOR_SECTIONAL_PARITY_v125.csv` remains the ledger for added sectional records. `META/releases/ARMOR_OCCUPANCY_PARITY_v127.csv` records the granular coverage/side metadata to be reconciled into the book-write armor tables and guidance after the editor stabilizes.

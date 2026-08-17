@@ -10,6 +10,6 @@
 - `Light (Soft)` can be expanded as Quilted, Padded, or Fur full-torso construction. Choosing a suggestion creates structured Sectional Armor and makes the Suit custom.
 - Component listings now show the normalized material family and, where relevant, the physical construction (for example `Soft / Quilted`).
 - SIZ scaling continues to apply after a quick-pick is decomposed because the generated sectional selections use the ordinary fitted-armor inventory path.
-- Added `META/guidance/ARMOR_SECTIONAL_PARITY_v125.csv`, listing every derived record in book-table units (sp, pounds, D, AR, coverage, and Traits) so the accepted entries can later be transferred into book-rewrite without re-deriving them.
+- Added `META/releases/ARMOR_SECTIONAL_PARITY_v125.csv`, listing every derived record in book-table units (sp, pounds, D, AR, coverage, and Traits) so the accepted entries can later be transferred into book-rewrite without re-deriving them.
 - The 37 additions remain tagged `bookParityStatus: pending` while the armor editor is still being iterated. They are structured Forge data, not Notes.
 - Heavy and Field suggestions are intentionally examples rather than normative recipes; their calculated custom Weight/Cost/D/AR can differ from the abstract quick-pick once detail becomes authoritative.

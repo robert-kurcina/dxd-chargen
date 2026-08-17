@@ -18,4 +18,4 @@ The Personal Armor editor remains under `Customize Armor`. Its abstract Armor Se
 
 ## Deferred parity
 
-No book-rewrite changes in v126. The accepted Armor catalog additions in `ARMOR_SECTIONAL_PARITY_v125.csv` remain the parity source for the later book-table update.
+No book-rewrite changes in v126. The accepted Armor catalog additions in `META/releases/ARMOR_SECTIONAL_PARITY_v125.csv` remain the parity source for the later book-table update.

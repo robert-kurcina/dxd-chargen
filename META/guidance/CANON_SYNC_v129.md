@@ -9,8 +9,8 @@ The strongest direct anchors include historical values for gambeson/quilt, mail 
 - 93 Armor records audited.
 - 50 prices changed.
 - 43 prices retained after calibration.
-- `ARMOR_REPRICING_v129.csv` contains old/new values and the calibration basis for every entry.
-- `ARMOR_BOOK_PARITY_v129.csv` is the current table-ready ledger for the later book-rewrite parity pass.
+- `META/releases/ARMOR_REPRICING_v129.csv` contains old/new values and the calibration basis for every entry.
+- `META/releases/ARMOR_BOOK_PARITY_v129.csv` is the current table-ready ledger for the later book-rewrite parity pass.
 
 ## Native catalog currency
 
