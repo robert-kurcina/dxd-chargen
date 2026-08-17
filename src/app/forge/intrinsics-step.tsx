@@ -112,7 +112,7 @@ const LINEAGE_EXAMPLE_FILES: Record<string, string> = {
   Thanekon: 'ancestral.pairs-07.png',
   Ferrite: 'ancestral.pairs-08.png',
   Ankilati: 'ancestral.pairs-09.png',
-  Coromite: 'ancestral.pairs-10.png',
+  Coroman: 'ancestral.pairs-10.png',
   Indelan: 'ancestral.pairs-11.png',
   Eniyaski: 'ancestral.pairs-12.png',
   Drusian: 'ancestral.pairs-13.png',

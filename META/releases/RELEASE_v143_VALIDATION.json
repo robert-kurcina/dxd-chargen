@@ -1,0 +1,47 @@
+{
+  "release": "v143",
+  "version": "0.143.0",
+  "checks": [
+    {
+      "name": "JSON parse",
+      "status": "PASS",
+      "details": "118 JSON files checked",
+      "errors": []
+    },
+    {
+      "name": "TypeScript syntax transpile",
+      "status": "PASS",
+      "details": "intrinsics-step.tsx and rules/intrinsics.ts transpile with zero TypeScript syntax diagnostics"
+    },
+    {
+      "name": "Babbita JSON drift",
+      "status": "PASS",
+      "details": "Each modified runtime JSON is identical to the source after the sole Coromite→Coroman string substitution; numeric values are unchanged"
+    },
+    {
+      "name": "Coroman runtime catalogue",
+      "status": "PASS",
+      "details": "species and all Babbita adjustment tables use Coroman"
+    },
+    {
+      "name": "legacy lineage ID compatibility",
+      "status": "PASS",
+      "details": "lineage-coromite maps to lineage-coroman at syncIntrinsics entry"
+    },
+    {
+      "name": "numeric drift",
+      "status": "PASS",
+      "details": "only lineage key/name strings changed in runtime JSON; no numeric adjustment values altered"
+    },
+    {
+      "name": "old active name scan",
+      "status": "PASS",
+      "details": "remaining Coromite references are release/compatibility text only",
+      "locations": [
+        "META/releases/RELEASE_v143.md:7",
+        "META/releases/RELEASE_v143.md:14"
+      ]
+    }
+  ],
+  "status": "PASS"
+}

@@ -187,6 +187,8 @@
   },
   "active": "bb60ab24ec7b0daf",
   "lastOpenFiles": [
+    "dxd-chargen.zip",
+    "Archive.zip",
     "public/armor/hit-locations_female.svg",
     "public/armor/hit-locations_male.svg",
     "public/armor/hit-locations.svg",
@@ -204,7 +206,6 @@
     "src/app/(workspace)/workspace-shell.tsx",
     "src/app/(workspace)/workspace-provider.tsx",
     "src/app/(workspace)/sheet",
-    "src/app/(workspace)/page.tsx",
     "META/guidance/CANON_SYNC_v139.md",
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",

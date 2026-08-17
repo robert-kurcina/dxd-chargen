@@ -12,6 +12,19 @@ import {
 import type { StepAssessment } from './background';
 
 export const ROLLED_ATTRIBUTES = ['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR'] as const;
+
+const LEGACY_LINEAGE_ID_ALIASES: Record<string, string> = {
+  'lineage-coromite': 'lineage-coroman',
+};
+
+function normalizeLegacyLineageIds(draft: CharacterDraft): CharacterDraft {
+  const mapId = (id: string | null) => id ? (LEGACY_LINEAGE_ID_ALIASES[id] ?? id) : null;
+  const lineageId = mapId(draft.intrinsics.lineageId);
+  const strifeFatherLineageId = mapId(draft.intrinsics.strifeFatherLineageId);
+  const strifeMotherLineageId = mapId(draft.intrinsics.strifeMotherLineageId);
+  if (lineageId === draft.intrinsics.lineageId && strifeFatherLineageId === draft.intrinsics.strifeFatherLineageId && strifeMotherLineageId === draft.intrinsics.strifeMotherLineageId) return draft;
+  return { ...draft, intrinsics: { ...draft.intrinsics, lineageId, strifeFatherLineageId, strifeMotherLineageId } };
+}
 export type RolledAttribute = (typeof ROLLED_ATTRIBUTES)[number];
 
 export const STRIFE_PAIRINGS = [
@@ -603,6 +616,7 @@ export function wealthTitle(rank: number | null, data: StaticData) {
 }
 
 export function syncIntrinsics(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  draft = normalizeLegacyLineageIds(draft);
   const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
   const existingChoice = getSpeciesChoice(draft, data);
   let next = existingChoice && draft.intrinsics.speciesFamilyId !== existingChoice.family.catalogId
