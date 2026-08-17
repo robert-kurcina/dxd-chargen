@@ -50,13 +50,14 @@ import {
   type InventoryCategory,
 } from '@/lib/rules/utilities';
 import { cn, formatNumberWithCommas } from '@/lib/utils';
-import ArmorEditor from './armor-editor';
+import ArmorEditor, { ArmorCoveragePanel } from './armor-editor';
 
 type UtilitiesStepProps = {
   stepValue: string;
   data: StaticData;
   draft: CharacterDraft;
   setDraft: Dispatch<SetStateAction<CharacterDraft>>;
+  displayArmorCoverage?: boolean;
 };
 
 function ReviewButton({ reviewed, onClick, label }: { reviewed: boolean; onClick: () => void; label: string }) {
@@ -146,7 +147,7 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
   );
 }
 
-function GearStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
+function GearStep({ stepValue, data, draft, setDraft, displayArmorCoverage = false }: UtilitiesStepProps) {
   const [query, setQuery] = useState('');
   const wealthBudget = personalWealthGp(draft, data);
   const availableGp = availableGoldGp(draft, data);
@@ -183,7 +184,7 @@ function GearStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
           <div className="bg-muted/50 px-3 py-2 text-sm font-semibold capitalize">{selectedCategory === 'armor' ? 'Armor' : selectedCategory}</div>
           <table className="selected-gear-table w-full min-w-[700px] text-sm">
             <caption className="sr-only">Selected {selectedCategory}</caption>
-            <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Item</th><th className="px-3 py-2">Qty</th><th className="px-3 py-2 text-right">Unit gp</th><th className="px-3 py-2 text-right">Weight</th>{editable && <th className="px-3 py-2"></th>}</tr></thead>
+            <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Item</th>{selectedCategory !== 'armor' && <th className="px-3 py-2">Qty</th>}<th className="px-3 py-2 text-right">Unit gp</th><th className="px-3 py-2 text-right">Weight</th>{editable && <th className="px-3 py-2"></th>}</tr></thead>
             <tbody>
               {rows.filter((item) => item.category === selectedCategory).map((item, index) => {
                 const catalogueItem = (item.category === 'weapons' ? data.itemWeapons : item.category === 'armor' ? data.itemArmors : data.itemEquipments).find((entry) => entry.catalogId === item.catalogId);
@@ -194,8 +195,8 @@ function GearStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
                 const ornateLevel = jewelry ? Math.max(1, Math.trunc(item.level ?? 1)) : 1;
                 const effectiveTca = jewelry ? ornateLevel * 2 : values.tca;
                 return <tr key={`${item.category}-${item.catalogId ?? item.id ?? item.name}-${index}`} className="border-t">
-                  <td data-label="Item" className="px-3 py-2"><div className="font-medium">{displayCustomAppend(displayInventoryName(item.name), item.customAppend)}{itemScales && itemSizeAdjustment && itemSizeAdjustment.direction !== 'standard' ? ` SIZ ${itemSizeAdjustment.presumedSiz}` : ''}</div>{editable && jewelry && <label className="mt-2 flex max-w-[180px] items-center gap-2 text-xs"><span className="shrink-0 text-muted-foreground">Ornate</span><Input min={1} max={12} className="h-8 w-20" value={ornateLevel} onChange={(event) => setDraft((current) => setInventoryOrnateLevel(current, item.category, item.catalogId ?? '', Number(event.target.value), item.id))} aria-label={`Ornate rating for ${displayInventoryName(item.name)}`} /></label>}{editable && item.category === 'equipment' && inventoryAllowsCustomAppend(item.name) && <Input className="mt-2 h-8 max-w-sm" value={item.customAppend ?? ''} onChange={(event) => setDraft((current) => setInventoryCustomAppend(current, item.category, item.catalogId ?? '', event.target.value, item.id))} placeholder="Optional text append" aria-label={`Custom text for ${displayInventoryName(item.name)}`} />}<div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : 'Customized'}{jewelry ? ` • Ornate ${ornateLevel}` : ''}{effectiveTca ? ` • TCA ${effectiveTca > 0 ? '+' : ''}${effectiveTca}` : ''}</div></td>
-                  <td data-label="Quantity" className="px-3 py-2">{editable ? <div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" aria-label={`Decrease ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1, item.id))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center">{item.quantity}</span><Button size="icon" variant="ghost" aria-label={`Increase ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1, item.id))}><Plus className="h-3.5 w-3.5" /></Button></div> : <div className="text-center">{item.quantity}</div>}</td>
+                  <td data-label="Item" className="px-3 py-2"><div className="font-medium">{displayCustomAppend(displayInventoryName(item.name), item.customAppend)}{item.category === 'armor' && item.armorSide ? ` (${item.armorSide})` : ''}{itemScales && itemSizeAdjustment && itemSizeAdjustment.direction !== 'standard' ? ` SIZ ${itemSizeAdjustment.presumedSiz}` : ''}</div>{editable && jewelry && <label className="mt-2 flex max-w-[180px] items-center gap-2 text-xs"><span className="shrink-0 text-muted-foreground">Ornate</span><Input min={1} max={12} className="h-8 w-20" value={ornateLevel} onChange={(event) => setDraft((current) => setInventoryOrnateLevel(current, item.category, item.catalogId ?? '', Number(event.target.value), item.id))} aria-label={`Ornate rating for ${displayInventoryName(item.name)}`} /></label>}{editable && item.category === 'equipment' && inventoryAllowsCustomAppend(item.name) && <Input className="mt-2 h-8 max-w-sm" value={item.customAppend ?? ''} onChange={(event) => setDraft((current) => setInventoryCustomAppend(current, item.category, item.catalogId ?? '', event.target.value, item.id))} placeholder="Optional text append" aria-label={`Custom text for ${displayInventoryName(item.name)}`} />}<div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : 'Customized'}{jewelry ? ` • Ornate ${ornateLevel}` : ''}{effectiveTca ? ` • TCA ${effectiveTca > 0 ? '+' : ''}${effectiveTca}` : ''}</div></td>
+                  {selectedCategory !== 'armor' && <td data-label="Quantity" className="px-3 py-2">{editable ? <div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" aria-label={`Decrease ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1, item.id))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center">{item.quantity}</span><Button size="icon" variant="ghost" aria-label={`Increase ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1, item.id))}><Plus className="h-3.5 w-3.5" /></Button></div> : <div className="text-center">{item.quantity}</div>}</td>}
                   <td data-label="Unit gp" className="px-3 py-2 text-right">{formatNumberWithCommas(values.priceGp)}</td>
                   <td data-label="Weight" className="px-3 py-2 text-right">{formatNumberWithCommas(values.weight)}#</td>
                   {editable && <td data-label="Controls" className="px-3 py-2 text-right"><Button size="icon" variant="ghost" aria-label={`Remove ${displayInventoryName(item.name)}`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', 0, item.id))}><Trash2 className="h-4 w-4" /></Button></td>}
@@ -243,6 +244,7 @@ function GearStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
       <div className="space-y-5">
         <div className="rounded-lg border bg-muted/20 p-4"><div className="font-medium">Optional Armor customization</div><p className="mt-1 text-sm text-muted-foreground">Skip this page to retain the assigned Armor unchanged. Armor Sets remain the quick abstraction; expand sectional detail only when useful to the fiction.</p></div>
         {renderSelected(['armor'], true, 'Current Armor')}
+        {displayArmorCoverage && <ArmorCoveragePanel data={data} draft={draft} />}
         <ArmorEditor data={data} draft={draft} setDraft={setDraft} />
       </div>
     );
@@ -340,9 +342,9 @@ function RelationshipsDeferred() {
   return <div className="rounded-lg border border-dashed p-5"><div className="font-medium">Relationships deferred</div><p className="mt-2 text-sm text-muted-foreground">Per the current project scope, the relationship procedure is intentionally not automated in this release. This step does not block completion and no relationship mechanics are invented here.</p></div>;
 }
 
-export default function UtilitiesStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
+export default function UtilitiesStep({ stepValue, data, draft, setDraft, displayArmorCoverage = false }: UtilitiesStepProps) {
   if (stepValue === 'utilities-spells') return <SpellsStep data={data} draft={draft} setDraft={setDraft} />;
-  if (stepValue === 'utilities-starting-gear' || stepValue.startsWith('customize-')) return <GearStep stepValue={stepValue} data={data} draft={draft} setDraft={setDraft} />;
+  if (stepValue === 'utilities-starting-gear' || stepValue.startsWith('customize-')) return <GearStep stepValue={stepValue} data={data} draft={draft} setDraft={setDraft} displayArmorCoverage={displayArmorCoverage} />;
   if (stepValue === 'utilities-magic-items') return <MagicItemsStep data={data} draft={draft} setDraft={setDraft} />;
   if (stepValue === 'utilities-name') return <NameStep data={data} draft={draft} setDraft={setDraft} />;
   return <RelationshipsDeferred />;

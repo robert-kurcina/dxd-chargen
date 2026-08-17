@@ -1,0 +1,73 @@
+{
+  "release": "v140",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "Global TypeScript transpileModule diagnostics",
+      "filesChecked": 4,
+      "files": [
+        "src/app/forge/armor-editor.tsx",
+        "src/app/forge/utilities-step.tsx",
+        "src/lib/rules/armor.ts",
+        "src/lib/rules/utilities.ts"
+      ]
+    },
+    "armorRuntimeHarness": {
+      "status": "pass",
+      "method": "ts-node runtime harness with local dependency stubs for non-rules formatting helpers",
+      "assertions": [
+        "All six Armor Sets containing both Front Torso and Arms produce Left and Right Shoulder coverage.",
+        "Inferred Shoulder AR equals the adjacent Armor Set Upper Arm/Upper Chest AR for the current canonical sets.",
+        "Armor quantity mutation clamps attempted quantity 9 to quantity 1.",
+        "Legacy unsided one-side sectional quantity 2 normalizes into Left:1 and Right:1 selections."
+      ]
+    },
+    "coveragePalette": {
+      "status": "pass",
+      "values": {
+        "AR 1-2": "#dc2626",
+        "AR 3-11": "#f59e0b",
+        "AR 12-17": "#f2c94c",
+        "AR 18-23": "#2f8f46",
+        "AR 24+": "#5874a6"
+      },
+      "outline": "#111111, 1px, vector-effect=non-scaling-stroke"
+    },
+    "svgAssets": {
+      "status": "pass",
+      "result": "Both source and public male/female SVG files are byte-identical to v139; v140 coloring is runtime presentation only."
+    },
+    "staticJavaScriptSyntax": {
+      "status": "pass",
+      "commands": [
+        "node --check scripts/validate-data.mjs",
+        "node --check public/character-creator/app.js",
+        "node --check public/character-creator/character-sheet.js"
+      ]
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 120
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_v139_armor-coverage-reset-layout.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "package-lock.json differs from v139 only by the intended 0.139.0 -> 0.140.0 root/package version change."
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The archive does not contain node_modules in this execution environment. A direct tsc run fails at missing Next/React/dependency declarations before application-level typechecking. Changed TypeScript files were syntax-transpiled, SVG CSS properties were independently typechecked against lib.dom, and the modified armor rules were executed through a ts-node runtime harness."
+    }
+  }
+}

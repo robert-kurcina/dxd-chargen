@@ -1,0 +1,55 @@
+{
+  "release": "v138",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "Global TypeScript transpileModule diagnostics",
+      "filesChecked": 2,
+      "files": [
+        "src/app/forge/armor-editor.tsx",
+        "src/app/forge/utilities-step.tsx"
+      ]
+    },
+    "staticJavaScriptSyntax": {
+      "status": "pass",
+      "commands": [
+        "node --check scripts/validate-data.mjs",
+        "node --check public/character-creator/app.js",
+        "node --check public/character-creator/character-sheet.js"
+      ]
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 118
+    },
+    "uiFeatureAssertions": {
+      "status": "pass",
+      "assertions": [
+        "Visual Armor Coverage is a sibling panel immediately before Personal Armor.",
+        "The v137 explanatory side column is removed.",
+        "The silhouette uses a full-width centered display area with a compact AR legend below it.",
+        "The v137 coverage calculation, silhouette selection, and AR color thresholds are unchanged."
+      ]
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The archive does not contain node_modules in this execution environment. Changed TypeScript files were syntax-transpiled with the available global TypeScript compiler; runtime data, JSON, and static JavaScript checks were run."
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_v137_visual-armor-coverage.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "package-lock.json differs from v137 only by the intended 0.137.0 -> 0.138.0 root/package version change."
+    }
+  }
+}

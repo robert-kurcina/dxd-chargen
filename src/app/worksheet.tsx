@@ -23,6 +23,7 @@ import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
 import { MobileNavigationOverlay } from "@/components/mobile-navigation-overlay";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -484,6 +485,7 @@ export default function Worksheet({
     allSteps[0]?.value ?? "",
   );
   const [showResetConfirmation, setShowResetConfirmation] = useState(false);
+  const [displayArmorCoverage, setDisplayArmorCoverage] = useState(false);
   const mobileNav = useMobileNavigation();
   const assignmentPanelRef = useRef<HTMLDivElement>(null);
 
@@ -896,7 +898,7 @@ export default function Worksheet({
                 ))}
               </div>
             )}
-            <div className="pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <Button
                 type="button"
                 size="sm"
@@ -910,6 +912,16 @@ export default function Worksheet({
               >
                 <Dices className="h-4 w-4" /> Generate
               </Button>
+              {activeStep.value === "customize-armor" && (
+                <label className="flex cursor-pointer items-center gap-2 text-sm">
+                  <Checkbox
+                    checked={displayArmorCoverage}
+                    onCheckedChange={(checked) => setDisplayArmorCoverage(checked === true)}
+                    aria-label="Display Coverage"
+                  />
+                  <span>Display Coverage</span>
+                </label>
+              )}
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -962,6 +974,7 @@ export default function Worksheet({
                       data={data}
                       draft={draft}
                       setDraft={updateDraft}
+                      displayArmorCoverage={displayArmorCoverage}
                     />
                   )}
 

@@ -245,8 +245,22 @@ const rerebraces = armorByName.get('Rerebraces, Metal');
 const vambraces = armorByName.get('Vambraces, Metal');
 if (!rerebraces || !vambraces || disallowedOverlap(rerebraces.coverageAtoms, vambraces.coverageAtoms).length !== 0) throw new Error('Rerebrace/Vambrace occupancy regression: adjacent upper/lower arm components should remain compatible.');
 if (armorByName.get('Backplate, Metal')?.bodyParts !== 'Back Torso') throw new Error('Backplate structured body-part coverage must be Back Torso.');
-const silhouette = fs.readFileSync(path.resolve('public/armor/hit-locations.svg'), 'utf8').toLowerCase();
-for (const atom of armorAtoms) if (!silhouette.includes(`inkscape:label=\"${atom.toLowerCase()}\"`)) throw new Error(`Armor silhouette is missing semantic layer ${atom}.`);
+const expectedArmorLayers = [...armorAtoms].map((atom) => atom.toLowerCase()).sort();
+for (const sex of ['male', 'female']) {
+  const sourcePath = path.resolve(`images/hit-locations_${sex}.svg`);
+  const runtimePath = path.resolve(`public/armor/hit-locations_${sex}.svg`);
+  if (!fs.existsSync(sourcePath) || !fs.existsSync(runtimePath)) throw new Error(`Missing ${sex} Armor coverage silhouette source/runtime asset.`);
+  const sourceSilhouette = fs.readFileSync(sourcePath, 'utf8');
+  const runtimeSilhouette = fs.readFileSync(runtimePath, 'utf8');
+  if (sourceSilhouette !== runtimeSilhouette) throw new Error(`${sex} Armor coverage runtime SVG must mirror images/hit-locations_${sex}.svg.`);
+  const labels = [...runtimeSilhouette.matchAll(/inkscape:label=[\"']([^\"']+)[\"']/gi)]
+    .map((match) => match[1].toLowerCase())
+    .filter((label) => !label.startsWith('hit-locations_'));
+  const uniqueLabels = [...new Set(labels)].sort();
+  if (uniqueLabels.length !== expectedArmorLayers.length || uniqueLabels.some((label, index) => label !== expectedArmorLayers[index])) {
+    throw new Error(`${sex} Armor coverage silhouette semantic layers do not exactly match the canonical body atoms.`);
+  }
+}
 
 const completeMagicItems = magicItems.filter((item) =>
   item.name?.trim() &&

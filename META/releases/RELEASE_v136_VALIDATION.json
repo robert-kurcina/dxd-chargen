@@ -1,0 +1,56 @@
+{
+  "release": "v136",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "Global TypeScript transpileModule diagnostics",
+      "filesChecked": 1,
+      "files": [
+        "src/app/character-library-panel.tsx"
+      ]
+    },
+    "staticSheetJavaScriptSyntax": {
+      "status": "pass",
+      "commands": [
+        "node --check public/character-creator/app.js",
+        "node --check public/character-creator/character-sheet.js"
+      ]
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 116
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_v135_admin-characters-ux.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "package-lock.json is otherwise identical to v135 after normalizing the intended 0.135.0 -> 0.136.0 root/package version change."
+    },
+    "uiFeatureAssertions": {
+      "status": "pass",
+      "assertions": [
+        "Edit Tags exposes a Common tags token field based on the intersection of pending tags for all currently checked characters.",
+        "Adding a Common tag applies it to every checked character without removing their non-common tags.",
+        "Removing a Common tag removes it from every checked character without disturbing unrelated tags.",
+        "Changing checkbox selection recomputes the Common tags intersection from the same pending edit transaction.",
+        "Per-character tag token fields and existing Save/Cancel confirmation behavior remain available.",
+        "Export selected characters uses Proceed as the confirmation affirmative label.",
+        "A successful PDF export clears selectedIds after the PDF blob is created/downloaded; failed exports leave selection intact."
+      ]
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The archive does not contain node_modules in this execution environment. The changed TSX file was syntax-transpiled with the available global TypeScript compiler; runtime data, JSON, and static JavaScript checks were also run."
+    }
+  }
+}

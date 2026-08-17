@@ -1,0 +1,69 @@
+{
+  "release": "v137",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77,
+      "armorSvgChecks": "Both male/female source and runtime SVGs exist, runtime mirrors source byte-for-byte, and each contains exactly the 27 canonical granular Armor body labels."
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "Global TypeScript transpileModule diagnostics",
+      "filesChecked": 4,
+      "files": [
+        "src/app/forge/armor-editor.tsx",
+        "src/app/forge/utilities-step.tsx",
+        "src/app/worksheet.tsx",
+        "src/lib/rules/armor.ts"
+      ]
+    },
+    "staticJavaScriptSyntax": {
+      "status": "pass",
+      "commands": [
+        "node --check scripts/validate-data.mjs",
+        "node --check public/character-creator/app.js",
+        "node --check public/character-creator/character-sheet.js"
+      ]
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 117
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_v136_admin-bulk-tags-export.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "package-lock.json is otherwise identical to v136 after normalizing the intended 0.136.0 -> 0.137.0 root/package version change."
+    },
+    "svgAssets": {
+      "status": "pass",
+      "sourceDirectory": "images",
+      "runtimeDirectory": "public/armor",
+      "standaloneRender": "Both male and female runtime SVGs render successfully through Inkscape.",
+      "femaleViewport": "Standalone female viewBox uses the source drawing's second-page bounds so the silhouette is visible.",
+      "canonicalBodyAtomsPerSvg": 27
+    },
+    "uiFeatureAssertions": {
+      "status": "pass",
+      "assertions": [
+        "Display Coverage is initialized unchecked and is rendered immediately after Generate only on customize-armor.",
+        "The display state is threaded Worksheet -> UtilitiesStep -> GearStep -> ArmorEditor.",
+        "Female silhouette selection is Sex = Female OR Sex = Intersex plus Gender = Female; all other states select Male.",
+        "Coverage uses existing armor occupancy atoms and adjustedGearValues('armor', ..., sizedForSiz) effective AR.",
+        "AR 0 preserves authored SVG fill; AR 1-2 red; 3-11 orange; 12-17 yellow; 18-23 green; 24+ blue.",
+        "Permitted shared elbow/knee atoms display the highest effective AR rather than stacking values.",
+        "Shield and under-armor Gear do not participate in fixed body-region coloring."
+      ]
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The archive does not contain node_modules in this execution environment. Changed TypeScript files were syntax-transpiled with the available global TypeScript compiler; runtime data, JSON, SVG, and static JavaScript checks were run."
+    }
+  }
+}

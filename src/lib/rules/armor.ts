@@ -282,6 +282,65 @@ export function armorOccupancyReport(draft: CharacterDraft, data: StaticData) {
   return { rows, conflicts, occupiedAtoms, unresolvedSides };
 }
 
+const PRESET_COVERAGE_ATOMS: Record<string, readonly ArmorAtom[]> = {
+  'Front Torso': FRONT_TORSO_ATOMS,
+  'Back Torso': BACK_TORSO_ATOMS,
+  Arms: ['Upper Arm (Left)', 'Elbow (Left)', 'Forearm (Left)', 'Hand (Left)',
+    'Upper Arm (Right)', 'Elbow (Right)', 'Forearm (Right)', 'Hand (Right)'],
+  Legs: ['Thigh (Left)', 'Knee (Left)', 'Shin (Left)', 'Foot (Left)',
+    'Thigh (Right)', 'Knee (Right)', 'Shin (Right)', 'Foot (Right)'],
+};
+
+function presetCoverageAtoms(item: ArmorItem) {
+  return [...new Set((item.hitLocations ?? []).flatMap((location) => PRESET_COVERAGE_ATOMS[location] ?? []))];
+}
+
+/** Effective SIZ-adjusted AR by canonical body atom for visual coverage.
+ * Canonical Armor Set quick-picks use their listed broad Hit Locations as
+ * visualization guidance. Their no-Hit-Location bonus is deliberately excluded
+ * because the silhouette is explicitly showing Hit Locations. Detailed
+ * Sectional Armor and Helmets then contribute their atomic coverage; Shields
+ * and under-armor Gear do not occupy these outer body atoms. Where articulation
+ * permits overlap, the strongest effective AR is displayed rather than stacking
+ * protection.
+ */
+export function armorCoverageRatings(draft: CharacterDraft, data: StaticData) {
+  const ratings = new Map<string, number>();
+
+  const presetSelection = selectedArmorByKind(draft, data, 'set')[0];
+  const presetDefinition = presetSelection ? selectedArmorDefinition(presetSelection, data) : null;
+  if (presetSelection && presetDefinition) {
+    const values = adjustedGearValues('armor', presetDefinition, draft, data, presetSelection.sizedForSiz);
+    const scaledAr = Number(values.armorRating ?? 0);
+    const effectiveAr = Number.isFinite(scaledAr) ? Math.max(0, scaledAr) : 0;
+    for (const atom of presetCoverageAtoms(presetDefinition)) {
+      ratings.set(atom, Math.max(ratings.get(atom) ?? 0, effectiveAr));
+    }
+  }
+
+  for (const row of occupancyRows(draft, data)) {
+    const values = adjustedGearValues('armor', row.definition, draft, data, row.selection.sizedForSiz);
+    const scaledAr = Number(values.armorRating ?? 0);
+    const effectiveAr = Number.isFinite(scaledAr) ? Math.max(0, scaledAr) : 0;
+    for (const atom of row.atoms) ratings.set(atom, Math.max(ratings.get(atom) ?? 0, effectiveAr));
+  }
+
+  // Shoulder coverage is implied where armor continuously protects the Upper
+  // Chest and the adjacent Upper Arm. This closes the otherwise artificial gap
+  // between torso and arm coverage in abstract Armor Sets and mixed sectional
+  // assemblies. Use the weaker adjacent AR so inferred coverage never improves
+  // either contributing piece; explicit shoulder armor may still be stronger.
+  const upperChestAr = ratings.get('Upper Chest') ?? 0;
+  for (const side of ['Left', 'Right'] as const) {
+    const upperArmAr = ratings.get(`Upper Arm (${side})`) ?? 0;
+    if (upperChestAr <= 0 || upperArmAr <= 0) continue;
+    const shoulder = `Shoulder (${side})`;
+    const inferredAr = Math.min(upperChestAr, upperArmAr);
+    ratings.set(shoulder, Math.max(ratings.get(shoulder) ?? 0, inferredAr));
+  }
+  return ratings;
+}
+
 function appendSectionalSelection(draft: CharacterDraft, definition: ArmorItem, side?: ArmorSide) {
   const sizeAdjustment = gearSizeAdjustment(draft);
   const sizedForSiz = sizeAdjustment && sizeAdjustment.presumedSiz !== 12 ? sizeAdjustment.presumedSiz : undefined;

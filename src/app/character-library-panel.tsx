@@ -206,9 +206,33 @@ export default function CharacterLibraryPanel({
   const beginTagEditing = () => {
     setPendingTags(Object.fromEntries(characters.map((entry) => [entry.idName, sortedTags(entry)])));
     setTagEditing(true);
-    setMessage('Tag editing enabled.');
+    setMessage('');
+    setError('');
   };
   const cancelTagEditing = () => { setTagEditing(false); setPendingTags({}); setMessage('Tag edits canceled.'); };
+  const selectedCharacters = useMemo(() => characters.filter((entry) => selectedIds.has(entry.idName)), [characters, selectedIds]);
+  const commonSelectedTags = useMemo(() => {
+    if (!selectedCharacters.length) return [];
+    const tagSets = selectedCharacters.map((entry) => sortLibraryTags(pendingTags[entry.idName] ?? sortedTags(entry)));
+    return sortLibraryTags(tagSets[0].filter((tag) => tagSets.slice(1).every((tags) => tags.includes(tag))));
+  }, [selectedCharacters, pendingTags]);
+  const updateCommonTags = (nextCommonTags: string[]) => {
+    const normalizedNext = sortLibraryTags(nextCommonTags);
+    const added = normalizedNext.filter((tag) => !commonSelectedTags.includes(tag));
+    const removed = commonSelectedTags.filter((tag) => !normalizedNext.includes(tag));
+    if (!added.length && !removed.length) return;
+    setPendingTags((current) => {
+      const next = { ...current };
+      selectedCharacters.forEach((entry) => {
+        const existing = sortLibraryTags(current[entry.idName] ?? sortedTags(entry));
+        next[entry.idName] = sortLibraryTags([
+          ...existing.filter((tag) => !removed.includes(tag)),
+          ...added.filter((tag) => !existing.includes(tag)),
+        ]);
+      });
+      return next;
+    });
+  };
   const changedTagEntries = characters.filter((entry) => JSON.stringify(sortedTags(entry)) !== JSON.stringify(sortLibraryTags(pendingTags[entry.idName] ?? sortedTags(entry))));
   const saveTagUpdates = async () => {
     setSavingTags(true);
@@ -266,6 +290,7 @@ export default function CharacterLibraryPanel({
         pageImages.push(...await renderDraftPages(value.draft));
       }
       downloadBlob(createImagePdf(pageImages), 'character-library-admin.pdf');
+      setSelectedIds(new Set());
       setMessage(`Exported ${selected.length} character${selected.length === 1 ? '' : 's'} in alphanumeric order.`);
     } catch (cause) { setError(cause instanceof Error ? cause.message : 'PDF export failed.'); }
     finally { setExporting(false); }
@@ -316,6 +341,18 @@ export default function CharacterLibraryPanel({
         </div>
       </CardHeader>
     </Card>
+
+    {adminMode && tagEditing && <div className="rounded-md border bg-card px-3 py-3" role="status">
+      <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <div className="text-sm font-medium">Tag editing enabled.</div>
+        <div className="text-xs text-muted-foreground">{selectedCharacters.length} checked character{selectedCharacters.length === 1 ? '' : 's'}</div>
+      </div>
+      {selectedCharacters.length ? <div>
+        <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Common tags</div>
+        <TokenField value={commonSelectedTags} onChange={updateCommonTags} allowedTokens={availableTags} placeholder="Add common tag" ariaLabel="Common tags for checked characters" />
+        <p className="mt-1 text-xs text-muted-foreground">Adding a common tag adds it to every checked character. Removing one deletes it from every checked character.</p>
+      </div> : <p className="text-xs text-muted-foreground">Check one or more characters to edit common tags.</p>}
+    </div>}
 
     {(message || error) && <div className={`rounded-md border px-3 py-2 text-sm ${error ? 'border-red-300 bg-red-50 text-red-800' : 'bg-card text-muted-foreground'}`} role="status">{error || message}</div>}
 
@@ -375,6 +412,6 @@ export default function CharacterLibraryPanel({
 
     {adminMode && <iframe ref={exportFrame} title="Character PDF renderer" src="/character-creator/index.html?embed=1&batch=1" onLoad={() => { exportFrameReady.current = true; }} className="pointer-events-none fixed -left-[10000px] top-0 h-[1576px] w-[1201px] opacity-0" aria-hidden="true" tabIndex={-1} />}
     <ConfirmDialog open={saveTagsConfirmOpen} title="Update character tags?" busy={savingTags} onCancel={() => setSaveTagsConfirmOpen(false)} onConfirm={() => void saveTagUpdates()}><p>Update Library tags for {changedTagEntries.length} character{changedTagEntries.length === 1 ? '' : 's'}? Other character data will not be changed.</p></ConfirmDialog>
-    <ConfirmDialog open={exportConfirmOpen} title="Export selected characters?" busy={exporting} onCancel={() => setExportConfirmOpen(false)} onConfirm={() => void exportSelectedCharacters()}><p>Build one multi-page PDF containing the front and back sheets for {selectedIds.size} selected character{selectedIds.size === 1 ? '' : 's'}, ordered alphanumerically by character name.</p></ConfirmDialog>
+    <ConfirmDialog open={exportConfirmOpen} title="Export selected characters" confirmLabel="Proceed" busy={exporting} onCancel={() => setExportConfirmOpen(false)} onConfirm={() => void exportSelectedCharacters()}><p>Build one multi-page PDF containing the front and back sheets for {selectedIds.size} selected character{selectedIds.size === 1 ? '' : 's'}, ordered alphanumerically by character name.</p></ConfirmDialog>
   </div>;
 }

@@ -13,10 +13,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "public/armor/hit-locations.svg"
+                "file": "data/peoples/_pairs/ancestral.pairs-01.png"
               },
               "icon": "lucide-image",
-              "title": "hit-locations"
+              "title": "ancestral.pairs-01"
             }
           }
         ]
@@ -187,26 +187,40 @@
   },
   "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
-    "data/characters.zip",
-    "data/characters/dbb1238e-cammi/source-sheet.json",
+    "src/app/(workspace)/sheet/page.tsx",
+    "src/app/(workspace)/sheet/loading.tsx",
+    "src/app/(workspace)/library/page.tsx",
+    "src/app/(workspace)/library/loading.tsx",
+    "src/app/(workspace)/workspace-spinner.tsx",
+    "src/app/(workspace)/workspace-shell.tsx",
+    "src/app/(workspace)/workspace-provider.tsx",
+    "src/app/(workspace)/sheet",
+    "src/app/(workspace)/page.tsx",
+    "src/app/(workspace)/loading.tsx",
+    "src/app/(workspace)/library",
+    "META/guidance/CANON_SYNC_v139.md",
+    "META/releases/RELEASE_v139.md",
+    "META/guidance/CANON_SYNC_v138.md",
+    "META/releases/RELEASE_v138.md",
+    "public/armor/hit-locations_male.svg",
+    "public/armor/hit-locations_female.svg",
+    "META/guidance/CANON_SYNC_v136.md",
+    "META/guidance/CANON_SYNC_v137.md",
+    "META/releases/RELEASE_v137.md",
+    "META/releases/RELEASE_v136.md",
+    "META/releases/RELEASE_v135.md",
+    "META/guidance/CANON_SYNC_v135.md",
+    "images/hit-locations_male.svg",
+    "images/hit-locations_female.svg",
     "data/characters/dbb1238e-cammi/source-image.png",
     "data/characters/dbb1238e-cammi/portrait.jpg",
-    "data/characters/dbb1238e-cammi/source-character.json",
-    "data/characters/dbb1238e-cammi/character.json",
-    "data/characters/dbb1238e-cammi",
     "META/guidance/CANON_SYNC_v134.md",
     "data/images/hit-locations_male.svg",
     "data/images/hit-locations_female.svg",
     "META/retired_llm_guidance/README.md",
     "META/retired_llm_guidance/universal-table.md",
-    "META/retired_llm_guidance/legacy-character-conversion.txt",
     "META/retired_llm_guidance/attributes.md",
     "META/retired_llm_guidance/attribute-dms.md",
-    "META/retired_llm_guidance",
-    "META/releases/ARMOR_BOOK_PARITY_v130.csv",
-    "META/releases/ARMOR_WEIGHT_AUDIT_v130.csv",
-    "META/releases/ARMOR_REPRICING_v129.csv",
-    "META/releases/ARMOR_OCCUPANCY_PARITY_v128.csv",
     "META/releases/META_REPAIR_v133.md",
     "META/releases/CHARACTER_RUNTIME_NORMALIZATION_v132.md",
     "META/releases/CHARACTER_LIBRARY_METADATA_v133.md",
@@ -218,20 +232,6 @@
     "data/peoples/_pairs/ancestral.pairs-01.png",
     "META/guidance/CANON_SYNC_v131.md",
     "META/releases/RELEASE_v131.md",
-    "META/releases/RELEASE_v130.md",
-    "META/guidance/CANON_SYNC_v129.md",
-    "META/guidance/CANON_SYNC_v130.md",
-    "META/guidance/CANON_SYNC_v127.md",
-    "META/guidance/CANON_SYNC_v128.md",
-    "META/guidance/ARMOR_HIT_LOCATION_MODEL_v127.md",
-    "META/releases/RELEASE_v127.md",
-    "META/releases/RELEASE_v128.md",
-    "public/armor/hit-locations.svg",
-    "META/guidance/CANON_SYNC_v126.md",
-    "META/guidance/CANON_SYNC_v124.md",
-    "data/decals/decal-key-plus-2.png",
-    "data/decals/decal-key-plus-1.png",
-    "data/decals/decal-key-zero.png",
-    "data/decals/decal-key-minus-1.png"
+    "public/armor/hit-locations.svg"
   ]
 }

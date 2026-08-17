@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v135
+## Current state — v137
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -53,7 +53,7 @@ Properties currently supports:
 Utilities currently supports:
 
 - searchable selection from the 84-entry Spell catalogue, with Spell Level/AP/mana details and explicit review state;
-- searchable Weapons and Equipment catalogues plus a structured Personal Armor editor with canonical Armor Set quick-picks, one-each Helm/Shield/Gear slots, sectional component customization, SIZ scaling, and calculated protection/Weight/Cost;
+- searchable Weapons and Equipment catalogues plus a structured Personal Armor editor with canonical Armor Set quick-picks, one-each Helm/Shield/Gear slots, sectional component customization, SIZ scaling, calculated protection/Weight/Cost, and optional male/female Visual Armor Coverage colored by effective sectional AR;
 - selection from complete Magic Item records approved for runtime use, with X fixed at 1 for structured selections, canonical physical-form normalization where the item catalog supports it, optional presentation-only instance text, canonical rarity multipliers, and total equivalent value;
 - editable common/proper names generated from the 17 incorporated conlang D66 name-generator datasets;
 - Relationships shown as deliberately deferred and non-blocking.
@@ -75,6 +75,24 @@ Finalization and library now supports:
 Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef, Klenari, Babbita, and Gnoan Groups are selectable. Cherigili remains visible under Humaniki but disabled; Kriket and Stonefolk also remain visible but disabled. Incomplete magic-item records remain in source data but are not offered by the runtime catalogue.
 
 
+
+
+## v137 — Visual Armor Coverage
+
+- **Customize Armor** adds a **Display Coverage** checkbox immediately after **Generate**. The coverage diagram is hidden by default.
+- Coverage uses the standalone `hit-locations_male.svg` or `hit-locations_female.svg` silhouette. Female is selected when Sex is Female, or when Sex is Intersex and Gender is Female; all other cases use Male.
+- Both SVGs expose the exact canonical granular Armor body atoms as Inkscape layer labels. Source copies live in `images/`; byte-identical runtime copies live in `public/armor/`.
+- Sectional Armor and Helm coverage colors each matching SVG object by effective SIZ-adjusted AR: AR 0/default, AR 1–2 red, AR 3–11 orange, AR 12–17 yellow, AR 18–23 green, and AR 24+ blue.
+- When multiple permitted components share an elbow or knee, the visualization uses the highest effective AR rather than stacking values. Shields and under-armor Gear do not color body regions.
+
+
+## v136 — Admin Characters bulk tag editing and export completion
+
+- While **Edit Tags** is active, the status component now includes a **Common tags** token field derived from the intersection of tags on all currently checked characters.
+- Adding a Common tag applies it to every checked character; removing a Common tag removes it from every checked character. Per-character token fields remain available for individual edits.
+- The Common tags editor follows the current checkbox selection and reports how many characters are checked.
+- The **Export selected characters** confirmation uses **Proceed** as its affirmative action.
+- After a successful multi-character PDF export is built and handed to the browser for download, all selected-character checkboxes are cleared. Failed exports preserve the selection for retry.
 
 
 ## v135 — Admin Characters sticky-header UX

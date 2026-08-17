@@ -157,14 +157,32 @@ export function resolveWornArmor(selections: InventorySelection[], data: StaticD
   };
 }
 
+function normalizeArmorSingletonSelections(selections: InventorySelection[], data: StaticData) {
+  return selections.flatMap((selection) => {
+    const quantity = Math.max(1, Math.trunc(selection.quantity || 1));
+    const definition = armorDefinition(selection, data);
+    // Preserve the legacy v125/v126 convention where quantity 2 on an unsided
+    // one-side sectional item represented one Left and one Right physical piece.
+    if (quantity >= 2 && definition?.sideRequired && !selection.armorSide) {
+      return [
+        { ...selection, id: `${selection.id}-left`, quantity: 1, armorSide: 'Left' as const },
+        { ...selection, id: `${selection.id}-right`, quantity: 1, armorSide: 'Right' as const },
+      ];
+    }
+    return [{ ...selection, quantity: 1 }];
+  });
+}
+
 /**
  * Enforce the worn-armor invariant on any draft, including migrated browser state.
  * Losing physical pieces become Notes. A losing Armor Set is only a redundant
  * abstraction of a surviving sectional suit and is discarded rather than duplicated.
  */
 export function normalizeArmorWearState(draft: CharacterDraft, data: StaticData): CharacterDraft {
-  const { worn, unworn } = resolveWornArmor(draft.utilities.armor, data);
-  if (!unworn.length) return draft;
+  const singletonArmor = normalizeArmorSingletonSelections(draft.utilities.armor, data);
+  const { worn, unworn } = resolveWornArmor(singletonArmor, data);
+  const singletonChanged = JSON.stringify(singletonArmor) !== JSON.stringify(draft.utilities.armor);
+  if (!unworn.length && !singletonChanged) return draft;
   let notes = draft.utilities.notes;
   for (const item of unworn) {
     const definition = armorDefinition(item, data);
@@ -651,7 +669,7 @@ export function addInventoryItem(
   let ordinal = 1;
   if (separateInstance) while (current.some((entry) => entry.id === `inventory-${category}-${catalogId}-${ordinal}`)) ordinal += 1;
   const next: InventorySelection[] = existing
-    ? current.map((entry) => entry.id === existing.id ? { ...entry, quantity: entry.quantity + 1 } : entry)
+    ? current.map((entry) => entry.id === existing.id ? { ...entry, quantity: category === 'armor' ? 1 : entry.quantity + 1 } : entry)
     : [...current, {
         id: `inventory-${category}-${catalogId}${separateInstance ? `-${ordinal}` : ''}`,
         catalogId,
@@ -674,7 +692,9 @@ export function setInventoryQuantity(
   quantity: number,
   selectionId?: string,
 ): CharacterDraft {
-  const value = Math.max(0, Math.min(999, Math.trunc(quantity)));
+  const value = category === 'armor'
+    ? Math.max(0, Math.min(1, Math.trunc(quantity)))
+    : Math.max(0, Math.min(999, Math.trunc(quantity)));
   const matches = (entry: InventorySelection) => selectionId ? entry.id === selectionId : entry.catalogId === catalogId;
   const next = value === 0
     ? draft.utilities[category].filter((entry) => !matches(entry))

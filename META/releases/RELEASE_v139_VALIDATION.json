@@ -1,0 +1,75 @@
+{
+  "release": "v139",
+  "date": "2026-08-16",
+  "status": "pass-with-environment-limitation",
+  "checks": {
+    "runtimeDataValidation": {
+      "status": "pass",
+      "command": "node scripts/validate-data.mjs",
+      "jsonFilesValidated": 77
+    },
+    "changedTypeScriptSyntax": {
+      "status": "pass",
+      "method": "Global TypeScript transpileModule diagnostics",
+      "filesChecked": 2,
+      "files": [
+        "src/app/forge/armor-editor.tsx",
+        "src/lib/rules/armor.ts"
+      ]
+    },
+    "staticJavaScriptSyntax": {
+      "status": "pass",
+      "commands": [
+        "node --check scripts/validate-data.mjs",
+        "node --check public/character-creator/app.js",
+        "node --check public/character-creator/character-sheet.js"
+      ]
+    },
+    "allJsonParse": {
+      "status": "pass",
+      "filesChecked": 119
+    },
+    "armorSetCoverageLogic": {
+      "status": "pass",
+      "method": "Runtime TypeScript harness using the application data/rules modules",
+      "assertions": [
+        "Armor Set, Light (Soft): 5 broad-coverage atoms at by-Hit-Location AR 3",
+        "Armor Set, Light (Boiled): 15 atoms at AR 9",
+        "Armor Set, Medium (Reinforced): 15 atoms at AR 12",
+        "Armor Set, Medium (Mail): 15 atoms at AR 15",
+        "Armor Set, Heavy (Reinforced + Plate): 23 atoms at AR 18",
+        "Armor Set, Heavy (Mail + Plate): 23 atoms at AR 21",
+        "Armor Set, Field (Plate): 23 atoms at AR 24",
+        "Armor Set noHitLocationBonus is excluded from Visual Armor Coverage"
+      ]
+    },
+    "svgCoverageAtoms": {
+      "status": "pass",
+      "maleCanonicalAtomsMatched": 27,
+      "femaleCanonicalAtomsMatched": 27
+    },
+    "uiFeatureAssertions": {
+      "status": "pass",
+      "assertions": [
+        "No Armor is presented as the first Armor Set quick-pick and removes Suit/sectional protection while leaving the independently managed Helm/Shield/Gear slots intact.",
+        "Reset is disabled before Armor edits, becomes enabled when the current Personal Armor state differs from the editor-entry snapshot, and restores that snapshot.",
+        "Armor-editor forced md/xl grid-column breakpoints were removed; auto-fit/content-width-safe grids are used instead.",
+        "Single decomposition suggestions can consume the available row width.",
+        "Derived Armor capability/explanation panels stack when insufficient content width is available."
+      ]
+    },
+    "npmTypecheckAndBuild": {
+      "status": "not-run",
+      "reason": "The archive does not contain node_modules in this execution environment. Changed TypeScript files were syntax-transpiled with the available global TypeScript compiler; armor coverage rules were additionally executed through a ts-node runtime harness; runtime data, JSON, SVG atom, and static JavaScript checks were run."
+    },
+    "runtimeDataDrift": {
+      "status": "pass",
+      "comparisonBase": "dxd-chargen_v138_visual-armor-panel.zip",
+      "srcDataFilesByteIdentical": 96
+    },
+    "packageLockDrift": {
+      "status": "pass",
+      "result": "package-lock.json differs from v138 only by the intended 0.138.0 -> 0.139.0 root/package version change."
+    }
+  }
+}
