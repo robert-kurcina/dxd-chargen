@@ -1,0 +1,38 @@
+{
+  "version": "v126",
+  "scope": "dxd-chargen only; character normalization and book-rewrite parity deferred",
+  "creationNavigation": {
+    "phaseCount": 7,
+    "customizePhase": "optional",
+    "customizeSubsteps": [
+      "Customize Weapons",
+      "Customize Armor",
+      "Customize Equipment"
+    ],
+    "optionalStepsExcludedFromRequiredProgress": true,
+    "optionalStepsExcludedFromFinalReadiness": true
+  },
+  "startingGear": {
+    "role": "automatic Trade-based baseline",
+    "comprehensiveCataloguesRemovedFromStep": true,
+    "randomGenerateDisabled": true,
+    "explicitGearReviewNoLongerRequired": true
+  },
+  "customize": {
+    "weaponsCatalogue": "Customize Weapons",
+    "personalArmorEditor": "Customize Armor",
+    "equipmentCatalogue": "Customize Equipment",
+    "newSelectionProvenance": "Customized Gear"
+  },
+  "armorParity": {
+    "status": "pending",
+    "ledger": "META/guidance/ARMOR_SECTIONAL_PARITY_v125.csv"
+  },
+  "validation": {
+    "json": "pass",
+    "dataValidation": "pass",
+    "typescriptSyntax": "pass; tsc emitted no parser diagnostics in modified files",
+    "fullTypecheck": "blocked by package dependencies not installed in the artifact worktree",
+    "fullNextBuild": "not run: dependencies not installed"
+  }
+}

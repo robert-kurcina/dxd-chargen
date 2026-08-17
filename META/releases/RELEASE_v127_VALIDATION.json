@@ -1,0 +1,38 @@
+{
+  "version": "v127",
+  "scope": "dxd-chargen only; character normalization and book-rewrite parity deferred",
+  "armorOccupancy": {
+    "granularAtoms": 27,
+    "sectionalRecords": 67,
+    "helmetRecords": 7,
+    "onlyAllowedOverlap": [
+      "Elbow (Left)",
+      "Elbow (Right)",
+      "Knee (Left)",
+      "Knee (Right)"
+    ],
+    "sideRequiredForOneSideComponents": true,
+    "gearExemptAsUnderArmorLayer": true,
+    "shieldExemptAsMobileProtection": true,
+    "svg": "public/armor/hit-locations.svg",
+    "attachmentOnlyDeferredHelmet": "Helmet, Full Mantled (coverage known; mechanics absent)"
+  },
+  "regressions": {
+    "cuirassPlusBreastplate": "rejected",
+    "rerebracePlusVambrace": "allowed",
+    "backplateBodyPart": "Back Torso",
+    "presetDecompositionsForbiddenOverlap": 0
+  },
+  "bookParity": {
+    "status": "deferred",
+    "sectionalLedger": "META/guidance/ARMOR_SECTIONAL_PARITY_v125.csv",
+    "occupancyLedger": "META/guidance/ARMOR_OCCUPANCY_PARITY_v127.csv"
+  },
+  "validation": {
+    "json": "pass",
+    "dataValidation": "pass",
+    "typescriptSyntax": "pass via TypeScript transpile diagnostics",
+    "fullTypecheck": "blocked by package dependencies not installed in artifact worktree",
+    "fullNextBuild": "not run: dependencies not installed"
+  }
+}

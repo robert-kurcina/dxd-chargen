@@ -1,0 +1,28 @@
+{
+  "version": "v128",
+  "scope": "dxd-chargen only; character normalization and book-rewrite parity deferred",
+  "helmetFullMantled": {
+    "priceSp": 320,
+    "weightLb": 6,
+    "D": 4,
+    "AR": 21,
+    "coverage": [
+      "Skull",
+      "Face",
+      "Neck (Back)"
+    ]
+  },
+  "corrections": {
+    "Helmet, Full Visored": "120 sp -> 320 sp",
+    "Vambraces, Metal": "AR 9 -> 18",
+    "Gauntlets, Mail": "AR 16 -> 15",
+    "Leggings, Boiled": "AR 10 -> 6"
+  },
+  "armorRecordCount": 93,
+  "auditLedger": "META/guidance/ARMOR_NUMERIC_AUDIT_v128.csv",
+  "validation": {
+    "json": "pass",
+    "typescriptSyntax": "pass via TypeScript transpile diagnostics on modified TS/TSX files",
+    "fullTypecheck": "blocked by absent Next/React/Node project dependencies in artifact worktree"
+  }
+}

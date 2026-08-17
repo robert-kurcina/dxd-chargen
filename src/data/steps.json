@@ -170,5 +170,30 @@
         "description": "Upload or link an image, then crop it to the configured character portrait ratio."
       }
     ]
+  },
+  {
+    "title": "CUSTOMIZE",
+    "value": "customize",
+    "description": "Optional detailed refinement of starting weapons, armor, and equipment. Skip this phase to use the assigned Starting Gear unchanged.",
+    "substeps": [
+      {
+        "title": "Customize Weapons",
+        "value": "customize-weapons",
+        "description": "Optionally replace, add, remove, resize, or otherwise refine the character’s weapons after Starting Gear is assigned.",
+        "optional": true
+      },
+      {
+        "title": "Customize Armor",
+        "value": "customize-armor",
+        "description": "Optionally refine the character’s Armor Set, Helmet, Shield, Gear, and sectional armor components.",
+        "optional": true
+      },
+      {
+        "title": "Customize Equipment",
+        "value": "customize-equipment",
+        "description": "Optionally replace, add, remove, resize, or otherwise refine ordinary equipment after Starting Gear is assigned.",
+        "optional": true
+      }
+    ]
   }
 ]

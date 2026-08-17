@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
+import { nextGlobalRandom } from '@/lib/admin-settings';
 import { resolveTragedySeed } from '@/lib/character-logic';
 import { allowedEnvironNames, localeForRegion, selectedSettlementOption, settlementOptionsForRegion } from '@/lib/settlement-context';
 import {
@@ -498,7 +499,7 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
   const imported = !selected && draft.background.tragedySeedId && draft.background.tragedySeedText;
 
   const resolve = (item: StaticData['tragedySeeds'][number]) => {
-    const tragedySeedText = resolveTragedySeed(item.seed, data.randomPersonItemDeity);
+    const tragedySeedText = resolveTragedySeed(item.seed, data.randomPersonItemDeity, nextGlobalRandom);
     setDraft((current) => ({
       ...current,
       background: {

@@ -251,10 +251,16 @@
   text-indent: 0;
 }
 #back .field-group-back-notes { left: 5%; top: 49%; width: 69.5%; height: 34%; }
-#back .field-group-back-name .field,
-#back .field-group-back-notes .field { width: 100%; height: 100%; }
+#back .field-group-back-name .field { width: 100%; height: 100%; }
 #back [data-field="BackName"] { padding: 0; font-size: 2.1cqw; line-height: 1.08; }
-#back [data-field="BackNotes"] { font-size: 1.42cqw; }
+#back .back-notes-cell { position: relative; width: 100%; height: 100%; overflow: hidden; }
+#back .back-notes-editor { width: 100%; height: 100%; font-size: 1.42cqw; }
+#back .back-notes-rich { width: 100%; height: 100%; overflow: hidden; font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive; font-size: 1.42cqw; line-height: 1.16; color: #080808; white-space: pre-wrap; }
+#back .back-note-text { min-height: 1.16em; }
+#back .back-note-catalog-properties { margin: -.04em 0 .22em .4cqw; font-size: 1.02cqw; line-height: 1.08; color: #888; }
+#back .back-notes-editor { display: none; }
+.editing #back .back-notes-editor { display: block; }
+.editing #back .back-notes-rich { display: none; }
 #back .field-group-derived-scores {
   left: 78.15%; top: 87%; width: 27.55%; height: 2.45%;
   display: grid;
@@ -332,30 +338,41 @@
 }
 
 
-/* Bottom chart values use two fixed rows so every value remains in its box. */
+/* Bottom universal chart: fixed grid tracks match the printed boxes exactly.
+   Spacer tracks replace percentage margins so editing one value cannot shift its neighbors. */
 #back .field-group-universal-chart {
   left: 4.75%; top: 90.4%; width: 72.25%; height: 5.72%;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-between;
+  display: grid;
+  grid-template-columns:
+    6.3% 1.38% 6.3% 1.38% 6.3% 4.43%
+    6.3% 1.38% 6.3% 1.38% 6.3% 4.43%
+    6.3% 1.38% 6.3% 1.38% 6.3% 4.43%
+    6.3% 1.38% 6.3% 1.38% 6.3%;
+  grid-template-rows: 46.6% 46.6%;
+  row-gap: 6.8%;
 }
 #back .field-group-universal-chart .field {
-  width: 6.3%;
-  height: 46.6%;
-  flex: 0 0 6.3%;
-  margin-right: 1.38%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   padding: 0;
   font-size: 1.45cqw;
   line-height: 1;
 }
-#back .field-group-universal-chart .field:nth-child(3),
-#back .field-group-universal-chart .field:nth-child(6),
-#back .field-group-universal-chart .field:nth-child(9),
-#back .field-group-universal-chart .field:nth-child(15),
-#back .field-group-universal-chart .field:nth-child(18),
-#back .field-group-universal-chart .field:nth-child(21) { margin-right: 4.43%; }
-#back .field-group-universal-chart .field:nth-child(12),
-#back .field-group-universal-chart .field:nth-child(24) { margin-right: 0; }
+#back .field-group-universal-chart .field:nth-child(12n + 1) { grid-column: 1; }
+#back .field-group-universal-chart .field:nth-child(12n + 2) { grid-column: 3; }
+#back .field-group-universal-chart .field:nth-child(12n + 3) { grid-column: 5; }
+#back .field-group-universal-chart .field:nth-child(12n + 4) { grid-column: 7; }
+#back .field-group-universal-chart .field:nth-child(12n + 5) { grid-column: 9; }
+#back .field-group-universal-chart .field:nth-child(12n + 6) { grid-column: 11; }
+#back .field-group-universal-chart .field:nth-child(12n + 7) { grid-column: 13; }
+#back .field-group-universal-chart .field:nth-child(12n + 8) { grid-column: 15; }
+#back .field-group-universal-chart .field:nth-child(12n + 9) { grid-column: 17; }
+#back .field-group-universal-chart .field:nth-child(12n + 10) { grid-column: 19; }
+#back .field-group-universal-chart .field:nth-child(12n + 11) { grid-column: 21; }
+#back .field-group-universal-chart .field:nth-child(12n + 12) { grid-column: 23; }
+#back .field-group-universal-chart .field:nth-child(-n + 12) { grid-row: 1; }
+#back .field-group-universal-chart .field:nth-child(n + 13) { grid-row: 2; }
 
 #back .field-group-universal-center {
   left: 79.15%; top: 91.48%; width: 18.55%; height: 3.05%;

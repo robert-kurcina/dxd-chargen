@@ -1,0 +1,21 @@
+{
+  "version": "v132",
+  "itemArmors_records": 93,
+  "armor_sets": 7,
+  "helmets": 8,
+  "shields": 5,
+  "gear": 6,
+  "sectional_records": 67,
+  "runtime_armor_normalization": true,
+  "sheet_defensive_armor_resolution": true,
+  "burden_defensive_armor_resolution": true,
+  "starting_gear_legacy_reinjection_guard": true,
+  "side_aware_sectional_occupancy": true,
+  "server_single_character_get_normalized": true,
+  "companion_characters": 23,
+  "companion_character_armor_conflicts": 0,
+  "companion_starting_gear_marker_issues": 0,
+  "data_validator": "PASS: 77 JSON files; 7 Armor Sets; 8 Helms; 5 Shields; 6 Gear; 67 sectional components.",
+  "typescript_check": "Global tsc cannot resolve archived Next/React/Node dependencies; no diagnostics were emitted for src/lib/rules/utilities.ts or src/lib/character-sheet-projection.ts. Modified UI/server files report only expected missing dependency/type diagnostics plus pre-existing implicit-any diagnostics in the Node importer.",
+  "sir_bret_stale_v131_runtime_regression": "PASS"
+}

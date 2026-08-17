@@ -1,0 +1,60 @@
+{
+  "version": "v125",
+  "scope": "dxd-chargen only; character normalization and book-rewrite parity deferred",
+  "armorCatalog": {
+    "total": 92,
+    "canonicalArmorSets": 7,
+    "sectionalTotal": 67,
+    "canonicalSectional": 30,
+    "derivedSectionalParityCandidates": 37,
+    "helmet": 7,
+    "shield": 5,
+    "gear": 6
+  },
+  "materialNormalization": {
+    "families": [
+      "Soft",
+      "Boiled",
+      "Reinforced",
+      "Mail",
+      "Plate"
+    ],
+    "softConstructions": [
+      "Fur",
+      "Padded",
+      "Quilted"
+    ],
+    "mailAndFlexAreExistingTraits": true
+  },
+  "suggestedDecompositionPresets": [
+    "Armor Set, Light (Soft)",
+    "Armor Set, Light (Boiled)",
+    "Armor Set, Medium (Reinforced)",
+    "Armor Set, Medium (Mail)",
+    "Armor Set, Heavy (Reinforced + Plate)",
+    "Armor Set, Heavy (Mail + Plate)",
+    "Armor Set, Field (Plate)"
+  ],
+  "bookParity": {
+    "status": "pending during editor iteration",
+    "ledger": "META/guidance/ARMOR_SECTIONAL_PARITY_v125.csv"
+  },
+  "deferred": {
+    "characterNormalization": true,
+    "bookRewriteUpdate": true,
+    "keywords": [
+      "Advanced",
+      "Bombproof",
+      "Bulletproof",
+      "Fireproof",
+      "Acidproof"
+    ]
+  },
+  "validation": {
+    "json": "pass",
+    "dataValidation": "pass",
+    "modifiedTypeScriptSyntaxTranspile": "pass",
+    "fullTypecheck": "blocked by dependencies not installed; modified armor.ts has no remaining local type errors in available check",
+    "fullNextBuild": "not run: dependencies not installed"
+  }
+}

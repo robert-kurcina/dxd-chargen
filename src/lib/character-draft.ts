@@ -42,6 +42,19 @@ export type DraftAttribute = {
   }>;
 };
 
+export type ArmorSuitClass = 'Light' | 'Medium' | 'Heavy' | 'Field';
+
+export type ArmorEditorState = {
+  /** Preset mode uses a canonical abstract Armor Set quick-pick; custom mode uses sectional detail when the fiction requires it. */
+  mode: 'preset' | 'custom';
+  /** Canonical preset classification. In custom mode this is derived from coverage plus calculated D/AR and is not user-selected. */
+  suitClass: ArmorSuitClass | null;
+  /** Canonical quick-pick from which sectional detail was started, retained as provenance/comparison guidance. */
+  originPresetCatalogId: string | null;
+  /** Field construction is an Armor Set classification condition, not a new Trait keyword. */
+  fieldConstruction: boolean;
+};
+
 export type InventorySelection = SourcedSelection & {
   quantity: number;
   unitPriceGp: number;
@@ -52,6 +65,8 @@ export type InventorySelection = SourcedSelection & {
   cultural?: string;
   /** Physical SIZ bracket this fitted/scaled item was made for. Standard is SIZ 12. */
   sizedForSiz?: number;
+  /** Side occupied by a one-side Sectional Armor component. */
+  armorSide?: 'Left' | 'Right';
 };
 
 export type LanguageModifier = 'Old' | 'High' | 'Low' | 'War' | 'Lingo' | 'Barter';
@@ -164,6 +179,8 @@ export type CharacterDraft = {
     spellsReviewed: boolean;
     weapons: InventorySelection[];
     armor: InventorySelection[];
+    /** Forge-only structured armor editor state. Existing characters may omit this until edited. */
+    armorEditor?: ArmorEditorState;
     equipment: InventorySelection[];
     gearReviewed: boolean;
     startingGearTrade?: string | null;
@@ -175,6 +192,8 @@ export type CharacterDraft = {
     name: string;
     properName: string;
     relationships: SourcedSelection[];
+    /** Administrator-defined labels exposed by the Character Library. */
+    libraryTags: string[];
     notes: string;
     backstory: string;
     portraitDataUrl: string;
@@ -318,6 +337,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       spellsReviewed: false,
       weapons: [],
       armor: [],
+      armorEditor: { mode: 'preset', suitClass: null, originPresetCatalogId: null, fieldConstruction: false },
       equipment: [],
       gearReviewed: false,
       startingGearTrade: null,
@@ -329,6 +349,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       name: '',
       properName: '',
       relationships: [],
+      libraryTags: [],
       notes: '',
       backstory: '',
       portraitDataUrl: '',
@@ -355,6 +376,11 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
       },
       intrinsics: { ...current.intrinsics, strifeMixedLineage: current.intrinsics.strifeMixedLineage ?? false, strifeBonusParent: current.intrinsics.strifeBonusParent ?? null },
       properties: { ...current.properties, statureAdjustment: current.properties.statureAdjustment ?? 0, buildAdjustment: current.properties.buildAdjustment ?? 0 },
+      utilities: {
+        ...current.utilities,
+        armorEditor: current.utilities.armorEditor ?? { mode: 'preset', suitClass: null, originPresetCatalogId: null, fieldConstruction: false },
+        libraryTags: Array.isArray(current.utilities.libraryTags) ? Array.from(new Set(current.utilities.libraryTags.map((tag) => String(tag).trim()).filter(Boolean))) : [],
+      },
     };
   }
 

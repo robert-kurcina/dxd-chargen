@@ -311,13 +311,10 @@ function catalogueSummary(stepValue: string, data: StaticData) {
       `${data.calculatedAbilities.reduce((total, group) => total + group.abilities.length, 0)} calculated ability definitions`,
     ];
   if (stepValue.includes("spells")) return [`${data.spells.length} spells`];
-  if (stepValue.includes("starting-gear")) {
-    return [
-      `${data.itemWeapons.length} weapons`,
-      `${data.itemArmors.length} armor entries`,
-      `${data.itemEquipments.length} equipment entries`,
-    ];
-  }
+  if (stepValue.includes("starting-gear")) return ["Trade-based baseline package"];
+  if (stepValue === "customize-weapons") return [`${data.itemWeapons.length} weapons`];
+  if (stepValue === "customize-armor") return [`${data.itemArmors.length} armor entries`];
+  if (stepValue === "customize-equipment") return [`${data.itemEquipments.length} equipment entries`];
   if (stepValue.includes("magic-items"))
     return [`${data.magicItems.length} magic items`];
   return [];
@@ -436,7 +433,16 @@ function keyDrivers(
       ];
     case "utilities-starting-gear":
       return [
+        `Trade: ${trade?.trade ?? "unassigned"}`,
+        `Baseline package: assigned automatically`,
+      ];
+    case "customize-weapons":
+    case "customize-armor":
+    case "customize-equipment":
+      return [
+        `Optional: does not block character readiness`,
         `Personal Wealth: ${personalWealthGp(draft, data)?.toLocaleString() ?? "unresolved"} gp`,
+        `SIZ: ${draft.properties.siz ?? "unresolved"}`,
       ];
     case "utilities-magic-items":
       return [
@@ -497,6 +503,9 @@ export default function Worksheet({
   );
   const activeStep = allSteps[activeIndex] ?? allSteps[0];
   const stepAssessment = (stepValue: string) => {
+    const configuredStep = allSteps.find((step) => step.value === stepValue);
+    if (configuredStep && 'optional' in configuredStep && configuredStep.optional)
+      return { status: "complete" as const, messages: [] as string[] };
     // Persisted completion approves reconstructed legacy values, but it must not
     // hide a concrete Broad Skill/Trait specialization still requiring review.
     if (stepValue === "proficiencies-skills-abilities-talents") {
@@ -527,11 +536,12 @@ export default function Worksheet({
       messages: [] as string[],
     };
   };
-  const completeCount = allSteps.filter(
+  const requiredSteps = allSteps.filter((step) => !("optional" in step && step.optional));
+  const completeCount = requiredSteps.filter(
     (step) => stepAssessment(step.value).status === "complete",
   ).length;
   const progress =
-    allSteps.length === 0 ? 0 : (completeCount / allSteps.length) * 100;
+    requiredSteps.length === 0 ? 0 : (completeCount / requiredSteps.length) * 100;
   const activeCatalogue = activeStep
     ? catalogueSummary(activeStep.value, data)
     : [];
@@ -573,7 +583,7 @@ export default function Worksheet({
       sensitivity: "base",
     }),
   );
-  const unresolvedSteps = allSteps
+  const unresolvedSteps = requiredSteps
     .map((step) => ({ step, assessment: stepAssessment(step.value) }))
     .filter(({ assessment }) => assessment.status !== "complete");
   const alertCount = unresolvedSteps.filter(
@@ -705,7 +715,7 @@ export default function Worksheet({
             <h1 className="text-2xl font-semibold">
               Sarna Len Character Forge
             </h1>
-            <Badge variant="outline">v107 QA Corrections</Badge>
+            <Badge variant="outline">v128 Armor Audit</Badge>
           </div>
           <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
             Canonical DXD creation order with all in-scope phases functional.
@@ -718,7 +728,7 @@ export default function Worksheet({
             <div className="mb-1 flex justify-between text-xs text-muted-foreground">
               <span>Creation progress</span>
               <span>
-                {completeCount}/{allSteps.length}
+                {completeCount}/{requiredSteps.length}
               </span>
             </div>
             <Progress value={progress} className="h-2" aria-label="Character creation progress" />
@@ -786,7 +796,9 @@ export default function Worksheet({
           </CardHeader>
           <CardContent className="space-y-4">
             {data.steps.map((phase, phaseIndex) => {
-              const phaseComplete = phase.substeps.every(
+              const phaseRequiredSteps = phase.substeps.filter((step) => !("optional" in step && step.optional));
+              const phaseOptional = phaseRequiredSteps.length === 0;
+              const phaseComplete = !phaseOptional && phaseRequiredSteps.every(
                 (step) => stepAssessment(step.value).status === "complete",
               );
               const phaseActive = phase.value === activeStep.phaseValue;
@@ -804,7 +816,7 @@ export default function Worksheet({
                       ) : (
                         <Circle className="h-3.5 w-3.5" />
                       )}
-                      {phaseIndex + 1}. {phase.title.replace("ASSIGN ", "")}
+                      {phaseIndex + 1}. {phase.title.replace("ASSIGN ", "")}{phaseOptional ? " · Optional" : ""}
                     </span>
                   }
                   defaultOpen={phaseActive || phaseIndex === 0}
@@ -815,15 +827,16 @@ export default function Worksheet({
                     {phase.substeps.map((step) => {
                       const active = step.value === activeStep.value;
                       const assessment = stepAssessment(step.value);
-                      const complete = assessment.status === "complete";
-                      const warning = assessment.status === "warning";
+                      const optional = "optional" in step && Boolean(step.optional);
+                      const complete = !optional && assessment.status === "complete";
+                      const warning = !optional && assessment.status === "warning";
                       return (
                         <button
                           type="button"
                           key={step.value}
                           onClick={() => selectStep(step.value)}
                           aria-current={active ? "step" : undefined}
-                          aria-label={`${step.title}. ${complete ? "Complete" : warning ? "Warning: review or approve" : "Alert: fix required"}`}
+                          aria-label={`${step.title}. ${optional ? "Optional; may be skipped" : complete ? "Complete" : warning ? "Warning: review or approve" : "Alert: fix required"}`}
                           className={cn(
                             "flex w-full items-start gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
                             active
@@ -831,14 +844,16 @@ export default function Worksheet({
                               : "hover:bg-muted",
                           )}
                         >
-                          {complete ? (
+                          {optional ? (
+                            <Circle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                          ) : complete ? (
                             <Check className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                           ) : warning ? (
                             <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-black" />
                           ) : (
                             <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#990000]" />
                           )}
-                          <span>{step.title.replace("Assign ", "")}</span>
+                          <span>{step.title.replace("Assign ", "")}{optional ? " (Optional)" : ""}</span>
                         </button>
                       );
                     })}

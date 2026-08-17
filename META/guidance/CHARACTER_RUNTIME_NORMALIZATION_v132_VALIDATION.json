@@ -1,0 +1,11 @@
+{
+  "version": "v132",
+  "characters": 23,
+  "completed_characters_with_established_trade_marker": 23,
+  "gear_reviewed_true": 23,
+  "illegal_worn_armor_conflicts": 0,
+  "unknown_armor_catalog_ids": 0,
+  "sir_bret_worn_armor": ["Cuirass, Metal", "Helmet, Full", "Shield, Medium"],
+  "sir_bret_notes_contains": "Breastplate, Metal",
+  "non_character_provenance_files_changed_from_v131": 0
+}

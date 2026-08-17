@@ -18,7 +18,7 @@ import {
   traitDefinitionForSelection,
 } from '@/lib/rules/proficiencies';
 import { calculateProperties } from '@/lib/rules/properties';
-import { displayInventoryQuantity, displayMagicItemSelection, displaySpellName, magicItemInventoryForm } from '@/lib/rules/utilities';
+import { displayInventoryQuantity, displayMagicItemSelection, displaySpellName, magicItemInventoryForm, resolveWornArmor } from '@/lib/rules/utilities';
 
 export type CharacterSheetData = {
   name: string;
@@ -112,6 +112,7 @@ function heightText(inches: number | null) {
 
 export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): CharacterSheetData {
   const capabilities = projectedCapabilities(draft, data);
+  const legalArmor = resolveWornArmor(draft.utilities.armor, data).worn;
   const importedDetail = (detail: string) => draft.background.demographicSelections.find((entry) => entry.sourceDetail === detail)?.name ?? '';
   const speciesChoice = getSpeciesChoice(draft, data);
   const strifePairing = draft.intrinsics.childOfStrife ? getStrifePairing(draft) : null;
@@ -189,7 +190,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     history: {
       equipment: listInventory(draft.utilities.equipment),
       weapons: listInventory(draft.utilities.weapons),
-      armor: listInventory(draft.utilities.armor),
+      armor: listInventory(legalArmor),
       magicItems: draft.utilities.magicItems.map((entry) => {
         const form = magicItemInventoryForm(entry, draft, data);
         const displayName = displayMagicItemSelection(entry, draft, data);

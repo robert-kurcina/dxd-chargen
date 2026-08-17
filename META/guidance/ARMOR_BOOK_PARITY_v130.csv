@@ -1,0 +1,94 @@
+Name,Kind,Material,sp,Weight lb,D,AR,Hit Locations,Body Parts,Traits,Book parity status
+"Gorget, Reinforced",sectional,Reinforced,15,3.0,2,9,Front Torso,Neck + Upper Chest,Target,pending book-rewrite synchronization
+"Gorget, Metal",sectional,Plate,30,4.0,3,18,Front Torso,Neck + Upper Chest,Fitted; Target,pending book-rewrite synchronization
+"Rerebraces, Metal",sectional,Plate,150,4.0,4,18,Arms,Upper Arms,Fitted 2,pending book-rewrite synchronization
+"Vambraces, Reinforced",sectional,Reinforced,40,3.0,2,9,Arms,Forearms + Elbows,,pending book-rewrite synchronization
+"Vambraces, Metal",sectional,Plate,125,4.0,4,18,Arms,Forearms + Elbows,Fitted,pending book-rewrite synchronization
+"Gauntlets, Reinforced",sectional,Reinforced,25,2.5,0,6,Arms,Hands + Forearms,,pending book-rewrite synchronization
+"Gauntlets, Mail",sectional,Mail,75,3.0,2,15,Arms,Hands + Forearms,,pending book-rewrite synchronization
+"Gauntlets, Metal",sectional,Plate,100,3.0,3,18,Arms,Hands + Forearms,Fitted 2,pending book-rewrite synchronization
+"Sleeve, Reinforced × 1",sectional,Reinforced,60,3.0,2,9,Arms,Arm,,pending book-rewrite synchronization
+"Sleeve, Metal × 1",sectional,Plate,200,4.0,3,15,Arms,Arm,Fitted 2,pending book-rewrite synchronization
+"Pauldron, Reinforced × 1",sectional,Reinforced,25,1.5,3,9,Arms,Shoulder,Protective,pending book-rewrite synchronization
+"Pauldron, Metal × 1",sectional,Plate,60,2.5,5,18,Arms,Shoulder,Protective,pending book-rewrite synchronization
+"Manica, Mail × 1",sectional,Mail,60,4.0,4,15,Arms,Arm + Shoulder,Parry,pending book-rewrite synchronization
+"Skirt, Reinforced",sectional,Reinforced,100,8.0,1,9,Legs,Abdomen + Thighs,,pending book-rewrite synchronization
+"Skirt, Metal",sectional,Plate,150,10.0,3,18,Legs,Abdomen + Thighs,Noisy; Bulky,pending book-rewrite synchronization
+"Cuisses, Metal",sectional,Plate,80,6,3,18,Legs,Thighs,Bulky,pending book-rewrite synchronization
+"Leggings, Boiled",sectional,Boiled,90,10,1,6,Legs,Legs,,pending book-rewrite synchronization
+"Leggings, Reinforced",sectional,Reinforced,120,12,2,9,Legs,Legs,Bulky,pending book-rewrite synchronization
+"Leggings, Metal",sectional,Plate,300,14.0,3,15,Legs,Legs,Bulky; Fitted 2,pending book-rewrite synchronization
+"Greaves, Reinforced",sectional,Reinforced,100,5.0,0,9,Legs,Shins + Knees,,pending book-rewrite synchronization
+"Greaves, Metal",sectional,Plate,300,6.0,2,15,Legs,Shins + Knees,,pending book-rewrite synchronization
+"Sollerets, Metal",sectional,Plate,80,3.5,2,18,Legs,Feet,Noisy,pending book-rewrite synchronization
+"Chestplate, Metal",sectional,Plate,200,8.0,4,21,Front Torso,Chest,Fitted; Rigid,pending book-rewrite synchronization
+"Chestplate, Reinforced",sectional,Reinforced,120,6.0,2,12,Front Torso,Chest,,pending book-rewrite synchronization
+"Breastplate, Metal",sectional,Plate,300,10.0,4,21,Front Torso,Front Torso,Fitted 2; Rigid,pending book-rewrite synchronization
+"Backplate, Metal",sectional,Plate,250,9.0,3,18,Back Torso,Back Torso,Rigid,pending book-rewrite synchronization
+"Jacket, Boiled",sectional,Boiled,120,12.0,2,9,Front Torso; Back Torso,Front Torso + Back Torso,,pending book-rewrite synchronization
+"Jacket, Reinforced",sectional,Reinforced,180,15.0,3,12,Front Torso; Back Torso,Front Torso + Back Torso,Rigid,pending book-rewrite synchronization
+"Brigandine, Mail",sectional,Mail,600,20.0,4,18,Front Torso; Back Torso,Front Torso + Back Torso,Fitted; Bulky; Mail; Rigid,pending book-rewrite synchronization
+"Cuirass, Metal",sectional,Plate,600,20.0,5,21,Front Torso; Back Torso,Front Torso + Back Torso,Fitted 3,pending book-rewrite synchronization
+"Shirt, Padded",gear,Soft,180,10,0,6,Front Torso; Back Torso,,Bulky; Rigid,pending book-rewrite synchronization
+"Long Shirt, Padded",gear,Soft,250,15,0,6,Front Torso; Back Torso,,Bulky 2; Rigid,pending book-rewrite synchronization
+"Shirt, Quilted",gear,Soft,150,8,1,6,Front Torso; Back Torso,,Flex; Rigid,pending book-rewrite synchronization
+"Long Shirt, Quilted",gear,Soft,225,12,1,6,Front Torso; Back Torso,,Flex,pending book-rewrite synchronization
+"Thin Shirt, Mail",gear,Mail,400,12,2,9,Front Torso; Back Torso,,Mail,pending book-rewrite synchronization
+"Thin Long Shirt, Mail",gear,Mail,600,15,2,12,Front Torso; Back Torso,,Mail,pending book-rewrite synchronization
+"Shield, Buckler",shield,Shield,24,2,4,6,,,1H; Target 2,pending book-rewrite synchronization
+"Shield, Small",shield,Shield,40,5,2,9,,,1H; Target; Coverage,pending book-rewrite synchronization
+"Shield, Medium",shield,Shield,60,10,3,12,,,1H; Screen; Coverage,pending book-rewrite synchronization
+"Shield, Large",shield,Shield,80,15,4,15,,,1H; Bulky; Screen; Coverage,pending book-rewrite synchronization
+"Shield, Tower",shield,Shield,100,20,4,18,,,1H; Bulky 2; Screen,pending book-rewrite synchronization
+"Helmet, Mail Coif",helmet,Mail,100,4,2,12,Head,,Mail; Rigid,pending book-rewrite synchronization
+"Helmet, Boiled",helmet,Boiled,25,2.5,1,9,Head,,Rigid,pending book-rewrite synchronization
+"Helmet, Full",helmet,Plate,225,5,3,18,Head,,Blinders; Rigid; Protective,pending book-rewrite synchronization
+"Helmet, Half",helmet,Plate,100,2.5,2,15,Head,,Rigid,pending book-rewrite synchronization
+"Helmet, Half Mantled",helmet,Plate,150,3,3,18,Head,,Rigid,pending book-rewrite synchronization
+"Helmet, Full Mantled",helmet,Plate,275,6,4,21,Head,,Blinders; Rigid; Protective,pending book-rewrite synchronization
+"Helmet, Full Visored",helmet,Plate,275,6,4,21,Head,,Blinders; Rigid; Protective,pending book-rewrite synchronization
+"Helmet, Full Visored Mantled",helmet,Plate,350,8,5,24,Head,,Blinders; Rigid; Protective,pending book-rewrite synchronization
+"Armor Set, Light (Soft)",set,Soft,250,20,2,3,Front Torso; Back Torso,,Flex,pending book-rewrite synchronization
+"Armor Set, Light (Boiled)",set,Boiled,350,25,3,9,Front Torso; Back Torso; Arms,,,pending book-rewrite synchronization
+"Armor Set, Medium (Reinforced)",set,Reinforced,600,25,4,12,Front Torso; Back Torso; Arms,,Rigid,pending book-rewrite synchronization
+"Armor Set, Medium (Mail)",set,Mail,800,30,5,15,Front Torso; Back Torso; Arms,,Flex; Mail; Rigid,pending book-rewrite synchronization
+"Armor Set, Heavy (Reinforced + Plate)",set,Reinforced + Plate,1500,40,6,18,Front Torso; Back Torso; Arms; Legs,,Mail; Fitted; Rigid,pending book-rewrite synchronization
+"Armor Set, Heavy (Mail + Plate)",set,Mail + Plate,2400,50,7,21,Front Torso; Back Torso; Arms; Legs,,Bulky; Fitted 2; Rigid,pending book-rewrite synchronization
+"Armor Set, Field (Plate)",set,Plate,4000,60,8,24,Front Torso; Back Torso; Arms; Legs,,Bulky 2; Fitted 3; Rigid,pending book-rewrite synchronization
+"Jacket, Fur",sectional,Soft,120,12.0,1,6,Front Torso; Back Torso,Front Torso + Back Torso,,pending book-rewrite synchronization
+"Jacket, Padded",sectional,Soft,250,12.0,0,6,Front Torso; Back Torso,Front Torso + Back Torso,Bulky 2; Sturdy,pending book-rewrite synchronization
+"Jacket, Quilted",sectional,Soft,225,10.0,1,6,Front Torso; Back Torso,Front Torso + Back Torso,Flex,pending book-rewrite synchronization
+"Sleeve, Fur × 1",sectional,Soft,20,3,0,3,Arms,Arm,,pending book-rewrite synchronization
+"Sleeve, Padded × 1",sectional,Soft,35,3,0,3,Arms,Arm,Bulky,pending book-rewrite synchronization
+"Sleeve, Quilted × 1",sectional,Soft,30,2.5,1,3,Arms,Arm,Flex,pending book-rewrite synchronization
+"Leggings, Fur",sectional,Soft,60,8,0,6,Legs,Legs,,pending book-rewrite synchronization
+"Leggings, Padded",sectional,Soft,110,10,0,6,Legs,Legs,Bulky,pending book-rewrite synchronization
+"Leggings, Quilted",sectional,Soft,90,8,1,6,Legs,Legs,Flex,pending book-rewrite synchronization
+"Gorget, Boiled",sectional,Boiled,10,2.5,1,6,Front Torso,Neck + Upper Chest,,pending book-rewrite synchronization
+"Rerebraces, Boiled",sectional,Boiled,50,3.0,1,6,Arms,Upper Arms,,pending book-rewrite synchronization
+"Vambraces, Boiled",sectional,Boiled,25,2.5,1,6,Arms,Forearms + Elbows,,pending book-rewrite synchronization
+"Sleeve, Boiled × 1",sectional,Boiled,40,3.0,1,6,Arms,Arm,,pending book-rewrite synchronization
+"Pauldron, Boiled × 1",sectional,Boiled,15,1.5,2,6,Arms,Shoulder,Protective,pending book-rewrite synchronization
+"Skirt, Boiled",sectional,Boiled,70,7.0,0,6,Legs,Abdomen + Thighs,,pending book-rewrite synchronization
+"Cuisses, Boiled",sectional,Boiled,30,3,0,6,Legs,Thighs,,pending book-rewrite synchronization
+"Greaves, Boiled",sectional,Boiled,60,4.0,0,6,Legs,Shins + Knees,,pending book-rewrite synchronization
+"Chestplate, Boiled",sectional,Boiled,80,5.0,1,9,Front Torso,Chest,,pending book-rewrite synchronization
+"Breastplate, Boiled",sectional,Boiled,150,8.0,1,9,Front Torso,Front Torso,,pending book-rewrite synchronization
+"Backplate, Boiled",sectional,Boiled,120,6.0,0,6,Back Torso,Back Torso,,pending book-rewrite synchronization
+"Rerebraces, Reinforced",sectional,Reinforced,75,4.0,2,9,Arms,Upper Arms,,pending book-rewrite synchronization
+"Cuisses, Reinforced",sectional,Reinforced,40,3.5,1,9,Legs,Thighs,Bulky,pending book-rewrite synchronization
+"Breastplate, Reinforced",sectional,Reinforced,200,9.0,2,12,Front Torso,Front Torso,,pending book-rewrite synchronization
+"Backplate, Reinforced",sectional,Reinforced,150,7.0,1,9,Back Torso,Back Torso,,pending book-rewrite synchronization
+"Sollerets, Reinforced",sectional,Reinforced,40,3.0,0,9,Legs,Feet,,pending book-rewrite synchronization
+"Gorget, Mail",sectional,Mail,20,3.5,3,15,Front Torso,Neck + Upper Chest,Mail,pending book-rewrite synchronization
+"Rerebraces, Mail",sectional,Mail,100,4.0,3,15,Arms,Upper Arms,Mail,pending book-rewrite synchronization
+"Vambraces, Mail",sectional,Mail,75,3.5,3,15,Arms,Forearms + Elbows,Mail,pending book-rewrite synchronization
+"Sleeve, Mail × 1",sectional,Mail,100,4.0,3,15,Arms,Arm,Mail,pending book-rewrite synchronization
+"Pauldron, Mail × 1",sectional,Mail,35,2.0,4,15,Arms,Shoulder,Mail; Protective,pending book-rewrite synchronization
+"Skirt, Mail",sectional,Mail,130,9.0,2,15,Legs,Abdomen + Thighs,Mail,pending book-rewrite synchronization
+"Cuisses, Mail",sectional,Mail,55,4.0,2,15,Legs,Thighs,Mail,pending book-rewrite synchronization
+"Leggings, Mail",sectional,Mail,200,14.0,2,12,Legs,Legs,Mail; Bulky,pending book-rewrite synchronization
+"Greaves, Mail",sectional,Mail,180,5.0,1,12,Legs,Shins + Knees,Mail,pending book-rewrite synchronization
+"Chestplate, Mail",sectional,Mail,200,7.0,3,18,Front Torso,Chest,Mail,pending book-rewrite synchronization
+"Breastplate, Mail",sectional,Mail,350,11.0,3,18,Front Torso,Front Torso,Mail,pending book-rewrite synchronization
+"Backplate, Mail",sectional,Mail,300,9.0,2,15,Back Torso,Back Torso,Mail,pending book-rewrite synchronization

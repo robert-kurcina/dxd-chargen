@@ -1,0 +1,9 @@
+Validated 77 JSON files.
+Heritage packages: 36.
+Languages/name generators: 17; structured D66 generators: 17; explicit settlement defaults: 6.
+Detailed settlement profiles: 26; locale profiles: 1.
+Complete playable Trade packages: 11.
+Physical scale: 100 rows; Heritage body rules: 10.
+Selectable Humaniki Groups: 6 (Human, Drauf, Alef, Klenari, Babbita, Gnoan); Cherigili Group plus Kriket and Stonefolk families retained but disabled.
+Personal Armor: 7 Armor Sets; 8 Helms; 5 Shields; 6 Gear; 67 sectional components (37 derived parity candidates).
+Complete magic items exposed by policy: 98/145.

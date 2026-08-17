@@ -1,0 +1,12 @@
+Global `tsc --noEmit --pretty false` was run against the unpacked v132 worktree.
+
+Result: exit 2 because the archive does not contain installed Next/React/Node dependencies or their type packages.
+
+Modified-file review:
+- src/lib/rules/utilities.ts: no diagnostics emitted.
+- src/lib/character-sheet-projection.ts: no diagnostics emitted.
+- src/app/expanded-character-sheet.tsx: missing React/JSX types only.
+- src/app/api/character-files/[idName]/route.ts: missing Node/Next types only.
+- src/lib/import-character-creator.ts: missing Node types plus the same importer implicit-any diagnostics present in the dependency-free archived worktree.
+
+No new local TypeScript diagnostic was identified in the v132 armor/runtime-normalization code.

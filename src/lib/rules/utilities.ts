@@ -11,6 +11,9 @@ const UTILITY_STEPS = new Set([
   'utilities-magic-items',
   'utilities-name',
   'utilities-relationships',
+  'customize-weapons',
+  'customize-armor',
+  'customize-equipment',
 ]);
 
 export type InventoryCategory = 'weapons' | 'armor' | 'equipment';
@@ -83,6 +86,101 @@ function appendUnstructuredNote(notes: string, value: string) {
   return `${existing}${existing ? '\n\n' : ''}${value}`;
 }
 
+const ALLOWED_ARMOR_OVERLAP = /^(?:Elbow|Knee) \((?:Left|Right)\)$/i;
+
+function armorDefinition(selection: InventorySelection, data: StaticData) {
+  return selection.catalogId
+    ? data.itemArmors.find((entry) => entry.catalogId === selection.catalogId)
+    : data.itemArmors.find((entry) => entry.name.localeCompare(selection.name, undefined, { sensitivity: 'base' }) === 0);
+}
+
+function armorWearPriority(selection: InventorySelection, data: StaticData) {
+  const definition = armorDefinition(selection, data);
+  // A concrete sectional description supersedes an abstract Armor Set when legacy
+  // data contains both descriptions of the same worn suit.
+  const specificity = definition?.armorKind === 'sectional' ? 40 + Math.min(9, definition.coverageAtoms?.length ?? 0) : 0;
+  if (selection.sourceDetail === 'Legacy Sheet Equipment') return 100 + specificity;
+  if (selection.sourceDetail === 'Customized Gear') return 90 + specificity;
+  if (selection.source === 'player') return 80 + specificity;
+  if (selection.sourceDetail === 'Legacy History Possession') return 70 + specificity;
+  if (selection.sourceDetail === 'Canonical Starting Gear') return 60 + specificity;
+  if (selection.source === 'trade') return 50 + specificity;
+  return 40 + specificity;
+}
+
+function armorSelectionAtoms(selection: InventorySelection, definition: StaticData['itemArmors'][number]) {
+  const atoms = (definition.coverageAtoms ?? []).map((atom) => String(atom));
+  if (definition.sideRequired !== true) return atoms;
+  if (selection.armorSide) return atoms.map((atom) => `${atom} (${selection.armorSide})`);
+  if ((selection.quantity ?? 1) >= 2) return atoms.flatMap((atom) => [`${atom} (Left)`, `${atom} (Right)`]);
+  // Unsided one-side legacy pieces cannot safely claim a limb. Keep them unresolved;
+  // the detailed Armor editor will require a side before accepting the configuration.
+  return [];
+}
+
+export function armorSelectionsConflict(left: InventorySelection, right: InventorySelection, data: StaticData) {
+  const leftDefinition = armorDefinition(left, data);
+  const rightDefinition = armorDefinition(right, data);
+  if (!leftDefinition || !rightDefinition) return false;
+  const leftKind = leftDefinition.armorKind ?? 'other';
+  const rightKind = rightDefinition.armorKind ?? 'other';
+
+  // Armor Sets and Sectional Armor are alternate descriptions of the Suit slot.
+  if (leftKind === 'set' && (rightKind === 'set' || rightKind === 'sectional')) return true;
+  if (rightKind === 'set' && leftKind === 'sectional') return true;
+  // Only one Helm, Shield, or Gear layer can be worn at a time.
+  if (leftKind === rightKind && ['helmet', 'shield', 'gear'].includes(leftKind)) return true;
+
+  if (!['sectional', 'helmet'].includes(leftKind) || !['sectional', 'helmet'].includes(rightKind)) return false;
+  const leftAtoms = new Set(armorSelectionAtoms(left, leftDefinition));
+  for (const atom of armorSelectionAtoms(right, rightDefinition)) {
+    if (leftAtoms.has(atom) && !ALLOWED_ARMOR_OVERLAP.test(atom)) return true;
+  }
+  return false;
+}
+
+export function resolveWornArmor(selections: InventorySelection[], data: StaticData) {
+  const ordered = selections.map((item, index) => ({ item, index }))
+    .sort((a, b) => armorWearPriority(b.item, data) - armorWearPriority(a.item, data) || a.index - b.index);
+  const worn: InventorySelection[] = [];
+  const unworn: InventorySelection[] = [];
+  for (const row of ordered) {
+    if (worn.some((candidate) => armorSelectionsConflict(candidate, row.item, data))) unworn.push(row.item);
+    else worn.push(row.item);
+  }
+  // Preserve the original inventory order for presentation after conflict resolution.
+  const wornIds = new Set(worn.map((item) => item.id));
+  const unwornIds = new Set(unworn.map((item) => item.id));
+  return {
+    worn: selections.filter((item) => wornIds.has(item.id)),
+    unworn: selections.filter((item) => unwornIds.has(item.id)),
+  };
+}
+
+/**
+ * Enforce the worn-armor invariant on any draft, including migrated browser state.
+ * Losing physical pieces become Notes. A losing Armor Set is only a redundant
+ * abstraction of a surviving sectional suit and is discarded rather than duplicated.
+ */
+export function normalizeArmorWearState(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  const { worn, unworn } = resolveWornArmor(draft.utilities.armor, data);
+  if (!unworn.length) return draft;
+  let notes = draft.utilities.notes;
+  for (const item of unworn) {
+    const definition = armorDefinition(item, data);
+    const redundantSet = definition?.armorKind === 'set' && worn.some((candidate) => {
+      const candidateDefinition = armorDefinition(candidate, data);
+      return candidateDefinition?.armorKind === 'sectional' && armorSelectionsConflict(candidate, item, data);
+    });
+    if (redundantSet) continue;
+    const quantity = Math.max(1, Math.trunc(item.quantity ?? 1));
+    const side = item.armorSide ? `${item.armorSide} ` : '';
+    const label = `${side}${displayInventoryName(item.name)}`;
+    notes = appendUnstructuredNote(notes, quantity > 1 ? `${label} x ${quantity}` : label);
+  }
+  return { ...draft, utilities: { ...draft.utilities, armor: worn, notes } };
+}
+
 /** Convert canonical catalogue labels to natural reading order for display only. */
 export function displayInventoryName(name: string): string {
   const pack = cataloguePackage(name);
@@ -91,11 +189,14 @@ export function displayInventoryName(name: string): string {
     const base = displayInventoryName(pack.baseName);
     return pack.packageSize > 1 ? `${pack.packageSize} x ${pluralizeDisplayLabel(base)}` : base;
   }
+  const armorSet = name.trim().match(/^Armor Set,\s*(Light|Medium|Heavy|Field)\s*\((.+)\)$/i);
+  if (armorSet) return `Armor, ${titleModifier(armorSet[1])} (${armorSet[2]})`;
   const aliases: Record<string, string> = {
     'blank codex': 'Spellbook',
     'bow, short': 'Shortbow',
     'cloak or cape': 'Cloak or Cape',
     'helmet, full': 'Full Helm',
+    'helmet, full mantled': 'Full Helm & Mantle',
     'helmet, half mantled': 'Half Helm & Mantle',
     'knife, small': 'Small Knife',
     'pouch, small': 'Pouch, Small',
@@ -281,6 +382,7 @@ type GearSizedItem = {
   notes?: string[];
   weight: number;
   priceGp: number;
+  priceSp?: number;
   ora?: number;
   acc?: number;
   impact?: number;
@@ -331,7 +433,11 @@ export function adjustedGearValues(category: InventoryCategory, item: GearSizedI
   const minStr = Number(item.notes?.join(' ').match(/minSTR:\s*(-?\d+)/i)?.[1] ?? 0);
   if (!adjustment || adjustment.direction === 'standard') return { ...item, minStr, tca: baseTca };
   if (category === 'weapons') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.weaponWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.weaponTca, data) / 10, ora: Number(item.ora ?? 0) + adjustment.weaponOr, damageOffset: Number(item.damageOffset ?? 0) + adjustment.weaponDamage, minStr: minStr + adjustment.weaponMinStr, tca: baseTca + adjustment.weaponTca };
-  if (category === 'armor') return { ...item, weight: indexedScalar(Number(item.weight), adjustment.armorWeightIndex, data), priceGp: indexedScalar(Number(item.priceGp) * 10, adjustment.armorTca, data) / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: baseTca + adjustment.armorTca };
+  if (category === 'armor') {
+    const basePriceSp = Number(item.priceSp ?? (Number(item.priceGp) * 10));
+    const priceSp = indexedScalar(basePriceSp, adjustment.armorTca, data);
+    return { ...item, weight: indexedScalar(Number(item.weight), adjustment.armorWeightIndex, data), priceSp, priceGp: priceSp / 10, armorRating: Math.max(0, Number(item.armorRating ?? 0) + adjustment.armorRating), deflectRating: Math.max(0, Number(item.deflectRating ?? 0) + adjustment.armorDeflect), minStr: 0, tca: baseTca + adjustment.armorTca };
+  }
   if (isWornEquipment(item)) return { ...item, weight: indexedScalar(Number(item.weight), adjustment.armorWeightIndex, data), minStr: 0, tca: baseTca };
   return { ...item, minStr, tca: baseTca };
 }
@@ -397,7 +503,8 @@ export function carriedItemWeight(draft: CharacterDraft, data: StaticData) {
   // A character can wear only one Armor Set at a time; when several are owned,
   // use the lightest set for this carried/worn burden calculation.
   let lightestArmorSetWeight: number | null = null;
-  for (const selection of draft.utilities.armor) {
+  const legalArmor = resolveWornArmor(draft.utilities.armor, data).worn;
+  for (const selection of legalArmor) {
     const values = selectionWeight('armor', selection);
     if (/^Helmet,/i.test(values.canonicalName)) continue;
     if (/^Armor Set,/i.test(values.canonicalName)) {
@@ -440,6 +547,39 @@ const CANONICAL_STARTING_GEAR: Record<string, Array<[InventoryCategory, string, 
   Wizard: [['equipment', 'Large Book'], ['weapons', 'Magestick, Wand'], ['armor', 'Armor Set, Light (Soft)'], ['weapons', 'Knife, Small']],
 };
 
+/** Canonical Trade package preview used by the baseline Starting Gear step. */
+export function canonicalStartingGearPreview(draft: CharacterDraft, data: StaticData) {
+  const trade = data.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === draft.intrinsics.tradeId)?.trade ?? null;
+  if (!trade) return { trade: null, entries: [] as Array<{ category: InventoryCategory; name: string; displayName: string; quantity: number; noteOnly: boolean }> };
+  const requested: Array<[InventoryCategory, string, number?]> = [['equipment', 'Wardrobe'], ...(CANONICAL_STARTING_GEAR[trade] ?? [])];
+  const merged = new Map<string, [InventoryCategory, string, number]>();
+  for (const [category, name, quantity = 1] of requested) {
+    const key = `${category}|${name}`;
+    const prior = merged.get(key);
+    merged.set(key, [category, name, Math.max(prior?.[2] ?? 0, quantity)]);
+  }
+  const entries = Array.from(merged.values()).flatMap(([category, name, quantity]) => {
+    const item = inventoryCatalogue(category, data).find((candidate) => candidate.name === name);
+    if (!item) return [];
+    const note = category === 'equipment' ? ammunitionNote(item.name, quantity) : null;
+    return [{ category, name: item.name, displayName: note ?? displayInventoryQuantity(item.name, quantity), quantity, noteOnly: Boolean(note) }];
+  });
+  return { trade, entries };
+}
+
+function preserveEstablishedImportedStartingGear(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  if (draft.utilities.startingGearTrade || !draft.completedSteps.includes('utilities-starting-gear')) return draft;
+  const trade = data.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === draft.intrinsics.tradeId)?.trade ?? null;
+  if (!trade) return draft;
+  const inventory = [...draft.utilities.weapons, ...draft.utilities.armor, ...draft.utilities.equipment];
+  const looksEstablished = inventory.some((item) => item.source === 'player' || /^(?:Legacy|Customized Gear)/i.test(item.sourceDetail ?? ''));
+  if (!looksEstablished) return draft;
+  // Completed imported/legacy characters already possess their established equipment.
+  // A null marker in old browser state means "migration predates this field", not
+  // "inject the current Trade starting package again".
+  return { ...draft, utilities: { ...draft.utilities, startingGearTrade: trade } };
+}
+
 function canonicalStartingGear(draft: CharacterDraft, data: StaticData): CharacterDraft {
   const trade = data.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === draft.intrinsics.tradeId)?.trade;
   if (!trade || draft.utilities.startingGearTrade === trade) return draft;
@@ -468,12 +608,12 @@ function canonicalStartingGear(draft: CharacterDraft, data: StaticData): Charact
 }
 
 export function resetCanonicalStartingGear(draft: CharacterDraft, data: StaticData) {
-  return canonicalStartingGear({ ...draft, utilities: { ...draft.utilities, weapons: [], armor: [], equipment: [], startingGearTrade: null, gearReviewed: false } }, data);
+  return canonicalStartingGear({ ...draft, utilities: { ...draft.utilities, weapons: [], armor: [], armorEditor: { mode: 'preset', suitClass: null, originPresetCatalogId: null, fieldConstruction: false }, equipment: [], startingGearTrade: null, gearReviewed: false } }, data);
 }
 
 export function clearStartingGear(draft: CharacterDraft, data: StaticData) {
   const trade = data.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === draft.intrinsics.tradeId)?.trade ?? null;
-  return { ...draft, utilities: { ...draft.utilities, weapons: [], armor: [], equipment: [], startingGearTrade: trade, gearReviewed: false } };
+  return { ...draft, utilities: { ...draft.utilities, weapons: [], armor: [], armorEditor: { mode: 'preset', suitClass: null, originPresetCatalogId: null, fieldConstruction: false }, equipment: [], startingGearTrade: trade, gearReviewed: false } };
 }
 
 function inventoryCatalogue(category: InventoryCategory, data: StaticData) {
@@ -504,17 +644,20 @@ export function addInventoryItem(
   const fitted = category === 'weapons' || category === 'armor' || (category === 'equipment' && isWornEquipment(item));
   const sizedForSiz = fitted && sizeAdjustment && sizeAdjustment.presumedSiz !== 12 ? sizeAdjustment.presumedSiz : undefined;
   const separateInstance = category === 'equipment' && inventoryAllowsCustomAppend(item.name);
-  const existing = separateInstance ? undefined : current.find((entry) => entry.catalogId === catalogId);
+  // Keep the automatic Trade package distinct from optional customization. Adding
+  // another copy of a canonical item creates/updates a Customized Gear selection
+  // rather than changing the package-provenance quantity.
+  const existing = separateInstance ? undefined : current.find((entry) => entry.catalogId === catalogId && entry.sourceDetail !== 'Canonical Starting Gear');
   let ordinal = 1;
   if (separateInstance) while (current.some((entry) => entry.id === `inventory-${category}-${catalogId}-${ordinal}`)) ordinal += 1;
   const next: InventorySelection[] = existing
-    ? current.map((entry) => entry.catalogId === catalogId ? { ...entry, quantity: entry.quantity + 1 } : entry)
+    ? current.map((entry) => entry.id === existing.id ? { ...entry, quantity: entry.quantity + 1 } : entry)
     : [...current, {
         id: `inventory-${category}-${catalogId}${separateInstance ? `-${ordinal}` : ''}`,
         catalogId,
         name: item.name,
         source: 'player',
-        sourceDetail: 'Starting Gear',
+        sourceDetail: 'Customized Gear',
         quantity: 1,
         unitPriceGp: Number(item.priceGp) || 0,
         unitWeight: Number(item.weight) || 0,
@@ -855,6 +998,7 @@ export function generateCharacterName(
 }
 
 export function syncUtilities(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  draft = preserveEstablishedImportedStartingGear(draft, data);
   draft = canonicalStartingGear(draft, data);
   let notes = draft.utilities.notes;
   const retainedEquipment = draft.utilities.equipment.filter((selection) => {
@@ -887,7 +1031,7 @@ export function syncUtilities(draft: CharacterDraft, data: StaticData): Characte
   const nameStyle = draft.utilities.nameStyle === 'any' && draft.background.gender
     ? (draft.background.gender === 'Female' ? 'feminine' : draft.background.gender === 'Male' ? 'masculine' : 'any')
     : draft.utilities.nameStyle;
-  return {
+  const synced: CharacterDraft = {
     ...draft,
     utilities: {
       ...draft.utilities,
@@ -898,6 +1042,7 @@ export function syncUtilities(draft: CharacterDraft, data: StaticData): Characte
       nameStyle,
     },
   };
+  return normalizeArmorWearState(synced, data);
 }
 
 export function assessUtilityStep(stepValue: string, draft: CharacterDraft, data: StaticData): StepAssessment {
@@ -913,13 +1058,13 @@ export function assessUtilityStep(stepValue: string, draft: CharacterDraft, data
     return { status: 'complete', messages: [`${draft.utilities.spells.length} starting Spell${draft.utilities.spells.length === 1 ? '' : 's'} recorded.`] };
   }
   if (stepValue === 'utilities-starting-gear') {
-    const budget = availableGoldGp(draft, data);
-    const totals = startingGearTotals(draft, data);
-    if (!draft.utilities.gearReviewed) return { status: 'warning', messages: ['Review and approve the canonical Starting Gear package. Its worth is informational and is not deducted from Personal Wealth.'] };
-    if (budget != null && totals.purchasedCostGp > budget) {
-      return { status: 'warning', messages: [`Additional purchased gear costs ${formatNumberWithCommas(totals.purchasedCostGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp, above currently available Gold ${formatNumberWithCommas(budget, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp.`] };
-    }
-    return { status: 'complete', messages: [`${formatNumberWithCommas(totals.itemCount)} item${totals.itemCount === 1 ? '' : 's'} recorded; ${formatNumberWithCommas(totals.costGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp total.`] };
+    const preview = canonicalStartingGearPreview(draft, data);
+    if (!preview.trade) return { status: 'warning', messages: ['Starting Gear is assigned from Trade after a Trade is selected.'] };
+    if (draft.utilities.startingGearTrade !== preview.trade) return { status: 'warning', messages: ['Starting Gear is waiting for the current Trade package to synchronize.'] };
+    return { status: 'complete', messages: [`Canonical ${preview.trade} Starting Gear assigned automatically. Optional changes are available under 7. Customize.`] };
+  }
+  if (stepValue === 'customize-weapons' || stepValue === 'customize-armor' || stepValue === 'customize-equipment') {
+    return { status: 'complete', messages: [] };
   }
   if (stepValue === 'utilities-magic-items') {
     const unresolvedForms = draft.utilities.magicItems.filter((selection) => {

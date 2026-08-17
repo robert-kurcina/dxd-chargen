@@ -391,12 +391,12 @@ export function lookupTragedyKeyword(keyword: string, d66Roll: number, table: St
  * @param randomPersonItemDeityTable The data table for lookups.
  * @returns The resolved string.
  */
-export function resolveTragedySeed(template: string, randomPersonItemDeityTable: StaticData['randomPersonItemDeity']): string {
+export function resolveTragedySeed(template: string, randomPersonItemDeityTable: StaticData['randomPersonItemDeity'], random: () => number = Math.random): string {
   const keywords = parseTragedyTemplate(template);
   let resolvedString = template;
 
   for (const keyword of keywords) {
-    const roll = D66();
+    const roll = D66(random);
     const replacement = lookupTragedyKeyword(keyword, roll, randomPersonItemDeityTable).resolved;
     
     const regex = new RegExp(`\\(${keyword}\\)`, 'i');

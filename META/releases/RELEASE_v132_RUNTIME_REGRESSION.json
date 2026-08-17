@@ -1,0 +1,19 @@
+{
+  "scenario": "Sir Bret stale v131 browser state with Heavy Set + Cuirass + auto-added Breastplate and Large Shield",
+  "resolved_worn": [
+    "Cuirass, Metal",
+    "Helmet, Full",
+    "Shield, Medium"
+  ],
+  "resolved_unworn": [
+    "Breastplate, Metal",
+    "Armor Set, Heavy (Reinforced + Plate)",
+    "Shield, Large"
+  ],
+  "expected_worn": [
+    "Cuirass, Metal",
+    "Helmet, Full",
+    "Shield, Medium"
+  ],
+  "pass": true
+}

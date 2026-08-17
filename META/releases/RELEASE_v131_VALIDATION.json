@@ -1,0 +1,15 @@
+{
+  "version": "v131",
+  "itemArmors_records": 93,
+  "armor_sets": 7,
+  "helmets": 8,
+  "shields": 5,
+  "gear": 6,
+  "sectional_records": 67,
+  "legacy_breastplate_alias": "Breastplate, Metal",
+  "legacy_armor_conflict_normalization": true,
+  "allowed_overlap": ["Elbow", "Knee"],
+  "json_valid": true,
+  "data_validator": "PASS: 77 JSON files; 7 Armor Sets; 8 Helms; 5 Shields; 6 Gear; 67 sectional components.",
+  "typescript_full_check": "Dependencies absent; global tsc reports expected missing Next/React/Node type modules and no new local diagnostics in the modified normalization block."
+}

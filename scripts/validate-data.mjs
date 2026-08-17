@@ -24,6 +24,7 @@ const citystates = read('citystates.json');
 const physicalScale = read('physicalScale.json');
 const heritageCharacteristicAdjustments = read('heritageCharacteristicAdjustments.json');
 const characteristicModifiers = read('characteristicModifiers.json');
+const itemArmors = read('itemArmors.json');
 
 const traitKeys = new Set(traits.map((item) => item.Key));
 const traitIds = new Set();
@@ -202,6 +203,51 @@ for (const group of ['Child','Youth','Early Teen','Teenager','Young Adult','Adul
   if (!ageCharacteristicGroups.has(group)) throw new Error(`Missing physical Age Group adjustment: ${group}`);
 }
 
+
+const armorKinds = new Set(['sectional', 'gear', 'shield', 'helmet', 'set']);
+const armorAtoms = new Set([
+  'Skull','Face','Neck (Front)','Neck (Back)','Upper Chest','Chest','Abdomen','Upper Back','Lower Back',
+  ...['Left','Right'].flatMap((side) => ['Shoulder','Upper Arm','Elbow','Forearm','Hand'].map((part) => `${part} (${side})`)),
+  ...['Left','Right'].flatMap((side) => ['Thigh','Knee','Shin','Foot'].map((part) => `${part} (${side})`)),
+]);
+const sideTemplates = new Set(['Shoulder','Upper Arm','Elbow','Forearm','Hand','Thigh','Knee','Shin','Foot']);
+for (const item of itemArmors) {
+  if (!armorKinds.has(item.armorKind)) throw new Error(`Armor ${item.name} has invalid/missing armorKind ${item.armorKind}`);
+  if (!Array.isArray(item.hitLocations) || !Array.isArray(item.fullCoverage) || !Array.isArray(item.coverageAtoms)) throw new Error(`Armor ${item.name} is missing structured coverage arrays.`);
+  if (item.armorKind === 'set' && (!['Light','Medium','Heavy','Field'].includes(item.suitClass) || !item.setMaterial)) throw new Error(`Armor Set ${item.name} is missing Suit classification/material.`);
+  if (['sectional','helmet'].includes(item.armorKind) && item.coverageAtoms.length === 0) throw new Error(`Detailed Armor ${item.name} has no granular body occupancy.`);
+  if (item.sideRequired === true) {
+    for (const atom of item.coverageAtoms) if (!sideTemplates.has(atom)) throw new Error(`Side-required Armor ${item.name} has invalid unsided atom template ${atom}.`);
+  } else {
+    for (const atom of item.coverageAtoms) if (!armorAtoms.has(atom)) throw new Error(`Armor ${item.name} has unknown granular body atom ${atom}.`);
+  }
+}
+const armorSets = itemArmors.filter((item) => item.armorKind === 'set');
+if (armorSets.length !== 7) throw new Error(`Expected seven canonical Armor Set quick-picks; found ${armorSets.length}.`);
+if (armorSets.some((item) => item.abstractQuickPick !== true)) throw new Error('Every canonical Armor Set must be marked as an abstract quick-pick rather than an exact sectional recipe.');
+const sectionalArmors = itemArmors.filter((item) => item.armorKind === 'sectional');
+const derivedSectionals = sectionalArmors.filter((item) => item.derivedSectional === true);
+if (sectionalArmors.length !== 67 || derivedSectionals.length !== 37) throw new Error(`Sectional Armor catalogue mismatch: ${sectionalArmors.length} total / ${derivedSectionals.length} derived.`);
+for (const item of itemArmors) if (!item.materialClass) throw new Error(`Armor ${item.name} is missing normalized materialClass.`);
+for (const item of derivedSectionals) if (item.bookParityStatus !== 'pending') throw new Error(`Derived Sectional Armor ${item.name} must remain flagged for book parity until the book tables are updated.`);
+const personalArmorSlots = Object.fromEntries(['helmet','shield','gear'].map((kind) => [kind, itemArmors.filter((item) => item.armorKind === kind).length]));
+if (personalArmorSlots.helmet !== 8 || personalArmorSlots.shield !== 5 || personalArmorSlots.gear !== 6) throw new Error(`Personal Armor slot catalogue mismatch: ${JSON.stringify(personalArmorSlots)}`);
+
+const disallowedOverlap = (left, right) => {
+  const allowed = new Set(['Elbow (Left)','Elbow (Right)','Knee (Left)','Knee (Right)']);
+  return left.filter((atom) => right.includes(atom) && !allowed.has(atom));
+};
+const armorByName = new Map(itemArmors.map((item) => [item.name, item]));
+const cuirass = armorByName.get('Cuirass, Metal');
+const breastplate = armorByName.get('Breastplate, Metal');
+if (!cuirass || !breastplate || disallowedOverlap(cuirass.coverageAtoms, breastplate.coverageAtoms).length === 0) throw new Error('Cuirass/Breastplate occupancy regression: overlapping torso armor must be detectable.');
+const rerebraces = armorByName.get('Rerebraces, Metal');
+const vambraces = armorByName.get('Vambraces, Metal');
+if (!rerebraces || !vambraces || disallowedOverlap(rerebraces.coverageAtoms, vambraces.coverageAtoms).length !== 0) throw new Error('Rerebrace/Vambrace occupancy regression: adjacent upper/lower arm components should remain compatible.');
+if (armorByName.get('Backplate, Metal')?.bodyParts !== 'Back Torso') throw new Error('Backplate structured body-part coverage must be Back Torso.');
+const silhouette = fs.readFileSync(path.resolve('public/armor/hit-locations.svg'), 'utf8').toLowerCase();
+for (const atom of armorAtoms) if (!silhouette.includes(`inkscape:label=\"${atom.toLowerCase()}\"`)) throw new Error(`Armor silhouette is missing semantic layer ${atom}.`);
+
 const completeMagicItems = magicItems.filter((item) =>
   item.name?.trim() &&
   item.form?.trim() &&
@@ -217,6 +263,7 @@ console.log(`Detailed settlement profiles: ${settlementProfiles.length}; locale 
 console.log(`Complete playable Trade packages: ${tradePackages.length}.`);
 console.log(`Physical scale: ${physicalScale.length} rows; Heritage body rules: ${heritageCharacteristicAdjustments.length}.`);
 console.log(`Selectable Humaniki Groups: ${selectableGroups.length} (${selectableGroups.join(', ')}); Cherigili Group plus Kriket and Stonefolk families retained but disabled.`);
+console.log(`Personal Armor: ${armorSets.length} Armor Sets; ${personalArmorSlots.helmet} Helms; ${personalArmorSlots.shield} Shields; ${personalArmorSlots.gear} Gear; ${sectionalArmors.length} sectional components (${derivedSectionals.length} derived parity candidates).`);
 console.log(`Complete magic items exposed by policy: ${completeMagicItems.length}/${magicItems.length}.`);
 if (duplicateTraitKeys.length) {
   console.warn(`Legacy duplicate Trait keys retained for compatibility: ${[...new Set(duplicateTraitKeys)].join(', ')}`);

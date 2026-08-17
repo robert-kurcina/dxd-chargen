@@ -1,0 +1,94 @@
+Name,Kind,Material,Old Weight lb,New Weight lb,Delta lb,Body Parts,Traits,Assessment
+"Gorget, Reinforced",sectional,Reinforced,8,3.0,-5.0,Neck + Upper Chest,Target,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Gorget, Metal",sectional,Plate,12,4.0,-8.0,Neck + Upper Chest,Fitted; Target,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Rerebraces, Metal",sectional,Plate,10,4.0,-6.0,Upper Arms,Fitted 2,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Vambraces, Reinforced",sectional,Reinforced,4,3.0,-1.0,Forearms + Elbows,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Vambraces, Metal",sectional,Plate,6,4.0,-2.0,Forearms + Elbows,Fitted,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Gauntlets, Reinforced",sectional,Reinforced,3,2.5,-0.5,Hands + Forearms,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Gauntlets, Mail",sectional,Mail,4,3.0,-1.0,Hands + Forearms,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Gauntlets, Metal",sectional,Plate,5,3.0,-2.0,Hands + Forearms,Fitted 2,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sleeve, Reinforced × 1",sectional,Reinforced,4,3.0,-1.0,Arm,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sleeve, Metal × 1",sectional,Plate,6,4.0,-2.0,Arm,Fitted 2,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Pauldron, Reinforced × 1",sectional,Reinforced,2,1.5,-0.5,Shoulder,Protective,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Pauldron, Metal × 1",sectional,Plate,4,2.5,-1.5,Shoulder,Protective,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Manica, Mail × 1",sectional,Mail,5,4.0,-1.0,Arm + Shoulder,Parry,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Skirt, Reinforced",sectional,Reinforced,10,8.0,-2.0,Abdomen + Thighs,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Skirt, Metal",sectional,Plate,15,10.0,-5.0,Abdomen + Thighs,Noisy; Bulky,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Cuisses, Metal",sectional,Plate,6,6,0,Thighs,Bulky,Retained: credible within broad DXD abstraction.
+"Leggings, Boiled",sectional,Boiled,10,10,0,Legs,,Retained: credible within broad DXD abstraction.
+"Leggings, Reinforced",sectional,Reinforced,12,12,0,Legs,Bulky,Retained: credible within broad DXD abstraction.
+"Leggings, Metal",sectional,Plate,20,14.0,-6.0,Legs,Bulky; Fitted 2,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Greaves, Reinforced",sectional,Reinforced,6,5.0,-1.0,Shins + Knees,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Greaves, Metal",sectional,Plate,10,6.0,-4.0,Shins + Knees,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sollerets, Metal",sectional,Plate,10,3.5,-6.5,Feet,Noisy,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Chestplate, Metal",sectional,Plate,20,8.0,-12.0,Chest,Fitted; Rigid,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Chestplate, Reinforced",sectional,Reinforced,12,6.0,-6.0,Chest,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Breastplate, Metal",sectional,Plate,20,10.0,-10.0,Front Torso,Fitted 2; Rigid,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Backplate, Metal",sectional,Plate,15,9.0,-6.0,Back Torso,Rigid,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Jacket, Boiled",sectional,Boiled,15,12.0,-3.0,Front Torso + Back Torso,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Jacket, Reinforced",sectional,Reinforced,20,15.0,-5.0,Front Torso + Back Torso,Rigid,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Brigandine, Mail",sectional,Mail,25,20.0,-5.0,Front Torso + Back Torso,Fitted; Bulky; Mail; Rigid,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Cuirass, Metal",sectional,Plate,30,20.0,-10.0,Front Torso + Back Torso,Fitted 3,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Shirt, Padded",gear,Soft,10,10,0,,Bulky; Rigid,Retained: credible within broad DXD abstraction.
+"Long Shirt, Padded",gear,Soft,15,15,0,,Bulky 2; Rigid,Retained: credible within broad DXD abstraction.
+"Shirt, Quilted",gear,Soft,8,8,0,,Flex; Rigid,Retained: credible within broad DXD abstraction.
+"Long Shirt, Quilted",gear,Soft,12,12,0,,Flex,Retained: credible within broad DXD abstraction.
+"Thin Shirt, Mail",gear,Mail,12,12,0,,Mail,Retained: credible within broad DXD abstraction.
+"Thin Long Shirt, Mail",gear,Mail,15,15,0,,Mail,Retained: credible within broad DXD abstraction.
+"Shield, Buckler",shield,Shield,2,2,0,,1H; Target 2,Retained: credible within broad DXD abstraction.
+"Shield, Small",shield,Shield,5,5,0,,1H; Target; Coverage,Retained: credible within broad DXD abstraction.
+"Shield, Medium",shield,Shield,10,10,0,,1H; Screen; Coverage,Retained: credible within broad DXD abstraction.
+"Shield, Large",shield,Shield,15,15,0,,1H; Bulky; Screen; Coverage,Retained: credible within broad DXD abstraction.
+"Shield, Tower",shield,Shield,20,20,0,,1H; Bulky 2; Screen,Retained: credible within broad DXD abstraction.
+"Helmet, Mail Coif",helmet,Mail,4,4,0,,Mail; Rigid,Retained: credible within broad DXD abstraction.
+"Helmet, Boiled",helmet,Boiled,2.5,2.5,0,,Rigid,Retained: credible within broad DXD abstraction.
+"Helmet, Full",helmet,Plate,5,5,0,,Blinders; Rigid; Protective,Retained: credible within broad DXD abstraction.
+"Helmet, Half",helmet,Plate,2.5,2.5,0,,Rigid,Retained: credible within broad DXD abstraction.
+"Helmet, Half Mantled",helmet,Plate,3,3,0,,Rigid,Retained: credible within broad DXD abstraction.
+"Helmet, Full Mantled",helmet,Plate,6,6,0,,Blinders; Rigid; Protective,Retained: credible within broad DXD abstraction.
+"Helmet, Full Visored",helmet,Plate,6,6,0,,Blinders; Rigid; Protective,Retained: credible within broad DXD abstraction.
+"Helmet, Full Visored Mantled",helmet,Plate,8,8,0,,Blinders; Rigid; Protective,Retained: credible within broad DXD abstraction.
+"Armor Set, Light (Soft)",set,Soft,20,20,0,,Flex,Retained: credible within broad DXD abstraction.
+"Armor Set, Light (Boiled)",set,Boiled,25,25,0,,,Retained: credible within broad DXD abstraction.
+"Armor Set, Medium (Reinforced)",set,Reinforced,25,25,0,,Rigid,Retained: credible within broad DXD abstraction.
+"Armor Set, Medium (Mail)",set,Mail,30,30,0,,Flex; Mail; Rigid,Retained: credible within broad DXD abstraction.
+"Armor Set, Heavy (Reinforced + Plate)",set,Reinforced + Plate,40,40,0,,Mail; Fitted; Rigid,Retained: credible within broad DXD abstraction.
+"Armor Set, Heavy (Mail + Plate)",set,Mail + Plate,50,50,0,,Bulky; Fitted 2; Rigid,Retained: credible within broad DXD abstraction.
+"Armor Set, Field (Plate)",set,Plate,60,60,0,,Bulky 2; Fitted 3; Rigid,Retained: credible within broad DXD abstraction.
+"Jacket, Fur",sectional,Soft,15,12.0,-3.0,Front Torso + Back Torso,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Jacket, Padded",sectional,Soft,15,12.0,-3.0,Front Torso + Back Torso,Bulky 2; Sturdy,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Jacket, Quilted",sectional,Soft,12,10.0,-2.0,Front Torso + Back Torso,Flex,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sleeve, Fur × 1",sectional,Soft,3,3,0,Arm,,Retained: credible within broad DXD abstraction.
+"Sleeve, Padded × 1",sectional,Soft,3,3,0,Arm,Bulky,Retained: credible within broad DXD abstraction.
+"Sleeve, Quilted × 1",sectional,Soft,2.5,2.5,0,Arm,Flex,Retained: credible within broad DXD abstraction.
+"Leggings, Fur",sectional,Soft,8,8,0,Legs,,Retained: credible within broad DXD abstraction.
+"Leggings, Padded",sectional,Soft,10,10,0,Legs,Bulky,Retained: credible within broad DXD abstraction.
+"Leggings, Quilted",sectional,Soft,8,8,0,Legs,Flex,Retained: credible within broad DXD abstraction.
+"Gorget, Boiled",sectional,Boiled,6.5,2.5,-4.0,Neck + Upper Chest,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Rerebraces, Boiled",sectional,Boiled,5,3.0,-2.0,Upper Arms,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Vambraces, Boiled",sectional,Boiled,3.5,2.5,-1.0,Forearms + Elbows,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sleeve, Boiled × 1",sectional,Boiled,3.5,3.0,-0.5,Arm,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Pauldron, Boiled × 1",sectional,Boiled,1.5,1.5,0,Shoulder,Protective,Retained: credible within broad DXD abstraction.
+"Skirt, Boiled",sectional,Boiled,8.5,7.0,-1.5,Abdomen + Thighs,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Cuisses, Boiled",sectional,Boiled,3,3,0,Thighs,,Retained: credible within broad DXD abstraction.
+"Greaves, Boiled",sectional,Boiled,5,4.0,-1.0,Shins + Knees,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Chestplate, Boiled",sectional,Boiled,10,5.0,-5.0,Chest,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Breastplate, Boiled",sectional,Boiled,10,8.0,-2.0,Front Torso,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Backplate, Boiled",sectional,Boiled,7.5,6.0,-1.5,Back Torso,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Rerebraces, Reinforced",sectional,Reinforced,6,4.0,-2.0,Upper Arms,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Cuisses, Reinforced",sectional,Reinforced,3.5,3.5,0,Thighs,Bulky,Retained: credible within broad DXD abstraction.
+"Breastplate, Reinforced",sectional,Reinforced,12,9.0,-3.0,Front Torso,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Backplate, Reinforced",sectional,Reinforced,9,7.0,-2.0,Back Torso,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sollerets, Reinforced",sectional,Reinforced,6,3.0,-3.0,Feet,,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Gorget, Mail",sectional,Mail,10.5,3.5,-7.0,Neck + Upper Chest,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Rerebraces, Mail",sectional,Mail,8,4.0,-4.0,Upper Arms,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Vambraces, Mail",sectional,Mail,5.5,3.5,-2.0,Forearms + Elbows,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Sleeve, Mail × 1",sectional,Mail,5.5,4.0,-1.5,Arm,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Pauldron, Mail × 1",sectional,Mail,3,2.0,-1.0,Shoulder,Mail; Protective,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Skirt, Mail",sectional,Mail,13.5,9.0,-4.5,Abdomen + Thighs,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Cuisses, Mail",sectional,Mail,5,4.0,-1.0,Thighs,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Leggings, Mail",sectional,Mail,16,14.0,-2.0,Legs,Mail; Bulky,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Greaves, Mail",sectional,Mail,8,5.0,-3.0,Shins + Knees,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Chestplate, Mail",sectional,Mail,16,7.0,-9.0,Chest,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Breastplate, Mail",sectional,Mail,16,11.0,-5.0,Front Torso,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.
+"Backplate, Mail",sectional,Mail,12,9.0,-3.0,Back Torso,Mail,Revised: prior weight disproportionate to covered area/material or historical component anchors.

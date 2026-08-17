@@ -1,0 +1,94 @@
+name,armorKind,origin,materialClass,priceSp,weightLb,deflect,armorRating,materialBasePriceSp,materialBaseWeightLb,materialBaseDeflect,materialBaseAR,impliedPricePartsRatio,impliedWeightPartsRatio,deflectOffset,armorRatingOffset,auditStatus,auditNote
+"Gorget, Reinforced",sectional,source-catalog,Reinforced,15.0,8,2,9,60,3,2,9,0.25,2.6667,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Gorget, Metal",sectional,source-catalog,Plate,30,12,3,18,120,5,4,18,0.25,2.4,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Rerebraces, Metal",sectional,source-catalog,Plate,150,10,4,18,120,5,4,18,1.25,2.0,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Vambraces, Reinforced",sectional,source-catalog,Reinforced,25.0,4,2,9,60,3,2,9,0.4167,1.3333,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Vambraces, Metal",sectional,source-catalog,Plate,150,6,4,18,120,5,4,18,1.25,1.2,0,0,corrected,AR 9 -> 18; Plate material base is AR 18 and AR 9 duplicated Reinforced protection.
+"Gauntlets, Reinforced",sectional,source-catalog,Reinforced,30,3,0,6,60,3,2,9,0.5,1.0,-2,-3,reviewed,
+"Gauntlets, Mail",sectional,source-catalog,Mail,40,4,2,15,80,4,3,15,0.5,1.0,-1,0,corrected,AR 16 -> 15; normalized to the Mail material ladder.
+"Gauntlets, Metal",sectional,source-catalog,Plate,100,5,3,18,120,5,4,18,0.8333,1.0,-1,0,reviewed,
+"Sleeve, Reinforced × 1",sectional,source-catalog,Reinforced,60,4,2,9,60,3,2,9,1.0,1.3333,0,0,reviewed,
+"Sleeve, Metal × 1",sectional,source-catalog,Plate,200,6,3,15,120,5,4,18,1.6667,1.2,-1,-3,reviewed,
+"Pauldron, Reinforced × 1",sectional,source-catalog,Reinforced,25.0,2,3,9,60,3,2,9,0.4167,0.6667,1,0,reviewed,
+"Pauldron, Metal × 1",sectional,source-catalog,Plate,60,4,5,18,120,5,4,18,0.5,0.8,1,0,reviewed,
+"Manica, Mail × 1",sectional,source-catalog,Mail,60,5,4,15,80,4,3,15,0.75,1.25,1,0,reviewed,
+"Skirt, Reinforced",sectional,source-catalog,Reinforced,100,10,1,9,60,3,2,9,1.6667,3.3333,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Skirt, Metal",sectional,source-catalog,Plate,150,15,3,18,120,5,4,18,1.25,3.0,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Cuisses, Metal",sectional,source-catalog,Plate,80,6,3,18,120,5,4,18,0.6667,1.2,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Leggings, Boiled",sectional,source-catalog,Boiled,80,10,1,6,40,2.5,1,6,2.0,4.0,0,0,corrected,AR 10 -> 6; normalized to Boiled material base and restores Boiled < Reinforced progression.
+"Leggings, Reinforced",sectional,source-catalog,Reinforced,100,12,2,9,60,3,2,9,1.6667,4.0,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Leggings, Metal",sectional,source-catalog,Plate,300,20,3,15,120,5,4,18,2.5,4.0,-1,-3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Greaves, Reinforced",sectional,source-catalog,Reinforced,60,6,0,9,60,3,2,9,1.0,2.0,-2,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Greaves, Metal",sectional,source-catalog,Plate,300,10,2,15,120,5,4,18,2.5,2.0,-2,-3,reviewed,
+"Sollerets, Metal",sectional,source-catalog,Plate,80,10,2,18,120,5,4,18,0.6667,2.0,-2,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Chestplate, Metal",sectional,source-catalog,Plate,300,20,4,21,120,5,4,18,2.5,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Chestplate, Reinforced",sectional,source-catalog,Reinforced,150,12,2,12,60,3,2,9,2.5,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Breastplate, Metal",sectional,source-catalog,Plate,800,20,4,21,120,5,4,18,6.6667,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Backplate, Metal",sectional,source-catalog,Plate,300,15,3,18,120,5,4,18,2.5,3.0,-1,0,reviewed,
+"Jacket, Boiled",sectional,source-catalog,Boiled,200,15,2,9,40,2.5,1,6,5.0,6.0,1,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Jacket, Reinforced",sectional,source-catalog,Reinforced,300,20,3,12,60,3,2,9,5.0,6.6667,1,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Brigandine, Mail",sectional,source-catalog,Mail,600,25,4,18,80,4,3,15,7.5,6.25,1,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Cuirass, Metal",sectional,source-catalog,Plate,1000,30,5,21,120,5,4,18,8.3333,6.0,1,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Shirt, Padded",gear,source-catalog,Soft,150,10,0,6,20,2,0,3,7.5,5.0,0,3,reviewed,
+"Long Shirt, Padded",gear,source-catalog,Soft,200,15,0,6,20,2,0,3,10.0,7.5,0,3,reviewed,
+"Shirt, Quilted",gear,source-catalog,Soft,100,8,1,6,20,2,0,3,5.0,4.0,1,3,reviewed,
+"Long Shirt, Quilted",gear,source-catalog,Soft,120,12,1,6,20,2,0,3,6.0,6.0,1,3,reviewed,
+"Thin Shirt, Mail",gear,source-catalog,Mail,200,12,2,9,80,4,3,15,2.5,3.0,-1,-6,reviewed,
+"Thin Long Shirt, Mail",gear,source-catalog,Mail,250,15,2,12,80,4,3,15,3.125,3.75,-1,-3,reviewed,
+"Shield, Buckler",shield,source-catalog,Shield,25.0,2,4,6,,,,,,,,,reviewed,
+"Shield, Small",shield,source-catalog,Shield,40,5,2,9,,,,,,,,,reviewed,
+"Shield, Medium",shield,source-catalog,Shield,60,10,3,12,,,,,,,,,reviewed,
+"Shield, Large",shield,source-catalog,Shield,80,15,4,15,,,,,,,,,reviewed,
+"Shield, Tower",shield,source-catalog,Shield,100,20,4,18,,,,,,,,,reviewed,
+"Helmet, Mail Coif",helmet,source-catalog,Mail,100,4,2,12,80,4,3,15,1.25,1.0,-1,-3,reviewed,
+"Helmet, Boiled",helmet,source-catalog,Boiled,25.0,2.5,1,9,40,2.5,1,6,0.625,1.0,0,3,reviewed,
+"Helmet, Full",helmet,source-catalog,Plate,250,5,3,18,120,5,4,18,2.0833,1.0,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Helmet, Half",helmet,source-catalog,Plate,100,2.5,2,15,120,5,4,18,0.8333,0.5,-2,-3,reviewed,
+"Helmet, Half Mantled",helmet,source-catalog,Plate,120,3,3,18,120,5,4,18,1.0,0.6,-1,0,reviewed,
+"Helmet, Full Mantled",helmet,derived,Plate,320,6,4,21,120,5,4,18,2.6667,1.2,0,3,added,"320 sp, 6 lb, D4, AR21; mantle upgrade mirrors Half -> Half Mantled."
+"Helmet, Full Visored",helmet,source-catalog,Plate,320,6,4,21,120,5,4,18,2.6667,1.2,0,3,corrected,120 sp -> 320 sp; restores R10-like Full helmet price progression 250 -> 320 -> 400.
+"Helmet, Full Visored Mantled",helmet,source-catalog,Plate,400,8,5,24,120,5,4,18,3.3333,1.6,1,6,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Armor Set, Light (Soft)",set,source-catalog,Soft,500,20,2,3,20,2,0,3,25.0,10.0,2,0,reviewed,
+"Armor Set, Light (Boiled)",set,source-catalog,Boiled,600,25,3,9,40,2.5,1,6,15.0,10.0,2,3,reviewed,
+"Armor Set, Medium (Reinforced)",set,source-catalog,Reinforced,1000,25,4,12,60,3,2,9,16.6667,8.3333,2,3,reviewed,
+"Armor Set, Medium (Mail)",set,source-catalog,Mail,1200,30,5,15,80,4,3,15,15.0,7.5,2,0,reviewed,
+"Armor Set, Heavy (Reinforced + Plate)",set,source-catalog,Reinforced + Plate,1500,40,6,18,,,,,,,,,reviewed,
+"Armor Set, Heavy (Mail + Plate)",set,source-catalog,Mail + Plate,2000,50,7,21,,,,,,,,,reviewed,
+"Armor Set, Field (Plate)",set,source-catalog,Plate,2500,60,8,24,120,5,4,18,20.8333,12.0,4,6,reviewed,
+"Jacket, Fur",sectional,derived,Soft,100,15,1,6,20,2,0,3,5.0,7.5,1,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Jacket, Padded",sectional,derived,Soft,200,15,0,6,20,2,0,3,10.0,7.5,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Jacket, Quilted",sectional,derived,Soft,120,12,1,6,20,2,0,3,6.0,6.0,1,3,reviewed,
+"Sleeve, Fur × 1",sectional,derived,Soft,20,3,0,3,20,2,0,3,1.0,1.5,0,0,reviewed,
+"Sleeve, Padded × 1",sectional,derived,Soft,30,3,0,3,20,2,0,3,1.5,1.5,0,0,reviewed,
+"Sleeve, Quilted × 1",sectional,derived,Soft,25.0,2.5,1,3,20,2,0,3,1.25,1.25,1,0,reviewed,
+"Leggings, Fur",sectional,derived,Soft,60,8,0,6,20,2,0,3,3.0,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Leggings, Padded",sectional,derived,Soft,100,10,0,6,20,2,0,3,5.0,5.0,0,3,reviewed,
+"Leggings, Quilted",sectional,derived,Soft,80,8,1,6,20,2,0,3,4.0,4.0,1,3,reviewed,
+"Gorget, Boiled",sectional,derived,Boiled,10,6.5,1,6,40,2.5,1,6,0.25,2.6,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Rerebraces, Boiled",sectional,derived,Boiled,50,5,1,6,40,2.5,1,6,1.25,2.0,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Vambraces, Boiled",sectional,derived,Boiled,15.0,3.5,1,6,40,2.5,1,6,0.375,1.4,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Sleeve, Boiled × 1",sectional,derived,Boiled,40,3.5,1,6,40,2.5,1,6,1.0,1.4,0,0,reviewed,
+"Pauldron, Boiled × 1",sectional,derived,Boiled,15.0,1.5,2,6,40,2.5,1,6,0.375,0.6,1,0,reviewed,
+"Skirt, Boiled",sectional,derived,Boiled,70,8.5,0,6,40,2.5,1,6,1.75,3.4,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Cuisses, Boiled",sectional,derived,Boiled,30,3,0,6,40,2.5,1,6,0.75,1.2,-1,0,reviewed,
+"Greaves, Boiled",sectional,derived,Boiled,40,5,0,6,40,2.5,1,6,1.0,2.0,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Chestplate, Boiled",sectional,derived,Boiled,100,10,1,9,40,2.5,1,6,2.5,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Breastplate, Boiled",sectional,derived,Boiled,250,10,1,9,40,2.5,1,6,6.25,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Backplate, Boiled",sectional,derived,Boiled,100,7.5,0,6,40,2.5,1,6,2.5,3.0,-1,0,reviewed,
+"Rerebraces, Reinforced",sectional,derived,Reinforced,75.0,6,2,9,60,3,2,9,1.25,2.0,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Cuisses, Reinforced",sectional,derived,Reinforced,40,3.5,1,9,60,3,2,9,0.6667,1.1667,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Breastplate, Reinforced",sectional,derived,Reinforced,400,12,2,12,60,3,2,9,6.6667,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Backplate, Reinforced",sectional,derived,Reinforced,150,9,1,9,60,3,2,9,2.5,3.0,-1,0,reviewed,
+"Sollerets, Reinforced",sectional,derived,Reinforced,40,6,0,9,60,3,2,9,0.6667,2.0,-2,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Gorget, Mail",sectional,derived,Mail,20,10.5,3,15,80,4,3,15,0.25,2.625,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Rerebraces, Mail",sectional,derived,Mail,100,8,3,15,80,4,3,15,1.25,2.0,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Vambraces, Mail",sectional,derived,Mail,35.0,5.5,3,15,80,4,3,15,0.4375,1.375,0,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Sleeve, Mail × 1",sectional,derived,Mail,80,5.5,3,15,80,4,3,15,1.0,1.375,0,0,reviewed,
+"Pauldron, Mail × 1",sectional,derived,Mail,35.0,3,4,15,80,4,3,15,0.4375,0.75,1,0,reviewed,
+"Skirt, Mail",sectional,derived,Mail,130,13.5,2,15,80,4,3,15,1.625,3.375,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Cuisses, Mail",sectional,derived,Mail,55.0,5,2,15,80,4,3,15,0.6875,1.25,-1,0,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Leggings, Mail",sectional,derived,Mail,200,16,2,12,80,4,3,15,2.5,4.0,-1,-3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Greaves, Mail",sectional,derived,Mail,100,8,1,12,80,4,3,15,1.25,2.0,-2,-3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Chestplate, Mail",sectional,derived,Mail,200,16,3,18,80,4,3,15,2.5,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Breastplate, Mail",sectional,derived,Mail,550,16,3,18,80,4,3,15,6.875,4.0,0,3,ratio-review,Price and weight imply materially different Parts Ratios; defer final correction until component-ratio model is finalized.
+"Backplate, Mail",sectional,derived,Mail,200,12,2,15,80,4,3,15,2.5,3.0,-1,0,reviewed,

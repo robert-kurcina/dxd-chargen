@@ -1,0 +1,38 @@
+name,materialClass,construction,sp,weight,deflect,armorRating,hitLocations,fullCoverage,traits,derivationBasis,bookParityStatus
+"Jacket, Fur",Soft,Fur,100,15,1,6,Front Torso + Back Torso,Front Torso + Back Torso,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Jacket, Padded",Soft,Padded,200,15,0,6,Front Torso + Back Torso,Front Torso + Back Torso,Bulky 2; Sturdy,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Jacket, Quilted",Soft,Quilted,120,12,1,6,Front Torso + Back Torso,Front Torso + Back Torso,Flex,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Sleeve, Fur × 1",Soft,Fur,20,3,0,3,Arms,Arm,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Sleeve, Padded × 1",Soft,Padded,30,3,0,3,Arms,Arm,Bulky,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Sleeve, Quilted × 1",Soft,Quilted,25.0,2.5,1,3,Arms,Arm,Flex,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Leggings, Fur",Soft,Fur,60,8,0,6,Legs,Legs,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Leggings, Padded",Soft,Padded,100,10,0,6,Legs,Legs,Bulky,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Leggings, Quilted",Soft,Quilted,80,8,1,6,Legs,Legs,Flex,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Gorget, Boiled",Boiled,,10,6.5,1,6,Front Torso,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Rerebraces, Boiled",Boiled,,50,5,1,6,Arms,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Vambraces, Boiled",Boiled,,15.0,3.5,1,6,Arms,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Sleeve, Boiled × 1",Boiled,,40,3.5,1,6,Arms,Arm,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Pauldron, Boiled × 1",Boiled,,15.0,1.5,2,6,Arms,,Protective,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Skirt, Boiled",Boiled,,70,8.5,0,6,Legs,Legs,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Cuisses, Boiled",Boiled,,30,3,0,6,Legs,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Greaves, Boiled",Boiled,,40,5,0,6,Legs,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Chestplate, Boiled",Boiled,,100,10,1,9,Front Torso,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Breastplate, Boiled",Boiled,,250,10,1,9,Front Torso,Front Torso,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Backplate, Boiled",Boiled,,100,7.5,0,6,Back Torso,Back Torso,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Rerebraces, Reinforced",Reinforced,,75.0,6,2,9,Arms,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Cuisses, Reinforced",Reinforced,,40,3.5,1,9,Legs,,Bulky,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Breastplate, Reinforced",Reinforced,,400,12,2,12,Front Torso,Front Torso,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Backplate, Reinforced",Reinforced,,150,9,1,9,Back Torso,Back Torso,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Sollerets, Reinforced",Reinforced,,40,6,0,9,Legs,,,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Gorget, Mail",Mail,,20,10.5,3,15,Front Torso,,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Rerebraces, Mail",Mail,,100,8,3,15,Arms,,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Vambraces, Mail",Mail,,35.0,5.5,3,15,Arms,,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Sleeve, Mail × 1",Mail,,80,5.5,3,15,Arms,Arm,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Pauldron, Mail × 1",Mail,,35.0,3,4,15,Arms,,Mail; Protective,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Skirt, Mail",Mail,,130,13.5,2,15,Legs,Legs,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Cuisses, Mail",Mail,,55.0,5,2,15,Legs,,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Leggings, Mail",Mail,,200,16,2,12,Legs,Legs,Mail; Bulky,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Greaves, Mail",Mail,,100,8,1,12,Legs,,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Chestplate, Mail",Mail,,200,16,3,18,Front Torso,,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Breastplate, Mail",Mail,,550,16,3,18,Front Torso,Front Torso,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending
+"Backplate, Mail",Mail,,200,12,2,15,Back Torso,Back Torso,Mail,Armor Composition material ladder plus analogous canonical Sectional Armor form.,pending

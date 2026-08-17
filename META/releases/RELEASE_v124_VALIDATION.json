@@ -1,0 +1,47 @@
+{
+  "version": "v124",
+  "scope": "dxd-chargen only; character archive normalization deferred",
+  "armorModel": {
+    "canonicalArmorSets": 7,
+    "abstractQuickPicks": true,
+    "sectionalDetailOptional": true,
+    "customClassUserSelected": false,
+    "customClassDerived": true,
+    "fieldConstructionIsTrait": false
+  },
+  "derivedCapability": {
+    "protectionBands": {
+      "Light": "below D4/AR12",
+      "Medium": "D4/AR12 or better",
+      "Heavy": "D6/AR18 or better",
+      "Field": "D8/AR24 or better plus Field construction"
+    },
+    "coverageCap": {
+      "torsoCoverage": "at most Medium",
+      "fullFrontBackArmsLegs": "may qualify Heavy or Field"
+    },
+    "asymmetricFacing": "custom Suits retain Front and Rear D/AR summaries"
+  },
+  "workflow": [
+    "Pick Armor Set",
+    "Pick Helmet, Shield, and Gear",
+    "Customize Armor by Component"
+  ],
+  "detailTransition": "Opening detail preserves the quick-pick; first sectional edit makes the Suit non-canonical and retains the origin as reference.",
+  "sizing": {
+    "armorDeflectAdjustmentBySiz": 0,
+    "armorRatingAdjustmentBySiz": 0,
+    "weightAndCostScaling": "existing fitted-armor rules"
+  },
+  "deferred": {
+    "characterNormalization": true,
+    "newSectionalVariants": true,
+    "keywords": ["Advanced", "Bombproof", "Bulletproof", "Fireproof", "Acidproof"]
+  },
+  "validation": {
+    "json": "pass",
+    "dataValidation": "pass",
+    "modifiedTypeScriptSyntaxTranspile": "pass",
+    "fullNextBuild": "not run: project dependencies are not installed in the execution environment"
+  }
+}

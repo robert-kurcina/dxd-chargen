@@ -8,6 +8,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/ca
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { CharacterDraft } from '@/lib/character-draft';
+import { ADMIN_SETTINGS_EVENT, readAdminSettings } from '@/lib/admin-settings';
 
 type FileCharacter = {
   idName: string;
@@ -17,6 +18,7 @@ type FileCharacter = {
   lineageId: string | null;
   tradeId: string | null;
   professionId: string | null;
+  libraryTags?: string[];
   thumbnailUrl: string | null;
   updatedAt: string;
   childOfStrife?: boolean;
@@ -54,6 +56,8 @@ export default function CharacterLibraryPanel({
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [sort, setSort] = useState(DEFAULT_SORT);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [availableTags, setAvailableTags] = useState<string[]>([]);
+  const [selectedTag, setSelectedTag] = useState('all');
 
   useEffect(() => {
     try {
@@ -67,6 +71,14 @@ export default function CharacterLibraryPanel({
   useEffect(() => {
     window.localStorage.setItem(SORT_STORAGE_KEY, JSON.stringify(sort));
   }, [sort]);
+
+  useEffect(() => {
+    const syncTags = () => setAvailableTags(readAdminSettings().libraryTags);
+    syncTags();
+    window.addEventListener(ADMIN_SETTINGS_EVENT, syncTags as EventListener);
+    return () => window.removeEventListener(ADMIN_SETTINGS_EVENT, syncTags as EventListener);
+  }, []);
+
 
   useEffect(() => {
     setError('');
@@ -92,17 +104,27 @@ export default function CharacterLibraryPanel({
   };
 
   const profession = (entry: FileCharacter) => {
+    const humanize = (value: string) => value.split('-').filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
     const trade = data.tradePackages.find((item) => `trade-${item.trade.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` === entry.tradeId);
     const specialization = trade?.specializations.find((item) => `specialization-${`${trade.trade}-${item.name}`.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` === entry.professionId);
-    return [trade?.trade, specialization?.name].filter(Boolean).join(' / ') || '—';
+    const fallbackTrade = entry.tradeId ? humanize(entry.tradeId.replace(/^trade-/, '')) : '';
+    const tradeName = trade?.trade ?? fallbackTrade;
+    const specializationSlug = entry.professionId?.replace(/^specialization-/, '') ?? '';
+    const tradeSlug = entry.tradeId?.replace(/^trade-/, '') ?? '';
+    const fallbackSpecialization = specializationSlug
+      ? humanize(specializationSlug.startsWith(`${tradeSlug}-`) ? specializationSlug.slice(tradeSlug.length + 1) : specializationSlug)
+      : '';
+    return [tradeName, specialization?.name ?? fallbackSpecialization].filter(Boolean).join(' / ') || '—';
   };
 
+  const exposedTags = (entry: FileCharacter) => (entry.libraryTags ?? []).filter((tag) => availableTags.includes(tag));
   const rows = useMemo(() => characters.map((entry) => ({ entry, identity: identity(entry), profession: profession(entry) })), [characters, data]);
   const visibleRows = useMemo(() => {
     const normalized = Object.fromEntries(Object.entries(filters).map(([key, value]) => [key, value.trim().toLocaleLowerCase()])) as Filters;
     return rows
       .filter(({ entry, identity: identityValue, profession: professionValue }) =>
-        entry.idName.toLocaleLowerCase().includes(normalized.filename)
+        (selectedTag === 'all' || exposedTags(entry).includes(selectedTag))
+        && entry.idName.toLocaleLowerCase().includes(normalized.filename)
         && entry.name.toLocaleLowerCase().includes(normalized.name)
         && identityValue.toLocaleLowerCase().includes(normalized.identity)
         && professionValue.toLocaleLowerCase().includes(normalized.profession))
@@ -119,7 +141,7 @@ export default function CharacterLibraryPanel({
           : compareText(...values[sort.column]);
         return sort.direction === 'asc' ? result : -result;
       });
-  }, [filters, rows, sort]);
+  }, [filters, rows, sort, selectedTag, availableTags]);
 
   const open = async (idName: string) => {
     const response = await fetch(`/api/character-files/${encodeURIComponent(idName)}`, { cache: 'no-store' });
@@ -140,6 +162,7 @@ export default function CharacterLibraryPanel({
   return (
     <div className="mx-auto w-full max-w-[1440px] space-y-4 pb-8">
       <Card><CardHeader><CardTitle role="heading" aria-level={1}>Character Library</CardTitle><CardDescription>Filesystem characters from data/characters. Filter or sort the table, then select a row to load it into Forge.</CardDescription></CardHeader></Card>
+      {availableTags.length > 0 && <div className="flex flex-wrap items-center gap-2 rounded-lg border bg-card p-3"><span className="text-sm font-medium">Library tags</span><Button type="button" size="sm" variant={selectedTag === 'all' ? 'default' : 'outline'} onClick={() => setSelectedTag('all')}>All</Button>{availableTags.map((tag) => <Button key={tag} type="button" size="sm" variant={selectedTag === tag ? 'default' : 'outline'} onClick={() => setSelectedTag(tag)}>{tag}</Button>)}</div>}
       {error && <div className="rounded border border-[#990000] p-3 text-sm text-[#990000]">{error}</div>}
       <div className="sticky top-14 z-30 space-y-2 border-y bg-background/95 py-2 backdrop-blur lg:hidden">
         <div className="flex gap-2">
@@ -184,6 +207,7 @@ export default function CharacterLibraryPanel({
               {entry.properName && entry.properName !== entry.name && <p className="text-xs text-muted-foreground">{entry.properName}</p>}
               <p className="mt-2 text-sm">{identityValue}</p>
               <p className="text-sm">{professionValue}</p>
+              {availableTags.length > 0 && <div className="mt-2 flex flex-wrap gap-1">{exposedTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[11px]">{tag}</span>)}</div>}
             </div>
           </div>
           <dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-t pt-3 text-xs">
@@ -224,7 +248,7 @@ export default function CharacterLibraryPanel({
               <td className="p-2"><img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-16 w-20 rounded border object-cover" /></td>
               <td className="p-3 font-medium"><span className="block">{entry.name || '—'}</span>{entry.properName && entry.properName !== entry.name && <span className="block text-xs font-normal text-muted-foreground">{entry.properName}</span>}</td>
               <td className="p-3">{identityValue}</td>
-              <td className="p-3">{professionValue}</td>
+              <td className="p-3"><div>{professionValue}</div>{availableTags.length > 0 && <div className="mt-2 flex flex-wrap gap-1">{exposedTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[10px]">{tag}</span>)}</div>}</td>
               <td className="p-3 text-xs text-muted-foreground"><span className="block">{updatedTimestamp(entry.updatedAt).date}</span><span className="block whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></td>
               <td className="break-all p-3 font-mono text-[11px]">{entry.idName}</td>
               <td className="p-3 text-right"><Button size="sm" onClick={() => void open(entry.idName)}>Load</Button></td>

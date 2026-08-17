@@ -1,0 +1,75 @@
+name,kind,material_class,side_required,coverage_atoms,catalog_status,book_parity_status
+"Gorget, Reinforced",sectional,Reinforced,no,Neck (Front) | Neck (Back) | Upper Chest,canonical-runtime,canonical-source
+"Gorget, Metal",sectional,Plate,no,Neck (Front) | Neck (Back) | Upper Chest,canonical-runtime,canonical-source
+"Rerebraces, Metal",sectional,Plate,no,Upper Arm (Left) | Upper Arm (Right),canonical-runtime,canonical-source
+"Vambraces, Reinforced",sectional,Reinforced,no,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right),canonical-runtime,canonical-source
+"Vambraces, Metal",sectional,Plate,no,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right),canonical-runtime,canonical-source
+"Gauntlets, Reinforced",sectional,Reinforced,no,Forearm (Left) | Hand (Left) | Forearm (Right) | Hand (Right),canonical-runtime,canonical-source
+"Gauntlets, Mail",sectional,Mail,no,Forearm (Left) | Hand (Left) | Forearm (Right) | Hand (Right),canonical-runtime,canonical-source
+"Gauntlets, Metal",sectional,Plate,no,Forearm (Left) | Hand (Left) | Forearm (Right) | Hand (Right),canonical-runtime,canonical-source
+"Sleeve, Reinforced × 1",sectional,Reinforced,yes,Upper Arm | Elbow | Forearm,canonical-runtime,canonical-source
+"Sleeve, Metal × 1",sectional,Plate,yes,Upper Arm | Elbow | Forearm,canonical-runtime,canonical-source
+"Pauldron, Reinforced × 1",sectional,Reinforced,yes,Shoulder,canonical-runtime,canonical-source
+"Pauldron, Metal × 1",sectional,Plate,yes,Shoulder,canonical-runtime,canonical-source
+"Manica, Mail × 1",sectional,Mail,yes,Shoulder | Upper Arm | Elbow | Forearm,canonical-runtime,canonical-source
+"Skirt, Reinforced",sectional,Reinforced,no,Abdomen | Thigh (Left) | Thigh (Right),canonical-runtime,canonical-source
+"Skirt, Metal",sectional,Plate,no,Abdomen | Thigh (Left) | Thigh (Right),canonical-runtime,canonical-source
+"Cuisses, Metal",sectional,Plate,no,Thigh (Left) | Thigh (Right),canonical-runtime,canonical-source
+"Leggings, Boiled",sectional,Boiled,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),canonical-runtime,canonical-source
+"Leggings, Reinforced",sectional,Reinforced,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),canonical-runtime,canonical-source
+"Leggings, Metal",sectional,Plate,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),canonical-runtime,canonical-source
+"Greaves, Reinforced",sectional,Reinforced,no,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right),canonical-runtime,canonical-source
+"Greaves, Metal",sectional,Plate,no,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right),canonical-runtime,canonical-source
+"Sollerets, Metal",sectional,Plate,no,Foot (Left) | Foot (Right),canonical-runtime,canonical-source
+"Chestplate, Metal",sectional,Plate,no,Chest,canonical-runtime,canonical-source
+"Chestplate, Reinforced",sectional,Reinforced,no,Chest,canonical-runtime,canonical-source
+"Breastplate, Metal",sectional,Plate,no,Upper Chest | Chest | Abdomen,canonical-runtime,canonical-source
+"Backplate, Metal",sectional,Plate,no,Upper Back | Lower Back,canonical-runtime,canonical-source
+"Jacket, Boiled",sectional,Boiled,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,canonical-runtime,canonical-source
+"Jacket, Reinforced",sectional,Reinforced,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,canonical-runtime,canonical-source
+"Brigandine, Mail",sectional,Mail,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,canonical-runtime,canonical-source
+"Cuirass, Metal",sectional,Plate,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,canonical-runtime,canonical-source
+"Helmet, Mail Coif",helmet,Mail,no,Skull | Neck (Front) | Neck (Back) | Shoulder (Left) | Shoulder (Right),canonical-runtime,canonical-source
+"Helmet, Boiled",helmet,Boiled,no,Skull | Neck (Back),canonical-runtime,canonical-source
+"Helmet, Full",helmet,Plate,no,Skull | Face,canonical-runtime,canonical-source
+"Helmet, Half",helmet,Plate,no,Skull,canonical-runtime,canonical-source
+"Helmet, Half Mantled",helmet,Plate,no,Skull | Neck (Back),canonical-runtime,canonical-source
+"Helmet, Full Visored",helmet,Plate,no,Skull | Face,canonical-runtime,canonical-source
+"Helmet, Full Visored Mantled",helmet,Plate,no,Skull | Face | Neck (Back),canonical-runtime,canonical-source
+"Jacket, Fur",sectional,Soft,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,derived-pending-book-parity,pending
+"Jacket, Padded",sectional,Soft,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,derived-pending-book-parity,pending
+"Jacket, Quilted",sectional,Soft,no,Upper Chest | Chest | Abdomen | Upper Back | Lower Back,derived-pending-book-parity,pending
+"Sleeve, Fur × 1",sectional,Soft,yes,Upper Arm | Elbow | Forearm,derived-pending-book-parity,pending
+"Sleeve, Padded × 1",sectional,Soft,yes,Upper Arm | Elbow | Forearm,derived-pending-book-parity,pending
+"Sleeve, Quilted × 1",sectional,Soft,yes,Upper Arm | Elbow | Forearm,derived-pending-book-parity,pending
+"Leggings, Fur",sectional,Soft,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),derived-pending-book-parity,pending
+"Leggings, Padded",sectional,Soft,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),derived-pending-book-parity,pending
+"Leggings, Quilted",sectional,Soft,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),derived-pending-book-parity,pending
+"Gorget, Boiled",sectional,Boiled,no,Neck (Front) | Neck (Back) | Upper Chest,derived-pending-book-parity,pending
+"Rerebraces, Boiled",sectional,Boiled,no,Upper Arm (Left) | Upper Arm (Right),derived-pending-book-parity,pending
+"Vambraces, Boiled",sectional,Boiled,no,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right),derived-pending-book-parity,pending
+"Sleeve, Boiled × 1",sectional,Boiled,yes,Upper Arm | Elbow | Forearm,derived-pending-book-parity,pending
+"Pauldron, Boiled × 1",sectional,Boiled,yes,Shoulder,derived-pending-book-parity,pending
+"Skirt, Boiled",sectional,Boiled,no,Abdomen | Thigh (Left) | Thigh (Right),derived-pending-book-parity,pending
+"Cuisses, Boiled",sectional,Boiled,no,Thigh (Left) | Thigh (Right),derived-pending-book-parity,pending
+"Greaves, Boiled",sectional,Boiled,no,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right),derived-pending-book-parity,pending
+"Chestplate, Boiled",sectional,Boiled,no,Chest,derived-pending-book-parity,pending
+"Breastplate, Boiled",sectional,Boiled,no,Upper Chest | Chest | Abdomen,derived-pending-book-parity,pending
+"Backplate, Boiled",sectional,Boiled,no,Upper Back | Lower Back,derived-pending-book-parity,pending
+"Rerebraces, Reinforced",sectional,Reinforced,no,Upper Arm (Left) | Upper Arm (Right),derived-pending-book-parity,pending
+"Cuisses, Reinforced",sectional,Reinforced,no,Thigh (Left) | Thigh (Right),derived-pending-book-parity,pending
+"Breastplate, Reinforced",sectional,Reinforced,no,Upper Chest | Chest | Abdomen,derived-pending-book-parity,pending
+"Backplate, Reinforced",sectional,Reinforced,no,Upper Back | Lower Back,derived-pending-book-parity,pending
+"Sollerets, Reinforced",sectional,Reinforced,no,Foot (Left) | Foot (Right),derived-pending-book-parity,pending
+"Gorget, Mail",sectional,Mail,no,Neck (Front) | Neck (Back) | Upper Chest,derived-pending-book-parity,pending
+"Rerebraces, Mail",sectional,Mail,no,Upper Arm (Left) | Upper Arm (Right),derived-pending-book-parity,pending
+"Vambraces, Mail",sectional,Mail,no,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right),derived-pending-book-parity,pending
+"Sleeve, Mail × 1",sectional,Mail,yes,Upper Arm | Elbow | Forearm,derived-pending-book-parity,pending
+"Pauldron, Mail × 1",sectional,Mail,yes,Shoulder,derived-pending-book-parity,pending
+"Skirt, Mail",sectional,Mail,no,Abdomen | Thigh (Left) | Thigh (Right),derived-pending-book-parity,pending
+"Cuisses, Mail",sectional,Mail,no,Thigh (Left) | Thigh (Right),derived-pending-book-parity,pending
+"Leggings, Mail",sectional,Mail,no,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right),derived-pending-book-parity,pending
+"Greaves, Mail",sectional,Mail,no,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right),derived-pending-book-parity,pending
+"Chestplate, Mail",sectional,Mail,no,Chest,derived-pending-book-parity,pending
+"Breastplate, Mail",sectional,Mail,no,Upper Chest | Chest | Abdomen,derived-pending-book-parity,pending
+"Backplate, Mail",sectional,Mail,no,Upper Back | Lower Back,derived-pending-book-parity,pending

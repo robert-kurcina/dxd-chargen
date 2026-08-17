@@ -7,11 +7,29 @@
     ],
     "deflectRating": 2,
     "armorRating": 9,
-    "weight": 8,
+    "weight": 3.0,
     "priceGp": 1.5,
     "traits": [
       "Target"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Neck + Upper Chest",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Neck (Front)",
+      "Neck (Back)",
+      "Upper Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 15
   },
   {
     "name": "Gorget, Metal",
@@ -21,12 +39,30 @@
     ],
     "deflectRating": 3,
     "armorRating": 18,
-    "weight": 12,
-    "priceGp": 3,
+    "weight": 4.0,
+    "priceGp": 3.0,
     "traits": [
       "Fitted",
       "Target"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Neck + Upper Chest",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Neck (Front)",
+      "Neck (Back)",
+      "Upper Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 30
   },
   {
     "name": "Rerebraces, Metal",
@@ -36,11 +72,28 @@
     ],
     "deflectRating": 4,
     "armorRating": 18,
-    "weight": 10,
-    "priceGp": 15,
+    "weight": 4.0,
+    "priceGp": 15.0,
     "traits": [
       "Fitted 2"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Upper Arms",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Upper Arm (Left)",
+      "Upper Arm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 150
   },
   {
     "name": "Vambraces, Reinforced",
@@ -50,9 +103,28 @@
     ],
     "deflectRating": 2,
     "armorRating": 9,
-    "weight": 4,
-    "priceGp": 2.5,
-    "traits": []
+    "weight": 3.0,
+    "priceGp": 4.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Forearms + Elbows",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Elbow (Left)",
+      "Forearm (Left)",
+      "Elbow (Right)",
+      "Forearm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 40
   },
   {
     "name": "Vambraces, Metal",
@@ -61,12 +133,31 @@
       "Body Part: Forearms + Elbows."
     ],
     "deflectRating": 4,
-    "armorRating": 9,
-    "weight": 6,
-    "priceGp": 15,
+    "armorRating": 18,
+    "weight": 4.0,
+    "priceGp": 12.5,
     "traits": [
       "Fitted"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Forearms + Elbows",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Elbow (Left)",
+      "Forearm (Left)",
+      "Elbow (Right)",
+      "Forearm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 125
   },
   {
     "name": "Gauntlets, Reinforced",
@@ -76,9 +167,28 @@
     ],
     "deflectRating": 0,
     "armorRating": 6,
-    "weight": 3,
-    "priceGp": 3,
-    "traits": []
+    "weight": 2.5,
+    "priceGp": 2.5,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Hands + Forearms",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Forearm (Left)",
+      "Hand (Left)",
+      "Forearm (Right)",
+      "Hand (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 25
   },
   {
     "name": "Gauntlets, Mail",
@@ -87,10 +197,29 @@
       "Body Part: Hands + Forearms."
     ],
     "deflectRating": 2,
-    "armorRating": 16,
-    "weight": 4,
-    "priceGp": 4,
-    "traits": []
+    "armorRating": 15,
+    "weight": 3.0,
+    "priceGp": 7.5,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Mail",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Hands + Forearms",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Mail",
+    "coverageAtoms": [
+      "Forearm (Left)",
+      "Hand (Left)",
+      "Forearm (Right)",
+      "Hand (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 75
   },
   {
     "name": "Gauntlets, Metal",
@@ -100,11 +229,30 @@
     ],
     "deflectRating": 3,
     "armorRating": 18,
-    "weight": 5,
-    "priceGp": 10,
+    "weight": 3.0,
+    "priceGp": 10.0,
     "traits": [
       "Fitted 2"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Hands + Forearms",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Forearm (Left)",
+      "Hand (Left)",
+      "Forearm (Right)",
+      "Hand (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 100
   },
   {
     "name": "Sleeve, Reinforced × 1",
@@ -115,9 +263,29 @@
     ],
     "deflectRating": 2,
     "armorRating": 9,
-    "weight": 4,
-    "priceGp": 6,
-    "traits": []
+    "weight": 3.0,
+    "priceGp": 6.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 60
   },
   {
     "name": "Sleeve, Metal × 1",
@@ -128,11 +296,31 @@
     ],
     "deflectRating": 3,
     "armorRating": 15,
-    "weight": 6,
-    "priceGp": 20,
+    "weight": 4.0,
+    "priceGp": 20.0,
     "traits": [
       "Fitted 2"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 200
   },
   {
     "name": "Pauldron, Reinforced × 1",
@@ -142,11 +330,27 @@
     ],
     "deflectRating": 3,
     "armorRating": 9,
-    "weight": 2,
+    "weight": 1.5,
     "priceGp": 2.5,
     "traits": [
       "Protective"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shoulder",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Shoulder"
+    ],
+    "sideRequired": true,
+    "priceSp": 25
   },
   {
     "name": "Pauldron, Metal × 1",
@@ -156,11 +360,27 @@
     ],
     "deflectRating": 5,
     "armorRating": 18,
-    "weight": 4,
-    "priceGp": 6,
+    "weight": 2.5,
+    "priceGp": 6.0,
     "traits": [
       "Protective"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shoulder",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Shoulder"
+    ],
+    "sideRequired": true,
+    "priceSp": 60
   },
   {
     "name": "Manica, Mail × 1",
@@ -171,11 +391,32 @@
     ],
     "deflectRating": 4,
     "armorRating": 15,
-    "weight": 5,
-    "priceGp": 6,
+    "weight": 4.0,
+    "priceGp": 6.0,
     "traits": [
       "Parry"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Mail",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm + Shoulder",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Mail",
+    "coverageAtoms": [
+      "Shoulder",
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 60
   },
   {
     "name": "Skirt, Reinforced",
@@ -186,9 +427,29 @@
     ],
     "deflectRating": 1,
     "armorRating": 9,
-    "weight": 10,
-    "priceGp": 10,
-    "traits": []
+    "weight": 8.0,
+    "priceGp": 10.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Abdomen + Thighs",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Abdomen",
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 100
   },
   {
     "name": "Skirt, Metal",
@@ -199,12 +460,32 @@
     ],
     "deflectRating": 3,
     "armorRating": 18,
-    "weight": 15,
-    "priceGp": 15,
+    "weight": 10.0,
+    "priceGp": 15.0,
     "traits": [
       "Noisy",
       "Bulky"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Abdomen + Thighs",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Abdomen",
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 150
   },
   {
     "name": "Cuisses, Metal",
@@ -215,10 +496,27 @@
     "deflectRating": 3,
     "armorRating": 18,
     "weight": 6,
-    "priceGp": 8,
+    "priceGp": 8.0,
     "traits": [
       "Bulky"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Thighs",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 80
   },
   {
     "name": "Leggings, Boiled",
@@ -228,10 +526,33 @@
       "Body Part: Legs."
     ],
     "deflectRating": 1,
-    "armorRating": 10,
+    "armorRating": 6,
     "weight": 10,
-    "priceGp": 8,
-    "traits": []
+    "priceGp": 9.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Boiled",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Boiled",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 90
   },
   {
     "name": "Leggings, Reinforced",
@@ -243,10 +564,33 @@
     "deflectRating": 2,
     "armorRating": 9,
     "weight": 12,
-    "priceGp": 10,
+    "priceGp": 12.0,
     "traits": [
       "Bulky"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 120
   },
   {
     "name": "Leggings, Metal",
@@ -257,12 +601,35 @@
     ],
     "deflectRating": 3,
     "armorRating": 15,
-    "weight": 20,
-    "priceGp": 30,
+    "weight": 14.0,
+    "priceGp": 30.0,
     "traits": [
       "Bulky",
       "Fitted 2"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 300
   },
   {
     "name": "Greaves, Reinforced",
@@ -272,9 +639,28 @@
     ],
     "deflectRating": 0,
     "armorRating": 9,
-    "weight": 6,
-    "priceGp": 6,
-    "traits": []
+    "weight": 5.0,
+    "priceGp": 10.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shins + Knees",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Knee (Left)",
+      "Shin (Left)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 100
   },
   {
     "name": "Greaves, Metal",
@@ -284,9 +670,28 @@
     ],
     "deflectRating": 2,
     "armorRating": 15,
-    "weight": 10,
-    "priceGp": 30,
-    "traits": []
+    "weight": 6.0,
+    "priceGp": 30.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shins + Knees",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Knee (Left)",
+      "Shin (Left)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 300
   },
   {
     "name": "Sollerets, Metal",
@@ -296,11 +701,28 @@
     ],
     "deflectRating": 2,
     "armorRating": 18,
-    "weight": 10,
-    "priceGp": 8,
+    "weight": 3.5,
+    "priceGp": 8.0,
     "traits": [
       "Noisy"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Feet",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Foot (Left)",
+      "Foot (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 80
   },
   {
     "name": "Chestplate, Metal",
@@ -310,12 +732,28 @@
     ],
     "deflectRating": 4,
     "armorRating": 21,
-    "weight": 20,
-    "priceGp": 30,
+    "weight": 8.0,
+    "priceGp": 20.0,
     "traits": [
       "Fitted",
       "Rigid"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Chest",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 200
   },
   {
     "name": "Chestplate, Reinforced",
@@ -325,9 +763,25 @@
     ],
     "deflectRating": 2,
     "armorRating": 12,
-    "weight": 12,
-    "priceGp": 15,
-    "traits": []
+    "weight": 6.0,
+    "priceGp": 12.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Chest",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 120
   },
   {
     "name": "Breastplate, Metal",
@@ -338,27 +792,66 @@
     ],
     "deflectRating": 4,
     "armorRating": 21,
-    "weight": 20,
-    "priceGp": 80,
+    "weight": 10.0,
+    "priceGp": 30.0,
     "traits": [
       "Fitted 2",
       "Rigid"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso"
+    ],
+    "bodyParts": "Front Torso",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen"
+    ],
+    "sideRequired": false,
+    "priceSp": 300
   },
   {
     "name": "Backplate, Metal",
     "notes": [
       "Classification: Sectional Armor.",
       "Hit Location: Back Torso.",
-      "Body Part: Front Torso."
+      "Body Part: Back Torso."
     ],
     "deflectRating": 3,
     "armorRating": 18,
-    "weight": 15,
-    "priceGp": 30,
+    "weight": 9.0,
+    "priceGp": 25.0,
     "traits": [
       "Rigid"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Back Torso"
+    ],
+    "bodyParts": "Back Torso",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 250
   },
   {
     "name": "Jacket, Boiled",
@@ -369,9 +862,33 @@
     ],
     "deflectRating": 2,
     "armorRating": 9,
-    "weight": 15,
-    "priceGp": 20,
-    "traits": []
+    "weight": 12.0,
+    "priceGp": 12.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "material": "Boiled",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Boiled",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 120
   },
   {
     "name": "Jacket, Reinforced",
@@ -382,11 +899,35 @@
     ],
     "deflectRating": 3,
     "armorRating": 12,
-    "weight": 20,
-    "priceGp": 30,
+    "weight": 15.0,
+    "priceGp": 18.0,
     "traits": [
       "Rigid"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 180
   },
   {
     "name": "Brigandine, Mail",
@@ -397,14 +938,38 @@
     ],
     "deflectRating": 4,
     "armorRating": 18,
-    "weight": 25,
-    "priceGp": 60,
+    "weight": 20.0,
+    "priceGp": 60.0,
     "traits": [
       "Fitted",
       "Bulky",
       "Mail",
       "Rigid"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Mail",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Mail",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 600
   },
   {
     "name": "Cuirass, Metal",
@@ -415,11 +980,35 @@
     ],
     "deflectRating": 5,
     "armorRating": 21,
-    "weight": 30,
-    "priceGp": 100,
+    "weight": 20.0,
+    "priceGp": 60.0,
     "traits": [
       "Fitted 3"
-    ]
+    ],
+    "armorKind": "sectional",
+    "material": "Metal",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 600
   },
   {
     "name": "Shirt, Padded",
@@ -429,11 +1018,27 @@
     "deflectRating": 0,
     "armorRating": 6,
     "weight": 10,
-    "priceGp": 15,
+    "priceGp": 18.0,
     "traits": [
       "Bulky",
       "Rigid"
-    ]
+    ],
+    "armorKind": "gear",
+    "material": "Padded",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Soft",
+    "construction": "Padded",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 180
   },
   {
     "name": "Long Shirt, Padded",
@@ -443,11 +1048,27 @@
     "deflectRating": 0,
     "armorRating": 6,
     "weight": 15,
-    "priceGp": 20,
+    "priceGp": 25.0,
     "traits": [
       "Bulky 2",
       "Rigid"
-    ]
+    ],
+    "armorKind": "gear",
+    "material": "Padded",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Soft",
+    "construction": "Padded",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 250
   },
   {
     "name": "Shirt, Quilted",
@@ -457,11 +1078,27 @@
     "deflectRating": 1,
     "armorRating": 6,
     "weight": 8,
-    "priceGp": 10,
+    "priceGp": 15.0,
     "traits": [
       "Flex",
       "Rigid"
-    ]
+    ],
+    "armorKind": "gear",
+    "material": "Quilted",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Soft",
+    "construction": "Quilted",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 150
   },
   {
     "name": "Long Shirt, Quilted",
@@ -471,10 +1108,26 @@
     "deflectRating": 1,
     "armorRating": 6,
     "weight": 12,
-    "priceGp": 12,
+    "priceGp": 22.5,
     "traits": [
       "Flex"
-    ]
+    ],
+    "armorKind": "gear",
+    "material": "Quilted",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Soft",
+    "construction": "Quilted",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 225
   },
   {
     "name": "Thin Shirt, Mail",
@@ -484,10 +1137,25 @@
     "deflectRating": 2,
     "armorRating": 9,
     "weight": 12,
-    "priceGp": 20,
+    "priceGp": 40.0,
     "traits": [
       "Mail"
-    ]
+    ],
+    "armorKind": "gear",
+    "material": "Mail",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Mail",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 400
   },
   {
     "name": "Thin Long Shirt, Mail",
@@ -497,10 +1165,25 @@
     "deflectRating": 2,
     "armorRating": 12,
     "weight": 15,
-    "priceGp": 25,
+    "priceGp": 60.0,
     "traits": [
       "Mail"
-    ]
+    ],
+    "armorKind": "gear",
+    "material": "Mail",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Mail",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 600
   },
   {
     "name": "Shield, Buckler",
@@ -510,11 +1193,23 @@
     "deflectRating": 4,
     "armorRating": 6,
     "weight": 2,
-    "priceGp": 2.5,
+    "priceGp": 2.4,
     "traits": [
       "1H",
       "Target 2"
-    ]
+    ],
+    "armorKind": "shield",
+    "material": "Shield",
+    "hitLocations": [],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Shield",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 24
   },
   {
     "name": "Shield, Small",
@@ -524,12 +1219,24 @@
     "deflectRating": 2,
     "armorRating": 9,
     "weight": 5,
-    "priceGp": 4,
+    "priceGp": 4.0,
     "traits": [
       "1H",
       "Target",
       "Coverage"
-    ]
+    ],
+    "armorKind": "shield",
+    "material": "Shield",
+    "hitLocations": [],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Shield",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 40
   },
   {
     "name": "Shield, Medium",
@@ -539,12 +1246,24 @@
     "deflectRating": 3,
     "armorRating": 12,
     "weight": 10,
-    "priceGp": 6,
+    "priceGp": 6.0,
     "traits": [
       "1H",
       "Screen",
       "Coverage"
-    ]
+    ],
+    "armorKind": "shield",
+    "material": "Shield",
+    "hitLocations": [],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Shield",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 60
   },
   {
     "name": "Shield, Large",
@@ -554,13 +1273,25 @@
     "deflectRating": 4,
     "armorRating": 15,
     "weight": 15,
-    "priceGp": 8,
+    "priceGp": 8.0,
     "traits": [
       "1H",
       "Bulky",
       "Screen",
       "Coverage"
-    ]
+    ],
+    "armorKind": "shield",
+    "material": "Shield",
+    "hitLocations": [],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Shield",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 80
   },
   {
     "name": "Shield, Tower",
@@ -570,12 +1301,24 @@
     "deflectRating": 4,
     "armorRating": 18,
     "weight": 20,
-    "priceGp": 10,
+    "priceGp": 10.0,
     "traits": [
       "1H",
       "Bulky 2",
       "Screen"
-    ]
+    ],
+    "armorKind": "shield",
+    "material": "Shield",
+    "hitLocations": [],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Shield",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 100
   },
   {
     "name": "Helmet, Mail Coif",
@@ -585,11 +1328,31 @@
     "deflectRating": 2,
     "armorRating": 12,
     "weight": 4,
-    "priceGp": 10,
+    "priceGp": 10.0,
     "traits": [
       "Mail",
       "Rigid"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Mail",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Mail",
+    "coverageAtoms": [
+      "Skull",
+      "Neck (Front)",
+      "Neck (Back)",
+      "Shoulder (Left)",
+      "Shoulder (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 100
   },
   {
     "name": "Helmet, Boiled",
@@ -602,7 +1365,24 @@
     "priceGp": 2.5,
     "traits": [
       "Rigid"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Boiled",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Boiled",
+    "coverageAtoms": [
+      "Skull",
+      "Neck (Back)"
+    ],
+    "sideRequired": false,
+    "priceSp": 25
   },
   {
     "name": "Helmet, Full",
@@ -612,12 +1392,29 @@
     "deflectRating": 3,
     "armorRating": 18,
     "weight": 5,
-    "priceGp": 25,
+    "priceGp": 22.5,
     "traits": [
       "Blinders",
       "Rigid",
       "Protective"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Metal",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Skull",
+      "Face"
+    ],
+    "sideRequired": false,
+    "priceSp": 225
   },
   {
     "name": "Helmet, Half",
@@ -627,24 +1424,95 @@
     "deflectRating": 2,
     "armorRating": 15,
     "weight": 2.5,
-    "priceGp": 10,
+    "priceGp": 10.0,
     "traits": [
       "Rigid"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Metal",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Skull"
+    ],
+    "sideRequired": false,
+    "priceSp": 100
   },
   {
     "name": "Helmet, Half Mantled",
     "notes": [
-      "Classification: Helmet Armor."
+      "Classification: Helmet Armor.",
+      "Mantle: articulated overlapping metal plates protecting the rear neck; not intrinsically [Noisy]."
     ],
     "deflectRating": 3,
     "armorRating": 18,
     "weight": 3,
-    "priceGp": 12,
+    "priceGp": 15.0,
     "traits": [
-      "Noisy",
       "Rigid"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Metal",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Skull",
+      "Neck (Back)"
+    ],
+    "sideRequired": false,
+    "priceSp": 150
+  },
+  {
+    "name": "Helmet, Full Mantled",
+    "notes": [
+      "Classification: Helmet Armor.",
+      "Derived from Helmet, Full using the same mantle upgrade step as Helmet, Half -> Helmet, Half Mantled.",
+      "Mantle: articulated overlapping metal plates protecting the rear neck; not intrinsically [Noisy]."
+    ],
+    "deflectRating": 4,
+    "armorRating": 21,
+    "weight": 6,
+    "priceGp": 27.5,
+    "traits": [
+      "Blinders",
+      "Rigid",
+      "Protective"
+    ],
+    "armorKind": "helmet",
+    "material": "Metal",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Skull",
+      "Face",
+      "Neck (Back)"
+    ],
+    "sideRequired": false,
+    "derivedHelmet": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Helmet, Half -> Helmet, Half Mantled protection/coverage delta applied to Helmet, Full; v129 price recalibrated from historical helmet anchors.",
+    "priceSp": 275
   },
   {
     "name": "Helmet, Full Visored",
@@ -654,137 +1522,1653 @@
     "deflectRating": 4,
     "armorRating": 21,
     "weight": 6,
-    "priceGp": 12,
+    "priceGp": 27.5,
     "traits": [
       "Blinders",
       "Rigid",
       "Protective"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Metal",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Skull",
+      "Face"
+    ],
+    "sideRequired": false,
+    "priceSp": 275
   },
   {
     "name": "Helmet, Full Visored Mantled",
     "notes": [
-      "Classification: Helmet Armor."
+      "Classification: Helmet Armor.",
+      "Mantle: articulated overlapping metal plates protecting the rear neck; not intrinsically [Noisy]."
     ],
     "deflectRating": 5,
     "armorRating": 24,
     "weight": 8,
-    "priceGp": 40,
+    "priceGp": 35.0,
     "traits": [
       "Blinders",
-      "Noisy",
       "Rigid",
       "Protective"
-    ]
+    ],
+    "armorKind": "helmet",
+    "material": "Metal",
+    "hitLocations": [
+      "Head"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "materialClass": "Plate",
+    "coverageAtoms": [
+      "Skull",
+      "Face",
+      "Neck (Back)"
+    ],
+    "sideRequired": false,
+    "priceSp": 350
   },
   {
     "name": "Armor Set, Light (Soft)",
     "notes": [
       "Classification: Armor Set.",
-      "Hit Locations: Front Torso, Back Torso."
+      "Hit Locations: Front Torso, Back Torso.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 2,
     "armorRating": 3,
     "weight": 20,
-    "priceGp": 50,
+    "priceGp": 25.0,
     "traits": [
       "Flex"
-    ]
+    ],
+    "armorKind": "set",
+    "material": "Soft",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "",
+    "suitClass": "Light",
+    "setMaterial": "Soft",
+    "noHitLocationBonus": 0,
+    "abstractQuickPick": true,
+    "materialClass": "Soft",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 250
   },
   {
     "name": "Armor Set, Light (Boiled)",
     "notes": [
       "Classification: Armor Set.",
       "Hit Locations: Front Torso, Back Torso, Arms.",
-      "When not using Hit Locations, add +2 AR and +2 Deflect."
+      "When not using Hit Locations, add +2 AR and +2 Deflect.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 3,
     "armorRating": 9,
     "weight": 25,
-    "priceGp": 60,
-    "traits": []
+    "priceGp": 35.0,
+    "traits": [],
+    "armorKind": "set",
+    "material": "Boiled",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso",
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso",
+      "Arms"
+    ],
+    "bodyParts": "",
+    "suitClass": "Light",
+    "setMaterial": "Boiled",
+    "noHitLocationBonus": 2,
+    "abstractQuickPick": true,
+    "materialClass": "Boiled",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 350
   },
   {
     "name": "Armor Set, Medium (Reinforced)",
     "notes": [
       "Classification: Armor Set.",
       "Hit Locations: Front Torso, Back Torso, Arms.",
-      "When not using Hit Locations, add +2 AR and +2 Deflect."
+      "When not using Hit Locations, add +2 AR and +2 Deflect.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 4,
     "armorRating": 12,
     "weight": 25,
-    "priceGp": 100,
+    "priceGp": 60.0,
     "traits": [
       "Rigid"
-    ]
+    ],
+    "armorKind": "set",
+    "material": "Reinforced",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso",
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso",
+      "Arms"
+    ],
+    "bodyParts": "",
+    "suitClass": "Medium",
+    "setMaterial": "Reinforced",
+    "noHitLocationBonus": 2,
+    "abstractQuickPick": true,
+    "materialClass": "Reinforced",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 600
   },
   {
     "name": "Armor Set, Medium (Mail)",
     "notes": [
       "Classification: Armor Set.",
       "Hit Locations: Front Torso, Back Torso, Arms.",
-      "When not using Hit Locations, add +2 AR and +2 Deflect."
+      "When not using Hit Locations, add +2 AR and +2 Deflect.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 5,
     "armorRating": 15,
     "weight": 30,
-    "priceGp": 120,
+    "priceGp": 80.0,
     "traits": [
       "Flex",
       "Mail",
       "Rigid"
-    ]
+    ],
+    "armorKind": "set",
+    "material": "Mail",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso",
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso",
+      "Arms"
+    ],
+    "bodyParts": "",
+    "suitClass": "Medium",
+    "setMaterial": "Mail",
+    "noHitLocationBonus": 2,
+    "abstractQuickPick": true,
+    "materialClass": "Mail",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 800
   },
   {
     "name": "Armor Set, Heavy (Reinforced + Plate)",
     "notes": [
       "Classification: Armor Set.",
       "Hit Locations: Front Torso, Back Torso, Arms, Legs.",
-      "When not using Hit Locations, add +4 AR and +4 Deflect."
+      "When not using Hit Locations, add +4 AR and +4 Deflect.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 6,
     "armorRating": 18,
     "weight": 40,
-    "priceGp": 150,
+    "priceGp": 150.0,
     "traits": [
       "Mail",
       "Fitted",
       "Rigid"
-    ]
+    ],
+    "armorKind": "set",
+    "material": "Reinforced + Plate",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso",
+      "Arms",
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso",
+      "Arms",
+      "Legs"
+    ],
+    "bodyParts": "",
+    "suitClass": "Heavy",
+    "setMaterial": "Reinforced + Plate",
+    "noHitLocationBonus": 4,
+    "abstractQuickPick": true,
+    "materialClass": "Reinforced + Plate",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 1500
   },
   {
     "name": "Armor Set, Heavy (Mail + Plate)",
     "notes": [
       "Classification: Armor Set.",
       "Hit Locations: Front Torso, Back Torso, Arms, Legs.",
-      "When not using Hit Locations, add +4 AR and +4 Deflect."
+      "When not using Hit Locations, add +4 AR and +4 Deflect.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 7,
     "armorRating": 21,
     "weight": 50,
-    "priceGp": 200,
+    "priceGp": 240.0,
     "traits": [
       "Bulky",
       "Fitted 2",
       "Rigid"
-    ]
+    ],
+    "armorKind": "set",
+    "material": "Mail + Plate",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso",
+      "Arms",
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso",
+      "Arms",
+      "Legs"
+    ],
+    "bodyParts": "",
+    "suitClass": "Heavy",
+    "setMaterial": "Mail + Plate",
+    "noHitLocationBonus": 4,
+    "abstractQuickPick": true,
+    "materialClass": "Mail + Plate",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 2400
   },
   {
     "name": "Armor Set, Field (Plate)",
     "notes": [
       "Classification: Armor Set.",
       "Hit Locations: Front Torso, Back Torso, Arms, Legs.",
-      "When not using Hit Locations, add +4 AR and +4 Deflect."
+      "When not using Hit Locations, add +4 AR and +4 Deflect.",
+      "Armor Set is an abstract quick-pick; listed Hit Locations are GM guidance and do not require one exact sectional decomposition."
     ],
     "deflectRating": 8,
     "armorRating": 24,
     "weight": 60,
-    "priceGp": 250,
+    "priceGp": 400.0,
     "traits": [
       "Bulky 2",
       "Fitted 3",
       "Rigid"
-    ]
+    ],
+    "armorKind": "set",
+    "material": "Plate",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso",
+      "Arms",
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso",
+      "Arms",
+      "Legs"
+    ],
+    "bodyParts": "",
+    "suitClass": "Field",
+    "setMaterial": "Plate",
+    "noHitLocationBonus": 4,
+    "abstractQuickPick": true,
+    "materialClass": "Plate",
+    "coverageAtoms": [],
+    "sideRequired": false,
+    "priceSp": 4000
+  },
+  {
+    "name": "Jacket, Fur",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 12.0,
+    "priceGp": 12.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Fur",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "construction": "Fur",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 120
+  },
+  {
+    "name": "Jacket, Padded",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 12.0,
+    "priceGp": 25.0,
+    "traits": [
+      "Bulky 2",
+      "Sturdy"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Padded",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "construction": "Padded",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 250
+  },
+  {
+    "name": "Jacket, Quilted",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 10.0,
+    "priceGp": 22.5,
+    "traits": [
+      "Flex"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Quilted",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso",
+      "Back Torso"
+    ],
+    "bodyParts": "Front Torso + Back Torso",
+    "construction": "Quilted",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen",
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 225
+  },
+  {
+    "name": "Sleeve, Fur × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 3,
+    "weight": 3,
+    "priceGp": 2.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Fur",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "construction": "Fur",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 20
+  },
+  {
+    "name": "Sleeve, Padded × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 3,
+    "weight": 3,
+    "priceGp": 3.5,
+    "traits": [
+      "Bulky"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Padded",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "construction": "Padded",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 35
+  },
+  {
+    "name": "Sleeve, Quilted × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 3,
+    "weight": 2.5,
+    "priceGp": 3.0,
+    "traits": [
+      "Flex"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Quilted",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "construction": "Quilted",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 30
+  },
+  {
+    "name": "Leggings, Fur",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 8,
+    "priceGp": 6.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Fur",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "construction": "Fur",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 60
+  },
+  {
+    "name": "Leggings, Padded",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 10,
+    "priceGp": 11.0,
+    "traits": [
+      "Bulky"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Padded",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "construction": "Padded",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 110
+  },
+  {
+    "name": "Leggings, Quilted",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 8,
+    "priceGp": 9.0,
+    "traits": [
+      "Flex"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Quilted",
+    "materialClass": "Soft",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "construction": "Quilted",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 90
+  },
+  {
+    "name": "Gorget, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 2.5,
+    "priceGp": 1.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Neck + Upper Chest",
+    "coverageAtoms": [
+      "Neck (Front)",
+      "Neck (Back)",
+      "Upper Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 10
+  },
+  {
+    "name": "Rerebraces, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 3.0,
+    "priceGp": 5.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Upper Arms",
+    "coverageAtoms": [
+      "Upper Arm (Left)",
+      "Upper Arm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 50
+  },
+  {
+    "name": "Vambraces, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 2.5,
+    "priceGp": 2.5,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Forearms + Elbows",
+    "coverageAtoms": [
+      "Elbow (Left)",
+      "Forearm (Left)",
+      "Elbow (Right)",
+      "Forearm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 25
+  },
+  {
+    "name": "Sleeve, Boiled × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 6,
+    "weight": 3.0,
+    "priceGp": 4.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 40
+  },
+  {
+    "name": "Pauldron, Boiled × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 6,
+    "weight": 1.5,
+    "priceGp": 1.5,
+    "traits": [
+      "Protective"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shoulder",
+    "coverageAtoms": [
+      "Shoulder"
+    ],
+    "sideRequired": true,
+    "priceSp": 15
+  },
+  {
+    "name": "Skirt, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 7.0,
+    "priceGp": 7.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Abdomen + Thighs",
+    "coverageAtoms": [
+      "Abdomen",
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 70
+  },
+  {
+    "name": "Cuisses, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 3,
+    "priceGp": 3.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Thighs",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 30
+  },
+  {
+    "name": "Greaves, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 4.0,
+    "priceGp": 6.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shins + Knees",
+    "coverageAtoms": [
+      "Knee (Left)",
+      "Shin (Left)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 60
+  },
+  {
+    "name": "Chestplate, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 9,
+    "weight": 5.0,
+    "priceGp": 8.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Chest",
+    "coverageAtoms": [
+      "Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 80
+  },
+  {
+    "name": "Breastplate, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 9,
+    "weight": 8.0,
+    "priceGp": 15.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso"
+    ],
+    "bodyParts": "Front Torso",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen"
+    ],
+    "sideRequired": false,
+    "priceSp": 150
+  },
+  {
+    "name": "Backplate, Boiled",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 6,
+    "weight": 6.0,
+    "priceGp": 12.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Boiled",
+    "materialClass": "Boiled",
+    "hitLocations": [
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Back Torso"
+    ],
+    "bodyParts": "Back Torso",
+    "coverageAtoms": [
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 120
+  },
+  {
+    "name": "Rerebraces, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 9,
+    "weight": 4.0,
+    "priceGp": 7.5,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Reinforced",
+    "materialClass": "Reinforced",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Upper Arms",
+    "coverageAtoms": [
+      "Upper Arm (Left)",
+      "Upper Arm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 75
+  },
+  {
+    "name": "Cuisses, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 9,
+    "weight": 3.5,
+    "priceGp": 4.0,
+    "traits": [
+      "Bulky"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Reinforced",
+    "materialClass": "Reinforced",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Thighs",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 40
+  },
+  {
+    "name": "Breastplate, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 12,
+    "weight": 9.0,
+    "priceGp": 20.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Reinforced",
+    "materialClass": "Reinforced",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso"
+    ],
+    "bodyParts": "Front Torso",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen"
+    ],
+    "sideRequired": false,
+    "priceSp": 200
+  },
+  {
+    "name": "Backplate, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 9,
+    "weight": 7.0,
+    "priceGp": 15.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Reinforced",
+    "materialClass": "Reinforced",
+    "hitLocations": [
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Back Torso"
+    ],
+    "bodyParts": "Back Torso",
+    "coverageAtoms": [
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 150
+  },
+  {
+    "name": "Sollerets, Reinforced",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 0,
+    "armorRating": 9,
+    "weight": 3.0,
+    "priceGp": 4.0,
+    "traits": [],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Reinforced",
+    "materialClass": "Reinforced",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Feet",
+    "coverageAtoms": [
+      "Foot (Left)",
+      "Foot (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 40
+  },
+  {
+    "name": "Gorget, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 3,
+    "armorRating": 15,
+    "weight": 3.5,
+    "priceGp": 2.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Neck + Upper Chest",
+    "coverageAtoms": [
+      "Neck (Front)",
+      "Neck (Back)",
+      "Upper Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 20
+  },
+  {
+    "name": "Rerebraces, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 3,
+    "armorRating": 15,
+    "weight": 4.0,
+    "priceGp": 10.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Upper Arms",
+    "coverageAtoms": [
+      "Upper Arm (Left)",
+      "Upper Arm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 100
+  },
+  {
+    "name": "Vambraces, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 3,
+    "armorRating": 15,
+    "weight": 3.5,
+    "priceGp": 7.5,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Forearms + Elbows",
+    "coverageAtoms": [
+      "Elbow (Left)",
+      "Forearm (Left)",
+      "Elbow (Right)",
+      "Forearm (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 75
+  },
+  {
+    "name": "Sleeve, Mail × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 3,
+    "armorRating": 15,
+    "weight": 4.0,
+    "priceGp": 10.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [
+      "Arm"
+    ],
+    "bodyParts": "Arm",
+    "coverageAtoms": [
+      "Upper Arm",
+      "Elbow",
+      "Forearm"
+    ],
+    "sideRequired": true,
+    "priceSp": 100
+  },
+  {
+    "name": "Pauldron, Mail × 1",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 4,
+    "armorRating": 15,
+    "weight": 2.0,
+    "priceGp": 3.5,
+    "traits": [
+      "Mail",
+      "Protective"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Arms"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shoulder",
+    "coverageAtoms": [
+      "Shoulder"
+    ],
+    "sideRequired": true,
+    "priceSp": 35
+  },
+  {
+    "name": "Skirt, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 15,
+    "weight": 9.0,
+    "priceGp": 13.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Abdomen + Thighs",
+    "coverageAtoms": [
+      "Abdomen",
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 130
+  },
+  {
+    "name": "Cuisses, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 15,
+    "weight": 4.0,
+    "priceGp": 5.5,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Thighs",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Thigh (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 55
+  },
+  {
+    "name": "Leggings, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 12,
+    "weight": 14.0,
+    "priceGp": 20.0,
+    "traits": [
+      "Mail",
+      "Bulky"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [
+      "Legs"
+    ],
+    "bodyParts": "Legs",
+    "coverageAtoms": [
+      "Thigh (Left)",
+      "Knee (Left)",
+      "Shin (Left)",
+      "Thigh (Right)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 200
+  },
+  {
+    "name": "Greaves, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 1,
+    "armorRating": 12,
+    "weight": 5.0,
+    "priceGp": 18.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Legs"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Shins + Knees",
+    "coverageAtoms": [
+      "Knee (Left)",
+      "Shin (Left)",
+      "Knee (Right)",
+      "Shin (Right)"
+    ],
+    "sideRequired": false,
+    "priceSp": 180
+  },
+  {
+    "name": "Chestplate, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 7.0,
+    "priceGp": 20.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [],
+    "bodyParts": "Chest",
+    "coverageAtoms": [
+      "Chest"
+    ],
+    "sideRequired": false,
+    "priceSp": 200
+  },
+  {
+    "name": "Breastplate, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 3,
+    "armorRating": 18,
+    "weight": 11.0,
+    "priceGp": 35.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Front Torso"
+    ],
+    "fullCoverage": [
+      "Front Torso"
+    ],
+    "bodyParts": "Front Torso",
+    "coverageAtoms": [
+      "Upper Chest",
+      "Chest",
+      "Abdomen"
+    ],
+    "sideRequired": false,
+    "priceSp": 350
+  },
+  {
+    "name": "Backplate, Mail",
+    "notes": [
+      "Classification: Sectional Armor.",
+      "Derived sectional catalogue candidate; book table parity pending."
+    ],
+    "deflectRating": 2,
+    "armorRating": 15,
+    "weight": 9.0,
+    "priceGp": 30.0,
+    "traits": [
+      "Mail"
+    ],
+    "armorKind": "sectional",
+    "suitClass": null,
+    "setMaterial": null,
+    "noHitLocationBonus": 0,
+    "derivedSectional": true,
+    "bookParityStatus": "pending",
+    "derivationBasis": "Armor Composition material ladder plus analogous canonical Sectional Armor form.",
+    "material": "Mail",
+    "materialClass": "Mail",
+    "hitLocations": [
+      "Back Torso"
+    ],
+    "fullCoverage": [
+      "Back Torso"
+    ],
+    "bodyParts": "Back Torso",
+    "coverageAtoms": [
+      "Upper Back",
+      "Lower Back"
+    ],
+    "sideRequired": false,
+    "priceSp": 300
   }
 ]

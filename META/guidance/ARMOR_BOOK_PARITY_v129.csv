@@ -1,0 +1,94 @@
+name,armorKind,materialClass,construction,priceSp,weightLb,deflect,armorRating,traits,hitLocations,bodyParts,coverageAtoms
+"Gorget, Reinforced",sectional,Reinforced,,15,8,2,9,Target,Front Torso,Neck + Upper Chest,Neck (Front) | Neck (Back) | Upper Chest
+"Gorget, Metal",sectional,Plate,,30,12,3,18,Fitted | Target,Front Torso,Neck + Upper Chest,Neck (Front) | Neck (Back) | Upper Chest
+"Rerebraces, Metal",sectional,Plate,,150,10,4,18,Fitted 2,Arms,Upper Arms,Upper Arm (Left) | Upper Arm (Right)
+"Vambraces, Reinforced",sectional,Reinforced,,40,4,2,9,,Arms,Forearms + Elbows,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right)
+"Vambraces, Metal",sectional,Plate,,125,6,4,18,Fitted,Arms,Forearms + Elbows,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right)
+"Gauntlets, Reinforced",sectional,Reinforced,,25,3,0,6,,Arms,Hands + Forearms,Forearm (Left) | Hand (Left) | Forearm (Right) | Hand (Right)
+"Gauntlets, Mail",sectional,Mail,,75,4,2,15,,Arms,Hands + Forearms,Forearm (Left) | Hand (Left) | Forearm (Right) | Hand (Right)
+"Gauntlets, Metal",sectional,Plate,,100,5,3,18,Fitted 2,Arms,Hands + Forearms,Forearm (Left) | Hand (Left) | Forearm (Right) | Hand (Right)
+"Sleeve, Reinforced × 1",sectional,Reinforced,,60,4,2,9,,Arms,Arm,Upper Arm | Elbow | Forearm
+"Sleeve, Metal × 1",sectional,Plate,,200,6,3,15,Fitted 2,Arms,Arm,Upper Arm | Elbow | Forearm
+"Pauldron, Reinforced × 1",sectional,Reinforced,,25,2,3,9,Protective,Arms,Shoulder,Shoulder
+"Pauldron, Metal × 1",sectional,Plate,,60,4,5,18,Protective,Arms,Shoulder,Shoulder
+"Manica, Mail × 1",sectional,Mail,,60,5,4,15,Parry,Arms,Arm + Shoulder,Shoulder | Upper Arm | Elbow | Forearm
+"Skirt, Reinforced",sectional,Reinforced,,100,10,1,9,,Legs,Abdomen + Thighs,Abdomen | Thigh (Left) | Thigh (Right)
+"Skirt, Metal",sectional,Plate,,150,15,3,18,Noisy | Bulky,Legs,Abdomen + Thighs,Abdomen | Thigh (Left) | Thigh (Right)
+"Cuisses, Metal",sectional,Plate,,80,6,3,18,Bulky,Legs,Thighs,Thigh (Left) | Thigh (Right)
+"Leggings, Boiled",sectional,Boiled,,90,10,1,6,,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Leggings, Reinforced",sectional,Reinforced,,120,12,2,9,Bulky,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Leggings, Metal",sectional,Plate,,300,20,3,15,Bulky | Fitted 2,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Greaves, Reinforced",sectional,Reinforced,,100,6,0,9,,Legs,Shins + Knees,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right)
+"Greaves, Metal",sectional,Plate,,300,10,2,15,,Legs,Shins + Knees,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right)
+"Sollerets, Metal",sectional,Plate,,80,10,2,18,Noisy,Legs,Feet,Foot (Left) | Foot (Right)
+"Chestplate, Metal",sectional,Plate,,200,20,4,21,Fitted | Rigid,Front Torso,Chest,Chest
+"Chestplate, Reinforced",sectional,Reinforced,,120,12,2,12,,Front Torso,Chest,Chest
+"Breastplate, Metal",sectional,Plate,,300,20,4,21,Fitted 2 | Rigid,Front Torso,Front Torso,Upper Chest | Chest | Abdomen
+"Backplate, Metal",sectional,Plate,,250,15,3,18,Rigid,Back Torso,Back Torso,Upper Back | Lower Back
+"Jacket, Boiled",sectional,Boiled,,120,15,2,9,,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Jacket, Reinforced",sectional,Reinforced,,180,20,3,12,Rigid,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Brigandine, Mail",sectional,Mail,,600,25,4,18,Fitted | Bulky | Mail | Rigid,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Cuirass, Metal",sectional,Plate,,600,30,5,21,Fitted 3,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Shirt, Padded",gear,Soft,Padded,180,10,0,6,Bulky | Rigid,Front Torso | Back Torso,,
+"Long Shirt, Padded",gear,Soft,Padded,250,15,0,6,Bulky 2 | Rigid,Front Torso | Back Torso,,
+"Shirt, Quilted",gear,Soft,Quilted,150,8,1,6,Flex | Rigid,Front Torso | Back Torso,,
+"Long Shirt, Quilted",gear,Soft,Quilted,225,12,1,6,Flex,Front Torso | Back Torso,,
+"Thin Shirt, Mail",gear,Mail,,400,12,2,9,Mail,Front Torso | Back Torso,,
+"Thin Long Shirt, Mail",gear,Mail,,600,15,2,12,Mail,Front Torso | Back Torso,,
+"Shield, Buckler",shield,Shield,,24,2,4,6,1H | Target 2,,,
+"Shield, Small",shield,Shield,,40,5,2,9,1H | Target | Coverage,,,
+"Shield, Medium",shield,Shield,,60,10,3,12,1H | Screen | Coverage,,,
+"Shield, Large",shield,Shield,,80,15,4,15,1H | Bulky | Screen | Coverage,,,
+"Shield, Tower",shield,Shield,,100,20,4,18,1H | Bulky 2 | Screen,,,
+"Helmet, Mail Coif",helmet,Mail,,100,4,2,12,Mail | Rigid,Head,,Skull | Neck (Front) | Neck (Back) | Shoulder (Left) | Shoulder (Right)
+"Helmet, Boiled",helmet,Boiled,,25,2.5,1,9,Rigid,Head,,Skull | Neck (Back)
+"Helmet, Full",helmet,Plate,,225,5,3,18,Blinders | Rigid | Protective,Head,,Skull | Face
+"Helmet, Half",helmet,Plate,,100,2.5,2,15,Rigid,Head,,Skull
+"Helmet, Half Mantled",helmet,Plate,,150,3,3,18,Rigid,Head,,Skull | Neck (Back)
+"Helmet, Full Mantled",helmet,Plate,,275,6,4,21,Blinders | Rigid | Protective,Head,,Skull | Face | Neck (Back)
+"Helmet, Full Visored",helmet,Plate,,275,6,4,21,Blinders | Rigid | Protective,Head,,Skull | Face
+"Helmet, Full Visored Mantled",helmet,Plate,,350,8,5,24,Blinders | Rigid | Protective,Head,,Skull | Face | Neck (Back)
+"Armor Set, Light (Soft)",set,Soft,,250,20,2,3,Flex,Front Torso | Back Torso,,
+"Armor Set, Light (Boiled)",set,Boiled,,350,25,3,9,,Front Torso | Back Torso | Arms,,
+"Armor Set, Medium (Reinforced)",set,Reinforced,,600,25,4,12,Rigid,Front Torso | Back Torso | Arms,,
+"Armor Set, Medium (Mail)",set,Mail,,800,30,5,15,Flex | Mail | Rigid,Front Torso | Back Torso | Arms,,
+"Armor Set, Heavy (Reinforced + Plate)",set,Reinforced + Plate,,1500,40,6,18,Mail | Fitted | Rigid,Front Torso | Back Torso | Arms | Legs,,
+"Armor Set, Heavy (Mail + Plate)",set,Mail + Plate,,2400,50,7,21,Bulky | Fitted 2 | Rigid,Front Torso | Back Torso | Arms | Legs,,
+"Armor Set, Field (Plate)",set,Plate,,4000,60,8,24,Bulky 2 | Fitted 3 | Rigid,Front Torso | Back Torso | Arms | Legs,,
+"Jacket, Fur",sectional,Soft,Fur,120,15,1,6,,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Jacket, Padded",sectional,Soft,Padded,250,15,0,6,Bulky 2 | Sturdy,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Jacket, Quilted",sectional,Soft,Quilted,225,12,1,6,Flex,Front Torso | Back Torso,Front Torso + Back Torso,Upper Chest | Chest | Abdomen | Upper Back | Lower Back
+"Sleeve, Fur × 1",sectional,Soft,Fur,20,3,0,3,,Arms,Arm,Upper Arm | Elbow | Forearm
+"Sleeve, Padded × 1",sectional,Soft,Padded,35,3,0,3,Bulky,Arms,Arm,Upper Arm | Elbow | Forearm
+"Sleeve, Quilted × 1",sectional,Soft,Quilted,30,2.5,1,3,Flex,Arms,Arm,Upper Arm | Elbow | Forearm
+"Leggings, Fur",sectional,Soft,Fur,60,8,0,6,,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Leggings, Padded",sectional,Soft,Padded,110,10,0,6,Bulky,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Leggings, Quilted",sectional,Soft,Quilted,90,8,1,6,Flex,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Gorget, Boiled",sectional,Boiled,,10,6.5,1,6,,Front Torso,Neck + Upper Chest,Neck (Front) | Neck (Back) | Upper Chest
+"Rerebraces, Boiled",sectional,Boiled,,50,5,1,6,,Arms,Upper Arms,Upper Arm (Left) | Upper Arm (Right)
+"Vambraces, Boiled",sectional,Boiled,,25,3.5,1,6,,Arms,Forearms + Elbows,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right)
+"Sleeve, Boiled × 1",sectional,Boiled,,40,3.5,1,6,,Arms,Arm,Upper Arm | Elbow | Forearm
+"Pauldron, Boiled × 1",sectional,Boiled,,15,1.5,2,6,Protective,Arms,Shoulder,Shoulder
+"Skirt, Boiled",sectional,Boiled,,70,8.5,0,6,,Legs,Abdomen + Thighs,Abdomen | Thigh (Left) | Thigh (Right)
+"Cuisses, Boiled",sectional,Boiled,,30,3,0,6,,Legs,Thighs,Thigh (Left) | Thigh (Right)
+"Greaves, Boiled",sectional,Boiled,,60,5,0,6,,Legs,Shins + Knees,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right)
+"Chestplate, Boiled",sectional,Boiled,,80,10,1,9,,Front Torso,Chest,Chest
+"Breastplate, Boiled",sectional,Boiled,,150,10,1,9,,Front Torso,Front Torso,Upper Chest | Chest | Abdomen
+"Backplate, Boiled",sectional,Boiled,,120,7.5,0,6,,Back Torso,Back Torso,Upper Back | Lower Back
+"Rerebraces, Reinforced",sectional,Reinforced,,75,6,2,9,,Arms,Upper Arms,Upper Arm (Left) | Upper Arm (Right)
+"Cuisses, Reinforced",sectional,Reinforced,,40,3.5,1,9,Bulky,Legs,Thighs,Thigh (Left) | Thigh (Right)
+"Breastplate, Reinforced",sectional,Reinforced,,200,12,2,12,,Front Torso,Front Torso,Upper Chest | Chest | Abdomen
+"Backplate, Reinforced",sectional,Reinforced,,150,9,1,9,,Back Torso,Back Torso,Upper Back | Lower Back
+"Sollerets, Reinforced",sectional,Reinforced,,40,6,0,9,,Legs,Feet,Foot (Left) | Foot (Right)
+"Gorget, Mail",sectional,Mail,,20,10.5,3,15,Mail,Front Torso,Neck + Upper Chest,Neck (Front) | Neck (Back) | Upper Chest
+"Rerebraces, Mail",sectional,Mail,,100,8,3,15,Mail,Arms,Upper Arms,Upper Arm (Left) | Upper Arm (Right)
+"Vambraces, Mail",sectional,Mail,,75,5.5,3,15,Mail,Arms,Forearms + Elbows,Elbow (Left) | Forearm (Left) | Elbow (Right) | Forearm (Right)
+"Sleeve, Mail × 1",sectional,Mail,,100,5.5,3,15,Mail,Arms,Arm,Upper Arm | Elbow | Forearm
+"Pauldron, Mail × 1",sectional,Mail,,35,3,4,15,Mail | Protective,Arms,Shoulder,Shoulder
+"Skirt, Mail",sectional,Mail,,130,13.5,2,15,Mail,Legs,Abdomen + Thighs,Abdomen | Thigh (Left) | Thigh (Right)
+"Cuisses, Mail",sectional,Mail,,55,5,2,15,Mail,Legs,Thighs,Thigh (Left) | Thigh (Right)
+"Leggings, Mail",sectional,Mail,,200,16,2,12,Mail | Bulky,Legs,Legs,Thigh (Left) | Knee (Left) | Shin (Left) | Thigh (Right) | Knee (Right) | Shin (Right)
+"Greaves, Mail",sectional,Mail,,180,8,1,12,Mail,Legs,Shins + Knees,Knee (Left) | Shin (Left) | Knee (Right) | Shin (Right)
+"Chestplate, Mail",sectional,Mail,,200,16,3,18,Mail,Front Torso,Chest,Chest
+"Breastplate, Mail",sectional,Mail,,350,16,3,18,Mail,Front Torso,Front Torso,Upper Chest | Chest | Abdomen
+"Backplate, Mail",sectional,Mail,,300,12,2,15,Mail,Back Torso,Back Torso,Upper Back | Lower Back

@@ -1,0 +1,94 @@
+name,armorKind,materialClass,oldPriceSp,newPriceSp,deltaSp,basis,note
+"Gorget, Reinforced",sectional,Reinforced,15.0,15,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Gorget, Metal",sectional,Plate,30.0,30,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Rerebraces, Metal",sectional,Plate,150.0,150,0.0,historical-anchor,"sectional, rerebraces, plate = 150 sp"
+"Vambraces, Reinforced",sectional,Reinforced,25.0,40,15.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Vambraces, Metal",sectional,Plate,150.0,125,-25.0,historical-anchor,"sectional, vambraces, plate = 125 sp"
+"Gauntlets, Reinforced",sectional,Reinforced,30.0,25,-5.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Gauntlets, Mail",sectional,Mail,40.0,75,35.0,historical-anchor,"sectional, gauntlet, mail = 75 sp"
+"Gauntlets, Metal",sectional,Plate,100.0,100,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Sleeve, Reinforced × 1",sectional,Reinforced,60.0,60,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Sleeve, Metal × 1",sectional,Plate,200.0,200,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Pauldron, Reinforced × 1",sectional,Reinforced,25.0,25,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Pauldron, Metal × 1",sectional,Plate,60.0,60,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Manica, Mail × 1",sectional,Mail,60.0,60,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Skirt, Reinforced",sectional,Reinforced,100.0,100,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Skirt, Metal",sectional,Plate,150.0,150,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Cuisses, Metal",sectional,Plate,80.0,80,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Leggings, Boiled",sectional,Boiled,80.0,90,10.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Leggings, Reinforced",sectional,Reinforced,100.0,120,20.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Leggings, Metal",sectional,Plate,300.0,300,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Greaves, Reinforced",sectional,Reinforced,60.0,100,40.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Greaves, Metal",sectional,Plate,300.0,300,0.0,historical-anchor,"sectional, greaves, plate = 300 sp"
+"Sollerets, Metal",sectional,Plate,80.0,80,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Chestplate, Metal",sectional,Plate,300.0,200,-100.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Chestplate, Reinforced",sectional,Reinforced,150.0,120,-30.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Breastplate, Metal",sectional,Plate,800.0,300,-500.0,historical-anchor,"sectional, breastplate = 300 sp"
+"Backplate, Metal",sectional,Plate,300.0,250,-50.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Jacket, Boiled",sectional,Boiled,200.0,120,-80.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Jacket, Reinforced",sectional,Reinforced,300.0,180,-120.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Brigandine, Mail",sectional,Mail,600.0,600,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Cuirass, Metal",sectional,Plate,1000.0,600,-400.0,historical-anchor,"sectional, cuirass = 600 sp"
+"Shirt, Padded",gear,Soft,150.0,180,30.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Long Shirt, Padded",gear,Soft,200.0,250,50.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Shirt, Quilted",gear,Soft,100.0,150,50.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Long Shirt, Quilted",gear,Soft,120.0,225,105.0,historical-anchor,"armor, gambeson, quilt = 228 sp (rounded to 225)"
+"Thin Shirt, Mail",gear,Mail,200.0,400,200.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Thin Long Shirt, Mail",gear,Mail,250.0,600,350.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Shield, Buckler",shield,Shield,25.0,24,-1.0,historical-anchor,"armor, shield, buckler = 24 sp"
+"Shield, Small",shield,Shield,40.0,40,0.0,historical-anchor,"armor, shield, small = 40 sp"
+"Shield, Medium",shield,Shield,60.0,60,0.0,historical-anchor,"armor, shield, medium = 60 sp"
+"Shield, Large",shield,Shield,80.0,80,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Shield, Tower",shield,Shield,100.0,100,0.0,historical-anchor,"armor, shield, tower = 100 sp"
+"Helmet, Mail Coif",helmet,Mail,100.0,100,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Helmet, Boiled",helmet,Boiled,25.0,25,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Helmet, Full",helmet,Plate,250.0,225,-25.0,historical-anchor,"sectional, helmet, full = 225 sp"
+"Helmet, Half",helmet,Plate,100.0,100,0.0,historical-anchor,"sectional, helmet, half = 100 sp"
+"Helmet, Half Mantled",helmet,Plate,120.0,150,30.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Helmet, Full Mantled",helmet,Plate,320.0,275,-45.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Helmet, Full Visored",helmet,Plate,320.0,275,-45.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Helmet, Full Visored Mantled",helmet,Plate,400.0,350,-50.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Armor Set, Light (Soft)",set,Soft,500.0,250,-250.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Armor Set, Light (Boiled)",set,Boiled,600.0,350,-250.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Armor Set, Medium (Reinforced)",set,Reinforced,1000.0,600,-400.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Armor Set, Medium (Mail)",set,Mail,1200.0,800,-400.0,historical-anchor,full/half mail anchors 600–1340 sp; DXD medium set calibrated to 800 sp
+"Armor Set, Heavy (Reinforced + Plate)",set,Reinforced + Plate,1500.0,1500,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Armor Set, Heavy (Mail + Plate)",set,Mail + Plate,2000.0,2400,400.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Armor Set, Field (Plate)",set,Plate,2500.0,4000,1500.0,historical-anchor,"armor, full, plate = 4000 sp"
+"Jacket, Fur",sectional,Soft,100.0,120,20.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Jacket, Padded",sectional,Soft,200.0,250,50.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Jacket, Quilted",sectional,Soft,120.0,225,105.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Sleeve, Fur × 1",sectional,Soft,20.0,20,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Sleeve, Padded × 1",sectional,Soft,30.0,35,5.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Sleeve, Quilted × 1",sectional,Soft,25.0,30,5.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Leggings, Fur",sectional,Soft,60.0,60,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Leggings, Padded",sectional,Soft,100.0,110,10.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Leggings, Quilted",sectional,Soft,80.0,90,10.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Gorget, Boiled",sectional,Boiled,10.0,10,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Rerebraces, Boiled",sectional,Boiled,50.0,50,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Vambraces, Boiled",sectional,Boiled,15.0,25,10.0,historical-anchor,"sectional, vambraces, leather = 25 sp"
+"Sleeve, Boiled × 1",sectional,Boiled,40.0,40,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Pauldron, Boiled × 1",sectional,Boiled,15.0,15,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Skirt, Boiled",sectional,Boiled,70.0,70,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Cuisses, Boiled",sectional,Boiled,30.0,30,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Greaves, Boiled",sectional,Boiled,40.0,60,20.0,historical-anchor,"sectional, greaves, boiled = 60 sp"
+"Chestplate, Boiled",sectional,Boiled,100.0,80,-20.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Breastplate, Boiled",sectional,Boiled,250.0,150,-100.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Backplate, Boiled",sectional,Boiled,100.0,120,20.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Rerebraces, Reinforced",sectional,Reinforced,75.0,75,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Cuisses, Reinforced",sectional,Reinforced,40.0,40,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Breastplate, Reinforced",sectional,Reinforced,400.0,200,-200.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Backplate, Reinforced",sectional,Reinforced,150.0,150,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Sollerets, Reinforced",sectional,Reinforced,40.0,40,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Gorget, Mail",sectional,Mail,20.0,20,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Rerebraces, Mail",sectional,Mail,100.0,100,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Vambraces, Mail",sectional,Mail,35.0,75,40.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Sleeve, Mail × 1",sectional,Mail,80.0,100,20.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Pauldron, Mail × 1",sectional,Mail,35.0,35,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Skirt, Mail",sectional,Mail,130.0,130,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Cuisses, Mail",sectional,Mail,55.0,55,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Leggings, Mail",sectional,Mail,200.0,200,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Greaves, Mail",sectional,Mail,100.0,180,80.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Chestplate, Mail",sectional,Mail,200.0,200,0.0,retained-after-calibration,Existing price retained; consistent with neighboring historical anchors and DXD capability.
+"Breastplate, Mail",sectional,Mail,550.0,350,-200.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."
+"Backplate, Mail",sectional,Mail,200.0,300,100.0,interpolated-calibration,"Interpolated from historical component/suit anchors, coverage, material, and neighboring DXD entries."

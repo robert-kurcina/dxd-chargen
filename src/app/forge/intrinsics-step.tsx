@@ -5,6 +5,7 @@ import { Check, ChevronDown, ChevronUp, Minus, Plus } from 'lucide-react';
 
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
+import { nextGlobalRandom } from '@/lib/admin-settings';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -181,9 +182,9 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
   const chooseStrifePairing = (pairingId: string) => {
     const pairing = STRIFE_PAIRINGS.find((item) => item.id === pairingId);
     if (!pairing) return;
-    const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, 1 + Math.floor(Math.random() * 6)]));
+    const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, 1 + Math.floor(nextGlobalRandom() * 6)]));
     const primary = groupByName(pairing.groups[0]);
-    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: true, strifePairingId: pairing.id, strifeFatherLineageId: null, strifeMotherLineageId: null, strifeAttributeRolls: rolls, strifeBonusParent: Math.random() < 0.5 ? 'father' : 'mother', speciesFamilyId: makeCatalogId('species-family', 'Humaniki'), speciesId: primary?.catalogId ?? null, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
+    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: true, strifePairingId: pairing.id, strifeFatherLineageId: null, strifeMotherLineageId: null, strifeAttributeRolls: rolls, strifeBonusParent: nextGlobalRandom() < 0.5 ? 'father' : 'mother', speciesFamilyId: makeCatalogId('species-family', 'Humaniki'), speciesId: primary?.catalogId ?? null, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
   };
   const setParentLineage = (role: 'father' | 'mother', lineage: string) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, [role === 'father' ? 'strifeFatherLineageId' : 'strifeMotherLineageId']: makeCatalogId('lineage', lineage) } }, data));
   const lineageNameForId = (lineageId: string | null) => lineageId
@@ -231,7 +232,7 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
 }
 
 function rollHighTwo() {
-  const dice = [1, 2, 3].map(() => Math.floor(Math.random() * 6) + 1).sort((a, b) => b - a);
+  const dice = [1, 2, 3].map(() => Math.floor(nextGlobalRandom() * 6) + 1).sort((a, b) => b - a);
   return dice[0] + dice[1];
 }
 

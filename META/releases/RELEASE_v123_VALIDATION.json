@@ -1,0 +1,35 @@
+{
+  "version": "v123",
+  "scope": "dxd-chargen only; character archive normalization deferred",
+  "armorCatalog": {
+    "total": 55,
+    "armorSets": 7,
+    "sectional": 30,
+    "helmets": 7,
+    "shields": 5,
+    "gear": 6
+  },
+  "forgeArmorWorkflows": [
+    "Pick Armor Set",
+    "Pick Helmet, Shield, and Gear",
+    "Customize Armor by Component"
+  ],
+  "sizing": {
+    "bands": [6, 9, 12, 15, 18],
+    "armorWeightIndex": [-4, -2, 0, 2, 4],
+    "armorDeflectAdjustment": 0,
+    "armorRatingAdjustment": 0
+  },
+  "deferredKeywords": ["Advanced", "Bombproof", "Bulletproof", "Fireproof", "Acidproof"],
+  "existingTraitPresentations": {
+    "Mail": "[Mail X]",
+    "Flex": "[Flex X]"
+  },
+  "validation": {
+    "json": "pass",
+    "armorMetadata": "pass",
+    "libraryTypecheck": "pass",
+    "tsxSyntaxTranspile": "pass",
+    "fullNextBuild": "not run: dependency installation unavailable in execution environment"
+  }
+}

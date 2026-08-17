@@ -1,0 +1,2 @@
+node scripts/validate-data.mjs: PASS
+Validated 77 JSON files. Personal Armor: 7 Armor Sets; 8 Helms; 5 Shields; 6 Gear; 67 sectional components.

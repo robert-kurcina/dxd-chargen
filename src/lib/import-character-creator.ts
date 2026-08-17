@@ -6,7 +6,7 @@ import { createEmptyCharacterDraft, type CharacterDraft, type InventorySelection
 import { makeCatalogId } from '@/data/catalog-policy';
 import { physicalBreakdown } from '@/lib/rules/properties';
 import { unresolvedBroadGrants } from '@/lib/rules/proficiencies';
-import { ammunitionNote, inventoryAllowsCustomAppend } from '@/lib/rules/utilities';
+import { ammunitionNote, inventoryAllowsCustomAppend, normalizeArmorWearState } from '@/lib/rules/utilities';
 
 type LegacyCharacter = Record<string, any>;
 
@@ -80,8 +80,9 @@ function importedProperty(name: string, lookup: Map<string, string>) {
 }
 const importedDisplay = (name: string, detail: string) => ({ ...selection(name), sourceDetail: detail });
 function curatedSheetInventory(sheet: LegacyCharacter) {
-  return [...itemPropertyLookup(sheet).entries()].map(([name, properties]) => inventory(name, properties));
+  return [...itemPropertyLookup(sheet).entries()].map(([name, properties]) => ({ ...inventory(name, properties), sourceDetail: 'Legacy Sheet Equipment' }));
 }
+
 
 const HERITAGE_ALIASES: Record<string, string> = {
   Wilding: 'Wildling', Desert: 'Deserts', Forest: 'Forests', Mountains: 'Mountain',
@@ -288,7 +289,7 @@ const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
   spellbook: 'Blank Codex',
   'boiled leather': 'Armor Set, Light (Boiled)',
   'boiled leather armor': 'Armor Set, Light (Boiled)',
-  breastplate: 'Cuirass, Metal',
+  breastplate: 'Breastplate, Metal',
   broadsword: 'Sword, Broad',
   'chainmail hauberk': 'Armor Set, Medium (Mail)',
   claw: 'Hands, Claws',
@@ -297,6 +298,7 @@ const INVENTORY_CATALOG_ALIASES: Record<string, string> = {
   flintstone: 'Tinderbox',
   'fragrant soap': 'Bathing Kit',
   'full helm': 'Helmet, Full',
+  'full helm & mantle': 'Helmet, Full Mantled',
   garrote: 'Hands, Garrote',
   greatsword: 'Sword, Great',
   'half helm & mantle': 'Helmet, Half Mantled',
@@ -634,6 +636,7 @@ function moveUnmappedPossessionsToNotes(draft: CharacterDraft): CharacterDraft {
   };
 }
 
+
 function applyLegacyPossessionDecisions(draft: CharacterDraft): CharacterDraft {
   const name = draft.utilities.name.trim().toLowerCase();
   let notes = removeLegacyNote(draft.utilities.notes, 'Spellbook');
@@ -875,6 +878,12 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
   const buildDifference = statureFramed && targetProperties.build != null ? targetProperties.build - statureFramed.build : 0;
   const buildAdjustment = sirMandalore ? -2 : Math.max(-2, Math.min(2, buildDifference));
   const weightAdjustment = sirMandalore ? -2 : Math.max(-9, Math.min(9, buildDifference - buildAdjustment));
+  const effectiveTradeId = professionIdentity?.tradeId ?? draft.intrinsics.tradeId;
+  const establishedStartingGearTrade = draft.utilities.startingGearTrade ?? (
+    draft.completedSteps.includes('utilities-starting-gear')
+      ? sarnaLenData.tradePackages.find((entry) => makeCatalogId('trade', entry.trade) === effectiveTradeId)?.trade ?? null
+      : null
+  );
   const normalized: CharacterDraft = {
     ...draft,
     background: {
@@ -892,7 +901,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       speciesFamilyId: identity ? 'species-family-humaniki' : draft.intrinsics.speciesFamilyId,
       speciesId: identity?.speciesId ?? draft.intrinsics.speciesId,
       lineageId: identity?.lineageId ?? draft.intrinsics.lineageId,
-      tradeId: professionIdentity?.tradeId ?? draft.intrinsics.tradeId,
+      tradeId: effectiveTradeId,
       specializationId: professionIdentity?.specializationId ?? draft.intrinsics.specializationId,
       ...(dawn ? { childOfStrife: true, strifePairingId: 'hobit', strifeMotherFirst: true, strifeFatherLineageId: 'lineage-indelan', strifeMotherLineageId: 'lineage-farleen', speciesFamilyId: 'species-family-humaniki', speciesId: null, lineageId: null } : {}),
       attributes: normalizedAttributes,
@@ -911,13 +920,15 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
     },
     utilities: {
       ...draft.utilities,
+      startingGearTrade: establishedStartingGearTrade,
       properName: /^\[?error\]?$/i.test(draft.utilities.properName.trim()) ? '' : draft.utilities.properName,
       weapons: normalizeInventory(draft.utilities.weapons, 'weapons'), armor: normalizeInventory(draft.utilities.armor, 'armor'),
       equipment: normalizeInventory(draft.utilities.equipment, 'equipment'), magicItems: normalizeMagicItems(draft.utilities.magicItems),
       spells: normalizeSpells(draft.utilities.spells),
     },
   };
-  return normalizeCapabilityStorage(moveUnmappedPossessionsToNotes(applyLegacyPossessionDecisions(normalized)));
+  const possessions = moveUnmappedPossessionsToNotes(applyLegacyPossessionDecisions(normalized));
+  return normalizeCapabilityStorage(normalizeArmorWearState(possessions, sarnaLenData));
 }
 
 export function normalizeCharacterDraftForStorage(draft: CharacterDraft) {
@@ -1048,9 +1059,9 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
   draft.properties.siz = attributes.siz ?? null;
   draft.properties.calculated = { ...(calculated.performance ?? {}), ...(calculated.misc ?? {}), ...(calculated.combat ?? {}), ...(calculated.resources ?? {}) };
   if (Number.isFinite(calculated.resources?.gold)) draft.finances.availableGp = Number(calculated.resources.gold);
-  draft.utilities.weapons = (history.weapons ?? []).map((name: string) => inventory(name));
-  draft.utilities.armor = (history.armor ?? []).map((name: string) => inventory(name));
-  draft.utilities.equipment = (history.equipment ?? []).map((name: string) => inventory(name));
+  draft.utilities.weapons = (history.weapons ?? []).map((name: string) => ({ ...inventory(name), sourceDetail: 'Legacy History Possession' }));
+  draft.utilities.armor = (history.armor ?? []).map((name: string) => ({ ...inventory(name), sourceDetail: 'Legacy History Possession' }));
+  draft.utilities.equipment = (history.equipment ?? []).map((name: string) => ({ ...inventory(name), sourceDetail: 'Legacy History Possession' }));
   for (const item of curatedSheetInventory(sheet)) {
     const collections = [draft.utilities.weapons, draft.utilities.armor, draft.utilities.equipment];
     const existing = collections.flat().find((candidate) => itemKey(candidate.name) === itemKey(item.name));
@@ -1122,7 +1133,7 @@ export async function importCharacterCreatorData(root: string) {
       const repairInventory = (current: InventorySelection[], source: InventorySelection[]) => {
         const repairedItems: InventorySelection[] = current.map((item) => {
           const sheetItem = source.find((candidate) => itemKey(candidate.name) === itemKey(item.name) && candidate.sheetProperties);
-          return { ...item, ...(sheetItem ? { name: sheetItem.name, sheetProperties: sheetItem.sheetProperties, ...(sheetItem.sizedForSiz ? { sizedForSiz: sheetItem.sizedForSiz } : {}) } : { sheetProperties: undefined }) };
+          return { ...item, ...(sheetItem ? { name: sheetItem.name, sheetProperties: sheetItem.sheetProperties, ...(sheetItem.sourceDetail ? { sourceDetail: sheetItem.sourceDetail } : {}), ...(sheetItem.sizedForSiz ? { sizedForSiz: sheetItem.sizedForSiz } : {}) } : { sheetProperties: undefined }) };
         });
         for (const sourceItem of source.filter((item) => item.sheetProperties)) if (!repairedItems.some((item) => itemKey(item.name) === itemKey(sourceItem.name))) repairedItems.push(sourceItem);
         return repairedItems;

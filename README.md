@@ -2,7 +2,7 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
-## Current state — v122
+## Current state — v133
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
 
@@ -53,7 +53,7 @@ Properties currently supports:
 Utilities currently supports:
 
 - searchable selection from the 84-entry Spell catalogue, with Spell Level/AP/mana details and explicit review state;
-- searchable Weapons, Armor, and Equipment catalogues with quantities, prices, recorded Weight, Personal Wealth comparison, and retained over-budget warnings;
+- searchable Weapons and Equipment catalogues plus a structured Personal Armor editor with canonical Armor Set quick-picks, one-each Helm/Shield/Gear slots, sectional component customization, SIZ scaling, and calculated protection/Weight/Cost;
 - selection from complete Magic Item records approved for runtime use, with X fixed at 1 for structured selections, canonical physical-form normalization where the item catalog supports it, optional presentation-only instance text, canonical rarity multipliers, and total equivalent value;
 - editable common/proper names generated from the 17 incorporated conlang D66 name-generator datasets;
 - Relationships shown as deliberately deferred and non-blocking.
@@ -76,6 +76,31 @@ Humaniki is currently the only selectable Species family. Its Human, Drauf, Alef
 
 
 
+
+## v133 — Administration, Library metadata, Sheet editing
+
+- Main navigation is reduced to **Forge / Sheet / Library**. Developer **Tests** and reference **Info** now live under accordion sections on `/admin`.
+- `/admin` centralizes cross-character configuration. The first implemented controls are a deterministic Forge randomization seed/sequence and the vocabulary of tags exposed by the Character Library; future supported global constraints have a dedicated accordion category rather than being scattered through Forge.
+- Administrator-defined Library tags can be assigned to the active character in Forge, persist in `CharacterDraft.utilities.libraryTags`, display as Library badges, and filter the Library.
+- Library Trade/Profession rendering now falls back to the persisted specialization identifier when the normalized Trade package lacks an exact specialization record. This preserves imported `Wizard / Witch` and `Cleric / Cloister` labels without inventing missing package mechanics.
+- **Save** now requires an explicit modal **Approve / Cancel** decision.
+- Sheet Back Notes remain mechanically inert, but Notes lines that correspond to a Weapon, Armor, or Equipment catalogue record gain a smaller, lighter catalogue-property subline for reference. Backstory text is not treated as inventory.
+- The bottom universal chart uses fixed CSS Grid tracks instead of accumulated `margin-right` spacing, so editing one cell/track does not shift adjacent columns.
+- Forge Generate/Roll paths, including Tragedy Seed resolution, consume the administrator seed sequence. Developer Tests retain their independent random behavior.
+
+
+## v132 — Runtime Character Normalization
+
+- Completed imported characters preserve their established Trade gear instead of receiving the canonical starting package again when a legacy `startingGearTrade` marker is absent.
+- Worn Armor legality is enforced during browser/local-library synchronization as well as server-side storage normalization.
+- Character-sheet history, rendered equipment rows, and Burden calculations defensively use only the legal worn Armor configuration.
+- Armor Sets remain alternate abstractions of the Suit slot and cannot coexist with Sectional Armor. One Helm, Shield, and Gear layer remain the maximum; sectional/helm overlap is limited to the explicit Elbow/Knee exception.
+- Persisted imported characters carry their established Trade marker and `gearReviewed=true`, so loading them does not reconstruct a second baseline gear package.
+
+
+## v123 — Structured Personal Armor Editor
+
+v123 separates Personal Armor into Suit (Armor Set), Helm, Shield, Gear, and Sectional Armor instead of presenting all armor as one flat catalogue. The seven canonical Armor Sets remain quick-picks. Helm, Shield, and one Gear layer are selected independently. A selected set can be converted to component mode, after which sectional components become authoritative and the Forge recalculates Suit coverage, Deflect, Armor Rating, Weight, Cost, and Traits. All Personal Armor uses the established SIZ-fitted Armor scaling. Mail and Flex remain presentations of the existing `[Mail X]` and `[Flex X]` traits; high-technology/proofing keywords are deferred. Character-archive normalization is intentionally deferred until this editor has been iterated further.
 
 ## v122 — Stature/Build Reconciliation
 
@@ -182,8 +207,10 @@ npm run check
 - `src/lib/character-library.ts` — versioned browser-local multi-character library, legacy promotion, duplication, delete, and JSON import/export.
 - `src/lib/character-sheet-projection.ts` — deterministic `CharacterDraft` → CRS presentation projection.
 - `src/lib/rules/finalization.ts` — whole-character validation and imported-catalogue integrity checks.
-- `src/app/character-app.tsx` — client application shell coordinating Forge, live Sheet, Library, Sample, Tests, and Info.
-- `src/app/character-library-panel.tsx` — local character management and finalization status UI.
+- `src/app/character-app.tsx` — client application shell coordinating Forge, live Sheet, Library, Save confirmation, and the `/admin` entry point.
+- `src/app/character-library-panel.tsx` — filesystem Character Library with sorting/filtering, imported profession-label fallback, and administrator-exposed tags.
+- `src/app/admin/` — accordion administration page for cross-character settings, Library presentation, Tests, and Info.
+- `src/lib/admin-settings.ts` — browser-persistent cross-character seed/sequence and Library-tag configuration.
 - `src/app/forge/background-step.tsx` — functional Background controls.
 - `src/app/forge/intrinsics-step.tsx` — functional Intrinsics controls.
 - `src/app/forge/proficiencies-step.tsx` — functional Proficiencies controls.

@@ -1,0 +1,36 @@
+{
+  "version": "v133",
+  "main_tabs": [
+    "Forge",
+    "Sheet",
+    "Library"
+  ],
+  "admin_route": "/admin",
+  "admin_accordions": [
+    "Randomization",
+    "Library",
+    "Global Constraints",
+    "Tests",
+    "Info"
+  ],
+  "tests_info_moved_to_admin": true,
+  "save_confirmation_modal": true,
+  "save_choices": [
+    "Approve",
+    "Cancel"
+  ],
+  "library_tags_schema": true,
+  "library_tag_filter": true,
+  "seeded_forge_randomization": true,
+  "seed_reset_determinism": "PASS",
+  "notes_catalog_reference": true,
+  "notes_catalog_reference_mechanical_effect": false,
+  "backstory_catalog_reference": false,
+  "universal_chart_layout": "fixed CSS Grid tracks; no margin-right spacing",
+  "alba_library_label": "Wizard / Witch",
+  "twinkles_library_label": "Cleric / Cloister",
+  "data_validator": "PASS: 77 JSON files; 7 Armor Sets; 8 Helms; 5 Shields; 6 Gear; 67 sectional components.",
+  "modified_ts_tsx_syntax": "PASS: 14 files via TypeScript transpileModule diagnostics",
+  "embedded_sheet_js_syntax": "PASS: node --check",
+  "full_tsc": "UNAVAILABLE: archived dependency directories do not contain @types/node, @types/react, or @types/react-dom definitions."
+}

@@ -48,13 +48,16 @@ function catalogIntegrityIssues(draft: CharacterDraft, data: StaticData): Charac
     }
   }
   const inventoryGroups = [
-    ['weapons', 'utilities-starting-gear', 'Assign Starting Gear', data.itemWeapons],
-    ['armor', 'utilities-starting-gear', 'Assign Starting Gear', data.itemArmors],
-    ['equipment', 'utilities-starting-gear', 'Assign Starting Gear', data.itemEquipments],
+    ['weapons', 'Customize Weapons', data.itemWeapons],
+    ['armor', 'Customize Armor', data.itemArmors],
+    ['equipment', 'Customize Equipment', data.itemEquipments],
   ] as const;
-  for (const [key, step, title, catalogue] of inventoryGroups) {
+  for (const [key, customizeTitle, catalogue] of inventoryGroups) {
     for (const item of draft.utilities[key]) {
       if (item.catalogId && !catalogue.some((entry) => entry.catalogId === item.catalogId)) {
+        const canonical = item.sourceDetail === 'Canonical Starting Gear';
+        const step = canonical ? 'utilities-starting-gear' : `customize-${key}`;
+        const title = canonical ? 'Assign Starting Gear' : customizeTitle;
         push(step, title, `Inventory selection “${item.name}” no longer resolves to the current ${key} catalogue.`);
       }
     }
@@ -70,12 +73,13 @@ function catalogIntegrityIssues(draft: CharacterDraft, data: StaticData): Charac
 
 export function validateCharacterDraft(draft: CharacterDraft, data: StaticData): CharacterValidation {
   const steps = data.steps.flatMap((phase) => phase.substeps);
+  const requiredSteps = steps.filter((step) => !('optional' in step && step.optional));
   const issues: CharacterValidationIssue[] = [];
   let completeSteps = 0;
   let warningSteps = 0;
   let incompleteSteps = 0;
 
-  for (const step of steps) {
+  for (const step of requiredSteps) {
     const result = assess(step.value, draft, data);
     if (result.status === 'complete') completeSteps += 1;
     else if (result.status === 'warning') { warningSteps += 1; completeSteps += 1; }
@@ -97,7 +101,7 @@ export function validateCharacterDraft(draft: CharacterDraft, data: StaticData):
 
   return {
     ready: incompleteSteps === 0 && !issues.some((issue) => issue.severity === 'error'),
-    totalSteps: steps.length,
+    totalSteps: requiredSteps.length,
     completeSteps,
     warningSteps,
     incompleteSteps,

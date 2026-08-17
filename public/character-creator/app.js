@@ -327,6 +327,14 @@ import {
           caption.textContent = ({ Physicality: "Physicality", GaspLimit: "Gasp Limit", SleepLimit: "Sleep Limit", ScalarAgility: "Agility", ScalarMphRun: "MPH" })[name] ?? name;
           row.append(caption, input);
           container.append(row);
+        } else if (name === "BackNotes") {
+          const cell = document.createElement("div");
+          cell.className = "back-notes-cell";
+          input.classList.add("back-notes-editor");
+          const rich = document.createElement("div");
+          rich.className = "back-notes-rich";
+          cell.append(input, rich);
+          container.append(cell);
         } else {
           container.append(input);
         }
@@ -362,6 +370,27 @@ import {
     marker.textContent = `${insertAt ? " " : ""}${cultural}`;
     rich.append(marker, document.createTextNode(text.slice(insertAt)));
     return rich;
+  }
+
+  function renderBackNotesRich() {
+    const rich = document.querySelector("#back .back-notes-rich");
+    if (!rich) return;
+    const details = state.BackNoteCatalogProperties ?? {};
+    const lines = String(state.BackNotes ?? "").split(/\r?\n/);
+    rich.replaceChildren();
+    lines.forEach((line, index) => {
+      const text = document.createElement("div");
+      text.className = "back-note-text";
+      text.textContent = line || "\u00a0";
+      rich.append(text);
+      const property = details[index] ?? details[String(index)];
+      if (property) {
+        const catalog = document.createElement("div");
+        catalog.className = "back-note-catalog-properties";
+        catalog.textContent = property;
+        rich.append(catalog);
+      }
+    });
   }
 
   function renderEquipmentRows(container) {
@@ -477,6 +506,7 @@ import {
     document.querySelector("#pml").value = state.PML ?? 0;
     document.querySelector("#pml").disabled = !editMode;
     renderEquipmentRows(document.querySelector("#back .field-group-equipment"));
+    renderBackNotesRich();
     syncDerived();
     syncModifiedFields();
   }
@@ -626,7 +656,7 @@ import {
       );
     }
 
-    const textElements = page.querySelectorAll(".history-keyword, .field, .equipment-properties-rich");
+    const textElements = page.querySelectorAll(".history-keyword, .field:not(.back-notes-editor), .equipment-properties-rich, .back-note-text, .back-note-catalog-properties");
     textElements.forEach((element) => {
       const rect = element.getBoundingClientRect();
       if (!rect.width || !rect.height) return;

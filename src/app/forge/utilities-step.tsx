@@ -25,7 +25,6 @@ import {
   adjustedGearValues,
   ammunitionPackage,
   availableGoldGp,
-  clearStartingGear,
   displayCustomAppend,
   displayInventoryName,
   displayMagicItemName,
@@ -38,19 +37,20 @@ import {
   magicItemGradeMetrics,
   magicItemTotals,
   personalWealthGp,
-  resetCanonicalStartingGear,
   setMagicItemCustomAppend,
   setMagicItemForm,
   setInventoryCustomAppend,
   setInventoryOrnateLevel,
   setInventoryQuantity,
   startingGearTotals,
+  canonicalStartingGearPreview,
   suggestedNameLanguageId,
   toggleMagicItem,
   toggleSpell,
   type InventoryCategory,
 } from '@/lib/rules/utilities';
 import { cn, formatNumberWithCommas } from '@/lib/utils';
+import ArmorEditor from './armor-editor';
 
 type UtilitiesStepProps = {
   stepValue: string;
@@ -146,13 +146,17 @@ function SpellsStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepVal
   );
 }
 
-function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue'>) {
+function GearStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
   const [query, setQuery] = useState('');
   const wealthBudget = personalWealthGp(draft, data);
   const availableGp = availableGoldGp(draft, data);
   const totals = startingGearTotals(draft, data);
   const search = query.trim().toLowerCase();
-  const selected = [...draft.utilities.weapons.map((item) => ({ ...item, category: 'weapons' as const })), ...draft.utilities.armor.map((item) => ({ ...item, category: 'armor' as const })), ...draft.utilities.equipment.map((item) => ({ ...item, category: 'equipment' as const }))];
+  const selected = [
+    ...draft.utilities.weapons.map((item) => ({ ...item, category: 'weapons' as const })),
+    ...draft.utilities.armor.map((item) => ({ ...item, category: 'armor' as const })),
+    ...draft.utilities.equipment.map((item) => ({ ...item, category: 'equipment' as const })),
+  ];
   const unavailableItems = new Set(['Feet, Bare', 'Hands, Bare', 'Hands, Claws', 'Feet, Booted', 'Feet, Talons']);
   const trade = getTradePackage(draft, data);
   const profession = getTradeSpecialization(draft, data);
@@ -168,57 +172,102 @@ function GearStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
   };
   const noteGroup = (notes: string[], prefix: string, fallback: string) => notes.find((note) => note.toLowerCase().startsWith(prefix.toLowerCase()))?.slice(prefix.length).replace(/\.$/, '').trim() || fallback;
   const grouped = <T extends { notes: string[] }>(items: T[], key: (item: T) => string) => Array.from(items.reduce((map, item) => { const name = key(item); map.set(name, [...(map.get(name) ?? []), item]); return map; }, new Map<string, T[]>())).map(([title, groupItems]) => ({ title, items: groupItems }));
-  const catalogGroups: Array<{ title: string; category: InventoryCategory; subgroups: Array<{ title: string; items: Array<StaticData['itemWeapons'][number] | StaticData['itemArmors'][number] | StaticData['itemEquipments'][number]> }> }> = [
-    { title: 'Weapons', category: 'weapons', subgroups: ['Melee Weapons', 'Technical Melee Weapons', 'Ranged Weapons', 'Technical Ranged Weapons'].map((title) => ({ title, items: data.itemWeapons.filter((item) => weaponGroup(item) === title && matches(item)) })) },
-    { title: 'Armors', category: 'armor', subgroups: grouped(data.itemArmors.filter(matches), (item) => noteGroup(item.notes, 'Classification:', 'Other Armor')).sort((a, b) => a.title.localeCompare(b.title)) },
-    { title: 'Equipment', category: 'equipment', subgroups: grouped(data.itemEquipments.filter(matches), (item) => noteGroup(item.notes, 'Category:', 'Other Equipment')).sort((a, b) => a.title.localeCompare(b.title)) },
-  ];
+
+  const renderSelected = (categories: InventoryCategory[], editable: boolean, heading = 'Current gear') => {
+    const rows = selected.filter((item) => categories.includes(item.category));
+    if (!rows.length) return <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">No {heading.toLowerCase()} recorded.</div>;
+    return (
+      <section className="space-y-2">
+        <h3 className="font-semibold">{heading}</h3>
+        {categories.map((selectedCategory) => rows.some((item) => item.category === selectedCategory) && <div key={selectedCategory} className="selected-gear-scroll overflow-x-auto rounded-lg border">
+          <div className="bg-muted/50 px-3 py-2 text-sm font-semibold capitalize">{selectedCategory === 'armor' ? 'Armor' : selectedCategory}</div>
+          <table className="selected-gear-table w-full min-w-[700px] text-sm">
+            <caption className="sr-only">Selected {selectedCategory}</caption>
+            <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Item</th><th className="px-3 py-2">Qty</th><th className="px-3 py-2 text-right">Unit gp</th><th className="px-3 py-2 text-right">Weight</th>{editable && <th className="px-3 py-2"></th>}</tr></thead>
+            <tbody>
+              {rows.filter((item) => item.category === selectedCategory).map((item, index) => {
+                const catalogueItem = (item.category === 'weapons' ? data.itemWeapons : item.category === 'armor' ? data.itemArmors : data.itemEquipments).find((entry) => entry.catalogId === item.catalogId);
+                const values = catalogueItem ? adjustedGearValues(item.category, catalogueItem, draft, data, item.sizedForSiz) : { priceGp: item.unitPriceGp, weight: item.unitWeight, tca: 0 };
+                const itemSizeAdjustment = gearSizeAdjustment(draft, item.sizedForSiz);
+                const itemScales = item.category !== 'equipment' || Boolean(catalogueItem && isWornEquipment(catalogueItem));
+                const jewelry = item.category === 'equipment' && /^Jewelry,/i.test(item.name);
+                const ornateLevel = jewelry ? Math.max(1, Math.trunc(item.level ?? 1)) : 1;
+                const effectiveTca = jewelry ? ornateLevel * 2 : values.tca;
+                return <tr key={`${item.category}-${item.catalogId ?? item.id ?? item.name}-${index}`} className="border-t">
+                  <td data-label="Item" className="px-3 py-2"><div className="font-medium">{displayCustomAppend(displayInventoryName(item.name), item.customAppend)}{itemScales && itemSizeAdjustment && itemSizeAdjustment.direction !== 'standard' ? ` SIZ ${itemSizeAdjustment.presumedSiz}` : ''}</div>{editable && jewelry && <label className="mt-2 flex max-w-[180px] items-center gap-2 text-xs"><span className="shrink-0 text-muted-foreground">Ornate</span><Input min={1} max={12} className="h-8 w-20" value={ornateLevel} onChange={(event) => setDraft((current) => setInventoryOrnateLevel(current, item.category, item.catalogId ?? '', Number(event.target.value), item.id))} aria-label={`Ornate rating for ${displayInventoryName(item.name)}`} /></label>}{editable && item.category === 'equipment' && inventoryAllowsCustomAppend(item.name) && <Input className="mt-2 h-8 max-w-sm" value={item.customAppend ?? ''} onChange={(event) => setDraft((current) => setInventoryCustomAppend(current, item.category, item.catalogId ?? '', event.target.value, item.id))} placeholder="Optional text append" aria-label={`Custom text for ${displayInventoryName(item.name)}`} />}<div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : 'Customized'}{jewelry ? ` • Ornate ${ornateLevel}` : ''}{effectiveTca ? ` • TCA ${effectiveTca > 0 ? '+' : ''}${effectiveTca}` : ''}</div></td>
+                  <td data-label="Quantity" className="px-3 py-2">{editable ? <div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" aria-label={`Decrease ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1, item.id))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center">{item.quantity}</span><Button size="icon" variant="ghost" aria-label={`Increase ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1, item.id))}><Plus className="h-3.5 w-3.5" /></Button></div> : <div className="text-center">{item.quantity}</div>}</td>
+                  <td data-label="Unit gp" className="px-3 py-2 text-right">{formatNumberWithCommas(values.priceGp)}</td>
+                  <td data-label="Weight" className="px-3 py-2 text-right">{formatNumberWithCommas(values.weight)}#</td>
+                  {editable && <td data-label="Controls" className="px-3 py-2 text-right"><Button size="icon" variant="ghost" aria-label={`Remove ${displayInventoryName(item.name)}`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', 0, item.id))}><Trash2 className="h-4 w-4" /></Button></td>}
+                </tr>;
+              })}
+            </tbody>
+          </table>
+        </div>)}
+      </section>
+    );
+  };
+
+  if (stepValue === 'utilities-starting-gear') {
+    const baseline = canonicalStartingGearPreview(draft, data);
+    return (
+      <div className="space-y-5">
+        <div className="rounded-lg border bg-muted/20 p-4">
+          <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Baseline Starting Gear</div>
+          <div className="mt-1 font-medium">Trade: {trade?.trade ?? 'unassigned'}{profession ? ` • Profession: ${profession.name}` : ''}</div>
+          <p className="mt-2 text-sm text-muted-foreground">Starting Gear is assigned automatically from the Trade package. This is the rapid-creation baseline; detailed shopping and tailoring are optional under <strong>7. Customize</strong>.</p>
+          {sizeAdjustment && sizeAdjustment.direction !== 'standard' && <p className="mt-2 text-sm text-muted-foreground">Weapons, Armor, and fitted Equipment are scaled for {lineage}, using SIZ {sizeAdjustment.presumedSiz}.</p>}
+        </div>
+        <section className="space-y-2">
+          <h3 className="font-semibold">Canonical package</h3>
+          <div className="overflow-x-auto rounded-lg border">
+            <table className="w-full min-w-[520px] text-sm">
+              <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Type</th><th className="px-3 py-2 text-left">Item</th><th className="px-3 py-2 text-left">Handling</th></tr></thead>
+              <tbody>{baseline.entries.map((entry, index) => <tr key={`${entry.category}-${entry.name}-${index}`} className="border-t"><td className="px-3 py-2 capitalize">{entry.category === 'armor' ? 'Armor' : entry.category}</td><td className="px-3 py-2 font-medium">{entry.displayName}</td><td className="px-3 py-2 text-muted-foreground">{entry.noteOnly ? 'Expendable → Notes' : 'Structured item'}</td></tr>)}</tbody>
+            </table>
+          </div>
+        </section>
+        {renderSelected(['weapons', 'armor', 'equipment'], false, 'Current assigned gear')}
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Current Worth</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{formatNumberWithCommas(totals.costGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp</div><div className="text-xs text-muted-foreground">informational; canonical package is not deducted from Personal Wealth</div></CardContent></Card>
+          <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Current Weight</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{formatNumberWithCommas(totals.weight, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}#</div></CardContent></Card>
+          <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Items</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{totals.itemCount}</div></CardContent></Card>
+        </div>
+      </div>
+    );
+  }
+
+  const category: InventoryCategory | null = stepValue === 'customize-weapons' ? 'weapons' : stepValue === 'customize-equipment' ? 'equipment' : null;
+  if (stepValue === 'customize-armor') {
+    return (
+      <div className="space-y-5">
+        <div className="rounded-lg border bg-muted/20 p-4"><div className="font-medium">Optional Armor customization</div><p className="mt-1 text-sm text-muted-foreground">Skip this page to retain the assigned Armor unchanged. Armor Sets remain the quick abstraction; expand sectional detail only when useful to the fiction.</p></div>
+        {renderSelected(['armor'], true, 'Current Armor')}
+        <ArmorEditor data={data} draft={draft} setDraft={setDraft} />
+      </div>
+    );
+  }
+
+  if (!category) return null;
+  const catalogGroups: Array<{ title: string; category: InventoryCategory; subgroups: Array<{ title: string; items: Array<StaticData['itemWeapons'][number] | StaticData['itemEquipments'][number]> }> }> = category === 'weapons'
+    ? [{ title: 'Weapons', category: 'weapons', subgroups: ['Melee Weapons', 'Technical Melee Weapons', 'Ranged Weapons', 'Technical Ranged Weapons'].map((title) => ({ title, items: data.itemWeapons.filter((item) => weaponGroup(item) === title && matches(item)) })) }]
+    : [{ title: 'Equipment', category: 'equipment', subgroups: grouped(data.itemEquipments.filter(matches), (item) => noteGroup(item.notes, 'Category:', 'Other Equipment')).sort((a, b) => a.title.localeCompare(b.title)) }];
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-3 sm:grid-cols-4">
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Available Gold</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{availableGp == null ? '—' : `${formatNumberWithCommas(availableGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp`}</div><div className="text-xs text-muted-foreground">{wealthBudget == null ? 'Wealth Rank unresolved' : `Wealth Rank baseline ${formatNumberWithCommas(wealthBudget)} gp`} • recorded Forge spend {formatNumberWithCommas(draft.finances.gpSpent, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp{draft.finances.pendingSpentGp > 0 ? ` • ${formatNumberWithCommas(draft.finances.pendingSpentGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp pending unload` : ''}</div></CardContent></Card>
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Gear Worth</CardTitle></CardHeader><CardContent><div className={cn('text-2xl font-semibold', over && 'text-destructive')}>{formatNumberWithCommas(totals.costGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp</div><div className="text-xs text-muted-foreground">canonical worth; optional structured gear selected {formatNumberWithCommas(totals.purchasedCostGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp</div></CardContent></Card>
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Recorded Weight</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{formatNumberWithCommas(totals.weight, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}#</div><div className="text-xs text-muted-foreground">sum of item weights</div></CardContent></Card>
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Items</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{totals.itemCount}</div><ReviewButton reviewed={draft.utilities.gearReviewed} label="Gear" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, gearReviewed: !current.utilities.gearReviewed } }))} /></CardContent></Card>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Available Gold</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{availableGp == null ? '—' : `${formatNumberWithCommas(availableGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp`}</div><div className="text-xs text-muted-foreground">optional purchases</div></CardContent></Card>
+        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Gear Worth</CardTitle></CardHeader><CardContent><div className={cn('text-2xl font-semibold', over && 'text-destructive')}>{formatNumberWithCommas(totals.costGp, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} gp</div><div className="text-xs text-muted-foreground">including canonical Starting Gear</div></CardContent></Card>
+        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Recorded Weight</CardTitle></CardHeader><CardContent><div className="text-2xl font-semibold">{formatNumberWithCommas(totals.weight, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}#</div></CardContent></Card>
       </div>
-
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-muted/20 p-4">
-        <div><div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Starting set constraint</div><div className="mt-1 font-medium">Trade: {trade?.trade ?? 'unassigned'}{profession ? ` • Profession: ${profession.name}` : ''}</div>{sizeAdjustment && sizeAdjustment.direction !== 'standard' && <p className="mt-2 text-sm text-muted-foreground">Adjustments to Weapons and Armor applied due to being {lineage}, being {sizeAdjustment.direction}, with presumed SIZ {sizeAdjustment.presumedSiz} for that lineage.</p>}</div>
-        <div className="flex gap-2"><Button type="button" variant="outline" onClick={() => setDraft((current) => resetCanonicalStartingGear(current, data))}>Reset to default</Button><Button type="button" variant="outline" onClick={() => setDraft((current) => clearStartingGear(current, data))}>Clear all</Button></div>
-      </div>
-
+      <div className="rounded-lg border bg-muted/20 p-4"><div className="font-medium">Optional {category === 'weapons' ? 'Weapon' : 'Equipment'} customization</div><p className="mt-1 text-sm text-muted-foreground">Skip this page to retain the assigned Starting Gear unchanged.</p></div>
       {over && <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-950">Recorded optional gear exceeds the Wealth Rank baseline. The selection is retained, but the character needs an explicit GM grant, Asset, or other source for the difference.</div>}
-
-      {selected.length > 0 && (
-        <section className="space-y-2">
-          <h3 className="font-semibold">Selected starting gear</h3>
-          {(['weapons', 'armor', 'equipment'] as const).map((selectedCategory) => selected.some((item) => item.category === selectedCategory) && <div key={selectedCategory} className="selected-gear-scroll overflow-x-auto rounded-lg border">
-            <div className="bg-muted/50 px-3 py-2 text-sm font-semibold capitalize">{selectedCategory === 'armor' ? 'Armor' : selectedCategory}</div>
-            <table className="selected-gear-table w-full min-w-[700px] text-sm">
-              <caption className="sr-only">Selected {selectedCategory === 'armor' ? 'armor' : selectedCategory}</caption>
-              <thead className="bg-muted/50 text-xs"><tr><th className="px-3 py-2 text-left">Item</th><th className="px-3 py-2">Qty</th><th className="px-3 py-2 text-right">Unit gp</th><th className="px-3 py-2 text-right">Weight</th><th className="px-3 py-2"></th></tr></thead>
-              <tbody>
-                {selected.filter((item) => item.category === selectedCategory).map((item, index) => { const catalogueItem = (item.category === 'weapons' ? data.itemWeapons : item.category === 'armor' ? data.itemArmors : data.itemEquipments).find((entry) => entry.catalogId === item.catalogId); const values = catalogueItem ? adjustedGearValues(item.category, catalogueItem, draft, data, item.sizedForSiz) : { priceGp: item.unitPriceGp, weight: item.unitWeight, tca: 0 }; const itemSizeAdjustment = gearSizeAdjustment(draft, item.sizedForSiz); const itemScales = item.category !== 'equipment' || Boolean(catalogueItem && isWornEquipment(catalogueItem)); const jewelry = item.category === 'equipment' && /^Jewelry,/i.test(item.name); const ornateLevel = jewelry ? Math.max(1, Math.trunc(item.level ?? 1)) : 1; const effectiveTca = jewelry ? ornateLevel * 2 : values.tca; return (
-                  <tr key={`${item.category}-${item.catalogId ?? item.id ?? item.name}-${index}`} className="border-t">
-                    <td data-label="Item" className="px-3 py-2"><div className="font-medium">{displayCustomAppend(displayInventoryName(item.name), item.customAppend)}{itemScales && itemSizeAdjustment && itemSizeAdjustment.direction !== 'standard' ? ` SIZ ${itemSizeAdjustment.presumedSiz}` : ''}</div>{jewelry && <label className="mt-2 flex max-w-[180px] items-center gap-2 text-xs"><span className="shrink-0 text-muted-foreground">Ornate</span><Input type="number" min={1} max={12} className="h-8 w-20" value={ornateLevel} onChange={(event) => setDraft((current) => setInventoryOrnateLevel(current, item.category, item.catalogId ?? '', Number(event.target.value), item.id))} aria-label={`Ornate rating for ${displayInventoryName(item.name)}`} /></label>}{item.category === 'equipment' && inventoryAllowsCustomAppend(item.name) && <Input className="mt-2 h-8 max-w-sm" value={item.customAppend ?? ''} onChange={(event) => setDraft((current) => setInventoryCustomAppend(current, item.category, item.catalogId ?? '', event.target.value, item.id))} placeholder="Optional text append" aria-label={`Custom text for ${displayInventoryName(item.name)}`} />}<div className="text-xs capitalize text-muted-foreground">{item.sourceDetail === 'Canonical Starting Gear' ? 'Canonical starting set' : item.category}{jewelry ? ` • Ornate ${ornateLevel}` : ''}{effectiveTca ? ` • TCA ${effectiveTca > 0 ? '+' : ''}${effectiveTca}` : ''}</div></td>
-                    <td data-label="Quantity" className="px-3 py-2"><div className="flex items-center justify-center gap-1"><Button size="icon" variant="ghost" aria-label={`Decrease ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity - 1, item.id))}><Minus className="h-3.5 w-3.5" /></Button><span className="w-8 text-center" aria-label={`${item.quantity} selected`}>{item.quantity}</span><Button size="icon" variant="ghost" aria-label={`Increase ${displayInventoryName(item.name)} quantity`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', item.quantity + 1, item.id))}><Plus className="h-3.5 w-3.5" /></Button></div></td>
-                    <td data-label="Unit gp" className="px-3 py-2 text-right">{formatNumberWithCommas(values.priceGp)}</td>
-                    <td data-label="Weight" className="px-3 py-2 text-right">{formatNumberWithCommas(values.weight)}#</td>
-                    <td data-label="Controls" className="px-3 py-2 text-right"><Button size="icon" variant="ghost" aria-label={`Remove ${displayInventoryName(item.name)}`} onClick={() => setDraft((current) => setInventoryQuantity(current, item.category, item.catalogId ?? '', 0, item.id))}><Trash2 className="h-4 w-4" /></Button></td>
-                  </tr>
-                ); })}
-              </tbody>
-            </table>
-          </div>)}
-          <p className="text-xs text-muted-foreground">Throwable items store only their ordinary Weight. Lob/Pitch/Hurl OR is calculated at throw time and is not stored per item.</p>
-        </section>
-      )}
-
+      {renderSelected([category], true, category === 'weapons' ? 'Current Weapons' : 'Current Equipment')}
       <section className="space-y-3">
-        <div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Weapons, Armor, and Equipment" aria-label="Search weapons, armor, and equipment" className="pl-9" /></div>
-        <Accordion type="multiple" defaultValue={['Weapons', 'Armors', 'Equipment']} className="space-y-3">{catalogGroups.map(({ title, category, subgroups }) => subgroups.some((group) => group.items.length) && <AccordionItem key={title} value={title} className="overflow-hidden rounded-lg border px-4"><AccordionTrigger className="text-base font-semibold">{title}</AccordionTrigger><AccordionContent className="space-y-4">{subgroups.map((subgroup) => subgroup.items.length > 0 && <section key={subgroup.title} className="overflow-x-auto rounded-md border"><h4 className="bg-muted/50 px-3 py-2 text-sm font-semibold">{subgroup.title}</h4><div className="min-w-[760px] divide-y">{subgroup.items.slice(0, 90).map((item) => { const values = adjustedGearValues(category, item, draft, data); const weapon = category === 'weapons' ? values as ReturnType<typeof adjustedGearValues> & { ora?: number; damageOffset?: number; minStr?: number } : null; const armor = category === 'armor' ? values as ReturnType<typeof adjustedGearValues> & { armorRating?: number; deflectRating?: number } : null; const ammoPurchase = category === 'equipment' ? ammunitionPackage(item.name) : null; const cannotAffordAmmo = Boolean(ammoPurchase && availableGp != null && Number(item.priceGp) > availableGp + 1e-9); const column = 'flex min-w-[50px] max-w-[100px] flex-1 items-center justify-end px-2 text-right text-xs tabular-nums'; return <div key={item.catalogId} className={cn('grid min-h-8 grid-cols-[minmax(180px,1fr)_minmax(250px,500px)_minmax(90px,100px)] items-stretch', unavailableItems.has(item.name) && 'opacity-50')}><div className="flex min-w-[180px] items-center px-3 text-sm font-medium">{displayInventoryName(item.name)}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && (category !== 'equipment' || isWornEquipment(item)) ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="flex items-stretch justify-end"><div className={column}>{formatNumberWithCommas(values.priceGp)} gp</div><div className={column}>{formatNumberWithCommas(values.weight)}#</div>{weapon ? <><div className={column}>OR {weapon.ora}</div><div className={column}>STR {weapon.minStr}</div><div className={column}>Dmg {weapon.damageOffset}</div></> : armor ? <><div className={column}>D {armor.deflectRating}</div><div className={column}>AR {armor.armorRating}</div><div className={column}>TCA {values.tca > 0 ? '+' : ''}{values.tca}</div></> : <><div className={column}>{item.traits[0] ?? '—'}</div><div className={column}>{item.traits[1] ?? '—'}</div><div className={column}>TCA {values.tca > 0 ? '+' : ''}{values.tca}</div></>}</div><div className="flex min-w-[90px] max-w-[100px] items-center justify-end px-2"><Button type="button" size="sm" variant="outline" disabled={unavailableItems.has(item.name) || cannotAffordAmmo} onClick={() => setDraft((current) => addInventoryItem(current, category, item.catalogId, data))}>{unavailableItems.has(item.name) ? 'Unavailable' : cannotAffordAmmo ? 'No gp' : ammoPurchase ? 'Buy → Notes' : 'Add'}</Button></div></div>; })}</div></section>)}</AccordionContent></AccordionItem>)}</Accordion>
+        <div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`Search ${category === 'weapons' ? 'Weapons' : 'Equipment'}`} aria-label={`Search ${category}`} className="pl-9" /></div>
+        <Accordion type="multiple" defaultValue={catalogGroups.map((group) => group.title)} className="space-y-3">{catalogGroups.map(({ title, category: groupCategory, subgroups }) => subgroups.some((group) => group.items.length) && <AccordionItem key={title} value={title} className="overflow-hidden rounded-lg border px-4"><AccordionTrigger className="text-base font-semibold">{title}</AccordionTrigger><AccordionContent className="space-y-4">{subgroups.map((subgroup) => subgroup.items.length > 0 && <section key={subgroup.title} className="overflow-x-auto rounded-md border"><h4 className="bg-muted/50 px-3 py-2 text-sm font-semibold">{subgroup.title}</h4><div className="min-w-[760px] divide-y">{subgroup.items.slice(0, 90).map((item) => { const values = adjustedGearValues(groupCategory, item, draft, data); const weapon = groupCategory === 'weapons' ? values as ReturnType<typeof adjustedGearValues> & { ora?: number; damageOffset?: number; minStr?: number } : null; const ammoPurchase = groupCategory === 'equipment' ? ammunitionPackage(item.name) : null; const cannotAffordAmmo = Boolean(ammoPurchase && availableGp != null && Number(item.priceGp) > availableGp + 1e-9); const column = 'flex min-w-[50px] max-w-[100px] flex-1 items-center justify-end px-2 text-right text-xs tabular-nums'; return <div key={item.catalogId} className={cn('grid min-h-8 grid-cols-[minmax(180px,1fr)_minmax(250px,500px)_minmax(90px,100px)] items-stretch', unavailableItems.has(item.name) && 'opacity-50')}><div className="flex min-w-[180px] items-center px-3 text-sm font-medium">{displayInventoryName(item.name)}{sizeAdjustment && sizeAdjustment.direction !== 'standard' && (groupCategory !== 'equipment' || isWornEquipment(item)) ? ` SIZ ${sizeAdjustment.presumedSiz}` : ''}</div><div className="flex items-stretch justify-end"><div className={column}>{formatNumberWithCommas(values.priceGp)} gp</div><div className={column}>{formatNumberWithCommas(values.weight)}#</div>{weapon ? <><div className={column}>OR {weapon.ora}</div><div className={column}>STR {weapon.minStr}</div><div className={column}>Dmg {weapon.damageOffset}</div></> : <><div className={column}>{item.traits[0] ?? '—'}</div><div className={column}>{item.traits[1] ?? '—'}</div><div className={column}>TCA {values.tca > 0 ? '+' : ''}{values.tca}</div></>}</div><div className="flex min-w-[90px] max-w-[100px] items-center justify-end px-2"><Button type="button" size="sm" variant="outline" disabled={unavailableItems.has(item.name) || cannotAffordAmmo} onClick={() => setDraft((current) => addInventoryItem(current, groupCategory, item.catalogId, data))}>{unavailableItems.has(item.name) ? 'Unavailable' : cannotAffordAmmo ? 'No gp' : ammoPurchase ? 'Buy → Notes' : 'Add'}</Button></div></div>; })}</div></section>)}</AccordionContent></AccordionItem>)}</Accordion>
       </section>
+      {category === 'weapons' && <p className="text-xs text-muted-foreground">Throwable items store only their ordinary Weight. Lob/Pitch/Hurl OR is calculated at throw time and is not stored per item.</p>}
     </div>
   );
 }
@@ -293,7 +342,7 @@ function RelationshipsDeferred() {
 
 export default function UtilitiesStep({ stepValue, data, draft, setDraft }: UtilitiesStepProps) {
   if (stepValue === 'utilities-spells') return <SpellsStep data={data} draft={draft} setDraft={setDraft} />;
-  if (stepValue === 'utilities-starting-gear') return <GearStep data={data} draft={draft} setDraft={setDraft} />;
+  if (stepValue === 'utilities-starting-gear' || stepValue.startsWith('customize-')) return <GearStep stepValue={stepValue} data={data} draft={draft} setDraft={setDraft} />;
   if (stepValue === 'utilities-magic-items') return <MagicItemsStep data={data} draft={draft} setDraft={setDraft} />;
   if (stepValue === 'utilities-name') return <NameStep data={data} draft={draft} setDraft={setDraft} />;
   return <RelationshipsDeferred />;
