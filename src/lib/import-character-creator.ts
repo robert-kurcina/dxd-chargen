@@ -88,7 +88,7 @@ const HERITAGE_ALIASES: Record<string, string> = {
   Wilding: 'Wildling', Desert: 'Deserts', Forest: 'Forests', Mountains: 'Mountain',
   Herder: 'Herding', Aristocrat: 'Aristocrats', Gentry: 'Landed',
 };
-const LANGUAGE_MODIFIER_ORDER: LanguageModifier[] = ['Old', 'High', 'Low', 'War', 'Lingo', 'Barter'];
+const LANGUAGE_MODIFIER_ORDER: LanguageModifier[] = ['Old High', 'High', 'Low', 'War', 'Lingo', 'Barter'];
 const LANGUAGE_ALIASES: Record<string, { name: string; modifiers?: LanguageModifier[] }> = {
   auldfar: { name: 'Ershthiikal' },
   ershthikal: { name: 'Ershthiikal' },
@@ -112,8 +112,9 @@ function normalizeLanguageSelection(language: LanguageSelection): LanguageSelect
   const raw = language.name.trim();
   let mapped = LANGUAGE_ALIASES[raw.toLowerCase()];
   if (!mapped) {
-    const words = raw.split(/\s+/);
-    const modifiers: LanguageModifier[] = [];
+    const hasOldHigh = /\bold\s+high\b/i.test(raw);
+    const words = raw.replace(/\bold\s+high\b/gi, '').split(/\s+/).filter(Boolean);
+    const modifiers: LanguageModifier[] = hasOldHigh ? ['Old High'] : [];
     const baseWords: string[] = [];
     for (const word of words) {
       const token = word.replace(/[^a-z]/gi, '').toLowerCase();

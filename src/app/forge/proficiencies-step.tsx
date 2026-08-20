@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import PersistentAccordionSection from '@/components/persistent-accordion-section';
 import {
   Select,
   SelectContent,
@@ -27,7 +28,9 @@ import {
   compressedCapabilities,
   defaultLanguageSuggestion,
   formatLanguageRecord,
+  LANGUAGE_RELEVANCE_MODIFIERS,
   LANGUAGE_MODIFIERS,
+  LANGUAGE_REGISTER_MODIFIERS,
   languageProficiencyPoints,
   languageProficiencySpent,
   minimumAgeRankForPml,
@@ -169,10 +172,15 @@ function GrantedTraitsStep({ data, draft, setDraft }: Omit<ProficienciesStepProp
   const unresolvedIds = new Set(unresolvedBroadGrants(draft, data).map((selection) => selection.id));
   return <div className="space-y-6">
     {milestones.length > 0 && <section className="space-y-3"><div><h3 className="font-semibold">PML Virtuosity choices</h3><p className="mt-1 text-xs text-muted-foreground">Choose one Virtuosity trait at each reached milestone.</p></div><div className="grid gap-3 md:grid-cols-2">{milestones.map((milestone) => { const current = draft.proficiencies.pmlVirtuosityChoices.find((choice) => choice.milestone === milestone); return <div key={milestone} className="space-y-2 rounded-lg border p-3"><Label>PML {milestone}</Label><Select value={current?.traitId ?? ''} onValueChange={(value) => setDraft((state) => setPmlVirtuosityChoice(state, milestone, value, data))}><SelectTrigger><SelectValue placeholder="Choose Virtuosity" /></SelectTrigger><SelectContent>{virtuosity.map((trait) => <SelectItem key={trait.catalogId} value={trait.catalogId}>{trait.trait}</SelectItem>)}</SelectContent></Select></div>; })}</div></section>}
-    <section className="space-y-3"><div className="flex flex-wrap items-end justify-between gap-2"><div><h3 className="font-semibold">Granted Skills, Abilities, and Talents</h3><p className="mt-1 text-xs text-muted-foreground">Specialization controls live on the capability row. Duplicate sources remain visible here and compress later.</p></div><Badge variant="outline">{combined.length} compressed • {grants.length} sourced</Badge></div>
-      <div className="space-y-2">{grants.map((selection) => { const unresolved = unresolvedIds.has(selection.id); return <div key={selection.id} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? selection.source}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}{!grants.length && <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Group/Lineage, and Trade to load grants.</div>}</div>
-    </section>
-    {purchasedBroad.length > 0 && <section className="space-y-3"><div><h3 className="font-semibold">Imported Skill and Trait specializations</h3><p className="mt-1 text-xs text-muted-foreground">Loaded broad capabilities retain their rank, but require a concrete specialization where one was not recorded.</p></div><div className="space-y-2">{purchasedBroad.map((selection, index) => { const unresolved = unresolvedIds.has(selection.id); return <div key={`${selection.id}-${index}`} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? 'Loaded character'}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}</div></section>}
+    <PersistentAccordionSection id="granted-skills-abilities-talents" title={<span>Granted Skills, Abilities, and Talents <Badge variant="outline" className="ml-2">{combined.length} compressed • {grants.length} sourced</Badge></span>}>
+      <div className="space-y-3">
+        <p className="text-xs text-muted-foreground">Specialization controls live on the capability row. Duplicate sources remain visible here and compress later.</p>
+        <div className="space-y-2">{grants.map((selection) => { const unresolved = unresolvedIds.has(selection.id); return <div key={selection.id} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? selection.source}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}{!grants.length && <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Group/Lineage, and Trade to load grants.</div>}</div>
+      </div>
+    </PersistentAccordionSection>
+    {purchasedBroad.length > 0 && <PersistentAccordionSection id="imported-skill-trait-specializations" title="Imported Skill and Trait specializations" defaultOpen={false}>
+      <div className="space-y-3"><p className="text-xs text-muted-foreground">Loaded broad capabilities retain their rank, but require a concrete specialization where one was not recorded.</p><div className="space-y-2">{purchasedBroad.map((selection, index) => { const unresolved = unresolvedIds.has(selection.id); return <div key={`${selection.id}-${index}`} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? 'Loaded character'}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}</div></div>
+    </PersistentAccordionSection>}
   </div>;
 }
 
@@ -300,22 +308,28 @@ function LanguageCard({ language, data, setDraft }: { language: LanguageSelectio
         </Button>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium text-muted-foreground">Language modifiers</span>
-        {LANGUAGE_MODIFIERS.map((modifier) => {
-          const active = language.modifiers?.includes(modifier) ?? false;
-          return <Button
-            key={modifier}
-            type="button"
-            size="sm"
-            variant={active ? 'secondary' : 'outline'}
-            aria-pressed={active}
-            onClick={() => setDraft((current) => updateLanguage(current, language.id, {
-              modifiers: active
-                ? (language.modifiers ?? []).filter((value) => value !== modifier)
-                : [...(language.modifiers ?? []), modifier],
-            }))}
-          >{active ? <Check className="h-4 w-4" /> : null}+{modifier}</Button>;
-        })}
+        <span className="w-full text-xs font-medium text-muted-foreground">Language modifier (choose one)</span>
+        {[
+          ['Relevance', LANGUAGE_RELEVANCE_MODIFIERS],
+          ['Register', LANGUAGE_REGISTER_MODIFIERS],
+        ].map(([category, modifiers]) => (
+          <div key={category} className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-muted-foreground">{category}</span>
+            {(modifiers as readonly typeof LANGUAGE_MODIFIERS[number][]).map((modifier) => {
+              const active = language.modifiers?.includes(modifier) ?? false;
+              return <Button
+                key={modifier}
+                type="button"
+                size="sm"
+                variant={active ? 'secondary' : 'outline'}
+                aria-pressed={active}
+                onClick={() => setDraft((current) => updateLanguage(current, language.id, {
+                  modifiers: active ? [] : [modifier],
+                }))}
+              >{active ? <Check className="h-4 w-4" /> : null}+{modifier}</Button>;
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );

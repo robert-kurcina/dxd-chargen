@@ -69,7 +69,7 @@ export type InventorySelection = SourcedSelection & {
   armorSide?: 'Left' | 'Right';
 };
 
-export type LanguageModifier = 'Old' | 'High' | 'Low' | 'War' | 'Lingo' | 'Barter';
+export type LanguageModifier = 'Old High' | 'High' | 'Low' | 'War' | 'Lingo' | 'Barter';
 
 export type LanguageSelection = SourcedSelection & {
   kind: 'default' | 'heritage' | 'proficiency';

@@ -11,10 +11,12 @@
             "id": "1583389f99ff3e42",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "image",
+              "state": {
+                "file": "data/peoples/_pairs/ancestral.pairs-22.png"
+              },
+              "icon": "lucide-image",
+              "title": "ancestral.pairs-22"
             }
           }
         ]
@@ -51,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "korbulg",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -75,7 +77,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -183,8 +186,14 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "0ce12929ac9101b1",
+  "active": "a7e23d711870c07f",
   "lastOpenFiles": [
+    "data/peoples/_pairs/ancestral.pairs-21.png",
+    "data/peoples/_pairs/ancestral.pairs-20.png",
+    "data/peoples/_pairs/ancestral.pairs-19.png",
+    "data/peoples/_pairs/ancestral.pairs-18.png",
+    "data/peoples/_pairs/ancestral.pairs-17.png",
+    "data/peoples/_pairs/ancestral.pairs-30.png",
     "dxd-chargen.zip",
     "Archive.zip",
     "public/armor/hit-locations_female.svg",
@@ -203,7 +212,6 @@
     "src/app/(workspace)/workspace-spinner.tsx",
     "src/app/(workspace)/workspace-shell.tsx",
     "src/app/(workspace)/workspace-provider.tsx",
-    "src/app/(workspace)/sheet",
     "META/guidance/CANON_SYNC_v139.md",
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",
@@ -216,11 +224,7 @@
     "META/guidance/CANON_SYNC_v135.md",
     "images/hit-locations_male.svg",
     "images/hit-locations_female.svg",
-    "data/characters/dbb1238e-cammi/source-image.png",
-    "data/characters/dbb1238e-cammi/portrait.jpg",
     "META/guidance/CANON_SYNC_v134.md",
-    "data/images/hit-locations_male.svg",
-    "data/images/hit-locations_female.svg",
     "META/retired_llm_guidance/README.md",
     "META/retired_llm_guidance/universal-table.md",
     "META/retired_llm_guidance/attributes.md",
@@ -229,7 +233,6 @@
     "META/releases/CHARACTER_RUNTIME_NORMALIZATION_v132.md",
     "META/releases/CHARACTER_LIBRARY_METADATA_v133.md",
     "META/releases/CHARACTER_ARMOR_NORMALIZATION_v131.md",
-    "META/guidance/CANON_SYNC_v133.md",
-    "data/peoples/_pairs/ancestral.pairs-01.png"
+    "META/guidance/CANON_SYNC_v133.md"
   ]
 }

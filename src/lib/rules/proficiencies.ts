@@ -26,7 +26,15 @@ const PROFICIENCY_STEPS = new Set([
 
 const PML_VIRTUOSITY_MILESTONES = [4, 8, 12, 16, 20] as const;
 
-export const LANGUAGE_MODIFIERS: readonly LanguageModifier[] = ['Old', 'High', 'Low', 'War', 'Lingo', 'Barter'];
+export const LANGUAGE_MODIFIERS: readonly LanguageModifier[] = ['Old High', 'High', 'Low', 'War', 'Lingo', 'Barter'];
+export const LANGUAGE_RELEVANCE_MODIFIERS: readonly LanguageModifier[] = ['Old High', 'High', 'Low'];
+export const LANGUAGE_REGISTER_MODIFIERS: readonly LanguageModifier[] = ['Barter', 'Lingo', 'War'];
+
+function normalizeLanguageModifiers(modifiers: LanguageModifier[] | undefined) {
+  const selected = modifiers ?? [];
+  if (selected.includes('Old High')) return ['Old High'] as LanguageModifier[];
+  return LANGUAGE_MODIFIERS.filter((modifier) => selected.includes(modifier)).slice(0, 1);
+}
 
 export function isProficiencyStep(stepValue: string) {
   return PROFICIENCY_STEPS.has(stepValue);
@@ -630,6 +638,7 @@ export function updateLanguage(
     return {
       ...language,
       ...changes,
+      modifiers: changes.modifiers ? normalizeLanguageModifiers(changes.modifiers) : normalizeLanguageModifiers(language.modifiers),
       improvements: Math.max(0, changes.improvements ?? language.improvements),
     };
   });

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
+import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { Check, Search } from 'lucide-react';
 
 import type { StaticData } from '@/data';
@@ -21,7 +21,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
 import { nextGlobalRandom } from '@/lib/admin-settings';
-import { resolveTragedySeed } from '@/lib/character-logic';
+import { parseTragedyTemplate, resolveTragedySeed } from '@/lib/character-logic';
 import { allowedEnvironNames, localeForRegion, selectedSettlementOption, settlementOptionsForRegion } from '@/lib/settlement-context';
 import {
   ageBonusText,
@@ -396,12 +396,28 @@ function SocialRankStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'st
   const selectedSocietyPackage = data.heritagePackages.find(
     (pkg) => pkg.id === draft.background.societalHeritageId,
   );
+  const defaultRank = selectedSocietyPackage
+    ? data.socialRanks.find((rank) => rank.society === selectedSocietyPackage.name)
+    : undefined;
+
+  useEffect(() => {
+    if (!draft.background.socialRankId && defaultRank) {
+      setDraft((current) => ({
+        ...current,
+        background: {
+          ...current.background,
+          socialRankId: defaultRank.catalogId,
+          socialRank: defaultRank.socialRank,
+        },
+      }));
+    }
+  }, [defaultRank, draft.background.socialRankId, setDraft]);
 
   return (
     <div className="space-y-4">
       {selectedSocietyPackage && (
         <p className="text-sm text-muted-foreground">
-          Current Society Heritage: <span className="font-medium text-foreground">{selectedSocietyPackage.name}</span>. The matching social-rank entry is highlighted but not forced.
+          Current Society Heritage: <span className="font-medium text-foreground">{selectedSocietyPackage.name}</span>. The matching social-rank entry is selected by default; you may choose another rank.
         </p>
       )}
       <div className="grid gap-2 sm:grid-cols-2">
@@ -497,6 +513,56 @@ function PersonalityStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 's
 function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
   const selected = data.tragedySeeds.find((item) => item.catalogId === draft.background.tragedySeedId);
   const imported = !selected && draft.background.tragedySeedId && draft.background.tragedySeedText;
+  const [manualValues, setManualValues] = useState<Record<string, string>>({});
+  const placeholders = selected
+    ? parseTragedyTemplate(selected.seed).map((keyword, index) => ({
+        keyword,
+        key: `${keyword.toLowerCase()}-${index}`,
+      }))
+    : [];
+  const citystatePlaceholders = placeholders.filter((placeholder) => placeholder.keyword.toLowerCase() === 'citystate');
+  const selectedCitystate = citystatePlaceholders
+    .map((placeholder) => manualValues[placeholder.key])
+    .find(Boolean);
+
+  const tableValues = (keyword: string, citystate?: string) => {
+    const values = data.randomPersonItemDeity.flatMap((row) => {
+      const column = Object.keys(row).find((key) => key.toLowerCase() === keyword.toLowerCase()) as keyof typeof row | undefined;
+      if (citystate) {
+        const rowCitystate = String(row.Citystate ?? '');
+        if (rowCitystate !== citystate) return [];
+      }
+      const rawValue = column ? String(row[column] ?? '') : '';
+      const splitValues = keyword.toLowerCase() === 'deity' ? rawValue.split('>').map((value) => value.trim()) : [rawValue];
+      return splitValues.filter(Boolean).map((value) => ({ value, d66: row.d66 }));
+    });
+    return Array.from(new Map(values.map((entry) => [entry.value, entry])).values());
+  };
+
+  const applyManualValue = (key: string, value: string) => {
+    const changedPlaceholder = placeholders.find((placeholder) => placeholder.key === key);
+    const nextValues = Object.fromEntries(
+      Object.entries({ ...manualValues, [key]: value }).filter(([placeholderKey]) =>
+        changedPlaceholder?.keyword.toLowerCase() !== 'citystate' ||
+        placeholders.find((placeholder) => placeholder.key === placeholderKey)?.keyword.toLowerCase() !== 'deity',
+      ),
+    );
+    setManualValues(nextValues);
+    if (selected) {
+      const occurrenceCounts = new Map<string, number>();
+      const resolvedText = selected.seed.replace(/\((.*?)\)/g, (match, name: string) => {
+        const normalizedName = name.toLowerCase();
+        const occurrence = occurrenceCounts.get(normalizedName) ?? 0;
+        occurrenceCounts.set(normalizedName, occurrence + 1);
+        const placeholder = placeholders.filter((entry) => entry.keyword.toLowerCase() === normalizedName)[occurrence];
+        return placeholder ? nextValues[placeholder.key] ?? match : match;
+      });
+      setDraft((current) => ({
+        ...current,
+        background: { ...current.background, tragedySeedText: resolvedText },
+      }));
+    }
+  };
 
   const resolve = (item: StaticData['tragedySeeds'][number]) => {
     const tragedySeedText = resolveTragedySeed(item.seed, data.randomPersonItemDeity, nextGlobalRandom);
@@ -517,7 +583,10 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
           value={draft.background.tragedySeedId ?? undefined}
           onValueChange={(id) => {
             const item = data.tragedySeeds.find((entry) => entry.catalogId === id);
-            if (item) resolve(item);
+            if (item) {
+              setManualValues({});
+              resolve(item);
+            }
           }}
         >
           <SelectTrigger className="flex-1" aria-label="Tragedy template"><SelectValue placeholder="Choose a tragedy template" /></SelectTrigger>
@@ -536,6 +605,45 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
           <Separator className="my-3" />
           <div className="text-xs uppercase tracking-wide text-muted-foreground">Resolved tragedy</div>
           <div className="mt-1 font-medium">{draft.background.tragedySeedText}</div>
+        </div>
+      )}
+      {selected && placeholders.length > 0 && (
+        <div className="rounded-lg border p-4">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">Placeholder values</div>
+          <div className="mt-1 text-sm text-muted-foreground">Select a value to use it wherever that placeholder appears in the template.</div>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {placeholders.map((placeholder) => {
+              const isDeity = placeholder.keyword.toLowerCase() === 'deity';
+              const rows = tableValues(placeholder.keyword, isDeity && citystatePlaceholders.length > 0 ? selectedCitystate : undefined);
+              const selectedValue = manualValues[placeholder.key];
+              return (
+                <label key={placeholder.key} className="space-y-1">
+                  <span className="text-sm font-medium">{placeholder.keyword} {placeholders.filter((entry) => entry.keyword === placeholder.keyword).length > 1 ? `#${placeholders.filter((entry) => entry.keyword === placeholder.keyword).indexOf(placeholder) + 1}` : ''}</span>
+                  <Select
+                    value={selectedValue}
+                    onValueChange={(value) => {
+                      const row = rows.find((entry) => entry.value === value);
+                      if (row) applyManualValue(placeholder.key, row.value);
+                    }}
+                  >
+                    <SelectTrigger aria-label={`Choose ${placeholder.keyword} value`}>
+                      <SelectValue placeholder={`Choose a ${placeholder.keyword.toLowerCase()}`} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {rows.map((row) => (
+                        <SelectItem key={`${placeholder.key}-${row.value}`} value={row.value}>
+                          {row.d66}: {row.value}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {isDeity && citystatePlaceholders.length > 0 && !selectedCitystate && (
+                    <span className="text-xs text-muted-foreground">Choose a Citystate first.</span>
+                  )}
+                </label>
+              );
+            })}
+          </div>
         </div>
       )}
       {imported && <div className="rounded-lg border p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Imported resolved tragedy</div><div className="mt-1 font-medium">{draft.background.tragedySeedText}</div></div>}
