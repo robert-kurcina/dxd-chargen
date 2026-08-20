@@ -1,7 +1,5 @@
-import { Suspense } from 'react';
-import GlobalAdminPanel from './global-panel';
-import AdminTabSpinner from './tab-spinner';
+import { redirect } from 'next/navigation';
 
-export default function AdminGlobalPage() {
-  return <Suspense fallback={<AdminTabSpinner />}><GlobalAdminPanel /></Suspense>;
+export default function AdminPage() {
+  redirect('/admin/characters');
 }

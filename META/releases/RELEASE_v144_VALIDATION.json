@@ -1,0 +1,32 @@
+{
+  "release": "v144",
+  "version": "0.144.0",
+  "checks": [
+    {
+      "name": "Runtime data validation",
+      "status": "PASS",
+      "details": "npm run validate:data completed successfully; 77 JSON files validated."
+    },
+    {
+      "name": "Modified TypeScript syntax transpile",
+      "status": "PASS",
+      "details": "All modified TS/TSX files transpile with zero TypeScript syntax diagnostics using the installed global TypeScript compiler API."
+    },
+    {
+      "name": "Full dependency-backed typecheck/build",
+      "status": "BLOCKED",
+      "details": "The source archive does not contain usable dependencies, and offline npm installation cannot satisfy all packages from cache. No dependency-backed full typecheck/build was possible in this environment."
+    },
+    {
+      "name": "Temperance formula",
+      "status": "PASS",
+      "details": "Filesystem metadata uses the existing capabilityDispositionCounts runtime function and computes Temperance as Ameliorative minus Distressing."
+    },
+    {
+      "name": "Version load affordance",
+      "status": "PASS",
+      "details": "Saved-version rows are non-clickable containers with an explicit far-right Load button and filename field."
+    }
+  ],
+  "status": "PASS_WITH_ENVIRONMENT_LIMITATION"
+}

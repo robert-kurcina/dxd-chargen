@@ -4,6 +4,8 @@ import path from 'node:path';
 import { NextResponse } from 'next/server';
 import { migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
 import { normalizeCharacterDraftForStorage, normalizeCharacterLibrary } from '@/lib/import-character-creator';
+import sarnaLenData from '@/data';
+import { capabilityDispositionCounts } from '@/lib/rules/proficiencies';
 
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
@@ -31,6 +33,7 @@ async function metadata(idName: string) {
   const files = await readdir(folder);
   const portrait = files.find((name) => /^portrait\.(?:png|jpe?g|webp)$/i.test(name));
   const fileStat = await stat(characterPath);
+  const disposition = capabilityDispositionCounts(draft, sarnaLenData);
   return {
     idName,
     characterId: draft.characterId ?? idName.split('-')[0],
@@ -41,6 +44,9 @@ async function metadata(idName: string) {
     strifeFatherLineageId: draft.intrinsics.strifeFatherLineageId, strifeMotherLineageId: draft.intrinsics.strifeMotherLineageId,
     thumbnailUrl: portrait ? `/api/character-files/${encodeURIComponent(idName)}/image/${encodeURIComponent(portrait)}` : null,
     updatedAt: draft.updatedAt ?? fileStat.mtime.toISOString(),
+    distressing: disposition.distressing,
+    ameliorative: disposition.ameliorative,
+    temperance: disposition.ameliorative - disposition.distressing,
   };
 }
 async function archiveCurrentVersion(folder: string) {

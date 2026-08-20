@@ -885,6 +885,11 @@ import {
       if (event.data?.type === "dxd-character-sheet") {
         const payload = event.data.payload ?? {};
         const entry = { slug: payload.Slug || "character", name: payload.Name || "Character", portrait: payload.Portrait || "" };
+        const filenameRow = document.querySelector("#sheet-filename");
+        const filenameValue = document.querySelector("#sheet-filename-value");
+        const filename = String(payload.Filename ?? "").trim();
+        filenameRow.hidden = !filename;
+        filenameValue.textContent = filename;
         useSession(createSession(entry, payload));
         syncPortrait(entry);
         syncAllFields();

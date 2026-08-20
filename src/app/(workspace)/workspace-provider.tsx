@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type Dispatch,
 import { useRouter } from 'next/navigation';
 import type { StaticData } from '@/data';
 import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { activeLibraryEntry, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
+import { activeLibraryEntry, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
 import { syncHeritageGrantedSelections } from '@/lib/rules/background';
 import { syncIntrinsics } from '@/lib/rules/intrinsics';
 import { syncProficiencies } from '@/lib/rules/proficiencies';
@@ -49,7 +49,20 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     let savedLibrary: unknown = null; let legacyDraft: unknown = null;
     try { const rawLibrary = window.localStorage.getItem(CHARACTER_LIBRARY_STORAGE_KEY); if (rawLibrary) savedLibrary = JSON.parse(rawLibrary); const rawLegacy = window.localStorage.getItem(LEGACY_DRAFT_STORAGE_KEY); if (rawLegacy) legacyDraft = JSON.parse(rawLegacy); } catch {}
     const migrated = migrateCharacterLibrary(savedLibrary, legacyDraft);
-    setLibrary({ ...migrated, entries: migrated.entries.map((entry) => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) });
+    let nextLibrary = { ...migrated, entries: migrated.entries.map((entry) => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) };
+    try {
+      const pendingRaw = window.localStorage.getItem(PENDING_FILE_LOAD_STORAGE_KEY);
+      const pending = pendingRaw ? JSON.parse(pendingRaw) as { idName?: unknown; draft?: unknown } : null;
+      if (pending && typeof pending.idName === 'string' && pending.draft) {
+        const loaded = normalizeDraft(migrateCharacterDraft(pending.draft), data);
+        nextLibrary = updateActiveDraft(nextLibrary, () => loaded);
+        setActiveFileId(pending.idName);
+        setSavedSnapshot(comparableDraft(loaded));
+        setMessage(`Loaded ${pending.idName}`);
+        window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY);
+      }
+    } catch { window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY); }
+    setLibrary(nextLibrary);
     setHydrated(true);
   }, [data]);
   useEffect(() => { if (!hydrated) return; window.localStorage.setItem(CHARACTER_LIBRARY_STORAGE_KEY, JSON.stringify(library)); const active = activeLibraryEntry(library); if (active) window.localStorage.setItem(LEGACY_DRAFT_STORAGE_KEY, JSON.stringify(active.draft)); }, [library, hydrated]);

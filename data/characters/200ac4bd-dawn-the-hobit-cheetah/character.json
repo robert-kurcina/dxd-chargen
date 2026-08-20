@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.097096Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Nightvision, Sprint."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "22 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -84,7 +84,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-heiron"
+    "deityId": "deity-heiron",
+    "socialRankTitle": "By name"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -98,52 +99,138 @@
     "strifeMotherLineageId": "lineage-farleen",
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 14,
-        "adjustments": []
+        "base": 13,
+        "recordedValue": 14,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 4,
+            "source": "rule",
+            "sourceDetail": "Child of Strife 1D=3"
+          },
+          {
+            "amount": -3,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 13,
-        "adjustments": []
+        "base": 14,
+        "recordedValue": 13,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Child of Strife 1D=3"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 14,
-        "adjustments": []
+        "base": 11,
+        "recordedValue": 14,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 3,
+            "source": "rule",
+            "sourceDetail": "Child of Strife 1D=3"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 12,
-        "adjustments": []
+        "base": 14,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 8,
-        "adjustments": []
+        "base": 12,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -4,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 12,
-        "adjustments": []
+        "base": 13,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 5,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 5,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Child of Strife 1D=3"
+          },
+          {
+            "amount": -3,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 0,
-        "adjustments": []
+        "base": 5,
+        "recordedValue": 0,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -3,
+            "source": "rule",
+            "sourceDetail": "Child of Strife 1D=3"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "FOR",
         "base": 7,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
@@ -166,7 +253,35 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-fayeed",
+        "name": "Fayeed",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-barter",
         "name": "Barter",
@@ -324,33 +439,6 @@
         "level": 1,
         "specialization": "Sword"
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-fayeed",
-        "name": "Fayeed",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-fayeed",
-        "modifiers": []
-      }
     ]
   },
   "properties": {
@@ -472,5 +560,6 @@
     "availableGp": 0,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

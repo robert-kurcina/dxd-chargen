@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.090924Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Lore, Medic, Warfare."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "21 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -208,7 +208,8 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-lirace"
+    "deityId": "deity-lirace",
+    "socialRankTitle": "By Name and Trade"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -222,53 +223,123 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 7,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Engineer"
+          }
+        ]
       },
       {
         "name": "RCA",
         "base": 5,
+        "recordedValue": 5,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "REF",
-        "base": 7,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 9,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -2,
+            "source": "lineage",
+            "sourceDetail": "Auldfar lineage"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Engineer"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 14,
-        "adjustments": []
+        "base": 12,
+        "recordedValue": 14,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Warrior — Engineer"
+          }
+        ]
       },
       {
         "name": "PRE",
         "base": 6,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "POW",
-        "base": 3,
-        "adjustments": []
+        "base": 2,
+        "recordedValue": 3,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 16,
-        "adjustments": []
+        "base": 12,
+        "recordedValue": 16,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Auldfar lineage"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 11,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Auldfar lineage"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -290,7 +361,75 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-auldfar",
+        "name": "Ershthiikal",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-ershthikal",
+        "modifiers": []
+      },
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 7,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-fayeed",
+        "name": "Fayeed",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
+      },
+      {
+        "id": "import-old-high-qua",
+        "name": "Qua",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "High"
+        ]
+      },
+      {
+        "id": "import-warlang-qua",
+        "name": "Qua",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "War"
+        ]
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-barter",
         "name": "Barter",
@@ -441,80 +580,13 @@
         "level": 1,
         "catalogId": "trait-v-powerhouse-x"
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-auldfar",
-        "name": "Ershthiikal",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-ershthikal",
-        "modifiers": []
-      },
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 7,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-fayeed",
-        "name": "Fayeed",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-fayeed",
-        "modifiers": []
-      },
-      {
-        "id": "import-old-high-qua",
-        "name": "Qua",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-qua",
-        "modifiers": [
-          "High"
-        ]
-      },
-      {
-        "id": "import-warlang-qua",
-        "name": "Qua",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-qua",
-        "modifiers": [
-          "War"
-        ]
-      }
     ]
   },
   "properties": {
     "stature": 53,
     "build": 57,
-    "baseBuild": 61,
-    "weightAdjustment": -4,
+    "baseBuild": 57,
+    "weightAdjustment": 0,
     "heightInches": 76,
     "weightPounds": 252,
     "siz": 14,
@@ -542,7 +614,7 @@
       "xp": 360
     },
     "statureAdjustment": -1,
-    "buildAdjustment": -2
+    "buildAdjustment": -1
   },
   "utilities": {
     "spells": [
@@ -658,5 +730,6 @@
     "availableGp": 0,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

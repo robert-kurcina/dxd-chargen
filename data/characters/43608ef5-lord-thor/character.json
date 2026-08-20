@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.099560Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Domus, Expert, Pidgin, Read, Riding, Steer, Tactics, Title, Trained."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "33 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -96,7 +96,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-gnostic",
-    "deityId": null
+    "deityId": null,
+    "socialRankTitle": "Lord"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -110,53 +111,150 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 10,
-        "adjustments": []
+        "base": 11,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 10,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vasikha lineage"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 8,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 11,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vasikha lineage"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 9,
-        "adjustments": []
+        "base": 11,
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 13,
-        "adjustments": []
+        "base": 12,
+        "recordedValue": 13,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Rider"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 6,
-        "adjustments": []
+        "base": 5,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vasikha lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 10,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vasikha lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 10,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Rider"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -178,7 +276,59 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
+      },
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-middle-qua",
+        "name": "Qua",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": []
+      },
+      {
+        "id": "import-middle-stask",
+        "name": "Stask",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-stask",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-archery",
         "name": "Archery",
@@ -410,64 +560,13 @@
         "source": "player",
         "level": 1
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-cher-gulo",
-        "name": "Cher-gulo",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-cher-gulo",
-        "modifiers": []
-      },
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-middle-qua",
-        "name": "Qua",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-qua",
-        "modifiers": []
-      },
-      {
-        "id": "import-middle-stask",
-        "name": "Stask",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-stask",
-        "modifiers": []
-      }
     ]
   },
   "properties": {
     "stature": 51,
     "build": 49,
-    "baseBuild": 51,
-    "weightAdjustment": -2,
+    "baseBuild": 49,
+    "weightAdjustment": 0,
     "heightInches": 71,
     "weightPounds": 155,
     "siz": 12,
@@ -607,5 +706,6 @@
     "availableGp": 250,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }
