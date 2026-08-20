@@ -193,6 +193,12 @@
 #front .field-group-gm-notes { left: 82.6%; top: 93.35%; width: 14.7%; height: 5.1%; }
 #front .field-group-gm-notes .field { width: 100%; height: 100%; background: rgba(16,16,16,.92); color: #ff8d9c; font-size: 1.35cqw; }
 
+/* Derived Distressing/Ameliorative counts sit inside the printed concern circles. */
+#front .field-group-disposition { left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+#front .field-group-disposition .field { position: absolute; width: 5.83%; height: 4.44%; padding: 0; border: 0; background: transparent; text-align: center; text-indent: 0; font-size: 2.1cqw; font-weight: 700; line-height: 1; color: #080808; }
+#front .field-group-disposition [data-field="Distressing"] { left: 90.59%; top: 69.29%; }
+#front .field-group-disposition [data-field="Ameliorative"] { left: 90.59%; top: 74.65%; }
+
 /* Reverse-side text regions. */
 #back .field-group-back-name { left: 17.25%; top: 1.55%; width: 56%; height: 4.25%; }
 #back .field-group-equipment {

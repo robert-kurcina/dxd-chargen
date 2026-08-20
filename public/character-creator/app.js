@@ -36,6 +36,7 @@ import {
       ...["FavorDice", "Cellburn", "Manapool"].map((name) => field(name, "derived")),
     ]),
     group("combat", ["HastyActions", "MeleeAttack", "MeleeDefend", "RangeAttack", "RangeDefend", "MaxAdvantage"].map((name) => field(name, "derived"))),
+    group("disposition", [field("Distressing", "derived"), field("Ameliorative", "derived")]),
     group("gm-notes", [field("GMNotes", "area")]),
   ];
 

@@ -12,9 +12,10 @@ import {
 import { geographicRegionName, regionByDraft, selectedSettlementDisplayName } from '@/lib/settlement-context';
 import {
   compressedCapabilities,
+  capabilityDispositionCounts,
   formatLanguageRecord,
-  specializationOptionsForTrait,
   specializationRanksForSelection,
+  specializationIssue,
   traitDefinitionForSelection,
 } from '@/lib/rules/proficiencies';
 import { calculateProperties } from '@/lib/rules/properties';
@@ -24,7 +25,7 @@ export type CharacterSheetData = {
   name: string;
   properName: string;
   affinityAttribute?: string | null;
-  details: { environ: string; species: string; bio: string; physique: string };
+  details: { environ: string; socialRankTitle: string; species: string; bio: string; physique: string };
   pml: number;
   attributes: Array<{ name: string; value: number; modifier: string }>;
   background: {
@@ -51,6 +52,7 @@ export type CharacterSheetData = {
   performance: Array<{ name: string; value: number }>;
   concerns: Array<{ name: string; value: number }>;
   miscellaneous: Array<{ name: string; value: number }>;
+  disposition: { distressing: number; ameliorative: number };
   combat: Array<{ name: string; value: string }>;
 };
 
@@ -86,7 +88,7 @@ function projectedCapabilities(draft: CharacterDraft, data: StaticData) {
     const definitions = entry.sources.map((source) => traitDefinitionForSelection(source, data));
     return definitions.some((definition) => definition && (!definition.isSkill || definition.isVirtuosity));
   };
-  const requiresSpecialization = (entry: typeof capabilities[number]) => entry.sources.some((source) => specializationOptionsForTrait(source, draft, data).length > 0 && Object.keys(specializationRanksForSelection(source, draft, data)).length === 0);
+  const requiresSpecialization = (entry: typeof capabilities[number]) => entry.sources.some((source) => Boolean(specializationIssue(source, draft, data)));
   const isDisability = (entry: typeof capabilities[number]) => entry.sources.some((source) => traitDefinitionForSelection(source, data)?.isDisability);
   const format = (entry: typeof capabilities[number]) => {
     const disability = isDisability(entry);
@@ -112,6 +114,7 @@ function heightText(inches: number | null) {
 
 export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): CharacterSheetData {
   const capabilities = projectedCapabilities(draft, data);
+  const disposition = capabilityDispositionCounts(draft, data);
   const legalArmor = resolveWornArmor(draft.utilities.armor, data).worn;
   const importedDetail = (detail: string) => draft.background.demographicSelections.find((entry) => entry.sourceDetail === detail)?.name ?? '';
   const speciesChoice = getSpeciesChoice(draft, data);
@@ -171,6 +174,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     affinityAttribute: draft.intrinsics.affinityAttribute,
     details: {
       environ: heritage.join(' > '),
+      socialRankTitle: draft.background.socialRankTitle ?? '',
       species: [species, group, lineage].filter(Boolean).join(' > '),
       bio,
       physique: [heightText(draft.properties.heightInches), draft.properties.weightPounds != null ? `${draft.properties.weightPounds}-pounds` : ''].filter(Boolean).join(' and '),
@@ -222,6 +226,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
       { name: 'Cellburn Limit', value: numberCalc('Cellburn') },
       { name: 'Manapool', value: derived?.manapool ?? numberCalc('Manapool') },
     ],
+    disposition,
     combat: [
       { name: 'Actions', value: signed(numberCalc('HastyActions')) },
       { name: 'Melee Attack', value: signed(numberCalc('MeleeAttack')) },

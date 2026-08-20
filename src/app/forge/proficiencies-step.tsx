@@ -26,6 +26,7 @@ import {
   ageRankValue,
   combinedGrantedTraits,
   compressedCapabilities,
+  capabilityAllowsLevels,
   defaultLanguageSuggestion,
   formatLanguageRecord,
   LANGUAGE_RELEVANCE_MODIFIERS,
@@ -42,8 +43,10 @@ import {
   setCoreLanguage,
   setGrantSpecialization,
   setGrantSpecializationRanks,
-  specializationOptionsForTrait,
-  specializationRanksForSelection,
+  importedCapabilityReconciliation,
+  levelSpecializationRanksForSelection,
+  specializationRequirement,
+  specializationIssue,
   updateAdditionalSkillSpecializations,
   setPml,
   setPmlVirtuosityChoice,
@@ -121,43 +124,27 @@ function PmlStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, 'stepVa
 }
 
 
-function SpecializationControls({ selection, data, draft, onChange }: { selection: import('@/lib/character-draft').SourcedSelection; data: StaticData; draft: CharacterDraft; onChange: (ranks: Record<string, number>) => void }) {
-  const options = specializationOptionsForTrait(selection, draft, data);
-  const ranks = specializationRanksForSelection(selection, draft, data);
+function SpecializationControls({ selection, data, draft, onQualifierChange, onChange }: { selection: import('@/lib/character-draft').SourcedSelection; data: StaticData; draft: CharacterDraft; onQualifierChange: (value: string) => void; onChange: (ranks: Record<string, number>) => void }) {
+  const requirement = specializationRequirement(selection, draft, data);
+  const ranks = levelSpecializationRanksForSelection(selection, draft);
   const entries = Object.entries(ranks);
-  const maxSlots = Math.max(1, selection.level ?? 1);
   const usedSlots = entries.reduce((sum, [, rank]) => sum + rank, 0);
-  if (!selection.name.includes(' > ') && options.length === 0) return null;
+  const qualifier = selection.specialization?.trim() || draft.proficiencies.grantSpecializations[selection.id]?.trim() || '';
+  const [custom, setCustom] = useState('');
+  if (!requirement.qualifierRequired && requirement.specializationMaximum === 0) return null;
   const replace = (from: string, to: string) => {
-    if (!to || to === from) return;
-    const next = { ...ranks };
-    const count = next[from] ?? 1;
-    delete next[from];
-    next[to] = (next[to] ?? 0) + count;
-    onChange(next);
+    const value = to.trim(); if (!value || value === from) return;
+    const next = { ...ranks }; const count = next[from] ?? 1; delete next[from]; next[value] = (next[value] ?? 0) + count; onChange(next);
   };
-  const removeOne = (name: string) => {
-    const next = { ...ranks };
-    if ((next[name] ?? 0) > 1) next[name] -= 1;
-    else delete next[name];
-    onChange(next);
+  const removeOne = (name: string) => { const next = { ...ranks }; if ((next[name] ?? 0) > 1) next[name] -= 1; else delete next[name]; onChange(next); };
+  const addChoice = (choice?: string) => {
+    const value = (choice ?? custom).trim(); if (!value || usedSlots >= requirement.specializationMaximum) return;
+    onChange({ ...ranks, [value]: (ranks[value] ?? 0) + 1 }); setCustom('');
   };
-  const add = () => {
-    const next = { ...ranks };
-    const unused = options.find((option) => !next[option]);
-    const choice = unused ?? entries[0]?.[0] ?? options[0];
-    if (!choice) return;
-    next[choice] = (next[choice] ?? 0) + 1;
-    onChange(next);
-  };
-  return <div className="flex flex-wrap items-center gap-2">
-    {entries.map(([name, rank]) => <div key={name} className="flex items-center gap-1">
-      <Select value={name} onValueChange={(value) => replace(name, value)}><SelectTrigger className="h-8 w-[180px]"><SelectValue /></SelectTrigger><SelectContent>{options.length ? options.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>) : <SelectItem value={name}>{name}</SelectItem>}</SelectContent></Select>
-      {rank > 1 && <Badge variant="secondary">×{rank}</Badge>}
-      <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-8 sm:w-8" aria-label={`Remove ${name} specialization`} onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button>
-    </div>)}
-    {usedSlots < maxSlots && options.length > 0 && <Button type="button" size="icon" variant="outline" className="h-11 w-11 sm:h-8 sm:w-8" aria-label={`Add ${selection.name} specialization`} onClick={add}><Plus className="h-3.5 w-3.5" /></Button>}
-    {!entries.length && options.length > 0 && <Button type="button" size="sm" variant="outline" onClick={add}><Plus className="h-3.5 w-3.5" /> Specialization</Button>}
+  const unused = requirement.specializationOptions.find((option) => !ranks[option]) ?? requirement.specializationOptions[0];
+  return <div className="space-y-2">
+    {requirement.qualifierRequired && <div className="flex flex-wrap items-center gap-2"><span className="text-xs font-medium text-muted-foreground">{requirement.qualifierLabel}</span>{requirement.qualifierOptions.length ? <Select value={qualifier} onValueChange={onQualifierChange}><SelectTrigger className="h-8 w-[200px]"><SelectValue placeholder={`Choose ${requirement.qualifierLabel}`} /></SelectTrigger><SelectContent>{requirement.qualifierOptions.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select> : <Input className="h-8 w-[200px]" value={qualifier} onChange={(event) => onQualifierChange(event.target.value)} placeholder={`Enter ${requirement.qualifierLabel}`} />}</div>}
+    {requirement.specializationMaximum > 0 && <div className="flex flex-wrap items-center gap-2"><Badge variant={usedSlots < requirement.specializationMinimum || usedSlots > requirement.specializationMaximum ? 'destructive' : 'outline'}>{requirement.specializationLabel} {usedSlots}/{requirement.specializationMinimum === requirement.specializationMaximum ? requirement.specializationMaximum : `${requirement.specializationMinimum}–${requirement.specializationMaximum}`}</Badge>{entries.map(([name, rank]) => <div key={name} className="flex items-center gap-1">{requirement.specializationOptions.length ? <Select value={name} onValueChange={(value) => replace(name, value)}><SelectTrigger className="h-8 w-[180px]"><SelectValue /></SelectTrigger><SelectContent>{requirement.specializationOptions.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select> : <Input className="h-8 w-[180px]" defaultValue={name} onBlur={(event) => replace(name, event.target.value)} />}{rank > 1 && <Badge variant="secondary">×{rank}</Badge>}<Button type="button" size="icon" variant="ghost" className="h-8 w-8" aria-label={`Remove ${name} specialization`} onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button></div>)}{usedSlots < requirement.specializationMaximum && requirement.specializationOptions.length > 0 && <Button type="button" size="sm" variant="outline" onClick={() => addChoice(unused)}><Plus className="h-3.5 w-3.5" /> Specialization</Button>}{usedSlots < requirement.specializationMaximum && requirement.specializationOptions.length === 0 && <><Input className="h-8 w-[180px]" value={custom} onChange={(event) => setCustom(event.target.value)} placeholder={`Add ${requirement.specializationLabel}`} /><Button type="button" size="sm" variant="outline" disabled={!custom.trim()} onClick={() => addChoice()}><Plus className="h-3.5 w-3.5" /> Add</Button></>}</div>}
   </div>;
 }
 
@@ -166,21 +153,16 @@ function GrantedTraitsStep({ data, draft, setDraft }: Omit<ProficienciesStepProp
   const milestones = pmlVirtuosityMilestones(draft.proficiencies.pml);
   const virtuosity = data.traits.filter((trait) => trait.isVirtuosity && !trait.isDisability);
   const grants = [...draft.proficiencies.granted].sort((a,b) => a.name.localeCompare(b.name) || (a.sourceDetail ?? '').localeCompare(b.sourceDetail ?? ''));
-  const purchasedBroad = [...draft.proficiencies.purchased, ...draft.background.disabilities]
-    .filter((selection) => selection.name.includes(' > ') || specializationOptionsForTrait(selection, draft, data).length > 0)
-    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }));
   const unresolvedIds = new Set(unresolvedBroadGrants(draft, data).map((selection) => selection.id));
   return <div className="space-y-6">
     {milestones.length > 0 && <section className="space-y-3"><div><h3 className="font-semibold">PML Virtuosity choices</h3><p className="mt-1 text-xs text-muted-foreground">Choose one Virtuosity trait at each reached milestone.</p></div><div className="grid gap-3 md:grid-cols-2">{milestones.map((milestone) => { const current = draft.proficiencies.pmlVirtuosityChoices.find((choice) => choice.milestone === milestone); return <div key={milestone} className="space-y-2 rounded-lg border p-3"><Label>PML {milestone}</Label><Select value={current?.traitId ?? ''} onValueChange={(value) => setDraft((state) => setPmlVirtuosityChoice(state, milestone, value, data))}><SelectTrigger><SelectValue placeholder="Choose Virtuosity" /></SelectTrigger><SelectContent>{virtuosity.map((trait) => <SelectItem key={trait.catalogId} value={trait.catalogId}>{trait.trait}</SelectItem>)}</SelectContent></Select></div>; })}</div></section>}
-    <PersistentAccordionSection id="granted-skills-abilities-talents" title={<span>Granted Skills, Abilities, and Talents <Badge variant="outline" className="ml-2">{combined.length} compressed • {grants.length} sourced</Badge></span>}>
+    <PersistentAccordionSection id="granted-skills-traits-talents" title={<span>Granted Skills, Traits, and Talents <Badge variant="outline" className="ml-2">{combined.length} compressed • {grants.length} sourced</Badge></span>}>
       <div className="space-y-3">
         <p className="text-xs text-muted-foreground">Specialization controls live on the capability row. Duplicate sources remain visible here and compress later.</p>
-        <div className="space-y-2">{grants.map((selection) => { const unresolved = unresolvedIds.has(selection.id); return <div key={selection.id} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? selection.source}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}{!grants.length && <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Group/Lineage, and Trade to load grants.</div>}</div>
+        <div className="space-y-2">{grants.map((selection) => { const unresolved = unresolvedIds.has(selection.id); return <div key={selection.id} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? selection.source}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — {specializationIssue(selection, draft, data)}</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onQualifierChange={(value) => setDraft((current) => setGrantSpecialization(current, selection.id, value))} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}{!grants.length && <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">Complete Heritage, Species/Group/Lineage, and Trade to load grants.</div>}</div>
       </div>
     </PersistentAccordionSection>
-    {purchasedBroad.length > 0 && <PersistentAccordionSection id="imported-skill-trait-specializations" title="Imported Skill and Trait specializations" defaultOpen={false}>
-      <div className="space-y-3"><p className="text-xs text-muted-foreground">Loaded broad capabilities retain their rank, but require a concrete specialization where one was not recorded.</p><div className="space-y-2">{purchasedBroad.map((selection, index) => { const unresolved = unresolvedIds.has(selection.id); return <div key={`${selection.id}-${index}`} className={cn('grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(180px,1fr)_minmax(260px,1.5fr)]', unresolved && 'border-yellow-400 bg-yellow-100')}><div><div className="flex items-center gap-2 font-medium">{unresolved && <AlertTriangle className="h-4 w-4 text-black" />}{selection.name.split(' > ')[0].replace(/\s+X$/, '')} {(selection.level ?? 1) > 1 ? selection.level : ''}</div><div className="text-xs text-muted-foreground">{selection.sourceDetail ?? 'Loaded character'}</div>{unresolved && <div className="mt-[2px] text-xs font-medium text-black">Warning — choose a concrete specialization.</div>}</div><SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => setGrantSpecializationRanks(current, selection.id, ranks))} /></div>; })}</div></div>
-    </PersistentAccordionSection>}
+
   </div>;
 }
 
@@ -212,19 +194,19 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
         </div>
         <div className="flex flex-wrap gap-2 text-xs">
           <Badge variant="outline">Attributes/ZED {budget.attributeSpent}</Badge>
-          <Badge variant="outline">Additional Skills {budget.skillSpent}</Badge>
+          <Badge variant="outline">Additional Traits and Skills {budget.skillSpent}</Badge>
         </div>
       </section>
 
       {draft.proficiencies.additionalSkills.length > 0 && (
         <section className="space-y-3">
-          <h3 className="font-semibold">Added Skills and Traits</h3>
+          <h3 className="font-semibold">Additional Traits and Skills</h3>
           <div className="space-y-3">
             {draft.proficiencies.additionalSkills.map((selection) => {
               const definition = traitDefinitionForSelection(selection, data);
               const cost = additionalSkillCost(selection, draft, data);
               const source = startingSkillLimit(selection.name, draft);
-              const broad = selection.name.includes(' > ') || specializationOptionsForTrait(selection, draft, data).length > 0;
+              const broad = specializationRequirement(selection, draft, data).qualifierRequired || specializationRequirement(selection, draft, data).specializationMaximum > 0;
               return (
                 <div key={selection.id} className="rounded-lg border p-3">
                   <div className="flex flex-wrap items-start justify-between gap-3">
@@ -235,10 +217,12 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
                     <Button type="button" size="icon" variant="ghost" aria-label={`Remove ${selection.name}`} onClick={() => setDraft((current) => removeAdditionalSkill(current, selection.id))}><Trash2 className="h-4 w-4" /></Button>
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2">
-                    <Button type="button" size="icon" variant="outline" aria-label={`Decrease ${selection.name} level`} disabled={(selection.level ?? 1) <= 1} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) - 1 }))}><Minus className="h-4 w-4" /></Button>
-                    <div className="min-w-20 text-center text-sm font-medium">Level {selection.level ?? 1}</div>
-                    <Button type="button" size="icon" variant="outline" aria-label={`Increase ${selection.name} level`} disabled={(selection.level ?? 1) >= 5} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) + 1 }))}><Plus className="h-4 w-4" /></Button>
-                    {broad && <SpecializationControls selection={selection} data={data} draft={draft} onChange={(ranks) => setDraft((current) => updateAdditionalSkillSpecializations(current, selection.id, ranks))} />}
+                    {capabilityAllowsLevels(selection, data) ? <>
+                      <Button type="button" size="icon" variant="outline" aria-label={`Decrease ${selection.name} level`} disabled={(selection.level ?? 1) <= 1} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) - 1 }))}><Minus className="h-4 w-4" /></Button>
+                      <div className="min-w-20 text-center text-sm font-medium">Level {selection.level ?? 1}</div>
+                      <Button type="button" size="icon" variant="outline" aria-label={`Increase ${selection.name} level`} disabled={(selection.level ?? 1) >= 10} onClick={() => setDraft((current) => updateAdditionalSkill(current, selection.id, { level: (selection.level ?? 1) + 1 }))}><Plus className="h-4 w-4" /></Button>
+                    </> : <Badge variant="outline">Fixed capability</Badge>}
+                    {broad && <SpecializationControls selection={selection} data={data} draft={draft} onQualifierChange={(value) => setDraft((current) => updateAdditionalSkill(current, selection.id, { specialization: value }))} onChange={(ranks) => setDraft((current) => updateAdditionalSkillSpecializations(current, selection.id, ranks))} />}
                   </div>
                 </div>
               );
@@ -270,6 +254,13 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
       </section>
     </div>
   );
+}
+
+function ImportedCapabilitiesStep({ data, draft }: Omit<ProficienciesStepProps, 'stepValue' | 'setDraft'>) {
+  const comparisons = importedCapabilityReconciliation(draft, data);
+  const exceptions = comparisons.filter((entry) => entry.status !== 'match').length;
+  const labels: Record<string, string> = { match: 'Match', new: 'New', exceeds: 'Exceeds', below: 'Below', 'specialization-mismatch': 'Specialization mismatch' };
+  return <div className="space-y-4"><section className="rounded-lg border p-4"><h3 className="font-semibold">Imported Traits, Skills, and Talents</h3><p className="mt-1 text-sm text-muted-foreground">Read-only reconciliation reference. Imported entries never contribute to Skillpoints, derived rules, or character-sheet output. Resolve exceptions by editing Assign Additional Traits and Skills.</p><div className="mt-3 flex gap-2"><Badge variant="secondary">{comparisons.length} imported</Badge><Badge variant={exceptions ? 'destructive' : 'outline'}>{exceptions} exceptions</Badge></div></section>{comparisons.length ? <div className="space-y-2">{comparisons.map(({ imported, status, authored, message }, index) => <div key={`${imported.id}-${index}`} className={cn('rounded-lg border p-3', status !== 'match' && 'border-yellow-400 bg-yellow-50')}><div className="flex flex-wrap items-start justify-between gap-2"><div><div className="font-medium">{(() => { const importedRanks = { ...(imported.specializationRanks ?? {}) }; if (imported.specialization?.trim()) importedRanks[imported.specialization.trim()] = Math.max(1, importedRanks[imported.specialization.trim()] ?? 0); const specs = Object.entries(importedRanks).map(([name, rank]) => `${name}${rank > 1 ? ` ${rank}` : ''}`); return `${imported.name.split(' > ')[0].replace(/\s+X$/, '')}${(imported.level ?? 1) > 1 ? ` ${imported.level}` : ''}${specs.length ? ` > { ${specs.join(', ')} }` : ''}`; })()}</div><div className="text-xs text-muted-foreground">Imported reference{authored ? ` • Authored: ${authored.display}` : ''}</div></div><Badge variant={status === 'match' ? 'secondary' : 'outline'}>{labels[status]}</Badge></div><p className="mt-2 text-xs">{message}</p></div>)}</div> : <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">No imported Traits, Skills, or Talents are attached to this character.</div>}</div>;
 }
 
 function languageBenefit(level: number) {
@@ -405,8 +396,9 @@ export default function ProficienciesStep(props: ProficienciesStepProps) {
   const common = { data: props.data, draft: props.draft, setDraft: props.setDraft };
   switch (props.stepValue) {
     case 'proficiencies-pml': return <PmlStep {...common} />;
-    case 'proficiencies-skills-abilities-talents': return <GrantedTraitsStep {...common} />;
-    case 'proficiencies-additional-skills': return <AdditionalSkillsStep {...common} />;
+    case 'proficiencies-granted-skills-traits-talents': return <GrantedTraitsStep {...common} />;
+    case 'proficiencies-additional-traits-skills': return <AdditionalSkillsStep {...common} />;
+    case 'proficiencies-imported-traits-skills-talents': return <ImportedCapabilitiesStep data={props.data} draft={props.draft} />;
     case 'proficiencies-languages': return <LanguagesStep {...common} />;
     default: return null;
   }

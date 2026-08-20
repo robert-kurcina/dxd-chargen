@@ -88,7 +88,9 @@ export type PmlVirtuosityChoice = {
 };
 
 export type CharacterDraft = {
-  schemaVersion: 9;
+  schemaVersion: 10;
+  /** Stable filesystem/library identity. It is independent of the character name and survives version saves. */
+  characterId: string | null;
   updatedAt: string | null;
   completedSteps: string[];
   warnings: Array<{
@@ -112,6 +114,8 @@ export type CharacterDraft = {
     societalHeritageId: string | null;
     socialRankId: string | null;
     socialRank: number | string | null;
+    /** Human-readable social title/honorific paired with the numeric Social Rank. */
+    socialRankTitle: string | null;
     personality: SourcedSelection[];
     tragedySeedId: string | null;
     tragedySeedText: string | null;
@@ -157,7 +161,10 @@ export type CharacterDraft = {
     grantSpecializations: Record<string, string>;
     grantSpecializationRanks: Record<string, Record<string, number>>;
     granted: SourcedSelection[];
-    purchased: SourcedSelection[];
+    /** Read-only reference snapshot loaded from an imported character. Never contributes to authored rules output. */
+    importedCapabilities: SourcedSelection[];
+    /** @deprecated schema <=9 import bucket; migrated into importedCapabilities and kept empty thereafter. */
+    purchased?: SourcedSelection[];
     additionalSkills: SourcedSelection[];
     languages: LanguageSelection[];
   };
@@ -251,7 +258,8 @@ export type LegacyCharacterDraftV1 = Omit<LegacyCharacterDraftV2, 'schemaVersion
 
 export function createEmptyCharacterDraft(): CharacterDraft {
   return {
-    schemaVersion: 9,
+    schemaVersion: 10,
+    characterId: null,
     updatedAt: null,
     completedSteps: [],
     warnings: [],
@@ -273,6 +281,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       societalHeritageId: null,
       socialRankId: null,
       socialRank: null,
+      socialRankTitle: null,
       personality: [],
       tragedySeedId: null,
       tragedySeedText: null,
@@ -315,6 +324,7 @@ export function createEmptyCharacterDraft(): CharacterDraft {
       grantSpecializations: {},
       grantSpecializationRanks: {},
       granted: [],
+      importedCapabilities: [],
       purchased: [],
       additionalSkills: [],
       languages: [],
@@ -358,23 +368,53 @@ export function createEmptyCharacterDraft(): CharacterDraft {
   };
 }
 
+
+const PROFICIENCY_STEP_ID_MIGRATIONS: Record<string, string> = {
+  'proficiencies-skills-abilities-talents': 'proficiencies-granted-skills-traits-talents',
+  'proficiencies-additional-skills': 'proficiencies-additional-traits-skills',
+};
+
+function normalizeCompletedStepIds(steps: unknown): string[] {
+  if (!Array.isArray(steps)) return [];
+  return Array.from(new Set(steps.map((step) => PROFICIENCY_STEP_ID_MIGRATIONS[String(step)] ?? String(step))));
+}
+
+function normalizeWarningStepIds(
+  warnings: CharacterDraft['warnings'] | undefined,
+): CharacterDraft['warnings'] {
+  if (!Array.isArray(warnings)) return [];
+  return warnings.map((warning) => ({
+    ...warning,
+    step: PROFICIENCY_STEP_ID_MIGRATIONS[warning.step] ?? warning.step,
+  }));
+}
+
 export function migrateCharacterDraft(value: unknown): CharacterDraft {
   if (!value || typeof value !== 'object') return createEmptyCharacterDraft();
 
   const candidate = value as { schemaVersion?: number };
-  if (candidate.schemaVersion === 9) {
+  if (candidate.schemaVersion === 10) {
     const current = candidate as CharacterDraft;
     current.utilities.portraitDataUrl ??= '';
     current.utilities.portraitSourceDataUrl ??= '';
     const pending = Math.max(0, Number(current.finances?.pendingSpentGp) || 0);
+    const importedCapabilities = Array.isArray(current.proficiencies.importedCapabilities)
+      ? current.proficiencies.importedCapabilities
+      : Array.isArray(current.proficiencies.purchased) ? current.proficiencies.purchased : [];
     return {
       ...current,
+      schemaVersion: 10,
+      characterId: typeof current.characterId === 'string' && current.characterId.trim() ? current.characterId.trim() : null,
+      completedSteps: normalizeCompletedStepIds(current.completedSteps),
+      warnings: normalizeWarningStepIds(current.warnings),
+      background: { ...current.background, socialRankTitle: current.background.socialRankTitle ?? null },
       finances: {
         availableGp: Number.isFinite(current.finances?.availableGp) ? Number(current.finances.availableGp) : null,
         gpSpent: Math.max(0, Number(current.finances?.gpSpent) || 0) + pending,
         pendingSpentGp: 0,
       },
       intrinsics: { ...current.intrinsics, strifeMixedLineage: current.intrinsics.strifeMixedLineage ?? false, strifeBonusParent: current.intrinsics.strifeBonusParent ?? null },
+      proficiencies: { ...current.proficiencies, importedCapabilities, purchased: [] },
       properties: { ...current.properties, statureAdjustment: current.properties.statureAdjustment ?? 0, buildAdjustment: current.properties.buildAdjustment ?? 0 },
       utilities: {
         ...current.utilities,
@@ -382,6 +422,21 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
         libraryTags: Array.isArray(current.utilities.libraryTags) ? Array.from(new Set(current.utilities.libraryTags.map((tag) => String(tag).trim()).filter(Boolean))) : [],
       },
     };
+  }
+
+  if (candidate.schemaVersion === 9) {
+    const legacy = candidate as any;
+    return migrateCharacterDraft({
+      ...legacy,
+      schemaVersion: 10,
+      characterId: legacy.characterId ?? null,
+      background: { ...legacy.background, socialRankTitle: legacy.background?.socialRankTitle ?? null },
+      proficiencies: {
+        ...legacy.proficiencies,
+        importedCapabilities: Array.isArray(legacy.proficiencies?.importedCapabilities) ? legacy.proficiencies.importedCapabilities : (legacy.proficiencies?.purchased ?? []),
+        purchased: [],
+      },
+    });
   }
 
   if (candidate.schemaVersion === 8) {
@@ -420,7 +475,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
 
   if (candidate.schemaVersion === 6) {
     const legacy = candidate as any;
-    return {
+    return migrateCharacterDraft({
       ...legacy,
       schemaVersion: 7,
       background: {
@@ -445,7 +500,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
         ...legacy.utilities,
         magicItemForms: legacy.utilities.magicItemForms ?? {},
       },
-    } as CharacterDraft;
+    });
   }
 
   if (candidate.schemaVersion === 5) {
@@ -498,6 +553,8 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
     languages: SourcedSelection[];
   }): CharacterDraft['proficiencies'] => ({
     ...legacy,
+    importedCapabilities: legacy.purchased ?? [],
+    purchased: [],
     pmlVirtuosityChoices: [],
     grantSpecializations: {},
     grantSpecializationRanks: {},

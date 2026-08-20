@@ -73,6 +73,7 @@ import {
   assessProficiencyStep,
   isProficiencyStep,
   compressedCapabilities,
+  capabilityDispositionCounts,
   formatLanguageRecord,
   skillpointBudget,
 } from "@/lib/rules/proficiencies";
@@ -399,16 +400,22 @@ function keyDrivers(
       return [
         `Age Group: ${draft.background.ageGroup ?? "unassigned"} (sets minimum age)`,
       ];
-    case "proficiencies-skills-abilities-talents":
+    case "proficiencies-granted-skills-traits-talents":
       return [
         `Granted packages: ${[heritage && "Heritage", species && "Species", trade && "Trade"].filter(Boolean).join(", ") || "none"}`,
         `PML: ${draft.proficiencies.pml ?? "unassigned"}`,
       ];
-    case "proficiencies-additional-skills":
+    case "proficiencies-additional-traits-skills":
       return [
         `Skillpoints: ${budget.remaining ?? "unresolved"} remaining`,
         `Age: ${draft.background.ageYears ?? "unresolved"}`,
         `Trade: ${trade?.trade ?? "unassigned"}`,
+      ];
+    case "proficiencies-imported-traits-skills-talents":
+      return [
+        `Imported reference entries: ${draft.proficiencies.importedCapabilities.length}`,
+        `Authored capabilities: ${compressedCapabilities(draft, data).length}`,
+        "Imported entries are read-only and excluded from output",
       ];
     case "proficiencies-languages":
       return [
@@ -508,9 +515,13 @@ export default function Worksheet({
     const configuredStep = allSteps.find((step) => step.value === stepValue);
     if (configuredStep && 'optional' in configuredStep && configuredStep.optional)
       return { status: "complete" as const, messages: [] as string[] };
-    // Persisted completion approves reconstructed legacy values, but it must not
-    // hide a concrete Broad Skill/Trait specialization still requiring review.
-    if (stepValue === "proficiencies-skills-abilities-talents") {
+    // Persisted completion must not hide proficiency reconciliation or
+    // level-dependent specialization requirements that changed after a save.
+    if ([
+      "proficiencies-granted-skills-traits-talents",
+      "proficiencies-additional-traits-skills",
+      "proficiencies-imported-traits-skills-talents",
+    ].includes(stepValue)) {
       const assessment = assessProficiencyStep(stepValue, draft, data);
       if (assessment.status !== "complete") return assessment;
     }
@@ -595,6 +606,7 @@ export default function Worksheet({
     ({ assessment }) => assessment.status === "warning",
   ).length;
   const speciesChoice = getSpeciesChoice(panelDraft, data);
+  const dispositionCounts = capabilityDispositionCounts(panelDraft, data);
   const importedDetail = (detail: string) =>
     panelDraft.background.demographicSelections.find(
       (entry) => entry.sourceDetail === detail,
@@ -1161,6 +1173,8 @@ export default function Worksheet({
                     .filter(Boolean)
                     .join(" / ") || "—"}
                 </dd>
+                <dt className="text-muted-foreground">Social Rank Title</dt>
+                <dd>{panelDraft.background.socialRankTitle ?? "—"}</dd>
                 <dt className="text-muted-foreground">Species</dt>
                 <dd>
                   {speciesChoice?.family.displayName ??
@@ -1377,6 +1391,8 @@ export default function Worksheet({
                     "Social Rank",
                     panelDraft.background.socialRank ?? calc("socialRank"),
                   ],
+                  ["Distressing", dispositionCounts.distressing],
+                  ["Ameliorative", dispositionCounts.ameliorative],
                   ["Trade Rank", panelDraft.intrinsics.tradeRank],
                   ["Favor Dice", calc("FavorDice")],
                   ["Cellburn Limit", calc("Cellburn")],

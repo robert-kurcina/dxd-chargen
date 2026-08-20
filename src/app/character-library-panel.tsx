@@ -27,11 +27,15 @@ export type FileCharacter = {
   libraryTags?: string[];
   thumbnailUrl: string | null;
   updatedAt: string;
+  characterId?: string;
+  versionCount?: number;
   childOfStrife?: boolean;
   strifePairingId?: string | null;
   strifeFatherLineageId?: string | null;
   strifeMotherLineageId?: string | null;
 };
+
+type FileCharacterVersion = { versionId: string; updatedAt: string; name: string; properName: string; isCurrent: boolean };
 
 type SortColumn = 'filename' | 'name' | 'ancestry' | 'profession' | 'updated' | 'tags';
 type SortDirection = 'asc' | 'desc';
@@ -88,6 +92,8 @@ export default function CharacterLibraryPanel({
   const [saveTagsConfirmOpen, setSaveTagsConfirmOpen] = useState(false);
   const [exportConfirmOpen, setExportConfirmOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [expandedVersions, setExpandedVersions] = useState<Record<string, FileCharacterVersion[]>>({});
+  const [loadingVersions, setLoadingVersions] = useState<Set<string>>(new Set());
   const [savingTags, setSavingTags] = useState(false);
   const exportFrame = useRef<HTMLIFrameElement>(null);
   const exportFrameReady = useRef(false);
@@ -187,17 +193,35 @@ export default function CharacterLibraryPanel({
       });
   }, [filters, rows, sort, availableTags, adminMode]);
 
-  const open = async (idName: string) => {
+  const open = async (idName: string, versionId = 'current') => {
     if (!onOpen) return;
-    const response = await fetch(`/api/character-files/${encodeURIComponent(idName)}`, { cache: 'no-store' });
-    if (!response.ok) return setError('Unable to load that character.');
+    const query = versionId === 'current' ? '' : `?version=${encodeURIComponent(versionId)}`;
+    const response = await fetch(`/api/character-files/${encodeURIComponent(idName)}${query}`, { cache: 'no-store' });
+    if (!response.ok) return setError('Unable to load character version.');
     const value = await response.json();
     onOpen(idName, value.draft);
   };
-  const toggleSort = (column: SortColumn) => setSort((current) => current.column === column ? { column, direction: current.direction === 'asc' ? 'desc' : 'asc' } : { column, direction: column === 'updated' ? 'desc' : 'asc' });
+  const toggleVersions = async (idName: string) => {
+    if (expandedVersions[idName]) { setExpandedVersions((current) => { const next = { ...current }; delete next[idName]; return next; }); return; }
+    setLoadingVersions((current) => new Set(current).add(idName));
+    try {
+      const response = await fetch(`/api/character-files/${encodeURIComponent(idName)}/versions`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('versions');
+      const value = await response.json();
+      setExpandedVersions((current) => ({ ...current, [idName]: value.versions ?? [] }));
+    } catch { setError('Unable to read saved character versions.'); }
+    finally { setLoadingVersions((current) => { const next = new Set(current); next.delete(idName); return next; }); }
+  };
+  const versionControls = (entry: FileCharacter) => entry.versionCount && entry.versionCount > 1 ? <div className="mt-2 space-y-1 text-left"><Button type="button" size="sm" variant="outline" className="w-full" disabled={loadingVersions.has(entry.idName)} onClick={() => void toggleVersions(entry.idName)}>{entry.versionCount} versions</Button>{expandedVersions[entry.idName] && <div className="max-h-44 space-y-1 overflow-y-auto rounded border p-1">{expandedVersions[entry.idName].map((version) => <Button key={version.versionId} type="button" size="sm" variant={version.isCurrent ? 'secondary' : 'ghost'} className="h-auto w-full justify-start px-2 py-1 text-left text-[11px]" onClick={() => void open(entry.idName, version.versionId)}><span className="block"><span className="font-medium">{version.isCurrent ? 'Current' : 'Saved'}</span><br />{updatedTimestamp(version.updatedAt).date} {updatedTimestamp(version.updatedAt).time}</span></Button>)}</div>}</div> : null;
+
+  const toggleSort = (column: SortColumn) => setSort((current) => current.column === column
+    ? { column, direction: current.direction === 'asc' ? 'desc' : 'asc' }
+    : { column, direction: column === 'updated' ? 'desc' : 'asc' });
   const setFilter = (column: keyof Filters, value: string) => setFilters((current) => ({ ...current, [column]: value }));
   const isVisible = (column: ColumnId) => visibleColumns.includes(column);
-  const toggleColumn = (column: ColumnId) => setVisibleColumns((current) => current.includes(column) ? current.filter((item) => item !== column) : COLUMN_OPTIONS.map((option) => option.id).filter((item) => item === column || current.includes(item)));
+  const toggleColumn = (column: ColumnId) => setVisibleColumns((current) => current.includes(column)
+    ? current.filter((item) => item !== column)
+    : COLUMN_OPTIONS.map((option) => option.id).filter((item) => item === column || current.includes(item)));
   const SortHeader = ({ column, children }: { column: SortColumn; children: React.ReactNode }) => {
     const active = sort.column === column;
     return <button type="button" onClick={() => toggleSort(column)} className="inline-flex items-center gap-1 whitespace-nowrap font-semibold hover:underline" aria-label={`Sort by ${String(children)}`} aria-sort={active ? (sort.direction === 'asc' ? 'ascending' : 'descending') : 'none'}>{children}{!active ? <ChevronsUpDown className="h-3.5 w-3.5 opacity-50" /> : sort.direction === 'asc' ? <ArrowUp className="h-3.5 w-3.5" /> : <ArrowDown className="h-3.5 w-3.5" />}</button>;
@@ -367,7 +391,7 @@ export default function CharacterLibraryPanel({
       {mobileFiltersOpen && <div className="grid gap-2 rounded-lg border bg-card p-3">{isVisible('name') && mobileColumn !== 'name' && <Input value={filters.name} onChange={(event) => setFilter('name', event.target.value)} placeholder="Character Name" aria-label="Filter by character name" />}{isVisible('tags') && mobileColumn !== 'tags' && <Select value={filters.tags} onValueChange={(value) => setFilter('tags', value)}><SelectTrigger aria-label="Filter by tags"><SelectValue placeholder="All tags" /></SelectTrigger><SelectContent><SelectItem value="all">All tags</SelectItem>{availableTags.map((tag) => <SelectItem key={tag} value={tag}>{tag}</SelectItem>)}</SelectContent></Select>}{isVisible('ancestry') && mobileColumn !== 'ancestry' && <Input value={filters.ancestry} onChange={(event) => setFilter('ancestry', event.target.value)} placeholder="Ancestry" aria-label="Filter by ancestry" />}{isVisible('profession') && mobileColumn !== 'profession' && <Input value={filters.profession} onChange={(event) => setFilter('profession', event.target.value)} placeholder="Profession" aria-label="Filter by profession" />}{isVisible('filename') && mobileColumn !== 'filename' && <Input value={filters.filename} onChange={(event) => setFilter('filename', event.target.value)} placeholder="Filename" aria-label="Filter by filename" />}{anyFilters && <Button variant="ghost" size="sm" onClick={() => setFilters(EMPTY_FILTERS)}>Clear all filters</Button>}</div>}
     </div>
 
-    <div className="space-y-3 lg:hidden">{visibleRows.map(({ entry, ancestry: ancestryValue, profession: professionValue }) => <article key={entry.idName} className="rounded-lg border bg-card p-3 shadow-sm">{adminMode && <label className="mb-3 flex items-center gap-2 border-b pb-2 text-sm"><Checkbox checked={selectedIds.has(entry.idName)} onCheckedChange={(checked) => toggleSelected(entry.idName, checked === true)} /><span>Select character</span></label>}<div className="flex gap-3">{isVisible('portrait') && <img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-20 w-24 shrink-0 rounded border object-cover" />}<div className="min-w-0 flex-1">{isVisible('name') && <><h3 className="font-semibold">{entry.name || 'Unnamed character'}</h3>{entry.properName && entry.properName !== entry.name && <p className="text-xs text-muted-foreground">{entry.properName}</p>}</>}{isVisible('ancestry') && <p className="mt-2 text-sm">{ancestryValue}</p>}{isVisible('profession') && <p className="text-sm">{professionValue}</p>}{isVisible('tags') && <div className="mt-2">{adminMode && tagEditing ? <TokenField value={pendingTags[entry.idName] ?? sortedTags(entry)} onChange={(tags) => setPendingTags((current) => ({ ...current, [entry.idName]: tags }))} allowedTokens={availableTags} ariaLabel={`Tags for ${entry.name || entry.idName}`} /> : <div className="flex flex-wrap gap-1">{displayTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[11px]">{tag}</span>)}{!displayTags(entry).length && <span className="text-xs text-muted-foreground">No tags</span>}</div>}</div>}</div></div><dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-t pt-3 text-xs">{isVisible('updated') && <><dt className="text-muted-foreground">Timestamp</dt><dd><span>{updatedTimestamp(entry.updatedAt).date}</span> <span className="whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></dd></>}{isVisible('filename') && <><dt className="text-muted-foreground">Filename</dt><dd className="truncate font-mono" title={entry.idName}>{entry.idName}</dd></>}</dl>{onOpen && <Button className="mt-3 w-full" size="sm" onClick={() => void open(entry.idName)}>Load character</Button>}</article>)}{!visibleRows.length && <div className="rounded-lg border p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</div>}</div>
+    <div className="space-y-3 lg:hidden">{visibleRows.map(({ entry, ancestry: ancestryValue, profession: professionValue }) => <article key={entry.idName} className="rounded-lg border bg-card p-3 shadow-sm">{adminMode && <label className="mb-3 flex items-center gap-2 border-b pb-2 text-sm"><Checkbox checked={selectedIds.has(entry.idName)} onCheckedChange={(checked) => toggleSelected(entry.idName, checked === true)} /><span>Select character</span></label>}<div className="flex gap-3">{isVisible('portrait') && <img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-20 w-24 shrink-0 rounded border object-cover" />}<div className="min-w-0 flex-1">{isVisible('name') && <><h3 className="font-semibold">{entry.name || 'Unnamed character'}</h3>{entry.properName && entry.properName !== entry.name && <p className="text-xs text-muted-foreground">{entry.properName}</p>}</>}{isVisible('ancestry') && <p className="mt-2 text-sm">{ancestryValue}</p>}{isVisible('profession') && <p className="text-sm">{professionValue}</p>}{isVisible('tags') && <div className="mt-2">{adminMode && tagEditing ? <TokenField value={pendingTags[entry.idName] ?? sortedTags(entry)} onChange={(tags) => setPendingTags((current) => ({ ...current, [entry.idName]: tags }))} allowedTokens={availableTags} ariaLabel={`Tags for ${entry.name || entry.idName}`} /> : <div className="flex flex-wrap gap-1">{displayTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[11px]">{tag}</span>)}{!displayTags(entry).length && <span className="text-xs text-muted-foreground">No tags</span>}</div>}</div>}</div></div><dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-t pt-3 text-xs">{isVisible('updated') && <><dt className="text-muted-foreground">Timestamp</dt><dd><span>{updatedTimestamp(entry.updatedAt).date}</span> <span className="whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></dd></>}{isVisible('filename') && <><dt className="text-muted-foreground">Filename</dt><dd className="truncate font-mono" title={entry.idName}>{entry.idName}</dd></>}</dl>{onOpen && <><Button className="mt-3 w-full" size="sm" onClick={() => void open(entry.idName)}>Load character</Button>{versionControls(entry)}</>}</article>)}{!visibleRows.length && <div className="rounded-lg border p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</div>}</div>
 
     <div role="table" aria-label="Saved characters" className="hidden rounded-lg border lg:block">
       <div role="rowgroup" className={`sticky ${adminMode ? 'top-[44px]' : 'top-14'} z-40 bg-background/95 shadow-sm backdrop-blur`}>
@@ -404,7 +428,7 @@ export default function CharacterLibraryPanel({
           {isVisible('profession') && <div role="cell" className="min-w-0 p-3 text-sm">{professionValue}</div>}
           {isVisible('updated') && <div role="cell" className="p-3 text-xs text-muted-foreground"><span className="block">{updatedTimestamp(entry.updatedAt).date}</span><span className="block whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></div>}
           {isVisible('filename') && <div role="cell" className="min-w-0 break-all p-3 font-mono text-[11px]">{entry.idName}</div>}
-          {onOpen && <div role="cell" className="p-3 text-right"><Button size="sm" onClick={() => void open(entry.idName)}>Load</Button></div>}
+          {onOpen && <div role="cell" className="p-3 text-right"><Button size="sm" onClick={() => void open(entry.idName)}>Load</Button>{versionControls(entry)}</div>}
         </div>)}
         {!visibleRows.length && <div className="p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</div>}
       </div>

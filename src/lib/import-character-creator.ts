@@ -2,10 +2,11 @@ import { createHash } from 'node:crypto';
 import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sarnaLenData from '@/data';
-import { createEmptyCharacterDraft, type CharacterDraft, type InventorySelection, type LanguageModifier, type LanguageSelection, type SourcedSelection } from '@/lib/character-draft';
+import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft, type InventorySelection, type LanguageModifier, type LanguageSelection, type SourcedSelection } from '@/lib/character-draft';
 import { makeCatalogId } from '@/data/catalog-policy';
 import { physicalBreakdown } from '@/lib/rules/properties';
-import { unresolvedBroadGrants } from '@/lib/rules/proficiencies';
+import { syncSocialRankTitle } from '@/lib/rules/background';
+import { importedCapabilityReconciliation, unresolvedBroadGrants } from '@/lib/rules/proficiencies';
 import { ammunitionNote, inventoryAllowsCustomAppend, normalizeArmorWearState } from '@/lib/rules/utilities';
 
 type LegacyCharacter = Record<string, any>;
@@ -25,8 +26,9 @@ const COMPLETED_CREATOR_STEPS = [
   'intrinsics-zed',
   'intrinsics-wealth',
   'proficiencies-pml',
-  'proficiencies-skills-abilities-talents',
-  'proficiencies-additional-skills',
+  'proficiencies-granted-skills-traits-talents',
+  'proficiencies-additional-traits-skills',
+  'proficiencies-imported-traits-skills-talents',
   'proficiencies-languages',
   'properties-height-weight',
   'properties-calculations',
@@ -79,6 +81,50 @@ function importedProperty(name: string, lookup: Map<string, string>) {
   return entry?.[1];
 }
 const importedDisplay = (name: string, detail: string) => ({ ...selection(name), sourceDetail: detail });
+
+function importedCapabilitySelection(item: any): SourcedSelection {
+  const base = selection(item?.name ?? String(item ?? ''), 'player', item?.rank);
+  const specialization = typeof item?.specialization === 'string' && item.specialization.trim()
+    ? item.specialization.trim()
+    : undefined;
+  const specializationRanks = item?.specializationRanks && typeof item.specializationRanks === 'object'
+    ? Object.fromEntries(Object.entries(item.specializationRanks)
+      .map(([name, rank]) => [String(name).trim(), Math.max(1, Math.trunc(Number(rank) || 1))])
+      .filter(([name]) => Boolean(name)))
+    : undefined;
+  return {
+    ...base,
+    sourceDetail: 'Imported character reference',
+    ...(specialization ? { specialization } : {}),
+    ...(specializationRanks && Object.keys(specializationRanks).length ? { specializationRanks } : {}),
+  };
+}
+
+function defaultImportedSocialRankTitle(
+  rank: (typeof sarnaLenData.socialRanks)[number],
+  gender: CharacterDraft['background']['gender'],
+) {
+  const values = rank.titleOptions ?? rank.titles;
+  const genderPairs: Record<string, { male: string; female: string }> = {
+    Lord: { male: 'Lord', female: 'Lady' }, Lady: { male: 'Lord', female: 'Lady' },
+    Baron: { male: 'Baron', female: 'Baroness' }, Baroness: { male: 'Baron', female: 'Baroness' },
+  Earl: { male: 'Earl', female: 'Countess' }, Count: { male: 'Count', female: 'Countess' }, Countess: { male: 'Count', female: 'Countess' },
+    Prince: { male: 'Prince', female: 'Princess' }, Princess: { male: 'Prince', female: 'Princess' },
+    Duke: { male: 'Duke', female: 'Duchess' }, Duchess: { male: 'Duke', female: 'Duchess' },
+    King: { male: 'King', female: 'Queen' }, Queen: { male: 'King', female: 'Queen' },
+    Emperor: { male: 'Emperor', female: 'Empress' }, Empress: { male: 'Emperor', female: 'Empress' },
+    Sir: { male: 'Sir', female: 'Madam' }, Madam: { male: 'Sir', female: 'Madam' },
+    Master: { male: 'Master', female: 'Mistress' }, Mistress: { male: 'Master', female: 'Mistress' },
+    Mark: { male: 'Mark', female: 'Marquess' }, Marquess: { male: 'Mark', female: 'Marquess' },
+    Chieftain: { male: 'Chieftain', female: 'Chieftainess' }, Chieftainess: { male: 'Chieftain', female: 'Chieftainess' },
+  };
+  if (gender !== 'Male' && gender !== 'Female') return values[0] ?? null;
+  const filtered = values.filter((value) => {
+    const pair = genderPairs[value];
+    return !pair || value === (gender === 'Female' ? pair.female : pair.male);
+  });
+  return filtered[0] ?? values[0] ?? null;
+}
 function curatedSheetInventory(sheet: LegacyCharacter) {
   return [...itemPropertyLookup(sheet).entries()].map(([name, properties]) => ({ ...inventory(name, properties), sourceDetail: 'Legacy Sheet Equipment' }));
 }
@@ -213,13 +259,13 @@ function disabilityKey(selection: SourcedSelection) {
 
 function normalizeCapabilityStorage(draft: CharacterDraft): CharacterDraft {
   const granted = draft.proficiencies.granted.map(normalizeCapabilitySelection);
-  const purchased = draft.proficiencies.purchased.map(normalizeCapabilitySelection);
+  const imported = (draft.proficiencies.importedCapabilities ?? []).map(normalizeCapabilitySelection);
   const additionalSkills = draft.proficiencies.additionalSkills.map(normalizeCapabilitySelection);
   const existingDisabilities = draft.background.disabilities.map(normalizeCapabilitySelection);
   const movedDisabilities = [
     ...granted.filter(disabilitySelection),
-    ...purchased.filter(disabilitySelection),
     ...additionalSkills.filter(disabilitySelection),
+    ...imported.filter(disabilitySelection),
   ];
   const disabilities = new Map<string, SourcedSelection>();
   for (const selection of [...existingDisabilities, ...movedDisabilities]) {
@@ -245,27 +291,38 @@ function normalizeCapabilityStorage(draft: CharacterDraft): CharacterDraft {
     proficiencies: {
       ...draft.proficiencies,
       granted: granted.filter((selection) => !disabilitySelection(selection)),
-      purchased: purchased.filter((selection) => !disabilitySelection(selection)),
+      importedCapabilities: imported.filter((selection) => !disabilitySelection(selection)),
+      purchased: [],
       additionalSkills: additionalSkills.filter((selection) => !disabilitySelection(selection)),
     },
   };
   const unresolved = unresolvedBroadGrants(normalizedDraft, sarnaLenData);
   const warningCode = 'unresolved-broad-specializations';
-  const warnings = normalizedDraft.warnings.filter((warning) => warning.code !== warningCode);
+  const importWarningCode = 'imported-capability-exceptions';
+  const warnings = normalizedDraft.warnings.filter((warning) => ![warningCode, importWarningCode].includes(warning.code));
   if (unresolved.length) {
     const names = Array.from(new Set(unresolved.map((selection) => selection.name.split(' > ')[0].replace(/^[§$\[]\s*/, '').replace(/\s+X\]?$/, '')))).sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base', numeric: true }));
     warnings.push({
-      step: 'proficiencies-skills-abilities-talents',
+      step: 'proficiencies-granted-skills-traits-talents',
       code: warningCode,
-      message: `Broad Skill/Trait specializations still require review: ${names.join(', ')}.`,
+      message: `Granted Skill/Trait specializations still require review: ${names.join(', ')}.`,
+    });
+  }
+  const importedExceptions = importedCapabilityReconciliation(normalizedDraft, sarnaLenData).filter((entry) => entry.status !== 'match');
+  if (importedExceptions.length) {
+    warnings.push({
+      step: 'proficiencies-imported-traits-skills-talents',
+      code: importWarningCode,
+      message: `${importedExceptions.length} imported capability exception${importedExceptions.length === 1 ? '' : 's'} require reconciliation in Additional Traits and Skills.`,
     });
   }
   normalizedDraft = {
     ...normalizedDraft,
     warnings,
-    completedSteps: unresolved.length
-      ? normalizedDraft.completedSteps.filter((step) => step !== 'proficiencies-skills-abilities-talents')
-      : normalizedDraft.completedSteps,
+    completedSteps: normalizedDraft.completedSteps.filter((step) => (
+      !(unresolved.length && step === 'proficiencies-granted-skills-traits-talents')
+      && !(importedExceptions.length && step === 'proficiencies-imported-traits-skills-talents')
+    )),
   };
   return normalizedDraft;
 }
@@ -780,6 +837,7 @@ function applyLegacyPossessionDecisions(draft: CharacterDraft): CharacterDraft {
 }
 
 function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
+  draft = migrateCharacterDraft(draft);
   const heritageIds: Record<string, string> = {
     'heritage-culture-herder': 'heritage-culture-herding',
     'heritage-environs-desert': 'heritage-environs-deserts',
@@ -836,7 +894,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
         ...(customSettlementName ? [{ id: makeCatalogId('custom', `settlement-${customSettlementName}`), name: customSettlementName, source: 'player' as const, sourceDetail: 'Custom settlement' }] : []),
       ]
     : draft.background.demographicSelections;
-  const normalizedPurchased = draft.proficiencies.purchased.map((item) => {
+  const normalizedImported = (draft.proficiencies.importedCapabilities ?? []).map((item) => {
     if (/^(?:v-)?zedsurge$/i.test(item.name)) return { ...item, id: 'import-v-zedsurge', catalogId: makeCatalogId('trait', 'v-Zedsurge X'), name: 'v-Zedsurge', ...(sirMandalore ? { level: 2 } : {}) };
     if (/^magic$/i.test(item.name)) return { ...item, id: 'import-v-magic', catalogId: makeCatalogId('trait', 'v-Magic X'), name: 'v-Magic' };
     if (normalizedName === 'giovanna manroad' && /^crafting$/i.test(item.name)) return { ...item, id: 'import-craft', catalogId: makeCatalogId('trait', 'Craft X > Tradecraft'), name: 'Craft X > Tradecraft' };
@@ -869,7 +927,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
   };
   const frameCandidate: CharacterDraft = {
     ...draft,
-    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased },
+    proficiencies: { ...draft.proficiencies, importedCapabilities: normalizedImported, purchased: [] },
     properties: { ...draft.properties, statureAdjustment: 0, buildAdjustment: 0, weightAdjustment: 0 },
   };
   const unframed = physicalBreakdown(frameCandidate, sarnaLenData);
@@ -896,7 +954,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
       environHeritageId,
       societalHeritageId,
     },
-    proficiencies: { ...draft.proficiencies, purchased: normalizedPurchased, languages: normalizeLanguages(draft.proficiencies.languages) },
+    proficiencies: { ...draft.proficiencies, importedCapabilities: normalizedImported, purchased: [], languages: normalizeLanguages(draft.proficiencies.languages) },
     intrinsics: {
       ...draft.intrinsics,
       speciesFamilyId: identity ? 'species-family-humaniki' : draft.intrinsics.speciesFamilyId,
@@ -929,7 +987,7 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
     },
   };
   const possessions = moveUnmappedPossessionsToNotes(applyLegacyPossessionDecisions(normalized));
-  return normalizeCapabilityStorage(normalizeArmorWearState(possessions, sarnaLenData));
+  return normalizeCapabilityStorage(syncSocialRankTitle(normalizeArmorWearState(possessions, sarnaLenData), sarnaLenData));
 }
 
 export function normalizeCharacterDraftForStorage(draft: CharacterDraft) {
@@ -1041,7 +1099,12 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
   draft.intrinsics.tradeRank = typeof profession.rank === 'number' ? profession.rank : null;
   draft.intrinsics.wealthRank = calculated.misc?.wealthRank ?? null;
   draft.background.socialRank = calculated.misc?.socialRank ?? null;
-  if (formative.society) draft.background.socialRankId = makeCatalogId('social-rank', formative.society);
+  if (formative.society) {
+    draft.background.socialRankId = makeCatalogId('social-rank', formative.society);
+    const importedRank = sarnaLenData.socialRanks.find((rank) => rank.catalogId === draft.background.socialRankId)
+      ?? sarnaLenData.socialRanks.find((rank) => rank.society === formative.society);
+    if (importedRank) draft.background.socialRankTitle = defaultImportedSocialRankTitle(importedRank, draft.background.gender);
+  }
   const critical = TRADE_CRITICAL_ATTRIBUTES[profession.trade] ?? [];
   draft.intrinsics.affinityAttribute = critical.length
     ? critical.reduce((best, candidate) => Number(attributes[candidate.toLowerCase()] ?? -Infinity) > Number(attributes[best.toLowerCase()] ?? -Infinity) ? candidate : best, critical[0])
@@ -1049,7 +1112,11 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
   draft.intrinsics.zed = typeof attributes.zed === 'number' ? attributes.zed : null;
   draft.intrinsics.attributes = ['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV'].flatMap((name) => typeof attributes[name.toLowerCase()] === 'number' ? [{ name, base: attributes[name.toLowerCase()], adjustments: [] }] : []);
   draft.proficiencies.pml = typeof biology.pml === 'number' ? biology.pml : null;
-  draft.proficiencies.purchased = [...(history.skills ?? []), ...(history.traits ?? [])].map((item: any) => selection(item.name ?? String(item), 'player', item.rank));
+  draft.proficiencies.importedCapabilities = [
+    ...(history.skills ?? []).filter((item: any) => !item.disability).map((item: any) => importedCapabilitySelection(item)),
+    ...(history.traits ?? []).map((item: any) => importedCapabilitySelection(item)),
+  ];
+  draft.proficiencies.purchased = [];
   draft.proficiencies.languages = (history.languages ?? []).map((item: any) => ({ ...selection(item.name, 'player'), kind: item.isDefault ? 'default' : 'proficiency', primary: Boolean(item.isDefault), baseLevel: item.rank ?? 0, improvements: 0, accentRemoved: item.accented === false }));
   draft.properties.stature = biology.stature ?? null;
   draft.properties.build = biology.build ?? null;

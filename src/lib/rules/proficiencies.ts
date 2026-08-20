@@ -19,8 +19,9 @@ import { geographicRegionName, selectedSettlementOption } from '@/lib/settlement
 
 const PROFICIENCY_STEPS = new Set([
   'proficiencies-pml',
-  'proficiencies-skills-abilities-talents',
-  'proficiencies-additional-skills',
+  'proficiencies-granted-skills-traits-talents',
+  'proficiencies-additional-traits-skills',
+  'proficiencies-imported-traits-skills-talents',
   'proficiencies-languages',
 ]);
 
@@ -103,6 +104,12 @@ export function traitDefinitionForSelection(selection: SourcedSelection, data: S
   if (byId) return byId;
   const base = canonicalTraitBase(selection.name);
   return data.traits.find((trait) => canonicalTraitBase(trait.trait) === base) ?? null;
+}
+
+export function capabilityAllowsLevels(selection: SourcedSelection, data: StaticData) {
+  const definition = traitDefinitionForSelection(selection, data);
+  const notation = definition?.trait ?? selection.name;
+  return /(?:^|\s|\[)X(?:\s|\]|$|\s*>)/.test(notation);
 }
 
 function pmlGrant(choice: PmlVirtuosityChoice, data: StaticData): SourcedSelection | null {
@@ -209,6 +216,7 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
   gambling: ['Cards', 'Dice', 'Animal Racing', 'Pit-fighting'],
   expert: ['Axes', 'Bashing', 'Bludgeons', 'Bolas', 'Bows', 'Chains & Whips', 'Crossbows', 'Daggers & Knives', 'Firearms', 'Polearms', 'Reaping', 'Slings', 'Slingshots & Rocks', 'Spears', 'Staffs', 'Swords', 'Threshing', 'Thrown Weapons', 'Unusual Weapons'],
   imbue: ['Items', 'Originator', 'Artifice', 'Scrolls', 'Skills'],
+  'v-imbue': ['Items', 'Weapons', 'Armor', 'Originator', 'Alchemy', 'Artifice', 'Scrolls', 'Witch', 'Skills'],
   labor: ['Baker', 'Beautician', 'Bouncer', 'Brewer', 'Butcher', 'Concierge', 'Cook', 'Groundskeeper', 'Miller', 'Wait Staff'],
   medic: ['Battlefield', 'Dentist', 'Generalist', 'Reproductive', 'Surgeon'],
   mercantile: ['Overland-trade', 'Sea-trade'],
@@ -225,6 +233,99 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
   warfare: ['Siege', 'Tactics', 'Engineering', 'Strategy', 'Logistics', 'Spycraft', 'Torture'],
   wares: ['Animals', 'Stone', 'Wood', 'Weapons & Armor', 'Jewelry', 'Magic'],
 };
+
+export type SpecializationRequirement = {
+  qualifierRequired: boolean;
+  qualifierLabel: string | null;
+  qualifierOptions: string[];
+  specializationMinimum: number;
+  specializationMaximum: number;
+  specializationOptions: string[];
+  specializationLabel: string;
+};
+
+const LOCAL_SPECIALIZATION_RULES: Record<string, {
+  cadence?: number;
+  maximum?: number;
+  required?: boolean;
+  qualifierRequired?: boolean;
+  qualifierLabel?: string;
+  specializationLabel?: string;
+  options?: string[];
+}> = {
+  // These schedules are local to the individual capability definitions. Do not
+  // infer a universal specialization cadence from the chevron notation.
+  academics: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Elective', options: ['Alchemy', 'Design', 'Engineer', 'Medic', 'Science'] },
+  artist: { cadence: 3, required: false, qualifierRequired: true, qualifierLabel: 'Form', specializationLabel: 'Region' },
+  craft: { cadence: 3, required: false, qualifierRequired: true, qualifierLabel: 'Tradecraft', specializationLabel: 'Goods' },
+  herbalism: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Environ' },
+  history: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Region' },
+  husbandry: { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Species Type' },
+  manners: { cadence: 3, required: false, qualifierRequired: false, specializationLabel: 'Type' },
+  military: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Elective', options: ['Infiltrate', 'Lockpicking', 'Navigation', 'Poisons', 'Siege', 'Tactics', 'Warfare'] },
+  office: { cadence: 1, required: false, qualifierRequired: true, qualifierLabel: 'Office', specializationLabel: 'Region' },
+  peerage: { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Region' },
+  perform: { cadence: 3, required: true, qualifierRequired: true, qualifierLabel: 'Form', specializationLabel: 'Performance Specialization', options: ['Assess', 'Sway', 'Target', 'Conclude'] },
+  'v-psionics': { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Agrav', 'Augment', 'Deter', 'Displace', 'Drain', 'Dreambridge', 'Empathy', 'Enhance', 'Embed', 'Façade', 'Godlink', 'Link', 'Manipulate', 'Maze', 'Mindblast', 'Nullify', 'Physics', 'Psiblast', 'Sense', 'Shield', 'Suggest', 'Telepathy', 'Trade', 'Undercode', 'Vim', 'Zero State'] },
+  'v-spellshaper': { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Recipe' },
+  sprint: { maximum: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Bipedal', 'Quadrupedal'] },
+  steer: { maximum: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Aeronef', 'Boat', 'Ship', 'Yoked'] },
+  strike: { maximum: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Melee', 'Thrown', 'Range'] },
+  studies: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Elective', options: ['Artist', 'Deity', 'History', 'Investigator', 'Language', 'Lore', 'Maths', 'Peerage', 'Politics', 'Read'] },
+  survival: { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Environ' },
+  tactics: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Type / sub-type' },
+  teachings: { cadence: 1, required: true, qualifierRequired: true, qualifierLabel: 'Deity', specializationLabel: 'Elective', options: ['Deity', 'Teach', 'Discipline', 'Reason', 'Leadership', 'Persuade'] },
+};
+
+function placeholderForSelection(selection: SourcedSelection) {
+  return selection.name.includes(' > ')
+    ? selection.name.split(' > ').slice(1).join(' > ').replace(/\s+X$/, '').trim()
+    : '';
+}
+
+function dynamicOptionsForLabel(label: string, selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const key = label.trim().toLowerCase();
+  if (key === 'region') return Array.from(new Set([...data.empires.map((entry) => entry.region), geographicRegionName(draft, data)].filter((value): value is string => Boolean(value)))).sort();
+  if (key === 'settlement') return Array.from(new Set([...Object.values(data.settlements).flat(), ...data.settlementProfiles.map((entry) => entry.name)])).sort();
+  if (key === 'deity') return data.deities.map((entry) => entry.deity).sort();
+  if (key === 'language') return data.languages.map((entry) => entry.name).sort();
+  if (key === 'environ') return data.heritagePackages.filter((entry) => entry.kind === 'environs').map((entry) => entry.name).sort();
+  if (key === 'trade') return data.tradePackages.map((entry) => entry.trade).sort();
+  if (key === 'species' || key === 'species type') return data.species.flatMap((family) => family.groups.map((group) => group.name)).sort();
+  if (key === 'form') return BROAD_SPECIALIZATIONS[canonicalTraitBase(selection.name)] ?? BROAD_SPECIALIZATIONS.perform;
+  if (key === 'office') return BROAD_SPECIALIZATIONS.office;
+  if (key === 'tradecraft') return BROAD_SPECIALIZATIONS.craft;
+  if (key === 'type' && canonicalTraitBase(selection.name) === 'medic') return BROAD_SPECIALIZATIONS.medic;
+  return [];
+}
+
+export function specializationRequirement(selection: SourcedSelection, draft: CharacterDraft, data: StaticData): SpecializationRequirement {
+  const base = canonicalTraitBase(selection.name);
+  const local = LOCAL_SPECIALIZATION_RULES[base];
+  const placeholder = placeholderForSelection(selection);
+  const level = Math.max(1, selection.level ?? 1);
+  const qualifierRequired = local?.qualifierRequired ?? Boolean(placeholder);
+  const qualifierLabel = qualifierRequired ? (local?.qualifierLabel ?? (placeholder || 'Specialization')) : null;
+  const qualifierOptions = qualifierLabel ? (dynamicOptionsForLabel(qualifierLabel, selection, draft, data).length ? dynamicOptionsForLabel(qualifierLabel, selection, draft, data) : (BROAD_SPECIALIZATIONS[base] ?? [])) : [];
+  if (local?.cadence || local?.maximum != null) {
+    const maximum = local.maximum ?? Math.floor(level / Math.max(1, local.cadence ?? 1));
+    const label = local.specializationLabel ?? placeholder ?? 'Specialization';
+    const options = local.options ?? dynamicOptionsForLabel(label, selection, draft, data);
+    return { qualifierRequired, qualifierLabel, qualifierOptions, specializationMinimum: local.required ? maximum : 0, specializationMaximum: maximum, specializationOptions: options, specializationLabel: label };
+  }
+  const generic = BROAD_SPECIALIZATIONS[base] ?? [];
+  return { qualifierRequired, qualifierLabel, qualifierOptions, specializationMinimum: 0, specializationMaximum: generic.length ? 1 : 0, specializationOptions: generic, specializationLabel: 'Specialization' };
+}
+
+export function specializationIssue(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const requirement = specializationRequirement(selection, draft, data);
+  const qualifier = explicitSpecialization(selection, draft);
+  const used = Object.values(levelSpecializationRanksForSelection(selection, draft)).reduce((sum, rank) => sum + Math.max(0, rank), 0);
+  if (requirement.qualifierRequired && !qualifier) return `Choose ${requirement.qualifierLabel ?? 'a qualifier'}.`;
+  if (used < requirement.specializationMinimum) return `Choose ${requirement.specializationMinimum - used} more ${requirement.specializationLabel} specialization${requirement.specializationMinimum - used === 1 ? '' : 's'}.`;
+  if (used > requirement.specializationMaximum) return `Remove ${used - requirement.specializationMaximum} excess specialization${used - requirement.specializationMaximum === 1 ? '' : 's'} for the current level.`;
+  return null;
+}
 
 export function specializationOptionsForTrait(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
   const base = canonicalTraitBase(selection.name);
@@ -254,12 +355,16 @@ function genericSpecialization(value: string | undefined) {
   return !value || ['any','region','settlement','deity','belief','environ','language','trade','species','weapon','technical weapon','type','field'].includes(value.trim().toLowerCase());
 }
 
+export function levelSpecializationRanksForSelection(selection: SourcedSelection, draft: CharacterDraft) {
+  return selection.specializationRanks ?? draft.proficiencies.grantSpecializationRanks[selection.id] ?? {};
+}
+
 export function specializationRanksForSelection(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
-  const stored = selection.specializationRanks ?? draft.proficiencies.grantSpecializationRanks[selection.id];
-  if (stored && Object.keys(stored).length) return stored;
-  const legacy = draft.proficiencies.grantSpecializations[selection.id];
-  if (legacy?.trim()) return { [legacy.trim()]: 1 };
-  if (!genericSpecialization(selection.specialization)) return { [selection.specialization!.trim()]: 1 };
+  const stored = selection.specializationRanks ?? draft.proficiencies.grantSpecializationRanks[selection.id] ?? {};
+  const ranks: Record<string, number> = { ...stored };
+  const explicit = selection.specialization?.trim() || draft.proficiencies.grantSpecializations[selection.id]?.trim();
+  if (explicit && !genericSpecialization(explicit)) ranks[explicit] = Math.max(1, ranks[explicit] ?? 0);
+  if (Object.keys(ranks).length) return ranks;
   const contextual = contextualGrantSpecialization({ ...selection, specialization: undefined }, draft, data);
   if (contextual && !genericSpecialization(contextual)) return { [contextual]: 1 };
   return {};
@@ -279,17 +384,11 @@ export function updateAdditionalSkillSpecializations(draft: CharacterDraft, sele
 
 export type CompressedCapability = { name: string; level: number; isSkill: boolean; specializations: Record<string, number>; sources: SourcedSelection[]; display: string };
 export function compressedCapabilities(draft: CharacterDraft, data: StaticData): CompressedCapability[] {
-  let all = [
+  const all = [
     ...draft.proficiencies.granted,
-    ...draft.proficiencies.purchased,
     ...draft.proficiencies.additionalSkills,
     ...draft.background.disabilities,
   ];
-  if (draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')) {
-    const authoritative = new Set(draft.proficiencies.purchased.map((selection) => canonicalTraitBase(selection.name)));
-    all = all.filter((selection) => selection.source !== 'rule' && selection.source !== 'trade' && selection.source !== 'heritage'
-      || !authoritative.has(canonicalTraitBase(selection.name)));
-  }
   const groups = new Map<string, CompressedCapability>();
   for (const selection of all) {
     const selectedName = selection.name.split(' > ')[0].replace(/\s+X$/, '').trim();
@@ -322,16 +421,47 @@ export function setGrantSpecialization(draft: CharacterDraft, grantId: string, s
 }
 
 export function unresolvedBroadGrants(draft: CharacterDraft, data: StaticData) {
-  return [
-    ...draft.proficiencies.granted,
-    ...draft.proficiencies.purchased,
-    ...draft.proficiencies.additionalSkills,
-    ...draft.background.disabilities,
-  ].filter((selection) =>
-    (selection.name.includes(' > ')
-      || (canonicalTraitBase(selection.name) !== 'detect' && specializationOptionsForTrait(selection, draft, data).length > 0))
-      && Object.keys(specializationRanksForSelection(selection, draft, data)).length === 0,
-  );
+  return draft.proficiencies.granted.filter((selection) => Boolean(specializationIssue(selection, draft, data)));
+}
+
+export function unresolvedAdditionalCapabilities(draft: CharacterDraft, data: StaticData) {
+  return draft.proficiencies.additionalSkills.filter((selection) => Boolean(specializationIssue(selection, draft, data)));
+}
+
+export type ImportedCapabilityStatus = 'match' | 'new' | 'exceeds' | 'below' | 'specialization-mismatch';
+export type ImportedCapabilityComparison = { imported: SourcedSelection; status: ImportedCapabilityStatus; authored: CompressedCapability | null; message: string };
+
+function normalizedImportedSpecializationEntries(selection: SourcedSelection) {
+  const ranks: Record<string, number> = { ...(selection.specializationRanks ?? {}) };
+  const explicit = selection.specialization?.trim();
+  if (explicit && !genericSpecialization(explicit)) ranks[explicit] = Math.max(1, ranks[explicit] ?? 0);
+  return Object.entries(ranks).map(([name, rank]) => `${name.toLowerCase()}::${rank}`).sort();
+}
+
+export function importedCapabilityReconciliation(draft: CharacterDraft, data: StaticData): ImportedCapabilityComparison[] {
+  const authored = new Map(compressedCapabilities(draft, data).map((entry) => [canonicalTraitBase(entry.name), entry]));
+  return (draft.proficiencies.importedCapabilities ?? []).map((imported) => {
+    const match = authored.get(canonicalTraitBase(imported.name)) ?? null;
+    const importedLevel = Math.max(1, imported.level ?? 1);
+    if (!match) return { imported, status: 'new', authored: null, message: 'New in imported data; add it under Additional Traits and Skills.' };
+    if (importedLevel > match.level) return { imported, status: 'exceeds', authored: match, message: `Imported level ${importedLevel} exceeds authored level ${match.level}.` };
+    if (importedLevel < match.level) return { imported, status: 'below', authored: match, message: `Imported level ${importedLevel} is below authored level ${match.level}.` };
+    const importedSpecs = normalizedImportedSpecializationEntries(imported);
+    const authoredSpecs = Object.entries(match.specializations).map(([name, rank]) => `${name.toLowerCase()}::${rank}`).sort();
+    if (JSON.stringify(importedSpecs) !== JSON.stringify(authoredSpecs)) return { imported, status: 'specialization-mismatch', authored: match, message: 'Level matches, but qualifier or specializations differ.' };
+    return { imported, status: 'match', authored: match, message: 'Matches Granted + Additional.' };
+  });
+}
+
+export function capabilityDispositionCounts(draft: CharacterDraft, data: StaticData) {
+  const capabilities = compressedCapabilities(draft, data);
+  let distressing = 0; let ameliorative = 0;
+  for (const capability of capabilities) {
+    const definitions = capability.sources.map((source) => traitDefinitionForSelection(source, data)).filter(Boolean);
+    if (definitions.some((definition) => Boolean(definition?.isDistressing))) distressing += 1;
+    if (definitions.some((definition) => Boolean(definition?.isAmeliorative))) ameliorative += 1;
+  }
+  return { distressing, ameliorative };
 }
 
 export type CombinedTrait = {
@@ -480,7 +610,7 @@ export function addAdditionalSkill(draft: CharacterDraft, traitId: string, data:
     catalogId: traitId,
     name: trait.trait,
     source: 'player',
-    sourceDetail: 'Assign Additional Skills',
+    sourceDetail: 'Assign Additional Traits and Skills',
     level: 1,
   };
   return {
@@ -499,7 +629,7 @@ export function updateAdditionalSkill(
 ) {
   const additionalSkills = draft.proficiencies.additionalSkills.map((selection) => {
     if (selection.id !== selectionId) return selection;
-    const level = changes.level == null ? selection.level : Math.max(1, Math.min(5, Math.trunc(changes.level)));
+    const level = changes.level == null ? selection.level : Math.max(1, Math.min(10, Math.trunc(changes.level)));
     return { ...selection, ...changes, level };
   });
   return { ...draft, proficiencies: { ...draft.proficiencies, additionalSkills } };
@@ -705,31 +835,42 @@ export function assessProficiencyStep(stepValue: string, draft: CharacterDraft, 
     return { status: 'complete', messages: [] };
   }
 
-  if (stepValue === 'proficiencies-skills-abilities-talents') {
+  if (stepValue === 'proficiencies-granted-skills-traits-talents') {
     const required = pmlVirtuosityMilestones(draft.proficiencies.pml).length;
     const activeMilestones = new Set(pmlVirtuosityMilestones(draft.proficiencies.pml));
     const chosen = draft.proficiencies.pmlVirtuosityChoices.filter((choice) => activeMilestones.has(choice.milestone)).length;
     if (chosen < required) {
       return { status: 'incomplete', messages: [`Choose ${required - chosen} remaining PML Virtuosity trait${required - chosen === 1 ? '' : 's'}.`] };
     }
-    const unresolved = unresolvedBroadGrants(draft, data).length;
-    if (unresolved > 0) {
-      const names = unresolvedBroadGrants(draft, data).map((selection) => `${selection.name.split(' > ')[0].replace(/\s+X$/, '')} (${selection.sourceDetail ?? selection.source})`);
-      return { status: 'warning', messages: [`${unresolved} Broad Skill/Trait specialization${unresolved === 1 ? '' : 's'} still need a concrete specialization: ${names.join('; ')}.`] };
+    const unresolvedSelections = unresolvedBroadGrants(draft, data);
+    if (unresolvedSelections.length > 0) {
+      const messages = unresolvedSelections.map((selection) => `${selection.name.split(' > ')[0].replace(/\s+X$/, '')}: ${specializationIssue(selection, draft, data)}`);
+      return { status: 'warning', messages };
     }
     return { status: 'complete', messages: [] };
   }
 
-  if (stepValue === 'proficiencies-additional-skills') {
+  if (stepValue === 'proficiencies-additional-traits-skills') {
     const budget = skillpointBudget(draft, data);
     if (budget.available == null) return { status: 'incomplete', messages: ['Resolve exact Age before the Age Skillpoint pool can be calculated.'] };
     if (budget.remaining != null && budget.remaining < 0) {
       return { status: 'warning', messages: [`Skillpoint spending exceeds the available creation pool by ${Math.abs(budget.remaining)}.`] };
     }
+    const messages: string[] = [];
     const tooHigh = draft.proficiencies.additionalSkills.filter((selection) => (selection.level ?? 1) > startingSkillLimit(selection.name, draft).limit);
-    if (tooHigh.length) {
-      return { status: 'warning', messages: [`${tooHigh.length} purchased Skill${tooHigh.length === 1 ? '' : 's'} exceed their current source-based starting limit.`] };
+    if (tooHigh.length) messages.push(`${tooHigh.length} purchased Skill${tooHigh.length === 1 ? '' : 's'} exceed their current source-based starting limit.`);
+    for (const selection of unresolvedAdditionalCapabilities(draft, data)) {
+      const issue = specializationIssue(selection, draft, data);
+      if (issue) messages.push(`${selection.name.split(' > ')[0].replace(/\s+X$/, '')}: ${issue}`);
     }
+    if (messages.length) return { status: 'warning', messages };
+    return { status: 'complete', messages: [] };
+  }
+
+  if (stepValue === 'proficiencies-imported-traits-skills-talents') {
+    const comparisons = importedCapabilityReconciliation(draft, data);
+    const exceptions = comparisons.filter((entry) => entry.status !== 'match');
+    if (exceptions.length) return { status: 'warning', messages: [`${exceptions.length} imported capability exception${exceptions.length === 1 ? '' : 's'} remain. Edit Additional Traits and Skills until the authored character matches the imported reference.`] };
     return { status: 'complete', messages: [] };
   }
 

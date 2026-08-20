@@ -21,6 +21,42 @@ const BACKGROUND_STEPS = new Set([
   'background-belief-worship',
 ]);
 
+
+const SOCIAL_TITLE_PAIRS: Record<string, { male: string; female: string }> = {
+  Lord: { male: 'Lord', female: 'Lady' }, Lady: { male: 'Lord', female: 'Lady' },
+  Baron: { male: 'Baron', female: 'Baroness' }, Baroness: { male: 'Baron', female: 'Baroness' },
+  Earl: { male: 'Earl', female: 'Countess' }, Count: { male: 'Count', female: 'Countess' }, Countess: { male: 'Count', female: 'Countess' },
+  Prince: { male: 'Prince', female: 'Princess' }, Princess: { male: 'Prince', female: 'Princess' },
+  Duke: { male: 'Duke', female: 'Duchess' }, Duchess: { male: 'Duke', female: 'Duchess' },
+  King: { male: 'King', female: 'Queen' }, Queen: { male: 'King', female: 'Queen' },
+  Emperor: { male: 'Emperor', female: 'Empress' }, Empress: { male: 'Emperor', female: 'Empress' },
+  Sir: { male: 'Sir', female: 'Madam' }, Madam: { male: 'Sir', female: 'Madam' },
+  Master: { male: 'Master', female: 'Mistress' }, Mistress: { male: 'Master', female: 'Mistress' },
+  Mark: { male: 'Mark', female: 'Marquess' }, Marquess: { male: 'Mark', female: 'Marquess' },
+  Chieftain: { male: 'Chieftain', female: 'Chieftainess' }, Chieftainess: { male: 'Chieftain', female: 'Chieftainess' },
+};
+
+export function socialRankTitleOptions(rank: StaticData['socialRanks'][number], gender: CharacterDraft['background']['gender']) {
+  const values = rank.titleOptions ?? rank.titles;
+  if (gender === 'Non-binary' || !gender) return values;
+  const desired = gender === 'Female' ? 'female' : 'male';
+  const excluded = new Set<string>();
+  Object.values(SOCIAL_TITLE_PAIRS).forEach((pair) => excluded.add(desired === 'male' ? pair.female : pair.male));
+  return values.filter((value) => !excluded.has(value));
+}
+
+export function defaultSocialRankTitle(rank: StaticData['socialRanks'][number], gender: CharacterDraft['background']['gender']) {
+  return socialRankTitleOptions(rank, gender)[0] ?? rank.titles[0] ?? null;
+}
+
+export function syncSocialRankTitle(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  const rank = data.socialRanks.find((entry) => entry.catalogId === draft.background.socialRankId);
+  if (!rank) return draft;
+  const options = socialRankTitleOptions(rank, draft.background.gender);
+  if (draft.background.socialRankTitle && options.includes(draft.background.socialRankTitle)) return draft;
+  return { ...draft, background: { ...draft.background, socialRankTitle: defaultSocialRankTitle(rank, draft.background.gender) } };
+}
+
 export function isBackgroundStep(stepValue: string): boolean {
   return BACKGROUND_STEPS.has(stepValue);
 }
@@ -93,9 +129,10 @@ export function assessBackgroundStep(
     }
 
     case 'background-social-rank':
-      return draft.background.socialRankId
+      if (!draft.background.socialRankId) return { status: 'incomplete', messages: ['Choose a social-rank entry.'] };
+      return draft.background.socialRankTitle
         ? { status: 'complete', messages: [] }
-        : { status: 'incomplete', messages: ['Choose a social-rank entry.'] };
+        : { status: 'incomplete', messages: ['Choose the character’s Social Rank title or honorific.'] };
 
     case 'background-personality':
       return draft.background.personality.length > 0
@@ -213,11 +250,11 @@ export function syncHeritageGrantedSelections(
 ): CharacterDraft {
   const nonHeritage = draft.proficiencies.granted.filter((item) => item.source !== 'heritage');
   const heritage = buildHeritageGrantedSelections(draft, data);
-  return {
+  return syncSocialRankTitle({
     ...draft,
     proficiencies: {
       ...draft.proficiencies,
       granted: [...nonHeritage, ...heritage],
     },
-  };
+  }, data);
 }

@@ -52,7 +52,6 @@ function normalizeName(value: string) {
 function allSelections(draft: CharacterDraft): SourcedSelection[] {
   return [
     ...draft.proficiencies.granted,
-    ...draft.proficiencies.purchased,
     ...draft.proficiencies.additionalSkills,
     ...draft.background.disabilities,
   ];
@@ -67,10 +66,6 @@ function propertyAttributeValue(name: string, draft: CharacterDraft) {
 /** Combine duplicate trait sources as highest level +1 per duplicate, capped at 10. */
 export function effectiveTraitLevel(draft: CharacterDraft, traitName: string) {
   const key = normalizeName(traitName);
-  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')
-    ? draft.proficiencies.purchased.filter((selection) => normalizeName(selection.name) === key)
-    : [];
-  if (importedFinal.length) return Math.min(10, Math.max(...importedFinal.map((selection) => Math.max(1, selection.level ?? 1))));
   const matches = allSelections(draft).filter((selection) => normalizeName(selection.name) === key);
   if (!matches.length) return 0;
   const levels = matches.map((selection) => Math.max(1, selection.level ?? 1)).sort((a, b) => b - a);

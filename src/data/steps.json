@@ -89,14 +89,19 @@
         "description": "Set starting Piconit Metastasis Level and apply its creation effects."
       },
       {
-        "title": "Assign Skills, Abilities, and Talents",
-        "value": "proficiencies-skills-abilities-talents",
-        "description": "Apply package-granted capabilities and make the player's proficiency selections."
+        "title": "Assign Granted Skills, Traits, and Talents",
+        "value": "proficiencies-granted-skills-traits-talents",
+        "description": "Review package-granted Skills, Traits, and Talents and resolve any choices required by those grants."
       },
       {
-        "title": "Assign Additional Skills",
-        "value": "proficiencies-additional-skills",
-        "description": "Spend remaining character-creation skill resources."
+        "title": "Assign Additional Traits and Skills",
+        "value": "proficiencies-additional-traits-skills",
+        "description": "Spend character-creation Skillpoints on additional Traits and Skills, set their levels, and resolve level-dependent specializations."
+      },
+      {
+        "title": "Imported Traits, Skills, and Talents",
+        "value": "proficiencies-imported-traits-skills-talents",
+        "description": "Compare read-only imported capabilities against Granted plus Additional capabilities. Imported entries are reconciliation references only and never contribute to final character output."
       },
       {
         "title": "Assign Languages",
@@ -179,13 +184,13 @@
       {
         "title": "Customize Weapons",
         "value": "customize-weapons",
-        "description": "Optionally replace, add, remove, resize, or otherwise refine the character’s weapons after Starting Gear is assigned.",
+        "description": "Optionally replace, add, remove, resize, or otherwise refine the character\u2019s weapons after Starting Gear is assigned.",
         "optional": true
       },
       {
         "title": "Customize Armor",
         "value": "customize-armor",
-        "description": "Optionally refine the character’s Armor Set, Helmet, Shield, Gear, and sectional armor components.",
+        "description": "Optionally refine the character\u2019s Armor Set, Helmet, Shield, Gear, and sectional armor components.",
         "optional": true
       },
       {

@@ -19,4 +19,4 @@ The legacy Admin Tests and Info implementations were replaced with views driven 
 
 ## Data policy
 
-No `src/data` records were changed in this release. Existing current-data inconsistencies are intentionally exposed by Tests/Info instead of silently corrected. In particular, v141 will report any exact-name Lineage adjustment mismatch such as the current Baminati/Baminat discrepancy.
+No `src/data` records were changed in this release. Existing current-data inconsistencies were intentionally exposed by Tests/Info instead of silently corrected. The previously reported Human lineage exact-name adjustment mismatch has since been normalized to the canonical Baminati spelling.

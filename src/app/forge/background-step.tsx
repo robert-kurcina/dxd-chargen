@@ -25,10 +25,12 @@ import { parseTragedyTemplate, resolveTragedySeed } from '@/lib/character-logic'
 import { allowedEnvironNames, localeForRegion, selectedSettlementOption, settlementOptionsForRegion } from '@/lib/settlement-context';
 import {
   ageBonusText,
+  defaultSocialRankTitle,
   ageGroupRank,
   formatGrantedCapabilities,
   heritageWealthAdjustment,
   requiredDisabilityCount,
+  socialRankTitleOptions,
   syncHeritageGrantedSelections,
 } from '@/lib/rules/background';
 import { getSpeciesChoice, syncIntrinsics } from '@/lib/rules/intrinsics';
@@ -400,18 +402,33 @@ function SocialRankStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'st
     ? data.socialRanks.find((rank) => rank.society === selectedSocietyPackage.name)
     : undefined;
 
+  const selectedRank = data.socialRanks.find((rank) => rank.catalogId === draft.background.socialRankId);
+
   useEffect(() => {
-    if (!draft.background.socialRankId && defaultRank) {
-      setDraft((current) => ({
-        ...current,
-        background: {
-          ...current.background,
-          socialRankId: defaultRank.catalogId,
-          socialRank: defaultRank.socialRank,
-        },
-      }));
-    }
-  }, [defaultRank, draft.background.socialRankId, setDraft]);
+    const targetRank = selectedRank ?? (!draft.background.socialRankId ? defaultRank : undefined);
+    if (!targetRank) return;
+    const validTitles = socialRankTitleOptions(targetRank, draft.background.gender);
+    const titleIsValid = Boolean(draft.background.socialRankTitle && validTitles.includes(draft.background.socialRankTitle));
+    if (draft.background.socialRankId === targetRank.catalogId && titleIsValid) return;
+    setDraft((current) => ({
+      ...current,
+      background: {
+        ...current.background,
+        socialRankId: current.background.socialRankId ?? targetRank.catalogId,
+        socialRank: current.background.socialRank ?? targetRank.socialRank,
+        socialRankTitle: titleIsValid
+          ? current.background.socialRankTitle
+          : defaultSocialRankTitle(targetRank, current.background.gender),
+      },
+    }));
+  }, [
+    defaultRank,
+    selectedRank,
+    draft.background.socialRankId,
+    draft.background.socialRankTitle,
+    draft.background.gender,
+    setDraft,
+  ]);
 
   return (
     <div className="space-y-4">
@@ -435,12 +452,19 @@ function SocialRankStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'st
                   ...current.background,
                   socialRankId: rank.catalogId,
                   socialRank: rank.socialRank,
+                  socialRankTitle: defaultSocialRankTitle(rank, current.background.gender),
                 },
               }, data))
             }
           />
         ))}
       </div>
+      {draft.background.socialRankId && (() => {
+        const rank = data.socialRanks.find((item) => item.catalogId === draft.background.socialRankId);
+        if (!rank) return null;
+        const options = socialRankTitleOptions(rank, draft.background.gender);
+        return <div className="max-w-md space-y-2 rounded-lg border p-3"><Label htmlFor="social-rank-title">Social Rank title</Label><Select value={draft.background.socialRankTitle ?? ''} onValueChange={(value) => setDraft((current) => ({ ...current, background: { ...current.background, socialRankTitle: value } }))}><SelectTrigger id="social-rank-title"><SelectValue placeholder="Choose social title" /></SelectTrigger><SelectContent>{options.map((title) => <SelectItem key={title} value={title}>{title}</SelectItem>)}</SelectContent></Select><p className="text-xs text-muted-foreground">The numeric Social Rank remains mechanical; this is the character's displayed title or honorific.</p></div>;
+      })()}
     </div>
   );
 }

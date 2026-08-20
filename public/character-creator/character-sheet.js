@@ -205,7 +205,7 @@ export const SAVED_TEXT_FIELDS = [
     "Endurance", "Resilience", "Resistance", "Damage", "Injury", "Fatigue", "Weariness",
     "Stress", "Rads", "WealthRank", "SocialRank", "ProfessionRank", "FavorDice", "Cellburn",
     "Manapool", "Details", "HistoryNotes", "Profession", "Settlement", "Religion", "Personality",
-    "Features", "GMNotes", "BackName", "WeaponsArmorEquipment",
+    "Features", "Distressing", "Ameliorative", "GMNotes", "BackName", "WeaponsArmorEquipment",
     "WeaponsArmorEquipmentProperties", "BackNotes",
 ];
 /** Original Lua update functions and the fields each function produces. */

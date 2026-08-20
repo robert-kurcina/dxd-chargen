@@ -69,7 +69,10 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const save = async () => {
     const response = await fetch('/api/character-files', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idName: activeFileId, draft }) });
     if (!response.ok) { setMessage('Save failed.'); return false; }
-    const value = await response.json(); setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(draft)); setLibraryRefresh((key) => key + 1); setMessage(`Saved ${value.idName}`); return true;
+    const value = await response.json();
+    const savedDraft = normalizeDraft(migrateCharacterDraft(value.draft ?? draft), data);
+    setLibrary((current) => updateActiveDraft(current, () => savedDraft));
+    setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh((key) => key + 1); setMessage(`Saved ${value.idName}`); return true;
   };
   const revert = async () => { if (!activeFileId) return; const response = await fetch(`/api/character-files/${encodeURIComponent(activeFileId)}`, { cache: 'no-store' }); if (!response.ok) return setMessage('Revert failed.'); const value = await response.json(); loadDraft(activeFileId, value.draft); };
   const reset = () => { const empty = normalizeDraft(createEmptyCharacterDraft(), data); setDraft({ ...empty, completedSteps: [] }); setActiveFileId(null); setSavedSnapshot(''); setMessage('Forge reset to a new character.'); };

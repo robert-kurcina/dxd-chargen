@@ -2,9 +2,9 @@ import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
 import { resolveTragedySeed } from '@/lib/character-logic';
-import { syncHeritageGrantedSelections, requiredDisabilityCount } from './background';
+import { defaultSocialRankTitle, syncHeritageGrantedSelections, requiredDisabilityCount } from './background';
 import { affinityCandidates, getTradePackage, setAttributeBaseValues, startingAgeForDraft, syncIntrinsics, type RolledAttribute, ROLLED_ATTRIBUTES } from './intrinsics';
-import { addAdditionalSkill, setCoreLanguage, setGrantSpecializationRanks, setPml, specializationOptionsForTrait } from './proficiencies';
+import { addAdditionalSkill, setCoreLanguage, setGrantSpecialization, setGrantSpecializationRanks, setPml, specializationRequirement } from './proficiencies';
 import { effectiveTraitLevel, syncProperties } from './properties';
 import { generateCharacterName, suggestedNameLanguageId, toggleMagicItem, toggleSpell } from './utilities';
 import { allowedEnvironNames, selectedSettlementOption, settlementCatalogId, weightedSettlementPick } from '@/lib/settlement-context';
@@ -26,7 +26,7 @@ function d66AgeGroup(data: StaticData) {
 }
 
 export function canGenerateStep(stepValue: string, draft: CharacterDraft, data: StaticData) {
-  if (stepValue === 'utilities-relationships' || stepValue === 'utilities-starting-gear' || stepValue.startsWith('customize-') || stepValue === 'notes-overview' || stepValue === 'notes-portrait') return false;
+  if (stepValue === 'utilities-relationships' || stepValue === 'utilities-starting-gear' || stepValue === 'proficiencies-imported-traits-skills-talents' || stepValue.startsWith('customize-') || stepValue === 'notes-overview' || stepValue === 'notes-portrait') return false;
   if (stepValue === 'utilities-spells') return effectiveTraitLevel(draft, 'v-Magic') > 0;
   if (stepValue === 'background-heritage') return Boolean(draft.background.regionId && draft.background.settlementId);
   return Boolean(data);
@@ -89,7 +89,8 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   }
   if (stepValue === 'background-social-rank') {
     const rank = pick(data.socialRanks); if (!rank) return draft;
-    return syncIntrinsics({ ...draft, background: { ...draft.background, socialRankId: rank.catalogId, socialRank: rank.socialRank } }, data);
+    const title = defaultSocialRankTitle(rank, draft.background.gender);
+    return syncIntrinsics({ ...draft, background: { ...draft.background, socialRankId: rank.catalogId, socialRank: rank.socialRank, socialRankTitle: title } }, data);
   }
   if (stepValue === 'background-personality') {
     const row = data.descriptors.find((entry) => Number(entry.d66) === d66()) ?? pick(data.descriptors); if (!row) return draft;
@@ -132,12 +133,26 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   }
   if (stepValue === 'intrinsics-wealth') return syncIntrinsics(draft, data);
   if (stepValue === 'proficiencies-pml') return setPml(draft, 1, data);
-  if (stepValue === 'proficiencies-skills-abilities-talents') {
+  if (stepValue === 'proficiencies-granted-skills-traits-talents') {
     let next = draft;
-    for (const selection of draft.proficiencies.granted) { const options = specializationOptionsForTrait(selection, next, data); if (selection.name.includes(' > ') && options.length) { const choice = pick(options); if (choice) next = setGrantSpecializationRanks(next, selection.id, { [choice]: 1 }); } }
+    for (const selection of draft.proficiencies.granted) {
+      const requirement = specializationRequirement(selection, next, data);
+      if (requirement.qualifierRequired && requirement.qualifierOptions.length) {
+        const qualifier = pick(requirement.qualifierOptions);
+        if (qualifier) next = setGrantSpecialization(next, selection.id, qualifier);
+      }
+      if (requirement.specializationMinimum > 0 && requirement.specializationOptions.length) {
+        const ranks: Record<string, number> = {};
+        for (let index = 0; index < requirement.specializationMinimum; index += 1) {
+          const choice = pick(requirement.specializationOptions);
+          if (choice) ranks[choice] = (ranks[choice] ?? 0) + 1;
+        }
+        next = setGrantSpecializationRanks(next, selection.id, ranks);
+      }
+    }
     return next;
   }
-  if (stepValue === 'proficiencies-additional-skills') {
+  if (stepValue === 'proficiencies-additional-traits-skills') {
     const trait = pick(data.traits.filter((entry) => !entry.isDisability && Number(entry.im) > 0)); return trait ? addAdditionalSkill(draft, trait.catalogId, data) : draft;
   }
   if (stepValue === 'proficiencies-languages') {
