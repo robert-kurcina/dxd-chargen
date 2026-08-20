@@ -1,5 +1,5 @@
 import type { StaticData } from '@/data';
-import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
+import { isLegacyImportedCharacter, type CharacterDraft, type SourcedSelection } from '@/lib/character-draft';
 import { getAttributeDm } from '@/lib/character-logic';
 import { getFinalAttributeValue, getLineageName, getSpeciesChoice, getTradePackage, getTradeSpecialization, nonPlayerAdjustmentsForAttribute, strifeParents } from './intrinsics';
 import type { StepAssessment } from './background';
@@ -58,8 +58,8 @@ function allSelections(draft: CharacterDraft): SourcedSelection[] {
 }
 
 function propertyAttributeValue(name: string, draft: CharacterDraft) {
-  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
-  if (importedFinal) return draft.intrinsics.attributes.find((entry) => entry.name === name)?.base ?? null;
+  const recordedValue = draft.intrinsics.attributes.find((entry) => entry.name === name)?.recordedValue;
+  if (recordedValue != null) return recordedValue;
   return getFinalAttributeValue(name, draft);
 }
 
@@ -227,7 +227,7 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
   const walk = Math.trunc(physical.finalStature / 20 + 5 + adjMov / 4);
   const jog = walk + 3;
   const runBase = Math.trunc(jog + 3 + adjMov / 2);
-  const importedMov = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')
+  const importedMov = isLegacyImportedCharacter(draft)
     ? draft.intrinsics.attributes.find((entry) => entry.name === 'MOV')?.base
     : null;
   const directMovAdjustment = importedMov != null
@@ -320,7 +320,7 @@ export function calculateProperties(draft: CharacterDraft, data: StaticData) {
 
 export function syncProperties(draft: CharacterDraft, data: StaticData): CharacterDraft {
   const completedImport = draft.completedSteps.includes('properties-calculations')
-    && draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region')
+    && isLegacyImportedCharacter(draft)
     && draft.properties.stature != null
     && draft.properties.build != null
     && draft.properties.heightInches != null

@@ -144,15 +144,14 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   };
   const numberCalc = (key: string) => Number(calculated[key] ?? calculatedAliases[key]?.map((alias) => calculated[alias]).find((value) => value != null)) || 0;
   const derived = calculateProperties(draft, data);
-  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
-  const recordedAttribute = (name: string) => draft.intrinsics.attributes.find((entry) => entry.name === name)?.base;
+  const recordedAttribute = (name: string) => draft.intrinsics.attributes.find((entry) => entry.name === name)?.recordedValue;
   const mov = (derived?.mov ?? numberCalc('MOV')) || 0;
   const siz = draft.properties.siz ?? 0;
   const zed = draft.intrinsics.zed ?? 0;
 
   const attributes = ATTRIBUTE_ORDER.map((name) => {
     const value = name === 'MOV' ? mov : name === 'SIZ' ? siz : name === 'ZED' ? zed
-      : (importedFinal ? recordedAttribute(name) : getFinalAttributeValue(name, draft)) ?? 0;
+      : (recordedAttribute(name) ?? getFinalAttributeValue(name, draft)) ?? 0;
     return { name, value, modifier: signed(getAttributeDm(value)) };
   });
 

@@ -1,6 +1,6 @@
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
-import type { CharacterDraft, DraftAttribute, SelectionSource, SourcedSelection } from '@/lib/character-draft';
+import { isLegacyImportedCharacter, type CharacterDraft, type DraftAttribute, type SelectionSource, type SourcedSelection } from '@/lib/character-draft';
 import { selectedSettlementName as resolveSelectedSettlementName } from '@/lib/settlement-context';
 import {
   calculateCreationAttributeSkillpointCost,
@@ -26,6 +26,10 @@ function normalizeLegacyLineageIds(draft: CharacterDraft): CharacterDraft {
   return { ...draft, intrinsics: { ...draft.intrinsics, lineageId, strifeFatherLineageId, strifeMotherLineageId } };
 }
 export type RolledAttribute = (typeof ROLLED_ATTRIBUTES)[number];
+
+export function hasAllRolledAttributes(draft: CharacterDraft) {
+  return ROLLED_ATTRIBUTES.every((attribute) => draft.intrinsics.attributes.some((entry) => entry.name === attribute));
+}
 
 export const STRIFE_PAIRINGS = [
   { id: 'havef', exonym: 'Havef', meaning: 'half-Alef', groups: ['Human', 'Alef'] },
@@ -460,13 +464,35 @@ function rebuildAttributeAdjustments(draft: CharacterDraft, data: StaticData): C
   const attributes = ROLLED_ATTRIBUTES.map((name) => {
     const existing = draft.intrinsics.attributes.find((entry) => entry.name === name);
     const player = existing?.adjustments.filter((adjustment) => adjustment.source === 'player') ?? [];
+    const sourced = nonPlayerAdjustmentsForAttribute(name, draft, data);
+    const recordedValue = Number.isFinite(existing?.recordedValue) ? Number(existing!.recordedValue) : undefined;
+    const shouldDeriveImportedRoll = recordedValue != null && !existing?.recordedRollDerived;
+    const reconstructedBase = shouldDeriveImportedRoll
+      ? recordedValue - sourced.reduce((sum, adjustment) => sum + adjustment.amount, 0)
+      : existing?.base ?? 7;
     return {
       name,
-      base: existing?.base ?? 7,
-      adjustments: [...nonPlayerAdjustmentsForAttribute(name, draft, data), ...player],
+      base: reconstructedBase,
+      ...(recordedValue == null ? {} : { recordedValue, recordedRollDerived: true }),
+      adjustments: [...sourced, ...player],
     } satisfies DraftAttribute;
   });
-  return { ...draft, intrinsics: { ...draft.intrinsics, attributes } };
+  const extraImportedValues = draft.intrinsics.attributes.filter((entry) => !(ROLLED_ATTRIBUTES as readonly string[]).includes(entry.name));
+  return { ...draft, intrinsics: { ...draft.intrinsics, attributes: [...attributes, ...extraImportedValues] } };
+}
+
+/**
+ * Reconstruct legacy imported Attribute Rolls exactly once by inverting the
+ * deterministic Species/Lineage, sex/age, Trade, and Profession offsets that
+ * are known to the current rules. The imported Recorded Value remains immutable.
+ * A reconstructed roll may legitimately fall outside the current 2–12 gamut.
+ */
+export function reconstructImportedAttributeRolls(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  if (!isLegacyImportedCharacter(draft)) return draft;
+  const imported = draft.intrinsics.attributeMethod === 'imported'
+    ? draft
+    : { ...draft, intrinsics: { ...draft.intrinsics, attributeMethod: 'imported' as const } };
+  return rebuildAttributeAdjustments(imported, data);
 }
 
 export function tradeCandidacy(draft: CharacterDraft, data: StaticData) {
@@ -490,7 +516,7 @@ export function maximumTradeRank(draft: CharacterDraft, data: StaticData) {
 
 export function affinityCandidates(draft: CharacterDraft, data: StaticData): RolledAttribute[] {
   const pkg = getTradePackage(draft, data);
-  if (!pkg || draft.intrinsics.attributes.length < ROLLED_ATTRIBUTES.length) return [];
+  if (!pkg || !hasAllRolledAttributes(draft)) return [];
   const critical = pkg.criticalAttributes.filter((attribute): attribute is RolledAttribute =>
     (ROLLED_ATTRIBUTES as readonly string[]).includes(attribute),
   );
@@ -617,7 +643,7 @@ export function wealthTitle(rank: number | null, data: StaticData) {
 
 export function syncIntrinsics(draft: CharacterDraft, data: StaticData): CharacterDraft {
   draft = normalizeLegacyLineageIds(draft);
-  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
+  const importedFinal = isLegacyImportedCharacter(draft);
   const existingChoice = getSpeciesChoice(draft, data);
   let next = existingChoice && draft.intrinsics.speciesFamilyId !== existingChoice.family.catalogId
     ? { ...draft, intrinsics: { ...draft.intrinsics, speciesFamilyId: existingChoice.family.catalogId } }
@@ -655,9 +681,7 @@ export function syncIntrinsics(draft: CharacterDraft, data: StaticData): Charact
     intrinsics: {
       ...next.intrinsics,
       ...(importedFinal ? {
-        attributes: draft.intrinsics.attributes,
         affinityAttribute: draft.intrinsics.affinityAttribute,
-        zed: draft.intrinsics.zed,
       } : {}),
       tradeRank,
       zed: importedFinal ? draft.intrinsics.zed : zed,
@@ -684,7 +708,7 @@ export function assessIntrinsicStep(stepValue: string, draft: CharacterDraft, da
   }
 
   if (stepValue === 'intrinsics-attributes') {
-    if (!draft.intrinsics.attributeMethod || draft.intrinsics.attributes.length !== ROLLED_ATTRIBUTES.length) {
+    if (!draft.intrinsics.attributeMethod || !hasAllRolledAttributes(draft)) {
       return { status: 'incomplete', messages: ['Generate and assign all nine Attribute Rolls.'] };
     }
     if (draft.intrinsics.attributeMethod === 'point-buy') {
@@ -718,7 +742,7 @@ export function assessIntrinsicStep(stepValue: string, draft: CharacterDraft, da
   }
 
   if (stepValue === 'intrinsics-zed') {
-    if (!getTradePackage(draft, data) || draft.intrinsics.attributes.length !== ROLLED_ATTRIBUTES.length) {
+    if (!getTradePackage(draft, data) || !hasAllRolledAttributes(draft)) {
       return { status: 'incomplete', messages: ['Assign Attributes and Trade before establishing Affinity and ZED.'] };
     }
     if (!draft.intrinsics.affinityAttribute || draft.intrinsics.zed == null) {

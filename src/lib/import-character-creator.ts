@@ -5,6 +5,7 @@ import sarnaLenData from '@/data';
 import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft, type InventorySelection, type LanguageModifier, type LanguageSelection, type SourcedSelection } from '@/lib/character-draft';
 import { makeCatalogId } from '@/data/catalog-policy';
 import { physicalBreakdown } from '@/lib/rules/properties';
+import { reconstructImportedAttributeRolls } from '@/lib/rules/intrinsics';
 import { syncSocialRankTitle } from '@/lib/rules/background';
 import { importedCapabilityReconciliation, unresolvedBroadGrants } from '@/lib/rules/proficiencies';
 import { ammunitionNote, inventoryAllowsCustomAppend, normalizeArmorWearState } from '@/lib/rules/utilities';
@@ -987,7 +988,8 @@ function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
     },
   };
   const possessions = moveUnmappedPossessionsToNotes(applyLegacyPossessionDecisions(normalized));
-  return normalizeCapabilityStorage(syncSocialRankTitle(normalizeArmorWearState(possessions, sarnaLenData), sarnaLenData));
+  const finalized = normalizeCapabilityStorage(syncSocialRankTitle(normalizeArmorWearState(possessions, sarnaLenData), sarnaLenData));
+  return reconstructImportedAttributeRolls(finalized, sarnaLenData);
 }
 
 export function normalizeCharacterDraftForStorage(draft: CharacterDraft) {
@@ -1110,7 +1112,18 @@ function toDraft(raw: LegacyCharacter, portraitDataUrl: string, sheet: LegacyCha
     ? critical.reduce((best, candidate) => Number(attributes[candidate.toLowerCase()] ?? -Infinity) > Number(attributes[best.toLowerCase()] ?? -Infinity) ? candidate : best, critical[0])
     : (biology.affinity === 'ZED' ? null : biology.affinity ?? null);
   draft.intrinsics.zed = typeof attributes.zed === 'number' ? attributes.zed : null;
-  draft.intrinsics.attributes = ['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV'].flatMap((name) => typeof attributes[name.toLowerCase()] === 'number' ? [{ name, base: attributes[name.toLowerCase()], adjustments: [] }] : []);
+  draft.intrinsics.attributeMethod = 'imported';
+  draft.intrinsics.attributes = ['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR', 'MOV'].flatMap((name) => {
+    const value = attributes[name.toLowerCase()];
+    if (typeof value !== 'number') return [];
+    const rolled = name !== 'MOV';
+    return [{
+      name,
+      base: value,
+      ...(rolled ? { recordedValue: value, recordedRollDerived: false } : {}),
+      adjustments: [],
+    }];
+  });
   draft.proficiencies.pml = typeof biology.pml === 'number' ? biology.pml : null;
   draft.proficiencies.importedCapabilities = [
     ...(history.skills ?? []).filter((item: any) => !item.disability).map((item: any) => importedCapabilitySelection(item)),

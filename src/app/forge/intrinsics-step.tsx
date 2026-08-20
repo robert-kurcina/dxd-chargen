@@ -27,6 +27,7 @@ import {
   candidateAttributeValues,
   directZedAdjustment,
   getFinalAttributeValue,
+  hasAllRolledAttributes,
   getLineageName,
   getPurchasedAttributeIncrease,
   getSpeciesChoice,
@@ -244,7 +245,7 @@ function baseValues(draft: CharacterDraft) {
 }
 
 function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue'>) {
-  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region');
+  const imported = draft.intrinsics.attributeMethod === 'imported';
   const purchasedTotal = totalPurchasedAttributeIncreases(draft);
   const purchasedSkillpoints = purchasedAttributeSkillpointCost(draft, data);
   const method = draft.intrinsics.attributeMethod;
@@ -281,15 +282,16 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
     <div className="space-y-4">
       <div className="attribute-assignment-scroll overflow-x-auto rounded-lg border">
         <table className="attribute-assignment-table w-full min-w-[690px] text-sm">
-          <caption className="sr-only">Attribute rolls, adjustments, purchased increases, and final values</caption>
+          <caption className="sr-only">{imported ? 'Imported Attribute values, reconstructed rolls, known adjustments, and current values' : 'Attribute rolls, adjustments, purchased increases, and final values'}</caption>
           <thead className="bg-muted/50 text-xs">
             <tr>
               <th className="px-3 py-2 text-left">Attribute</th>
+              {imported && <th className="px-3 py-2 text-center">Recorded Value</th>}
               <th className="px-3 py-2 text-center">Recorded Roll</th>
-              <th className="px-3 py-2 text-center">Assign</th>
+              {!imported && <th className="px-3 py-2 text-center">Assign</th>}
               <th className="px-3 py-2 text-center">Sourced adj.</th>
-              <th className="px-3 py-2 text-center">Purchased</th>
-              <th className="px-3 py-2 text-center">Final</th>
+              {!imported && <th className="px-3 py-2 text-center">Purchased</th>}
+              <th className="px-3 py-2 text-center">{imported ? 'Current' : 'Final'}</th>
               <th className="px-3 py-2 text-center">DM</th>
             </tr>
           </thead>
@@ -297,14 +299,23 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
             {ROLLED_ATTRIBUTES.map((attribute, index) => {
               const record = draft.intrinsics.attributes.find((entry) => entry.name === attribute);
               const purchased = getPurchasedAttributeIncrease(attribute, draft);
-              const sourced = importedFinal ? 0 : record?.adjustments.filter((adjustment) => adjustment.source !== 'player').reduce((sum, adjustment) => sum + adjustment.amount, 0) ?? 0;
-              const finalValue = importedFinal ? (record?.base ?? values[attribute]) : getFinalAttributeValue(attribute, draft) ?? values[attribute];
+              const sourcedAdjustments = record?.adjustments.filter((adjustment) => adjustment.source !== 'player') ?? [];
+              const sourced = sourcedAdjustments.reduce((sum, adjustment) => sum + adjustment.amount, 0);
+              const finalValue = getFinalAttributeValue(attribute, draft) ?? values[attribute];
               const canPurchaseMore = purchased < 2 && purchasedTotal < 4;
+              const outOfGamut = imported && (values[attribute] < 2 || values[attribute] > 12);
+              const sourceDetail = sourcedAdjustments.map((adjustment) => `${adjustment.sourceDetail} ${formatSigned(adjustment.amount)}`).join('; ');
               return (
-                <tr key={attribute} className="border-t">
+                <tr key={attribute} className={cn('border-t', outOfGamut && 'bg-yellow-50/70')}>
                   <td data-label="Attribute" className="px-3 py-2 font-medium">{attribute}</td>
-                  <td data-label="Recorded roll" className="px-3 py-2 text-center font-mono">{values[attribute]}</td>
-                  <td data-label="Assign" className="px-3 py-2">
+                  {imported && <td data-label="Recorded value" className="px-3 py-2 text-center font-mono font-semibold">{record?.recordedValue ?? '—'}</td>}
+                  <td data-label="Recorded roll" className="px-3 py-2 text-center font-mono">
+                    <div className="flex flex-wrap items-center justify-center gap-1.5">
+                      <span>{values[attribute]}</span>
+                      {outOfGamut && <Badge variant="outline" className="border-yellow-600 bg-yellow-100 text-[10px] uppercase tracking-wide text-yellow-900">Out of Gamut</Badge>}
+                    </div>
+                  </td>
+                  {!imported && <td data-label="Assign" className="px-3 py-2">
                     <div className="flex justify-center gap-1">
                       {method === 'point-buy' ? (
                         <>
@@ -318,16 +329,16 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
                         </>
                       )}
                     </div>
-                  </td>
-                  <td data-label="Sourced adjustment" className="px-3 py-2 text-center">{sourced === 0 ? '—' : formatSigned(sourced)}</td>
-                  <td data-label="Purchased" className="px-3 py-2">
+                  </td>}
+                  <td data-label="Sourced adjustment" className="px-3 py-2 text-center" title={sourceDetail || undefined}>{sourced === 0 ? '—' : formatSigned(sourced)}</td>
+                  {!imported && <td data-label="Purchased" className="px-3 py-2">
                     <div className="flex items-center justify-center gap-1">
                       <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Remove purchased ${attribute} increase`} disabled={purchased <= 0} onClick={() => changePurchased(attribute, -1)}><Minus className="h-3.5 w-3.5" /></Button>
                       <span className="w-5 text-center">+{purchased}</span>
                       <Button type="button" size="icon" variant="ghost" className="h-11 w-11 sm:h-7 sm:w-7" aria-label={`Purchase ${attribute} increase`} disabled={!canPurchaseMore} onClick={() => changePurchased(attribute, 1)}><Plus className="h-3.5 w-3.5" /></Button>
                     </div>
-                  </td>
-                  <td data-label="Final" className="px-3 py-2 text-center font-semibold">{finalValue}</td>
+                  </td>}
+                  <td data-label={imported ? 'Current' : 'Final'} className="px-3 py-2 text-center font-semibold">{finalValue}</td>
                   <td data-label="DM" className="px-3 py-2 text-center">{formatSigned(getAttributeDm(finalValue))}</td>
                 </tr>
               );
@@ -335,21 +346,31 @@ function AttributeRows({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'ste
           </tbody>
         </table>
       </div>
-      <div className="flex flex-wrap gap-2 text-xs">
-        <Badge variant="outline">Purchased raw increases {purchasedTotal}/4</Badge>
-        <Badge variant="outline">Attribute Skillpoints {purchasedSkillpoints}</Badge>
-        <Badge variant="outline">Prior Months required {purchasedSkillpoints}</Badge>
-      </div>
-      <p className="text-xs text-muted-foreground">
-        Purchased increases use the character-creation IM schedule. They do not alter the recorded Attribute Roll used for Affinity or Trade candidacy.
-      </p>
+      {imported ? (
+        <div className="space-y-1 text-xs text-muted-foreground">
+          <p><strong className="text-foreground">Recorded Value</strong> is the immutable Attribute value read from the legacy character sheet.</p>
+          <p><strong className="text-foreground">Recorded Roll</strong> is reconstructed by subtracting known Species/Lineage, sex/age, Trade, and Profession offsets from that Recorded Value.</p>
+          <p><strong className="text-foreground">Out of Gamut</strong> means the reconstructed roll is outside the current 3D6 high-two range of 2–12. It is retained unchanged; legacy Attribute trading can legitimately account for such values.</p>
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <Badge variant="outline">Purchased raw increases {purchasedTotal}/4</Badge>
+            <Badge variant="outline">Attribute Skillpoints {purchasedSkillpoints}</Badge>
+            <Badge variant="outline">Prior Months required {purchasedSkillpoints}</Badge>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Purchased increases use the character-creation IM schedule. They do not alter the recorded Attribute Roll used for Affinity or Trade candidacy.
+          </p>
+        </>
+      )}
     </div>
   );
 }
 
 function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue'>) {
   const method = draft.intrinsics.attributeMethod;
-  const importedFinal = draft.background.demographicSelections.some((entry) => entry.sourceDetail === 'Imported region') && draft.intrinsics.attributes.length === ROLLED_ATTRIBUTES.length;
+  const importedFinal = method === 'imported';
   const spent = pointBuySpent(draft, data);
 
   const applyArray = (id: 'A' | 'B' | 'C') => {
@@ -369,11 +390,18 @@ function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'st
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-2 sm:grid-cols-3">
-        <ChoiceCard selected={method === 'roll'} title="Default: 3D high-two" subtitle="Roll nine values, then assign them in any order." onClick={rollAll} />
-        <ChoiceCard selected={method === 'array'} title="Pre-rolled Array" subtitle="Choose A, B, or C, then rearrange the nine values." onClick={() => applyArray(draft.intrinsics.attributeArrayId ?? 'A')} />
-        <ChoiceCard selected={method === 'point-buy'} title="Point Buy" subtitle="Spend up to 75 points; player-character rolls stay from 6 through 12." onClick={pointBuy} />
-      </div>
+      {importedFinal ? (
+        <div className="rounded-lg border bg-muted/20 p-4">
+          <div className="font-medium">Imported legacy Attributes</div>
+          <p className="mt-1 text-xs text-muted-foreground">Recorded Values are preserved exactly as imported. Recorded Rolls are reconstructed for rules that require the original roll; imported Attribute values are read-only in this step.</p>
+        </div>
+      ) : (
+        <div className="grid gap-2 sm:grid-cols-3">
+          <ChoiceCard selected={method === 'roll'} title="Default: 3D high-two" subtitle="Roll nine values, then assign them in any order." onClick={rollAll} />
+          <ChoiceCard selected={method === 'array'} title="Pre-rolled Array" subtitle="Choose A, B, or C, then rearrange the nine values." onClick={() => applyArray(draft.intrinsics.attributeArrayId ?? 'A')} />
+          <ChoiceCard selected={method === 'point-buy'} title="Point Buy" subtitle="Spend up to 75 points; player-character rolls stay from 6 through 12." onClick={pointBuy} />
+        </div>
+      )}
 
       {method === 'array' && (
         <div className="flex flex-wrap items-center gap-2">
@@ -393,7 +421,7 @@ function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'st
         </div>
       )}
 
-      {method || importedFinal ? <AttributeRows data={data} draft={draft} setDraft={setDraft} /> : (
+      {method ? <AttributeRows data={data} draft={draft} setDraft={setDraft} /> : (
         <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">Choose an Attribute generation method to begin.</div>
       )}
     </div>
@@ -555,7 +583,7 @@ function ZedStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepValue
   const totalPurchased = totalPurchasedAttributeIncreases(draft);
   const purchaseCost = zedPurchaseSkillpointCost(draft, data);
 
-  if (!pkg || draft.intrinsics.attributes.length !== ROLLED_ATTRIBUTES.length) {
+  if (!pkg || !hasAllRolledAttributes(draft)) {
     return <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">Assign the nine Attribute Rolls and a Trade first.</div>;
   }
 

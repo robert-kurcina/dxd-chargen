@@ -652,15 +652,10 @@ export default function Worksheet({
     );
   };
   const attributePanelValue = (name: string) => {
-    const importedFinal = panelDraft.background.demographicSelections.some(
-      (entry) => entry.sourceDetail === "Imported region",
-    );
-    if (importedFinal) {
-      const recorded = panelDraft.intrinsics.attributes.find(
-        (entry) => entry.name === name,
-      )?.base;
-      if (recorded != null) return recorded;
-    }
+    const recorded = panelDraft.intrinsics.attributes.find(
+      (entry) => entry.name === name,
+    )?.recordedValue;
+    if (recorded != null) return recorded;
     const final = getFinalAttributeValue(name, panelDraft);
     if (final != null) return final;
     const adjustment = nonPlayerAdjustmentsForAttribute(

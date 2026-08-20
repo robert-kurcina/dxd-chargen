@@ -34,7 +34,12 @@ export type SourcedSelection = {
 
 export type DraftAttribute = {
   name: string;
+  /** Recorded creation roll. For legacy imports this is reconstructed from the immutable Recorded Value. */
   base: number;
+  /** Immutable final Attribute value read from a legacy imported sheet. Absent for native Forge characters. */
+  recordedValue?: number;
+  /** True once the legacy Recorded Roll has been reconstructed from the imported Recorded Value. */
+  recordedRollDerived?: boolean;
   adjustments: Array<{
     amount: number;
     source: SelectionSource;
@@ -88,7 +93,7 @@ export type PmlVirtuosityChoice = {
 };
 
 export type CharacterDraft = {
-  schemaVersion: 10;
+  schemaVersion: 11;
   /** Stable filesystem/library identity. It is independent of the character name and survives version saves. */
   characterId: string | null;
   updatedAt: string | null;
@@ -136,7 +141,7 @@ export type CharacterDraft = {
     strifeMotherLineageId: string | null;
     strifeAttributeRolls: Record<string, number>;
     strifeBonusParent: 'father' | 'mother' | null;
-    attributeMethod: 'roll' | 'array' | 'point-buy' | null;
+    attributeMethod: 'roll' | 'array' | 'point-buy' | 'imported' | null;
     attributeArrayId: 'A' | 'B' | 'C' | null;
     attributes: DraftAttribute[];
     tradeId: string | null;
@@ -256,9 +261,14 @@ export type LegacyCharacterDraftV1 = Omit<LegacyCharacterDraftV2, 'schemaVersion
   >;
 };
 
+export function isLegacyImportedCharacter(draft: CharacterDraft) {
+  return draft.intrinsics.attributeMethod === 'imported'
+    || draft.intrinsics.attributes.some((attribute) => Number.isFinite(attribute.recordedValue));
+}
+
 export function createEmptyCharacterDraft(): CharacterDraft {
   return {
-    schemaVersion: 10,
+    schemaVersion: 11,
     characterId: null,
     updatedAt: null,
     completedSteps: [],
@@ -393,7 +403,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
   if (!value || typeof value !== 'object') return createEmptyCharacterDraft();
 
   const candidate = value as { schemaVersion?: number };
-  if (candidate.schemaVersion === 10) {
+  if (candidate.schemaVersion === 11) {
     const current = candidate as CharacterDraft;
     current.utilities.portraitDataUrl ??= '';
     current.utilities.portraitSourceDataUrl ??= '';
@@ -403,7 +413,7 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
       : Array.isArray(current.proficiencies.purchased) ? current.proficiencies.purchased : [];
     return {
       ...current,
-      schemaVersion: 10,
+      schemaVersion: 11,
       characterId: typeof current.characterId === 'string' && current.characterId.trim() ? current.characterId.trim() : null,
       completedSteps: normalizeCompletedStepIds(current.completedSteps),
       warnings: normalizeWarningStepIds(current.warnings),
@@ -422,6 +432,32 @@ export function migrateCharacterDraft(value: unknown): CharacterDraft {
         libraryTags: Array.isArray(current.utilities.libraryTags) ? Array.from(new Set(current.utilities.libraryTags.map((tag) => String(tag).trim()).filter(Boolean))) : [],
       },
     };
+  }
+
+
+  if (candidate.schemaVersion === 10) {
+    const legacy = candidate as any;
+    const imported = legacy.intrinsics?.attributeMethod === 'imported'
+      || Boolean(legacy.background?.demographicSelections?.some((entry: any) => entry?.sourceDetail === 'Imported region'))
+      || Boolean(legacy.intrinsics?.attributes?.some((attribute: any) => String(attribute?.name).toUpperCase() === 'MOV'));
+    const rolledNames = new Set(['CCA', 'RCA', 'REF', 'INT', 'KNO', 'PRE', 'POW', 'STR', 'FOR']);
+    return migrateCharacterDraft({
+      ...legacy,
+      schemaVersion: 11,
+      intrinsics: {
+        ...legacy.intrinsics,
+        attributeMethod: imported ? 'imported' : legacy.intrinsics?.attributeMethod ?? null,
+        attributes: Array.isArray(legacy.intrinsics?.attributes)
+          ? legacy.intrinsics.attributes.map((attribute: any) => imported && rolledNames.has(String(attribute.name).toUpperCase())
+            ? {
+                ...attribute,
+                recordedValue: Number.isFinite(attribute.recordedValue) ? Number(attribute.recordedValue) : Number(attribute.base),
+                recordedRollDerived: Boolean(attribute.recordedRollDerived),
+              }
+            : attribute)
+          : [],
+      },
+    });
   }
 
   if (candidate.schemaVersion === 9) {
