@@ -1391,12 +1391,12 @@ export default function Worksheet({
                     "Social Rank",
                     panelDraft.background.socialRank ?? calc("socialRank"),
                   ],
-                  ["Distressing", dispositionCounts.distressing],
-                  ["Ameliorative", dispositionCounts.ameliorative],
                   ["Trade Rank", panelDraft.intrinsics.tradeRank],
                   ["Favor Dice", calc("FavorDice")],
                   ["Cellburn Limit", calc("Cellburn")],
                   ["Manapool", derived?.manapool ?? calc("Manapool")],
+                  ["Distressing", dispositionCounts.distressing],
+                  ["Ameliorative", dispositionCounts.ameliorative],
                 ].map(([name, value]) => (
                   <Fragment key={String(name)}>
                     <dt className="text-muted-foreground">{name}</dt>

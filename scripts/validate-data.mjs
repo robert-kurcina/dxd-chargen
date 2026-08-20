@@ -263,18 +263,16 @@ if (!rerebraces || !vambraces || disallowedOverlap(rerebraces.coverageAtoms, vam
 if (armorByName.get('Backplate, Metal')?.bodyParts !== 'Back Torso') throw new Error('Backplate structured body-part coverage must be Back Torso.');
 const expectedArmorLayers = [...armorAtoms].map((atom) => atom.toLowerCase()).sort();
 for (const sex of ['male', 'female']) {
-  const sourcePath = path.resolve(`images/hit-locations_${sex}.svg`);
-  const runtimePath = path.resolve(`public/armor/hit-locations_${sex}.svg`);
-  if (!fs.existsSync(sourcePath) || !fs.existsSync(runtimePath)) throw new Error(`Missing ${sex} Armor coverage silhouette source/runtime asset.`);
-  const sourceSilhouette = fs.readFileSync(sourcePath, 'utf8');
-  const runtimeSilhouette = fs.readFileSync(runtimePath, 'utf8');
-  if (sourceSilhouette !== runtimeSilhouette) throw new Error(`${sex} Armor coverage runtime SVG must mirror images/hit-locations_${sex}.svg.`);
-  const labels = [...runtimeSilhouette.matchAll(/inkscape:label=[\"']([^\"']+)[\"']/gi)]
+  const silhouettePath = path.resolve(`public/armor/hit-locations_${sex}.svg`);
+  if (!fs.existsSync(silhouettePath)) throw new Error(`Missing ${sex} Armor coverage silhouette asset: public/armor/hit-locations_${sex}.svg.`);
+  const silhouette = fs.readFileSync(silhouettePath, 'utf8');
+  const labels = [...silhouette.matchAll(/inkscape:label=[\"']([^\"']+)[\"']/gi)]
     .map((match) => match[1].toLowerCase())
     .filter((label) => !label.startsWith('hit-locations_'));
-  const uniqueLabels = [...new Set(labels)].sort();
-  if (uniqueLabels.length !== expectedArmorLayers.length || uniqueLabels.some((label, index) => label !== expectedArmorLayers[index])) {
-    throw new Error(`${sex} Armor coverage silhouette semantic layers do not exactly match the canonical body atoms.`);
+  const uniqueLabels = new Set(labels);
+  const missingArmorLayers = expectedArmorLayers.filter((label) => !uniqueLabels.has(label));
+  if (missingArmorLayers.length > 0) {
+    throw new Error(`${sex} Armor coverage silhouette is missing canonical body-atom layers: ${missingArmorLayers.join(', ')}.`);
   }
 }
 

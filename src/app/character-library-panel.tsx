@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowDown, ArrowUp, ChevronsUpDown, Columns3, Search, SlidersHorizontal } from 'lucide-react';
 import type { StaticData } from '@/data';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import ConfirmDialog from '@/components/confirm-dialog';
@@ -201,18 +202,50 @@ export default function CharacterLibraryPanel({
     const value = await response.json();
     onOpen(idName, value.draft);
   };
-  const toggleVersions = async (idName: string) => {
-    if (expandedVersions[idName]) { setExpandedVersions((current) => { const next = { ...current }; delete next[idName]; return next; }); return; }
+  const setVersionsOpen = async (idName: string, openVersions: boolean) => {
+    if (!openVersions) {
+      setExpandedVersions((current) => { const next = { ...current }; delete next[idName]; return next; });
+      return;
+    }
+    if (Object.prototype.hasOwnProperty.call(expandedVersions, idName)) return;
+    setExpandedVersions((current) => ({ ...current, [idName]: [] }));
     setLoadingVersions((current) => new Set(current).add(idName));
     try {
       const response = await fetch(`/api/character-files/${encodeURIComponent(idName)}/versions`, { cache: 'no-store' });
       if (!response.ok) throw new Error('versions');
       const value = await response.json();
       setExpandedVersions((current) => ({ ...current, [idName]: value.versions ?? [] }));
-    } catch { setError('Unable to read saved character versions.'); }
-    finally { setLoadingVersions((current) => { const next = new Set(current); next.delete(idName); return next; }); }
+    } catch {
+      setExpandedVersions((current) => { const next = { ...current }; delete next[idName]; return next; });
+      setError('Unable to read saved character versions.');
+    } finally {
+      setLoadingVersions((current) => { const next = new Set(current); next.delete(idName); return next; });
+    }
   };
-  const versionControls = (entry: FileCharacter) => entry.versionCount && entry.versionCount > 1 ? <div className="mt-2 space-y-1 text-left"><Button type="button" size="sm" variant="outline" className="w-full" disabled={loadingVersions.has(entry.idName)} onClick={() => void toggleVersions(entry.idName)}>{entry.versionCount} versions</Button>{expandedVersions[entry.idName] && <div className="max-h-44 space-y-1 overflow-y-auto rounded border p-1">{expandedVersions[entry.idName].map((version) => <Button key={version.versionId} type="button" size="sm" variant={version.isCurrent ? 'secondary' : 'ghost'} className="h-auto w-full justify-start px-2 py-1 text-left text-[11px]" onClick={() => void open(entry.idName, version.versionId)}><span className="block"><span className="font-medium">{version.isCurrent ? 'Current' : 'Saved'}</span><br />{updatedTimestamp(version.updatedAt).date} {updatedTimestamp(version.updatedAt).time}</span></Button>)}</div>}</div> : null;
+  const versionAccordion = (entry: FileCharacter) => {
+    if (!entry.versionCount || entry.versionCount <= 1) return null;
+    const isOpen = Object.prototype.hasOwnProperty.call(expandedVersions, entry.idName);
+    const versions = expandedVersions[entry.idName] ?? [];
+    return <Accordion type="single" collapsible value={isOpen ? 'versions' : ''} onValueChange={(value) => void setVersionsOpen(entry.idName, value === 'versions')} className="w-full">
+      <AccordionItem value="versions" className="border-0">
+        <AccordionTrigger className="w-full px-3 py-2 text-sm hover:no-underline">
+          <span className="flex min-w-0 items-center gap-2 text-left"><span className="font-medium">{entry.versionCount} versions</span><span className="truncate text-xs font-normal text-muted-foreground">Saved history</span></span>
+        </AccordionTrigger>
+        <AccordionContent className="pb-0">
+          <div className="border-t">
+            {loadingVersions.has(entry.idName) && <div className="w-full px-3 py-3 text-xs text-muted-foreground">Loading saved versions…</div>}
+            {!loadingVersions.has(entry.idName) && versions.map((version) => {
+              const stamp = updatedTimestamp(version.updatedAt);
+              return <button key={version.versionId} type="button" className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b px-3 py-2.5 text-left transition-colors last:border-b-0 hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset" onClick={() => void open(entry.idName, version.versionId)}>
+                <span className="min-w-0"><span className="block font-medium">{version.isCurrent ? 'Current version' : 'Saved version'}</span><span className="block truncate text-xs text-muted-foreground">{version.name || entry.name || 'Unnamed character'}{version.properName && version.properName !== version.name ? ` · ${version.properName}` : ''}</span></span>
+                <span className="text-right text-xs text-muted-foreground"><span className="block">{stamp.date}</span><span className="block whitespace-nowrap">{stamp.time}</span></span>
+              </button>;
+            })}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>;
+  };
 
   const toggleSort = (column: SortColumn) => setSort((current) => current.column === column
     ? { column, direction: current.direction === 'asc' ? 'desc' : 'asc' }
@@ -391,7 +424,7 @@ export default function CharacterLibraryPanel({
       {mobileFiltersOpen && <div className="grid gap-2 rounded-lg border bg-card p-3">{isVisible('name') && mobileColumn !== 'name' && <Input value={filters.name} onChange={(event) => setFilter('name', event.target.value)} placeholder="Character Name" aria-label="Filter by character name" />}{isVisible('tags') && mobileColumn !== 'tags' && <Select value={filters.tags} onValueChange={(value) => setFilter('tags', value)}><SelectTrigger aria-label="Filter by tags"><SelectValue placeholder="All tags" /></SelectTrigger><SelectContent><SelectItem value="all">All tags</SelectItem>{availableTags.map((tag) => <SelectItem key={tag} value={tag}>{tag}</SelectItem>)}</SelectContent></Select>}{isVisible('ancestry') && mobileColumn !== 'ancestry' && <Input value={filters.ancestry} onChange={(event) => setFilter('ancestry', event.target.value)} placeholder="Ancestry" aria-label="Filter by ancestry" />}{isVisible('profession') && mobileColumn !== 'profession' && <Input value={filters.profession} onChange={(event) => setFilter('profession', event.target.value)} placeholder="Profession" aria-label="Filter by profession" />}{isVisible('filename') && mobileColumn !== 'filename' && <Input value={filters.filename} onChange={(event) => setFilter('filename', event.target.value)} placeholder="Filename" aria-label="Filter by filename" />}{anyFilters && <Button variant="ghost" size="sm" onClick={() => setFilters(EMPTY_FILTERS)}>Clear all filters</Button>}</div>}
     </div>
 
-    <div className="space-y-3 lg:hidden">{visibleRows.map(({ entry, ancestry: ancestryValue, profession: professionValue }) => <article key={entry.idName} className="rounded-lg border bg-card p-3 shadow-sm">{adminMode && <label className="mb-3 flex items-center gap-2 border-b pb-2 text-sm"><Checkbox checked={selectedIds.has(entry.idName)} onCheckedChange={(checked) => toggleSelected(entry.idName, checked === true)} /><span>Select character</span></label>}<div className="flex gap-3">{isVisible('portrait') && <img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-20 w-24 shrink-0 rounded border object-cover" />}<div className="min-w-0 flex-1">{isVisible('name') && <><h3 className="font-semibold">{entry.name || 'Unnamed character'}</h3>{entry.properName && entry.properName !== entry.name && <p className="text-xs text-muted-foreground">{entry.properName}</p>}</>}{isVisible('ancestry') && <p className="mt-2 text-sm">{ancestryValue}</p>}{isVisible('profession') && <p className="text-sm">{professionValue}</p>}{isVisible('tags') && <div className="mt-2">{adminMode && tagEditing ? <TokenField value={pendingTags[entry.idName] ?? sortedTags(entry)} onChange={(tags) => setPendingTags((current) => ({ ...current, [entry.idName]: tags }))} allowedTokens={availableTags} ariaLabel={`Tags for ${entry.name || entry.idName}`} /> : <div className="flex flex-wrap gap-1">{displayTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[11px]">{tag}</span>)}{!displayTags(entry).length && <span className="text-xs text-muted-foreground">No tags</span>}</div>}</div>}</div></div><dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-t pt-3 text-xs">{isVisible('updated') && <><dt className="text-muted-foreground">Timestamp</dt><dd><span>{updatedTimestamp(entry.updatedAt).date}</span> <span className="whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></dd></>}{isVisible('filename') && <><dt className="text-muted-foreground">Filename</dt><dd className="truncate font-mono" title={entry.idName}>{entry.idName}</dd></>}</dl>{onOpen && <><Button className="mt-3 w-full" size="sm" onClick={() => void open(entry.idName)}>Load character</Button>{versionControls(entry)}</>}</article>)}{!visibleRows.length && <div className="rounded-lg border p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</div>}</div>
+    <div className="space-y-3 lg:hidden">{visibleRows.map(({ entry, ancestry: ancestryValue, profession: professionValue }) => <article key={entry.idName} className="rounded-lg border bg-card p-3 shadow-sm">{adminMode && <label className="mb-3 flex items-center gap-2 border-b pb-2 text-sm"><Checkbox checked={selectedIds.has(entry.idName)} onCheckedChange={(checked) => toggleSelected(entry.idName, checked === true)} /><span>Select character</span></label>}<div className="flex gap-3">{isVisible('portrait') && <img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-20 w-24 shrink-0 rounded border object-cover" />}<div className="min-w-0 flex-1">{isVisible('name') && <><h3 className="font-semibold">{entry.name || 'Unnamed character'}</h3>{entry.properName && entry.properName !== entry.name && <p className="text-xs text-muted-foreground">{entry.properName}</p>}</>}{isVisible('ancestry') && <p className="mt-2 text-sm">{ancestryValue}</p>}{isVisible('profession') && <p className="text-sm">{professionValue}</p>}{isVisible('tags') && <div className="mt-2">{adminMode && tagEditing ? <TokenField value={pendingTags[entry.idName] ?? sortedTags(entry)} onChange={(tags) => setPendingTags((current) => ({ ...current, [entry.idName]: tags }))} allowedTokens={availableTags} ariaLabel={`Tags for ${entry.name || entry.idName}`} /> : <div className="flex flex-wrap gap-1">{displayTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[11px]">{tag}</span>)}{!displayTags(entry).length && <span className="text-xs text-muted-foreground">No tags</span>}</div>}</div>}</div></div><dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-t pt-3 text-xs">{isVisible('updated') && <><dt className="text-muted-foreground">Timestamp</dt><dd><span>{updatedTimestamp(entry.updatedAt).date}</span> <span className="whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></dd></>}{isVisible('filename') && <><dt className="text-muted-foreground">Filename</dt><dd className="truncate font-mono" title={entry.idName}>{entry.idName}</dd></>}</dl>{onOpen && <><Button className="mt-3 w-full" size="sm" onClick={() => void open(entry.idName)}>Load character</Button>{entry.versionCount && entry.versionCount > 1 ? <div className="mt-2 overflow-hidden rounded-md border">{versionAccordion(entry)}</div> : null}</>}</article>)}{!visibleRows.length && <div className="rounded-lg border p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</div>}</div>
 
     <div role="table" aria-label="Saved characters" className="hidden rounded-lg border lg:block">
       <div role="rowgroup" className={`sticky ${adminMode ? 'top-[44px]' : 'top-14'} z-40 bg-background/95 shadow-sm backdrop-blur`}>
@@ -419,17 +452,20 @@ export default function CharacterLibraryPanel({
         </div>
       </div>
       <div role="rowgroup">
-        {visibleRows.map(({ entry, ancestry: ancestryValue, profession: professionValue }) => <div role="row" key={entry.idName} className="grid items-start border-t hover:bg-muted/30" style={{ gridTemplateColumns: desktopGridTemplate }}>
-          {adminMode && <div role="cell" className="p-3"><Checkbox checked={selectedIds.has(entry.idName)} onCheckedChange={(checked) => toggleSelected(entry.idName, checked === true)} aria-label={`Select ${entry.name || entry.idName}`} /></div>}
-          {isVisible('portrait') && <div role="cell" className="p-2"><img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-16 w-20 rounded border object-cover" /></div>}
-          {isVisible('name') && <div role="cell" className="min-w-0 p-3 font-medium"><span className="block truncate">{entry.name || '—'}</span>{entry.properName && entry.properName !== entry.name && <span className="block truncate text-xs font-normal text-muted-foreground">{entry.properName}</span>}</div>}
-          {isVisible('tags') && <div role="cell" className="min-w-0 p-3">{adminMode && tagEditing ? <TokenField value={pendingTags[entry.idName] ?? sortedTags(entry)} onChange={(tags) => setPendingTags((current) => ({ ...current, [entry.idName]: tags }))} allowedTokens={availableTags} ariaLabel={`Tags for ${entry.name || entry.idName}`} /> : <div className="flex flex-wrap gap-1">{displayTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[10px]">{tag}</span>)}{!displayTags(entry).length && <span className="text-xs text-muted-foreground">—</span>}</div>}</div>}
-          {isVisible('ancestry') && <div role="cell" className="min-w-0 p-3 text-sm">{ancestryValue}</div>}
-          {isVisible('profession') && <div role="cell" className="min-w-0 p-3 text-sm">{professionValue}</div>}
-          {isVisible('updated') && <div role="cell" className="p-3 text-xs text-muted-foreground"><span className="block">{updatedTimestamp(entry.updatedAt).date}</span><span className="block whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></div>}
-          {isVisible('filename') && <div role="cell" className="min-w-0 break-all p-3 font-mono text-[11px]">{entry.idName}</div>}
-          {onOpen && <div role="cell" className="p-3 text-right"><Button size="sm" onClick={() => void open(entry.idName)}>Load</Button>{versionControls(entry)}</div>}
-        </div>)}
+        {visibleRows.map(({ entry, ancestry: ancestryValue, profession: professionValue }) => <Fragment key={entry.idName}>
+          <div role="row" className="grid items-start border-t hover:bg-muted/30" style={{ gridTemplateColumns: desktopGridTemplate }}>
+            {adminMode && <div role="cell" className="p-3"><Checkbox checked={selectedIds.has(entry.idName)} onCheckedChange={(checked) => toggleSelected(entry.idName, checked === true)} aria-label={`Select ${entry.name || entry.idName}`} /></div>}
+            {isVisible('portrait') && <div role="cell" className="p-2"><img src={entry.thumbnailUrl ? `${entry.thumbnailUrl}?v=${encodeURIComponent(entry.updatedAt)}` : '/character-creator/img/portrait-placeholder.png'} alt="" className="h-16 w-20 rounded border object-cover" /></div>}
+            {isVisible('name') && <div role="cell" className="min-w-0 p-3 font-medium"><span className="block truncate">{entry.name || '—'}</span>{entry.properName && entry.properName !== entry.name && <span className="block truncate text-xs font-normal text-muted-foreground">{entry.properName}</span>}</div>}
+            {isVisible('tags') && <div role="cell" className="min-w-0 p-3">{adminMode && tagEditing ? <TokenField value={pendingTags[entry.idName] ?? sortedTags(entry)} onChange={(tags) => setPendingTags((current) => ({ ...current, [entry.idName]: tags }))} allowedTokens={availableTags} ariaLabel={`Tags for ${entry.name || entry.idName}`} /> : <div className="flex flex-wrap gap-1">{displayTags(entry).map((tag) => <span key={tag} className="rounded-full border bg-muted px-2 py-0.5 text-[10px]">{tag}</span>)}{!displayTags(entry).length && <span className="text-xs text-muted-foreground">—</span>}</div>}</div>}
+            {isVisible('ancestry') && <div role="cell" className="min-w-0 p-3 text-sm">{ancestryValue}</div>}
+            {isVisible('profession') && <div role="cell" className="min-w-0 p-3 text-sm">{professionValue}</div>}
+            {isVisible('updated') && <div role="cell" className="p-3 text-xs text-muted-foreground"><span className="block">{updatedTimestamp(entry.updatedAt).date}</span><span className="block whitespace-nowrap">{updatedTimestamp(entry.updatedAt).time}</span></div>}
+            {isVisible('filename') && <div role="cell" className="min-w-0 break-all p-3 font-mono text-[11px]">{entry.idName}</div>}
+            {onOpen && <div role="cell" className="p-3 text-right"><Button size="sm" onClick={() => void open(entry.idName)}>Load</Button></div>}
+          </div>
+          {onOpen && entry.versionCount && entry.versionCount > 1 && <div role="row" className="border-t bg-muted/10"><div role="cell" className="w-full">{versionAccordion(entry)}</div></div>}
+        </Fragment>)}
         {!visibleRows.length && <div className="p-10 text-center text-muted-foreground">{characters.length ? 'No characters match the current filters.' : 'No saved characters.'}</div>}
       </div>
     </div>
