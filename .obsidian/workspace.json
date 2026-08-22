@@ -187,6 +187,11 @@
   },
   "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
+    "src/components/suspense-spinner.tsx",
+    "src/app/(workspace)/workspace-views.tsx",
+    "data/characters.zip",
+    "data/maps/citystates/README.md",
+    "data/maps/locale.citystate-crolm.pdf",
     "Archive.zip",
     "data/maps/citystates/citystate-corom.png",
     "data/maps/citystates/citystate-paltesh.png",
@@ -209,9 +214,6 @@
     "src/app/(workspace)/sheet/loading.tsx",
     "src/app/(workspace)/library/page.tsx",
     "src/app/(workspace)/library/loading.tsx",
-    "src/app/(workspace)/workspace-spinner.tsx",
-    "src/app/(workspace)/workspace-shell.tsx",
-    "src/app/(workspace)/workspace-provider.tsx",
     "META/guidance/CANON_SYNC_v139.md",
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",
@@ -230,7 +232,6 @@
     "META/releases/META_REPAIR_v133.md",
     "META/releases/CHARACTER_RUNTIME_NORMALIZATION_v132.md",
     "META/releases/CHARACTER_LIBRARY_METADATA_v133.md",
-    "META/releases/CHARACTER_ARMOR_NORMALIZATION_v131.md",
-    "META/guidance/CANON_SYNC_v133.md"
+    "META/releases/CHARACTER_ARMOR_NORMALIZATION_v131.md"
   ]
 }

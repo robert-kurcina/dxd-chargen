@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import SuspenseSpinner from '@/components/suspense-spinner';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
 import { getAttributeDm } from '@/lib/character-logic';
 import {
@@ -153,9 +154,15 @@ function ExampleToggle({ checked, onCheckedChange }: { checked: boolean; onCheck
 }
 
 function PeopleExample({ src, label }: { src: string; label: string }) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
   return (
     <figure className="overflow-hidden rounded-lg border bg-muted/20 p-2">
-      <img src={src} alt={`${label} examples`} loading="lazy" className="h-auto max-h-[36rem] w-full object-contain" />
+      <div className="relative min-h-[180px]">
+        {!loaded && !failed && <SuspenseSpinner label={`Loading ${label} examples…`} className="absolute inset-0" />}
+        <img src={src} alt={`${label} examples`} loading="lazy" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} className={`h-auto max-h-[36rem] w-full object-contain ${loaded ? '' : 'invisible'}`} />
+        {failed && <div className="flex min-h-[180px] items-center justify-center text-xs text-muted-foreground">Example image unavailable.</div>}
+      </div>
       <figcaption className="px-1 pt-2 text-center text-xs text-muted-foreground">{label}</figcaption>
     </figure>
   );

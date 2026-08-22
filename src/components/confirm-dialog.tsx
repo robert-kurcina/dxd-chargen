@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import SuspenseSpinner from '@/components/suspense-spinner';
 
 export default function ConfirmDialog({
   open,
@@ -26,7 +27,7 @@ export default function ConfirmDialog({
       <div className="mt-2 text-sm text-muted-foreground">{children}</div>
       <div className="mt-5 flex justify-end gap-2">
         <Button variant="outline" disabled={busy} onClick={onCancel}>Cancel</Button>
-        <Button disabled={busy} onClick={onConfirm}>{busy ? 'Updating…' : confirmLabel}</Button>
+        <Button disabled={busy} onClick={onConfirm}>{busy ? <SuspenseSpinner compact label="Updating…" className="text-current" /> : confirmLabel}</Button>
       </div>
     </div>
   </div>;

@@ -1,11 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { StaticData } from '@/data';
 import type { CharacterDraft } from '@/lib/character-draft';
 import { projectCharacterSheet, type CharacterSheetData } from '@/lib/character-sheet-projection';
 import { calculateProperties } from '@/lib/rules/properties';
 import { adjustedGearValues, carriedItemWeight, displayInventoryName, displayInventoryQuantity, gearSizeAdjustment, isWornEquipment, resolveWornArmor, type InventoryCategory } from '@/lib/rules/utilities';
+import SuspenseSpinner from '@/components/suspense-spinner';
+import { cn } from '@/lib/utils';
 
 const statureFrameLabels: Record<number, string> = {
   [-2]: 'Shorter',
@@ -250,18 +252,25 @@ export function buildCharacterSheetPayload(draft: CharacterDraft, sheet: Charact
   };
 }
 
-export default function ExpandedCharacterSheet({ draft, data, filename }: { draft: CharacterDraft; data: StaticData; filename?: string }) {
+export default function ExpandedCharacterSheet({ draft, data }: { draft: CharacterDraft; data: StaticData }) {
   const iframe = useRef<HTMLIFrameElement>(null);
+  const [loaded, setLoaded] = useState(false);
   const sheet = useMemo(() => projectCharacterSheet(draft, data), [draft, data]);
-  const payload = useMemo(() => ({ ...buildCharacterSheetPayload(draft, sheet, data), Filename: filename ?? '' }), [draft, sheet, data, filename]);
+  const payload = useMemo(() => buildCharacterSheetPayload(draft, sheet, data), [draft, sheet, data]);
   const send = useCallback(() => iframe.current?.contentWindow?.postMessage({ type: 'dxd-character-sheet', payload }, window.location.origin), [payload]);
   useEffect(() => {
     const receive = (event: MessageEvent) => {
-      if (event.source === iframe.current?.contentWindow && event.data?.type === 'dxd-character-sheet-ready') send();
+      if (event.source === iframe.current?.contentWindow && event.data?.type === 'dxd-character-sheet-ready') {
+        send();
+        setLoaded(true);
+      }
     };
     window.addEventListener('message', receive);
     send();
     return () => window.removeEventListener('message', receive);
   }, [send]);
-  return <iframe ref={iframe} title="Sarna Len character sheet" src="/character-creator/index.html?embed=1" onLoad={send} sandbox="allow-scripts allow-same-origin allow-downloads" className="block h-full min-h-0 w-full overscroll-contain border-0 bg-white md:rounded-lg md:border" />;
+  return <div className="relative h-full min-h-[240px] w-full">
+    {!loaded && <SuspenseSpinner label="Loading character sheet…" className="absolute inset-0 z-10 rounded-lg border bg-card" />}
+    <iframe ref={iframe} title="Sarna Len character sheet" src="/character-creator/index.html?embed=1" onLoad={send} sandbox="allow-scripts allow-same-origin allow-downloads" className={cn('block h-full min-h-0 w-full overscroll-contain border-0 bg-white md:rounded-lg md:border', !loaded && 'invisible')} />
+  </div>;
 }

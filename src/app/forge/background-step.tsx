@@ -35,6 +35,7 @@ import {
 } from '@/lib/rules/background';
 import { getSpeciesChoice, syncIntrinsics } from '@/lib/rules/intrinsics';
 import { cn } from '@/lib/utils';
+import SuspenseSpinner from '@/components/suspense-spinner';
 
 type BackgroundStepProps = {
   stepValue: string;
@@ -52,9 +53,13 @@ type ChoiceCardProps = {
   disabled?: boolean;
 };
 
+
 const OVERLAND_SVG_URL = '/api/data-assets/citystates/sondgara-overview.overlay.svg';
 const CITYSTATE_ASSET_URL = '/api/data-assets/citystates';
 const INKSCAPE_LABEL_NAMESPACE = 'http://www.inkscape.org/namespaces/inkscape';
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+const OVERLAND_HIT_RADIUS_RATIO = 0.035;
+const OVERLAND_HIGHLIGHT_STROKE_RATIO = 0.006;
 
 const OVERLAND_CUSTOM_LOCATIONS: Record<string, { region: string; settlement: string }> = {
   'castel-ul-thanos': { region: 'Ulsh', settlement: 'Castel Ul Thanos' },
@@ -97,10 +102,43 @@ function settlementMarkerKeys(name: string, settlementType?: string | null) {
   return [`citystate-${slug}`, `castel-${slug}`, `free-city-${slug}`, slug];
 }
 
-function isBlackMarkerCircle(circle: SVGCircleElement) {
+function markerStroke(circle: SVGCircleElement) {
   const inlineStroke = circle.getAttribute('stroke') ?? circle.style.stroke ?? '';
-  const stroke = inlineStroke.trim().toLowerCase().replace(/\s+/g, '');
+  if (inlineStroke.trim()) return inlineStroke.trim();
+  return circle.ownerDocument.defaultView?.getComputedStyle(circle).stroke?.trim() ?? '';
+}
+
+function isBlackMarkerCircle(circle: SVGCircleElement) {
+  const stroke = markerStroke(circle).toLowerCase().replace(/\s+/g, '');
   return stroke === 'black' || stroke === '#000' || stroke === '#000000' || stroke === 'rgb(0,0,0)' || stroke === 'rgba(0,0,0,1)';
+}
+
+function overlandReferenceLength(svg: SVGSVGElement | null) {
+  if (!svg) return 183.56;
+  const viewBox = svg.viewBox?.baseVal;
+  if (viewBox?.width && viewBox?.height) return Math.min(viewBox.width, viewBox.height);
+  const width = Number.parseFloat(svg.getAttribute('width') ?? '0');
+  const height = Number.parseFloat(svg.getAttribute('height') ?? '0');
+  if (width > 0 && height > 0) return Math.min(width, height);
+  return 183.56;
+}
+
+function setOriginalMarkerHighlight(group: SVGGElement, highlighted: boolean) {
+  const circles = Array.from(group.querySelectorAll<SVGCircleElement>('circle:not([data-dxd-overland-hit])'));
+  const highlightWidth = overlandReferenceLength(group.ownerSVGElement) * OVERLAND_HIGHLIGHT_STROKE_RATIO;
+  circles.forEach((circle) => {
+    if (circle.dataset.dxdOriginalStyle === undefined) circle.dataset.dxdOriginalStyle = circle.getAttribute('style') ?? '';
+    if (!highlighted) {
+      const originalStyle = circle.dataset.dxdOriginalStyle ?? '';
+      if (originalStyle) circle.setAttribute('style', originalStyle);
+      else circle.removeAttribute('style');
+      return;
+    }
+    const stroke = markerStroke(circle) || '#ffffff';
+    circle.style.stroke = stroke;
+    circle.style.strokeWidth = `${highlightWidth}`;
+    circle.style.filter = `drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 2.4px ${stroke})`;
+  });
 }
 
 function ChoiceCard({ selected, title, subtitle, meta, onClick, disabled = false }: ChoiceCardProps) {
@@ -131,13 +169,16 @@ function ChoiceCard({ selected, title, subtitle, meta, onClick, disabled = false
 function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
   const overlandObjectRef = useRef<HTMLObjectElement>(null);
   const [showOverland, setShowOverland] = useState(false);
+  const [overlandMounted, setOverlandMounted] = useState(false);
+  const [overlandLoaded, setOverlandLoaded] = useState(false);
   const [mapSelectedMarker, setMapSelectedMarker] = useState<string | null>(null);
-  const [pendingMapMarker, setPendingMapMarker] = useState<string | null>(null);
   const [settlementImageIndex, setSettlementImageIndex] = useState(0);
   const [settlementImageUnavailable, setSettlementImageUnavailable] = useState(false);
+  const [settlementImageLoaded, setSettlementImageLoaded] = useState(false);
   const customRegion = draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Custom region');
   const customSettlement = draft.background.demographicSelections.find((entry) => entry.sourceDetail === 'Custom settlement');
   const custom = Boolean(customRegion || draft.background.regionId === 'region-other');
+  const mapCustom = Boolean(mapSelectedMarker && OVERLAND_CUSTOM_LOCATIONS[mapSelectedMarker] && customRegion && customSettlement);
   const region = data.empires.find((item) => item.catalogId === draft.background.regionId);
   const settlementOptions = region ? settlementOptionsForRegion(region.name, data) : [];
   const selectedSettlement = selectedSettlementOption(draft, data);
@@ -150,7 +191,6 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
     : null;
 
   const selectedMarkerKeys = useMemo(() => {
-    if (pendingMapMarker) return [pendingMapMarker, ...(OVERLAND_IMAGE_ALIASES[pendingMapMarker] ?? [])];
     if (mapSelectedMarker) return [mapSelectedMarker, ...(OVERLAND_IMAGE_ALIASES[mapSelectedMarker] ?? [])];
     if (selectedSettlement) {
       const keys = settlementMarkerKeys(selectedSettlement.name, selectedSettlement.settlementType);
@@ -161,13 +201,14 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
       return keys.flatMap((key) => [key, ...(OVERLAND_IMAGE_ALIASES[key] ?? [])]);
     }
     return [];
-  }, [customSettlement?.name, mapSelectedMarker, pendingMapMarker, selectedSettlement]);
+  }, [customSettlement?.name, mapSelectedMarker, selectedSettlement]);
 
   const settlementImageKey = selectedMarkerKeys[settlementImageIndex] ?? null;
 
   useEffect(() => {
     setSettlementImageIndex(0);
     setSettlementImageUnavailable(false);
+    setSettlementImageLoaded(false);
   }, [selectedMarkerKeys.join('|')]);
 
   const resetLocationDependentHeritage = (current: CharacterDraft, regionId: string, settlementId: string | null) => {
@@ -197,29 +238,27 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
   };
 
   const chooseRegion = (regionId: string) => {
-    setPendingMapMarker(null);
     setMapSelectedMarker(null);
     setDraft((current) => resetLocationDependentHeritage(current, regionId, null));
   };
 
   const chooseSettlement = (settlementId: string) => {
     if (!region) return;
-    setPendingMapMarker(null);
     setMapSelectedMarker(null);
     setDraft((current) => resetLocationDependentHeritage(current, region.catalogId, settlementId));
   };
+
   const setCustomLocation = (kind: 'region' | 'settlement', value: string) => {
-    setPendingMapMarker(null);
     setMapSelectedMarker(null);
     setDraft((current) => {
-    const detail = kind === 'region' ? 'Custom region' : 'Custom settlement';
-    const demographicSelections = [...current.background.demographicSelections.filter((entry) => entry.sourceDetail !== detail)];
-    if (value.trim()) demographicSelections.push({ id: makeCatalogId('custom', `${kind}-${value}`), name: value.slice(0, 100), source: 'player', sourceDetail: detail });
-    return { ...current, background: { ...current.background, regionId: 'region-other', settlementId: 'settlement-other', demographicSelections } };
+      const detail = kind === 'region' ? 'Custom region' : 'Custom settlement';
+      const demographicSelections = [...current.background.demographicSelections.filter((entry) => entry.sourceDetail !== detail)];
+      if (value.trim()) demographicSelections.push({ id: makeCatalogId('custom', `${kind}-${value}`), name: value.slice(0, 100), source: 'player', sourceDetail: detail });
+      return { ...current, background: { ...current.background, regionId: 'region-other', settlementId: 'settlement-other', demographicSelections } };
     });
   };
+
   const toggleCustom = (enabled: boolean) => {
-    setPendingMapMarker(null);
     setMapSelectedMarker(null);
     setDraft((current) => ({
       ...current,
@@ -263,7 +302,7 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
         return names.includes(markerName);
       });
       if (candidateSettlement) {
-        setMapSelectedMarker(null);
+        setMapSelectedMarker(marker);
         setDraft((current) => resetLocationDependentHeritage(current, candidateRegion.catalogId, candidateSettlement.id));
         return;
       }
@@ -276,36 +315,89 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
     setMapSelectedMarker(marker);
   };
 
+  const syncOverlandHighlights = () => {
+    const svgDocument = overlandObjectRef.current?.contentDocument;
+    if (!svgDocument) return;
+    const selected = new Set(selectedMarkerKeys);
+    svgDocument.querySelectorAll<SVGGElement>('g[data-dxd-overland-marker]').forEach((group) => {
+      const marker = group.dataset.dxdOverlandMarker ?? '';
+      const isSelected = selected.has(marker);
+      group.dataset.dxdOverlandSelected = isSelected ? 'true' : 'false';
+      if (group.dataset.dxdOverlandHover !== 'true') setOriginalMarkerHighlight(group, isSelected);
+    });
+  };
+
+  useEffect(() => {
+    if (!showOverland) return;
+    syncOverlandHighlights();
+  }, [showOverland, selectedMarkerKeys.join('|')]);
+
   const configureOverlandObject = () => {
     const svgDocument = overlandObjectRef.current?.contentDocument;
     if (!svgDocument) return;
-    svgDocument.querySelectorAll('g').forEach((group) => {
+    svgDocument.querySelectorAll<SVGGElement>('g').forEach((group) => {
       const marker = group.getAttributeNS(INKSCAPE_LABEL_NAMESPACE, 'label') ?? group.getAttribute('inkscape:label');
       if (!marker || marker === 'image' || marker === 'settlements') return;
-      const circles = Array.from(group.querySelectorAll('circle'));
+      const circles = Array.from(group.querySelectorAll<SVGCircleElement>('circle:not([data-dxd-overland-hit])'));
       if (!circles.length || circles.every((circle) => isBlackMarkerCircle(circle))) return;
+
+      group.dataset.dxdOverlandMarker = marker;
       group.setAttribute('role', 'button');
       group.setAttribute('tabindex', '0');
       group.setAttribute('aria-label', marker.replaceAll('-', ' '));
       group.style.cursor = 'pointer';
+
+      if (!group.querySelector('[data-dxd-overland-hit]')) {
+        const anchor = circles.reduce((largest, circle) => {
+          const radius = Number.parseFloat(circle.getAttribute('r') ?? '0');
+          const largestRadius = Number.parseFloat(largest.getAttribute('r') ?? '0');
+          return radius > largestRadius ? circle : largest;
+        }, circles[0]);
+        const hitRadius = overlandReferenceLength(svgDocument.documentElement as unknown as SVGSVGElement) * OVERLAND_HIT_RADIUS_RATIO;
+        const hit = svgDocument.createElementNS(SVG_NAMESPACE, 'circle');
+        hit.dataset.dxdOverlandHit = 'true';
+        hit.setAttribute('cx', anchor.getAttribute('cx') ?? '0');
+        hit.setAttribute('cy', anchor.getAttribute('cy') ?? '0');
+        hit.setAttribute('r', String(hitRadius));
+        hit.setAttribute('fill', '#ffffff');
+        hit.setAttribute('fill-opacity', '0.001');
+        hit.setAttribute('stroke', 'none');
+        hit.setAttribute('pointer-events', 'all');
+        hit.style.cursor = 'pointer';
+        group.appendChild(hit);
+      }
+
       if (group.dataset.dxdOverlandBound === 'true') return;
       group.dataset.dxdOverlandBound = 'true';
       const activate = () => {
         setSettlementImageIndex(0);
         setSettlementImageUnavailable(false);
-        setPendingMapMarker(marker);
+        setSettlementImageLoaded(false);
+        chooseMapMarker(marker);
       };
-      group.addEventListener('click', activate);
+      const setHover = (hovered: boolean) => {
+        group.dataset.dxdOverlandHover = hovered ? 'true' : 'false';
+        setOriginalMarkerHighlight(group, hovered || group.dataset.dxdOverlandSelected === 'true');
+      };
+      const hit = group.querySelector<SVGCircleElement>('[data-dxd-overland-hit]');
+      hit?.addEventListener('pointerenter', () => setHover(true));
+      hit?.addEventListener('pointerleave', () => setHover(false));
+      hit?.addEventListener('click', activate);
+      group.addEventListener('focus', () => setHover(true));
+      group.addEventListener('blur', () => setHover(false));
       group.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
         activate();
       });
     });
+    syncOverlandHighlights();
+    setOverlandLoaded(true);
   };
 
   const handleSettlementImageError = () => {
     if (settlementImageIndex + 1 < selectedMarkerKeys.length) {
+      setSettlementImageLoaded(false);
       setSettlementImageIndex((current) => current + 1);
       return;
     }
@@ -313,24 +405,22 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
   };
 
   const handleSettlementImageLoad = () => {
-    if (!pendingMapMarker) return;
-    const marker = pendingMapMarker;
-    setPendingMapMarker(null);
-    chooseMapMarker(marker);
+    setSettlementImageLoaded(true);
   };
 
   return (
     <div className="space-y-5">
       <div className="grid gap-3 md:grid-cols-2">
         <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={custom} onCheckedChange={(value) => toggleCustom(Boolean(value))} /><span><span className="block font-medium">Other</span><span className="text-xs text-muted-foreground">Use a custom Region and Settlement outside the standard catalog.</span></span></label>
-        <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={showOverland} onCheckedChange={(value) => setShowOverland(Boolean(value))} /><span><span className="block font-medium">Show Overland</span><span className="text-xs text-muted-foreground">Display the Sondgara overland map and select a marked settlement directly.</span></span></label>
+        <label className="flex items-start gap-3 rounded-lg border p-3"><Checkbox checked={showOverland} onCheckedChange={(value) => { const visible = Boolean(value); setShowOverland(visible); if (visible) setOverlandMounted(true); }} /><span><span className="block font-medium">Show Overland</span><span className="text-xs text-muted-foreground">Display the Sondgara overland map and select a marked settlement directly.</span></span></label>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="starting-region">Starting region</Label>
-          {custom ? <Input id="starting-region" value={customRegion?.name ?? ''} onChange={(event) => setCustomLocation('region', event.target.value)} placeholder="Custom region" maxLength={100} /> : <Select value={draft.background.regionId ?? undefined} onValueChange={chooseRegion}>
+          {custom && !mapCustom ? <Input id="starting-region" key={`custom-region-${customRegion?.name ?? ''}`} value={customRegion?.name ?? ''} onChange={(event) => setCustomLocation('region', event.target.value)} placeholder="Custom region" maxLength={100} /> : <Select key={`region-${draft.background.regionId ?? 'none'}-${mapCustom ? mapSelectedMarker : 'catalog'}`} value={draft.background.regionId ?? undefined} onValueChange={chooseRegion}>
             <SelectTrigger id="starting-region"><SelectValue placeholder="Choose a region" /></SelectTrigger>
             <SelectContent>
+              {mapCustom && customRegion?.name && <SelectItem value="region-other">{customRegion.name}</SelectItem>}
               {data.empires.map((item) => (
                 <SelectItem key={item.catalogId} value={item.catalogId}>
                   {item.region} — {item.name}
@@ -341,13 +431,15 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
         </div>
         <div className="space-y-2">
           <Label htmlFor="starting-settlement">Starting settlement</Label>
-          {custom ? <Input id="starting-settlement" value={customSettlement?.name ?? ''} onChange={(event) => setCustomLocation('settlement', event.target.value)} placeholder="Custom settlement" maxLength={100} /> : <Select
+          {custom && !mapCustom ? <Input id="starting-settlement" key={`custom-settlement-${customSettlement?.name ?? ''}`} value={customSettlement?.name ?? ''} onChange={(event) => setCustomLocation('settlement', event.target.value)} placeholder="Custom settlement" maxLength={100} /> : <Select
+            key={`settlement-${draft.background.regionId ?? 'none'}-${draft.background.settlementId ?? 'none'}`}
             value={draft.background.settlementId ?? undefined}
             onValueChange={chooseSettlement}
-            disabled={!region}
+            disabled={!region && !mapCustom}
           >
-            <SelectTrigger id="starting-settlement"><SelectValue placeholder={region ? 'Choose a settlement' : 'Choose a region first'} /></SelectTrigger>
+            <SelectTrigger id="starting-settlement"><SelectValue placeholder={region || mapCustom ? 'Choose a settlement' : 'Choose a region first'} /></SelectTrigger>
             <SelectContent>
+              {mapCustom && customSettlement?.name && <SelectItem value="settlement-other">{customSettlement.name}</SelectItem>}
               {settlementOptions.map((item) => (
                 <SelectItem key={item.id} value={item.id}>
                   {item.displayName}{item.workingGloss ? ` — ${item.workingGloss}` : ''}{item.population != null ? ` (${item.population.toLocaleString()})` : ''}
@@ -358,59 +450,72 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
         </div>
       </div>
 
-      {showOverland && (
-        <div className="space-y-3">
-          <div className="overflow-hidden rounded-lg border bg-muted/20">
+      {overlandMounted && (
+        <div className="space-y-3" hidden={!showOverland} aria-hidden={!showOverland}>
+          <div className="relative overflow-hidden rounded-lg border bg-muted/20">
+            {!overlandLoaded && <SuspenseSpinner label="Loading overland map…" className="absolute inset-0 z-10 bg-card/90" />}
             <object
               ref={overlandObjectRef}
               data={OVERLAND_SVG_URL}
               type="image/svg+xml"
               aria-label="Sondgara overland settlement map"
               onLoad={configureOverlandObject}
-              className="block w-full"
+              className={cn('block w-full', !overlandLoaded && 'invisible')}
               style={{ aspectRatio: '275.251 / 183.56' }}
             />
           </div>
           {settlementImageKey && !settlementImageUnavailable && (
-            <img
-              key={settlementImageKey}
-              src={`${CITYSTATE_ASSET_URL}/${settlementImageKey}.png`}
-              alt={`${(selectedSettlement?.displayName ?? customSettlement?.name ?? settlementImageKey.replaceAll('-', ' '))} region map`}
-              onLoad={handleSettlementImageLoad}
-              onError={handleSettlementImageError}
-              className="block h-auto w-full rounded-lg border bg-muted/20"
-            />
+            <div className="relative min-h-[160px] overflow-hidden rounded-lg border bg-muted/20">
+              {!settlementImageLoaded && <SuspenseSpinner label="Loading settlement map…" className="absolute inset-0 z-10 bg-card/90" />}
+              <img
+                key={settlementImageKey}
+                src={`${CITYSTATE_ASSET_URL}/${settlementImageKey}.png`}
+                alt={`${(selectedSettlement?.displayName ?? customSettlement?.name ?? settlementImageKey.replaceAll('-', ' '))} region map`}
+                onLoad={handleSettlementImageLoad}
+                onError={handleSettlementImageError}
+                className={cn('block h-auto w-full', !settlementImageLoaded && 'invisible')}
+              />
+            </div>
           )}
         </div>
       )}
 
-      {region && (
+      {(region || customRegion?.name || customSettlement?.name) && (
         <div className="rounded-lg bg-muted/50 p-4 text-sm">
-          <div className="font-medium">{region.region} — {region.name}</div>
-          {locale && (
-            <div className="mt-1 space-y-1 text-muted-foreground">
-              <div>{locale.name}: {locale.population.toLocaleString()} population</div>
-              <div><span className="font-medium text-foreground">Prominence:</span> {locale.currentDeitySpheres.join(', ')}</div>
-              <div>Early native deity: {locale.historicalDeity.name} ({locale.historicalDeity.status})</div>
-            </div>
-          )}
-          {selectedSettlement && (
+          {region ? (
             <>
-              <div className="mt-3 font-medium">{selectedSettlement.displayName}{selectedSettlement.workingGloss ? ` — “${selectedSettlement.workingGloss}”` : ''}</div>
-              <div className="mt-1 text-muted-foreground">
-                {[selectedSettlement.settlementType, selectedSettlement.population != null ? `${selectedSettlement.population.toLocaleString()} population` : null, selectedSettlement.currentDeity ? `${selectedSettlement.currentDeity} sphere` : null].filter(Boolean).join(' • ')}
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {citystate && <Badge variant="outline">{citystate.economicStatus}</Badge>}
-                {selectedSettlement.environs.map((environ) => <Badge key={environ} variant="secondary">{environ}</Badge>)}
-                {defaultLanguage && <Badge variant="outline">Default {defaultLanguage.name}</Badge>}
-              </div>
-              {selectedSettlement.languageLayers.length > 0 && (
-                <div className="mt-3 text-xs text-muted-foreground">Language/toponym layers: {selectedSettlement.languageLayers.join(' • ')}</div>
+              <div className="font-medium">{region.region} — {region.name}</div>
+              {locale && (
+                <div className="mt-1 space-y-1 text-muted-foreground">
+                  <div>{locale.name}: {locale.population.toLocaleString()} population</div>
+                  <div><span className="font-medium text-foreground">Prominence:</span> {locale.currentDeitySpheres.join(', ')}</div>
+                  <div>Early native deity: {locale.historicalDeity.name} ({locale.historicalDeity.status})</div>
+                </div>
               )}
-              {selectedSettlement.nameStatus !== 'CANONICAL' && (
-                <div className="mt-2 text-xs text-muted-foreground">Name status: {selectedSettlement.nameStatus.replaceAll('_', ' ').toLowerCase()}. English glosses remain available for table play.</div>
+              {selectedSettlement && (
+                <>
+                  <div className="mt-3 font-medium">{selectedSettlement.displayName}{selectedSettlement.workingGloss ? ` — “${selectedSettlement.workingGloss}”` : ''}</div>
+                  <div className="mt-1 text-muted-foreground">
+                    {[selectedSettlement.settlementType, selectedSettlement.population != null ? `${selectedSettlement.population.toLocaleString()} population` : null, selectedSettlement.currentDeity ? `${selectedSettlement.currentDeity} sphere` : null].filter(Boolean).join(' • ')}
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {citystate && <Badge variant="outline">{citystate.economicStatus}</Badge>}
+                    {selectedSettlement.environs.map((environ) => <Badge key={environ} variant="secondary">{environ}</Badge>)}
+                    {defaultLanguage && <Badge variant="outline">Default {defaultLanguage.name}</Badge>}
+                  </div>
+                  {selectedSettlement.languageLayers.length > 0 && (
+                    <div className="mt-3 text-xs text-muted-foreground">Language/toponym layers: {selectedSettlement.languageLayers.join(' • ')}</div>
+                  )}
+                  {selectedSettlement.nameStatus !== 'CANONICAL' && (
+                    <div className="mt-2 text-xs text-muted-foreground">Name status: {selectedSettlement.nameStatus.replaceAll('_', ' ').toLowerCase()}. English glosses remain available for table play.</div>
+                  )}
+                </>
               )}
+            </>
+          ) : (
+            <>
+              <div className="font-medium">{[customRegion?.name, customSettlement?.name].filter(Boolean).join(' — ')}</div>
+              <div className="mt-1 text-muted-foreground">Map-selected or custom location outside the standard settlement catalogue.</div>
             </>
           )}
         </div>

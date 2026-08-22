@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const tabs = [
+  { href: '/admin', label: 'Global', match: (path: string) => path === '/admin' || path === '/admin/' },
   { href: '/admin/characters', label: 'Characters', match: (path: string) => path.startsWith('/admin/characters') },
-  { href: '/admin/global', label: 'Global', match: (path: string) => path.startsWith('/admin/global') },
   { href: '/admin/tests', label: 'Tests', match: (path: string) => path.startsWith('/admin/tests') },
   { href: '/admin/info', label: 'Info', match: (path: string) => path.startsWith('/admin/info') },
 ];

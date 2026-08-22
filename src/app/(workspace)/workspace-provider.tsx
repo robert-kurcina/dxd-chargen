@@ -1,10 +1,11 @@
 'use client';
 
 import { createContext, useContext, useEffect, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
+import SuspenseSpinner from '@/components/suspense-spinner';
 import { useRouter } from 'next/navigation';
 import type { StaticData } from '@/data';
 import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { activeLibraryEntry, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
+import { activeLibraryEntry, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
 import { syncHeritageGrantedSelections } from '@/lib/rules/background';
 import { syncIntrinsics } from '@/lib/rules/intrinsics';
 import { syncProficiencies } from '@/lib/rules/proficiencies';
@@ -27,6 +28,8 @@ type WorkspaceContextValue = {
   setMessage: (value: string) => void;
   availableTags: string[];
   libraryRefresh: number;
+  saving: boolean;
+  reverting: boolean;
   save: () => Promise<boolean>;
   revert: () => Promise<void>;
   reset: () => void;
@@ -44,25 +47,14 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const [libraryRefresh, setLibraryRefresh] = useState(0);
   const [message, setMessage] = useState('');
   const [availableTags, setAvailableTags] = useState<string[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [reverting, setReverting] = useState(false);
 
   useEffect(() => {
     let savedLibrary: unknown = null; let legacyDraft: unknown = null;
     try { const rawLibrary = window.localStorage.getItem(CHARACTER_LIBRARY_STORAGE_KEY); if (rawLibrary) savedLibrary = JSON.parse(rawLibrary); const rawLegacy = window.localStorage.getItem(LEGACY_DRAFT_STORAGE_KEY); if (rawLegacy) legacyDraft = JSON.parse(rawLegacy); } catch {}
     const migrated = migrateCharacterLibrary(savedLibrary, legacyDraft);
-    let nextLibrary = { ...migrated, entries: migrated.entries.map((entry) => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) };
-    try {
-      const pendingRaw = window.localStorage.getItem(PENDING_FILE_LOAD_STORAGE_KEY);
-      const pending = pendingRaw ? JSON.parse(pendingRaw) as { idName?: unknown; draft?: unknown } : null;
-      if (pending && typeof pending.idName === 'string' && pending.draft) {
-        const loaded = normalizeDraft(migrateCharacterDraft(pending.draft), data);
-        nextLibrary = updateActiveDraft(nextLibrary, () => loaded);
-        setActiveFileId(pending.idName);
-        setSavedSnapshot(comparableDraft(loaded));
-        setMessage(`Loaded ${pending.idName}`);
-        window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY);
-      }
-    } catch { window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY); }
-    setLibrary(nextLibrary);
+    setLibrary({ ...migrated, entries: migrated.entries.map((entry) => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) });
     setHydrated(true);
   }, [data]);
   useEffect(() => { if (!hydrated) return; window.localStorage.setItem(CHARACTER_LIBRARY_STORAGE_KEY, JSON.stringify(library)); const active = activeLibraryEntry(library); if (active) window.localStorage.setItem(LEGACY_DRAFT_STORAGE_KEY, JSON.stringify(active.draft)); }, [library, hydrated]);
@@ -80,17 +72,35 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const setDraft: Dispatch<SetStateAction<CharacterDraft>> = (action) => setLibrary((current) => updateActiveDraft(current, (currentDraft) => normalizeDraft(typeof action === 'function' ? (action as (value: CharacterDraft) => CharacterDraft)(currentDraft) : action, data)));
   const loadDraft = (idName: string, value: CharacterDraft) => { const next = normalizeDraft(migrateCharacterDraft(value), data); setDraft(next); setActiveFileId(idName); setSavedSnapshot(comparableDraft(next)); setMessage(`Loaded ${idName}`); router.push('/'); };
   const save = async () => {
-    const response = await fetch('/api/character-files', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idName: activeFileId, draft }) });
-    if (!response.ok) { setMessage('Save failed.'); return false; }
-    const value = await response.json();
-    const savedDraft = normalizeDraft(migrateCharacterDraft(value.draft ?? draft), data);
-    setLibrary((current) => updateActiveDraft(current, () => savedDraft));
-    setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh((key) => key + 1); setMessage(`Saved ${value.idName}`); return true;
+    if (saving) return false;
+    setSaving(true);
+    try {
+      const response = await fetch('/api/character-files', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idName: activeFileId, draft }) });
+      if (!response.ok) { setMessage('Save failed.'); return false; }
+      const value = await response.json();
+      const savedDraft = normalizeDraft(migrateCharacterDraft(value.draft ?? draft), data);
+      setLibrary((current) => updateActiveDraft(current, () => savedDraft));
+      setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh((key) => key + 1); setMessage(`Saved ${value.idName}`); return true;
+    } finally {
+      setSaving(false);
+    }
   };
-  const revert = async () => { if (!activeFileId) return; const response = await fetch(`/api/character-files/${encodeURIComponent(activeFileId)}`, { cache: 'no-store' }); if (!response.ok) return setMessage('Revert failed.'); const value = await response.json(); loadDraft(activeFileId, value.draft); };
+  const revert = async () => {
+    if (!activeFileId || reverting) return;
+    setReverting(true);
+    try {
+      const response = await fetch(`/api/character-files/${encodeURIComponent(activeFileId)}`, { cache: 'no-store' });
+      if (!response.ok) { setMessage('Revert failed.'); return; }
+      const value = await response.json();
+      loadDraft(activeFileId, value.draft);
+    } finally {
+      setReverting(false);
+    }
+  };
   const reset = () => { const empty = normalizeDraft(createEmptyCharacterDraft(), data); setDraft({ ...empty, completedSteps: [] }); setActiveFileId(null); setSavedSnapshot(''); setMessage('Forge reset to a new character.'); };
 
-  const value = useMemo<WorkspaceContextValue>(() => ({ data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, save, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh]);
+  const value = useMemo<WorkspaceContextValue>(() => ({ data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting]);
+  if (!hydrated) return <SuspenseSpinner panel label="Loading character workspace…" className="mx-auto mt-4 max-w-[1440px]" />;
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }
 

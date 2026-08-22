@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import ConfirmDialog from '@/components/confirm-dialog';
 import { Input } from '@/components/ui/input';
 import TokenField from '@/components/token-field';
+import SuspenseSpinner from '@/components/suspense-spinner';
 import { DEFAULT_ADMIN_SETTINGS, readAdminSettings, sortLibraryTags, writeAdminSettings, type AdminSettings } from '@/lib/admin-settings';
 
 type CharacterTagRecord = { libraryTags?: string[] };
@@ -21,8 +22,10 @@ export default function GlobalAdminPanel() {
   const [seedConfirmOpen, setSeedConfirmOpen] = useState(false);
   const [tagsConfirmOpen, setTagsConfirmOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [loadingCounts, setLoadingCounts] = useState(true);
 
   const loadCounts = async (settings: AdminSettings) => {
+    setLoadingCounts(true);
     try {
       const response = await fetch('/api/character-files', { cache: 'no-store' });
       const payload = response.ok ? await response.json() : { characters: [] };
@@ -30,6 +33,7 @@ export default function GlobalAdminPanel() {
       for (const character of (payload.characters ?? []) as CharacterTagRecord[]) for (const tag of character.libraryTags ?? []) if (tag in counts) counts[tag] += 1;
       setTagCounts(counts);
     } catch { setTagCounts(Object.fromEntries(settings.libraryTags.map((tag) => [tag, 0]))); }
+    finally { setLoadingCounts(false); }
   };
 
   useEffect(() => {
@@ -61,7 +65,7 @@ export default function GlobalAdminPanel() {
     </CardContent></Card>
 
     <Card><CardHeader><CardTitle>Library</CardTitle><CardDescription>Global tag vocabulary. Tags are displayed in alphanumeric order with the number of filesystem characters currently assigned to each tag.</CardDescription></CardHeader><CardContent className="space-y-4">
-      {!tagsUnlocked ? <div className="flex min-h-10 flex-wrap gap-2 rounded-md border bg-muted/30 p-3">{persisted.libraryTags.map((tag) => <span key={tag} className="rounded-full border bg-background px-2.5 py-1 text-xs">{tag} ({tagCounts[tag] ?? 0})</span>)}{!persisted.libraryTags.length && <span className="text-sm text-muted-foreground">No Library tags defined.</span>}</div> : <TokenField value={normalizedTags} onChange={setTagValue} placeholder="Type a tag and press Enter" ariaLabel="Global Library tags" />}
+      {!tagsUnlocked ? <div className="flex min-h-10 flex-wrap gap-2 rounded-md border bg-muted/30 p-3">{loadingCounts ? <SuspenseSpinner compact label="Loading Library counts…" /> : <>{persisted.libraryTags.map((tag) => <span key={tag} className="rounded-full border bg-background px-2.5 py-1 text-xs">{tag} ({tagCounts[tag] ?? 0})</span>)}{!persisted.libraryTags.length && <span className="text-sm text-muted-foreground">No Library tags defined.</span>}</>}</div> : <TokenField value={normalizedTags} onChange={setTagValue} placeholder="Type a tag and press Enter" ariaLabel="Global Library tags" />}
       <label className="flex items-center gap-2 text-sm"><Checkbox checked={tagsUnlocked} onCheckedChange={(checked) => { const unlocked = checked === true; setTagsUnlocked(unlocked); if (!unlocked) setTagValue(persisted.libraryTags); }} /><span>Change Library Tags</span></label>
       {tagsUnlocked && <div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => { setTagValue(persisted.libraryTags); setTagsUnlocked(false); setMessage('Library tag edits canceled.'); }}>Cancel</Button>{tagsDirty && <Button onClick={() => setTagsConfirmOpen(true)}>Save</Button>}</div>}
     </CardContent></Card>

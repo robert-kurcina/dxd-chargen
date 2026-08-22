@@ -13,16 +13,16 @@ export async function GET(_: Request, context: { params: Promise<{ idName: strin
     const currentPath = path.join(folder, 'character.json');
     const current = migrateCharacterDraft(JSON.parse(await readFile(currentPath, 'utf8')));
     const currentStamp = current.updatedAt ?? (await stat(currentPath)).mtime.toISOString();
-    let archived: Array<{ versionId: string; filename: string; updatedAt: string; name: string; properName: string; libraryTags: string[]; isCurrent: boolean }> = [];
+    let archived: Array<{ versionId: string; updatedAt: string; name: string; properName: string; isCurrent: boolean }> = [];
     try {
       const files = (await readdir(path.join(folder, 'versions'))).filter((name) => /^[a-z0-9-]+\.json$/i.test(name));
       archived = await Promise.all(files.map(async (filename) => {
         const filePath = path.join(folder, 'versions', filename);
         const draft = migrateCharacterDraft(JSON.parse(await readFile(filePath, 'utf8')));
-        return { versionId: filename.replace(/\.json$/i, ''), filename, updatedAt: draft.updatedAt ?? (await stat(filePath)).mtime.toISOString(), name: draft.utilities.name, properName: draft.utilities.properName, libraryTags: draft.utilities.libraryTags ?? [], isCurrent: false };
+        return { versionId: filename.replace(/\.json$/i, ''), updatedAt: draft.updatedAt ?? (await stat(filePath)).mtime.toISOString(), name: draft.utilities.name, properName: draft.utilities.properName, isCurrent: false };
       }));
     } catch {}
-    const versions = [{ versionId: 'current', filename: 'character.json', updatedAt: currentStamp, name: current.utilities.name, properName: current.utilities.properName, libraryTags: current.utilities.libraryTags ?? [], isCurrent: true }, ...archived]
+    const versions = [{ versionId: 'current', updatedAt: currentStamp, name: current.utilities.name, properName: current.utilities.properName, isCurrent: true }, ...archived]
       .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
     return NextResponse.json({ idName, versions });
   } catch { return NextResponse.json({ error: 'Character not found' }, { status: 404 }); }

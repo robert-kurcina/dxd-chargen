@@ -1,5 +1,7 @@
 'use client';
 
+import SuspenseSpinner from '@/components/suspense-spinner';
+
 import { useEffect, useMemo, useRef, useState, type Dispatch, type SetStateAction } from 'react';
 import { RotateCcw, ShieldCheck, Trash2 } from 'lucide-react';
 
@@ -127,6 +129,8 @@ function coverageColor(armorRating: number) {
 
 export function ArmorCoveragePanel({ data, draft }: Pick<Props, 'data' | 'draft'>) {
   const [markup, setMarkup] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const report = armorOccupancyReport(draft, data);
   const coverage = useMemo(() => armorCoverageRatings(draft, data), [draft, data]);
   const femaleSilhouette = draft.background.sex === 'Female'
@@ -139,6 +143,9 @@ export function ArmorCoveragePanel({ data, draft }: Pick<Props, 'data' | 'draft'
 
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
+    setLoadFailed(false);
+    setMarkup('');
     fetch(`/armor/hit-locations_${silhouette}.svg`, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error(`Coverage silhouette returned ${response.status}.`);
@@ -170,10 +177,13 @@ export function ArmorCoveragePanel({ data, draft }: Pick<Props, 'data' | 'draft'
         root.removeAttribute('height');
         root.setAttribute('style', 'display:block;width:100%;height:auto;max-height:380px');
         setMarkup(root.outerHTML);
+        setLoading(false);
       })
       .catch((error) => {
         if (error instanceof DOMException && error.name === 'AbortError') return;
         setMarkup('');
+        setLoadFailed(true);
+        setLoading(false);
       });
     return () => controller.abort();
   }, [coverage, coverageKey, silhouette]);
@@ -196,11 +206,13 @@ export function ArmorCoveragePanel({ data, draft }: Pick<Props, 'data' | 'draft'
         <Badge variant="outline">{silhouette === 'female' ? 'Female' : 'Male'} silhouette</Badge>
       </div>
       <div className="flex min-h-[260px] items-center justify-center overflow-hidden rounded-md border bg-background p-2 sm:min-h-[300px]">
-        {markup ? (
+        {loading ? (
+          <SuspenseSpinner label="Loading armor silhouette…" />
+        ) : markup ? (
           <div className="w-full max-w-[560px]" aria-label={`${silhouette === 'female' ? 'Female' : 'Male'} armor body coverage`} dangerouslySetInnerHTML={{ __html: markup }} />
-        ) : (
+        ) : loadFailed ? (
           <div className="p-8 text-center text-xs text-muted-foreground">Armor silhouette unavailable.</div>
-        )}
+        ) : null}
       </div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
         <span>AR 0 = default</span>

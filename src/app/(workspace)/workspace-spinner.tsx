@@ -1,1 +1,5 @@
-export default function WorkspaceSpinner() { return <div className="mx-auto flex min-h-[240px] max-w-[1440px] items-center justify-center rounded-lg border bg-card" role="status"><div className="flex items-center gap-3 text-sm text-muted-foreground"><span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-r-transparent" aria-hidden="true" />Loading tab…</div></div>; }
+import SuspenseSpinner from '@/components/suspense-spinner';
+
+export default function WorkspaceSpinner() {
+  return <SuspenseSpinner panel label="Loading workspace…" className="mx-auto max-w-[1440px]" />;
+}

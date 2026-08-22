@@ -937,6 +937,14 @@ export default function Worksheet({
               title="Assignment fields"
               defaultOpen
             >
+              <div hidden={activeStep.value !== "background-region-settlement"} aria-hidden={activeStep.value !== "background-region-settlement"}>
+                <BackgroundStep
+                  stepValue="background-region-settlement"
+                  data={data}
+                  draft={draft}
+                  setDraft={updateDraft}
+                />
+              </div>
               {activeStep.value === "notes-overview" ? (
                 <NotesEditor draft={draft} data={data} setDraft={setDraft} />
               ) : activeStep.value === "notes-portrait" ? (
@@ -948,7 +956,7 @@ export default function Worksheet({
                 isUtilityStep(activeStep.value) ? (
                 <>
                   {isBackgroundStep(activeStep.value) ? (
-                    <BackgroundStep
+                    activeStep.value === "background-region-settlement" ? null : <BackgroundStep
                       stepValue={activeStep.value}
                       data={data}
                       draft={draft}

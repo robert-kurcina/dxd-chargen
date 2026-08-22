@@ -2,7 +2,6 @@ import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft }
 
 export const LEGACY_DRAFT_STORAGE_KEY = 'dxd-character-draft-v1';
 export const CHARACTER_LIBRARY_STORAGE_KEY = 'dxd-character-library-v1';
-export const PENDING_FILE_LOAD_STORAGE_KEY = 'dxd-character-pending-file-load-v1';
 
 export type CharacterLibraryEntry = {
   id: string;

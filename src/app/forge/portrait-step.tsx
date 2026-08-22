@@ -5,6 +5,7 @@ import Cropper, { type Area, type Point } from 'react-easy-crop';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { CharacterDraft } from '@/lib/character-draft';
+import SuspenseSpinner from '@/components/suspense-spinner';
 
 // Portrait output configuration. Change dimensions here; the GUI intentionally
 // does not expose output dimensions.
@@ -51,29 +52,37 @@ export default function PortraitStep({ draft, setDraft }: { draft: CharacterDraf
   const [rotation, setRotation] = useState(0);
   const [area, setArea] = useState<Area | null>(null);
   const [error, setError] = useState('');
+  const [readingImage, setReadingImage] = useState(false);
+  const [savingPortrait, setSavingPortrait] = useState(false);
+  const [sourceLoaded, setSourceLoaded] = useState(!source);
 
   const loadFile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file?.type.startsWith('image/')) return setError('Choose an image file.');
+    setReadingImage(true);
+    setSourceLoaded(false);
     const reader = new FileReader();
-    reader.onload = () => { const portraitSourceDataUrl = String(reader.result); setSource(portraitSourceDataUrl); setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitSourceDataUrl } })); setError(''); };
-    reader.onerror = () => setError('The image could not be read.');
+    reader.onload = () => { const portraitSourceDataUrl = String(reader.result); setSource(portraitSourceDataUrl); setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitSourceDataUrl } })); setError(''); setReadingImage(false); };
+    reader.onerror = () => { setError('The image could not be read.'); setReadingImage(false); };
     reader.readAsDataURL(file);
   };
   const save = async () => {
-    if (!source || !area) return;
+    if (!source || !area || savingPortrait) return;
+    setSavingPortrait(true);
     try {
       const portraitDataUrl = await croppedDataUrl(source, area, rotation);
       setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitDataUrl } }));
       setError('');
     } catch {
       setError('This URL does not permit browser image export. Download it and use Upload instead.');
+    } finally {
+      setSavingPortrait(false);
     }
   };
 
   return <div className="space-y-4">
-    <section className="grid gap-3 rounded-lg border p-4 md:grid-cols-2"><div className="space-y-2"><label htmlFor="portrait-upload" className="text-sm font-medium">Upload image</label><Input id="portrait-upload" type="file" accept="image/*" onChange={loadFile} /></div><div className="space-y-2"><label htmlFor="portrait-url" className="text-sm font-medium">Image URL</label><div className="flex gap-2"><Input id="portrait-url" value={url} onChange={(event) => setUrl(event.target.value)} placeholder="https://…" /><Button type="button" variant="outline" onClick={() => { const portraitSourceDataUrl = url.trim(); setSource(portraitSourceDataUrl); setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitSourceDataUrl } })); setError(''); }}>Load</Button></div></div></section>
-    {source && <section className="grid gap-4 rounded-lg border p-4 lg:grid-cols-[minmax(0,1fr)_240px]"><div className="relative h-[min(480px,60dvh)] overflow-hidden rounded bg-muted"><Cropper image={source} crop={crop} zoom={zoom} rotation={rotation} aspect={PORTRAIT_CONFIG.width / PORTRAIT_CONFIG.height} onCropChange={setCrop} onZoomChange={setZoom} onRotationChange={setRotation} onCropComplete={(_, pixels) => setArea(pixels)} /></div><div className="space-y-4"><div><label htmlFor="portrait-zoom" className="text-sm font-medium">Zoom</label><Input id="portrait-zoom" type="range" min="1" max="3" step="0.01" value={zoom} onChange={(event) => setZoom(Number(event.target.value))} /></div><div><label htmlFor="portrait-rotation" className="text-sm font-medium">Rotation</label><Input id="portrait-rotation" type="range" min="-180" max="180" step="1" value={rotation} onChange={(event) => setRotation(Number(event.target.value))} /></div><p className="text-xs text-muted-foreground">Drag the image to position it. Touch gestures and mouse-wheel zoom are supported.</p><Button type="button" onClick={save}>Crop and save portrait</Button><Button type="button" variant="outline" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitDataUrl: '', portraitSourceDataUrl: '' } }))}>Clear portrait</Button></div></section>}
+    <section className="grid gap-3 rounded-lg border p-4 md:grid-cols-2"><div className="space-y-2"><label htmlFor="portrait-upload" className="text-sm font-medium">Upload image</label><Input id="portrait-upload" type="file" accept="image/*" disabled={readingImage} onChange={loadFile} />{readingImage && <SuspenseSpinner compact label="Reading image…" className="justify-start" />}</div><div className="space-y-2"><label htmlFor="portrait-url" className="text-sm font-medium">Image URL</label><div className="flex gap-2"><Input id="portrait-url" value={url} onChange={(event) => setUrl(event.target.value)} placeholder="https://…" /><Button type="button" variant="outline" onClick={() => { const portraitSourceDataUrl = url.trim(); setSourceLoaded(false); setSource(portraitSourceDataUrl); setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitSourceDataUrl } })); setError(''); }}>Load</Button></div></div></section>
+    {source && <section className="grid gap-4 rounded-lg border p-4 lg:grid-cols-[minmax(0,1fr)_240px]"><div className="relative h-[min(480px,60dvh)] overflow-hidden rounded bg-muted">{!sourceLoaded && <SuspenseSpinner label="Loading portrait…" className="absolute inset-0 z-10 bg-muted" />}<div className={!sourceLoaded ? 'invisible h-full' : 'h-full'}><Cropper image={source} crop={crop} zoom={zoom} rotation={rotation} aspect={PORTRAIT_CONFIG.width / PORTRAIT_CONFIG.height} onCropChange={setCrop} onZoomChange={setZoom} onRotationChange={setRotation} onCropComplete={(_, pixels) => setArea(pixels)} onMediaLoaded={() => setSourceLoaded(true)} /></div></div><div className="space-y-4"><div><label htmlFor="portrait-zoom" className="text-sm font-medium">Zoom</label><Input id="portrait-zoom" type="range" min="1" max="3" step="0.01" value={zoom} onChange={(event) => setZoom(Number(event.target.value))} /></div><div><label htmlFor="portrait-rotation" className="text-sm font-medium">Rotation</label><Input id="portrait-rotation" type="range" min="-180" max="180" step="1" value={rotation} onChange={(event) => setRotation(Number(event.target.value))} /></div><p className="text-xs text-muted-foreground">Drag the image to position it. Touch gestures and mouse-wheel zoom are supported.</p><Button type="button" disabled={savingPortrait || !sourceLoaded} onClick={save}>{savingPortrait ? <SuspenseSpinner compact label="Saving portrait…" className="text-current" /> : 'Crop and save portrait'}</Button><Button type="button" variant="outline" onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, portraitDataUrl: '', portraitSourceDataUrl: '' } }))}>Clear portrait</Button></div></section>}
     {draft.utilities.portraitDataUrl && <section className="space-y-2 rounded-lg border p-4"><div className="font-medium">Saved portrait</div><img src={draft.utilities.portraitDataUrl} alt="Saved character portrait" width={PORTRAIT_CONFIG.width} height={PORTRAIT_CONFIG.height} className="h-auto max-w-full rounded border" /></section>}
     {error && <p className="text-sm text-[#990000]" role="alert">{error}</p>}
   </div>;

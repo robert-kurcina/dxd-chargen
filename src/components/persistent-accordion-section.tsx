@@ -12,6 +12,6 @@ export default function PersistentAccordionSection({ id, title, children, defaul
   }, [key]);
   const set = (next: boolean) => { setOpen(next); try { window.localStorage.setItem(key, next ? '1' : '0'); } catch {} };
   return <Accordion type="single" collapsible value={open ? 'section' : ''} onValueChange={(value) => set(value === 'section')} className={cn('rounded-lg border px-4', className)}>
-    <AccordionItem value="section" className="border-0"><AccordionTrigger className={cn('py-3 hover:no-underline', triggerClassName)}>{title}</AccordionTrigger><AccordionContent>{children}</AccordionContent></AccordionItem>
+    <AccordionItem value="section" className="border-0"><AccordionTrigger className={cn('py-3 hover:no-underline', triggerClassName)}>{title}</AccordionTrigger><AccordionContent forceMount>{children}</AccordionContent></AccordionItem>
   </Accordion>;
 }
