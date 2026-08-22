@@ -50,6 +50,7 @@ import socialRanksRaw from './socialRanks.json';
 import speciesRaw from './species.json';
 import tragedySeedsRaw from './tragedySeeds.json';
 import traitsRaw from './traits.json';
+import traitKeywords from './traitKeywords.json';
 import universalTable from './universal-table.json';
 import wealthTitles from './wealthTitles.json';
 import steps from './steps.json';
@@ -164,6 +165,7 @@ const sarnaLenData = {
   species,
   tragedySeeds,
   traits,
+  traitKeywords,
   universalTable,
   wealthTitles,
   steps,

@@ -8,6 +8,7 @@ const jsonFiles = fs.readdirSync(dataDir).filter((name) => name.endsWith('.json'
 for (const name of jsonFiles) read(name);
 
 const traits = read('traits.json');
+const traitKeywordRegistry = read('traitKeywords.json');
 const heritage = read('heritagePackages.json');
 const languages = read('languages.json');
 const nameGenerators = read('nameGenerators.json');
@@ -25,6 +26,30 @@ const physicalScale = read('physicalScale.json');
 const heritageCharacteristicAdjustments = read('heritageCharacteristicAdjustments.json');
 const characteristicModifiers = read('characteristicModifiers.json');
 const itemArmors = read('itemArmors.json');
+
+const canonicalTraitKeywords = new Set(traitKeywordRegistry.keywords.map((item) => item.keyword));
+const keywordBooleanPairs = [
+  ['Disability', 'isDisability'],
+  ['Asset', 'isAsset'],
+  ['Genetic', 'isGenetic'],
+  ['Intrinsic', 'isIntrinsic'],
+  ['Virtuosity', 'isVirtuosity'],
+  ['Skill', 'isSkill'],
+  ['Psychology', 'isPsychology'],
+  ['Distressing', 'isDistressing'],
+  ['Ameliorative', 'isAmeliorative'],
+];
+for (const item of traits) {
+  if (!Array.isArray(item.keywords) || item.keywords.length === 0) throw new Error(`Trait has no keywords: ${item.trait}`);
+  if (new Set(item.keywords).size !== item.keywords.length) throw new Error(`Trait has duplicate keywords: ${item.trait}`);
+  for (const keyword of item.keywords) if (!canonicalTraitKeywords.has(keyword)) throw new Error(`Unknown Trait keyword ${keyword}: ${item.trait}`);
+  for (const [keyword, field] of keywordBooleanPairs) {
+    if (Boolean(item[field]) !== item.keywords.includes(keyword)) throw new Error(`Trait keyword/${field} mismatch for ${item.trait}: ${keyword}`);
+  }
+  if (item.keywords.some((keyword) => ['Initiative', 'Martial', 'Movement'].includes(keyword)) && !item.keywords.includes('Combat')) {
+    throw new Error(`Combat umbrella keyword missing for ${item.trait}`);
+  }
+}
 
 const traitKeys = new Set(traits.map((item) => item.Key));
 const traitIds = new Set();

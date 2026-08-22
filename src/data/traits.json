@@ -13,7 +13,12 @@
     "isIntrinsic": false,
     "Key": "[1H]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "[2H]",
@@ -29,7 +34,12 @@
     "isIntrinsic": false,
     "Key": "[2H]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "§Academics X > Type",
@@ -45,7 +55,11 @@
     "isIntrinsic": false,
     "Key": "§Academics X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
   },
   {
     "trait": "Acid X > Type",
@@ -61,7 +75,12 @@
     "isIntrinsic": false,
     "Key": "Acid X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Acrobatic X",
@@ -77,7 +96,13 @@
     "isIntrinsic": false,
     "Key": "Acrobatic X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Combat",
+      "Martial",
+      "Movement"
+    ]
   },
   {
     "trait": "v-Adaptation X > Type",
@@ -93,7 +118,11 @@
     "isIntrinsic": false,
     "Key": "v-Adaptation X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Virtuosity"
+    ]
   },
   {
     "trait": "[Addict X > Type]",
@@ -109,7 +138,11 @@
     "isIntrinsic": false,
     "Key": "[Addict X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "[Affliction X > Type]",
@@ -125,7 +158,11 @@
     "isIntrinsic": true,
     "Key": "[Affliction X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic"
+    ]
   },
   {
     "trait": "Alchemy X",
@@ -141,7 +178,11 @@
     "isIntrinsic": false,
     "Key": "Alchemy X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "v-Aligned X > Domain",
@@ -157,7 +198,11 @@
     "isIntrinsic": false,
     "Key": "v-Aligned X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill"
+    ]
   },
   {
     "trait": "Amorphous X",
@@ -173,7 +218,12 @@
     "isIntrinsic": false,
     "Key": "Amorphous X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Amphibious X",
@@ -189,7 +239,12 @@
     "isIntrinsic": false,
     "Key": "Amphibious X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "v-Analytics X",
@@ -202,10 +257,17 @@
     "isSkill": true,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Analytics X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Animal Trainer X",
@@ -221,7 +283,11 @@
     "isIntrinsic": false,
     "Key": "Animal Trainer X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Apex-mind",
@@ -237,7 +303,11 @@
     "isIntrinsic": false,
     "Key": "Apex-mind X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Psychology"
+    ]
   },
   {
     "trait": "Aquatic X",
@@ -253,7 +323,12 @@
     "isIntrinsic": false,
     "Key": "Aquatic X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "[Arc X]",
@@ -269,7 +344,13 @@
     "isIntrinsic": false,
     "Key": "[Arc X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Archery X",
@@ -285,7 +366,13 @@
     "isIntrinsic": false,
     "Key": "Archery X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Armor X > Type",
@@ -301,7 +388,11 @@
     "isIntrinsic": true,
     "Key": "Armor X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Artist X",
@@ -317,7 +408,11 @@
     "isIntrinsic": false,
     "Key": "Artist X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Athletics X",
@@ -333,7 +428,12 @@
     "isIntrinsic": false,
     "Key": "Athletics X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Attuned",
@@ -349,7 +449,11 @@
     "isIntrinsic": false,
     "Key": "Attuned X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Automaton > Type]",
@@ -365,7 +469,11 @@
     "isIntrinsic": true,
     "Key": "[Automaton X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic"
+    ]
   },
   {
     "trait": "v-Awareness X",
@@ -381,7 +489,13 @@
     "isIntrinsic": false,
     "Key": "v-Awareness X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Awkward X]",
@@ -393,11 +507,18 @@
     "isVirtuosity": false,
     "isSkill": false,
     "isGenetic": false,
-    "isAsset": false,
+    "isAsset": true,
     "isIntrinsic": true,
     "Key": "[Awkward X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Intrinsic",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "[Bad Luck X]",
@@ -413,7 +534,12 @@
     "isIntrinsic": true,
     "Key": "[Bad Luck X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Bad Technique X > Type]",
@@ -429,7 +555,12 @@
     "isIntrinsic": false,
     "Key": "[Bad Technique X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Combat"
+    ]
   },
   {
     "trait": "Banter X",
@@ -437,7 +568,7 @@
     "category": "Skill",
     "isDisability": false,
     "im": 2,
-    "isPsychology": false,
+    "isPsychology": true,
     "isVirtuosity": false,
     "isSkill": true,
     "isGenetic": false,
@@ -445,7 +576,13 @@
     "isIntrinsic": false,
     "Key": "Banter X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Barter X",
@@ -461,7 +598,11 @@
     "isIntrinsic": false,
     "Key": "Barter X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "[Beast X]",
@@ -477,7 +618,11 @@
     "isIntrinsic": false,
     "Key": "[Beast X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic"
+    ]
   },
   {
     "trait": "Beauty X",
@@ -493,7 +638,11 @@
     "isIntrinsic": false,
     "Key": "Beauty X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Genetic",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "[Believer X > Belief]",
@@ -509,7 +658,11 @@
     "isIntrinsic": false,
     "Key": "[Believer X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "[Belligerent X]",
@@ -525,7 +678,12 @@
     "isIntrinsic": false,
     "Key": "[Belligerent X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Berserker X]",
@@ -538,10 +696,16 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "[Berserker X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "v-Biomatrix X",
@@ -557,7 +721,12 @@
     "isIntrinsic": true,
     "Key": "v-Biomatrix X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "Bite X",
@@ -573,7 +742,13 @@
     "isIntrinsic": false,
     "Key": "Bite X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Martial",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "[Blackpowder X]",
@@ -589,7 +764,12 @@
     "isIntrinsic": false,
     "Key": "[Blackpowder X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Blast X",
@@ -605,7 +785,13 @@
     "isIntrinsic": false,
     "Key": "Blast X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "AoE",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Blaster X > Type",
@@ -621,7 +807,12 @@
     "isIntrinsic": false,
     "Key": "Blaster X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Bleed X",
@@ -637,7 +828,13 @@
     "isIntrinsic": false,
     "Key": "Bleed X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "[Blinders]",
@@ -653,7 +850,12 @@
     "isIntrinsic": false,
     "Key": "[Blinders X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Blinding X",
@@ -669,7 +871,13 @@
     "isIntrinsic": false,
     "Key": "Blinding X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "AoE",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "[Blunt X]",
@@ -685,7 +893,12 @@
     "isIntrinsic": false,
     "Key": "[Blunt X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "[Bond X > Person]",
@@ -701,7 +914,11 @@
     "isIntrinsic": false,
     "Key": "[Bond X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Boxer X > Region",
@@ -717,7 +934,13 @@
     "isIntrinsic": false,
     "Key": "Boxer X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Braggart X]",
@@ -733,7 +956,12 @@
     "isIntrinsic": false,
     "Key": "[Braggart X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "Brawl X",
@@ -749,7 +977,13 @@
     "isIntrinsic": false,
     "Key": "Brawl X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Brawn X",
@@ -760,12 +994,18 @@
     "isPsychology": false,
     "isVirtuosity": false,
     "isSkill": true,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "Brawn X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Bulky X]",
@@ -781,7 +1021,12 @@
     "isIntrinsic": false,
     "Key": "[Bulky X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "[Cautious X]",
@@ -797,7 +1042,13 @@
     "isIntrinsic": false,
     "Key": "[Cautious X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Combat",
+      "Initiative"
+    ]
   },
   {
     "trait": "v-Celerity",
@@ -813,7 +1064,12 @@
     "isIntrinsic": true,
     "Key": "v-Celerity X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "Charge X",
@@ -829,7 +1085,11 @@
     "isIntrinsic": false,
     "Key": "Charge X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Chase X",
@@ -845,7 +1105,12 @@
     "isIntrinsic": false,
     "Key": "Chase X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Claws X",
@@ -861,7 +1126,13 @@
     "isIntrinsic": false,
     "Key": "Claws X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Martial",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Cleave X",
@@ -877,7 +1148,12 @@
     "isIntrinsic": false,
     "Key": "Cleave X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Climb X",
@@ -893,7 +1169,14 @@
     "isIntrinsic": false,
     "Key": "Climb X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "[Clumsy X]",
@@ -909,7 +1192,13 @@
     "isIntrinsic": false,
     "Key": "[Clumsy X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Psychology",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Compass X",
@@ -925,7 +1214,11 @@
     "isIntrinsic": true,
     "Key": "v-Compass X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity"
+    ]
   },
   {
     "trait": "[Comrade > Target]",
@@ -941,7 +1234,11 @@
     "isIntrinsic": false,
     "Key": "[Comrade X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Connections X",
@@ -957,7 +1254,11 @@
     "isIntrinsic": false,
     "Key": "Connections X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "v-Connectivity X",
@@ -973,7 +1274,11 @@
     "isIntrinsic": true,
     "Key": "v-Connectivity X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity"
+    ]
   },
   {
     "trait": "Coverage X",
@@ -989,7 +1294,11 @@
     "isIntrinsic": false,
     "Key": "Coverage X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "[Coward X]",
@@ -1005,7 +1314,11 @@
     "isIntrinsic": false,
     "Key": "[Coward X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Craft X > Tradecraft",
@@ -1021,7 +1334,11 @@
     "isIntrinsic": false,
     "Key": "Craft X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Cryptography X",
@@ -1037,7 +1354,11 @@
     "isIntrinsic": false,
     "Key": "Cryptography X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Cutpurse X",
@@ -1053,7 +1374,11 @@
     "isIntrinsic": false,
     "Key": "Cutpurse X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Deflect X",
@@ -1069,7 +1394,11 @@
     "isIntrinsic": false,
     "Key": "Deflect X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Deity X > Deity",
@@ -1085,7 +1414,12 @@
     "isIntrinsic": false,
     "Key": "Deity X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Design X > Category",
@@ -1101,7 +1435,11 @@
     "isIntrinsic": false,
     "Key": "Design X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Detect X > Type",
@@ -1111,13 +1449,18 @@
     "im": 10,
     "isPsychology": false,
     "isVirtuosity": false,
-    "isSkill": false,
+    "isSkill": true,
     "isGenetic": true,
     "isAsset": false,
     "isIntrinsic": false,
     "Key": "Detect X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Skill",
+      "Combat"
+    ]
   },
   {
     "trait": "[Disabled X]",
@@ -1133,7 +1476,13 @@
     "isIntrinsic": true,
     "Key": "[Disabled X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Discipline X",
@@ -1149,7 +1498,13 @@
     "isIntrinsic": false,
     "Key": "Discipline X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Social",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Disguise X",
@@ -1165,7 +1520,11 @@
     "isIntrinsic": false,
     "Key": "Disguise X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "v-Distortion",
@@ -1181,7 +1540,12 @@
     "isIntrinsic": true,
     "Key": "v-Distortion X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "Domus X > Domain",
@@ -1197,7 +1561,11 @@
     "isIntrinsic": false,
     "Key": "Domus X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Doubt X]",
@@ -1213,7 +1581,11 @@
     "isIntrinsic": false,
     "Key": "[Doubt X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "[Drama X > Person]",
@@ -1229,7 +1601,11 @@
     "isIntrinsic": false,
     "Key": "[Drama X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Drill X",
@@ -1245,7 +1621,11 @@
     "isIntrinsic": false,
     "Key": "Drill X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Empathy X]",
@@ -1261,7 +1641,12 @@
     "isIntrinsic": false,
     "Key": "[Empathy X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Enemies X > Settlement]",
@@ -1277,7 +1662,12 @@
     "isIntrinsic": true,
     "Key": "[Enemies X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Existential"
+    ]
   },
   {
     "trait": "Engineer X > Category",
@@ -1293,7 +1683,11 @@
     "isIntrinsic": false,
     "Key": "Engineer X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Entangle X",
@@ -1309,7 +1703,13 @@
     "isIntrinsic": false,
     "Key": "Entangle X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Evasive X",
@@ -1325,7 +1725,13 @@
     "isIntrinsic": false,
     "Key": "Evasive X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Expert X > Technical Weapon",
@@ -1341,7 +1747,13 @@
     "isIntrinsic": false,
     "Key": "Expert X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Expert X > Weapon",
@@ -1357,7 +1769,13 @@
     "isIntrinsic": false,
     "Key": "Expert X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Extended Reach X",
@@ -1370,10 +1788,16 @@
     "isSkill": false,
     "isGenetic": true,
     "isAsset": true,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "Extended Reach X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Extra-arms X",
@@ -1389,7 +1813,11 @@
     "isIntrinsic": false,
     "Key": "Extra-arms X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "[Fanatic X > Deity]",
@@ -1405,7 +1833,11 @@
     "isIntrinsic": false,
     "Key": "[Fanatic X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Fawn X",
@@ -1421,7 +1853,12 @@
     "isIntrinsic": false,
     "Key": "Fawn X",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social",
+      "Distressing"
+    ]
   },
   {
     "trait": "v-Fear X",
@@ -1437,7 +1874,13 @@
     "isIntrinsic": false,
     "Key": "v-Fear X",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Virtuosity",
+      "Combat",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Feeble X]",
@@ -1453,7 +1896,11 @@
     "isIntrinsic": true,
     "Key": "[Feeble X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic"
+    ]
   },
   {
     "trait": "Fencer X",
@@ -1469,7 +1916,13 @@
     "isIntrinsic": false,
     "Key": "Fencer X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Fettered > Target]",
@@ -1482,10 +1935,17 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "[Fettered X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Psychology",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Fight X > Type",
@@ -1501,7 +1961,13 @@
     "isIntrinsic": false,
     "Key": "Fight X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Fishing X",
@@ -1517,7 +1983,11 @@
     "isIntrinsic": false,
     "Key": "Fishing X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Flex X]",
@@ -1533,7 +2003,12 @@
     "isIntrinsic": false,
     "Key": "[Flex X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Flight X > Type",
@@ -1549,7 +2024,13 @@
     "isIntrinsic": false,
     "Key": "Flight X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "v-Focused X",
@@ -1565,7 +2046,12 @@
     "isIntrinsic": false,
     "Key": "v-Focused X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat"
+    ]
   },
   {
     "trait": "Forage X",
@@ -1581,7 +2067,11 @@
     "isIntrinsic": false,
     "Key": "Forage X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "v-Fortitude X",
@@ -1597,7 +2087,13 @@
     "isIntrinsic": false,
     "Key": "v-Fortitude X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Frag X",
@@ -1613,7 +2109,13 @@
     "isIntrinsic": false,
     "Key": "Frag X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "AoE",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Frenzy X",
@@ -1629,7 +2131,12 @@
     "isIntrinsic": false,
     "Key": "Frenzy X",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Distressing"
+    ]
   },
   {
     "trait": "Gambling X > Game",
@@ -1645,7 +2152,12 @@
     "isIntrinsic": false,
     "Key": "Gambling X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Social"
+    ]
   },
   {
     "trait": "v-Genius X",
@@ -1661,7 +2173,12 @@
     "isIntrinsic": false,
     "Key": "v-Genius X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat"
+    ]
   },
   {
     "trait": "Good Luck X",
@@ -1677,7 +2194,11 @@
     "isIntrinsic": true,
     "Key": "Good Luck X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Intrinsic",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Gore X",
@@ -1693,7 +2214,13 @@
     "isIntrinsic": true,
     "Key": "Gore X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Gossip X",
@@ -1709,7 +2236,14 @@
     "isIntrinsic": false,
     "Key": "Gossip X",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Social",
+      "Distressing"
+    ]
   },
   {
     "trait": "v-Gravitas X",
@@ -1725,7 +2259,11 @@
     "isIntrinsic": false,
     "Key": "v-Gravitas X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill"
+    ]
   },
   {
     "trait": "Greenthumb X",
@@ -1741,7 +2279,11 @@
     "isIntrinsic": false,
     "Key": "Greenthumb X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Grit X",
@@ -1757,7 +2299,14 @@
     "isIntrinsic": false,
     "Key": "Grit X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Hafted X]",
@@ -1773,7 +2322,12 @@
     "isIntrinsic": false,
     "Key": "[Hafted X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Hardened X",
@@ -1789,7 +2343,12 @@
     "isIntrinsic": true,
     "Key": "Hardened X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "[Hatred X > Demographic]",
@@ -1805,7 +2364,12 @@
     "isIntrinsic": false,
     "Key": "[Hatred X > Any]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "v-Heal X",
@@ -1813,15 +2377,24 @@
     "category": "Virtuosity|Skill",
     "isDisability": false,
     "im": 5,
-    "isPsychology": false,
+    "isPsychology": true,
     "isVirtuosity": true,
     "isSkill": true,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": false,
     "isIntrinsic": false,
     "Key": "v-Heal X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Genetic",
+      "Virtuosity",
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Combat",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Heat X",
@@ -1837,7 +2410,12 @@
     "isIntrinsic": false,
     "Key": "Heat X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "AoE",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Herbalism X > Environ",
@@ -1853,7 +2431,11 @@
     "isIntrinsic": false,
     "Key": "Herbalism X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Herd-mentality X]",
@@ -1861,15 +2443,21 @@
     "category": "Intrinsic",
     "isDisability": true,
     "im": -20,
-    "isPsychology": false,
+    "isPsychology": true,
     "isVirtuosity": false,
     "isSkill": false,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": false,
     "isIntrinsic": true,
     "Key": "[Herd-mentality X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic",
+      "Intrinsic",
+      "Psychology"
+    ]
   },
   {
     "trait": "History X > Region",
@@ -1885,7 +2473,11 @@
     "isIntrinsic": false,
     "Key": "History X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Hive-mind X",
@@ -1901,7 +2493,11 @@
     "isIntrinsic": false,
     "Key": "Hive-mind X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Horrifying X",
@@ -1917,7 +2513,12 @@
     "isIntrinsic": false,
     "Key": "Horrifying X",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Distressing"
+    ]
   },
   {
     "trait": "Hunter X",
@@ -1933,7 +2534,11 @@
     "isIntrinsic": false,
     "Key": "Hunter X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Husbandry X",
@@ -1949,7 +2554,11 @@
     "isIntrinsic": false,
     "Key": "Husbandry X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "v-Imbue X > Type",
@@ -1965,7 +2574,11 @@
     "isIntrinsic": false,
     "Key": "v-Imbue X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill"
+    ]
   },
   {
     "trait": "Impale X",
@@ -1981,7 +2594,12 @@
     "isIntrinsic": false,
     "Key": "Impale X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Implore X",
@@ -1997,7 +2615,12 @@
     "isIntrinsic": false,
     "Key": "Implore X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Social"
+    ]
   },
   {
     "trait": "v-Indefatigable X",
@@ -2013,7 +2636,14 @@
     "isIntrinsic": false,
     "Key": "v-Indefatigable X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "v-Indomitable X",
@@ -2026,10 +2656,15 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Indomitable X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "[Inept X]",
@@ -2045,7 +2680,11 @@
     "isIntrinsic": false,
     "Key": "[Inept X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Infiltrate X",
@@ -2061,7 +2700,14 @@
     "isIntrinsic": false,
     "Key": "Infiltrate X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "[Insane X > Revelation]",
@@ -2076,8 +2722,13 @@
     "isAsset": false,
     "isIntrinsic": true,
     "Key": "[Insane X > Any]",
-    "isDistressing": false,
-    "isAmeliorative": false
+    "isDistressing": true,
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Insufferable X > Type]",
@@ -2093,7 +2744,12 @@
     "isIntrinsic": false,
     "Key": "[Insufferable X > Any]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "v-Intense X",
@@ -2109,7 +2765,12 @@
     "isIntrinsic": false,
     "Key": "v-Intense X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat"
+    ]
   },
   {
     "trait": "Intimidate X",
@@ -2117,7 +2778,7 @@
     "category": "Skill",
     "isDisability": false,
     "im": 2,
-    "isPsychology": false,
+    "isPsychology": true,
     "isVirtuosity": false,
     "isSkill": true,
     "isGenetic": false,
@@ -2125,7 +2786,14 @@
     "isIntrinsic": false,
     "Key": "Intimidate X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Investigate X",
@@ -2141,7 +2809,12 @@
     "isIntrinsic": false,
     "Key": "Investigate X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Invisibility X",
@@ -2157,7 +2830,12 @@
     "isIntrinsic": false,
     "Key": "Invisibility X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Kick X",
@@ -2173,7 +2851,12 @@
     "isIntrinsic": false,
     "Key": "Kick X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Knife-fighter X",
@@ -2189,7 +2872,13 @@
     "isIntrinsic": false,
     "Key": "Knife-fighter X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Labor X > Field",
@@ -2205,7 +2894,11 @@
     "isIntrinsic": false,
     "Key": "Labor X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Language X > Language",
@@ -2221,7 +2914,12 @@
     "isIntrinsic": false,
     "Key": "Language X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Lash X",
@@ -2237,7 +2935,12 @@
     "isIntrinsic": false,
     "Key": "Lash X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Leadership X",
@@ -2253,7 +2956,15 @@
     "isIntrinsic": false,
     "Key": "Leadership X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Combat",
+      "Martial",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Leap X",
@@ -2266,10 +2977,17 @@
     "isSkill": true,
     "isGenetic": true,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "Leap X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Skill",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Lockpicking X",
@@ -2285,7 +3003,12 @@
     "isIntrinsic": false,
     "Key": "Lockpicking X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Lore X > Field",
@@ -2301,7 +3024,11 @@
     "isIntrinsic": false,
     "Key": "Lore X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "[Lovestruck X] > Person",
@@ -2317,7 +3044,11 @@
     "isIntrinsic": false,
     "Key": "[Lovestruck X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "[Lumbering X]",
@@ -2333,7 +3064,13 @@
     "isIntrinsic": true,
     "Key": "[Lumbering X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Machine",
@@ -2349,7 +3086,11 @@
     "isIntrinsic": true,
     "Key": "Machine X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Magic X",
@@ -2365,7 +3106,15 @@
     "isIntrinsic": false,
     "Key": "v-Magic X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial",
+      "Magic"
+    ]
   },
   {
     "trait": "[Mail X]",
@@ -2381,7 +3130,12 @@
     "isIntrinsic": false,
     "Key": "[Mail X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Manaphage X",
@@ -2397,7 +3151,12 @@
     "isIntrinsic": false,
     "Key": "v-Manaphage X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Virtuosity",
+      "Magic"
+    ]
   },
   {
     "trait": "Manners X",
@@ -2413,7 +3172,13 @@
     "isIntrinsic": false,
     "Key": "Manners X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Martialist X",
@@ -2429,7 +3194,13 @@
     "isIntrinsic": false,
     "Key": "Martialist X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Maths X",
@@ -2445,7 +3216,11 @@
     "isIntrinsic": false,
     "Key": "Maths X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Medic X > Type",
@@ -2461,7 +3236,13 @@
     "isIntrinsic": false,
     "Key": "Medic X > Any",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Melee > Type",
@@ -2477,7 +3258,12 @@
     "isIntrinsic": false,
     "Key": "Melee X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "v-Memorization X",
@@ -2493,7 +3279,13 @@
     "isIntrinsic": false,
     "Key": "v-Memorization X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Mercantile X > Channel",
@@ -2509,7 +3301,11 @@
     "isIntrinsic": false,
     "Key": "Mercantile X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "§Military X > Skill",
@@ -2525,7 +3321,11 @@
     "isIntrinsic": false,
     "Key": "§Military X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
   },
   {
     "trait": "[Mindless]",
@@ -2538,10 +3338,17 @@
     "isSkill": false,
     "isGenetic": true,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "[Mindless X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic",
+      "Intrinsic",
+      "Combat",
+      "Initiative"
+    ]
   },
   {
     "trait": "[Misfire]",
@@ -2557,7 +3364,13 @@
     "isIntrinsic": false,
     "Key": "[Misfire X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Mob X",
@@ -2573,7 +3386,11 @@
     "isIntrinsic": true,
     "Key": "Mob X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Mountaineering X",
@@ -2589,7 +3406,13 @@
     "isIntrinsic": false,
     "Key": "Mountaineering X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Multi-headed X",
@@ -2605,7 +3428,11 @@
     "isIntrinsic": false,
     "Key": "Multi-headed X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Multi-Strike X > Type",
@@ -2621,7 +3448,11 @@
     "isIntrinsic": false,
     "Key": "Multi-Strike X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Multiarrow X",
@@ -2637,7 +3468,14 @@
     "isIntrinsic": false,
     "Key": "v-Multiarrow X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Navigation X",
@@ -2653,7 +3491,12 @@
     "isIntrinsic": false,
     "Key": "Navigation X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Nightvision X > Type",
@@ -2669,7 +3512,11 @@
     "isIntrinsic": true,
     "Key": "Nightvision X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Nimble X",
@@ -2685,7 +3532,13 @@
     "isIntrinsic": true,
     "Key": "Nimble X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "[Noisy X]",
@@ -2697,11 +3550,17 @@
     "isVirtuosity": false,
     "isSkill": false,
     "isGenetic": false,
-    "isAsset": false,
+    "isAsset": true,
     "isIntrinsic": true,
     "Key": "[Noisy X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Obviate X",
@@ -2717,7 +3576,13 @@
     "isIntrinsic": false,
     "Key": "v-Obviate X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Office X > Office",
@@ -2733,7 +3598,11 @@
     "isIntrinsic": false,
     "Key": "Office X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "v-Outwit X",
@@ -2749,7 +3618,13 @@
     "isIntrinsic": false,
     "Key": "v-Outwit X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Pack X]",
@@ -2765,7 +3640,11 @@
     "isIntrinsic": true,
     "Key": "[Pack X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic"
+    ]
   },
   {
     "trait": "Pack-mentality X",
@@ -2781,7 +3660,11 @@
     "isIntrinsic": false,
     "Key": "Pack-mentality X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "[Paranoid X]",
@@ -2797,7 +3680,11 @@
     "isIntrinsic": false,
     "Key": "[Paranoid X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Parry X",
@@ -2809,11 +3696,18 @@
     "isVirtuosity": false,
     "isSkill": true,
     "isGenetic": false,
-    "isAsset": false,
+    "isAsset": true,
     "isIntrinsic": false,
     "Key": "Parry X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Pathfinder X",
@@ -2829,7 +3723,13 @@
     "isIntrinsic": false,
     "Key": "Pathfinder X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Peerage X > Region",
@@ -2845,7 +3745,11 @@
     "isIntrinsic": false,
     "Key": "Peerage X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Perform X > Form",
@@ -2861,7 +3765,12 @@
     "isIntrinsic": false,
     "Key": "Perform X > Any",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "Persuade X",
@@ -2877,7 +3786,12 @@
     "isIntrinsic": false,
     "Key": "Persuade X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Social"
+    ]
   },
   {
     "trait": "[Phobia X > Type]",
@@ -2893,7 +3807,11 @@
     "isIntrinsic": false,
     "Key": "[Phobia X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "[Physiopathy X > Type]",
@@ -2909,7 +3827,11 @@
     "isIntrinsic": false,
     "Key": "[Physiopathy X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic"
+    ]
   },
   {
     "trait": "Pidgin X > Type & Region",
@@ -2925,7 +3847,11 @@
     "isIntrinsic": false,
     "Key": "Pidgin X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "Pierce X",
@@ -2941,7 +3867,12 @@
     "isIntrinsic": false,
     "Key": "Pierce X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Pierce-Cleave X",
@@ -2957,7 +3888,11 @@
     "isIntrinsic": false,
     "Key": "Pierce-Cleave X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Pin-point X",
@@ -2970,10 +3905,15 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Pin-point X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "Poison X > Type",
@@ -2989,7 +3929,12 @@
     "isIntrinsic": false,
     "Key": "Poison X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Poisons X > Type",
@@ -3005,7 +3950,12 @@
     "isIntrinsic": false,
     "Key": "Poisons X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Politics X > Region",
@@ -3021,7 +3971,12 @@
     "isIntrinsic": false,
     "Key": "Politics X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "[Poor Shot X]",
@@ -3037,7 +3992,12 @@
     "isIntrinsic": true,
     "Key": "[Poor Shot X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Pounce X",
@@ -3053,7 +4013,13 @@
     "isIntrinsic": false,
     "Key": "Pounce X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Movement",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "v-Powerhouse X",
@@ -3069,7 +4035,13 @@
     "isIntrinsic": false,
     "Key": "v-Powerhouse X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "v-Precision X",
@@ -3082,10 +4054,17 @@
     "isSkill": true,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Precision X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "v-Predict X",
@@ -3095,13 +4074,20 @@
     "im": 5,
     "isPsychology": false,
     "isVirtuosity": true,
-    "isSkill": false,
+    "isSkill": true,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Predict X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Prestidigitation X",
@@ -3117,7 +4103,11 @@
     "isIntrinsic": false,
     "Key": "Prestidigitation X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "[Primitive X]",
@@ -3133,7 +4123,12 @@
     "isIntrinsic": false,
     "Key": "[Primitive X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Combat"
+    ]
   },
   {
     "trait": "Primp X",
@@ -3149,7 +4144,11 @@
     "isIntrinsic": false,
     "Key": "Primp X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "[Prissy X]",
@@ -3165,7 +4164,13 @@
     "isIntrinsic": false,
     "Key": "[Prissy X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Protective X",
@@ -3181,7 +4186,11 @@
     "isIntrinsic": false,
     "Key": "Protective X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Psionics X > Type",
@@ -3191,13 +4200,20 @@
     "im": 5,
     "isPsychology": false,
     "isVirtuosity": true,
-    "isSkill": false,
+    "isSkill": true,
     "isGenetic": false,
     "isAsset": false,
     "isIntrinsic": false,
     "Key": "v-Psionics X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial",
+      "Psionic"
+    ]
   },
   {
     "trait": "[Psychopathy X > Type]",
@@ -3213,7 +4229,12 @@
     "isIntrinsic": false,
     "Key": "[Psychopathy X > Any]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "Pummel X",
@@ -3229,7 +4250,14 @@
     "isIntrinsic": false,
     "Key": "Pummel X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Skill",
+      "Combat",
+      "Martial",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Quick X",
@@ -3245,7 +4273,12 @@
     "isIntrinsic": false,
     "Key": "Quick X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Skill",
+      "Combat"
+    ]
   },
   {
     "trait": "Quills X",
@@ -3261,7 +4294,12 @@
     "isIntrinsic": false,
     "Key": "Quills X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Radio X > Type",
@@ -3277,7 +4315,11 @@
     "isIntrinsic": false,
     "Key": "Radio X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic"
+    ]
   },
   {
     "trait": "Rapid-shot X > Type",
@@ -3293,7 +4335,13 @@
     "isIntrinsic": false,
     "Key": "Rapid-shot X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Reach X",
@@ -3304,12 +4352,18 @@
     "isPsychology": false,
     "isVirtuosity": false,
     "isSkill": false,
-    "isGenetic": false,
-    "isAsset": false,
+    "isGenetic": true,
+    "isAsset": true,
     "isIntrinsic": true,
     "Key": "Reach X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Read X > Language",
@@ -3325,7 +4379,11 @@
     "isIntrinsic": false,
     "Key": "Read X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "Reasoning X",
@@ -3341,7 +4399,11 @@
     "isIntrinsic": false,
     "Key": "Reasoning X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic"
+    ]
   },
   {
     "trait": "[Reckless X]",
@@ -3357,7 +4419,13 @@
     "isIntrinsic": false,
     "Key": "[Reckless X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Combat",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Recoil X]",
@@ -3373,7 +4441,13 @@
     "isIntrinsic": false,
     "Key": "[Recoil X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "v-Reflexion X",
@@ -3386,10 +4460,17 @@
     "isSkill": false,
     "isGenetic": true,
     "isAsset": true,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Reflexion X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Regenerate X",
@@ -3405,7 +4486,13 @@
     "isIntrinsic": true,
     "Key": "v-Regenerate X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "[Reliance X > Type]",
@@ -3421,7 +4508,11 @@
     "isIntrinsic": false,
     "Key": "[Reliance X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "[Reload X]",
@@ -3437,7 +4528,12 @@
     "isIntrinsic": false,
     "Key": "[Reload X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Resist X > Type",
@@ -3453,7 +4549,11 @@
     "isIntrinsic": false,
     "Key": "Resist X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Retinue X",
@@ -3469,7 +4569,11 @@
     "isIntrinsic": false,
     "Key": "Retinue X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "Riding X > Type",
@@ -3485,7 +4589,11 @@
     "isIntrinsic": false,
     "Key": "Riding X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Rigid X",
@@ -3501,7 +4609,11 @@
     "isIntrinsic": true,
     "Key": "Rigid X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Robust X",
@@ -3517,7 +4629,10 @@
     "isIntrinsic": false,
     "Key": "Robust X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic"
+    ]
   },
   {
     "trait": "v-Rocktaste X > Region",
@@ -3533,7 +4648,11 @@
     "isIntrinsic": true,
     "Key": "v-Rocktaste X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity"
+    ]
   },
   {
     "trait": "Science X > Field",
@@ -3549,7 +4668,12 @@
     "isIntrinsic": false,
     "Key": "Science X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "Screen X",
@@ -3565,7 +4689,11 @@
     "isIntrinsic": false,
     "Key": "Screen X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Seafaring X",
@@ -3581,7 +4709,11 @@
     "isIntrinsic": false,
     "Key": "Seafaring X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Seduction X",
@@ -3589,7 +4721,7 @@
     "category": "Skill",
     "isDisability": false,
     "im": 2,
-    "isPsychology": false,
+    "isPsychology": true,
     "isVirtuosity": false,
     "isSkill": true,
     "isGenetic": false,
@@ -3597,7 +4729,12 @@
     "isIntrinsic": false,
     "Key": "Seduction X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential"
+    ]
   },
   {
     "trait": "[Selfless > Target]",
@@ -3613,7 +4750,11 @@
     "isIntrinsic": false,
     "Key": "[Selfless X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "v-Sensors X",
@@ -3629,7 +4770,12 @@
     "isIntrinsic": true,
     "Key": "v-Sensors X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "v-Sequester X",
@@ -3645,7 +4791,13 @@
     "isIntrinsic": false,
     "Key": "v-Sequester X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Service X > Type",
@@ -3661,7 +4813,11 @@
     "isIntrinsic": false,
     "Key": "Service X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Social"
+    ]
   },
   {
     "trait": "Shield X",
@@ -3677,7 +4833,13 @@
     "isIntrinsic": false,
     "Key": "Shield X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "v-Shieldmaster X",
@@ -3693,7 +4855,13 @@
     "isIntrinsic": false,
     "Key": "v-Shieldmaster X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Siege X",
@@ -3709,7 +4877,12 @@
     "isIntrinsic": false,
     "Key": "Siege X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "v-Siphon X",
@@ -3725,7 +4898,12 @@
     "isIntrinsic": true,
     "Key": "v-Siphon X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat"
+    ]
   },
   {
     "trait": "Slam X",
@@ -3741,7 +4919,12 @@
     "isIntrinsic": false,
     "Key": "Slam X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "v-Slippery X",
@@ -3757,7 +4940,13 @@
     "isIntrinsic": false,
     "Key": "v-Slippery X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Slow X]",
@@ -3773,7 +4962,13 @@
     "isIntrinsic": true,
     "Key": "[Slow X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Combat",
+      "Initiative"
+    ]
   },
   {
     "trait": "Sneaky X",
@@ -3789,7 +4984,12 @@
     "isIntrinsic": false,
     "Key": "Sneaky X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "[Solitary X]",
@@ -3805,7 +5005,11 @@
     "isIntrinsic": false,
     "Key": "[Solitary X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Sonic X",
@@ -3821,7 +5025,10 @@
     "isIntrinsic": false,
     "Key": "Sonic X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset"
+    ]
   },
   {
     "trait": "Sophistry",
@@ -3837,7 +5044,14 @@
     "isIntrinsic": false,
     "Key": "Sophistry X",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Psychology",
+      "Existential",
+      "Social",
+      "Distressing"
+    ]
   },
   {
     "trait": "v-Spellshaper X > Spell",
@@ -3853,7 +5067,12 @@
     "isIntrinsic": false,
     "Key": "v-Spellshaper X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Magic"
+    ]
   },
   {
     "trait": "Spike X",
@@ -3869,7 +5088,13 @@
     "isIntrinsic": false,
     "Key": "Spike X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Spray X",
@@ -3885,7 +5110,12 @@
     "isIntrinsic": false,
     "Key": "Spray X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Sprint X > Type",
@@ -3898,10 +5128,18 @@
     "isSkill": true,
     "isGenetic": true,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "Sprint X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "v-Steadfast X",
@@ -3917,7 +5155,13 @@
     "isIntrinsic": false,
     "Key": "v-Steadfast X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Stealth X",
@@ -3933,7 +5177,14 @@
     "isIntrinsic": true,
     "Key": "Stealth X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Intrinsic",
+      "Combat",
+      "Movement",
+      "Sensory"
+    ]
   },
   {
     "trait": "Steer X > Type",
@@ -3949,7 +5200,11 @@
     "isIntrinsic": false,
     "Key": "Steer X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Stinger X",
@@ -3965,7 +5220,12 @@
     "isIntrinsic": false,
     "Key": "Stinger X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "[Strange X > Prejudice]",
@@ -3976,12 +5236,18 @@
     "isPsychology": true,
     "isVirtuosity": false,
     "isSkill": false,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": false,
     "isIntrinsic": false,
     "Key": "[Strange X > Any]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "Strike X > Type",
@@ -3997,7 +5263,13 @@
     "isIntrinsic": false,
     "Key": "Strike X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Stub X]",
@@ -4013,7 +5285,13 @@
     "isIntrinsic": false,
     "Key": "[Stub X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "[Stubborn X]",
@@ -4029,7 +5307,11 @@
     "isIntrinsic": false,
     "Key": "[Stubborn X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "§Studies X > Type",
@@ -4045,7 +5327,11 @@
     "isIntrinsic": false,
     "Key": "§Studies X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
   },
   {
     "trait": "Stun X",
@@ -4061,7 +5347,13 @@
     "isIntrinsic": false,
     "Key": "Stun X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "[Stupid X]",
@@ -4074,10 +5366,18 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "[Stupid X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Psychology",
+      "Combat",
+      "Initiative",
+      "Distressing"
+    ]
   },
   {
     "trait": "Sturdy X",
@@ -4093,7 +5393,12 @@
     "isIntrinsic": false,
     "Key": "Sturdy X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Surefooted X",
@@ -4106,10 +5411,17 @@
     "isSkill": true,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "Surefooted X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Survival X > Environ",
@@ -4125,7 +5437,11 @@
     "isIntrinsic": false,
     "Key": "Survival X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Suss X",
@@ -4141,7 +5457,11 @@
     "isIntrinsic": false,
     "Key": "Suss X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Swarm-mentality X",
@@ -4157,7 +5477,11 @@
     "isIntrinsic": false,
     "Key": "Swarm-mentality X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Swift X",
@@ -4173,7 +5497,11 @@
     "isIntrinsic": false,
     "Key": "Swift X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Swim X",
@@ -4184,12 +5512,19 @@
     "isPsychology": false,
     "isVirtuosity": false,
     "isSkill": true,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": false,
     "isIntrinsic": false,
     "Key": "Swim X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Tactics X > Type",
@@ -4205,7 +5540,14 @@
     "isIntrinsic": false,
     "Key": "Tactics X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential",
+      "Combat",
+      "Initiative"
+    ]
   },
   {
     "trait": "[Talkative X]",
@@ -4221,7 +5563,12 @@
     "isIntrinsic": false,
     "Key": "[Talkative X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "Tall X",
@@ -4237,7 +5584,11 @@
     "isIntrinsic": false,
     "Key": "Tall X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Teach X",
@@ -4253,7 +5604,13 @@
     "isIntrinsic": false,
     "Key": "Teach X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Social",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "§Teachings X > Deity",
@@ -4269,7 +5626,11 @@
     "isIntrinsic": false,
     "Key": "§Teachings X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
   },
   {
     "trait": "Tentacles X",
@@ -4285,7 +5646,12 @@
     "isIntrinsic": false,
     "Key": "Tentacles X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Thresh X",
@@ -4301,7 +5667,12 @@
     "isIntrinsic": false,
     "Key": "Thresh X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat",
+      "Attack Effect"
+    ]
   },
   {
     "trait": "Throwable > Type",
@@ -4317,7 +5688,11 @@
     "isIntrinsic": false,
     "Key": "Throwable X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Combat"
+    ]
   },
   {
     "trait": "Thrower X",
@@ -4333,7 +5708,14 @@
     "isIntrinsic": false,
     "Key": "Thrower X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Title X > Region",
@@ -4349,7 +5731,11 @@
     "isIntrinsic": true,
     "Key": "Title X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Social"
+    ]
   },
   {
     "trait": "Tough X > Type",
@@ -4365,7 +5751,11 @@
     "isIntrinsic": false,
     "Key": "Tough X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Tracking X",
@@ -4381,7 +5771,11 @@
     "isIntrinsic": false,
     "Key": "Tracking X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Trained > Type",
@@ -4397,7 +5791,13 @@
     "isIntrinsic": false,
     "Key": "Trained X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "Trample X",
@@ -4413,7 +5813,12 @@
     "isIntrinsic": false,
     "Key": "Trample X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Natural Weapon"
+    ]
   },
   {
     "trait": "Trapmaster X",
@@ -4429,7 +5834,11 @@
     "isIntrinsic": false,
     "Key": "Trapmaster X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "[Treacherous X]",
@@ -4445,7 +5854,12 @@
     "isIntrinsic": false,
     "Key": "[Treacherous X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Undisciplined X]",
@@ -4461,7 +5875,11 @@
     "isIntrinsic": false,
     "Key": "[Undisciplined X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "v-Unstoppable X",
@@ -4477,7 +5895,13 @@
     "isIntrinsic": false,
     "Key": "v-Unstoppable X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Virtuosity",
+      "Skill",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "v-Velocity X",
@@ -4490,10 +5914,16 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Velocity X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Venom X > Type",
@@ -4504,12 +5934,17 @@
     "isPsychology": false,
     "isVirtuosity": false,
     "isSkill": false,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": true,
     "isIntrinsic": false,
     "Key": "Venom X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Asset",
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "[Violent X]",
@@ -4525,7 +5960,12 @@
     "isIntrinsic": false,
     "Key": "[Violent X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Vitriol X]",
@@ -4541,7 +5981,12 @@
     "isIntrinsic": false,
     "Key": "[Vitriol X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Vow > Target]",
@@ -4557,7 +6002,11 @@
     "isIntrinsic": false,
     "Key": "[Vow X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology"
+    ]
   },
   {
     "trait": "Wares X > Ware",
@@ -4573,7 +6022,11 @@
     "isIntrinsic": false,
     "Key": "Wares X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Existential"
+    ]
   },
   {
     "trait": "Warfare X > Category",
@@ -4589,7 +6042,12 @@
     "isIntrinsic": false,
     "Key": "Warfare X > Any",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Academic",
+      "Existential"
+    ]
   },
   {
     "trait": "[Weak-minded X > Type]",
@@ -4605,7 +6063,12 @@
     "isIntrinsic": false,
     "Key": "[Weak-minded X > Any]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Psychology",
+      "Distressing"
+    ]
   },
   {
     "trait": "[Weakness X > Type]",
@@ -4616,12 +6079,18 @@
     "isPsychology": false,
     "isVirtuosity": false,
     "isSkill": false,
-    "isGenetic": false,
+    "isGenetic": true,
     "isAsset": false,
     "isIntrinsic": true,
     "Key": "[Weakness X > Any]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic",
+      "Intrinsic",
+      "Combat"
+    ]
   },
   {
     "trait": "Webcaster X",
@@ -4637,7 +6106,11 @@
     "isIntrinsic": false,
     "Key": "Webcaster X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat"
+    ]
   },
   {
     "trait": "Webcrawler X",
@@ -4653,7 +6126,12 @@
     "isIntrinsic": false,
     "Key": "Webcrawler X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Genetic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "v-Whirling Death X",
@@ -4666,10 +6144,16 @@
     "isSkill": false,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Whirling Death X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Combat",
+      "Martial"
+    ]
   },
   {
     "trait": "[Winged X]",
@@ -4685,7 +6169,13 @@
     "isIntrinsic": true,
     "Key": "[Winged X]",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Intrinsic",
+      "Combat",
+      "Movement"
+    ]
   },
   {
     "trait": "Wise X",
@@ -4701,7 +6191,13 @@
     "isIntrinsic": false,
     "Key": "Wise X",
     "isDistressing": false,
-    "isAmeliorative": true
+    "isAmeliorative": true,
+    "keywords": [
+      "Skill",
+      "Existential",
+      "Social",
+      "Ameliorative"
+    ]
   },
   {
     "trait": "v-Zedsurge X",
@@ -4714,10 +6210,19 @@
     "isSkill": true,
     "isGenetic": false,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "v-Zedsurge X",
     "isDistressing": false,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Intrinsic",
+      "Virtuosity",
+      "Skill",
+      "Existential",
+      "Combat",
+      "Martial",
+      "Magic"
+    ]
   },
   {
     "trait": "[Zucked X]",
@@ -4730,9 +6235,15 @@
     "isSkill": false,
     "isGenetic": true,
     "isAsset": false,
-    "isIntrinsic": false,
+    "isIntrinsic": true,
     "Key": "[Zucked X]",
     "isDistressing": true,
-    "isAmeliorative": false
+    "isAmeliorative": false,
+    "keywords": [
+      "Disability",
+      "Genetic",
+      "Intrinsic",
+      "Distressing"
+    ]
   }
 ]
