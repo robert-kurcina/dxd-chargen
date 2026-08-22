@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-20T03:43:54.646Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,14 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-granted-skills-traits-talents",
+      "step": "proficiencies-skills-abilities-talents",
       "code": "unresolved-broad-specializations",
-      "message": "Granted Skill/Trait specializations still require review: Expert, History, Nightvision, Poisons, Studies."
-    },
-    {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "21 imported capability exceptions require reconciliation in Additional Traits and Skills."
+      "message": "Broad Skill/Trait specializations still require review: Domus, Enemies, Expert, Gambling, Hatred, Nightvision, Poison, Poisons, Riding, Steer, Studies, Title."
     }
   ],
   "background": {
@@ -133,8 +128,7 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-heiron",
-    "socialRankTitle": "Lady"
+    "deityId": "deity-heiron"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -148,14 +142,12 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 11,
-        "recordedValue": 14,
-        "recordedRollDerived": true,
+        "base": 14,
         "adjustments": [
           {
             "amount": 1,
@@ -176,9 +168,7 @@
       },
       {
         "name": "RCA",
-        "base": 7,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
+        "base": 10,
         "adjustments": [
           {
             "amount": 3,
@@ -199,9 +189,7 @@
       },
       {
         "name": "REF",
-        "base": 10,
-        "recordedValue": 13,
-        "recordedRollDerived": true,
+        "base": 13,
         "adjustments": [
           {
             "amount": 1,
@@ -222,9 +210,7 @@
       },
       {
         "name": "INT",
-        "base": 12,
-        "recordedValue": 14,
-        "recordedRollDerived": true,
+        "base": 14,
         "adjustments": [
           {
             "amount": 1,
@@ -240,9 +226,7 @@
       },
       {
         "name": "KNO",
-        "base": 9,
-        "recordedValue": 11,
-        "recordedRollDerived": true,
+        "base": 11,
         "adjustments": [
           {
             "amount": 1,
@@ -258,9 +242,7 @@
       },
       {
         "name": "PRE",
-        "base": 5,
-        "recordedValue": 9,
-        "recordedRollDerived": true,
+        "base": 9,
         "adjustments": [
           {
             "amount": 2,
@@ -281,9 +263,7 @@
       },
       {
         "name": "POW",
-        "base": 5,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
+        "base": 8,
         "adjustments": [
           {
             "amount": 1,
@@ -304,9 +284,7 @@
       },
       {
         "name": "STR",
-        "base": 8,
-        "recordedValue": 6,
-        "recordedRollDerived": true,
+        "base": 6,
         "adjustments": [
           {
             "amount": -1,
@@ -322,9 +300,7 @@
       },
       {
         "name": "FOR",
-        "base": 5,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
+        "base": 7,
         "adjustments": [
           {
             "amount": -1,
@@ -668,85 +644,7 @@
         "level": 2
       }
     ],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-coro",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 8,
-        "improvements": 0,
-        "accentRemoved": false,
-        "level": 8,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-rasiya",
-        "name": "Rasiya",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 5,
-        "improvements": 0,
-        "accentRemoved": false,
-        "level": 5,
-        "catalogId": "language-rasiya",
-        "modifiers": []
-      },
-      {
-        "id": "language-selection-proficiency-language-coro-2",
-        "catalogId": "language-coro",
-        "name": "Coro",
-        "source": "player",
-        "sourceDetail": "Language proficiency",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "level": 3,
-        "improvements": 0,
-        "accentRemoved": false,
-        "modifiers": [
-          "Barter"
-        ]
-      },
-      {
-        "id": "language-selection-proficiency-language-kahadi-1",
-        "catalogId": "language-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "sourceDetail": "Language proficiency",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "level": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "modifiers": [
-          "Barter"
-        ]
-      },
-      {
-        "id": "language-selection-proficiency-language-kahadi-2",
-        "catalogId": "language-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "sourceDetail": "Language proficiency",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "level": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "modifiers": [
-          "Lingo"
-        ]
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-acrobatics",
         "name": "Acrobatic X",
@@ -1034,6 +932,83 @@
         "level": 1,
         "catalogId": "trait-v-compass-x"
       }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-coro",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 8,
+        "improvements": 0,
+        "accentRemoved": false,
+        "level": 8,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-rasiya",
+        "name": "Rasiya",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 5,
+        "improvements": 0,
+        "accentRemoved": false,
+        "level": 5,
+        "catalogId": "language-rasiya",
+        "modifiers": []
+      },
+      {
+        "id": "language-selection-proficiency-language-coro-2",
+        "catalogId": "language-coro",
+        "name": "Coro",
+        "source": "player",
+        "sourceDetail": "Language proficiency",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 3,
+        "level": 3,
+        "improvements": 0,
+        "accentRemoved": false,
+        "modifiers": [
+          "Barter"
+        ]
+      },
+      {
+        "id": "language-selection-proficiency-language-kahadi-1",
+        "catalogId": "language-kahadi",
+        "name": "Kahadi",
+        "source": "player",
+        "sourceDetail": "Language proficiency",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "level": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "modifiers": [
+          "Barter"
+        ]
+      },
+      {
+        "id": "language-selection-proficiency-language-kahadi-2",
+        "catalogId": "language-kahadi",
+        "name": "Kahadi",
+        "source": "player",
+        "sourceDetail": "Language proficiency",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "level": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "modifiers": [
+          "Lingo"
+        ]
+      }
     ]
   },
   "properties": {
@@ -1179,6 +1154,5 @@
     "availableGp": null,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

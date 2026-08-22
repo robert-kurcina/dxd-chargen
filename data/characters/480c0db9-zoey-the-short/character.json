@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-17T01:03:28.100928Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "11 imported capability exceptions require reconciliation in Additional Traits and Skills."
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Expert, Nightvision."
     }
   ],
   "background": {
@@ -82,8 +82,7 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-heiron",
-    "socialRankTitle": "By name"
+    "deityId": "deity-heiron"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -97,225 +96,53 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 13,
-        "recordedValue": 17,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 4,
-            "source": "species",
-            "sourceDetail": "Klenari baseline"
-          },
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Farleen lineage"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": -5,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": 3,
-            "source": "trade",
-            "sourceDetail": "Rogue Trade"
-          }
-        ]
+        "base": 17,
+        "adjustments": []
       },
       {
         "name": "RCA",
-        "base": 19,
-        "recordedValue": 18,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "species",
-            "sourceDetail": "Klenari baseline"
-          },
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Farleen lineage"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": -5,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          }
-        ]
+        "base": 18,
+        "adjustments": []
       },
       {
         "name": "REF",
-        "base": 9,
-        "recordedValue": 12,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 3,
-            "source": "species",
-            "sourceDetail": "Klenari baseline"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Rogue Trade"
-          }
-        ]
+        "base": 12,
+        "adjustments": []
       },
       {
         "name": "INT",
-        "base": 9,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -4,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Rogue Trade"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Rogue — Spy"
-          }
-        ]
+        "base": 7,
+        "adjustments": []
       },
       {
         "name": "KNO",
-        "base": 9,
-        "recordedValue": 3,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -7,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Rogue — Spy"
-          }
-        ]
+        "base": 3,
+        "adjustments": []
       },
       {
         "name": "PRE",
-        "base": 11,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -2,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Rogue Trade"
-          }
-        ]
+        "base": 10,
+        "adjustments": []
       },
       {
         "name": "POW",
-        "base": 9,
-        "recordedValue": 3,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "species",
-            "sourceDetail": "Klenari baseline"
-          },
-          {
-            "amount": -5,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": -1,
-            "source": "trade",
-            "sourceDetail": "Rogue Trade"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Rogue — Spy"
-          }
-        ]
+        "base": 3,
+        "adjustments": []
       },
       {
         "name": "STR",
-        "base": 7,
-        "recordedValue": -3,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -4,
-            "source": "species",
-            "sourceDetail": "Klenari baseline"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": -5,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          }
-        ]
+        "base": -3,
+        "adjustments": []
       },
       {
         "name": "FOR",
-        "base": 9,
-        "recordedValue": 6,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "species",
-            "sourceDetail": "Klenari baseline"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Youth Age Group modifier"
-          },
-          {
-            "amount": -1,
-            "source": "trade",
-            "sourceDetail": "Rogue — Spy"
-          }
-        ]
+        "base": 6,
+        "adjustments": []
       },
       {
         "name": "MOV",
@@ -337,47 +164,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-fayeed",
-        "name": "Fayeed",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-fayeed",
-        "modifiers": []
-      },
-      {
-        "id": "import-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-kahadi",
-        "modifiers": []
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-brawn",
         "name": "Brawn",
@@ -456,13 +243,52 @@
         "level": 2,
         "catalogId": "trait-suss-x"
       }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-fayeed",
+        "name": "Fayeed",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-fayeed",
+        "modifiers": []
+      },
+      {
+        "id": "import-kahadi",
+        "name": "Kahadi",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
+      }
     ]
   },
   "properties": {
     "stature": 13,
     "build": 24,
-    "baseBuild": 23,
-    "weightAdjustment": 1,
+    "baseBuild": 24,
+    "weightAdjustment": 0,
     "heightInches": 30,
     "weightPounds": 29,
     "siz": 4,
@@ -595,6 +421,5 @@
     "availableGp": 200,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

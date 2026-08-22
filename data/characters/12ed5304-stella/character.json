@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-17T01:03:28.093753Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,8 +16,8 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-granted-skills-traits-talents",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-skills-abilities-talents",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -29,13 +29,7 @@
     "notes-overview",
     "notes-portrait"
   ],
-  "warnings": [
-    {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "10 imported capability exceptions require reconciliation in Additional Traits and Skills."
-    }
-  ],
+  "warnings": [],
   "background": {
     "regionId": "region-djorkan",
     "settlementId": "settlement-djorkan-drusia",
@@ -93,8 +87,7 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-agnostic",
-    "deityId": null,
-    "socialRankTitle": "By Name and Trade"
+    "deityId": null
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -108,180 +101,53 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 9,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "lineage",
-            "sourceDetail": "Baminati lineage"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 10,
+        "adjustments": []
       },
       {
         "name": "RCA",
-        "base": 10,
-        "recordedValue": 12,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard Trade"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard — Spellbinder"
-          }
-        ]
+        "base": 12,
+        "adjustments": []
       },
       {
         "name": "REF",
-        "base": 12,
-        "recordedValue": 13,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 13,
+        "adjustments": []
       },
       {
         "name": "INT",
-        "base": 8,
-        "recordedValue": 14,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Baminati lineage"
-          },
-          {
-            "amount": 4,
-            "source": "trade",
-            "sourceDetail": "Wizard Trade"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard — Spellbinder"
-          }
-        ]
+        "base": 14,
+        "adjustments": []
       },
       {
         "name": "KNO",
-        "base": 6,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -2,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard Trade"
-          },
-          {
-            "amount": 2,
-            "source": "trade",
-            "sourceDetail": "Wizard — Spellbinder"
-          }
-        ]
+        "base": 7,
+        "adjustments": []
       },
       {
         "name": "PRE",
-        "base": 5,
-        "recordedValue": 9,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Baminati lineage"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard Trade"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard — Spellbinder"
-          }
-        ]
+        "base": 9,
+        "adjustments": []
       },
       {
         "name": "POW",
         "base": 8,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Wizard Trade"
-          }
-        ]
+        "adjustments": []
       },
       {
         "name": "STR",
-        "base": 8,
-        "recordedValue": 6,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 6,
+        "adjustments": []
       },
       {
         "name": "FOR",
-        "base": 7,
-        "recordedValue": 6,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "trade",
-            "sourceDetail": "Wizard — Spellbinder"
-          }
-        ]
+        "base": 6,
+        "adjustments": []
       },
       {
         "name": "MOV",
@@ -303,77 +169,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-bamini",
-        "name": "Heimneshi",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-heimneshi",
-        "modifiers": []
-      },
-      {
-        "id": "import-common-warlang",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-coro",
-        "modifiers": [
-          "War"
-        ]
-      },
-      {
-        "id": "import-lorespeak",
-        "name": "Blacktongue",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-blacktongue",
-        "modifiers": [
-          "Low"
-        ]
-      },
-      {
-        "id": "import-cher-gulo",
-        "name": "Cher-gulo",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-cher-gulo",
-        "modifiers": []
-      },
-      {
-        "id": "import-old-high-qua",
-        "name": "Qua",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-qua",
-        "modifiers": [
-          "High"
-        ]
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-barter",
         "name": "Barter",
@@ -446,13 +242,82 @@
         "source": "player",
         "level": 3
       }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-bamini",
+        "name": "Heimneshi",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-heimneshi",
+        "modifiers": []
+      },
+      {
+        "id": "import-common-warlang",
+        "name": "Coro",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "War"
+        ]
+      },
+      {
+        "id": "import-lorespeak",
+        "name": "Blacktongue",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
+      },
+      {
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
+      },
+      {
+        "id": "import-old-high-qua",
+        "name": "Qua",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "High"
+        ]
+      }
     ]
   },
   "properties": {
     "stature": 46,
     "build": 46,
-    "baseBuild": 45,
-    "weightAdjustment": 1,
+    "baseBuild": 46,
+    "weightAdjustment": 0,
     "heightInches": 65,
     "weightPounds": 126,
     "siz": 10,
@@ -479,8 +344,8 @@
       "gold": 315,
       "xp": 1820
     },
-    "statureAdjustment": 2,
-    "buildAdjustment": 2
+    "statureAdjustment": 1,
+    "buildAdjustment": 1
   },
   "utilities": {
     "spells": [
@@ -609,6 +474,5 @@
     "availableGp": 315,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

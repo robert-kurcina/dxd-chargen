@@ -252,11 +252,11 @@ export function buildCharacterSheetPayload(draft: CharacterDraft, sheet: Charact
   };
 }
 
-export default function ExpandedCharacterSheet({ draft, data }: { draft: CharacterDraft; data: StaticData }) {
+export default function ExpandedCharacterSheet({ draft, data, filename }: { draft: CharacterDraft; data: StaticData; filename?: string }) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const [loaded, setLoaded] = useState(false);
   const sheet = useMemo(() => projectCharacterSheet(draft, data), [draft, data]);
-  const payload = useMemo(() => buildCharacterSheetPayload(draft, sheet, data), [draft, sheet, data]);
+  const payload = useMemo(() => ({ ...buildCharacterSheetPayload(draft, sheet, data), Filename: filename ?? '' }), [draft, sheet, data, filename]);
   const send = useCallback(() => iframe.current?.contentWindow?.postMessage({ type: 'dxd-character-sheet', payload }, window.location.origin), [payload]);
   useEffect(() => {
     const receive = (event: MessageEvent) => {

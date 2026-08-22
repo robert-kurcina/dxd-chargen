@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-17T01:03:28.106793Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "22 imported capability exceptions require reconciliation in Additional Traits and Skills."
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Medic, Riding, Strike, Tactics, Warfare."
     }
   ],
   "background": {
@@ -88,8 +88,7 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-sillis",
-    "socialRankTitle": "By Name and Trade"
+    "deityId": "deity-sillis"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -103,133 +102,53 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 12,
-        "recordedValue": 14,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Knight Trade"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Knight — Free"
-          }
-        ]
+        "base": 14,
+        "adjustments": []
       },
       {
         "name": "RCA",
-        "base": 13,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -3,
-            "source": "trade",
-            "sourceDetail": "Knight Trade"
-          }
-        ]
+        "base": 10,
+        "adjustments": []
       },
       {
         "name": "REF",
         "base": 7,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "INT",
-        "base": 10,
-        "recordedValue": 11,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Knight — Free"
-          }
-        ]
+        "base": 11,
+        "adjustments": []
       },
       {
         "name": "KNO",
         "base": 7,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "PRE",
-        "base": 6,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Drusian lineage"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Knight Trade"
-          }
-        ]
+        "base": 8,
+        "adjustments": []
       },
       {
         "name": "POW",
-        "base": 7,
-        "recordedValue": 12,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "lineage",
-            "sourceDetail": "Drusian lineage"
-          },
-          {
-            "amount": 3,
-            "source": "trade",
-            "sourceDetail": "Knight Trade"
-          }
-        ]
+        "base": 12,
+        "adjustments": []
       },
       {
         "name": "STR",
-        "base": 6,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "lineage",
-            "sourceDetail": "Drusian lineage"
-          },
-          {
-            "amount": 3,
-            "source": "trade",
-            "sourceDetail": "Knight Trade"
-          }
-        ]
+        "base": 8,
+        "adjustments": []
       },
       {
         "name": "FOR",
-        "base": 5,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 3,
-            "source": "trade",
-            "sourceDetail": "Knight Trade"
-          }
-        ]
+        "base": 8,
+        "adjustments": []
       },
       {
         "name": "MOV",
@@ -251,49 +170,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-ithuuikal",
-        "name": "Ithuuikal",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-ithuuikal",
-        "modifiers": []
-      },
-      {
-        "id": "import-warlang-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-coro",
-        "modifiers": [
-          "War"
-        ]
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-barter",
         "name": "Barter",
@@ -451,6 +328,47 @@
         "level": 1,
         "catalogId": "trait-v-fortitude-x"
       }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-ithuuikal",
+        "name": "Ithuuikal",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
+      },
+      {
+        "id": "import-warlang-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "War"
+        ]
+      }
     ]
   },
   "properties": {
@@ -591,6 +509,5 @@
     "availableGp": 0,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

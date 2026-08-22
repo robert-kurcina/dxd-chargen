@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-17T01:03:28.098696Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "16 imported capability exceptions require reconciliation in Additional Traits and Skills."
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Lore, Riding, Title."
     }
   ],
   "background": {
@@ -221,8 +221,7 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-everia",
-    "socialRankTitle": "Lady"
+    "deityId": "deity-everia"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -236,195 +235,53 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 9,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 7,
+        "adjustments": []
       },
       {
         "name": "RCA",
-        "base": 5,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 3,
-            "source": "species",
-            "sourceDetail": "Alef baseline"
-          },
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Vanyrai lineage"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          }
-        ]
+        "base": 8,
+        "adjustments": []
       },
       {
         "name": "REF",
-        "base": 9,
-        "recordedValue": 12,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "species",
-            "sourceDetail": "Alef baseline"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 12,
+        "adjustments": []
       },
       {
         "name": "INT",
-        "base": 11,
-        "recordedValue": 13,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "lineage",
-            "sourceDetail": "Vanyrai lineage"
-          }
-        ]
+        "base": 13,
+        "adjustments": []
       },
       {
         "name": "KNO",
-        "base": 10,
-        "recordedValue": 13,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "species",
-            "sourceDetail": "Alef baseline"
-          },
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Vanyrai lineage"
-          },
-          {
-            "amount": -2,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          },
-          {
-            "amount": 3,
-            "source": "trade",
-            "sourceDetail": "Cleric Trade"
-          }
-        ]
+        "base": 13,
+        "adjustments": []
       },
       {
         "name": "PRE",
-        "base": 6,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "species",
-            "sourceDetail": "Alef baseline"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Cleric Trade"
-          }
-        ]
+        "base": 10,
+        "adjustments": []
       },
       {
         "name": "POW",
-        "base": 10,
-        "recordedValue": 11,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "lineage",
-            "sourceDetail": "Vanyrai lineage"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 11,
+        "adjustments": []
       },
       {
         "name": "STR",
-        "base": 12,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "species",
-            "sourceDetail": "Alef baseline"
-          },
-          {
-            "amount": -1,
-            "source": "lineage",
-            "sourceDetail": "Vanyrai lineage"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Genetically Female"
-          },
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 8,
+        "adjustments": []
       },
       {
         "name": "FOR",
-        "base": 4,
-        "recordedValue": 3,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "species",
-            "sourceDetail": "Alef baseline"
-          }
-        ]
+        "base": 3,
+        "adjustments": []
       },
       {
         "name": "MOV",
@@ -446,87 +303,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 6,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-ershthikal",
-        "name": "Ershthiikal",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": false,
-        "modifiers": [],
-        "catalogId": "language-ershthikal"
-      },
-      {
-        "id": "import-ithuuikal",
-        "name": "Ithuuikal",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-ithuuikal",
-        "modifiers": []
-      },
-      {
-        "id": "import-middle-qua",
-        "name": "Qua",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 5,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-qua",
-        "modifiers": []
-      },
-      {
-        "id": "import-old-high-qua",
-        "name": "Qua",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-qua",
-        "modifiers": [
-          "High"
-        ]
-      },
-      {
-        "id": "import-vanry",
-        "name": "Rasiya",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-rasiya",
-        "modifiers": [
-          "High"
-        ]
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-deity",
         "name": "Deity X > Deity",
@@ -639,6 +416,85 @@
         "source": "player",
         "level": 2,
         "catalogId": "trait-wise-x"
+      }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 6,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-ershthikal",
+        "name": "Ershthiikal",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": false,
+        "modifiers": [],
+        "catalogId": "language-ershthikal"
+      },
+      {
+        "id": "import-ithuuikal",
+        "name": "Ithuuikal",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
+      },
+      {
+        "id": "import-middle-qua",
+        "name": "Qua",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 5,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": []
+      },
+      {
+        "id": "import-old-high-qua",
+        "name": "Qua",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-qua",
+        "modifiers": [
+          "High"
+        ]
+      },
+      {
+        "id": "import-vanry",
+        "name": "Rasiya",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-rasiya",
+        "modifiers": [
+          "High"
+        ]
       }
     ]
   },
@@ -896,6 +752,5 @@
     "availableGp": 208,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

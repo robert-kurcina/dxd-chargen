@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-17T01:03:28.092105Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "27 imported capability exceptions require reconciliation in Additional Traits and Skills."
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Lore, Riding, Strike, Tactics, Title."
     }
   ],
   "background": {
@@ -102,8 +102,7 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-everia",
-    "socialRankTitle": "Lord"
+    "deityId": "deity-everia"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -117,143 +116,53 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 7,
-        "recordedValue": 6,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 6,
+        "adjustments": []
       },
       {
         "name": "RCA",
-        "base": 7,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Sondgarat lineage"
-          },
-          {
-            "amount": 2,
-            "source": "trade",
-            "sourceDetail": "Ranger — Scout"
-          }
-        ]
+        "base": 10,
+        "adjustments": []
       },
       {
         "name": "REF",
-        "base": 9,
-        "recordedValue": 12,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Sondgarat lineage"
-          },
-          {
-            "amount": 1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Ranger — Scout"
-          }
-        ]
+        "base": 12,
+        "adjustments": []
       },
       {
         "name": "INT",
         "base": 10,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "KNO",
         "base": 9,
-        "recordedValue": 9,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -2,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          },
-          {
-            "amount": 2,
-            "source": "trade",
-            "sourceDetail": "Ranger Trade"
-          }
-        ]
+        "adjustments": []
       },
       {
         "name": "PRE",
         "base": 10,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "POW",
-        "base": 7,
-        "recordedValue": 8,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          },
-          {
-            "amount": 2,
-            "source": "trade",
-            "sourceDetail": "Ranger Trade"
-          }
-        ]
+        "base": 8,
+        "adjustments": []
       },
       {
         "name": "STR",
-        "base": 7,
-        "recordedValue": 6,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "rule",
-            "sourceDetail": "Teenager Age Group modifier"
-          }
-        ]
+        "base": 6,
+        "adjustments": []
       },
       {
         "name": "FOR",
-        "base": 5,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Sondgarat lineage"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Ranger — Scout"
-          }
-        ]
+        "base": 7,
+        "adjustments": []
       },
       {
         "name": "MOV",
@@ -275,35 +184,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-kahadi",
-        "modifiers": []
-      },
-      {
-        "id": "import-orukugu",
-        "name": "Orukugu",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-orukugu",
-        "modifiers": []
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-domus-farmer",
         "catalogId": "trait-domus-x-domain",
@@ -494,6 +375,33 @@
         "source": "player",
         "level": 2
       }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-kahadi",
+        "name": "Kahadi",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-kahadi",
+        "modifiers": []
+      },
+      {
+        "id": "import-orukugu",
+        "name": "Orukugu",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-orukugu",
+        "modifiers": []
+      }
     ]
   },
   "properties": {
@@ -650,6 +558,5 @@
     "availableGp": 320,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

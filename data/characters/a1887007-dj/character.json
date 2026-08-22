@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 11,
+  "schemaVersion": 9,
   "updatedAt": "2026-08-17T01:03:28.106053Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-traits-skills",
+    "proficiencies-additional-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-imported-traits-skills-talents",
-      "code": "imported-capability-exceptions",
-      "message": "18 imported capability exceptions require reconciliation in Additional Traits and Skills."
+      "step": "proficiencies-skills-abilities-talents",
+      "code": "unresolved-broad-specializations",
+      "message": "Broad Skill/Trait specializations still require review: Perform."
     }
   ],
   "background": {
@@ -87,8 +87,7 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-agnostic",
-    "deityId": null,
-    "socialRankTitle": "By Name and Trade"
+    "deityId": null
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -102,128 +101,53 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": "imported",
+    "attributeMethod": null,
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 11,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "lineage",
-            "sourceDetail": "Restani lineage"
-          }
-        ]
+        "base": 10,
+        "adjustments": []
       },
       {
         "name": "RCA",
-        "base": 14,
-        "recordedValue": 12,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -2,
-            "source": "lineage",
-            "sourceDetail": "Restani lineage"
-          }
-        ]
+        "base": 12,
+        "adjustments": []
       },
       {
         "name": "REF",
-        "base": 10,
-        "recordedValue": 9,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "lineage",
-            "sourceDetail": "Restani lineage"
-          }
-        ]
+        "base": 9,
+        "adjustments": []
       },
       {
         "name": "INT",
-        "base": 3,
-        "recordedValue": 5,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 1,
-            "source": "lineage",
-            "sourceDetail": "Restani lineage"
-          },
-          {
-            "amount": 1,
-            "source": "trade",
-            "sourceDetail": "Ranger — Wanderer"
-          }
-        ]
+        "base": 5,
+        "adjustments": []
       },
       {
         "name": "KNO",
-        "base": 0,
-        "recordedValue": 7,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "lineage",
-            "sourceDetail": "Restani lineage"
-          },
-          {
-            "amount": 2,
-            "source": "trade",
-            "sourceDetail": "Ranger Trade"
-          },
-          {
-            "amount": 3,
-            "source": "trade",
-            "sourceDetail": "Ranger — Wanderer"
-          }
-        ]
+        "base": 7,
+        "adjustments": []
       },
       {
         "name": "PRE",
         "base": 10,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "POW",
-        "base": 7,
-        "recordedValue": 9,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": 2,
-            "source": "trade",
-            "sourceDetail": "Ranger Trade"
-          }
-        ]
+        "base": 9,
+        "adjustments": []
       },
       {
         "name": "STR",
         "base": 10,
-        "recordedValue": 10,
-        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "FOR",
-        "base": 12,
-        "recordedValue": 11,
-        "recordedRollDerived": true,
-        "adjustments": [
-          {
-            "amount": -1,
-            "source": "lineage",
-            "sourceDetail": "Restani lineage"
-          }
-        ]
+        "base": 11,
+        "adjustments": []
       },
       {
         "name": "MOV",
@@ -245,35 +169,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-rasiya",
-        "name": "Rasiya",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-rasiya",
-        "modifiers": []
-      }
-    ],
-    "importedCapabilities": [
+    "purchased": [
       {
         "id": "import-archery",
         "name": "Archery",
@@ -400,13 +296,40 @@
         "source": "player",
         "level": 3
       }
+    ],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-rasiya",
+        "name": "Rasiya",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-rasiya",
+        "modifiers": []
+      }
     ]
   },
   "properties": {
     "stature": 50,
     "build": 50,
-    "baseBuild": 50,
-    "weightAdjustment": 0,
+    "baseBuild": 51,
+    "weightAdjustment": -1,
     "heightInches": 71,
     "weightPounds": 155,
     "siz": 12,
@@ -563,6 +486,5 @@
     "availableGp": 35,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  },
-  "characterId": null
+  }
 }

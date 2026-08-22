@@ -16,7 +16,7 @@ export function ForgeWorkspaceView() {
   return <>
     <div data-forge-modal-background className="mx-auto mb-3 flex max-w-[1440px] flex-wrap items-center justify-between gap-2 rounded-lg border bg-card p-3">
       <div className="min-w-0 text-sm">
-        <div className="truncate font-medium">{activeFileId ?? 'Unsaved character'}{dirty && <span className="ml-2 text-xs text-[#990000]">Unsaved changes</span>}</div>
+        <div className="truncate font-medium">{activeFileId ? <><span>Filename: </span><span className="font-mono">{activeFileId}</span></> : 'Unsaved character'}{dirty && <span className="ml-2 text-xs text-[#990000]">Unsaved changes</span>}</div>
         {message && <div className="text-xs text-muted-foreground" role="status" aria-live="polite">{message}</div>}
         {availableTags.length > 0 && <div className="mt-2 flex flex-wrap items-center gap-1"><span className="mr-1 text-xs text-muted-foreground">Library tags</span>{availableTags.map((tag) => { const active = draft.utilities.libraryTags.includes(tag); return <button key={tag} type="button" className={`rounded-full border px-2 py-0.5 text-[11px] ${active ? 'bg-foreground text-background' : 'text-muted-foreground'}`} onClick={() => setDraft((current) => ({ ...current, utilities: { ...current.utilities, libraryTags: sortLibraryTags(active ? current.utilities.libraryTags.filter((value) => value !== tag) : [...current.utilities.libraryTags, tag]) } }))}>{tag}</button>; })}</div>}
       </div>
@@ -31,8 +31,8 @@ export function ForgeWorkspaceView() {
 }
 
 export function SheetWorkspaceView() {
-  const { draft, data } = useWorkspace();
-  return <div className="mx-auto h-full min-h-0 w-full max-w-[1200px]"><ExpandedCharacterSheet draft={draft} data={data} /></div>;
+  const { draft, data, activeFileId } = useWorkspace();
+  return <div className="mx-auto h-full min-h-0 w-full max-w-[1200px]"><ExpandedCharacterSheet draft={draft} data={data} filename={activeFileId ?? undefined} /></div>;
 }
 
 export function LibraryWorkspaceView() {
