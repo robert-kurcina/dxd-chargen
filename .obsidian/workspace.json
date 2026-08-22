@@ -77,8 +77,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -186,19 +185,21 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "a7e23d711870c07f",
+  "active": "0ce12929ac9101b1",
   "lastOpenFiles": [
-    "data/peoples/_pairs/ancestral.pairs-21.png",
-    "data/peoples/_pairs/ancestral.pairs-20.png",
-    "data/peoples/_pairs/ancestral.pairs-19.png",
-    "data/peoples/_pairs/ancestral.pairs-18.png",
-    "data/peoples/_pairs/ancestral.pairs-17.png",
-    "data/peoples/_pairs/ancestral.pairs-30.png",
+    "data/maps/citystates/citystate-corom.png",
+    "data/maps/citystates/citystate-paltesh.png",
+    "data/maps/citystates/citystate-sarken.png",
+    "data/maps/citystates/citystate-herost.png",
+    "data/maps/citystates/citystate-quagkh.png",
+    "data/maps/citystates/citystate-pazkan.png",
+    "data/maps/citystates/citystate-aquorica.png",
+    "data/maps/citystates/citystate-boral.png",
+    "data/maps/citystates/castel-darken.png",
+    "data/maps/citystates/boral.png",
+    "data/maps/citystates/pazkan.png",
     "dxd-chargen.zip",
     "Archive.zip",
-    "public/armor/hit-locations_female.svg",
-    "public/armor/hit-locations_male.svg",
-    "public/armor/hit-locations.svg",
     "META/guidance/CANON_SYNC_v142.md",
     "META/releases/RELEASE_v142.md",
     "META/releases/RELEASE_v141_ADMIN_TESTS_INFO_REBUILD.md",
@@ -222,8 +223,6 @@
     "META/releases/RELEASE_v136.md",
     "META/releases/RELEASE_v135.md",
     "META/guidance/CANON_SYNC_v135.md",
-    "images/hit-locations_male.svg",
-    "images/hit-locations_female.svg",
     "META/guidance/CANON_SYNC_v134.md",
     "META/retired_llm_guidance/README.md",
     "META/retired_llm_guidance/universal-table.md",
