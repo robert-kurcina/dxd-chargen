@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-const CATEGORIES = new Set(['decals', 'images', 'maps', 'peoples']);
+const CATEGORIES = new Set(['citystates', 'decals', 'images', 'maps', 'peoples']);
 const SAFE_FILENAME = /^[a-z0-9][a-z0-9._-]*$/i;
 const PEOPLE_PAIR = /^(?:ancestral\.pairs-\d+|phenotype\.pair)\.png$/i;
 const PEOPLE_HOLOTYPE = /^humaniki-(?:alef|babbita|drauf|gnoan|human|klenari)\.png$/i;
@@ -20,10 +20,12 @@ export async function GET(
       ? path.join('data', 'peoples', '_pairs')
       : category === 'peoples' && PEOPLE_HOLOTYPE.test(filename)
         ? path.join('data', 'peoples', 'holotypes')
-        : path.join('data', category);
+        : category === 'citystates'
+          ? path.join('data', 'maps', 'citystates')
+          : path.join('data', category);
     const bytes = await readFile(path.join(process.cwd(), directory, filename));
     const extension = path.extname(filename).toLowerCase();
-    const contentType = extension === '.png' ? 'image/png' : extension === '.jpg' || extension === '.jpeg' ? 'image/jpeg' : extension === '.webp' ? 'image/webp' : extension === '.pdf' ? 'application/pdf' : 'application/octet-stream';
+    const contentType = extension === '.png' ? 'image/png' : extension === '.jpg' || extension === '.jpeg' ? 'image/jpeg' : extension === '.webp' ? 'image/webp' : extension === '.svg' ? 'image/svg+xml' : extension === '.pdf' ? 'application/pdf' : 'application/octet-stream';
     const cacheControl = process.env.NODE_ENV === 'production'
       ? 'public, max-age=31536000, immutable'
       : 'no-store, no-cache, must-revalidate, proxy-revalidate';
