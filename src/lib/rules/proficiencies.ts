@@ -100,7 +100,7 @@ function canonicalTraitBase(value: string) {
     .trim()
     .toLowerCase();
   if (base === 'zedsurge') return 'v-zedsurge';
-  if (isInterdisciplinary && base === 'military') return 'warfare';
+  if (isInterdisciplinary && base === 'warfare') return 'military';
   if (isInterdisciplinary && base === 'studies') return 'letters';
   if (isInterdisciplinary && base === 'teachings') return 'doctrine';
   return base;

@@ -8,7 +8,10 @@
     "talentedCrossSupportDm": 1,
     "maxGroupsPerTest": 1,
     "ordinaryElectivesRemainIndependent": true,
-    "sourceOfTruth": "vault-sarnalen/book-rewrite 2026-08-23"
+    "sourceOfTruth": "vault-sarnalen/book-rewrite 2026-08-23",
+    "restrictedAccessSkillpointEquivalent": 0,
+    "groupImprovementMultiplier": 4,
+    "pricingNote": "Restricted access grants no Skill level and has 0 Skillpoint equivalent; actual § Skill levels use IM 4."
   },
   "groups": [
     {
@@ -96,8 +99,8 @@
       }
     },
     {
-      "id": "warfare",
-      "trait": "§Warfare X > Skill",
+      "id": "military",
+      "trait": "§Military X > Skill",
       "intent": "Integrated military training in command, operations, campaigning, reconnaissance, and military support disciplines.",
       "electives": [
         "Drill",

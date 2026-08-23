@@ -120,7 +120,7 @@
     ]
   },
   {
-    "trait": "§Warfare X > Skill",
+    "trait": "§Military X > Skill",
     "interimTime": "IM 4/",
     "category": "Skill",
     "isDisability": false,
@@ -131,7 +131,7 @@
     "isGenetic": false,
     "isAsset": false,
     "isIntrinsic": false,
-    "Key": "§Warfare X > Any",
+    "Key": "§Military X > Any",
     "isDistressing": false,
     "isAmeliorative": false,
     "keywords": [

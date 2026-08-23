@@ -1,0 +1,37 @@
+{
+  "release": "v147",
+  "version": "0.147.0",
+  "status": "PASS_WITH_EXISTING_ASSET_GATE",
+  "checks": [
+    {
+      "name": "Canonical military group",
+      "status": "PASS",
+      "details": "§Military is canonical; ordinary Warfare remains distinct; §Warfare is absent from active trait/package data and retained only as a legacy compatibility alias."
+    },
+    {
+      "name": "Interdisciplinary pricing",
+      "status": "PASS",
+      "details": "Restricted access Skillpoint equivalent is 0 and every canonical § Skill has IM 4."
+    },
+    {
+      "name": "Package repricing",
+      "status": "PASS_ZERO_DELTA",
+      "details": "Taxonomy/access-only substitutions are IM-4-for-IM-4 and access grants no level, so Heritage, Trade, and Profession package prices do not change solely from this refinement."
+    },
+    {
+      "name": "Legacy compatibility",
+      "status": "PASS",
+      "details": "Runtime normalization uses §Warfare→§Military, §Studies→§Letters, and §Teachings→§Doctrine."
+    },
+    {
+      "name": "Modified TypeScript syntax transpile",
+      "status": "PASS",
+      "details": "src/data/index.ts, src/lib/rules/proficiencies.ts, src/app/forge/proficiencies-step.tsx, and src/lib/character-sheet-projection.ts transpile with zero TypeScript syntax diagnostics using TypeScript 5.8.3."
+    },
+    {
+      "name": "Runtime data validation",
+      "status": "BLOCKED_AFTER_NEW_CHECKS",
+      "details": "scripts/validate-data.mjs passes the interdisciplinary identity/access/pricing checks, then stops at the pre-existing missing asset public/armor/hit-locations_male.svg."
+    }
+  ]
+}
