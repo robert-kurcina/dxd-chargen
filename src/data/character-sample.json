@@ -94,7 +94,7 @@
     "weapons": "Broadsword, Dagger",
     "armor": "Boiled Leather, Half Helm & Mantle",
     "magicItems": "Whetcoin",
-    "skills": "[Comrade 2 > Target], [Empathy 2], §Academics 1 > Maths, §Studies 2 > Read, Archery 1, Barter 3, Brawn 2, Domus 3 > Fisher, Drill 3, Expert 5 > Improvised Weapons, Expert 3 > Swords, Expert 2 > Daggers, Expert 3 > Spears, Fishing 3, History 1 > Vasik Realms, Knife-fighter 2, Leadership 1, Lore 3 > Human Cultures, Martialist 2, Navigation 2, Nimble 1, Parry 3, Persuade 2, Pidgin 3 > War Vasikha, Politics 1 > Khardik, Quick 2, Read 2 > Khardik, Steer 2 > Sailboat, Strike 2, Sturdy 1, Survival 1 > River, Survival 1 > Coast, Suss 1, Swim 4, Tactics 2 > Team, Trained 3 > Leather, Trained 1 > Mail, Trapmaster 1",
+    "skills": "[Comrade 2 > Target], [Empathy 2], §Academics 1 > { Maths }, §Letters 2 > { +Read }, Archery 1, Barter 3, Brawn 2, Domus 3 > Fisher, Drill 3, Expert 5 > Improvised Weapons, Expert 3 > Swords, Expert 2 > Daggers, Expert 3 > Spears, Fishing 3, History 1 > Vasik Realms, Knife-fighter 2, Leadership 1, Lore 3 > Human Cultures, Martialist 2, Navigation 2, Nimble 1, Parry 3, Persuade 2, Pidgin 3 > War Vasikha, Politics 1 > Khardik, Quick 2, Read 2 > Khardik, Steer 2 > Sailboat, Strike 2, Sturdy 1, Survival 1 > River, Survival 1 > Coast, Suss 1, Swim 4, Tactics 2 > Team, Trained 3 > Leather, Trained 1 > Mail, Trapmaster 1",
     "languages": "+[Middle Khardik-5], [Common-4], [Khardik Barter-3], [Middle Coro-3], [Heimneshi-2], [War Vasikha-3]",
     "spells": ""
   },

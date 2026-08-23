@@ -1,0 +1,254 @@
+{
+  "rules": {
+    "restricted": true,
+    "electiveSelectionsPerLevel": 1,
+    "maxSelectionsPerElective": 2,
+    "talentedPrefix": "+",
+    "directBonusDivisor": 3,
+    "talentedCrossSupportDm": 1,
+    "maxGroupsPerTest": 1,
+    "ordinaryElectivesRemainIndependent": true,
+    "sourceOfTruth": "vault-sarnalen/book-rewrite 2026-08-23"
+  },
+  "groups": [
+    {
+      "id": "academics",
+      "trait": "§Academics X > Skill",
+      "intent": "Formal technical and scholarly training which integrates specialized academic disciplines.",
+      "electives": [
+        "Alchemy",
+        "Design",
+        "Engineer",
+        "Medic",
+        "Science"
+      ],
+      "access": {
+        "societies": [],
+        "cultures": [],
+        "trades": [
+          "Academic",
+          "Wizard"
+        ],
+        "professions": [
+          {
+            "trade": "Cleric",
+            "name": "Physician"
+          }
+        ]
+      }
+    },
+    {
+      "id": "letters",
+      "trait": "§Letters X > Skill",
+      "intent": "Broad literate and humanistic education which integrates language, history, inquiry, and learned culture.",
+      "electives": [
+        "Artist",
+        "History",
+        "Investigate",
+        "Language",
+        "Lore",
+        "Maths",
+        "Peerage",
+        "Politics",
+        "Read",
+        "Reasoning"
+      ],
+      "access": {
+        "societies": [
+          "Townsfolk",
+          "Cityfolk",
+          "Landed"
+        ],
+        "cultures": [
+          "Services"
+        ],
+        "trades": [
+          "Academic"
+        ],
+        "professions": []
+      }
+    },
+    {
+      "id": "doctrine",
+      "trait": "§Doctrine X > Deity",
+      "intent": "Integrated religious instruction joining belief, discipline, teaching, leadership, and persuasion around a Deity.",
+      "qualifierLabel": "Deity",
+      "electives": [
+        "Deity",
+        "Teach",
+        "Discipline",
+        "Reasoning",
+        "Leadership",
+        "Persuade"
+      ],
+      "access": {
+        "societies": [],
+        "cultures": [],
+        "trades": [
+          "Cleric"
+        ],
+        "professions": [
+          {
+            "trade": "Knight",
+            "name": "Templar"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warfare",
+      "trait": "§Warfare X > Skill",
+      "intent": "Integrated military training in command, operations, campaigning, reconnaissance, and military support disciplines.",
+      "electives": [
+        "Drill",
+        "Engineer",
+        "Infiltrate",
+        "Leadership",
+        "Navigation",
+        "Office",
+        "Siege",
+        "Tactics",
+        "Warfare"
+      ],
+      "access": {
+        "societies": [],
+        "cultures": [],
+        "trades": [
+          "Warrior",
+          "Knight"
+        ],
+        "professions": [
+          {
+            "trade": "Ranger",
+            "name": "Scout"
+          },
+          {
+            "trade": "Mariner",
+            "name": "Privateer"
+          },
+          {
+            "trade": "Cleric",
+            "name": "Guardian"
+          }
+        ]
+      }
+    },
+    {
+      "id": "waycraft",
+      "trait": "§Waycraft X > Skill",
+      "intent": "Integrated wilderness and frontier practice joining travel, pursuit, survival, terrain, and field problem-solving.",
+      "electives": [
+        "Animal Trainer",
+        "Forage",
+        "Hunter",
+        "Mountaineering",
+        "Navigation",
+        "Pathfinder",
+        "Survival",
+        "Tracking",
+        "Trapmaster"
+      ],
+      "access": {
+        "societies": [],
+        "cultures": [],
+        "trades": [
+          "Ranger"
+        ],
+        "professions": [
+          {
+            "trade": "Cleric",
+            "name": "Hermit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "commerce",
+      "trait": "§Commerce X > Skill",
+      "intent": "Integrated mercantile practice joining markets, bargaining, value, administration, contacts, and trade.",
+      "electives": [
+        "Barter",
+        "Connections",
+        "Mercantile",
+        "Navigation",
+        "Office",
+        "Politics",
+        "Suss",
+        "Wares"
+      ],
+      "access": {
+        "societies": [],
+        "cultures": [
+          "Merchant"
+        ],
+        "trades": [
+          "Merchant"
+        ],
+        "professions": []
+      }
+    },
+    {
+      "id": "courtcraft",
+      "trait": "§Courtcraft X > Skill",
+      "intent": "Integrated aristocratic and courtly practice joining hierarchy, patronage, politics, history, and social institutions.",
+      "electives": [
+        "Connections",
+        "Fawn",
+        "History",
+        "Language",
+        "Leadership",
+        "Peerage",
+        "Politics",
+        "Read",
+        "Suss"
+      ],
+      "access": {
+        "societies": [
+          "Aristocrats",
+          "Nobles",
+          "Royalty",
+          "Imperial"
+        ],
+        "cultures": [],
+        "trades": [],
+        "professions": [
+          {
+            "trade": "Knight",
+            "name": "Royal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "artistry",
+      "trait": "§Artistry X > Skill",
+      "intent": "Integrated creative and performance training joining artistic production, presentation, audience work, and entertainer practice.",
+      "electives": [
+        "Artist",
+        "Banter",
+        "Disguise",
+        "Gossip",
+        "Language",
+        "Perform",
+        "Persuade",
+        "Prestidigitation",
+        "Suss"
+      ],
+      "access": {
+        "societies": [],
+        "cultures": [
+          "Performer"
+        ],
+        "trades": [
+          "Entertainer"
+        ],
+        "professions": [
+          {
+            "trade": "Ranger",
+            "name": "Bardic"
+          }
+        ]
+      }
+    }
+  ]
+}

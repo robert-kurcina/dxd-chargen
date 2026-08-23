@@ -927,8 +927,8 @@
     "social": 0,
     "grants": [
       {
-        "traitId": "trait-section-studies-x-skill",
-        "trait": "§Studies X > Skill",
+        "traitId": "trait-section-letters-x-skill",
+        "trait": "§Letters X > Skill",
         "specialization": null,
         "level": 2,
         "authorCalibration": {
@@ -1217,8 +1217,8 @@
     "social": 1,
     "grants": [
       {
-        "traitId": "trait-section-academics-x-skill",
-        "trait": "§Academics X > Skill",
+        "traitId": "trait-reasoning-x",
+        "trait": "Reasoning X",
         "specialization": null,
         "level": 1,
         "authorCalibration": {
@@ -1230,8 +1230,8 @@
         "maturityStars": 0
       },
       {
-        "traitId": "trait-section-studies-x-skill",
-        "trait": "§Studies X > Skill",
+        "traitId": "trait-section-letters-x-skill",
+        "trait": "§Letters X > Skill",
         "specialization": null,
         "level": 2,
         "authorCalibration": {
@@ -1442,8 +1442,8 @@
         "maturityStars": 2
       },
       {
-        "traitId": "trait-section-studies-x-skill",
-        "trait": "§Studies X > Skill",
+        "traitId": "trait-section-letters-x-skill",
+        "trait": "§Letters X > Skill",
         "specialization": null,
         "level": 1,
         "authorCalibration": {
@@ -1719,8 +1719,8 @@
         "maturityStars": 1
       },
       {
-        "traitId": "trait-section-studies-x-skill",
-        "trait": "§Studies X > Skill",
+        "traitId": "trait-section-courtcraft-x-skill",
+        "trait": "§Courtcraft X > Skill",
         "specialization": null,
         "level": 3,
         "authorCalibration": {
@@ -2022,8 +2022,8 @@
         "maturityStars": 1
       },
       {
-        "traitId": "trait-section-military-x-skill",
-        "trait": "§Military X > Skill",
+        "traitId": "trait-section-courtcraft-x-skill",
+        "trait": "§Courtcraft X > Skill",
         "specialization": null,
         "level": 1,
         "authorCalibration": {
@@ -2149,8 +2149,8 @@
     "social": 0,
     "grants": [
       {
-        "traitId": "trait-section-studies-x-skill",
-        "trait": "§Studies X > Skill",
+        "traitId": "trait-section-letters-x-skill",
+        "trait": "§Letters X > Skill",
         "specialization": null,
         "level": 1,
         "authorCalibration": {
@@ -2478,8 +2478,8 @@
     "social": 0,
     "grants": [
       {
-        "traitId": "trait-section-studies-x-skill",
-        "trait": "§Studies X > Skill",
+        "traitId": "trait-section-commerce-x-skill",
+        "trait": "§Commerce X > Skill",
         "specialization": null,
         "level": 1,
         "authorCalibration": {

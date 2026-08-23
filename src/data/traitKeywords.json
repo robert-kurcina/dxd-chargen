@@ -54,7 +54,7 @@
     {
       "keyword": "Interdisciplinary",
       "group": "learning",
-      "description": "A Skill group containing electives."
+      "description": "A Restricted Skill group that integrates selected elective Skills."
     },
     {
       "keyword": "Combat",

@@ -9,6 +9,8 @@ import type {
 import { getAgeRankValue, getAttributeDm, parseIM } from '@/lib/character-logic';
 import {
   getFinalAttributeValue,
+  getTradePackage,
+  getTradeSpecialization,
   purchasedAttributeSkillpointCost,
   selectedSettlementName,
   zedPurchaseSkillpointCost,
@@ -88,6 +90,7 @@ function traitDefinitionById(id: string | undefined, data: StaticData) {
 }
 
 function canonicalTraitBase(value: string) {
+  const isInterdisciplinary = /^\s*§/.test(value);
   const base = value
     .replace(/^[§$]\s*/, '')
     .replace(/^\[/, '')
@@ -96,14 +99,70 @@ function canonicalTraitBase(value: string) {
     .replace(/\s+X$/, '')
     .trim()
     .toLowerCase();
-  return base === 'zedsurge' ? 'v-zedsurge' : base;
+  if (base === 'zedsurge') return 'v-zedsurge';
+  if (isInterdisciplinary && base === 'military') return 'warfare';
+  if (isInterdisciplinary && base === 'studies') return 'letters';
+  if (isInterdisciplinary && base === 'teachings') return 'doctrine';
+  return base;
+}
+
+function interdisciplinaryGroupId(value: string) {
+  if (!/^\s*§/.test(value)) return null;
+  return canonicalTraitBase(value);
+}
+
+function canonicalTraitKey(value: string) {
+  return /^\s*§/.test(value) ? `§${canonicalTraitBase(value)}` : canonicalTraitBase(value);
+}
+
+function interdisciplinaryGroupForName(value: string, data: StaticData) {
+  const id = interdisciplinaryGroupId(value);
+  return id ? data.interdisciplinarySkills.groups.find((group) => group.id === id) ?? null : null;
+}
+
+function isInterdisciplinaryDefinition(definition: StaticData['traits'][number] | null | undefined) {
+  return Boolean(definition?.keywords?.includes('Interdisciplinary'));
 }
 
 export function traitDefinitionForSelection(selection: SourcedSelection, data: StaticData) {
   const byId = traitDefinitionById(selection.catalogId ?? selection.id, data);
   if (byId) return byId;
   const base = canonicalTraitBase(selection.name);
-  return data.traits.find((trait) => canonicalTraitBase(trait.trait) === base) ?? null;
+  const expectsInterdisciplinary = /^\s*§/.test(selection.name);
+  return data.traits.find((trait) => (
+    canonicalTraitBase(trait.trait) === base
+    && /^\s*§/.test(trait.trait) === expectsInterdisciplinary
+  )) ?? null;
+}
+
+export function interdisciplinaryAccessForDraft(draft: CharacterDraft, data: StaticData) {
+  const access = new Set<string>();
+  const society = data.heritagePackages.find((entry) => entry.id === draft.background.societalHeritageId)?.name ?? null;
+  const culture = data.heritagePackages.find((entry) => entry.id === draft.background.culturalHeritageId)?.name ?? null;
+  const trade = getTradePackage(draft, data)?.trade ?? null;
+  const profession = getTradeSpecialization(draft, data)?.name ?? null;
+
+  for (const group of data.interdisciplinarySkills.groups) {
+    if (society && group.access.societies.includes(society)) access.add(group.id);
+    if (culture && group.access.cultures.includes(culture)) access.add(group.id);
+    if (trade && group.access.trades.includes(trade)) access.add(group.id);
+    if (trade && profession && group.access.professions.some((entry) => entry.trade === trade && entry.name === profession)) access.add(group.id);
+  }
+  for (const selection of draft.proficiencies.granted) {
+    const groupId = interdisciplinaryGroupId(selection.name);
+    if (groupId) access.add(groupId);
+  }
+  return access;
+}
+
+export function canAcquireAdditionalTrait(
+  trait: StaticData['traits'][number],
+  draft: CharacterDraft,
+  data: StaticData,
+) {
+  if (!isInterdisciplinaryDefinition(trait)) return true;
+  const groupId = interdisciplinaryGroupId(trait.trait);
+  return Boolean(groupId && interdisciplinaryAccessForDraft(draft, data).has(groupId));
 }
 
 export function capabilityAllowsLevels(selection: SourcedSelection, data: StaticData) {
@@ -206,7 +265,6 @@ export function contextualGrantSpecialization(
 
 
 const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
-  academics: ['Alchemy', 'Design', 'Engineer', 'Medic', 'Science'],
   artist: ['Choreography', 'Comedy', 'Composer', 'Painter', 'Playwright', 'Poetry'],
   craft: ['Apothecary', 'Armorsmith', 'Carpentry', 'Clothier', 'Cosmetics', 'Hidecraft', 'Jewelcraft', 'Magicraft', 'Metalcraft', 'Pottery', 'Stonecraft', 'Textiles', 'Weaponsmith', 'Woodcraft'],
   detect: ['Heat', 'Magic', 'Sight', 'Smell', 'Sound', 'Starlight', 'Taste', 'Vibration'],
@@ -220,14 +278,12 @@ const BROAD_SPECIALIZATIONS: Record<string, string[]> = {
   labor: ['Baker', 'Beautician', 'Bouncer', 'Brewer', 'Butcher', 'Concierge', 'Cook', 'Groundskeeper', 'Miller', 'Wait Staff'],
   medic: ['Battlefield', 'Dentist', 'Generalist', 'Reproductive', 'Surgeon'],
   mercantile: ['Overland-trade', 'Sea-trade'],
-  military: ['Infiltrate', 'Lockpicking', 'Navigation', 'Poisons', 'Siege', 'Tactics', 'Warfare'],
   office: ['Administration', 'Commerce', 'Courtier', 'Finance', 'Guild', 'Law', 'Magister'],
   perform: ['Act', 'Acrobatics', 'Dance', 'Humor', 'Music', 'Oration', 'Philosophy', 'Puppetry', 'Sing', 'Storytelling'],
   poisons: ['Poisons', 'Venoms', 'Toxins'],
   'rapid-shot': ['Bows', 'Crossbows', 'Longarms', 'Pistols', 'Thrown'],
   riding: ['Aurochs', 'Bear', 'Bison', 'Camelops', 'Grunks', 'Horse', 'Ostra', 'Sleeth', 'Tarn', 'Torse'],
   science: ['Chemistry', 'Energy', 'Geology', 'Biology', 'Magiviruses', 'Meterology', 'Picoswarms', 'Psychology', 'Materials', 'Physics'],
-  studies: ['Artist', 'Deity', 'History', 'Investigator', 'Language', 'Lore', 'Maths', 'Peerage', 'Politics', 'Read'],
   survival: ['Badlands', 'Coastal', 'Chaparral', 'Deserts', 'Forests', 'Grassland', 'Hills', 'Jungle', 'Mangrove', 'Marsh', 'Mountain', 'Steppe', 'River', 'Savannah', 'Swamp', 'Taiga', 'Tundra', 'Woods', 'Arctic', 'Ice Sheet/Glacier', 'Benthic'],
   tactics: ['Aerial', 'Land', 'Naval', 'Siege', 'Urban'],
   warfare: ['Siege', 'Tactics', 'Engineering', 'Strategy', 'Logistics', 'Spycraft', 'Torture'],
@@ -242,6 +298,7 @@ export type SpecializationRequirement = {
   specializationMaximum: number;
   specializationOptions: string[];
   specializationLabel: string;
+  specializationRankMaximum?: number;
 };
 
 const LOCAL_SPECIALIZATION_RULES: Record<string, {
@@ -255,14 +312,12 @@ const LOCAL_SPECIALIZATION_RULES: Record<string, {
 }> = {
   // These schedules are local to the individual capability definitions. Do not
   // infer a universal specialization cadence from the chevron notation.
-  academics: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Elective', options: ['Alchemy', 'Design', 'Engineer', 'Medic', 'Science'] },
   artist: { cadence: 3, required: false, qualifierRequired: true, qualifierLabel: 'Form', specializationLabel: 'Region' },
   craft: { cadence: 3, required: false, qualifierRequired: true, qualifierLabel: 'Tradecraft', specializationLabel: 'Goods' },
   herbalism: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Environ' },
   history: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Region' },
   husbandry: { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Species Type' },
   manners: { cadence: 3, required: false, qualifierRequired: false, specializationLabel: 'Type' },
-  military: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Elective', options: ['Infiltrate', 'Lockpicking', 'Navigation', 'Poisons', 'Siege', 'Tactics', 'Warfare'] },
   office: { cadence: 1, required: false, qualifierRequired: true, qualifierLabel: 'Office', specializationLabel: 'Region' },
   peerage: { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Region' },
   perform: { cadence: 3, required: true, qualifierRequired: true, qualifierLabel: 'Form', specializationLabel: 'Performance Specialization', options: ['Assess', 'Sway', 'Target', 'Conclude'] },
@@ -271,10 +326,8 @@ const LOCAL_SPECIALIZATION_RULES: Record<string, {
   sprint: { maximum: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Bipedal', 'Quadrupedal'] },
   steer: { maximum: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Aeronef', 'Boat', 'Ship', 'Yoked'] },
   strike: { maximum: 1, required: false, qualifierRequired: false, specializationLabel: 'Type', options: ['Melee', 'Thrown', 'Range'] },
-  studies: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Elective', options: ['Artist', 'Deity', 'History', 'Investigator', 'Language', 'Lore', 'Maths', 'Peerage', 'Politics', 'Read'] },
   survival: { cadence: 1, required: false, qualifierRequired: false, specializationLabel: 'Environ' },
   tactics: { cadence: 1, required: true, qualifierRequired: false, specializationLabel: 'Type / sub-type' },
-  teachings: { cadence: 1, required: true, qualifierRequired: true, qualifierLabel: 'Deity', specializationLabel: 'Elective', options: ['Deity', 'Teach', 'Discipline', 'Reason', 'Leadership', 'Persuade'] },
 };
 
 function placeholderForSelection(selection: SourcedSelection) {
@@ -300,10 +353,27 @@ function dynamicOptionsForLabel(label: string, selection: SourcedSelection, draf
 }
 
 export function specializationRequirement(selection: SourcedSelection, draft: CharacterDraft, data: StaticData): SpecializationRequirement {
+  const group = interdisciplinaryGroupForName(selection.name, data);
+  const level = Math.max(1, selection.level ?? 1);
+  if (group) {
+    const qualifierLabel = 'qualifierLabel' in group ? group.qualifierLabel ?? null : null;
+    const qualifierRequired = Boolean(qualifierLabel);
+    const qualifierOptions = qualifierLabel ? dynamicOptionsForLabel(qualifierLabel, selection, draft, data) : [];
+    return {
+      qualifierRequired,
+      qualifierLabel,
+      qualifierOptions,
+      specializationMinimum: level,
+      specializationMaximum: level,
+      specializationOptions: group.electives,
+      specializationLabel: 'Elective',
+      specializationRankMaximum: data.interdisciplinarySkills.rules.maxSelectionsPerElective,
+    };
+  }
+
   const base = canonicalTraitBase(selection.name);
   const local = LOCAL_SPECIALIZATION_RULES[base];
   const placeholder = placeholderForSelection(selection);
-  const level = Math.max(1, selection.level ?? 1);
   const qualifierRequired = local?.qualifierRequired ?? Boolean(placeholder);
   const qualifierLabel = qualifierRequired ? (local?.qualifierLabel ?? (placeholder || 'Specialization')) : null;
   const qualifierOptions = qualifierLabel ? (dynamicOptionsForLabel(qualifierLabel, selection, draft, data).length ? dynamicOptionsForLabel(qualifierLabel, selection, draft, data) : (BROAD_SPECIALIZATIONS[base] ?? [])) : [];
@@ -320,14 +390,25 @@ export function specializationRequirement(selection: SourcedSelection, draft: Ch
 export function specializationIssue(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
   const requirement = specializationRequirement(selection, draft, data);
   const qualifier = explicitSpecialization(selection, draft);
-  const used = Object.values(levelSpecializationRanksForSelection(selection, draft)).reduce((sum, rank) => sum + Math.max(0, rank), 0);
+  const ranks = levelSpecializationRanksForSelection(selection, draft);
+  const used = Object.values(ranks).reduce((sum, rank) => sum + Math.max(0, rank), 0);
   if (requirement.qualifierRequired && !qualifier) return `Choose ${requirement.qualifierLabel ?? 'a qualifier'}.`;
+  const invalid = interdisciplinaryGroupForName(selection.name, data)
+    ? Object.keys(ranks).find((name) => !requirement.specializationOptions.includes(name))
+    : null;
+  if (invalid) return `${invalid} is not an elective of this Interdisciplinary Skill.`;
+  if (requirement.specializationRankMaximum != null) {
+    const over = Object.entries(ranks).find(([, rank]) => rank > requirement.specializationRankMaximum!);
+    if (over) return `${over[0]} may be selected at most twice; the second selection is Talented (+).`;
+  }
   if (used < requirement.specializationMinimum) return `Choose ${requirement.specializationMinimum - used} more ${requirement.specializationLabel} specialization${requirement.specializationMinimum - used === 1 ? '' : 's'}.`;
   if (used > requirement.specializationMaximum) return `Remove ${used - requirement.specializationMaximum} excess specialization${used - requirement.specializationMaximum === 1 ? '' : 's'} for the current level.`;
   return null;
 }
 
 export function specializationOptionsForTrait(selection: SourcedSelection, draft: CharacterDraft, data: StaticData) {
+  const group = interdisciplinaryGroupForName(selection.name, data);
+  if (group) return group.electives;
   const base = canonicalTraitBase(selection.name);
   const placeholder = selection.name.includes(' > ') ? selection.name.split(' > ').slice(1).join(' > ').replace(/\s+X$/, '').trim().toLowerCase() : '';
   if (placeholder === 'region') return Array.from(new Set([
@@ -392,8 +473,9 @@ export function compressedCapabilities(draft: CharacterDraft, data: StaticData):
   const groups = new Map<string, CompressedCapability>();
   for (const selection of all) {
     const selectedName = selection.name.split(' > ')[0].replace(/\s+X$/, '').trim();
-    const key = canonicalTraitBase(selectedName);
-    const baseName = key === 'v-zedsurge' ? 'v-Zedsurge' : selectedName;
+    const key = canonicalTraitKey(selectedName);
+    const canonicalGroup = interdisciplinaryGroupForName(selection.name, data);
+    const baseName = canonicalGroup ? canonicalGroup.trait.split(' > ')[0].replace(/\s+X$/, '') : key === 'v-zedsurge' ? 'v-Zedsurge' : selectedName;
     const definition = traitDefinitionForSelection(selection, data);
     const ranks = specializationRanksForSelection(selection, draft, data);
     const level = Math.max(1, selection.level ?? 1);
@@ -406,7 +488,8 @@ export function compressedCapabilities(draft: CharacterDraft, data: StaticData):
     }
   }
   for (const item of groups.values()) {
-    const specs = Object.entries(item.specializations).sort(([a],[b]) => a.localeCompare(b)).map(([name, rank]) => `${name}${rank > 1 ? ` ${rank}` : ''}`);
+    const interdisciplinary = item.sources.some((source) => Boolean(interdisciplinaryGroupForName(source.name, data)));
+    const specs = Object.entries(item.specializations).sort(([a],[b]) => a.localeCompare(b)).map(([name, rank]) => interdisciplinary && rank > 1 ? `+${name}` : `${name}${rank > 1 ? ` ${rank}` : ''}`);
     item.display = `${item.name}${item.level > 1 ? ` ${item.level}` : ''}${specs.length ? ` > { ${specs.join(', ')} }` : ''}`;
   }
   return [...groups.values()].sort((a,b) => a.name.localeCompare(b.name));
@@ -439,9 +522,9 @@ function normalizedImportedSpecializationEntries(selection: SourcedSelection) {
 }
 
 export function importedCapabilityReconciliation(draft: CharacterDraft, data: StaticData): ImportedCapabilityComparison[] {
-  const authored = new Map(compressedCapabilities(draft, data).map((entry) => [canonicalTraitBase(entry.name), entry]));
+  const authored = new Map(compressedCapabilities(draft, data).map((entry) => [canonicalTraitKey(entry.name), entry]));
   return (draft.proficiencies.importedCapabilities ?? []).map((imported) => {
-    const match = authored.get(canonicalTraitBase(imported.name)) ?? null;
+    const match = authored.get(canonicalTraitKey(imported.name)) ?? null;
     const importedLevel = Math.max(1, imported.level ?? 1);
     if (!match) return { imported, status: 'new', authored: null, message: 'New in imported data; add it under Additional Traits and Skills.' };
     if (importedLevel > match.level) return { imported, status: 'exceeds', authored: match, message: `Imported level ${importedLevel} exceeds authored level ${match.level}.` };
@@ -478,7 +561,7 @@ export function combinedGrantedTraits(draft: CharacterDraft, data: StaticData): 
   for (const selection of draft.proficiencies.granted) {
     const specialization = contextualGrantSpecialization(selection, draft, data);
     const unresolvedBroad = selection.name.includes(' > ') && !specialization;
-    const base = canonicalTraitBase(selection.name);
+    const base = canonicalTraitKey(selection.name);
     const key = unresolvedBroad ? `${base}::unresolved::${selection.id}` : `${base}::${specialization ?? ''}`;
     const existing = groups.get(key);
     const level = Math.max(1, selection.level ?? 1);
@@ -533,8 +616,8 @@ const SOURCE_LIMIT_BASE: Record<SkillSourceStrength, number> = {
 const SOURCE_RANK: Record<SkillSourceStrength, number> = { ordinary: 0, background: 1, professional: 2, signature: 3 };
 
 export function strongestSourceForTrait(traitName: string, draft: CharacterDraft) {
-  const base = canonicalTraitBase(traitName);
-  const matching = draft.proficiencies.granted.filter((selection) => canonicalTraitBase(selection.name) === base);
+  const base = canonicalTraitKey(traitName);
+  const matching = draft.proficiencies.granted.filter((selection) => canonicalTraitKey(selection.name) === base);
   let strength: SkillSourceStrength = 'ordinary';
   for (const selection of matching) {
     const candidate = sourceStrength(selection);
@@ -603,7 +686,7 @@ export function skillpointBudget(draft: CharacterDraft, data: StaticData) {
 
 export function addAdditionalSkill(draft: CharacterDraft, traitId: string, data: StaticData) {
   const trait = traitDefinitionById(traitId, data);
-  if (!trait || trait.isDisability || Math.max(0, parseIM(trait.im)) <= 0) return draft;
+  if (!trait || trait.isDisability || Math.max(0, parseIM(trait.im)) <= 0 || !canAcquireAdditionalTrait(trait, draft, data)) return draft;
   const ordinal = draft.proficiencies.additionalSkills.filter((entry) => entry.catalogId === traitId).length + 1;
   const selection: SourcedSelection = {
     id: `additional-${traitId}-${ordinal}`,
@@ -813,10 +896,34 @@ export function syncLanguages(draft: CharacterDraft, data: StaticData) {
   return { ...draft, proficiencies: { ...draft.proficiencies, languages } };
 }
 
+function canonicalizeInterdisciplinarySelection(selection: SourcedSelection, data: StaticData): SourcedSelection {
+  const group = interdisciplinaryGroupForName(selection.name, data);
+  if (!group) return selection;
+  const definition = data.traits.find((trait) => trait.trait === group.trait);
+  return {
+    ...selection,
+    name: group.trait,
+    ...(definition?.catalogId ? { catalogId: definition.catalogId } : {}),
+  };
+}
+
+function canonicalizeInterdisciplinarySelections(draft: CharacterDraft, data: StaticData): CharacterDraft {
+  return {
+    ...draft,
+    proficiencies: {
+      ...draft.proficiencies,
+      granted: draft.proficiencies.granted.map((selection) => canonicalizeInterdisciplinarySelection(selection, data)),
+      additionalSkills: draft.proficiencies.additionalSkills.map((selection) => canonicalizeInterdisciplinarySelection(selection, data)),
+      importedCapabilities: (draft.proficiencies.importedCapabilities ?? []).map((selection) => canonicalizeInterdisciplinarySelection(selection, data)),
+    },
+  };
+}
+
 export function syncProficiencies(draft: CharacterDraft, data: StaticData): CharacterDraft {
-  const withDefaultPml = draft.proficiencies.pml == null
-    ? { ...draft, proficiencies: { ...draft.proficiencies, pml: data.pmlRules.defaultPcPml ?? 1 } }
-    : draft;
+  const canonical = canonicalizeInterdisciplinarySelections(draft, data);
+  const withDefaultPml = canonical.proficiencies.pml == null
+    ? { ...canonical, proficiencies: { ...canonical.proficiencies, pml: data.pmlRules.defaultPcPml ?? 1 } }
+    : canonical;
   return syncLanguages(syncPmlGrantedSelections(withDefaultPml, data), data);
 }
 
@@ -857,6 +964,11 @@ export function assessProficiencyStep(stepValue: string, draft: CharacterDraft, 
       return { status: 'warning', messages: [`Skillpoint spending exceeds the available creation pool by ${Math.abs(budget.remaining)}.`] };
     }
     const messages: string[] = [];
+    const inaccessibleGroups = draft.proficiencies.additionalSkills.filter((selection) => {
+      const definition = traitDefinitionForSelection(selection, data);
+      return definition && isInterdisciplinaryDefinition(definition) && !canAcquireAdditionalTrait(definition, draft, data);
+    });
+    if (inaccessibleGroups.length) messages.push(`${inaccessibleGroups.length} Interdisciplinary Skill group${inaccessibleGroups.length === 1 ? '' : 's'} lack current Heritage, Trade, Profession, Tradition, or explicit package access.`);
     const tooHigh = draft.proficiencies.additionalSkills.filter((selection) => (selection.level ?? 1) > startingSkillLimit(selection.name, draft).limit);
     if (tooHigh.length) messages.push(`${tooHigh.length} purchased Skill${tooHigh.length === 1 ? '' : 's'} exceed their current source-based starting limit.`);
     for (const selection of unresolvedAdditionalCapabilities(draft, data)) {

@@ -25,6 +25,7 @@ import culturalHeritage from './culturalHeritage.json';
 import environHeritage from './environHeritage.json';
 import societalHeritage from './societalHeritage.json';
 import heritagePackages from './heritagePackages.json';
+import interdisciplinarySkills from './interdisciplinarySkills.json';
 import tradePackages from './tradePackages.json';
 import languages from './languages.json';
 import languageDefaults from './languageDefaults.json';
@@ -140,6 +141,7 @@ const sarnaLenData = {
   environHeritage,
   societalHeritage,
   heritagePackages,
+  interdisciplinarySkills,
   tradePackages,
   languages,
   languageDefaults,

@@ -26,6 +26,7 @@ const physicalScale = read('physicalScale.json');
 const heritageCharacteristicAdjustments = read('heritageCharacteristicAdjustments.json');
 const characteristicModifiers = read('characteristicModifiers.json');
 const itemArmors = read('itemArmors.json');
+const interdisciplinarySkills = read('interdisciplinarySkills.json');
 
 const canonicalTraitKeywords = new Set(traitKeywordRegistry.keywords.map((item) => item.keyword));
 const keywordBooleanPairs = [
@@ -208,6 +209,30 @@ for (const pkg of tradePackages) {
   }
 }
 if (tradePackages.length !== 12) throw new Error(`Expected 12 complete playable Trade packages; found ${tradePackages.length}.`);
+
+const expectedInterdisciplinaryGroups = ['academics','letters','doctrine','warfare','waycraft','commerce','courtcraft','artistry'];
+if (!interdisciplinarySkills?.rules?.restricted || interdisciplinarySkills.rules.directBonusDivisor !== 3 || interdisciplinarySkills.rules.talentedCrossSupportDm !== 1 || interdisciplinarySkills.rules.maxGroupsPerTest !== 1 || interdisciplinarySkills.rules.maxSelectionsPerElective !== 2) {
+  throw new Error('Interdisciplinary Skill rules do not match the accepted vault-sarnalen contract.');
+}
+if (!Array.isArray(interdisciplinarySkills.groups) || interdisciplinarySkills.groups.length !== expectedInterdisciplinaryGroups.length) throw new Error('Expected eight canonical Interdisciplinary Skill groups.');
+const actualInterdisciplinaryIds = interdisciplinarySkills.groups.map((group) => group.id);
+if (JSON.stringify(actualInterdisciplinaryIds) !== JSON.stringify(expectedInterdisciplinaryGroups)) throw new Error(`Interdisciplinary group order/identity mismatch: ${actualInterdisciplinaryIds.join(', ')}`);
+const heritageSocieties = new Set(heritage.filter((pkg) => pkg.kind === 'society').map((pkg) => pkg.name));
+const heritageCultures = new Set(heritage.filter((pkg) => pkg.kind === 'culture').map((pkg) => pkg.name));
+for (const group of interdisciplinarySkills.groups) {
+  if (!traits.some((item) => item.trait === group.trait && item.keywords.includes('Interdisciplinary'))) throw new Error(`Missing canonical Interdisciplinary Trait ${group.trait}.`);
+  if (!group.intent || !Array.isArray(group.electives) || group.electives.length === 0 || new Set(group.electives).size !== group.electives.length) throw new Error(`Invalid elective roster for §${group.id}.`);
+  for (const elective of group.electives) if (!traitFamilies.has(normalizeTraitFamily(elective))) throw new Error(`Unknown elective ${elective} in §${group.id}.`);
+  for (const society of group.access.societies) if (!heritageSocieties.has(society)) throw new Error(`Unknown Society access ${society} in §${group.id}.`);
+  for (const culture of group.access.cultures) if (!heritageCultures.has(culture)) throw new Error(`Unknown Culture access ${culture} in §${group.id}.`);
+  for (const trade of group.access.trades) if (!tradeIds.has(trade)) throw new Error(`Unknown Trade access ${trade} in §${group.id}.`);
+  for (const profession of group.access.professions) {
+    const catalogue = professionByTrade.get(profession.trade);
+    if (!catalogue || !(catalogue.specializations ?? []).includes(profession.name)) throw new Error(`Unknown Profession access ${profession.trade} > ${profession.name} in §${group.id}.`);
+  }
+}
+const legacyInterdisciplinary = traits.filter((item) => item.keywords.includes('Interdisciplinary') && /§(?:Military|Studies|Teachings)\b/.test(item.trait));
+if (legacyInterdisciplinary.length) throw new Error(`Legacy Interdisciplinary Trait names remain: ${legacyInterdisciplinary.map((item) => item.trait).join(', ')}`);
 
 const merchantPackage = tradePackages.find((pkg) => pkg.trade === 'Merchant');
 const merchantProfession = professionByTrade.get('Merchant');

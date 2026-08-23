@@ -27,6 +27,7 @@ import {
   combinedGrantedTraits,
   compressedCapabilities,
   capabilityAllowsLevels,
+  canAcquireAdditionalTrait,
   defaultLanguageSuggestion,
   formatLanguageRecord,
   LANGUAGE_RELEVANCE_MODIFIERS,
@@ -132,19 +133,23 @@ function SpecializationControls({ selection, data, draft, onQualifierChange, onC
   const qualifier = selection.specialization?.trim() || draft.proficiencies.grantSpecializations[selection.id]?.trim() || '';
   const [custom, setCustom] = useState('');
   if (!requirement.qualifierRequired && requirement.specializationMaximum === 0) return null;
+  const perChoiceMaximum = requirement.specializationRankMaximum ?? Number.POSITIVE_INFINITY;
   const replace = (from: string, to: string) => {
     const value = to.trim(); if (!value || value === from) return;
-    const next = { ...ranks }; const count = next[from] ?? 1; delete next[from]; next[value] = (next[value] ?? 0) + count; onChange(next);
+    const next = { ...ranks };
+    const count = next[from] ?? 1;
+    if ((next[value] ?? 0) + count > perChoiceMaximum) return;
+    delete next[from]; next[value] = (next[value] ?? 0) + count; onChange(next);
   };
   const removeOne = (name: string) => { const next = { ...ranks }; if ((next[name] ?? 0) > 1) next[name] -= 1; else delete next[name]; onChange(next); };
   const addChoice = (choice?: string) => {
-    const value = (choice ?? custom).trim(); if (!value || usedSlots >= requirement.specializationMaximum) return;
+    const value = (choice ?? custom).trim(); if (!value || usedSlots >= requirement.specializationMaximum || (ranks[value] ?? 0) >= perChoiceMaximum) return;
     onChange({ ...ranks, [value]: (ranks[value] ?? 0) + 1 }); setCustom('');
   };
-  const unused = requirement.specializationOptions.find((option) => !ranks[option]) ?? requirement.specializationOptions[0];
+  const unused = requirement.specializationOptions.find((option) => (ranks[option] ?? 0) < perChoiceMaximum) ?? requirement.specializationOptions[0];
   return <div className="space-y-2">
     {requirement.qualifierRequired && <div className="flex flex-wrap items-center gap-2"><span className="text-xs font-medium text-muted-foreground">{requirement.qualifierLabel}</span>{requirement.qualifierOptions.length ? <Select value={qualifier} onValueChange={onQualifierChange}><SelectTrigger className="h-8 w-[200px]"><SelectValue placeholder={`Choose ${requirement.qualifierLabel}`} /></SelectTrigger><SelectContent>{requirement.qualifierOptions.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select> : <Input className="h-8 w-[200px]" value={qualifier} onChange={(event) => onQualifierChange(event.target.value)} placeholder={`Enter ${requirement.qualifierLabel}`} />}</div>}
-    {requirement.specializationMaximum > 0 && <div className="flex flex-wrap items-center gap-2"><Badge variant={usedSlots < requirement.specializationMinimum || usedSlots > requirement.specializationMaximum ? 'destructive' : 'outline'}>{requirement.specializationLabel} {usedSlots}/{requirement.specializationMinimum === requirement.specializationMaximum ? requirement.specializationMaximum : `${requirement.specializationMinimum}–${requirement.specializationMaximum}`}</Badge>{entries.map(([name, rank]) => <div key={name} className="flex items-center gap-1">{requirement.specializationOptions.length ? <Select value={name} onValueChange={(value) => replace(name, value)}><SelectTrigger className="h-8 w-[180px]"><SelectValue /></SelectTrigger><SelectContent>{requirement.specializationOptions.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select> : <Input className="h-8 w-[180px]" defaultValue={name} onBlur={(event) => replace(name, event.target.value)} />}{rank > 1 && <Badge variant="secondary">×{rank}</Badge>}<Button type="button" size="icon" variant="ghost" className="h-8 w-8" aria-label={`Remove ${name} specialization`} onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button></div>)}{usedSlots < requirement.specializationMaximum && requirement.specializationOptions.length > 0 && <Button type="button" size="sm" variant="outline" onClick={() => addChoice(unused)}><Plus className="h-3.5 w-3.5" /> Specialization</Button>}{usedSlots < requirement.specializationMaximum && requirement.specializationOptions.length === 0 && <><Input className="h-8 w-[180px]" value={custom} onChange={(event) => setCustom(event.target.value)} placeholder={`Add ${requirement.specializationLabel}`} /><Button type="button" size="sm" variant="outline" disabled={!custom.trim()} onClick={() => addChoice()}><Plus className="h-3.5 w-3.5" /> Add</Button></>}</div>}
+    {requirement.specializationMaximum > 0 && <div className="flex flex-wrap items-center gap-2"><Badge variant={usedSlots < requirement.specializationMinimum || usedSlots > requirement.specializationMaximum ? 'destructive' : 'outline'}>{requirement.specializationLabel} {usedSlots}/{requirement.specializationMinimum === requirement.specializationMaximum ? requirement.specializationMaximum : `${requirement.specializationMinimum}–${requirement.specializationMaximum}`}</Badge>{entries.map(([name, rank]) => <div key={name} className="flex items-center gap-1">{rank > 1 && requirement.specializationRankMaximum === 2 && <span className="font-semibold">+</span>}{requirement.specializationOptions.length ? <Select value={name} onValueChange={(value) => replace(name, value)}><SelectTrigger className="h-8 w-[180px]"><SelectValue /></SelectTrigger><SelectContent>{requirement.specializationOptions.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select> : <Input className="h-8 w-[180px]" defaultValue={name} onBlur={(event) => replace(name, event.target.value)} />}{rank > 1 && (requirement.specializationRankMaximum === 2 ? <Badge variant="secondary">Talented</Badge> : <Badge variant="secondary">×{rank}</Badge>)}<Button type="button" size="icon" variant="ghost" className="h-8 w-8" aria-label={`Remove ${name} specialization`} onClick={() => removeOne(name)}><Trash2 className="h-3.5 w-3.5" /></Button></div>)}{usedSlots < requirement.specializationMaximum && requirement.specializationOptions.length > 0 && <Button type="button" size="sm" variant="outline" onClick={() => addChoice(unused)}><Plus className="h-3.5 w-3.5" /> {requirement.specializationLabel}</Button>}{usedSlots < requirement.specializationMaximum && requirement.specializationOptions.length === 0 && <><Input className="h-8 w-[180px]" value={custom} onChange={(event) => setCustom(event.target.value)} placeholder={`Add ${requirement.specializationLabel}`} /><Button type="button" size="sm" variant="outline" disabled={!custom.trim()} onClick={() => addChoice()}><Plus className="h-3.5 w-3.5" /> Add</Button></>}</div>}
   </div>;
 }
 
@@ -174,9 +179,10 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
     const q = query.trim().toLowerCase();
     return data.traits
       .filter((trait) => !trait.isDisability && Number(trait.im) > 0)
+      .filter((trait) => canAcquireAdditionalTrait(trait, draft, data))
       .filter((trait) => !q || trait.trait.toLowerCase().includes(q) || trait.category.toLowerCase().includes(q))
       .slice(0, 80);
-  }, [data.traits, query]);
+  }, [data, draft, query]);
 
   return (
     <div className="space-y-6">
@@ -234,7 +240,7 @@ function AdditionalSkillsStep({ data, draft, setDraft }: Omit<ProficienciesStepP
       <section className="space-y-3">
         <div>
           <h3 className="font-semibold">Trait and Skill catalogue</h3>
-          <p className="mt-1 text-xs text-muted-foreground">Search and add a Skill or purchasable Trait, then set its starting level and any available specialization on the added row.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Search and add a Skill or purchasable Trait, then set its starting level and any available specialization on the added row. Restricted § groups appear only when the current Heritage, Trade, Profession, or explicit package grants access.</p>
         </div>
         <div className="relative">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -260,7 +266,7 @@ function ImportedCapabilitiesStep({ data, draft }: Omit<ProficienciesStepProps, 
   const comparisons = importedCapabilityReconciliation(draft, data);
   const exceptions = comparisons.filter((entry) => entry.status !== 'match').length;
   const labels: Record<string, string> = { match: 'Match', new: 'New', exceeds: 'Exceeds', below: 'Below', 'specialization-mismatch': 'Specialization mismatch' };
-  return <div className="space-y-4"><section className="rounded-lg border p-4"><h3 className="font-semibold">Imported Traits, Skills, and Talents</h3><p className="mt-1 text-sm text-muted-foreground">Read-only reconciliation reference. Imported entries never contribute to Skillpoints, derived rules, or character-sheet output. Resolve exceptions by editing Assign Additional Traits and Skills.</p><div className="mt-3 flex gap-2"><Badge variant="secondary">{comparisons.length} imported</Badge><Badge variant={exceptions ? 'destructive' : 'outline'}>{exceptions} exceptions</Badge></div></section>{comparisons.length ? <div className="space-y-2">{comparisons.map(({ imported, status, authored, message }, index) => <div key={`${imported.id}-${index}`} className={cn('rounded-lg border p-3', status !== 'match' && 'border-yellow-400 bg-yellow-50')}><div className="flex flex-wrap items-start justify-between gap-2"><div><div className="font-medium">{(() => { const importedRanks = { ...(imported.specializationRanks ?? {}) }; if (imported.specialization?.trim()) importedRanks[imported.specialization.trim()] = Math.max(1, importedRanks[imported.specialization.trim()] ?? 0); const specs = Object.entries(importedRanks).map(([name, rank]) => `${name}${rank > 1 ? ` ${rank}` : ''}`); return `${imported.name.split(' > ')[0].replace(/\s+X$/, '')}${(imported.level ?? 1) > 1 ? ` ${imported.level}` : ''}${specs.length ? ` > { ${specs.join(', ')} }` : ''}`; })()}</div><div className="text-xs text-muted-foreground">Imported reference{authored ? ` • Authored: ${authored.display}` : ''}</div></div><Badge variant={status === 'match' ? 'secondary' : 'outline'}>{labels[status]}</Badge></div><p className="mt-2 text-xs">{message}</p></div>)}</div> : <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">No imported Traits, Skills, or Talents are attached to this character.</div>}</div>;
+  return <div className="space-y-4"><section className="rounded-lg border p-4"><h3 className="font-semibold">Imported Traits, Skills, and Talents</h3><p className="mt-1 text-sm text-muted-foreground">Read-only reconciliation reference. Imported entries never contribute to Skillpoints, derived rules, or character-sheet output. Resolve exceptions by editing Assign Additional Traits and Skills.</p><div className="mt-3 flex gap-2"><Badge variant="secondary">{comparisons.length} imported</Badge><Badge variant={exceptions ? 'destructive' : 'outline'}>{exceptions} exceptions</Badge></div></section>{comparisons.length ? <div className="space-y-2">{comparisons.map(({ imported, status, authored, message }, index) => <div key={`${imported.id}-${index}`} className={cn('rounded-lg border p-3', status !== 'match' && 'border-yellow-400 bg-yellow-50')}><div className="flex flex-wrap items-start justify-between gap-2"><div><div className="font-medium">{(() => { const importedRanks = { ...(imported.specializationRanks ?? {}) }; if (imported.specialization?.trim()) importedRanks[imported.specialization.trim()] = Math.max(1, importedRanks[imported.specialization.trim()] ?? 0); const interdisciplinary = imported.name.trim().startsWith('§'); const specs = Object.entries(importedRanks).map(([name, rank]) => interdisciplinary && rank > 1 ? `+${name}` : `${name}${rank > 1 ? ` ${rank}` : ''}`); return `${imported.name.split(' > ')[0].replace(/\s+X$/, '')}${(imported.level ?? 1) > 1 ? ` ${imported.level}` : ''}${specs.length ? ` > { ${specs.join(', ')} }` : ''}`; })()}</div><div className="text-xs text-muted-foreground">Imported reference{authored ? ` • Authored: ${authored.display}` : ''}</div></div><Badge variant={status === 'match' ? 'secondary' : 'outline'}>{labels[status]}</Badge></div><p className="mt-2 text-xs">{message}</p></div>)}</div> : <div className="rounded-lg border p-8 text-center text-sm text-muted-foreground">No imported Traits, Skills, or Talents are attached to this character.</div>}</div>;
 }
 
 function languageBenefit(level: number) {

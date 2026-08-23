@@ -92,8 +92,10 @@ function projectedCapabilities(draft: CharacterDraft, data: StaticData) {
   const isDisability = (entry: typeof capabilities[number]) => entry.sources.some((source) => traitDefinitionForSelection(source, data)?.isDisability);
   const format = (entry: typeof capabilities[number]) => {
     const disability = isDisability(entry);
-    const name = entry.name.replace(/^[§$]\s*/, '').replace(/^\[/, '').replace(/\]$/, '').replace(/\s+X$/, '');
-    const specs = Object.entries(entry.specializations).sort(([a], [b]) => a.localeCompare(b)).map(([value, rank]) => `${value}${rank > 1 ? `-${rank}` : ''}`).join(', ');
+    const interdisciplinary = entry.sources.some((source) => traitDefinitionForSelection(source, data)?.keywords?.includes('Interdisciplinary'));
+    const stripped = entry.name.replace(/^[§$]\s*/, '').replace(/^\[/, '').replace(/\]$/, '').replace(/\s+X$/, '');
+    const name = interdisciplinary ? `§${stripped}` : stripped;
+    const specs = Object.entries(entry.specializations).sort(([a], [b]) => a.localeCompare(b)).map(([value, rank]) => interdisciplinary && rank > 1 ? `+${value}` : `${value}${rank > 1 ? `-${rank}` : ''}`).join(', ');
     if (disability) return `[${name}${entry.level > 1 ? `-${entry.level}` : ''}${specs ? ` > ${specs}` : ''}]`;
     return `${name}${entry.level > 1 ? `-${entry.level}` : ''}${specs ? ` > ${specs}` : ''}`;
   };

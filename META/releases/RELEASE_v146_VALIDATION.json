@@ -1,0 +1,32 @@
+{
+  "release": "v146",
+  "version": "0.146.0",
+  "checks": [
+    {
+      "name": "Interdisciplinary canon data contract",
+      "status": "PASS",
+      "details": "Eight canonical groups, accepted direct/Talented bonus constants, elective rosters, access paths, trait references, and legacy-name exclusion passed the data validator before its unrelated asset gate."
+    },
+    {
+      "name": "Modified TypeScript syntax transpile",
+      "status": "PASS",
+      "details": "src/data/index.ts, src/lib/rules/proficiencies.ts, src/app/forge/proficiencies-step.tsx, and src/lib/character-sheet-projection.ts transpile with zero TypeScript syntax diagnostics."
+    },
+    {
+      "name": "Legacy compatibility",
+      "status": "PASS",
+      "details": "Runtime proficiency synchronization maps legacy §Military/§Studies/§Teachings selections to §Warfare/§Letters/§Doctrine while preserving ordinary Warfare as a distinct Skill."
+    },
+    {
+      "name": "Runtime data validation",
+      "status": "BLOCKED_AFTER_NEW_CHECKS",
+      "details": "scripts/validate-data.mjs passes the new Interdisciplinary checks and then stops at the source archive's missing pre-existing asset public/armor/hit-locations_male.svg. The supplied archive contains no public directory."
+    },
+    {
+      "name": "Full dependency-backed typecheck/build",
+      "status": "BLOCKED",
+      "details": "As with prior source-only releases, a full dependency-backed application build is unavailable from the supplied archive."
+    }
+  ],
+  "status": "PASS_WITH_ENVIRONMENT_LIMITATION"
+}

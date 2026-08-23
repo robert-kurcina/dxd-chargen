@@ -1,5 +1,165 @@
 [
   {
+    "trait": "§Academics X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Academics X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Artistry X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Artistry X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Commerce X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Commerce X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Courtcraft X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Courtcraft X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Doctrine X > Deity",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Doctrine X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Letters X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Letters X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Warfare X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Warfare X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
+    "trait": "§Waycraft X > Skill",
+    "interimTime": "IM 4/",
+    "category": "Skill",
+    "isDisability": false,
+    "im": 4,
+    "isPsychology": false,
+    "isVirtuosity": false,
+    "isSkill": true,
+    "isGenetic": false,
+    "isAsset": false,
+    "isIntrinsic": false,
+    "Key": "§Waycraft X > Any",
+    "isDistressing": false,
+    "isAmeliorative": false,
+    "keywords": [
+      "Skill",
+      "Interdisciplinary"
+    ]
+  },
+  {
     "trait": "[1H]",
     "interimTime": ".",
     "category": "Asset",
@@ -39,26 +199,6 @@
       "Disability",
       "Asset",
       "Combat"
-    ]
-  },
-  {
-    "trait": "§Academics X > Type",
-    "interimTime": "IM 4/",
-    "category": "Skill",
-    "isDisability": false,
-    "im": 4,
-    "isPsychology": false,
-    "isVirtuosity": false,
-    "isSkill": true,
-    "isGenetic": false,
-    "isAsset": false,
-    "isIntrinsic": false,
-    "Key": "§Academics X > Any",
-    "isDistressing": false,
-    "isAmeliorative": false,
-    "keywords": [
-      "Skill",
-      "Interdisciplinary"
     ]
   },
   {
@@ -3308,26 +3448,6 @@
     ]
   },
   {
-    "trait": "§Military X > Skill",
-    "interimTime": "IM 4/",
-    "category": "Skill",
-    "isDisability": false,
-    "im": 4,
-    "isPsychology": false,
-    "isVirtuosity": false,
-    "isSkill": true,
-    "isGenetic": false,
-    "isAsset": false,
-    "isIntrinsic": false,
-    "Key": "§Military X > Any",
-    "isDistressing": false,
-    "isAmeliorative": false,
-    "keywords": [
-      "Skill",
-      "Interdisciplinary"
-    ]
-  },
-  {
     "trait": "[Mindless]",
     "interimTime": ".",
     "category": "Genetic",
@@ -5314,26 +5434,6 @@
     ]
   },
   {
-    "trait": "§Studies X > Type",
-    "interimTime": "IM 4/",
-    "category": "Skill",
-    "isDisability": false,
-    "im": 4,
-    "isPsychology": false,
-    "isVirtuosity": false,
-    "isSkill": true,
-    "isGenetic": false,
-    "isAsset": false,
-    "isIntrinsic": false,
-    "Key": "§Studies X > Any",
-    "isDistressing": false,
-    "isAmeliorative": false,
-    "keywords": [
-      "Skill",
-      "Interdisciplinary"
-    ]
-  },
-  {
     "trait": "Stun X",
     "interimTime": ".",
     "category": "Genetic|Asset",
@@ -5610,26 +5710,6 @@
       "Existential",
       "Social",
       "Ameliorative"
-    ]
-  },
-  {
-    "trait": "§Teachings X > Deity",
-    "interimTime": "IM 4/",
-    "category": "Skill",
-    "isDisability": false,
-    "im": 4,
-    "isPsychology": false,
-    "isVirtuosity": false,
-    "isSkill": true,
-    "isGenetic": false,
-    "isAsset": false,
-    "isIntrinsic": false,
-    "Key": "§Teachings X > Any",
-    "isDistressing": false,
-    "isAmeliorative": false,
-    "keywords": [
-      "Skill",
-      "Interdisciplinary"
     ]
   },
   {
