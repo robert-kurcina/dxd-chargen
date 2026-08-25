@@ -184,7 +184,7 @@ export function buildCharacterSheetPayload(draft: CharacterDraft, sheet: Charact
     Slug: (sheet.name || 'character').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
     Portrait: draft.utilities.portraitDataUrl,
     Name: [sheet.name, sheet.properName ? `[${sheet.properName}]` : ''].filter(Boolean).join('\n'),
-    Details: [sheet.details.environ, sheet.details.socialRankTitle, sheet.details.species, sheet.details.bio, sheet.details.physique].filter(Boolean).join('\n'),
+    Details: [sheet.details.environ, sheet.details.species, sheet.details.bio, sheet.details.physique].filter(Boolean).join('\n'),
     Distressing: sheet.disposition.distressing,
     Ameliorative: sheet.disposition.ameliorative,
     PML: sheet.pml,
@@ -202,6 +202,8 @@ export function buildCharacterSheetPayload(draft: CharacterDraft, sheet: Charact
     Personality: sheet.background.personality,
     Features: sheet.background.notableFeatures.join(', '),
     HistoryNotes: [
+      `Allies; ${sheet.history.allies}`,
+      `Tragedy; ${sheet.history.tragedy}`,
       `Equipment; ${sheet.history.equipment}`,
       `Weapons; ${sheet.history.weapons}`,
       `Armor; ${sheet.history.armor}`,
