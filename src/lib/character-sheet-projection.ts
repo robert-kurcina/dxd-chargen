@@ -237,6 +237,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const mov = (derived?.mov ?? numberCalc('MOV')) || 0;
   const siz = draft.properties.siz ?? 0;
   const zed = draft.intrinsics.zed ?? 0;
+
   const attributes = ATTRIBUTE_ORDER.map((name) => {
     const value = name === 'MOV' ? mov : name === 'SIZ' ? siz : name === 'ZED' ? zed
       : (recordedAttribute(name) ?? getFinalAttributeValue(name, draft)) ?? 0;
