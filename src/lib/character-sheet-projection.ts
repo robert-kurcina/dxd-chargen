@@ -217,7 +217,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const deityEntry = data.deities.find((entry) => entry.catalogId === draft.background.deityId) ?? null;
   const deity = deityEntry?.deity ?? importedDetail('Imported religion detail');
   const religion = /^theist$/i.test(belief)
-    ? [[belief, deity].filter(Boolean).join(' > '), deityEntry?.domains?.join('') ?? ''].filter(Boolean)
+    ? [[belief, deity].filter(Boolean).join(' > '), deityEntry?.domains?.join(', ') ?? ''].filter(Boolean)
     : [belief].filter(Boolean);
   const heritage = [draft.background.environHeritageId, draft.background.societalHeritageId, draft.background.culturalHeritageId]
     .map((id) => data.heritagePackages.find((entry) => entry.id === id)?.name)
