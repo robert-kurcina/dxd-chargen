@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.104407Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Domus, Gambling, Lore, Medic, Nightvision, Pidgin, Service, Steer, Strange, v-Imbue, v-Spellshaper."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "36 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -108,7 +108,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-thaktha"
+    "deityId": "deity-thaktha",
+    "socialRankTitle": "By name"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -122,53 +123,215 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 8,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Akrunai lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 8,
-        "adjustments": []
+        "base": 4,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 3,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Akrunai lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 10,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 12,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Akrunai lineage"
+          },
+          {
+            "amount": 4,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 7,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Akrunai lineage"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 6,
-        "adjustments": []
+        "base": 2,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 8,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Akrunai lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 7,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 12,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 3,
+            "source": "lineage",
+            "sourceDetail": "Akrunai lineage"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -190,7 +353,35 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-blacktongue",
+        "name": "Blacktongue",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": []
+      },
+      {
+        "id": "import-middle-kahadi",
+        "name": "Kahadi",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 6,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-barter",
         "name": "Barter",
@@ -443,33 +634,6 @@
         "source": "player",
         "level": 1
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-blacktongue",
-        "name": "Blacktongue",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-blacktongue",
-        "modifiers": []
-      },
-      {
-        "id": "import-middle-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 6,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-kahadi",
-        "modifiers": []
-      }
     ]
   },
   "properties": {
@@ -504,7 +668,7 @@
       "xp": 0
     },
     "statureAdjustment": 2,
-    "buildAdjustment": -2
+    "buildAdjustment": 0
   },
   "utilities": {
     "spells": [],
@@ -595,5 +759,6 @@
     "availableGp": 38,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

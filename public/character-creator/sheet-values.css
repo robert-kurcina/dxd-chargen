@@ -219,7 +219,7 @@
   height: auto;
   min-height: 0;
   padding: .15cqw .35cqw;
-  font-size: 1.08cqw;
+  font-size: 1.34cqw;
   line-height: 1.12;
 }
 #back .field-group-equipment .equipment-item { padding-left: 0; }
@@ -233,10 +233,11 @@
   white-space: pre-wrap;
   color: #080808;
   font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive;
-  font-size: 1.08cqw;
+  font-size: 1.34cqw;
   font-weight: 400;
   line-height: 1.12;
 }
+
 #back .field-group-equipment .equipment-properties-editor { display: none; }
 .editing #back .field-group-equipment .equipment-properties-editor { display: block; }
 .editing #back .field-group-equipment .equipment-properties-rich { display: none; }

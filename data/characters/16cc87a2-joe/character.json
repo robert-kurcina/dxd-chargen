@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.094554Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Medic, Strike, Tactics."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "21 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -213,7 +213,8 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-everia"
+    "deityId": "deity-everia",
+    "socialRankTitle": "By Name and Trade"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -227,52 +228,136 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 12,
-        "adjustments": []
+        "base": 13,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "RCA",
         "base": 12,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "REF",
-        "base": 7,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "INT",
         "base": 11,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "KNO",
-        "base": 6,
-        "adjustments": []
+        "base": 5,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Quaggik lineage"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Ranger Trade"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 8,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Ranger — Beastfriend"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 8,
-        "adjustments": []
+        "base": 5,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Quaggik lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Ranger Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Ranger — Beastfriend"
+          }
+        ]
       },
       {
         "name": "STR",
         "base": 9,
-        "adjustments": []
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Ranger — Beastfriend"
+          }
+        ]
       },
       {
         "name": "FOR",
         "base": 8,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
@@ -295,7 +380,49 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common-barter",
+        "name": "Coro",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [
+          "Barter"
+        ]
+      },
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-archer",
         "name": "Archery X",
@@ -444,54 +571,13 @@
         "source": "player",
         "level": 2
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common-barter",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-coro",
-        "modifiers": [
-          "Barter"
-        ]
-      },
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-cher-gulo",
-        "name": "Cher-gulo",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-cher-gulo",
-        "modifiers": []
-      }
     ]
   },
   "properties": {
     "stature": 49,
     "build": 49,
-    "baseBuild": 55,
-    "weightAdjustment": -6,
+    "baseBuild": 52,
+    "weightAdjustment": -3,
     "heightInches": 69,
     "weightPounds": 155,
     "siz": 11,
@@ -635,5 +721,6 @@
     "availableGp": 0,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

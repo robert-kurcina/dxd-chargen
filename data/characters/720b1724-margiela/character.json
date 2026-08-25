@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.105360Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Academics, Lore, Nightvision, Pidgin, Read, Strange, Wares."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "17 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -101,7 +101,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-agnostic",
-    "deityId": null
+    "deityId": null,
+    "socialRankTitle": "By Name and Trade"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -115,53 +116,210 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 0,
-        "adjustments": []
+        "base": 2,
+        "recordedValue": 0,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -5,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          },
+          {
+            "amount": 3,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 2,
-        "adjustments": []
+        "base": 3,
+        "recordedValue": 2,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 3,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -5,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 10,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue — Thief"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 6,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -4,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 2,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 2,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -7,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 11,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 8,
-        "adjustments": []
+        "base": 12,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -5,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          },
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": -1,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": -1,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -1,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -5,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 8,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Youth Age Group modifier"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -183,13 +341,29 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-stask",
+        "name": "Stask",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-stask",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-academics",
-        "name": "§Academics X > Type",
+        "name": "§Academics X > Skill",
         "source": "player",
         "level": 1,
-        "catalogId": "trait-section-academics-x-type"
+        "catalogId": "trait-section-academics-x-skill"
       },
       {
         "id": "import-alchemy",
@@ -303,21 +477,6 @@
         "level": 2,
         "catalogId": "trait-wares-x-ware"
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-stask",
-        "name": "Stask",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-stask",
-        "modifiers": []
-      }
     ]
   },
   "properties": {
@@ -417,5 +576,6 @@
     "availableGp": 355,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

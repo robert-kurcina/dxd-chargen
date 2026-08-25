@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T03:59:50.162Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,14 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
+      "step": "proficiencies-granted-skills-traits-talents",
       "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Academics, Comrade, Drill, Expert, Lore, Riding, Strange, Strike, Studies, Tactics, Trained, Warfare."
+      "message": "Granted Skill/Trait specializations still require review: Academics, Drill, Expert, History, Studies, Tactics, Trained."
+    },
+    {
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "16 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -119,7 +124,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-gnorg"
+    "deityId": "deity-gnorg",
+    "socialRankTitle": "By Name and Trade"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -133,53 +139,185 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 11,
-        "adjustments": []
+        "base": 13,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -3,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Soldier"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 8,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "lineage",
+            "sourceDetail": "Ferrite lineage"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Soldier"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 9,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 7,
-        "adjustments": []
+        "base": 11,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "lineage",
+            "sourceDetail": "Ferrite lineage"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          },
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Soldier"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 8,
-        "adjustments": []
+        "base": 13,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -4,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          },
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Soldier"
+          }
+        ]
       },
       {
         "name": "PRE",
         "base": 8,
-        "adjustments": []
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Drauf baseline"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 9,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -3,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Warrior — Soldier"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 13,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 13,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 4,
+            "source": "species",
+            "sourceDetail": "Drauf baseline"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Early Teen Age Group modifier"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Warrior Trade"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 11,
-        "adjustments": []
+        "base": 3,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 5,
+            "source": "species",
+            "sourceDetail": "Drauf baseline"
+          },
+          {
+            "amount": 3,
+            "source": "lineage",
+            "sourceDetail": "Ferrite lineage"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -305,8 +443,8 @@
       },
       {
         "id": "heritage-society-cityfolk:trait-section-academics-x-skill:1",
-        "catalogId": "trait-section-academics-x-type",
-        "name": "§Academics X > Type",
+        "catalogId": "trait-section-academics-x-skill",
+        "name": "§Academics X > Skill",
         "source": "heritage",
         "sourceDetail": "society: Cityfolk",
         "level": 1
@@ -550,7 +688,37 @@
         "level": 1
       }
     ],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": [],
+        "level": 4
+      },
+      {
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": [],
+        "level": 3
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-athletics",
         "name": "Athletics",
@@ -726,35 +894,6 @@
         "level": 1,
         "catalogId": "trait-v-rocktaste-x-region"
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-coro",
-        "modifiers": [],
-        "level": 4
-      },
-      {
-        "id": "import-cher-gulo",
-        "name": "Cher-gulo",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-cher-gulo",
-        "modifiers": [],
-        "level": 3
-      }
     ]
   },
   "properties": {
@@ -880,5 +1019,6 @@
     "availableGp": 100,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

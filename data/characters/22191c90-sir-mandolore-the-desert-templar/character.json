@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.097904Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Expert, Lore, Medic, Riding, Strike, Trained."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "21 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -105,7 +105,8 @@
     "disabilities": [],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-heiron"
+    "deityId": "deity-heiron",
+    "socialRankTitle": "By Name and Trade"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -119,53 +120,132 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 10,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Knight Trade"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 10,
-        "adjustments": []
+        "base": 13,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -3,
+            "source": "trade",
+            "sourceDetail": "Knight Trade"
+          }
+        ]
       },
       {
         "name": "REF",
         "base": 8,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "INT",
         "base": 8,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "KNO",
         "base": 6,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
         "adjustments": []
       },
       {
         "name": "PRE",
-        "base": 11,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Drusian lineage"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Knight Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Knight — Templar"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 15,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 15,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Drusian lineage"
+          },
+          {
+            "amount": 3,
+            "source": "trade",
+            "sourceDetail": "Knight Trade"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Knight — Templar"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 10,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "lineage",
+            "sourceDetail": "Drusian lineage"
+          },
+          {
+            "amount": 3,
+            "source": "trade",
+            "sourceDetail": "Knight Trade"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 9,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 3,
+            "source": "trade",
+            "sourceDetail": "Knight Trade"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -187,7 +267,73 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-cher-gulo",
+        "name": "Cher-gulo",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-cher-gulo",
+        "modifiers": []
+      },
+      {
+        "id": "import-ithuuikal",
+        "name": "Ithuuikal",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-ithuuikal",
+        "modifiers": []
+      },
+      {
+        "id": "import-kahadi",
+        "name": "Kahadi",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-kahadi",
+        "modifiers": []
+      },
+      {
+        "id": "import-lorespeak",
+        "name": "Blacktongue",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-blacktongue",
+        "modifiers": [
+          "Low"
+        ]
+      },
+      {
+        "id": "import-stask",
+        "name": "Stask",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 2,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-stask",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-brawn",
         "name": "Brawn",
@@ -334,71 +480,6 @@
         "source": "player",
         "level": 2,
         "catalogId": "trait-v-zedsurge-x"
-      }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-cher-gulo",
-        "name": "Cher-gulo",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-cher-gulo",
-        "modifiers": []
-      },
-      {
-        "id": "import-ithuuikal",
-        "name": "Ithuuikal",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-ithuuikal",
-        "modifiers": []
-      },
-      {
-        "id": "import-kahadi",
-        "name": "Kahadi",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-kahadi",
-        "modifiers": []
-      },
-      {
-        "id": "import-lorespeak",
-        "name": "Blacktongue",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-blacktongue",
-        "modifiers": [
-          "Low"
-        ]
-      },
-      {
-        "id": "import-stask",
-        "name": "Stask",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 2,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-stask",
-        "modifiers": []
       }
     ]
   },
@@ -579,5 +660,6 @@
     "availableGp": 80,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.110434Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Craft, Enemies, Lore, Nightvision, Riding, Title."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "10 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -103,7 +103,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-marli"
+    "deityId": "deity-marli",
+    "socialRankTitle": "Baroness"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -117,53 +118,235 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 7,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 9,
-        "adjustments": []
+        "base": 4,
+        "recordedValue": 9,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 3,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard — Spellbinder"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 13,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 13,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 15,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 15,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": 4,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard — Spellbinder"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 10,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -2,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          },
+          {
+            "amount": 2,
+            "source": "trade",
+            "sourceDetail": "Wizard — Spellbinder"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 12,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": 1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard — Spellbinder"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 10,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 10,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Wizard Trade"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 11,
-        "adjustments": []
+        "base": 15,
+        "recordedValue": 11,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -1,
+            "source": "lineage",
+            "sourceDetail": "Vanyrai lineage"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Genetically Female"
+          },
+          {
+            "amount": -1,
+            "source": "rule",
+            "sourceDetail": "Teenager Age Group modifier"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 6,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Alef baseline"
+          },
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Wizard — Spellbinder"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -185,79 +368,7 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
-      {
-        "id": "import-compass",
-        "name": "v-Compass X",
-        "source": "player",
-        "level": 1,
-        "catalogId": "trait-v-compass-x"
-      },
-      {
-        "id": "import-craft",
-        "name": "Craft X > Tradecraft",
-        "source": "player",
-        "level": 4,
-        "catalogId": "trait-craft-x-tradecraft"
-      },
-      {
-        "id": "import-lore",
-        "name": "Lore X > Field",
-        "source": "player",
-        "level": 4,
-        "catalogId": "trait-lore-x-field"
-      },
-      {
-        "id": "import-v-magic",
-        "catalogId": "trait-v-magic-x",
-        "name": "v-Magic",
-        "source": "player",
-        "level": 3
-      },
-      {
-        "id": "import-nightvision",
-        "name": "Nightvision X > Type",
-        "source": "player",
-        "level": 2,
-        "catalogId": "trait-nightvision-x-type"
-      },
-      {
-        "id": "import-peerage",
-        "name": "Peerage X > Region",
-        "source": "player",
-        "level": 3,
-        "catalogId": "trait-peerage-x-region"
-      },
-      {
-        "id": "import-read",
-        "name": "Read X > Language",
-        "source": "player",
-        "level": 4,
-        "catalogId": "trait-read-x-language"
-      },
-      {
-        "id": "import-riding",
-        "name": "Riding X > Type",
-        "source": "player",
-        "level": 2,
-        "catalogId": "trait-riding-x-type"
-      },
-      {
-        "id": "import-expert-sword",
-        "catalogId": "trait-expert-x-weapon",
-        "name": "Expert X > Weapon",
-        "source": "player",
-        "level": 2,
-        "specialization": "Sword"
-      },
-      {
-        "id": "import-title",
-        "catalogId": "trait-title-x-region",
-        "name": "Title X > Region",
-        "source": "player",
-        "level": 1
-      }
-    ],
+    "purchased": [],
     "additionalSkills": [],
     "languages": [
       {
@@ -347,6 +458,79 @@
         "modifiers": [
           "High"
         ]
+      }
+    ],
+    "importedCapabilities": [
+      {
+        "id": "import-compass",
+        "name": "v-Compass X",
+        "source": "player",
+        "level": 1,
+        "catalogId": "trait-v-compass-x"
+      },
+      {
+        "id": "import-craft",
+        "name": "Craft X > Tradecraft",
+        "source": "player",
+        "level": 4,
+        "catalogId": "trait-craft-x-tradecraft"
+      },
+      {
+        "id": "import-lore",
+        "name": "Lore X > Field",
+        "source": "player",
+        "level": 4,
+        "catalogId": "trait-lore-x-field"
+      },
+      {
+        "id": "import-v-magic",
+        "catalogId": "trait-v-magic-x",
+        "name": "v-Magic",
+        "source": "player",
+        "level": 3
+      },
+      {
+        "id": "import-nightvision",
+        "name": "Nightvision X > Type",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-nightvision-x-type"
+      },
+      {
+        "id": "import-peerage",
+        "name": "Peerage X > Region",
+        "source": "player",
+        "level": 3,
+        "catalogId": "trait-peerage-x-region"
+      },
+      {
+        "id": "import-read",
+        "name": "Read X > Language",
+        "source": "player",
+        "level": 4,
+        "catalogId": "trait-read-x-language"
+      },
+      {
+        "id": "import-riding",
+        "name": "Riding X > Type",
+        "source": "player",
+        "level": 2,
+        "catalogId": "trait-riding-x-type"
+      },
+      {
+        "id": "import-expert-sword",
+        "catalogId": "trait-expert-x-weapon",
+        "name": "Expert X > Weapon",
+        "source": "player",
+        "level": 2,
+        "specialization": "Sword"
+      },
+      {
+        "id": "import-title",
+        "catalogId": "trait-title-x-region",
+        "name": "Title X > Region",
+        "source": "player",
+        "level": 1
       }
     ]
   },
@@ -511,5 +695,6 @@
     "availableGp": 1256,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }

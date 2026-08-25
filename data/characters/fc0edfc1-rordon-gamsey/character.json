@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 11,
   "updatedAt": "2026-08-17T01:03:28.112342Z",
   "completedSteps": [
     "background-region-settlement",
@@ -16,7 +16,7 @@
     "intrinsics-zed",
     "intrinsics-wealth",
     "proficiencies-pml",
-    "proficiencies-additional-skills",
+    "proficiencies-additional-traits-skills",
     "proficiencies-languages",
     "properties-height-weight",
     "properties-calculations",
@@ -30,9 +30,9 @@
   ],
   "warnings": [
     {
-      "step": "proficiencies-skills-abilities-talents",
-      "code": "unresolved-broad-specializations",
-      "message": "Broad Skill/Trait specializations still require review: Domus, Expert, Nightvision, Pidgin, Poison, Riding, Tactics, Warfare."
+      "step": "proficiencies-imported-traits-skills-talents",
+      "code": "imported-capability-exceptions",
+      "message": "36 imported capability exceptions require reconciliation in Additional Traits and Skills."
     }
   ],
   "background": {
@@ -242,7 +242,8 @@
     ],
     "disabilitiesReviewed": true,
     "beliefId": "belief-theist",
-    "deityId": "deity-agnostic-lekteb"
+    "deityId": "deity-agnostic-lekteb",
+    "socialRankTitle": "Child or Member"
   },
   "intrinsics": {
     "speciesFamilyId": "species-family-humaniki",
@@ -256,53 +257,165 @@
     "strifeMotherLineageId": null,
     "strifeAttributeRolls": {},
     "strifeBonusParent": null,
-    "attributeMethod": null,
+    "attributeMethod": "imported",
     "attributeArrayId": null,
     "attributes": [
       {
         "name": "CCA",
-        "base": 12,
-        "adjustments": []
+        "base": 5,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 4,
+            "source": "species",
+            "sourceDetail": "Klenari baseline"
+          },
+          {
+            "amount": 3,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "RCA",
-        "base": 12,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 12,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 2,
+            "source": "species",
+            "sourceDetail": "Klenari baseline"
+          },
+          {
+            "amount": 3,
+            "source": "lineage",
+            "sourceDetail": "Stepmir lineage"
+          }
+        ]
       },
       {
         "name": "REF",
-        "base": 15,
-        "adjustments": []
+        "base": 9,
+        "recordedValue": 15,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 3,
+            "source": "species",
+            "sourceDetail": "Klenari baseline"
+          },
+          {
+            "amount": 2,
+            "source": "lineage",
+            "sourceDetail": "Stepmir lineage"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "INT",
-        "base": 8,
-        "adjustments": []
+        "base": 6,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue — Spy"
+          }
+        ]
       },
       {
         "name": "KNO",
-        "base": 8,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue — Spy"
+          }
+        ]
       },
       {
         "name": "PRE",
-        "base": 6,
-        "adjustments": []
+        "base": 5,
+        "recordedValue": 6,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          }
+        ]
       },
       {
         "name": "POW",
-        "base": 7,
-        "adjustments": []
+        "base": 8,
+        "recordedValue": 7,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Klenari baseline"
+          },
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Rogue Trade"
+          },
+          {
+            "amount": 1,
+            "source": "trade",
+            "sourceDetail": "Rogue — Spy"
+          }
+        ]
       },
       {
         "name": "STR",
-        "base": 3,
-        "adjustments": []
+        "base": 7,
+        "recordedValue": 3,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -4,
+            "source": "species",
+            "sourceDetail": "Klenari baseline"
+          }
+        ]
       },
       {
         "name": "FOR",
-        "base": 8,
-        "adjustments": []
+        "base": 10,
+        "recordedValue": 8,
+        "recordedRollDerived": true,
+        "adjustments": [
+          {
+            "amount": -1,
+            "source": "species",
+            "sourceDetail": "Klenari baseline"
+          },
+          {
+            "amount": -1,
+            "source": "trade",
+            "sourceDetail": "Rogue — Spy"
+          }
+        ]
       },
       {
         "name": "MOV",
@@ -324,7 +437,47 @@
     "grantSpecializations": {},
     "grantSpecializationRanks": {},
     "granted": [],
-    "purchased": [
+    "purchased": [],
+    "additionalSkills": [],
+    "languages": [
+      {
+        "id": "import-common",
+        "name": "Coro",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 1,
+        "improvements": 0,
+        "accentRemoved": false,
+        "catalogId": "language-coro",
+        "modifiers": []
+      },
+      {
+        "id": "import-kahuzid",
+        "name": "Kahadi",
+        "source": "player",
+        "kind": "default",
+        "primary": true,
+        "baseLevel": 4,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-kahadi",
+        "modifiers": []
+      },
+      {
+        "id": "import-sarek",
+        "name": "Sarek",
+        "source": "player",
+        "kind": "proficiency",
+        "primary": false,
+        "baseLevel": 3,
+        "improvements": 0,
+        "accentRemoved": true,
+        "catalogId": "language-sarek",
+        "modifiers": []
+      }
+    ],
+    "importedCapabilities": [
       {
         "id": "import-acrobatic",
         "name": "Acrobatic",
@@ -577,52 +730,13 @@
         "level": 1,
         "catalogId": "trait-wise-x"
       }
-    ],
-    "additionalSkills": [],
-    "languages": [
-      {
-        "id": "import-common",
-        "name": "Coro",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 1,
-        "improvements": 0,
-        "accentRemoved": false,
-        "catalogId": "language-coro",
-        "modifiers": []
-      },
-      {
-        "id": "import-kahuzid",
-        "name": "Kahadi",
-        "source": "player",
-        "kind": "default",
-        "primary": true,
-        "baseLevel": 4,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-kahadi",
-        "modifiers": []
-      },
-      {
-        "id": "import-sarek",
-        "name": "Sarek",
-        "source": "player",
-        "kind": "proficiency",
-        "primary": false,
-        "baseLevel": 3,
-        "improvements": 0,
-        "accentRemoved": true,
-        "catalogId": "language-sarek",
-        "modifiers": []
-      }
     ]
   },
   "properties": {
     "stature": 25,
     "build": 34,
-    "baseBuild": 32,
-    "weightAdjustment": 2,
+    "baseBuild": 29,
+    "weightAdjustment": 5,
     "heightInches": 40,
     "weightPounds": 55,
     "siz": 7,
@@ -706,5 +820,6 @@
     "availableGp": 25,
     "gpSpent": 0,
     "pendingSpentGp": 0
-  }
+  },
+  "characterId": null
 }
