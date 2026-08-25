@@ -25,7 +25,7 @@ export type CharacterSheetData = {
   name: string;
   properName: string;
   affinityAttribute?: string | null;
-  details: { environ: string; socialRankTitle: string; species: string; bio: string; physique: string };
+  details: { environ: string; species: string; bio: string; physique: string };
   pml: number;
   attributes: Array<{ name: string; value: number; modifier: string }>;
   background: {
@@ -36,6 +36,8 @@ export type CharacterSheetData = {
     notableFeatures: string[];
   };
   history: {
+    allies: string;
+    tragedy: string;
     equipment: string;
     weapons: string;
     armor: string;
@@ -81,6 +83,17 @@ function selectionRecord(selection: SourcedSelection) {
   return `${name} ${level}${specialization ? ` > ${specialization}` : ''}`;
 }
 
+function capabilityKey(value: string) {
+  return value
+    .replace(/^[§$]\s*/, '')
+    .replace(/^\[/, '')
+    .replace(/\]$/, '')
+    .split(' > ')[0]
+    .replace(/\s+X$/, '')
+    .trim()
+    .toLowerCase();
+}
+
 function projectedCapabilities(draft: CharacterDraft, data: StaticData) {
   const capabilities = compressedCapabilities(draft, data);
   const isTraitOrTalent = (entry: typeof capabilities[number]) => {
@@ -99,19 +112,85 @@ function projectedCapabilities(draft: CharacterDraft, data: StaticData) {
     if (disability) return `[${name}${entry.level > 1 ? `-${entry.level}` : ''}${specs ? ` > ${specs}` : ''}]`;
     return `${name}${entry.level > 1 ? `-${entry.level}` : ''}${specs ? ` > ${specs}` : ''}`;
   };
-  const pidgin = capabilities.filter((entry) => entry.name.replace(/^[§$]\s*/, '').replace(/\s+X$/, '').toLowerCase() === 'pidgin');
+  const authoredKeys = new Set(capabilities.map((entry) => capabilityKey(entry.name)));
+  const imported = (draft.proficiencies.importedCapabilities ?? []).filter((selection) => !authoredKeys.has(capabilityKey(selection.name)));
+  const importedIsTrait = (selection: SourcedSelection) => {
+    const definition = traitDefinitionForSelection(selection, data);
+    return Boolean(definition && (!definition.isSkill || definition.isVirtuosity)) || /^v-/i.test(selection.name);
+  };
+  const importedFormat = (selection: SourcedSelection) => {
+    const definition = traitDefinitionForSelection(selection, data);
+    const interdisciplinary = Boolean(definition?.keywords?.includes('Interdisciplinary'));
+    const disability = Boolean(definition?.isDisability);
+    const stripped = selection.name.split(' > ')[0].replace(/^[§$]\s*/, '').replace(/^\[/, '').replace(/\]$/, '').replace(/\s+X$/, '');
+    const name = interdisciplinary ? `§${stripped}` : stripped;
+    const level = Math.max(1, selection.level ?? 1);
+    const specs = Object.entries(specializationRanksForSelection(selection, draft, data))
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([value, rank]) => interdisciplinary && rank > 1 ? `+${value}` : `${value}${rank > 1 ? `-${rank}` : ''}`)
+      .join(', ');
+    const body = `${name}${level > 1 ? `-${level}` : ''}${specs ? ` > ${specs}` : ''}`;
+    return disability ? `[${body}]` : body;
+  };
+  const importedTerm = (selection: SourcedSelection) => ({
+    text: importedFormat(selection),
+    unresolved: Boolean(specializationIssue(selection, draft, data)),
+  });
+  const pidgin = capabilities.filter((entry) => capabilityKey(entry.name) === 'pidgin');
+  const importedPidgin = imported.filter((entry) => capabilityKey(entry.name) === 'pidgin');
   const presentationSort = (left: typeof capabilities[number], right: typeof capabilities[number]) => Number(isDisability(right)) - Number(isDisability(left)) || left.name.replace(/^[§$\[]\s*/, '').localeCompare(right.name.replace(/^[§$\[]\s*/, ''), undefined, { sensitivity: 'base', numeric: true });
   const skills = capabilities.filter((entry) => !isTraitOrTalent(entry) && !pidgin.includes(entry)).sort(presentationSort);
   const traits = capabilities.filter(isTraitOrTalent).sort(presentationSort);
-  const skillTerms = skills.map((entry) => ({ text: format(entry), unresolved: requiresSpecialization(entry) }));
-  const traitTerms = traits.map((entry) => ({ text: format(entry), unresolved: requiresSpecialization(entry) }));
-  return { skills: skillTerms.map((entry) => entry.text).join(', '), traits: traitTerms.map((entry) => entry.text).join(', '), pidgin: pidgin.map(format).join(', '), skillsUnresolved: skillTerms.some((entry) => entry.unresolved), traitsUnresolved: traitTerms.some((entry) => entry.unresolved), skillTerms, traitTerms };
+  const importedSkills = imported.filter((entry) => !importedIsTrait(entry) && !importedPidgin.includes(entry));
+  const importedTraits = imported.filter(importedIsTrait);
+  const skillTerms = [
+    ...skills.map((entry) => ({ text: format(entry), unresolved: requiresSpecialization(entry) })),
+    ...importedSkills.map(importedTerm),
+  ].sort((left, right) => left.text.replace(/^[§$\[]\s*/, '').localeCompare(right.text.replace(/^[§$\[]\s*/, ''), undefined, { sensitivity: 'base', numeric: true }));
+  const traitTerms = [
+    ...traits.map((entry) => ({ text: format(entry), unresolved: requiresSpecialization(entry) })),
+    ...importedTraits.map(importedTerm),
+  ].sort((left, right) => left.text.replace(/^[§$\[]\s*/, '').localeCompare(right.text.replace(/^[§$\[]\s*/, ''), undefined, { sensitivity: 'base', numeric: true }));
+  const pidginTerms = [...pidgin.map(format), ...importedPidgin.map(importedFormat)];
+  return { skills: skillTerms.map((entry) => entry.text).join(', '), traits: traitTerms.map((entry) => entry.text).join(', '), pidgin: pidginTerms.join(', '), skillsUnresolved: skillTerms.some((entry) => entry.unresolved), traitsUnresolved: traitTerms.some((entry) => entry.unresolved), skillTerms, traitTerms };
 }
 
 function heightText(inches: number | null) {
   if (inches == null) return '';
   const feet = Math.floor(inches / 12);
   return `${feet}'${inches % 12}\"`;
+}
+
+function titleCaseId(value: string) {
+  return value.split('-').filter(Boolean).map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`).join(' ');
+}
+
+function importedSpecializationName(trade: string, specializationId: string | null) {
+  if (!specializationId) return '';
+  let value = specializationId.replace(/^specialization-/, '');
+  const tradePrefix = trade ? `${trade.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-` : '';
+  if (tradePrefix && value.startsWith(tradePrefix)) value = value.slice(tradePrefix.length);
+  return titleCaseId(value);
+}
+
+function noteList(notes: string, heading: string) {
+  const match = notes.match(new RegExp(`(?:^|\\n)\\s*${heading}\\s*[;:]\\s*([^\\n]+)`, 'i'));
+  return match ? match[1].split(/\s*,\s*/).map((entry) => entry.trim()).filter(Boolean) : [];
+}
+
+function tragedyFromNotes(notes: string) {
+  const match = notes.match(/(?:^|\n)\s*Tragedy\s*(?:[-;:]|—)\s*([^\n]+)/i);
+  return match?.[1]?.trim() ?? '';
+}
+
+function uniqueText(values: string[]) {
+  const seen = new Set<string>();
+  return values.filter((value) => {
+    const key = value.trim().toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): CharacterSheetData {
@@ -125,13 +204,21 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const group = speciesChoice?.group.name ?? strifePairing?.exonym ?? '';
   const lineage = getLineageName(draft, data) ?? (strifePairing ? [draft.intrinsics.strifeFatherLineageId, draft.intrinsics.strifeMotherLineageId].map((id) => id?.replace(/^lineage-/, '').replace(/(^|-)([a-z])/g, (_, prefix, letter) => `${prefix}${letter.toUpperCase()}`)).filter(Boolean).join('-') : '');
   const trade = getTradePackage(draft, data)?.trade ?? '';
-  const specialization = getTradeSpecialization(draft, data)?.name ?? '';
+  const specialization = getTradeSpecialization(draft, data)?.name ?? importedSpecializationName(trade, draft.intrinsics.specializationId);
+  const tradeRank = draft.intrinsics.tradeRank;
+  const namingPractice = data.professions.find((entry) => entry.trade === trade)?.namingPractice ?? '';
+  const titleRecord = tradeRank == null ? null : data.namingPracticeTitles.find((entry) => Number(entry.Rank) === tradeRank) ?? null;
+  const professionTitle = titleRecord && namingPractice ? String((titleRecord as Record<string, string>)[namingPractice] ?? '') : '';
   const regionEntry = regionByDraft(draft, data);
   const geographicRegion = geographicRegionName(draft, data) ?? '';
-  const region = [geographicRegion, regionEntry?.name].filter(Boolean).join(' / ') || importedDetail('Imported region');
-  const settlement = selectedSettlementDisplayName(draft, data) ?? importedDetail('Imported settlement');
+  const region = importedDetail('Imported region') || geographicRegion || regionEntry?.name || '';
+  const settlement = importedDetail('Imported settlement') || selectedSettlementDisplayName(draft, data) || '';
   const belief = data.beliefs.find((entry) => entry.catalogId === draft.background.beliefId)?.keyword ?? '';
-  const deity = data.deities.find((entry) => entry.catalogId === draft.background.deityId)?.deity ?? importedDetail('Imported religion detail');
+  const deityEntry = data.deities.find((entry) => entry.catalogId === draft.background.deityId) ?? null;
+  const deity = deityEntry?.deity ?? importedDetail('Imported religion detail');
+  const religion = /^theist$/i.test(belief)
+    ? [[belief, deity].filter(Boolean).join(' > '), deityEntry?.domains?.join('') ?? ''].filter(Boolean)
+    : [belief].filter(Boolean);
   const heritage = [draft.background.environHeritageId, draft.background.societalHeritageId, draft.background.culturalHeritageId]
     .map((id) => data.heritagePackages.find((entry) => entry.id === id)?.name)
     .filter((value): value is string => Boolean(value));
@@ -168,6 +255,24 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     : draft.background.ageGroup ?? (age ? `age ${age}` : null)]
     .filter(Boolean)
     .join(' > ');
+  const notes = draft.utilities.notes ?? '';
+  const spells = uniqueText([
+    ...draft.utilities.spells.map((entry) => displaySpellName(entry.name)),
+    ...noteList(notes, 'Spells').map(displaySpellName),
+  ]);
+  const magicInventory = draft.utilities.weapons.filter((item) => {
+    const definition = data.itemWeapons.find((entry) => entry.catalogId === item.catalogId)
+      ?? data.itemWeapons.find((entry) => entry.name === item.name);
+    return Boolean(definition?.traits?.some((trait) => /^mana(?:trigger|store)/i.test(trait)));
+  }).map((item) => item.name);
+  const magicItems = uniqueText([
+    ...draft.utilities.magicItems.map((entry) => {
+      const form = magicItemInventoryForm(entry, draft, data);
+      const displayName = displayMagicItemSelection(entry, draft, data);
+      return `${displayName}${form ? ` [${form.displayName}, ${form.weight}#]` : entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`;
+    }),
+    ...magicInventory,
+  ]);
 
   return {
     name: draft.utilities.name,
@@ -175,7 +280,6 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     affinityAttribute: draft.intrinsics.affinityAttribute,
     details: {
       environ: heritage.join(' > '),
-      socialRankTitle: draft.background.socialRankTitle ?? '',
       species: [species, group, lineage].filter(Boolean).join(' > '),
       bio,
       physique: [heightText(draft.properties.heightInches), draft.properties.weightPounds != null ? `${draft.properties.weightPounds}-pounds` : ''].filter(Boolean).join(' and '),
@@ -185,23 +289,21 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
     background: {
       profession: [
         [trade, specialization].filter(Boolean).join(' > '),
-        draft.intrinsics.tradeRank != null ? `Rank ${draft.intrinsics.tradeRank}` : '',
+        tradeRank != null ? [`Rank ${tradeRank}`, professionTitle].filter(Boolean).join(' > ') : '',
       ].filter(Boolean),
-      settlement: [[region, settlement].filter(Boolean).join(' / ')].filter(Boolean),
-      religion: [belief, deity ? `[${deity}]` : ''].filter(Boolean),
+      settlement: [region, settlement].filter(Boolean),
+      religion,
       personality: draft.background.personality.map((entry) => entry.name).join(', '),
       notableFeatures,
     },
     history: {
+      allies: draft.utilities.relationships.map((entry) => entry.name).join(', '),
+      tragedy: draft.background.tragedySeedText ?? tragedyFromNotes(notes),
       equipment: listInventory(draft.utilities.equipment),
       weapons: listInventory(draft.utilities.weapons),
       armor: listInventory(legalArmor),
-      magicItems: draft.utilities.magicItems.map((entry) => {
-        const form = magicItemInventoryForm(entry, draft, data);
-        const displayName = displayMagicItemSelection(entry, draft, data);
-        return `${displayName}${form ? ` [${form.displayName}, ${form.weight}#]` : entry.catalogId && draft.utilities.magicItemForms[entry.catalogId] ? ` [${draft.utilities.magicItemForms[entry.catalogId]}]` : ''}`;
-      }).join(', '),
-      spells: draft.utilities.spells.map((entry) => displaySpellName(entry.name)).join(', '),
+      magicItems: magicItems.join(', '),
+      spells: spells.join(', '),
       skills: capabilities.skills,
       traits: capabilities.traits,
       skillsUnresolved: capabilities.skillsUnresolved,
