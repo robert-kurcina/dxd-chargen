@@ -217,7 +217,7 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const deityEntry = data.deities.find((entry) => entry.catalogId === draft.background.deityId) ?? null;
   const deity = deityEntry?.deity ?? importedDetail('Imported religion detail');
   const religion = /^theist$/i.test(belief)
-    ? [[belief, deity].filter(Boolean).join(' > '), deityEntry?.domains?.join('') ?? ''].filter(Boolean)
+    ? [[belief, deity].filter(Boolean).join(' > '), deityEntry?.domains?.join(', ') ?? ''].filter(Boolean)
     : [belief].filter(Boolean);
   const heritage = [draft.background.environHeritageId, draft.background.societalHeritageId, draft.background.culturalHeritageId]
     .map((id) => data.heritagePackages.find((entry) => entry.id === id)?.name)
@@ -237,7 +237,6 @@ export function projectCharacterSheet(draft: CharacterDraft, data: StaticData): 
   const mov = (derived?.mov ?? numberCalc('MOV')) || 0;
   const siz = draft.properties.siz ?? 0;
   const zed = draft.intrinsics.zed ?? 0;
-
   const attributes = ATTRIBUTE_ORDER.map((name) => {
     const value = name === 'MOV' ? mov : name === 'SIZ' ? siz : name === 'ZED' ? zed
       : (recordedAttribute(name) ?? getFinalAttributeValue(name, draft)) ?? 0;
