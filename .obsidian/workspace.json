@@ -13,10 +13,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "data/peoples/_pairs/ancestral.pairs-22.png"
+                "file": "data/peoples/_pairs/ancestral.pairs-sondgarat.png"
               },
               "icon": "lucide-image",
-              "title": "ancestral.pairs-22"
+              "title": "ancestral.pairs-sondgarat"
             }
           }
         ]
@@ -185,24 +185,25 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "0ce12929ac9101b1",
+  "active": "1583389f99ff3e42",
   "lastOpenFiles": [
+    "data/peoples/_pairs/ancestral.pairs-huaczwyk.png",
+    "data/peoples/_pairs/ancestral.pairs-auldfar.png",
+    "data/peoples/_pairs/ancestral.pairs-27.png",
+    "data/peoples/_pairs/ancestral.pairs-26.png",
+    "data/peoples/_pairs/ancestral.pairs-23.png",
+    "data/peoples/_pairs/ancestral.pairs-09.png",
+    "data/peoples/_pairs/ancestral.pairs-17.png",
+    "data/peoples/_pairs/ancestral.pairs-18.png",
+    "data/peoples/_pairs/ancestral.pairs-19.png",
+    "data/peoples/_pairs/ancestral.pairs-20.png",
+    "data/peoples/_pairs/ancestral.pairs-21.png",
     "src/components/suspense-spinner.tsx",
     "src/app/(workspace)/workspace-views.tsx",
     "data/characters.zip",
     "data/maps/citystates/README.md",
     "data/maps/locale.citystate-crolm.pdf",
     "Archive.zip",
-    "data/maps/citystates/citystate-corom.png",
-    "data/maps/citystates/citystate-paltesh.png",
-    "data/maps/citystates/citystate-sarken.png",
-    "data/maps/citystates/citystate-herost.png",
-    "data/maps/citystates/citystate-quagkh.png",
-    "data/maps/citystates/citystate-pazkan.png",
-    "data/maps/citystates/citystate-aquorica.png",
-    "data/maps/citystates/citystate-boral.png",
-    "data/maps/citystates/castel-darken.png",
-    "data/maps/citystates/boral.png",
     "dxd-chargen.zip",
     "META/guidance/CANON_SYNC_v142.md",
     "META/releases/RELEASE_v142.md",
@@ -213,7 +214,6 @@
     "src/app/(workspace)/sheet/page.tsx",
     "src/app/(workspace)/sheet/loading.tsx",
     "src/app/(workspace)/library/page.tsx",
-    "src/app/(workspace)/library/loading.tsx",
     "META/guidance/CANON_SYNC_v139.md",
     "META/releases/RELEASE_v139.md",
     "META/guidance/CANON_SYNC_v138.md",
