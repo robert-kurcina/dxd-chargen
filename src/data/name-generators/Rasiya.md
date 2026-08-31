@@ -1,5 +1,5 @@
 ### Rasiya Name Generator (Linguistically Grounded)
-*For speakers of the Rasiya trade corridors and river settlements. All names derive from A Polski roots drifted through the Qua lineage (A Polski → A" Cherczyka → H1 Paltikas → J1 Korsik → R1 Qua) with Stask contact influence at 100 CE (`Rasiya <- Stask`). Rasiya exhibits preserved Slavic consonant clusters, Indo-Aryan retroflexion and aspiration, penultimate stress fixation, and final consonant restriction to nasals/liquids/glides—audibly distinct as a hybrid mercantile language with structural conservatism.*
+*For speakers of the Rasiya trade corridors and river settlements. All names derive from A Polski roots through the Coromu branch (A Polski → A" Cherczyka → H1 Paltikas → H2 Paltikas → H'1 Coromu → H'2 Coromu → H'3 Coromu → H'3' Rasiya → Rasiya), with R1 Qua contact at the 100 CE Rasiya stage. Rasiya is a Coromu daughter, not a Qua daughter; its productive phonology combines Coromu inheritance with later Qua contact.*
 
 ---
 
@@ -37,7 +37,7 @@
 *Rasiya is a regional trade language and allows stronger household and corridor-level naming customs. Explicit male/female suffixes remain the standard formal way to genderize personal names in caravan, guild, and shrine records.*
 
 #### WORD PARTS (Phonotactically Valid Rasiya Forms)
-*All entries derived from authentic Polish cognates drifted through Qua lineage with 1.5× decay + Stask retroflex/aspiration contact at 100 CE. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Qua lineage with lineage-specific dated sound change + Stask retroflex/aspiration contact at 100 CE. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Rasiya) |
@@ -82,44 +82,42 @@
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Rasiya) |
 |-----|--------------|--------|-------------|------------------------------------|
-| 11 | **-a-** | [ə] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Rasiya /pəl/ (vowel centralization) |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Rasiya /dai̯/ (diphthong formation) |
-| 13 | **-am-** | [əm] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Rasiya /rəm/ (palatal loss + schwa) |
-| 14 | **-an-** | [ən] | WATER | *woda* "water" → /vɔda/ → Rasiya /vɔd/ (final consonant restriction) |
-| 15 | **-ar-** | [ər] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Rasiya /kəm/ (nasal → schwa shift) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → Rasiya /fjət/ (diphthong centralization) |
-| 21 | **-e-** | [ɛ] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Rasiya /ɕfət/ (vowel reduction) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Rasiya /dea̯/ (diphthong formation) |
-| 23 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Rasiya /ɲɛl/ (nasal retention + liquid shift) |
-| 24 | **-en-** | [ɛn] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Rasiya /ʃɛn/ (palatal simplification + nasal retention) |
-| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Rasiya /mɛr/ (affricate → liquid shift) |
-| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Rasiya /zil/ (fricativization + liquid shift) |
-| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Rasiya /vin/ (palatal retention + nasalization) |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Rasiya /ʃir/ (vowel fronting + liquid shift) |
-| 33 | **-o-** | [ɔ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Rasiya /ɔɡ/ (nasal loss) |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Rasiya /moi̯/ (diphthong formation) |
-| 35 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Rasiya /xɔm/ (velar preservation + nasal shift) |
-| 36 | **-on-** | [ɔn] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Rasiya /spɔn/ (cluster simplification) |
-| 41 | **-or-** | [ɔr] | ORDER | *rząd* "order" → /ʒɔnt/ → Rasiya /xɔr/ (fricative → velar shift + liquid) |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → Rasiya /gou̯/ (diphthong formation) |
-| 43 | **-ra-** | [ɽə] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Rasiya /kɽə/ (nasal → retroflex liquid shift) |
-| 44 | **-re-** | [rɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → Rasiya /ʐrɛ/ (liquid insertion) |
-| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → Rasiya /mri/ (liquid insertion) |
-| 46 | **-ro-** | [rɔ] | ROAD | *droga* "road" → /drɔɡa/ → Rasiya /drɔ/ (final vowel loss) |
-| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → Rasiya /ru/ (final vowel loss) |
-| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Rasiya /ɡrj/ (nasal loss + glide) |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Rasiya /ɡumb/ (vowel backing + stop shift) |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Rasiya /mui̯/ (diphthong formation) |
-| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Rasiya /run/ (vowel backing + nasal retention) |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → Rasiya /ʐur/ (vowel backing + liquid shift) |
-| 61 | **-ya-** | [jə] | DAWN | *świt* "dawn" → /ɕfit/ → Rasiya /jə/ (fricative loss + glide + schwa) |
-| 62 | **-ye-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → Rasiya /jɛ/ (consonant loss + glide) |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Rasiya /jə/ (nasal loss + schwa) |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Rasiya /ji/ (affricate loss + glide) |
-| 65 | **-yo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Rasiya /jɔ/ (consonant loss + glide) |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Rasiya /ju/ (consonant loss + glide) |
-
----
+| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-a-** |
+| 12 | **-ay-** | [aj] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ay-** |
+| 13 | **-əm-** | [əm] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-əm-** |
+| 14 | **-an-** | [an] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** |
+| 15 | **-ər-** | [ər] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ər-** |
+| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-au-** |
+| 21 | **-e-** | [e] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** |
+| 22 | **-eya-** | [eja] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-eya-** |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** |
+| 24 | **-ẽn-** | [ẽn] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ẽn-** |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
+| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-il-** |
+| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
+| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
+| 34 | **-oy-** | [oj] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oy-** |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 36 | **-õn-** | [õn] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-õn-** |
+| 41 | **-or-** | [or] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-or-** |
+| 42 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ou-** |
+| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ra-** |
+| 44 | **-rei-** | [rei] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rei-** |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 52 | **-riy-** | [rij] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-riy-** |
+| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** |
+| 54 | **-uy-** | [uj] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uy-** |
+| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ur-** |
+| 61 | **-ya-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ya-** |
+| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ye-** |
+| 63 | **-yẽ-** | [jẽ] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yẽ-** |
+| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yi-** |
+| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yo-** |
+| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yu-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
 `1` = SACRED (priests, temples, rituals)  

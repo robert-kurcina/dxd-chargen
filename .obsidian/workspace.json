@@ -13,10 +13,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "data/peoples/_pairs/ancestral.pairs-sondgarat.png"
+                "file": "data/peoples/holotypes/humaniki-drauf.png"
               },
               "icon": "lucide-image",
-              "title": "ancestral.pairs-sondgarat"
+              "title": "humaniki-drauf"
             }
           }
         ]
@@ -187,6 +187,9 @@
   },
   "active": "1583389f99ff3e42",
   "lastOpenFiles": [
+    "data/peoples/holotypes/humaniki-babbita.png",
+    "data/peoples/holotypes/humaniki-alef.png",
+    "data/peoples/_pairs/ancestral.pairs-sondgarat.png",
     "data/peoples/_pairs/ancestral.pairs-huaczwyk.png",
     "data/peoples/_pairs/ancestral.pairs-auldfar.png",
     "data/peoples/_pairs/ancestral.pairs-27.png",
@@ -195,9 +198,6 @@
     "data/peoples/_pairs/ancestral.pairs-09.png",
     "data/peoples/_pairs/ancestral.pairs-17.png",
     "data/peoples/_pairs/ancestral.pairs-18.png",
-    "data/peoples/_pairs/ancestral.pairs-19.png",
-    "data/peoples/_pairs/ancestral.pairs-20.png",
-    "data/peoples/_pairs/ancestral.pairs-21.png",
     "src/components/suspense-spinner.tsx",
     "src/app/(workspace)/workspace-views.tsx",
     "data/characters.zip",

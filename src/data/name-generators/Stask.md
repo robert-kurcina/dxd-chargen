@@ -35,7 +35,7 @@
 *Stask is a regional egalitarian contact language spanning mixed trade and civic environments. Ordinary personal names should remain socially neutral by default. Formal names can show household, guild, or local identity, but they should not require fixed civil gender particles.*
 
 #### WORD PARTS (Phonotactically Valid Stask Forms)
-*All entries derived from authentic Polish cognates drifted through J1 Korsik → Stask lineage with 1.5× decay + three layered contact influences. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through J1 Korsik → Stask lineage with lineage-specific dated sound change + three layered contact influences. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Stask) |
@@ -80,44 +80,42 @@
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Stask) |
 |-----|--------------|--------|-------------|----------------------------------|
-| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Stask /a/ (vowel backing from Kahadi influence) |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Stask /xai̯/ (Coro velarization + diphthong) |
-| 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Stask /am/ (cluster simplification) |
-| 14 | **-an-** | [an] | WATER | *woda* "water" → /vɔda/ → K Jhasik /vɔɖa/ → Stask /fan/ (Kahadi retroflexion + Coro devoicing) |
-| 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Stask /ar/ (nasal loss + vowel backing) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → K Jhasik /ʋjatɽ/ → Stask /fau̯/ (Kahadi retroflexion + Coro devoicing + diphthong) |
-| 21 | **-e-** | [ɛ] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → K Jhasik /ʃʋatʋɔ/ → Stask /xɛ/ (Coro velarization + vowel fronting) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Stask /xea̯/ (Coro velarization + diphthong) |
-| 23 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Stask /xɛl/ (Coro velarization) |
-| 24 | **-en-** | [ɛn] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → K Jhasik /ʈɛɳʈɨ/ → Stask /ʈɛn/ (retroflex preservation + nasal retention) |
-| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Stask /mɛr/ (vowel epenthesis + fricativization) |
-| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Stask /xil/ (Coro velarization) |
-| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → K Jhasik /ʋiɖʐa/ → Stask /fin/ (Kahadi retroflexion + Coro devoicing) |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → K Jhasik /ʂipkɔ/ → Stask /xir/ (Coro velarization) |
-| 33 | **-o-** | [ɔ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Stask /ɔ/ (vowel preservation) |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Stask /xoi̯/ (Coro velarization + diphthong) |
-| 35 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Stask /xɔm/ (velar preservation + nasal shift) |
-| 36 | **-on-** | [ɔn] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Stask /xɔn/ (Coro velarization) |
-| 41 | **-or-** | [ɔr] | ORDER | *rząd* "order" → /ʒɔnt/ → Stask /xɔr/ (Coro velarization) |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → Stask /xou̯/ (Coro velarization + diphthong) |
-| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Stask /xra/ (Coro velarization + liquid shift) |
-| 44 | **-re-** | [rɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → K Jhasik /ɽɛka/ → Stask /ɖrɛ/ (Kahadi retroflex liquid preservation) |
-| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → Stask /xri/ (Coro velarization + liquid shift) |
-| 46 | **-ro-** | [rɔ] | ROAD | *droga* "road" → /drɔɡa/ → Stask /xrɔ/ (Coro velarization) |
-| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → Stask /xru/ (Coro velarization) |
-| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Stask /xry/ (Coro velarization + glide) |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Stask /xu/ (Coro velarization + vowel backing) |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Stask /xui̯/ (Coro velarization + diphthong) |
-| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Stask /xun/ (Coro velarization) |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → K Jhasik /ɽɛka/ → Stask /ɖur/ (Kahadi retroflex → liquid shift + epenthesis) |
-| 61 | **-ya-** | [ja] | DAWN | *świt* "dawn" → /ɕfit/ → K Jhasik /ʃʋit/ → Stask /xja/ (Coro velarization + glide retention) |
-| 62 | **-ye-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → Stask /xjɛ/ (Coro velarization + glide) |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Stask /xjə/ (Coro velarization + schwa) |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Stask /xji/ (Coro velarization + glide) |
-| 65 | **-yo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Stask /xjɔ/ (velar retention + glide) |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Stask /xju/ (Coro velarization + glide) |
-
----
+| 11 | **-aṭ-** | [aʈ] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aṭ-** |
+| 12 | **-aih-** | [aih] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aih-** |
+| 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-am-** |
+| 14 | **-an-** | [an] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** |
+| 15 | **-ār-** | [aːr] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ār-** |
+| 16 | **-auh-** | [auh] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-auh-** |
+| 21 | **-ekh-** | [ex] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ekh-** |
+| 22 | **-eha-** | [eha] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-eha-** |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
+| 26 | **-iḷ-** | [iɭ] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-iḷ-** |
+| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
+| 33 | **-okh-** | [ox] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-okh-** |
+| 34 | **-oih-** | [oih] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oih-** |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
+| 41 | **-or-** | [or] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-or-** |
+| 42 | **-ouh-** | [ouh] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ouh-** |
+| 43 | **-raṭ-** | [raʈ] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-raṭ-** |
+| 44 | **-reh-** | [reh] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-reh-** |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 52 | **-ṛy-** | [ɽj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ṛy-** |
+| 53 | **-ukh-** | [ux] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ukh-** |
+| 54 | **-uih-** | [uih] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uih-** |
+| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ur-** |
+| 61 | **-yah-** | [jah] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yah-** |
+| 62 | **-yeh-** | [jeh] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yeh-** |
+| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yə-** |
+| 64 | **-yih-** | [jih] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yih-** |
+| 65 | **-yoh-** | [joh] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yoh-** |
+| 66 | **-yuh-** | [juh] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yuh-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
 `1` = SACRED (priests, temples, rituals)  

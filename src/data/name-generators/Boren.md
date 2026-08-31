@@ -40,7 +40,7 @@
 *Boren is an imperial administrative language. Its names should remain classifier-first and portable across regions. Ordinary human names may take optional masculine/feminine endings, while public hierarchy is more often shown by a fixed station particle than by changing the root.*
 
 #### WORD PARTS (Phonotactically Valid Boren Forms)
-*All entries derived from authentic Polish cognates drifted through Borensk lineage with 1.5× decay + Vietnamese/Tingbyet influence + K1 Ithuuikal substrate. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Borensk lineage with lineage-specific dated sound change + Vietnamese/Tingbyet influence + K1 Ithuuikal substrate. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Boren) |

@@ -1,5 +1,5 @@
 ### Sarek Name Generator (Linguistically Grounded)
-*For speakers of the Sarek highlands and northern river valleys. All names derive from A Polski roots drifted through the conservative Borensk lineage (A Polski → B Borensk → B' Griewnska → B"' Sarek) with minimal external influence. Sarek exhibits strong retention of Slavic phonotactics including consonant clusters, mobile stress patterns, and final devoicing—audibly distinct as the most conservative surviving language.*
+*For speakers of the Sarek highlands and northern river valleys. All names derive from A Polski roots through the conservative Borensk lineage (A Polski → B Borensk → B' Griewnska → B"' Sarek), followed by the 150 CE B"'' Sarek dialect shaped by dead H1 Heirai substrate. Sarek remains the conservative control, but the surviving stage is not contact-free.*
 
 ---
 
@@ -35,7 +35,7 @@
 *Sarek is an imperial highland language with conservative naming continuity. Formal names should favor stable suffixal gender marking, with minimal extra particles so that clan and legal records remain easy to align across generations.*
 
 #### WORD PARTS (Phonotactically Valid Sarek Forms)
-*All entries derived from authentic Polish cognates drifted through conservative Borensk lineage with minimal 1.5× decay. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through conservative Borensk lineage with conservative lineage-specific sound change. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset    | IPA   | Domain   | Etymology (A Polski Root → Sarek)                                                                           |
@@ -81,42 +81,41 @@
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Sarek) |
 |-----|--------------|--------|-------------|-----------------------------------|
 | 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Sarek /pɔlɛ/ → /pal/ (vowel backing) |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Sarek /dɛʃt͡ʃ/ → /ai̯/ (diphthong formation) |
+| 12 | **-ai-** | [ai] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Sarek /dɛʃt͡ʃ/ → /ai̯/ (diphthong formation) |
 | 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Sarek /rɔɕlina/ → /ram/ (palatal loss + nasal retention) |
 | 14 | **-an-** | [an] | WATER | *woda* "water" → /vɔda/ → Sarek /vɔda/ → /van/ (vowel backing) |
 | 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Sarek /kamʲɛn/ → /karm/ (nasal → stop shift) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → Sarek /vjatr/ → /au̯/ (diphthong formation) |
-| 21 | **-e-** | [ɛ] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Sarek /ɕfatwɔ/ → /sɛt/ (palatal → alveolar shift) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Sarek /dɔlina/ → /ea̯/ (diphthong formation) |
-| 23 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Sarek /ɲɛbɔ/ → /xɛl/ (palatal → velar shift + liquid) |
-| 24 | **-en-** | [ɛn] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Sarek /ɕfjɛnt/ → /sɛnt/ (palatal loss + nasal retention) |
-| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Sarek /mɔt͡s/ → /mɛr/ (affricate → liquid shift) |
+| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → /vʲjatr/ → Sarek /vjatr/ → /au̯/ (diphthong formation) |
+| 21 | **-e-** | [e] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Sarek /ɕfatwɔ/ → /sɛt/ (palatal → alveolar shift) |
+| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → /dɔlina/ → Sarek /dɔlina/ → /ea̯/ (diphthong formation) |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Sarek /ɲɛbɔ/ → /xɛl/ (palatal → velar shift + liquid) |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Sarek /ɕfjɛnt/ → /sɛnt/ (palatal loss + nasal retention) |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Sarek /mɔt͡s/ → /mɛr/ (affricate → liquid shift) |
 | 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Sarek /uzdrɔvit͡ɕ/ → /zil/ (fricativization + liquid shift) |
 | 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Sarek /vʲɛd͡za/ → /vin/ (palatal retention + nasalization) |
 | 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Sarek /ʃɨpkɔ/ → /ʃir/ (vowel fronting + liquid shift) |
-| 33 | **-o-** | [ɔ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Sarek /ɔɡɛn/ → /ɔɡ/ (nasal loss) |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Sarek /mɔʒɛ/ → /oi̯/ (diphthong formation) |
-| 35 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Sarek /xrɔɲ/ → /xɔm/ (palatal loss + nasal retention) |
-| 36 | **-on-** | [ɔn] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Sarek /spɔlɛt͡ʃnɔɕt͡ɕ/ → /spɔn/ (cluster simplification) |
-| 41 | **-or-** | [ɔr] | ORDER | *rząd* "order" → /ʒɔnt/ → Sarek /ʒɔnt/ → /xɔr/ (fricative → velar shift + liquid) |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → Sarek /gura/ → /ou̯/ (diphthong formation) |
+| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Sarek /ɔɡɛn/ → /ɔɡ/ (nasal loss) |
+| 34 | **-oi-** | [oi] | SEA | *morze* "sea" → /mɔʐɛ/ → Sarek /mɔʒɛ/ → /oi̯/ (diphthong formation) |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Sarek /xrɔɲ/ → /xɔm/ (palatal loss + nasal retention) |
+| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Sarek /spɔlɛt͡ʃnɔɕt͡ɕ/ → /spɔn/ (cluster simplification) |
+| 41 | **-or-** | [or] | ORDER | *rząd* "order" → /ʒɔnt/ → Sarek /ʒɔnt/ → /xɔr/ (fricative → velar shift + liquid) |
+| 42 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → /gura/ → Sarek /gura/ → /ou̯/ (diphthong formation) |
 | 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Sarek /kamʲɛn/ → /kra/ (nasal → liquid shift + vowel shift) |
-| 44 | **-re-** | [rɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒrɛ/ (liquid insertion) |
+| 44 | **-re-** | [re] | RIVER | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒrɛ/ (liquid insertion) |
 | 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → Sarek /mɔst/ → /mri/ (liquid insertion) |
-| 46 | **-ro-** | [rɔ] | ROAD | *droga* "road" → /drɔɡa/ → Sarek /drɔɡa/ → /drɔ/ (final vowel loss) |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → /drɔɡa/ → Sarek /drɔɡa/ → /drɔ/ (final vowel loss) |
 | 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → Sarek /ruina/ → /ru/ (final vowel loss) |
 | 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Sarek /ɡraɲit͡sa/ → /ɡrj/ (nasal loss + glide) |
 | 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Sarek /ɡlɛmbɔkɔɕt͡ɕ/ → /ɡlumb/ (vowel backing + stop shift) |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Sarek /mgwa/ → /ui̯/ (diphthong formation) |
+| 54 | **-ui-** | [ui] | MIST | *mgła* "fog" → /mgwa/ → Sarek /mgwa/ → /ui̯/ (diphthong formation) |
 | 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Sarek /rɔd͡ʑina/ → /run/ (vowel backing + nasal retention) |
 | 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒur/ (vowel backing + liquid shift) |
 | 61 | **-ya-** | [ja] | DAWN | *świt* "dawn" → /ɕfit/ → Sarek /ɕfit/ → /ja/ (fricative loss + glide formation) |
-| 62 | **-ye-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → Sarek /pravda/ → /jɛ/ (consonant loss + glide) |
+| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → /pravda/ → Sarek /pravda/ → /jɛ/ (consonant loss + glide) |
 | 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Sarek /pamʲjɛɲt͡ɕ/ → /jə/ (nasal loss + schwa) |
 | 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Sarek /t͡ʃuvat͡ɕ/ → /ji/ (affricate loss + glide) |
-| 65 | **-yo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Sarek /xɔrɨzɔnt/ → /jɔ/ (consonant loss + glide) |
+| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Sarek /xɔrɨzɔnt/ → /jɔ/ (consonant loss + glide) |
 | 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Sarek /zmjɛʃx/ → /ju/ (consonant loss + glide) |
-
 ---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)

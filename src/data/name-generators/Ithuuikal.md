@@ -39,88 +39,86 @@
 *Ithuuikal is a distributed divine register with archaic hierarchy. Its names should privilege sanctified station, ritual potential, and maternal-line affiliation rather than ordinary civil gender marking.*
 
 #### WORD PARTS (Phonotactically Valid Ithuuikal Forms)
-*All entries derived from authentic Polish cognates drifted through Borensk lineage with 1.5× decay frozen at 1500 BCE beatification. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Borensk lineage with lineage-specific dated sound change frozen at 1500 BCE beatification. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Ithuuikal) |
 |-----|-------|-------|-------------|---------------------------------------|
-| 11 | **B-** | [b] | DIVINE | *brat* "brother" → /brat/ → K Shonczarev /brat/ → Ithuuikal /brãt/ (nasalization preserved) |
-| 12 | **Bl-** | [bl] | DIVINE | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → K Shonczarev /bwɔɡ/ → Ithuuikal /blɔ̃ɡ/ (labial shift + nasalization) |
-| 13 | **Br-** | [br] | DIVINE | *bronić* "to defend" → /brɔɲit͡ɕ/ → K Shonczarev /brɔɲ/ → Ithuuikal /brɔ̃ɲ/ (cluster preserved + nasalization) |
-| 14 | **Ć-** | [t͡ɕ] | DIVINE | *czysty* "pure" → /t͡ʂɨstɨ/ → K Shonczarev /t͡ɕist/ → Ithuuikal /t͡ɕĩst/ (palatal affricate preserved) |
-| 15 | **Ch-** | [x] | DIVINE | *chleb* "bread" → /xlɛp/ → K Shonczarev /xlɛp/ → Ithuuikal /xlɛ̃p/ (velar fricative + nasalization) |
-| 16 | **D-** | [d] | DIVINE | *dom* "house" → /dɔm/ → K Shonczarev /dɔm/ → Ithuuikal /dɔ̃m/ (nasalization preserved) |
-| 21 | **Dr-** | [dr] | DIVINE | *drzewo* "tree" → /d͡ʐɛvɔ/ → K Shonczarev /drɛvɔ/ → Ithuuikal /drɛ̃vɔ/ (retroflex → liquid shift + nasalization) |
-| 22 | **Dź-** | [d͡ʑ] | DIVINE | *dzień* "day" → /d͡ʑɛɲ/ → K Shonczarev /d͡ʑɛn/ → Ithuuikal /d͡ʑẽn/ (voiced palatal affricate + nasalization) |
-| 23 | **Dż-** | [d͡ʒ] | DIVINE | *dżentelmen* "gentleman" → /d͡ʒɛntɛlmɛn/ → K Shonczarev /d͡ʒɛnt/ → Ithuuikal /d͡ʒẽnt/ (postalveolar affricate + nasalization) |
-| 24 | **G-** | [ɡ] | DIVINE | *grod* "settlement" → /ɡrut/ → K Shonczarev /ɡrut/ → Ithuuikal /ɡrũt/ (nasalization preserved) |
-| 25 | **Gr-** | [ɡr] | DIVINE | *gród* "fort" → /ɡrut/ → K Shonczarev /ɡrut/ → Ithuuikal /ɡrũt/ (cluster preserved + nasalization) |
-| 26 | **Gw-** | [ɡv] | DIVINE | *gwiazda* "star" → /ɡvjaʒda/ → K Shonczarev /ɡvjaʒda/ → Ithuuikal /ɡvjãʒda/ (labiovelar preserved + nasalization) |
-| 31 | **H-** | [ɦ] | DIVINE | *chwała* "glory" → /xfawa/ → K Shonczarev /ɦfawa/ → Ithuuikal /ɦfãwa/ (voiced glottal fricative + nasalization) |
-| 32 | **K-** | [k] | DIVINE | *kamień* "stone" → /kamʲɛɲ/ → K Shonczarev /kamʲɛn/ → Ithuuikal /kãmʲɛn/ (nasalization preserved) |
-| 33 | **Kr-** | [kr] | DIVINE | *król* "king" → /krul/ → K Shonczarev /krul/ → Ithuuikal /krũl/ (cluster preserved + nasalization) |
-| 34 | **Kw-** | [kf] | DIVINE | *kwiat* "flower" → /kfjat/ → K Shonczarev /kfjat/ → Ithuuikal /kfjãt/ (labiovelar preserved + nasalization) |
-| 35 | **L'-** | [lʲ] | DIVINE | *lilia* "lily" → /lilja/ → K Shonczarev /lʲilja/ → Ithuuikal /lʲĩlja/ (palatalized liquid preserved) |
-| 36 | **M-** | [m] | DIVINE | *matka* "mother" → /matka/ → K Shonczarev /matka/ → Ithuuikal /mãtka/ (nasalization preserved) |
-| 41 | **Ń-** | [ɲ] | DIVINE | *niebo* "sky" → /ɲɛbɔ/ → K Shonczarev /ɲɛb/ → Ithuuikal /ɲẽb/ (palatal nasal preserved) |
-| 42 | **N-** | [n] | DIVINE | *naród* "people" → /narut/ → K Shonczarev /narut/ → Ithuuikal /nãrut/ (nasalization preserved) |
-| 43 | **P-** | [p] | DIVINE | *pan* "lord" → /pan/ → K Shonczarev /pan/ → Ithuuikal /pãn/ (nasalization preserved) |
-| 44 | **Pl-** | [pl] | DIVINE | *płat* "payment" → /pwat/ → K Shonczarev /pwat/ → Ithuuikal /plãt/ (labial shift + nasalization) |
-| 45 | **Pr-** | [pr] | DIVINE | *prawo* "law" → /pravɔ/ → K Shonczarev /pravɔ/ → Ithuuikal /prãvɔ/ (cluster preserved + nasalization) |
-| 46 | **Rz-** | [ʒ] | DIVINE | *rzeka* "river" → /ʐɛka/ → K Shonczarev /ʒɛka/ → Ithuuikal /ʒẽka/ (retroflex → postalveolar shift + nasalization) |
-| 51 | **Ś-** | [ɕ] | DIVINE | *święty* "holy" → /ɕfjɛntɨ/ → K Shonczarev /ɕfjɛnt/ → Ithuuikal /ɕɛ̃nt/ (nasalization preserved at beatification) |
-| 52 | **Skr-** | [skr] | DIVINE | *skryć* "to hide" → /skrɨt͡ɕ/ → K Shonczarev /skrɨt͡ɕ/ → Ithuuikal /skrɨ̃t͡ɕ/ (cluster preserved + nasalization) |
-| 53 | **Spl-** | [spl] | DIVINE | *spław* "raft" → /splaf/ → K Shonczarev /splaf/ → Ithuuikal /splãf/ (cluster preserved + nasalization) |
-| 54 | **Spr-** | [spr] | DIVINE | *sprzątać* "to clean" → /sprzɔntat͡ɕ/ → K Shonczarev /sprɔntat͡ɕ/ → Ithuuikal /sprɔ̃ntat͡ɕ/ (cluster preserved + nasalization) |
-| 55 | **Str-** | [str] | DIVINE | *strumień* "stream" → /strumjɛɲ/ → K Shonczarev /strumjɛn/ → Ithuuikal /strũmjɛn/ (cluster preserved + nasalization) |
-| 56 | **Sz-** | [ʃ] | DIVINE | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → K Shonczarev /ʃt͡ʃɛ/ → Ithuuikal /ʃt͡ʃẽ/ (retroflex → postalveolar shift + nasalization) |
-| 61 | **T-** | [t] | DIVINE | *targ* "market" → /tarɡ/ → K Shonczarev /tarɡ/ → Ithuuikal /tãrɡ/ (nasalization preserved) |
-| 62 | **Tr-** | [tr] | DIVINE | *trącić* "to strike" → /trɔnt͡ɕit͡ɕ/ → K Shonczarev /trɔnt͡ɕ/ → Ithuuikal /trɔ̃nt͡ɕ/ (cluster preserved + nasalization) |
-| 63 | **Wl-** | [vl] | DIVINE | *włość* "estate" → /vwɔɕt͡ɕ/ → K Shonczarev /vlɔɕt͡ɕ/ → Ithuuikal /vlɔ̃ɕt͡ɕ/ (labial shift + nasalization) |
-| 64 | **Wr-** | [vr] | DIVINE | *wrota* "gate" → /vrɔta/ → K Shonczarev /vrɔta/ → Ithuuikal /vrɔ̃ta/ (voiced cluster preserved + nasalization) |
-| 65 | **Ź-** | [ʑ] | DIVINE | *żyć* "to live" → /ʐɨt͡ɕ/ → K Shonczarev /ʑɨt͡ɕ/ → Ithuuikal /ʑĩt͡ɕ/ (voiced palatal fricative + nasalization) |
-| 66 | **Ż-** | [ʒ] | DIVINE | *żelazo* "iron" → /ʐɛlazɔ/ → K Shonczarev /ʒɛlazɔ/ → Ithuuikal /ʒɛ̃laz/ (retroflex → postalveolar shift + nasalization) |
-
+| 11 | **B-** | [b] | DIVINE | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **B-** |
+| 12 | **Br-** | [br] | DIVINE | *błogosławieństwo* "blessing" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Br-** |
+| 13 | **Bź-** | [bʑ] | DIVINE | *bronić* "to defend" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Bź-** |
+| 14 | **Ć-** | [t͡ɕ] | DIVINE | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ć-** |
+| 15 | **Ch-** | [x] | DIVINE | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** |
+| 16 | **D-** | [d] | DIVINE | *dom* "house" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **D-** |
+| 21 | **Dr-** | [dr] | DIVINE | *drzewo* "tree" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dr-** |
+| 22 | **Dź-** | [d͡ʑ] | DIVINE | *dzień* "day" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dź-** |
+| 23 | **Dż-** | [d͡ʒ] | DIVINE | *dżentelmen* "gentleman" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dż-** |
+| 24 | **G-** | [g] | DIVINE | *grod* "settlement" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **G-** |
+| 25 | **Gr-** | [gr] | DIVINE | *gród* "fort" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gr-** |
+| 26 | **Gw-** | [gv] | DIVINE | *gwiazda* "star" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gw-** |
+| 31 | **H-** | [h] | DIVINE | *chwała* "glory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **H-** |
+| 32 | **K-** | [k] | DIVINE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **K-** |
+| 33 | **Kr-** | [kr] | DIVINE | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kr-** |
+| 34 | **Kwi-** | [kʲvi] | DIVINE | *kwiat* "flower" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kwi-** |
+| 35 | **Lj-** | [lʲ] | DIVINE | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Lj-** |
+| 36 | **M-** | [m] | DIVINE | *matka* "mother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **M-** |
+| 41 | **Ń-** | [ɲ] | DIVINE | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ń-** |
+| 42 | **N-** | [n] | DIVINE | *naród* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **N-** |
+| 43 | **P-** | [p] | DIVINE | *pan* "lord" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **P-** |
+| 44 | **Pj-** | [pʲ] | DIVINE | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pj-** |
+| 45 | **Pr-** | [pr] | DIVINE | *prawo* "law" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pr-** |
+| 46 | **Rz-** | [ʐ] | DIVINE | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Rz-** |
+| 51 | **Ś-** | [ɕ] | DIVINE | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ś-** |
+| 52 | **Sk-** | [sk] | DIVINE | *skryć* "to hide" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sk-** |
+| 53 | **Skr-** | [skr] | DIVINE | *spław* "raft" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Skr-** |
+| 54 | **Spj-** | [spʲ] | DIVINE | *sprzątać* "to clean" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Spj-** |
+| 55 | **Str-** | [str] | DIVINE | *strumień* "stream" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Str-** |
+| 56 | **Sz-** | [ʂ] | DIVINE | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sz-** |
+| 61 | **T-** | [t] | DIVINE | *targ* "market" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **T-** |
+| 62 | **Trj-** | [trʲ] | DIVINE | *trącić* "to strike" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Trj-** |
+| 63 | **Wl-** | [vl] | DIVINE | *włość* "estate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Wl-** |
+| 64 | **Wr-** | [vr] | DIVINE | *wrota* "gate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Wr-** |
+| 65 | **Ź-** | [ʑ] | DIVINE | *żyć* "to live" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ź-** |
+| 66 | **Ż-** | [ʐ] | DIVINE | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ż-** |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Ithuuikal) |
 |-----|--------------|--------|-------------|---------------------------------------|
-| 11 | **-ą-** | [ɔ̃] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → K Shonczarev /pɔlɛ/ → Ithuuikal /pɔ̃l/ (nasal vowel preserved at beatification) |
-| 12 | **-a-** | [a] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → K Shonczarev /vʲɛd͡za/ → Ithuuikal /vʲɛ̃d͡za/ (nasalization) |
-| 13 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → K Shonczarev /dɛʃt͡ʃ/ → Ithuuikal /dɛ̃ʃt͡ʃ/ (diphthong + nasalization) |
-| 14 | **-am-** | [ã̃m] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → K Shonczarev /uzdrɔvit͡ɕ/ → Ithuuikal /uzdrɔ̃vit͡ɕ/ (nasalization) |
-| 15 | **-an-** | [ã̃n] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → K Shonczarev /ʃɨpkɔ/ → Ithuuikal /ʃɨ̃pkɔ/ (nasalization) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → K Shonczarev /vjatr/ → Ithuuikal /vjãtr/ (diphthong + nasalization) |
-| 21 | **-ę-** | [ɛ̃] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → K Shonczarev /kamʲɛn/ → Ithuuikal /kãmʲɛ̃n/ (nasal vowel preserved) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → K Shonczarev /dɔlina/ → Ithuuikal /dɔ̃lina/ (diphthong + nasalization) |
-| 23 | **-ęn-** | [ɛ̃n] | GROWTH | *roślina* "plant" → /rɔɕlina/ → K Shonczarev /rɔʃlina/ → Ithuuikal /rɔ̃ʃlina/ (nasalization) |
-| 24 | **-i-** | [i] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → K Shonczarev /ɕfjatwɔ/ → Ithuuikal /ɕfjãtwɔ/ (nasalization on preceding vowel) |
-| 25 | **-il-** | [il] | SKY | *niebo* "sky" → /ɲɛbɔ/ → K Shonczarev /ɲɛbɔ/ → Ithuuikal /ɲɛ̃bɔ/ (nasalization) |
-| 26 | **-in-** | [ĩn] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → K Shonczarev /ɕfjɛnt/ → Ithuuikal /ɕfjɛ̃nt/ (nasalization) |
-| 31 | **-ir-** | [ir] | STRENGTH | *moc* "strength" → /mɔt͡s/ → K Shonczarev /mɔt͡s/ → Ithuuikal /mɔ̃t͡s/ (nasalization) |
-| 32 | **-ja-** | [ja] | DAWN | *świt* "dawn" → /ɕfit/ → K Shonczarev /ɕfit/ → Ithuuikal /ɕfjãt/ (nasalization + glide) |
-| 33 | **-je-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → K Shonczarev /pravda/ → Ithuuikal /prãvda/ (nasalization + glide) |
-| 34 | **-ji-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → K Shonczarev /t͡ʃuvat͡ɕ/ → Ithuuikal /t͡ʃũvat͡ɕ/ (nasalization + glide) |
-| 35 | **-jo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → K Shonczarev /xɔrɨzɔnt/ → Ithuuikal /xɔrɨ̃zɔnt/ (nasalization + glide) |
-| 36 | **-jǫ-** | [jɔ̃] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → K Shonczarev /pamʲjɛnt͡ɕ/ → Ithuuikal /pãmʲjɛ̃nt͡ɕ/ (nasalization + glide) |
-| 41 | **-ju-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → K Shonczarev /zmjɛʃx/ → Ithuuikal /zmjɛ̃ʃx/ (nasalization + glide) |
-| 42 | **-ǫ-** | [ɔ̃] | WATER | *woda* "water" → /vɔda/ → K Shonczarev /vɔda/ → Ithuuikal /vɔ̃da/ (nasalization) |
-| 43 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → K Shonczarev /mɔʒɛ/ → Ithuuikal /mɔ̃ʒɛ/ (diphthong + nasalization) |
-| 44 | **-om-** | [ɔ̃m] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → K Shonczarev /xrɔɲ/ → Ithuuikal /xrɔ̃ɲ/ (nasalization) |
-| 45 | **-on-** | [ɔ̃n] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → K Shonczarev /spɔwɛt͡ʃ/ → Ithuuikal /spɔ̃wɛt͡ʃ/ (nasalization) |
-| 46 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /ɡura/ → K Shonczarev /ɡura/ → Ithuuikal /ɡũra/ (diphthong + nasalization) |
-| 51 | **-ra-** | [ra] | STONE | *kamień* "stone" → /kamʲɛɲ/ → K Shonczarev /kamʲɛn/ → Ithuuikal /kãmʲɛn/ (nasalization + liquid) |
-| 52 | **-re-** | [rɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → K Shonczarev /ʒɛka/ → Ithuuikal /ʒɛ̃ka/ (nasalization + liquid) |
-| 53 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → K Shonczarev /mɔst/ → Ithuuikal /mɔ̃st/ (nasalization + liquid) |
-| 54 | **-ro-** | [rɔ] | ROAD | *droga* "road" → /drɔɡa/ → K Shonczarev /drɔɡa/ → Ithuuikal /drɔ̃ɡa/ (nasalization + liquid) |
-| 55 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → K Shonczarev /ruina/ → Ithuuikal /rũina/ (nasalization + liquid) |
-| 56 | **-ry-** | [rɨ] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → K Shonczarev /ɡraɲit͡sa/ → Ithuuikal /ɡrãɲit͡sa/ (nasalization + liquid) |
-| 61 | **-u-** | [u] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → K Shonczarev /ɔɡʲɛn/ → Ithuuikal /ɔ̃ɡʲɛn/ (nasalization) |
-| 62 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → K Shonczarev /mgwa/ → Ithuuikal /mgwã/ (diphthong + nasalization) |
-| 63 | **-un-** | [ũn] | ORDER | *rząd* "order" → /ʒɔnt/ → K Shonczarev /ʒɔnt/ → Ithuuikal /ʒɔ̃nt/ (nasalization) |
-| 64 | **-y-** | [ɨ] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → K Shonczarev /ɡwɛmbɔk/ → Ithuuikal /ɡwɛ̃mbɔk/ (nasalization) |
-| 65 | **-ym-** | [ɨ̃m] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → K Shonczarev /rɔd͡ʑina/ → Ithuuikal /rɔ̃d͡ʑina/ (nasalization) |
-| 66 | **-yn-** | [ɨ̃n] | FLOW | *rzeka* "river" → /ʐɛka/ → K Shonczarev /ʒɛka/ → Ithuuikal /ʒɛ̃ka/ (nasalization) |
-
+| 11 | **-ą-** | [ɔ̃] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ą-** |
+| 12 | **-a-** | [a] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-a-** |
+| 13 | **-ej-** | [ej] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ej-** |
+| 14 | **-em-** | [em] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-em-** |
+| 15 | **-en-** | [en] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
+| 16 | **-ow-** | [ov] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ow-** |
+| 21 | **-ę-** | [ɛ̃] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ę-** |
+| 22 | **-ie-** | [ie] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ie-** |
+| 23 | **-ień-** | [ieɲ] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ień-** |
+| 24 | **-i-** | [i] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-i-** |
+| 25 | **-ił-** | [iw] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ił-** |
+| 26 | **-in-** | [in] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 31 | **-ir-** | [ir] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
+| 32 | **-ja-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ja-** |
+| 33 | **-je-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-je-** |
+| 34 | **-ji-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ji-** |
+| 35 | **-jo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-jo-** |
+| 36 | **-ją-** | [jɔ̃] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ją-** |
+| 41 | **-ju-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ju-** |
+| 42 | **-o-** | [o] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
+| 43 | **-ój-** | [ój] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ój-** |
+| 44 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 45 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
+| 46 | **-ów-** | [óv] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ów-** |
+| 51 | **-rja-** | [rja] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rja-** |
+| 52 | **-rze-** | [ʐɛ] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rze-** |
+| 53 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 54 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 55 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 56 | **-rzy-** | [ʐj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rzy-** |
+| 61 | **-u-** | [u] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** |
+| 62 | **-uj-** | [uj] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uj-** |
+| 63 | **-un-** | [un] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 64 | **-y-** | [j] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-y-** |
+| 65 | **-ym-** | [jm] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ym-** |
+| 66 | **-yn-** | [jn] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yn-** |
 ---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)

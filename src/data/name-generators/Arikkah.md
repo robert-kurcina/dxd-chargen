@@ -34,92 +34,89 @@
 ---
 
 #### SOCIOPOLITICAL NAMING PRACTICE
-*Arrikah is a regional language and can sustain stronger local household distinctions. Explicit male/female suffixes remain the primary way to genderize personal names, especially in port, family, and shrine contexts.*
+*Arikkah is a regional language and can sustain stronger local household distinctions. Explicit male/female suffixes remain the primary way to genderize personal names, especially in port, family, and shrine contexts.*
 
 #### WORD PARTS (Phonotactically Valid Arikkah Forms)
-*All entries derived from authentic Polish cognates drifted through Paltikas-Coromu lineage with 1.5× decay + layered influences. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Paltikas-Coromu lineage with lineage-specific dated sound change + layered influences. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Arikkah) |
 |-----|-------|-------|-------------|-------------------------------------|
-| 11 | **B-** | [b] | MILITARY | *brat* "brother" → /brat/ → A" Cherczyka /brat/ → H2 Paltikas /brat/ → H'2 Coromu /brat/ → H" Glisorsen /brat/ → Arikkah /bɾat/ (liquid insertion) |
-| 12 | **Bh-** | [β] | MILITARY | *brat* "brother" → /brat/ → Arikkah /bɾat/ → /βɾat/ (F Aelorac voiced labial fricative) |
-| 13 | **Ch-** | [t͡ʃ] | SACRED | *czysty* "pure" → /t͡ʂɨstɨ/ → A" Cherczyka /t͡ʃɨst/ → H2 Paltikas /t͡ʃɨst/ → H'2 Coromu /t͡ʃɨst/ → H" Glisorsen /t͡ʃɨst/ → Arikkah /t͡ʃist/ (vowel fronting) |
-| 14 | **D-** | [d] | CIVIC | *dom* "house" → /dɔm/ → A" Cherczyka /dɔm/ → H2 Paltikas /dɔm/ → H'2 Coromu /dɔm/ → H" Glisorsen /dɔm/ → Arikkah /dɔm/ → /dãm/ (nasalization) |
-| 15 | **Dh-** | [ð] | CIVIC | *dwa* "two" → /dva/ → A" Cherczyka /dva/ → H2 Paltikas /dva/ → H'2 Coromu /dva/ → H" Glisorsen /dva/ → Arikkah /ðua/ (F Aelorac voiced dental) |
-| 16 | **Dz-** | [d͡z] | TRADE | *dzwon* "bell" → /d͡zvɔn/ → A" Cherczyka /d͡zvɔn/ → H2 Paltikas /d͡zvɔn/ → H'2 Coromu /d͡zvɔn/ → H" Glisorsen /d͡zvɔn/ → Arikkah /d͡zvɔn/ → /d͡zən/ (vowel reduction + nasalization) |
-| 21 | **F-** | [f] | TRADE | *woda* "water" → /vɔda/ → A" Cherczyka /vɔda/ → H2 Paltikas /vɔda/ → H'2 Coromu /vɔda/ → H" Glisorsen /vɔda/ → Arikkah /fəda/ (F Aelorac /v/→/f/ shift) |
-| 22 | **G-** | [ɡ] | NOBILITY | *grod* "settlement" → /ɡrut/ → A" Cherczyka /ɡrut/ → H2 Paltikas /ɡrut/ → H'2 Coromu /ɡrut/ → H" Glisorsen /ɡrut/ → Arikkah /ɡrut/ → /ɡɾut/ (liquid insertion) |
-| 23 | **Ghv-** | [ɣv] | SACRED | *chwyt* "grip" → /xfɨt/ → A" Cherczyka /xfɨt/ → H2 Paltikas /xfɨt/ → H'2 Coromu /xfɨt/ → H" Glisorsen /xfɨt/ → Arikkah /ɣvɨt/ (voicing) → /ɣvã/ (nasalization) |
-| 24 | **J-** | [d͡ʒ] | SACRED | *jutro* "tomorrow" → /jutrɔ/ → A" Cherczyka /jutrɔ/ → H2 Paltikas /jutrɔ/ → H'2 Coromu /jutrɔ/ → H" Glisorsen /jutrɔ/ → Arikkah /d͡ʒutɾɔ/ (affricate preservation) |
-| 25 | **K-** | [k] | NOBILITY | *kamień* "stone" → /kamʲɛɲ/ → A" Cherczyka /kamʲɛn/ → H2 Paltikas /kamʲɛn/ → H'2 Coromu /kamʲɛn/ → H" Glisorsen /kamʲɛn/ → Arikkah /kãmɛn/ → /kã/ (nasalization + reduction) |
-| 26 | **Kh-** | [x] | SACRED | *chleb* "bread" → /xlɛp/ → A" Cherczyka /xlɛp/ (Vargku preserved) → H2 Paltikas /xlɛp/ → H'2 Coromu /xlɛp/ → H" Glisorsen /xlɛp/ → Arikkah /xəp/ (vowel reduction) |
-| 31 | **Khv-** | [xv] | SACRED | *chwała* "glory" → /xfawa/ → A" Cherczyka /xfawa/ → H2 Paltikas /xfawa/ → H'2 Coromu /xfawa/ → H" Glisorsen /xfawa/ → Arikkah /xvawa/ → /xvã/ (nasalization) |
-| 32 | **L-** | [l] | SACRED | *las* "forest" → /las/ → A" Cherczyka /las/ → H2 Paltikas /las/ → H'2 Coromu /las/ → H" Glisorsen /las/ → Arikkah /lãs/ → /lã/ (nasalization) |
-| 33 | **Lj-** | [lʲ] | CIVIC | *lud* "people" → /lut/ → A" Cherczyka /lut/ → H2 Paltikas /lut/ → H'2 Coromu /lut/ → H" Glisorsen /lut/ → Arikkah /lʲut/ → /lʲət/ (vowel reduction) |
-| 34 | **Ly-** | [lʲ] | SACRED | *lilia* "lily" → /lilja/ → A" Cherczyka /lilja/ → H2 Paltikas /lilja/ → H'2 Coromu /lilja/ → H" Glisorsen /lilja/ → Arikkah /lʲilja/ → /lʲə/ (vowel reduction) |
-| 35 | **M-** | [m] | NOBILITY | *matka* "mother" → /matka/ → A" Cherczyka /matka/ → H2 Paltikas /matka/ → H'2 Coromu /matka/ → H" Glisorsen /matka/ → Arikkah /mətka/ → /mã/ (nasalization + vowel reduction) |
-| 36 | **Mj-** | [mʲ] | NOBILITY | *mąż* "husband" → /mɔ̃ʂ/ → A" Cherczyka /mɔ̃ʃ/ → H2 Paltikas /mɔ̃ʃ/ → H'2 Coromu /mɔ̃ʃ/ → H" Glisorsen /mɔ̃ʃ/ → Arikkah /mʲɔ̃ʃ/ → /mʲã/ (nasalization) |
-| 41 | **My-** | [mʲ] | NOBILITY | *myśl* "thought" → /mɨʃl/ → A" Cherczyka /mɨʃl/ → H2 Paltikas /mɨʃl/ → H'2 Coromu /mɨʃl/ → H" Glisorsen /mɨʃl/ → Arikkah /mʲɨʃl/ → /mʲə/ (vowel reduction) |
-| 42 | **N-** | [n] | CIVIC | *naród* "people" → /narut/ → A" Cherczyka /narut/ → H2 Paltikas /narut/ → H'2 Coromu /narut/ → H" Glisorsen /narut/ → Arikkah /nãrut/ → /nã/ (nasalization + vowel reduction) |
-| 43 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → /ɲɛd͡ʑɛla/ → A" Cherczyka /ɲɛd͡ʒɛla/ → H2 Paltikas /ɲɛd͡ʒɛla/ → H'2 Coromu /ɲɛd͡ʒɛla/ → H" Glisorsen /ɲɛd͡ʒɛla/ → Arikkah /ɲɛd͡ʒɛla/ → /ɲã/ (nasalization + reduction) |
-| 44 | **Ny-** | [ɲ] | SACRED | *niebo* "sky" → /ɲɛbɔ/ → A" Cherczyka /ɲɛbɔ/ → H2 Paltikas /ɲɛbɔ/ → H'2 Coromu /ɲɛbɔ/ → H" Glisorsen /ɲɛbɔ/ → Arikkah /ɲɛbɔ/ → /ɲã/ (nasalization) |
-| 45 | **P-** | [p] | MILITARY | *pan* "lord" → /pan/ → A" Cherczyka /pan/ → H2 Paltikas /pan/ → H'2 Coromu /pan/ → H" Glisorsen /pan/ → Arikkah /pãn/ (nasalization) |
-| 46 | **Ph-** | [ɸ] | MILITARY | *chleb* "bread" → /xlɛp/ → Arikkah /xlɛp/ → /ɸlɛp/ (F Aelorac labial fricative) |
-| 51 | **R-** | [ɾ] | NATURAL | *rzeka* "river" → /ʐɛka/ → A" Cherczyka /ʒɛka/ → H2 Paltikas /ʒɛka/ → H'2 Coromu /ʒɛka/ → H" Glisorsen /ʒɛka/ → Arikkah /ɾɛka/ (Tegilan liquid shift) |
-| 52 | **Rj-** | [ɾʲ] | NATURAL | *rzadki* "rare" → /ʐadkʲi/ → A" Cherczyka /ʒadkʲi/ → H2 Paltikas /ʒadkʲi/ → H'2 Coromu /ʒadkʲi/ → H" Glisorsen /ʒadkʲi/ → Arikkah /ɾʲadkʲi/ → /ɾʲək/ (vowel reduction + cluster simplification) |
-| 53 | **Ry-** | [ɾʲ] | NATURAL | *rzeka* "river" → /ʐɛka/ → Arikkah /ɾʲɛka/ → /ɾʲə/ (vowel reduction) |
-| 54 | **S-** | [s] | TRADE | *srebro* "silver" → /srɛbrɔ/ → A" Cherczyka /srɛbrɔ/ → H2 Paltikas /srɛbrɔ/ → H'2 Coromu /srɛbrɔ/ → H" Glisorsen /srɛbrɔ/ → Arikkah /səbrɔ/ (cluster simplification) |
-| 55 | **Sh-** | [ʃ] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → A" Cherczyka /ʃtʃɛ/ → H2 Paltikas /ʃtʃɛ/ → H'2 Coromu /ʃtʃɛ/ → H" Glisorsen /ʃtʃɛ/ → Arikkah /ʃə/ (cluster collapse) |
-| 56 | **Sy-** | [sʲ] | TRADE | *sól* "salt" → /sul/ → A" Cherczyka /sul/ → H2 Paltikas /sul/ → H'2 Coromu /sul/ → H" Glisorsen /sul/ → Arikkah /sʲul/ → /sʲə/ (vowel reduction) |
-| 61 | **T-** | [t] | CIVIC | *targ* "market" → /tarɡ/ → A" Cherczyka /tarɡ/ → H2 Paltikas /tarɡ/ → H'2 Coromu /tarɡ/ → H" Glisorsen /tarɡ/ → Arikkah /taɾɡ/ (liquid insertion) |
-| 62 | **Th-** | [θ] | SACRED | *trzy* "three" → /tʂɨ/ → A" Cherczyka /tʃɨ/ → H2 Paltikas /tʃɨ/ → H'2 Coromu /tʃɨ/ → H" Glisorsen /tʃɨ/ → Arikkah /θi/ (F Aelorac dental shift) |
-| 63 | **Ts-** | [t͡s] | TRADE | *co* "what" → /t͡sɔ/ → A" Cherczyka /t͡sɔ/ → H2 Paltikas /t͡sɔ/ → H'2 Coromu /t͡sɔ/ → H" Glisorsen /t͡sɔ/ → Arikkah /t͡sɔ/ → /t͡sə/ (vowel reduction) |
-| 64 | **W-** | [w] | CIVIC | *wioska* "village" → /vjɔska/ → A" Cherczyka /vjɔska/ → H2 Paltikas /vjɔska/ → H'2 Coromu /vjɔska/ → H" Glisorsen /vjɔska/ → Arikkah /wjɔska/ → /wə/ (vowel reduction) |
-| 65 | **Y-** | [j] | SACRED | *jutro* "tomorrow" → /jutrɔ/ → Arikkah /jutɾɔ/ → /jə/ (vowel reduction) |
-| 66 | **Zy-** | [zʲ] | TRADE | *ziemia* "earth" → /ʑɛmja/ → A" Cherczyka /ʑɛmja/ → H2 Paltikas /ʑɛmja/ → H'2 Coromu /ʑɛmja/ → H" Glisorsen /ʑɛmja/ → Arikkah /zʲɛmja/ → /zʲã/ (nasalization) |
-
+| 11 | **B-** | [b] | MILITARY | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **B-** |
+| 12 | **V-** | [v] | MILITARY | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **V-** |
+| 13 | **Ch-** | [x] | SACRED | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** |
+| 14 | **D-** | [d] | CIVIC | *dom* "house" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **D-** |
+| 15 | **Dh-** | [dʱ] | CIVIC | *dwa* "two" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dh-** |
+| 16 | **Z-** | [z] | TRADE | *dzwon* "bell" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Z-** |
+| 21 | **F-** | [f] | TRADE | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **F-** |
+| 22 | **G-** | [g] | NOBILITY | *grod* "settlement" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **G-** |
+| 23 | **Ghv-** | [ɣv] | SACRED | *chwyt* "grip" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ghv-** |
+| 24 | **H-** | [h] | SACRED | *jutro* "tomorrow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **H-** |
+| 25 | **Y-** | [j] | NOBILITY | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Y-** |
+| 26 | **K-** | [k] | SACRED | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **K-** |
+| 31 | **Kh-** | [x] | SACRED | *chwała* "glory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kh-** |
+| 32 | **L-** | [l] | SACRED | *las* "forest" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **L-** |
+| 33 | **Ly-** | [lj] | CIVIC | *lud* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ly-** |
+| 34 | **R-** | [r] | SACRED | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **R-** |
+| 35 | **M-** | [m] | NOBILITY | *matka* "mother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **M-** |
+| 36 | **My-** | [mj] | NOBILITY | *mąż* "husband" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **My-** |
+| 41 | **W-** | [v] | NOBILITY | *myśl* "thought" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **W-** |
+| 42 | **N-** | [n] | CIVIC | *naród* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **N-** |
+| 43 | **Ny-** | [ɲ] | CIVIC | *niedziela* "Sunday" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ny-** |
+| 44 | **J-** | [j] | SACRED | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **J-** |
+| 45 | **P-** | [p] | MILITARY | *pan* "lord" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **P-** |
+| 46 | **Ph-** | [ph] | MILITARY | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ph-** |
+| 51 | **Rv-** | [rv] | NATURAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Rv-** |
+| 52 | **Rj-** | [rj] | NATURAL | *rzadki* "rare" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Rj-** |
+| 53 | **Vj-** | [vj] | NATURAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vj-** |
+| 54 | **S-** | [s] | TRADE | *srebro* "silver" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **S-** |
+| 55 | **Sh-** | [ʃ] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** |
+| 56 | **Zj-** | [zj] | TRADE | *sól* "salt" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zj-** |
+| 61 | **T-** | [t] | CIVIC | *targ* "market" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **T-** |
+| 62 | **Th-** | [tʰ] | SACRED | *trzy* "three" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Th-** |
+| 63 | **Ts-** | [t͡s] | TRADE | *co* "what" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ts-** |
+| 64 | **Wv-** | [vv] | CIVIC | *wioska* "village" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Wv-** |
+| 65 | **Yv-** | [jv] | SACRED | *jutro* "tomorrow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Yv-** |
+| 66 | **Zr-** | [zr] | TRADE | *ziemia* "earth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zr-** |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Arikkah) |
 |-----|--------------|--------|-------------|-------------------------------------|
-| 11 | **-a-** | [ə] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Arikkah /pɔlɛ/ → /pəl/ (vowel reduction to schwa) |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Arikkah /dɛʃt͡ʃ/ → /ai̯/ (diphthong formation) |
-| 13 | **-am-** | [ãm] | WATER | *woda* "water" → /vɔda/ → Arikkah /fəda/ → /fãm/ (nasalization + final stop loss) |
-| 14 | **-an-** | [ã] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Arikkah /kãmɛn/ → /kã/ (nasalization + reduction) |
-| 15 | **-ar-** | [ãɾ] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Arikkah /ɾɔʃlina/ → /ɾã/ (nasalization + reduction) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → Arikkah /vjatɾ/ → /au̯/ (diphthong preservation) |
-| 21 | **-e-** | [ɛ] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Arikkah /ʃfjatwɔ/ → /ʃɛt/ (palatal loss + vowel fronting) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Arikkah /dɔlina/ → /ea̯/ (diphthong formation) |
-| 23 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Arikkah /ɲɛbɔ/ → /ɲɛl/ (stop → liquid shift) |
-| 24 | **-en-** | [ɛ̃] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Arikkah /ʃfjɛnt/ → /ʃɛ̃/ (nasalization) |
-| 25 | **-er-** | [ɛɾ] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Arikkah /mɔt͡s/ → /mɛɾ/ (affricate → liquid shift) |
-| 26 | **-i-** | [i] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Arikkah /vʲɛd͡za/ → /vid͡za/ → /vi/ (vowel fronting + reduction) |
-| 31 | **-im-** | [ĩm] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Arikkah /uzdɾɔvit͡ɕ/ → /zĩm/ (fricativization + nasalization) |
-| 32 | **-in-** | [ĩ] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Arikkah /ʃɨpkɔ/ → /ʃipkɔ/ → /ʃĩ/ (vowel fronting + nasalization) |
-| 33 | **-o-** | [ɔ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Arikkah /ɔɡɛn/ → /ɔɡ/ (nasal loss) |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Arikkah /mɔʒɛ/ → /oi̯/ (diphthong formation) |
-| 35 | **-om-** | [ɔm] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Arikkah /spɔwɛt͡ʃ/ → /spɔm/ (nasalization) |
-| 36 | **-on-** | [ɔ̃] | ORDER | *rząd* "order" → /ʒɔnt/ → Arikkah /ʒɔnt/ → /ʒɔ̃/ (nasalization) |
-| 41 | **-or-** | [ɔɾ] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Arikkah /xrɔɲ/ → /xɔɾ/ (palatal loss + liquid shift) |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /ɡura/ → Arikkah /ɡuɾa/ → /ou̯/ (diphthong formation) |
-| 43 | **-ra-** | [ɾə] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Arikkah /kãmɛn/ → /kɾə/ (nasal → liquid shift + vowel reduction) |
-| 44 | **-re-** | [ɾɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → Arikkah /ɾɛka/ → /ɾɛ/ (final vowel loss) |
-| 45 | **-ri-** | [ɾi] | BRIDGE | *most* "bridge" → /mɔst/ → Arikkah /mɔst/ → /mɾi/ (liquid insertion) |
-| 46 | **-ro-** | [ɾɔ] | ROAD | *droga* "road" → /drɔɡa/ → Arikkah /dɾɔɡa/ → /dɾɔ/ (final vowel loss) |
-| 51 | **-ru-** | [ɾu] | RUIN | *ruina* "ruin" → /ruina/ → Arikkah /ɾuina/ → /ɾu/ (final vowel loss) |
-| 52 | **-ry-** | [ɾj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Arikkah /ɡɾanit͡sa/ → /ɡɾj/ (nasal loss + glide) |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Arikkah /ɡwɛmbɔk/ → /ɡumb/ (vowel backing) |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Arikkah /mgwa/ → /ui̯/ (diphthong formation) |
-| 55 | **-um-** | [ũm] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Arikkah /rɔd͡ʒina/ → /ɾũm/ (nasalization + liquid shift) |
-| 56 | **-un-** | [ũ] | FLOW | *rzeka* "river" → /ʐɛka/ → Arikkah /ɾɛka/ → /ɾũ/ (nasalization + vowel backing) |
-| 61 | **-ya-** | [jə] | DAWN | *świt* "dawn" → /ɕfit/ → Arikkah /ʃfit/ → /jə/ (fricative loss + glide formation + vowel reduction) |
-| 62 | **-ye-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → Arikkah /pɾavda/ → /jɛ/ (consonant loss + glide) |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Arikkah /pãmʲjɛnt͡ɕ/ → /jə/ (nasal loss + schwa) |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Arikkah /t͡ʃuvat͡ɕ/ → /ji/ (affricate loss + glide) |
-| 65 | **-yo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Arikkah /xɔɾizɔnt/ → /jɔ/ (consonant loss + glide) |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Arikkah /zmjɛʃx/ → /ju/ (consonant loss + glide) |
-
----
+| 11 | **-ə-** | [ə] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ə-** |
+| 12 | **-ai-** | [ai] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ai-** |
+| 13 | **-əm-** | [əm] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-əm-** |
+| 14 | **-ən-** | [ən] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ən-** |
+| 15 | **-ər-** | [ər] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ər-** |
+| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-au-** |
+| 21 | **-e-** | [e] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** |
+| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ea-** |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
+| 26 | **-i-** | [i] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-i-** |
+| 31 | **-im-** | [im] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-im-** |
+| 32 | **-in-** | [in] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
+| 34 | **-oi-** | [oi] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oi-** |
+| 35 | **-om-** | [om] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 36 | **-on-** | [on] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
+| 41 | **-or-** | [or] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-or-** |
+| 42 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ou-** |
+| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ra-** |
+| 44 | **-rei-** | [rei] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rei-** |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 52 | **-riə-** | [riə] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-riə-** |
+| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** |
+| 54 | **-ui-** | [ui] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ui-** |
+| 55 | **-um-** | [um] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-um-** |
+| 56 | **-un-** | [un] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 61 | **-ya-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ya-** |
+| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ye-** |
+| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yə-** |
+| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yi-** |
+| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yo-** |
+| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yu-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
 `1` = SACRED (priests, temples, rituals)  

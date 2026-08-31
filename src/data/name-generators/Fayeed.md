@@ -39,88 +39,86 @@
 *Fayeed is a regional beatified sacred language centered in the Eastlands. Personal names should favor exalted status and recognized ritual promise over ordinary civil gender marking.*
 
 #### WORD PARTS (Phonotactically Valid Fayeed Forms)
-*All entries derived from authentic Polish cognates drifted through Paltikas-Coromu lineage with 1.5× decay frozen at 1500 BCE beatification. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Paltikas-Coromu lineage with lineage-specific dated sound change frozen at 1500 BCE beatification. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Fayeed) |
 |-----|-------|-------|-------------|-------------------------------------|
-| 11 | **B-** | [b] | CELESTIAL | *brat* "brother" → /brat/ → A" Cherczyka /brat/ → H2 Paltikas /brat/ → H'2 Coromu /brat/ → Fayeed /bã/ (Tegilan nasalization) |
-| 12 | **Bh-** | [β] | CELESTIAL | *brat* "brother" → /brat/ → Fayeed /βã/ (voiced labial fricative + nasalization) |
-| 13 | **Ch-** | [t͡ʃ] | CELESTIAL | *czysty* "pure" → /t͡ʂɨstɨ/ → A" Cherczyka /t͡ʃɨst/ → H2 Paltikas /t͡ʃɨst/ → H'2 Coromu /t͡ʃɨst/ → Fayeed /t͡ʃĩ/ (vowel fronting + nasalization) |
-| 14 | **D-** | [d] | CELESTIAL | *dom* "house" → /dɔm/ → A" Cherczyka /dɔm/ → H2 Paltikas /dɔm/ → H'2 Coromu /dɔm/ → Fayeed /dõ/ (Tegilan nasalization) |
-| 15 | **Dh-** | [ð] | CELESTIAL | *dwa* "two" → /dva/ → A" Cherczyka /dva/ → H2 Paltikas /dva/ → H'2 Coromu /dva/ → Fayeed /ðã/ (voiced dental + nasalization) |
-| 16 | **Dz-** | [d͡z] | CELESTIAL | *dzwon* "bell" → /d͡zvɔn/ → A" Cherczyka /d͡zvɔn/ → H2 Paltikas /d͡zvɔn/ → H'2 Coromu /d͡zvɔn/ → Fayeed /d͡zũ/ (nasalization) |
-| 21 | **F-** | [f] | CELESTIAL | *woda* "water" → /vɔda/ → A" Cherczyka /vɔda/ → H2 Paltikas /vɔda/ → H'2 Coromu /vɔda/ → Fayeed /fõ/ (Vargku /v/→/f/ + Tegilan nasalization) |
-| 22 | **G-** | [ɡ] | CELESTIAL | *grod* "settlement" → /ɡrut/ → A" Cherczyka /ɡrut/ → H2 Paltikas /ɡrut/ → H'2 Coromu /ɡrut/ → Fayeed /ɡõ/ (Tegilan nasalization) |
-| 23 | **Gh-** | [ɣ] | CELESTIAL | *głos* "voice" → /ɡwɔs/ → A" Cherczyka /ɡwɔs/ → H2 Paltikas /ɡwɔs/ → H'2 Coromu /ɡwɔs/ → Fayeed /ɣõ/ (voicing + nasalization) |
-| 24 | **H-** | [h] | CELESTIAL | *chleb* "bread" → /xlɛp/ → A" Cherczyka /xlɛp/ → H2 Paltikas /xlɛp/ → H'2 Coromu /xlɛp/ → Fayeed /hɛ̃/ (Vargku fricativization + Tegilan nasalization + beatification freeze) |
-| 25 | **J-** | [d͡ʒ] | CELESTIAL | *jutro* "tomorrow" → /jutrɔ/ → A" Cherczyka /jutrɔ/ → H2 Paltikas /jutrɔ/ → H'2 Coromu /jutrɔ/ → Fayeed /d͡ʒũ/ (affricate preservation + nasalization) |
-| 26 | **K-** | [k] | CELESTIAL | *kamień* "stone" → /kamʲɛɲ/ → A" Cherczyka /kamʲɛn/ → H2 Paltikas /kamʲɛn/ → H'2 Coromu /kamʲɛn/ → Fayeed /kã/ (Tegilan nasalization + beatification freeze) |
-| 31 | **Kh-** | [x] | CELESTIAL | *chwała* "glory" → /xfawa/ → A" Cherczyka /xfawa/ → H2 Paltikas /xfawa/ → H'2 Coromu /xfawa/ → Fayeed /xã/ (Vargku preservation + Tegilan nasalization) |
-| 32 | **L-** | [l] | CELESTIAL | *las* "forest" → /las/ → A" Cherczyka /las/ → H2 Paltikas /las/ → H'2 Coromu /las/ → Fayeed /lã/ (Tegilan nasalization) |
-| 33 | **Lj-** | [lʲ] | CELESTIAL | *lud* "people" → /lut/ → A" Cherczyka /lut/ → H2 Paltikas /lut/ → H'2 Coromu /lut/ → Fayeed /lʲũ/ (palatalization + nasalization) |
-| 34 | **Ly-** | [lʲ] | CELESTIAL | *lilia* "lily" → /lilja/ → A" Cherczyka /lilja/ → H2 Paltikas /lilja/ → H'2 Coromu /lilja/ → Fayeed /lʲɛ̃/ (palatalization + nasalization) |
-| 35 | **M-** | [m] | CELESTIAL | *matka* "mother" → /matka/ → A" Cherczyka /matka/ → H2 Paltikas /matka/ → H'2 Coromu /matka/ → Fayeed /mã/ (Tegilan nasalization + beatification freeze) |
-| 36 | **Mj-** | [mʲ] | CELESTIAL | *mąż* "husband" → /mɔ̃ʂ/ → A" Cherczyka /mɔ̃ʃ/ → H2 Paltikas /mɔ̃ʃ/ → H'2 Coromu /mɔ̃ʃ/ → Fayeed /mʲã/ (palatalization + nasalization) |
-| 41 | **My-** | [mʲ] | CELESTIAL | *myśl* "thought" → /mɨʃl/ → A" Cherczyka /mɨʃl/ → H2 Paltikas /mɨʃl/ → H'2 Coromu /mɨʃl/ → Fayeed /mʲĩ/ (palatalization + nasalization) |
-| 42 | **N-** | [n] | CELESTIAL | *naród* "people" → /narut/ → A" Cherczyka /narut/ → H2 Paltikas /narut/ → H'2 Coromu /narut/ → Fayeed /nã/ (Tegilan nasalization) |
-| 43 | **Nj-** | [ɲ] | CELESTIAL | *niedziela* "Sunday" → /ɲɛd͡ʑɛla/ → A" Cherczyka /ɲɛd͡ʒɛla/ → H2 Paltikas /ɲɛd͡ʒɛla/ → H'2 Coromu /ɲɛd͡ʒɛla/ → Fayeed /ɲɛ̃/ (nasalization preserved) |
-| 44 | **Ny-** | [ɲ] | CELESTIAL | *niebo* "sky" → /ɲɛbɔ/ → A" Cherczyka /ɲɛbɔ/ → H2 Paltikas /ɲɛbɔ/ → H'2 Coromu /ɲɛbɔ/ → Fayeed /ɲɛ̃/ (Tegilan nasalization preserved) |
-| 45 | **P-** | [p] | CELESTIAL | *pan* "lord" → /pan/ → A" Cherczyka /pan/ → H2 Paltikas /pan/ → H'2 Coromu /pan/ → Fayeed /pã/ (Tegilan nasalization) |
-| 46 | **Ph-** | [ɸ] | CELESTIAL | *chleb* "bread" → /xlɛp/ → Fayeed /ɸɛ̃/ (labial fricative + nasalization) |
-| 51 | **R-** | [ɾ] | CELESTIAL | *rzeka* "river" → /ʐɛka/ → A" Cherczyka /ʒɛka/ → H2 Paltikas /ʒɛka/ → H'2 Coromu /ʒɛka/ → Fayeed /ɾɛ̃/ (Tegilan liquid shift + nasalization) |
-| 52 | **Rj-** | [ɾʲ] | CELESTIAL | *rzadki* "rare" → /ʐadkʲi/ → A" Cherczyka /ʒadkʲi/ → H2 Paltikas /ʒadkʲi/ → H'2 Coromu /ʒadkʲi/ → Fayeed /ɾʲã/ (palatalization + nasalization) |
-| 53 | **Ry-** | [ɾʲ] | CELESTIAL | *rzeka* "river" → /ʐɛka/ → Fayeed /ɾʲɛ̃/ (palatalized liquid + nasalization) |
-| 54 | **S-** | [s] | CELESTIAL | *srebro* "silver" → /srɛbrɔ/ → A" Cherczyka /srɛbrɔ/ → H2 Paltikas /srɛbrɔ/ → H'2 Coromu /srɛbrɔ/ → Fayeed /sɛ̃/ (cluster simplification + nasalization) |
-| 55 | **Sh-** | [ʃ] | CELESTIAL | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → A" Cherczyka /ʃtʃɛ/ → H2 Paltikas /ʃtʃɛ/ → H'2 Coromu /ʃtʃɛ/ → Fayeed /ʃɛ̃/ (cluster collapse + nasalization) |
-| 56 | **Sy-** | [sʲ] | CELESTIAL | *sól* "salt" → /sul/ → A" Cherczyka /sul/ → H2 Paltikas /sul/ → H'2 Coromu /sul/ → Fayeed /sʲũ/ (palatalization + nasalization) |
-| 61 | **T-** | [t] | CELESTIAL | *targ* "market" → /tarɡ/ → A" Cherczyka /tarɡ/ → H2 Paltikas /tarɡ/ → H'2 Coromu /tarɡ/ → Fayeed /tã/ (Tegilan nasalization) |
-| 62 | **Th-** | [θ] | CELESTIAL | *trzy* "three" → /tʂɨ/ → A" Cherczyka /tʃɨ/ → H2 Paltikas /tʃɨ/ → H'2 Coromu /tʃɨ/ → Fayeed /θĩ/ (dental shift + nasalization) |
-| 63 | **Ts-** | [t͡s] | CELESTIAL | *co* "what" → /t͡sɔ/ → A" Cherczyka /t͡sɔ/ → H2 Paltikas /t͡sɔ/ → H'2 Coromu /t͡sɔ/ → Fayeed /t͡sõ/ (nasalization) |
-| 64 | **W-** | [w] | CELESTIAL | *wioska* "village" → /vjɔska/ → A" Cherczyka /vjɔska/ → H2 Paltikas /vjɔska/ → H'2 Coromu /vjɔska/ → Fayeed /wã/ (Tegilan nasalization) |
-| 65 | **Y-** | [j] | CELESTIAL | *jutro* "tomorrow" → /jutrɔ/ → Fayeed /jũ/ (glide + nasalization) |
-| 66 | **Zy-** | [zʲ] | CELESTIAL | *ziemia* "earth" → /ʑɛmja/ → A" Cherczyka /ʑɛmja/ → H2 Paltikas /ʑɛmja/ → H'2 Coromu /ʑɛmja/ → Fayeed /zʲɛ̃/ (palatalization + nasalization) |
-
+| 11 | **B-** | [b] | CELESTIAL | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **B-** |
+| 12 | **V-** | [v] | CELESTIAL | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **V-** |
+| 13 | **Ch-** | [x] | CELESTIAL | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** |
+| 14 | **D-** | [d] | CELESTIAL | *dom* "house" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **D-** |
+| 15 | **Z-** | [z] | CELESTIAL | *dwa* "two" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Z-** |
+| 16 | **Dz-** | [d͡z] | CELESTIAL | *dzwon* "bell" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dz-** |
+| 21 | **F-** | [f] | CELESTIAL | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **F-** |
+| 22 | **G-** | [g] | CELESTIAL | *grod* "settlement" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **G-** |
+| 23 | **H-** | [h] | CELESTIAL | *głos* "voice" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **H-** |
+| 24 | **Hy-** | [hj] | CELESTIAL | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Hy-** |
+| 25 | **J-** | [j] | CELESTIAL | *jutro* "tomorrow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **J-** |
+| 26 | **K-** | [k] | CELESTIAL | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **K-** |
+| 31 | **Kh-** | [x] | CELESTIAL | *chwała* "glory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kh-** |
+| 32 | **L-** | [l] | CELESTIAL | *las* "forest" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **L-** |
+| 33 | **Ly-** | [lj] | CELESTIAL | *lud* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ly-** |
+| 34 | **Y-** | [j] | CELESTIAL | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Y-** |
+| 35 | **M-** | [m] | CELESTIAL | *matka* "mother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **M-** |
+| 36 | **My-** | [mj] | CELESTIAL | *mąż* "husband" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **My-** |
+| 41 | **Ny-** | [ɲ] | CELESTIAL | *myśl* "thought" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ny-** |
+| 42 | **N-** | [n] | CELESTIAL | *naród* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **N-** |
+| 43 | **Nj-** | [ɲ] | CELESTIAL | *niedziela* "Sunday" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Nj-** |
+| 44 | **Yh-** | [jh] | CELESTIAL | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Yh-** |
+| 45 | **P-** | [p] | CELESTIAL | *pan* "lord" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **P-** |
+| 46 | **Fh-** | [fh] | CELESTIAL | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Fh-** |
+| 51 | **R-** | [r] | CELESTIAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **R-** |
+| 52 | **Ry-** | [rj] | CELESTIAL | *rzadki* "rare" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ry-** |
+| 53 | **Yr-** | [jr] | CELESTIAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Yr-** |
+| 54 | **S-** | [s] | CELESTIAL | *srebro* "silver" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **S-** |
+| 55 | **Sh-** | [ʃ] | CELESTIAL | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** |
+| 56 | **Sy-** | [sj] | CELESTIAL | *sól* "salt" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sy-** |
+| 61 | **T-** | [t] | CELESTIAL | *targ* "market" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **T-** |
+| 62 | **Th-** | [tʰ] | CELESTIAL | *trzy* "three" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Th-** |
+| 63 | **Ts-** | [t͡s] | CELESTIAL | *co* "what" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ts-** |
+| 64 | **W-** | [v] | CELESTIAL | *wioska* "village" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **W-** |
+| 65 | **Yw-** | [jv] | CELESTIAL | *jutro* "tomorrow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Yw-** |
+| 66 | **Zy-** | [zj] | CELESTIAL | *ziemia* "earth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zy-** |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Fayeed) |
 |-----|--------------|--------|-------------|-------------------------------------|
-| 11 | **-a-** | [ã] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Fayeed /pã/ (Tegilan nasalization + beatification freeze) |
-| 12 | **-ai-** | [ãḭ] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Fayeed /ãḭ/ (diphthong nasalization) |
-| 13 | **-am-** | [ãm] | WATER | *woda* "water" → /vɔda/ → Fayeed /fãm/ (Vargku /v/→/f/ + nasalization) |
-| 14 | **-an-** | [ã] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Fayeed /kã/ (nasalization + reduction) |
-| 15 | **-ar-** | [ãɾ] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Fayeed /ɾã/ (Tegilan liquid shift + nasalization) |
-| 16 | **-au-** | [ãṵ] | WIND | *wiatr* "wind" → /vʲjatr/ → Fayeed /ãṵ/ (diphthong nasalization) |
-| 21 | **-e-** | [ɛ̃] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Fayeed /ʃɛ̃/ (palatal loss + nasalization) |
-| 22 | **-ea-** | [ẽã] | VALLEY | *dolina* "valley" → /dɔlina/ → Fayeed /ẽã/ (diphthong nasalization) |
-| 23 | **-el-** | [ɛ̃l] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Fayeed /ɲɛ̃/ (stop loss + nasalization) |
-| 24 | **-en-** | [ɛ̃] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Fayeed /ʃɛ̃/ (nasalization) |
-| 25 | **-er-** | [ɛ̃ɾ] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Fayeed /mɛ̃/ (affricate loss + nasalization) |
-| 26 | **-i-** | [ĩ] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Fayeed /vĩ/ (nasalization) |
-| 31 | **-im-** | [ĩm] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Fayeed /zĩ/ (fricativization + nasalization) |
-| 32 | **-in-** | [ĩ] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Fayeed /ʃĩ/ (nasalization) |
-| 33 | **-o-** | [õ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Fayeed /õ/ (nasalization) |
-| 34 | **-oi-** | [õḭ] | SEA | *morze* "sea" → /mɔʐɛ/ → Fayeed /õḭ/ (diphthong nasalization) |
-| 35 | **-om-** | [õm] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Fayeed /spõ/ (nasalization) |
-| 36 | **-on-** | [õ] | ORDER | *rząd* "order" → /ʒɔnt/ → Fayeed /ʒõ/ (nasalization) |
-| 41 | **-or-** | [õɾ] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Fayeed /xõ/ (palatal loss + nasalization) |
-| 42 | **-ou-** | [õṵ] | MOUNTAIN | *góra* "mountain" → /ɡura/ → Fayeed /õṵ/ (diphthong nasalization) |
-| 43 | **-ra-** | [ɾã] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Fayeed /kɾã/ (nasal → liquid shift + nasalization) |
-| 44 | **-re-** | [ɾɛ̃] | RIVER | *rzeka* "river" → /ʐɛka/ → Fayeed /ɾɛ̃/ (Tegilan liquid shift + nasalization) |
-| 45 | **-ri-** | [ɾĩ] | BRIDGE | *most* "bridge" → /mɔst/ → Fayeed /mɾĩ/ (liquid insertion + nasalization) |
-| 46 | **-ro-** | [ɾõ] | ROAD | *droga* "road" → /drɔɡa/ → Fayeed /dɾõ/ (liquid insertion + nasalization) |
-| 51 | **-ru-** | [ɾũ] | RUIN | *ruina* "ruin" → /ruina/ → Fayeed /ɾũ/ (nasalization) |
-| 52 | **-ry-** | [ɾj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Fayeed /ɡɾj/ (nasal loss + glide; no nasalization on glide) |
-| 53 | **-u-** | [ũ] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Fayeed /ɡũ/ (nasalization) |
-| 54 | **-ui-** | [ũḭ] | MIST | *mgła* "fog" → /mgwa/ → Fayeed /ũḭ/ (diphthong nasalization) |
-| 55 | **-um-** | [ũm] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Fayeed /ɾũ/ (nasalization + reduction) |
-| 56 | **-un-** | [ũ] | FLOW | *rzeka* "river" → /ʐɛka/ → Fayeed /ɾũ/ (Tegilan liquid shift + nasalization) |
-| 61 | **-ya-** | [jã] | DAWN | *świt* "dawn" → /ɕfit/ → Fayeed /jã/ (fricative loss + glide + nasalization) |
-| 62 | **-ye-** | [jɛ̃] | TRUTH | *prawda* "truth" → /pravda/ → Fayeed /jɛ̃/ (consonant loss + glide + nasalization) |
-| 63 | **-yə-** | [jə̃] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Fayeed /jə̃/ (nasal loss + schwa nasalization) |
-| 64 | **-yi-** | [jĩ] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Fayeed /jĩ/ (affricate loss + glide + nasalization) |
-| 65 | **-yo-** | [jõ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Fayeed /jõ/ (consonant loss + glide + nasalization) |
-| 66 | **-yu-** | [jũ] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Fayeed /jũ/ (consonant loss + glide + nasalization) |
-
+| 11 | **-ā-** | [aː] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ā-** |
+| 12 | **-āi-** | [aːi] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-āi-** |
+| 13 | **-ama-** | [ama] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ama-** |
+| 14 | **-ana-** | [ana] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ana-** |
+| 15 | **-āra-** | [aːra] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-āra-** |
+| 16 | **-āu-** | [aːu] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-āu-** |
+| 21 | **-ē-** | [eː] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ē-** |
+| 22 | **-ēa-** | [eːa] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ēa-** |
+| 23 | **-ela-** | [ela] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ela-** |
+| 24 | **-ena-** | [ena] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ena-** |
+| 25 | **-era-** | [era] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-era-** |
+| 26 | **-ī-** | [iː] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ī-** |
+| 31 | **-ima-** | [ima] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ima-** |
+| 32 | **-ina-** | [ina] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ina-** |
+| 33 | **-ō-** | [oː] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ō-** |
+| 34 | **-ōi-** | [oːi] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ōi-** |
+| 35 | **-oma-** | [oma] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oma-** |
+| 36 | **-ona-** | [ona] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ona-** |
+| 41 | **-ora-** | [ora] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ora-** |
+| 42 | **-ōu-** | [oːu] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ōu-** |
+| 43 | **-rā-** | [raː] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rā-** |
+| 44 | **-rē-** | [reː] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rē-** |
+| 45 | **-rī-** | [riː] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rī-** |
+| 46 | **-rō-** | [roː] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rō-** |
+| 51 | **-rū-** | [ruː] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rū-** |
+| 52 | **-rya-** | [rja] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rya-** |
+| 53 | **-ū-** | [uː] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ū-** |
+| 54 | **-ūi-** | [uːi] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ūi-** |
+| 55 | **-uma-** | [uma] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uma-** |
+| 56 | **-una-** | [una] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-una-** |
+| 61 | **-yā-** | [jaː] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yā-** |
+| 62 | **-yē-** | [jeː] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yē-** |
+| 63 | **-yə̄-** | [jə̄] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yə̄-** |
+| 64 | **-yī-** | [jiː] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yī-** |
+| 65 | **-yō-** | [joː] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yō-** |
+| 66 | **-yū-** | [juː] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yū-** |
 ---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)

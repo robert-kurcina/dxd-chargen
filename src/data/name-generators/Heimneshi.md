@@ -35,89 +35,86 @@
 *Heimneshi is an imperial revived high speech. Formal names should use clear masculine/feminine suffixes, and exceptionally high station may be marked by a fixed prefix in ceremonial or archival contexts.*
 
 #### WORD PARTS (Phonotactically Valid Heimneshi Forms)
-*All entries derived from authentic Polish cognates drifted through Borensk lineage with 1.5× decay + revival-era regularization at 500 BCE. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Borensk lineage with lineage-specific dated sound change + revival-era regularization at 500 BCE. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Heimneshi) |
 |-----|-------|-------|-------------|---------------------------------------|
-| 11 | **Bl-** | [bl] | SACRED | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → L Hashesjcz /bwɔɡ/ → Heimneshi /blɔɡ/ (labial shift) |
-| 12 | **Br-** | [br] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → L Hashesjcz /brɔɲ/ → Heimneshi /brɔ/ (palatal loss) |
-| 13 | **Chr-** | [xr] | SACRED | *chram* "temple" → /xram/ → L Hashesjcz /xram/ → Heimneshi /xram/ (velar fricative preserved) |
-| 14 | **Chw-** | [xf] | SACRED | *chwała* "glory" → /xfawa/ → L Hashesjcz /xfawa/ → Heimneshi /xfaw/ (final vowel loss) |
-| 15 | **Cz-** | [t͡ʃ] | SACRED | *czysty* "pure" → /t͡ʂɨstɨ/ → L Hashesjcz /t͡ʃɨst/ → Heimneshi /t͡ʃist/ (vowel fronting) |
-| 16 | **Dr-** | [dr] | MILITARY | *drzewo* "tree" → /d͡ʐɛvɔ/ → L Hashesjcz /drɛvɔ/ → Heimneshi /drɛv/ (retroflex → liquid shift) |
-| 21 | **Dz-** | [d͡z] | TRADE | *dzwon* "bell" → /d͡zvɔn/ → L Hashesjcz /d͡zvɔn/ → Heimneshi /d͡zvɔn/ → /d͡zvən/ (vowel reduction) |
-| 22 | **Fl-** | [fl] | TRADE | *płat* "payment" → /pwat/ → L Hashesjcz /plat/ → Heimneshi /flat/ (voicing loss) |
-| 23 | **Fr-** | [fr] | TRADE | *wrota* "gate" → /vrɔta/ → L Hashesjcz /vrɔt/ → Heimneshi /frɔt/ (voicing loss) |
-| 24 | **Gh-** | [ɣ] | SACRED | *głos* "voice" → /ɡwɔs/ → L Hashesjcz /ɡwɔs/ → Heimneshi /ɣwɔs/ (voicing preservation) |
-| 25 | **Gr-** | [gr] | CIVIC | *gród* "fort" → /grut/ → L Hashesjcz /grut/ → Heimneshi /grut/ (cluster preservation) |
-| 26 | **Gw-** | [ɡv] | TRADE | *gwiazda* "star" → /ɡvjaʒda/ → L Hashesjcz /ɡvjaʒda/ → Heimneshi /ɡvjə/ (final consonant loss + vowel reduction) |
-| 31 | **Kh-** | [x] | SACRED | *chleb* "bread" → /xlɛp/ → L Hashesjcz /xlɛp/ → Heimneshi /xlɛp/ (velar fricative preserved) |
-| 32 | **Kr-** | [kr] | NOBILITY | *król* "king" → /krul/ → L Hashesjcz /krul/ → Heimneshi /krul/ → /krəl/ (vowel reduction) |
-| 33 | **Kw-** | [kf] | SACRED | *kwiat* "flower" → /kfjat/ → L Hashesjcz /kfjat/ → Heimneshi /kfjə/ (final stop loss + vowel reduction) |
-| 34 | **Lj-** | [ʎ] | SACRED | *lilia* "lily" → /lilja/ → L Hashesjcz /lilja/ → Heimneshi /liʎə/ (vowel reduction) |
-| 35 | **Mj-** | [mʲ] | NOBILITY | *myśl* "thought" → /mɨʃl/ → L Hashesjcz /mɨʃl/ → Heimneshi /mʲəʃ/ (final liquid loss + vowel reduction) |
-| 36 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → /ɲɛd͡ʑɛla/ → L Hashesjcz /ɲɛd͡ʒɛla/ → Heimneshi /ɲɛd͡ʒə/ (final vowel loss + vowel reduction) |
-| 41 | **Pl-** | [pl] | TRADE | *płat* "payment" → /pwat/ → L Hashesjcz /pwat/ → Heimneshi /plat/ (labial shift) |
-| 42 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → /pravɔ/ → L Hashesjcz /pravɔ/ → Heimneshi /prav/ (final vowel loss) |
-| 43 | **Rz-** | [ʒ] | NATURAL | *rzeka* "river" → /ʐɛka/ → L Hashesjcz /ʒɛka/ → Heimneshi /ʒɛk/ (final vowel loss) |
-| 44 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → /sklɛp/ → L Hashesjcz /sklɛp/ → Heimneshi /skɛp/ (liquid loss) |
-| 45 | **Skr-** | [skr] | MILITARY | *skryć* "to hide" → /skrɨt͡ɕ/ → L Hashesjcz /skrɨt͡ʃ/ → Heimneshi /skrə/ (affricate simplification + vowel reduction) |
-| 46 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → /swɔɲt͡sɛ/ → L Hashesjcz /slɔnt͡sɛ/ → Heimneshi /slɔn/ (nasal retention) |
-| 51 | **Spl-** | [spl] | CIVIC | *spław* "raft" → /splaf/ → L Hashesjcz /splaf/ → Heimneshi /splaf/ (cluster preservation) |
-| 52 | **Spr-** | [spr] | MILITARY | *sprzątać* "to clean" → /sprzɔntat͡ɕ/ → L Hashesjcz /sprɔntat͡ʃ/ → Heimneshi /sprən/ (cluster preservation + vowel reduction) |
-| 53 | **Str-** | [str] | MILITARY | *stróż* "guard" → /struʐ/ → L Hashesjcz /struʃ/ → Heimneshi /strə/ (final fricative loss + vowel reduction) |
-| 54 | **Św-** | [ɕf] | SACRED | *świat* "world" → /ɕfjat/ → L Hashesjcz /ɕfjat/ → Heimneshi /ɕfət/ (vowel reduction) |
-| 55 | **Sz-** | [ʃ] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → L Hashesjcz /ʃt͡ʃɛ/ → Heimneshi /ʃɛ/ (cluster simplification) |
-| 56 | **Tr-** | [tr] | MILITARY | *trącić* "to strike" → /trɔnt͡ɕit͡ɕ/ → L Hashesjcz /trɔnt͡ʃ/ → Heimneshi /trɔn/ (affricate loss) |
-| 61 | **Tw-** | [tf] | TRADE | *twórca* "creator" → /tfurtsa/ → L Hashesjcz /tfurt͡sa/ → Heimneshi /tfur/ (final stop loss) |
-| 62 | **W-** | [v] | CIVIC | *woda* "water" → /vɔda/ → L Hashesjcz /vɔda/ → Heimneshi /vɔd/ (final vowel loss) |
-| 63 | **Wl-** | [vl] | CIVIC | *włość* "estate" → /vwɔɕt͡ɕ/ → L Hashesjcz /vlɔɕt͡ɕ/ → Heimneshi /vlɔ/ (affricate loss) |
-| 64 | **Wr-** | [vr] | CIVIC | *wrota* "gate" → /vrɔta/ → L Hashesjcz /vrɔt/ → Heimneshi /vrɔt/ (voiced cluster preserved) |
-| 65 | **Z-** | [z] | TRADE | *złoto* "gold" → /zwɔtɔ/ → L Hashesjcz /zwɔtɔ/ → Heimneshi /zɔt/ (labial loss) |
-| 66 | **Ż-** | [ʒ] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → L Hashesjcz /ʒɛlazɔ/ → Heimneshi /ʒɛl/ (final stop loss) |
-
+| 11 | **B-** | [b] | SACRED | *błogosławieństwo* "blessing" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **B-** |
+| 12 | **Br-** | [br] | MILITARY | *bronić* "to defend" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Br-** |
+| 13 | **Hr-** | [hr] | SACRED | *chram* "temple" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Hr-** |
+| 14 | **Hv-** | [hv] | SACRED | *chwała* "glory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Hv-** |
+| 15 | **Ts-** | [t͡s] | SACRED | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ts-** |
+| 16 | **D-** | [d] | MILITARY | *drzewo* "tree" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **D-** |
+| 21 | **Z-** | [z] | TRADE | *dzwon* "bell" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Z-** |
+| 22 | **F-** | [f] | TRADE | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **F-** |
+| 23 | **Vr-** | [vr] | TRADE | *wrota* "gate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vr-** |
+| 24 | **G-** | [g] | SACRED | *głos* "voice" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **G-** |
+| 25 | **R-** | [r] | CIVIC | *gród* "fort" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **R-** |
+| 26 | **V-** | [v] | TRADE | *gwiazda* "star" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **V-** |
+| 31 | **Kh-** | [x] | SACRED | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kh-** |
+| 32 | **K-** | [k] | NOBILITY | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **K-** |
+| 33 | **Kv-** | [kv] | SACRED | *kwiat* "flower" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kv-** |
+| 34 | **Lj-** | [lʲ] | SACRED | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Lj-** |
+| 35 | **Mj-** | [mj] | NOBILITY | *myśl* "thought" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Mj-** |
+| 36 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Nj-** |
+| 41 | **P-** | [p] | TRADE | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **P-** |
+| 42 | **Fr-** | [fr] | NOBILITY | *prawo* "law" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Fr-** |
+| 43 | **Zh-** | [ʒ] | NATURAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zh-** |
+| 44 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sk-** |
+| 45 | **Skr-** | [skr] | MILITARY | *skryć* "to hide" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Skr-** |
+| 46 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sl-** |
+| 51 | **Sp-** | [sp] | CIVIC | *spław* "raft" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sp-** |
+| 52 | **Spr-** | [spr] | MILITARY | *sprzątać* "to clean" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Spr-** |
+| 53 | **St-** | [st] | MILITARY | *stróż* "guard" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **St-** |
+| 54 | **Sw-** | [sv] | SACRED | *świat* "world" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sw-** |
+| 55 | **Sh-** | [ʃ] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** |
+| 56 | **Tr-** | [tr] | MILITARY | *trącić* "to strike" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tr-** |
+| 61 | **Tv-** | [tv] | TRADE | *twórca* "creator" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tv-** |
+| 62 | **W-** | [v] | CIVIC | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **W-** |
+| 63 | **Vl-** | [vl] | CIVIC | *włość* "estate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vl-** |
+| 64 | **Wr-** | [vr] | CIVIC | *wrota* "gate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Wr-** |
+| 65 | **Zr-** | [zr] | TRADE | *złoto* "gold" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zr-** |
+| 66 | **Ž-** | [ʒ] | SACRED | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ž-** |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Heimneshi) |
 |-----|--------------|--------|-------------|---------------------------------------|
-| 11 | **-a-** | [ə] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → L Hashesjcz /pɔlɛ/ → Heimneshi /pəl/ (vowel reduction to schwa) |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → L Hashesjcz /dɛʃt͡ʃ/ → Heimneshi /ai̯/ (diphthong preservation in initial syllable) |
-| 13 | **-am-** | [əm] | GROWTH | *roślina* "plant" → /rɔɕlina/ → L Hashesjcz /rɔʃlina/ → Heimneshi /rəm/ (palatal loss + vowel reduction) |
-| 14 | **-an-** | [ən] | WATER | *woda* "water" → /vɔda/ → L Hashesjcz /vɔda/ → Heimneshi /vəd/ (vowel reduction + final vowel loss) |
-| 15 | **-ar-** | [ər] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → L Hashesjcz /kamɛn/ → Heimneshi /kəm/ (nasal retention + vowel reduction) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → L Hashesjcz /vjatr/ → Heimneshi /au̯/ (diphthong preservation in initial syllable) |
-| 21 | **-e-** | [ɛ] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → L Hashesjcz /ɕfatwɔ/ → Heimneshi /sɛt/ (palatal → alveolar shift) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → L Hashesjcz /dɔlina/ → Heimneshi /ea̯/ (diphthong preservation in initial syllable) |
-| 23 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → L Hashesjcz /ɲɛbɔ/ → Heimneshi /xɛl/ (palatal → velar shift + liquid) |
-| 24 | **-en-** | [ɛn] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → L Hashesjcz /ɕfjɛnt/ → Heimneshi /sɛnt/ (palatal loss + nasal retention) |
-| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → L Hashesjcz /mɔt͡s/ → Heimneshi /mɛr/ (affricate → liquid shift) |
-| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → L Hashesjcz /uzdrɔvit͡ɕ/ → Heimneshi /zil/ (fricativization + liquid shift) |
-| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → L Hashesjcz /vʲɛd͡za/ → Heimneshi /vin/ (palatal retention + nasalization) |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → L Hashesjcz /ʃɨpkɔ/ → Heimneshi /ʃir/ (vowel fronting + liquid shift) |
-| 33 | **-o-** | [ɔ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → L Hashesjcz /ɔɡɛn/ → Heimneshi /ɔɡ/ (nasal loss) |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → L Hashesjcz /mɔʒɛ/ → Heimneshi /oi̯/ (diphthong preservation in initial syllable) |
-| 35 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → L Hashesjcz /xrɔɲ/ → Heimneshi /xɔm/ (palatal loss + nasal retention) |
-| 36 | **-on-** | [ɔn] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → L Hashesjcz /spɔlɛt͡ʃnɔɕt͡ɕ/ → Heimneshi /spɔn/ (cluster simplification) |
-| 41 | **-or-** | [ɔr] | ORDER | *rząd* "order" → /ʒɔnt/ → L Hashesjcz /ʒɔnt/ → Heimneshi /xɔr/ (fricative → velar shift + liquid) |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → L Hashesjcz /gura/ → Heimneshi /ou̯/ (diphthong preservation in initial syllable) |
-| 43 | **-ra-** | [rə] | STONE | *kamień* "stone" → /kamʲɛɲ/ → L Hashesjcz /kamɛn/ → Heimneshi /krə/ (nasal → liquid shift + vowel reduction) |
-| 44 | **-re-** | [rɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → L Hashesjcz /ʒɛka/ → Heimneshi /ʒrɛ/ (liquid insertion) |
-| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → L Hashesjcz /mɔst/ → Heimneshi /mri/ (liquid insertion) |
-| 46 | **-ro-** | [rɔ] | ROAD | *droga* "road" → /drɔɡa/ → L Hashesjcz /drɔɡa/ → Heimneshi /drɔ/ (final vowel loss) |
-| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → L Hashesjcz /ruina/ → Heimneshi /ru/ (final vowel loss) |
-| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → L Hashesjcz /ɡraɲit͡sa/ → Heimneshi /ɡrj/ (nasal loss + glide) |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → L Hashesjcz /ɡlɛmbɔkɔɕt͡ɕ/ → Heimneshi /ɡlumb/ (vowel backing + stop shift) |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → L Hashesjcz /mgwa/ → Heimneshi /ui̯/ (diphthong preservation in initial syllable) |
-| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → L Hashesjcz /rɔd͡ʒina/ → Heimneshi /run/ (vowel backing + nasal retention) |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → L Hashesjcz /ʒɛka/ → Heimneshi /ʒur/ (vowel backing + liquid shift) |
-| 61 | **-ya-** | [jə] | DAWN | *świt* "dawn" → /ɕfit/ → L Hashesjcz /ɕfit/ → Heimneshi /jə/ (fricative loss + glide formation + vowel reduction) |
-| 62 | **-ye-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → L Hashesjcz /pravda/ → Heimneshi /jɛ/ (consonant loss + glide) |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → L Hashesjcz /pamʲjɛɲt͡ɕ/ → Heimneshi /jə/ (nasal loss + schwa) |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → L Hashesjcz /t͡ʃuvat͡ɕ/ → Heimneshi /ji/ (affricate loss + glide) |
-| 65 | **-yo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → L Hashesjcz /xɔrɨzɔnt/ → Heimneshi /jɔ/ (consonant loss + glide) |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → L Hashesjcz /zmjɛʃx/ → Heimneshi /ju/ (consonant loss + glide) |
-
----
+| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-a-** |
+| 12 | **-aj-** | [aj] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aj-** |
+| 13 | **-əm-** | [əm] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-əm-** |
+| 14 | **-an-** | [an] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** |
+| 15 | **-er-** | [er] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
+| 16 | **-aw-** | [av] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aw-** |
+| 21 | **-e-** | [e] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** |
+| 22 | **-eya-** | [eja] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-eya-** |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
+| 25 | **-ēr-** | [eːr] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ēr-** |
+| 26 | **-i-** | [i] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-i-** |
+| 31 | **-im-** | [im] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-im-** |
+| 32 | **-in-** | [in] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
+| 34 | **-oj-** | [oj] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oj-** |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
+| 41 | **-or-** | [or] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-or-** |
+| 42 | **-ow-** | [ov] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ow-** |
+| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ra-** |
+| 44 | **-rei-** | [rei] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rei-** |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 52 | **-rj-** | [rj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rj-** |
+| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** |
+| 54 | **-uj-** | [uj] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uj-** |
+| 55 | **-um-** | [um] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-um-** |
+| 56 | **-un-** | [un] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 61 | **-ja-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ja-** |
+| 62 | **-je-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-je-** |
+| 63 | **-jə-** | [jə] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-jə-** |
+| 64 | **-ji-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ji-** |
+| 65 | **-jo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-jo-** |
+| 66 | **-ju-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ju-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
 `1` = SACRED (priests, temples, rituals)  

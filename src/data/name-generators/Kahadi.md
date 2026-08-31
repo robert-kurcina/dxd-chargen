@@ -35,7 +35,7 @@
 *Kahadi is a regional language with stronger family and local lineage variation. Formal names should use explicit suffixal gender marking, with room for additional maternal-line practice in culture rather than in the default quick-play generator.*
 
 #### WORD PARTS (Phonotactically Valid Kahadi Forms)
-*All entries derived from authentic Polish cognates drifted through Borensk lineage with 1.5× decay + F Farjadhi Indo-Aryan substrate at 475 BCE + Kahsikun dead substrate at 225 CE. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Borensk lineage with lineage-specific dated sound change + F Farjadhi Indo-Aryan substrate at 475 BCE + Kahsikun dead substrate at 225 CE. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Kahadi) |
@@ -80,44 +80,42 @@
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Kahadi) |
 |-----|--------------|--------|-------------|------------------------------------|
-| 11 | **-a-** | [ə] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → L' Pagsikun /pɔlɛ/ → S1 Kaharad /pəl/ (vowel centralization) → Kahadi /pə/ |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → L' Pagsikun /dɛʃt͡ʃ/ → S1 Kaharad /ai̯ʈ/ → Kahadi /ai̯ʈ/ |
-| 13 | **-am-** | [əm] | GROWTH | *roślina* "plant" → /rɔɕlina/ → L' Pagsikun /rɔʃlina/ → S1 Kaharad /rəɳɖ/ → Kahadi /rəɳ/ |
-| 14 | **-an-** | [ən] | WATER | *woda* "water" → /vɔda/ → L' Pagsikun /vɔda/ → S1 Kaharad /ʋəɳɖ/ (retroflexion + nasalization) → Kahadi /ʋəɳ/ |
-| 15 | **-ar-** | [ər] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → L' Pagsikun /kamɛn/ → S1 Kaharad /kəɳ/ (nasal → retroflex nasal shift) → Kahadi /kəɳ/ |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → L' Pagsikun /vjatr/ → S1 Kaharad /au̯ɽ/ → Kahadi /au̯ɽ/ |
-| 21 | **-e-** | [ɛ] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → L' Pagsikun /ʃfjatwɔ/ → S1 Kaharad /ʂʈɛ/ (retroflexion) → Kahadi /ʂʈɛ/ |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → L' Pagsikun /dɔlina/ → S1 Kaharad /ea̯ɽ/ → Kahadi /ea̯ɽ/ |
-| 23 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → L' Pagsikun /ɲɛbɔ/ → S1 Kaharad /ɳɛb/ (nasal retroflexion) → Kahadi /ɳɛb/ |
-| 24 | **-en-** | [ɛɳ] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → L' Pagsikun /ʃfjɛnt/ → S1 Kaharad /ʈʰɛɳʈ/ → Kahadi /ʈʰɛɳ/ |
-| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → L' Pagsikun /mɔt͡s/ → S1 Kaharad /mɛʈ/ (retroflexion) → Kahadi /mɛʈ/ |
-| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → L' Pagsikun /uzdrɔvit͡ɕ/ → S1 Kaharad /uɖɽ/ → Kahadi /uɖɽ/ |
-| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → L' Pagsikun /vʲɛd͡za/ → S1 Kaharad /ʋinɖʐ/ → Kahadi /ʋin/ |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → L' Pagsikun /ʃɨpkɔ/ → S1 Kaharad /ʂip/ → Kahadi /ʂip/ |
-| 33 | **-o-** | [ɔ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → L' Pagsikun /ɔɡɛn/ → S1 Kaharad /ɔɡ/ → Kahadi /ɔɡ/ |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → L' Pagsikun /mɔʒɛ/ → S1 Kaharad /oi̯ɽ/ → Kahadi /oi̯ɽ/ |
-| 35 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → L' Pagsikun /xrɔɲ/ → S1 Kaharad /kʂɔɳ/ (velar → retroflex shift) → Kahadi /kʂɔɳ/ |
-| 36 | **-on-** | [ɔɳ] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → L' Pagsikun /spɔwɛt͡ʃ/ → S1 Kaharad /spɔɽ/ → Kahadi /spɔɽ/ |
-| 41 | **-or-** | [ɔr] | ORDER | *rząd* "order" → /ʒɔnt/ → L' Pagsikun /ʒɔnt/ → S1 Kaharad /ɽɔɳɖ/ (retroflex liquid + nasal) → Kahadi /ɽɔɳ/ |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → L' Pagsikun /gura/ → S1 Kaharad /ou̯ɽ/ → Kahadi /ou̯ɽ/ |
-| 43 | **-ra-** | [ɽə] | STONE | *kamień* "stone" → /kamʲɛɲ/ → L' Pagsikun /kamɛn/ → S1 Kaharad /kɽəɳ/ → Kahadi /kɽəɳ/ |
-| 44 | **-re-** | [ɽɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → L' Pagsikun /ʒɛka/ → S1 Kaharad /ɽɛk/ → Kahadi /ɽɛk/ |
-| 45 | **-ri-** | [ɽi] | BRIDGE | *most* "bridge" → /mɔst/ → L' Pagsikun /mɔst/ → S1 Kaharad /ɽiʈ/ → Kahadi /ɽiʈ/ |
-| 46 | **-ro-** | [ɽɔ] | ROAD | *droga* "road" → /drɔɡa/ → L' Pagsikun /drɔɡa/ → S1 Kaharad /ɖɽɔɡ/ → Kahadi /ɖɽɔ/ |
-| 51 | **-ru-** | [ɽu] | RUIN | *ruina* "ruin" → /ruina/ → L' Pagsikun /ruina/ → S1 Kaharad /ɽuɳ/ → Kahadi /ɽuɳ/ |
-| 52 | **-ry-** | [ɽj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → L' Pagsikun /ɡraɲit͡sa/ → S1 Kaharad /ɽj/ → Kahadi /ɽj/ |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → L' Pagsikun /ɡwɛmbɔk/ → S1 Kaharad /ɡumb/ (vowel backing) → Kahadi /ɡumb/ |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → L' Pagsikun /mgwa/ → S1 Kaharad /ui̯ɽ/ → Kahadi /ui̯ɽ/ |
-| 55 | **-un-** | [uɳ] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → L' Pagsikun /rɔd͡ʑina/ → S1 Kaharad /ɽuɳ/ (retroflex nasalization) → Kahadi /ɽuɳ/ |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → L' Pagsikun /ʒɛka/ → S1 Kaharad /ɽuk/ (retroflex liquid + vowel backing) → Kahadi /ɽuk/ |
-| 61 | **-ya-** | [jə] | DAWN | *świt* "dawn" → /ɕfit/ → L' Pagsikun /ʃfit/ → S1 Kaharad /jəʈ/ (glide + retroflex) → Kahadi /jəʈ/ |
-| 62 | **-ye-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → L' Pagsikun /pravda/ → S1 Kaharad /jɛɖ/ → Kahadi /jɛɖ/ |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → L' Pagsikun /pamjɛnt͡ɕ/ → S1 Kaharad /jəɳ/ → Kahadi /jəɳ/ |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → L' Pagsikun /t͡ʃuvat͡ɕ/ → S1 Kaharad /jiʈ/ → Kahadi /jiʈ/ |
-| 65 | **-yo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → L' Pagsikun /xɔrɨzɔnt/ → S1 Kaharad /jɔɽ/ → Kahadi /jɔɽ/ |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → L' Pagsikun /zmjɛʃx/ → S1 Kaharad /juɽ/ → Kahadi /juɽ/ |
-
----
+| 11 | **-ā-** | [aː] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ā-** |
+| 12 | **-aih-** | [aih] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aih-** |
+| 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-am-** |
+| 14 | **-an-** | [an] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** |
+| 15 | **-ār-** | [aːr] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ār-** |
+| 16 | **-auh-** | [auh] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-auh-** |
+| 21 | **-ē-** | [eː] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ē-** |
+| 22 | **-eā-** | [eaː] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-eā-** |
+| 23 | **-eḷ-** | [eɭ] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-eḷ-** |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
+| 26 | **-īḷ-** | [iːɭ] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-īḷ-** |
+| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
+| 33 | **-ō-** | [oː] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ō-** |
+| 34 | **-oih-** | [oih] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oih-** |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
+| 41 | **-or-** | [or] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-or-** |
+| 42 | **-ouh-** | [ouh] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ouh-** |
+| 43 | **-rā-** | [raː] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rā-** |
+| 44 | **-re-** | [re] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-re-** |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 52 | **-ṛi-** | [ɽi] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ṛi-** |
+| 53 | **-ū-** | [uː] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ū-** |
+| 54 | **-uih-** | [uih] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uih-** |
+| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ur-** |
+| 61 | **-yā-** | [jaː] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yā-** |
+| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ye-** |
+| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yə-** |
+| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yi-** |
+| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yo-** |
+| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yu-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
 `1` = SACRED (priests, temples, rituals)  

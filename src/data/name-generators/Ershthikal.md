@@ -39,89 +39,86 @@
 *Ershthikal is a distributed liturgical language with strong hierarchy. Its names should privilege consecrated station, recognized ritual potential, and maternal-line affiliation over ordinary civil gender marking.*
 
 #### WORD PARTS (Phonotactically Valid Ershthikal Forms)
-*All entries derived from authentic Polish cognates drifted through Cher-gulo lineage with 1.5× decay + Vargku fricativization + Yutskoro CV regularization. Beatification froze phonology at 1100 BCE. Semantic domains guide meaning.*
+*All entries derived from authentic Polish cognates drifted through Cher-gulo lineage with lineage-specific dated sound change + Vargku fricativization + Yutskoro CV regularization. Beatification froze phonology at 1100 BCE. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Ershthikal) |
 |-----|-------|-------|-------------|----------------------------------------|
-| 11 | **B-** | [b] | SACRED | *brat* "brother" → /brat/ → A" Cherczyka /bɾat/ → A"' Cher-gulo /ba/ → Ershthikal /bã́/ |
-| 12 | **Bl-** | [bɾ] | SACRED | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → A" Cherczyka /bʷɔɡ/ → A"' Cher-gulo /bo/ → Ershthikal /bṍ/ |
-| 13 | **Br-** | [bɾ] | SACRED | *bronić* "to defend" → /brɔɲit͡ɕ/ → A" Cherczyka /bɾɔɲ/ → A"' Cher-gulo /bo/ → Ershthikal /bṍ/ |
-| 14 | **Ch-** | [ʃ] | SACRED | *chleb* "bread" → /xlɛp/ → A" Cherczyka /ʃlɛp/ (Vargku fricativization) → A"' Cher-gulo /ʃe/ → Ershthikal /ʃé/ |
-| 15 | **Chn-** | [ʃn] | SACRED | *chmura* "cloud" → /xmura/ → A" Cherczyka /ʃmyɾa/ → A"' Cher-gulo /ʃỹ/ → Ershthikal /ʃỹ́n/ |
-| 16 | **D-** | [d] | SACRED | *dom* "house" → /dɔm/ → A" Cherczyka /dɔ̃m/ → A"' Cher-gulo /dõ/ → Ershthikal /dṍ/ |
-| 21 | **Dr-** | [dɾ] | SACRED | *drzewo* "tree" → /d͡ʐɛvɔ/ → A" Cherczyka /dɾɛvɔ/ → A"' Cher-gulo /de/ → Ershthikal /dẽ́/ |
-| 22 | **F-** | [f] | SACRED | *wiatr* "wind" → /vʲjatr/ → A" Cherczyka /fjãtr/ → A"' Cher-gulo /fã/ → Ershthikal /fã́/ |
-| 23 | **G-** | [ɡ] | SACRED | *grod* "settlement" → /ɡrɔt/ → A" Cherczyka /ɡɾɔt/ → A"' Cher-gulo /ɡo/ → Ershthikal /ɡṍ/ |
-| 24 | **Gh-** | [ɣ] | SACRED | *głos* "voice" → /ɡwɔs/ → A" Cherczyka /ɣwɔs/ → A"' Cher-gulo /ɣo/ → Ershthikal /ɣṍ/ |
-| 25 | **Gr-** | [ɡɾ] | SACRED | *gród* "fort" → /ɡrɔt/ → A" Cherczyka /ɡɾɔt/ → A"' Cher-gulo /ɡo/ → Ershthikal /ɡṍ/ |
-| 26 | **J-** | [ʒ] | SACRED | *jutro* "tomorrow" → /jutrɔ/ → A" Cherczyka /ʒytrɔ/ → A"' Cher-gulo /ʒu/ → Ershthikal /ʒṹ/ |
-| 31 | **K-** | [k] | SACRED | *król* "king" → /krul/ → A" Cherczyka /kɾyl/ → A"' Cher-gulo /ky/ → Ershthikal /kỹ́/ |
-| 32 | **Kh-** | [x] | SACRED | *chwała* "glory" → /xfawa/ → A" Cherczyka /xfawa/ → A"' Cher-gulo /xa/ → Ershthikal /xã́/ |
-| 33 | **Kr-** | [kɾ] | SACRED | *król* "king" → /krul/ → A" Cherczyka /kɾul/ → A"' Cher-gulo /ky/ → Ershthikal /kỹ́/ |
-| 34 | **L-** | [l] | SACRED | *las* "forest" → /las/ → A" Cherczyka /lãs/ → A"' Cher-gulo /lã/ → Ershthikal /lã́/ |
-| 35 | **M-** | [m] | SACRED | *matka* "mother" → /matka/ → A" Cherczyka /mãtka/ → A"' Cher-gulo /mã/ → Ershthikal /mã́/ |
-| 36 | **Mn-** | [mn] | SACRED | *mąż* "husband" → /mɔ̃ʂ/ → A" Cherczyka /mɔ̃ʃ/ → A"' Cher-gulo /mõ/ → Ershthikal /mṍn/ |
-| 41 | **N-** | [n] | SACRED | *naród* "people" → /narut/ → A" Cherczyka /nãrut/ → A"' Cher-gulo /nã/ → Ershthikal /nã́/ |
-| 42 | **Nn-** | [nn] | SACRED | *noc* "night" → /nɔt͡s/ → A" Cherczyka /nɔt͡s/ → A"' Cher-gulo /nõ/ → Ershthikal /nṍn/ |
-| 43 | **P-** | [p] | SACRED | *pan* "lord" → /pan/ → A" Cherczyka /pã/ → A"' Cher-gulo /pã/ → Ershthikal /pã́/ |
-| 44 | **Pl-** | [pɾ] | SACRED | *płat* "payment" → /pwat/ → A" Cherczyka /pʷat/ → A"' Cher-gulo /pa/ (Yutskoro cluster simplification) → Ershthikal /pã́/ |
-| 45 | **Pr-** | [pɾ] | SACRED | *prawo* "law" → /pravɔ/ → A" Cherczyka /pɾavɔ/ → A"' Cher-gulo /pa/ → Ershthikal /pã́/ |
-| 46 | **R-** | [ɾ] | SACRED | *rzeka* "river" → /ʐɛka/ → A" Cherczyka /ʒɛka/ → A"' Cher-gulo /ɾe/ (Yutskoro flap) → Ershthikal /ɾé/ |
-| 51 | **S-** | [s] | SACRED | *srebro* "silver" → /srɛbrɔ/ → A" Cherczyka /sɾɛbɾɔ/ → A"' Cher-gulo /se/ → Ershthikal /sé/ |
-| 52 | **Sh-** | [ʃ] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → A" Cherczyka /ʃfjɛ̃nt/ (Vargku nasalization) → A"' Cher-gulo /ʃẽ/ (Yutskoro CV simplification) → Ershthikal /ʃẽ́/ (high pitch) |
-| 53 | **Shm-** | [ʃm] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → A" Cherczyka /ʃtʃɛ̃/ → A"' Cher-gulo /ʃẽ/ → Ershthikal /ʃẽ́m/ (nasal retention) |
-| 54 | **Shn-** | [ʃn] | SACRED | *śnieg* "snow" → /ɕɲɛk/ → A" Cherczyka /ʃɲɛk/ → A"' Cher-gulo /ʃẽ/ → Ershthikal /ʃẽ́n/ |
-| 55 | **T-** | [t] | SACRED | *targ* "market" → /tarɡ/ → A" Cherczyka /taɾɡ/ → A"' Cher-gulo /ta/ → Ershthikal /tã́/ |
-| 56 | **Tr-** | [tɾ] | SACRED | *trącić* "to strike" → /trɔnt͡ɕit͡ɕ/ → A" Cherczyka /tɾɔnt͡ʃ/ → A"' Cher-gulo /ta/ → Ershthikal /tã́/ |
-| 61 | **V-** | [v] | SACRED | *woda* "water" → /vɔda/ → A" Cherczyka /vɔdã/ → A"' Cher-gulo /võ/ → Ershthikal /ṽṍ/ |
-| 62 | **W-** | [ɰ] | SACRED | *wioska* "village" → /vjɔska/ → A" Cherczyka /vjɔska/ → A"' Cher-gulo /ɰa/ (Yutskoro glide) → Ershthikal /ɰã́/ |
-| 63 | **Y-** | [j] | SACRED | *jutro* "tomorrow" → /jutrɔ/ → A" Cherczyka /ʒytrɔ/ → A"' Cher-gulo /ju/ → Ershthikal /jṹ́/ |
-| 64 | **Z-** | [z] | SACRED | *złoto* "gold" → /zwɔtɔ/ → A" Cherczyka /zɔtɔ/ → A"' Cher-gulo /zo/ → Ershthikal /zṍ/ |
-| 65 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → A" Cherczyka /ʒɛlazɔ/ → A"' Cher-gulo /ʒa/ → Ershthikal /ʒã́/ |
-| 66 | **Zhn-** | [ʒn] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → A" Cherczyka /ʒɛlazɔ/ → A"' Cher-gulo /ʒã/ → Ershthikal /ʒã́n/ |
-
+| 11 | **B-** | [b] | SACRED | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **B-** |
+| 12 | **Bl-** | [bɾ] | SACRED | *błogosławieństwo* "blessing" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Bl-** |
+| 13 | **Br-** | [bɾ] | SACRED | *bronić* "to defend" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Br-** |
+| 14 | **Ch-** | [ʃ] | SACRED | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** |
+| 15 | **Chn-** | [ʃn] | SACRED | *chmura* "cloud" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Chn-** |
+| 16 | **D-** | [d] | SACRED | *dom* "house" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **D-** |
+| 21 | **Dr-** | [dɾ] | SACRED | *drzewo* "tree" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dr-** |
+| 22 | **F-** | [f] | SACRED | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **F-** |
+| 23 | **G-** | [ɡ] | SACRED | *grod* "settlement" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **G-** |
+| 24 | **Gh-** | [ɣ] | SACRED | *głos* "voice" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gh-** |
+| 25 | **Gr-** | [ɡɾ] | SACRED | *gród* "fort" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gr-** |
+| 26 | **J-** | [ʒ] | SACRED | *jutro* "tomorrow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **J-** |
+| 31 | **K-** | [k] | SACRED | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **K-** |
+| 32 | **Kh-** | [x] | SACRED | *chwała* "glory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kh-** |
+| 33 | **Kr-** | [kɾ] | SACRED | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kr-** |
+| 34 | **L-** | [l] | SACRED | *las* "forest" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **L-** |
+| 35 | **M-** | [m] | SACRED | *matka* "mother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **M-** |
+| 36 | **Mn-** | [mn] | SACRED | *mąż* "husband" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Mn-** |
+| 41 | **N-** | [n] | SACRED | *naród* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **N-** |
+| 42 | **Nn-** | [nn] | SACRED | *noc* "night" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Nn-** |
+| 43 | **P-** | [p] | SACRED | *pan* "lord" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **P-** |
+| 44 | **Pl-** | [pɾ] | SACRED | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pl-** |
+| 45 | **Pr-** | [pɾ] | SACRED | *prawo* "law" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pr-** |
+| 46 | **R-** | [ɾ] | SACRED | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **R-** |
+| 51 | **S-** | [s] | SACRED | *srebro* "silver" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **S-** |
+| 52 | **Sh-** | [ʃ] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** |
+| 53 | **Shm-** | [ʃm] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Shm-** |
+| 54 | **Shn-** | [ʃn] | SACRED | *śnieg* "snow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Shn-** |
+| 55 | **T-** | [t] | SACRED | *targ* "market" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **T-** |
+| 56 | **Tr-** | [tɾ] | SACRED | *trącić* "to strike" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tr-** |
+| 61 | **V-** | [v] | SACRED | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **V-** |
+| 62 | **W-** | [ɰ] | SACRED | *wioska* "village" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **W-** |
+| 63 | **Y-** | [j] | SACRED | *jutro* "tomorrow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Y-** |
+| 64 | **Z-** | [z] | SACRED | *złoto* "gold" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Z-** |
+| 65 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zh-** |
+| 66 | **Zhn-** | [ʒn] | SACRED | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zhn-** |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Ershthikal) |
 |-----|--------------|--------|-------------|----------------------------------------|
-| 11 | **-a-** | [ã́] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → A" Cherczyka /pɔlɛ/ → A"' Cher-gulo /pã/ → Ershthikal /pã́/ (nasalization + high pitch) |
-| 12 | **-ai-** | [ãḭ́] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → A" Cherczyka /dɛʃt͡ʃ/ → A"' Cher-gulo /ãḭ/ → Ershthikal /ãḭ́/ |
-| 13 | **-am-** | [ã́m] | WATER | *woda* "water" → /vɔda/ → A" Cherczyka /vɔdã/ → A"' Cher-gulo /võ/ → Ershthikal /ṽṍm/ |
-| 14 | **-an-** | [ã́n] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → A" Cherczyka /kãmʲɛ̃ɲ/ → A"' Cher-gulo /kã/ → Ershthikal /kã́n/ |
-| 15 | **-ar-** | [ã́ɾ] | GROWTH | *roślina* "plant" → /rɔɕlina/ → A" Cherczyka /ɾɔʃlina/ → A"' Cher-gulo /ɾã/ → Ershthikal /ɾã́/ |
-| 16 | **-au-** | [ãṵ́] | WIND | *wiatr* "wind" → /vʲjatr/ → A" Cherczyka /vjãtɾ/ → A"' Cher-gulo /ãṵ/ → Ershthikal /ãṵ́/ |
-| 21 | **-e-** | [ẽ́] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → A" Cherczyka /ʃfjãtwɔ/ → A"' Cher-gulo /ʃẽ/ → Ershthikal /ʃẽ́/ |
-| 22 | **-ea-** | [ẽã́] | VALLEY | *dolina* "valley" → /dɔlina/ → A" Cherczyka /dɔlina/ → A"' Cher-gulo /ẽã/ → Ershthikal /ẽã́/ |
-| 23 | **-el-** | [ẽ́l] | SKY | *niebo* "sky" → /ɲɛbɔ/ → A" Cherczyka /ɲɛbɔ/ → A"' Cher-gulo /ɲẽ/ → Ershthikal /ɲẽ́/ |
-| 24 | **-en-** | [ẽ́n] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → A" Cherczyka /ʃfjɛ̃nt/ → A"' Cher-gulo /ʃẽ/ → Ershthikal /ʃẽ́n/ |
-| 25 | **-er-** | [ẽ́ɾ] | STRENGTH | *moc* "strength" → /mɔt͡s/ → A" Cherczyka /mɔt͡s/ → A"' Cher-gulo /mẽ/ → Ershthikal /mẽ́/ |
-| 26 | **-i-** | [ĩ́] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → A" Cherczyka /vʲɛd͡zã/ → A"' Cher-gulo /vĩ/ → Ershthikal /vĩ́/ |
-| 31 | **-im-** | [ĩ́m] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → A" Cherczyka /uzdɾɔvit͡ɕ/ → A"' Cher-gulo /zĩ/ → Ershthikal /zĩ́m/ |
-| 32 | **-in-** | [ĩ́n] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → A" Cherczyka /ʃɨpkɔ/ → A"' Cher-gulo /ʃĩ/ → Ershthikal /ʃĩ́n/ |
-| 33 | **-o-** | [ṍ] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → A" Cherczyka /ɔɡʲɛ̃ɲ/ → A"' Cher-gulo /õ/ → Ershthikal /ṍ/ |
-| 34 | **-oi-** | [õḭ́] | SEA | *morze* "sea" → /mɔʐɛ/ → A" Cherczyka /mɔʒɛ/ → A"' Cher-gulo /õḭ/ → Ershthikal /õḭ́/ |
-| 35 | **-om-** | [ṍm] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → A" Cherczyka /spɔwɛt͡ʃɛ̃stfɔ/ → A"' Cher-gulo /spõ/ → Ershthikal /spṍ/ |
-| 36 | **-on-** | [ṍn] | ORDER | *rząd* "order" → /ʒɔnt/ → A" Cherczyka /ʒɔ̃nt/ → A"' Cher-gulo /ʒõ/ → Ershthikal /ʒṍn/ |
-| 41 | **-or-** | [ṍɾ] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → A" Cherczyka /xɾɔɲit͡ɕ/ → A"' Cher-gulo /xõ/ → Ershthikal /xṍ/ |
-| 42 | **-ou-** | [õṵ́] | MOUNTAIN | *góra* "mountain" → /gura/ → A" Cherczyka /ɡyɾa/ → A"' Cher-gulo /õṵ/ → Ershthikal /õṵ́/ |
-| 43 | **-ra-** | [ɾã́] | STONE | *kamień* "stone" → /kamʲɛɲ/ → A" Cherczyka /kãmʲɛ̃ɲ/ → A"' Cher-gulo /kɾã/ → Ershthikal /kɾã́/ |
-| 44 | **-re-** | [ɾẽ́] | RIVER | *rzeka* "river" → /ʐɛka/ → A" Cherczyka /ʒɛka/ → A"' Cher-gulo /ɾẽ/ → Ershthikal /ɾẽ́/ |
-| 45 | **-ri-** | [ɾĩ́] | BRIDGE | *most* "bridge" → /mɔst/ → A" Cherczyka /mɔst/ → A"' Cher-gulo /mɾĩ/ → Ershthikal /mɾĩ́/ |
-| 46 | **-ro-** | [ɾṍ] | ROAD | *droga* "road" → /drɔɡa/ → A" Cherczyka /dɾɔɡa/ → A"' Cher-gulo /dɾõ/ → Ershthikal /dɾṍ/ |
-| 51 | **-ru-** | [ɾṹ] | RUIN | *ruina* "ruin" → /ruina/ → A" Cherczyka /ɾuina/ → A"' Cher-gulo /ɾũ/ → Ershthikal /ɾṹ/ |
-| 52 | **-ry-** | [ɾj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → A" Cherczyka /ɡɾaɲit͡sa/ → A"' Cher-gulo /ɡɾj/ → Ershthikal /ɡɾj/ (no pitch on glide) |
-| 53 | **-u-** | [ṹ] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → A" Cherczyka /ɡwɛ̃mbɔkɔɕt͡ɕ/ → A"' Cher-gulo /ɡũ/ → Ershthikal /ɡṹ/ |
-| 54 | **-ui-** | [ũḭ́] | MIST | *mgła* "fog" → /mgwa/ → A" Cherczyka /mgwã/ → A"' Cher-gulo /ũḭ/ → Ershthikal /ũḭ́/ |
-| 55 | **-um-** | [ṹm] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → A" Cherczyka /ɾɔd͡ʑina/ → A"' Cher-gulo /ɾũ/ → Ershthikal /ɾṹm/ |
-| 56 | **-un-** | [ṹn] | FLOW | *rzeka* "river" → /ʐɛka/ → A" Cherczyka /ʒɛka/ → A"' Cher-gulo /ɾũ/ → Ershthikal /ɾṹn/ |
-| 61 | **-ya-** | [jã́] | DAWN | *świt* "dawn" → /ɕfit/ → A" Cherczyka /ʃfit/ → A"' Cher-gulo /jã/ → Ershthikal /jã́/ |
-| 62 | **-ye-** | [jẽ́] | TRUTH | *prawda* "truth" → /pravda/ → A" Cherczyka /pɾavda/ → A"' Cher-gulo /jẽ/ → Ershthikal /jẽ́/ |
-| 63 | **-yə-** | [jə́] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → A" Cherczyka /pãmʲjɛ̃ɲt͡ɕ/ → A"' Cher-gulo /jə/ → Ershthikal /jə́/ |
-| 64 | **-yi-** | [jĩ́] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → A" Cherczyka /t͡ʃyvat͡ɕ/ → A"' Cher-gulo /jĩ/ → Ershthikal /jĩ́/ |
-| 65 | **-yo-** | [jṍ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → A" Cherczyka /xɔɾɨzɔnt/ → A"' Cher-gulo /jõ/ → Ershthikal /jṍ/ |
-| 66 | **-yu-** | [jṹ] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → A" Cherczyka /zmjɛʃx/ → A"' Cher-gulo /jũ/ → Ershthikal /jṹ/ |
-
----
+| 11 | **-ã-** | [ã] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ã-** |
+| 12 | **-ái-** | [ái] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ái-** |
+| 13 | **-ãm-** | [ãm] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ãm-** |
+| 14 | **-ãn-** | [ãn] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ãn-** |
+| 15 | **-ár-** | [ár] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ár-** |
+| 16 | **-ãu-** | [ãu] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ãu-** |
+| 21 | **-ẽ-** | [ẽ] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ẽ-** |
+| 22 | **-éa-** | [éa] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-éa-** |
+| 23 | **-ẽl-** | [ẽl] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ẽl-** |
+| 24 | **-ẽn-** | [ẽn] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ẽn-** |
+| 25 | **-ér-** | [ér] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ér-** |
+| 26 | **-ĩ-** | [ĩ] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ĩ-** |
+| 31 | **-ĩm-** | [ĩm] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ĩm-** |
+| 32 | **-ĩn-** | [ĩn] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ĩn-** |
+| 33 | **-õ-** | [õ] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-õ-** |
+| 34 | **-ói-** | [ói] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ói-** |
+| 35 | **-õm-** | [õm] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-õm-** |
+| 36 | **-õn-** | [õn] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-õn-** |
+| 41 | **-ór-** | [ór] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ór-** |
+| 42 | **-õu-** | [õu] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-õu-** |
+| 43 | **-rã-** | [rã] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rã-** |
+| 44 | **-rẽ-** | [rẽ] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rẽ-** |
+| 45 | **-rĩ-** | [rĩ] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rĩ-** |
+| 46 | **-rõ-** | [rõ] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rõ-** |
+| 51 | **-rũ-** | [rũ] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rũ-** |
+| 52 | **-rỹ-** | [rỹ] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rỹ-** |
+| 53 | **-ũ-** | [ũ] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ũ-** |
+| 54 | **-úi-** | [úi] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-úi-** |
+| 55 | **-ũm-** | [ũm] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ũm-** |
+| 56 | **-ũn-** | [ũn] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ũn-** |
+| 61 | **-yã-** | [jã] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yã-** |
+| 62 | **-yẽ-** | [jẽ] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yẽ-** |
+| 63 | **-yə̃-** | [jə̃] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yə̃-** |
+| 64 | **-yĩ-** | [jĩ] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yĩ-** |
+| 65 | **-yõ-** | [jõ] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yõ-** |
+| 66 | **-yũ-** | [jũ] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yũ-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
 `1` = SACRED (priests, temples, rituals)  

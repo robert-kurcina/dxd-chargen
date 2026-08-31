@@ -1,5 +1,5 @@
 ### Blacktongue Name Generator (Linguistically Grounded)
-*For speakers of the divine X Blacktongue liturgy, also known as Yezik, Godtongue, or Magespeak. All names derive from A Polski roots filtered through English and Esperanto contact influences at the moment of beatification (5000 BCE). Blacktongue exhibits frozen phonology with preserved nasal vowels, conservative cluster retention, and ritual register markers—audibly distinct as a sacred "frozen speech" with no modal variants and no further decay after beatification.*
+*For speakers of the divine X Blacktongue liturgy, also known as Yezik, Godtongue, or Magespeak. All names derive from the very early A Polski → Proto-Blacktongue → Blacktongue branch, with English contact on Proto-Blacktongue and Esperanto contact at Blacktongue creation in 5000 BCE. Beatification freezes this early regularized register. Rare inherited Polish contrasts are reduced where the contact profile supports it; pervasive new nasalization is not assumed.*
 
 **Curator Deity:** all Deities
 
@@ -44,83 +44,81 @@
 ##### BEGIN (Onset) Column — Roll D66
 | D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Blacktongue) |
 |-----|-------|-------|-------------|-----------------------------------------|
-| 11 | **B-** | [b] | DIVINE | *brat* "brother" → /brat/ → Blacktongue /brãt/ (nasalization preserved) |
-| 12 | **Bl-** | [bl] | DIVINE | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → Blacktongue /blɔ̃ɡ/ (labial shift + nasalization) |
-| 13 | **Br-** | [br] | DIVINE | *bronić* "to defend" → /brɔɲit͡ɕ/ → Blacktongue /brɔ̃ɲ/ (cluster preserved + nasalization) |
-| 14 | **Ć-** | [t͡ɕ] | DIVINE | *czysty* "pure" → /t͡ʂɨstɨ/ → Blacktongue /t͡ɕist/ (palatal affricate preserved) |
-| 15 | **Ch-** | [x] | DIVINE | *chleb* "bread" → /xlɛp/ → Blacktongue /xlɛ̃p/ (velar fricative + nasalization) |
-| 16 | **D-** | [d] | DIVINE | *dom* "house" → /dɔm/ → Blacktongue /dɔ̃m/ (nasalization preserved) |
-| 21 | **Dr-** | [dr] | DIVINE | *drzewo* "tree" → /d͡ʐɛvɔ/ → Blacktongue /drɛ̃vɔ/ (retroflex → liquid shift + nasalization) |
-| 22 | **Dź-** | [d͡ʑ] | DIVINE | *dzień* "day" → /d͡ʑɛɲ/ → Blacktongue /d͡ʑẽn/ (voiced palatal affricate + nasalization) |
-| 23 | **Dż-** | [d͡ʒ] | DIVINE | *dżentelmen* "gentleman" → /d͡ʒɛntɛlmɛn/ → Blacktongue /d͡ʒẽnt/ (postalveolar affricate + nasalization) |
-| 24 | **G-** | [ɡ] | DIVINE | *grod* "settlement" → /ɡrut/ → Blacktongue /ɡrũt/ (nasalization preserved) |
-| 25 | **Gr-** | [ɡr] | DIVINE | *gród* "fort" → /ɡrut/ → Blacktongue /ɡrũt/ (cluster preserved + nasalization) |
-| 26 | **Gw-** | [ɡv] | DIVINE | *gwiazda* "star" → /ɡvjaʒda/ → Blacktongue /ɡvjãʒda/ (labiovelar preserved + nasalization) |
-| 31 | **H-** | [ɦ] | DIVINE | *chwała* "glory" → /xfawa/ → Blacktongue /ɦfãwa/ (voiced glottal fricative + nasalization) |
-| 32 | **K-** | [k] | DIVINE | *kamień* "stone" → /kamʲɛɲ/ → Blacktongue /kãmʲɛn/ (nasalization preserved) |
-| 33 | **Kr-** | [kr] | DIVINE | *król* "king" → /krul/ → Blacktongue /krũl/ (cluster preserved + nasalization) |
-| 34 | **Kw-** | [kf] | DIVINE | *kwiat* "flower" → /kfjat/ → Blacktongue /kfjãt/ (labiovelar preserved + nasalization) |
-| 35 | **L'-** | [lʲ] | DIVINE | *lilia* "lily" → /lilja/ → Blacktongue /lʲĩlja/ (palatalized liquid preserved) |
-| 36 | **M-** | [m] | DIVINE | *matka* "mother" → /matka/ → Blacktongue /mãtka/ (nasalization preserved) |
-| 41 | **Ń-** | [ɲ] | DIVINE | *niebo* "sky" → /ɲɛbɔ/ → Blacktongue /ɲẽb/ (palatal nasal preserved) |
-| 42 | **N-** | [n] | DIVINE | *naród* "people" → /narut/ → Blacktongue /nãrut/ (nasalization preserved) |
-| 43 | **P-** | [p] | DIVINE | *pan* "lord" → /pan/ → Blacktongue /pãn/ (nasalization preserved) |
-| 44 | **Pl-** | [pl] | DIVINE | *płat* "payment" → /pwat/ → Blacktongue /plãt/ (labial shift + nasalization) |
-| 45 | **Pr-** | [pr] | DIVINE | *prawo* "law" → /pravɔ/ → Blacktongue /prãvɔ/ (cluster preserved + nasalization) |
-| 46 | **Rz-** | [ʒ] | DIVINE | *rzeka* "river" → /ʐɛka/ → Blacktongue /ʒẽka/ (retroflex → postalveolar shift + nasalization) |
-| 51 | **Ś-** | [ɕ] | DIVINE | *święty* "holy" → /ɕfjɛntɨ/ → Blacktongue /ɕɛ̃t/ (English regularization + nasal preservation) |
-| 52 | **Skr-** | [skr] | DIVINE | *skryć* "to hide" → /skrɨt͡ɕ/ → Blacktongue /skrɨ̃t͡ɕ/ (cluster preserved + nasalization) |
-| 53 | **Spl-** | [spl] | DIVINE | *spław* "raft" → /splaf/ → Blacktongue /splãf/ (cluster preserved + nasalization) |
-| 54 | **Spr-** | [spr] | DIVINE | *sprzątać* "to clean" → /sprzɔntat͡ɕ/ → Blacktongue /sprɔ̃ntat͡ɕ/ (cluster preserved + nasalization) |
-| 55 | **Str-** | [str] | DIVINE | *strumień* "stream" → /strumjɛɲ/ → Blacktongue /strũmjɛn/ (cluster preserved + nasalization) |
-| 56 | **Sz-** | [ʃ] | DIVINE | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → Blacktongue /ʃt͡ʃẽ/ (retroflex → postalveolar shift + nasalization) |
-| 61 | **T-** | [t] | DIVINE | *targ* "market" → /tarɡ/ → Blacktongue /tãrɡ/ (nasalization preserved) |
-| 62 | **Tr-** | [tr] | DIVINE | *trącić* "to strike" → /trɔnt͡ɕit͡ɕ/ → Blacktongue /trɔ̃nt͡ɕ/ (cluster preserved + nasalization) |
-| 63 | **Wl-** | [vl] | DIVINE | *włość* "estate" → /vwɔɕt͡ɕ/ → Blacktongue /vlɔ̃ɕt͡ɕ/ (labial shift + nasalization) |
-| 64 | **Wr-** | [vr] | DIVINE | *wrota* "gate" → /vrɔta/ → Blacktongue /vrɔ̃ta/ (voiced cluster preserved + nasalization) |
-| 65 | **Ź-** | [ʑ] | DIVINE | *żyć* "to live" → /ʐɨt͡ɕ/ → Blacktongue /ʑĩt/ (Esperanto regularization + nasalization) |
-| 66 | **Ż-** | [ʒ] | DIVINE | *żelazo* "iron" → /ʐɛlazɔ/ → Blacktongue /ʒɛ̃laz/ (retroflex → postalveolar shift + nasalization) |
-
+| 11 | **B-** | [b] | DIVINE | *brat* "brother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **B-** |
+| 12 | **Bl-** | [bl] | DIVINE | *błogosławieństwo* "blessing" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Bl-** |
+| 13 | **Br-** | [br] | DIVINE | *bronić* "to defend" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Br-** |
+| 14 | **C-** | [c] | DIVINE | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **C-** |
+| 15 | **Ch-** | [x] | DIVINE | *chleb* "bread" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** |
+| 16 | **D-** | [d] | DIVINE | *dom* "house" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **D-** |
+| 21 | **Dr-** | [dr] | DIVINE | *drzewo* "tree" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dr-** |
+| 22 | **Dj-** | [dʲ] | DIVINE | *dzień* "day" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dj-** |
+| 23 | **J-** | [j] | DIVINE | *dżentelmen* "gentleman" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **J-** |
+| 24 | **G-** | [g] | DIVINE | *grod* "settlement" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **G-** |
+| 25 | **Gr-** | [gr] | DIVINE | *gród* "fort" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gr-** |
+| 26 | **Gw-** | [gv] | DIVINE | *gwiazda* "star" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gw-** |
+| 31 | **H-** | [h] | DIVINE | *chwała* "glory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **H-** |
+| 32 | **K-** | [k] | DIVINE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **K-** |
+| 33 | **Kr-** | [kr] | DIVINE | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kr-** |
+| 34 | **Kw-** | [kv] | DIVINE | *kwiat* "flower" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kw-** |
+| 35 | **L-** | [l] | DIVINE | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **L-** |
+| 36 | **M-** | [m] | DIVINE | *matka* "mother" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **M-** |
+| 41 | **Ny-** | [ɲ] | DIVINE | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ny-** |
+| 42 | **N-** | [n] | DIVINE | *naród* "people" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **N-** |
+| 43 | **P-** | [p] | DIVINE | *pan* "lord" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **P-** |
+| 44 | **Pl-** | [pl] | DIVINE | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pl-** |
+| 45 | **Pr-** | [pr] | DIVINE | *prawo* "law" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pr-** |
+| 46 | **R-** | [r] | DIVINE | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **R-** |
+| 51 | **S-** | [s] | DIVINE | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **S-** |
+| 52 | **Skr-** | [skr] | DIVINE | *skryć* "to hide" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Skr-** |
+| 53 | **Spl-** | [spl] | DIVINE | *spław* "raft" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Spl-** |
+| 54 | **Spr-** | [spr] | DIVINE | *sprzątać* "to clean" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Spr-** |
+| 55 | **Str-** | [str] | DIVINE | *strumień* "stream" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Str-** |
+| 56 | **Sh-** | [ʃ] | DIVINE | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** |
+| 61 | **T-** | [t] | DIVINE | *targ* "market" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **T-** |
+| 62 | **Tr-** | [tr] | DIVINE | *trącić* "to strike" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tr-** |
+| 63 | **Vl-** | [vl] | DIVINE | *włość* "estate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vl-** |
+| 64 | **Vr-** | [vr] | DIVINE | *wrota* "gate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vr-** |
+| 65 | **Z-** | [z] | DIVINE | *żyć* "to live" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Z-** |
+| 66 | **Zh-** | [ʒ] | DIVINE | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zh-** |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
 | D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Blacktongue) |
 |-----|--------------|--------|-------------|-----------------------------------------|
-| 11 | **-ą-** | [ɔ̃] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Blacktongue /pɔ̃l/ (nasal vowel preserved at beatification) |
-| 12 | **-a-** | [a] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Blacktongue /vʲɛ̃d͡za/ (nasalization) |
-| 13 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Blacktongue /dɛ̃ʃt͡ʃ/ (diphthong + nasalization) |
-| 14 | **-am-** | [ã̃m] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Blacktongue /uzdrɔ̃vit͡ɕ/ (nasalization) |
-| 15 | **-an-** | [ã̃n] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Blacktongue /ʃɨ̃pkɔ/ (nasalization) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → Blacktongue /vjãtr/ (diphthong + nasalization) |
-| 21 | **-ę-** | [ɛ̃] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Blacktongue /kãmʲɛ̃n/ (nasal vowel preserved) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Blacktongue /dɔ̃lina/ (diphthong + nasalization) |
-| 23 | **-ęn-** | [ɛ̃n] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Blacktongue /rɔ̃ʃlina/ (nasalization) |
-| 24 | **-i-** | [i] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Blacktongue /ɕfjãtwɔ/ (nasalization on preceding vowel) |
-| 25 | **-il-** | [il] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Blacktongue /ɲɛ̃bɔ/ (nasalization) |
-| 26 | **-in-** | [ĩn] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Blacktongue /ɕfjɛ̃nt/ (nasalization) |
-| 31 | **-ir-** | [ir] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Blacktongue /mɔ̃t͡s/ (nasalization) |
-| 32 | **-ja-** | [ja] | DAWN | *świt* "dawn" → /ɕfit/ → Blacktongue /ɕfjãt/ (nasalization + glide) |
-| 33 | **-je-** | [jɛ] | TRUTH | *prawda* "truth" → /pravda/ → Blacktongue /prãvda/ (nasalization + glide) |
-| 34 | **-ji-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Blacktongue /t͡ʃũvat͡ɕ/ (nasalization + glide) |
-| 35 | **-jo-** | [jɔ] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Blacktongue /xɔrɨ̃zɔnt/ (nasalization + glide) |
-| 36 | **-jǫ-** | [jɔ̃] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Blacktongue /pãmʲjɛ̃nt͡ɕ/ (nasalization + glide) |
-| 41 | **-ju-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Blacktongue /zmjɛ̃ʃx/ (nasalization + glide) |
-| 42 | **-ǫ-** | [ɔ̃] | WATER | *woda* "water" → /vɔda/ → Blacktongue /vɔ̃da/ (nasalization) |
-| 43 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Blacktongue /mɔ̃ʒɛ/ (diphthong + nasalization) |
-| 44 | **-om-** | [ɔ̃m] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Blacktongue /xrɔ̃ɲ/ (nasalization) |
-| 45 | **-on-** | [ɔ̃n] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Blacktongue /spɔ̃wɛt͡ʃ/ (nasalization) |
-| 46 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /ɡura/ → Blacktongue /ɡũra/ (diphthong + nasalization) |
-| 51 | **-ra-** | [ra] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Blacktongue /kãmʲɛn/ (nasalization + liquid) |
-| 52 | **-re-** | [rɛ] | RIVER | *rzeka* "river" → /ʐɛka/ → Blacktongue /ʒɛ̃ka/ (nasalization + liquid) |
-| 53 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → Blacktongue /mɔ̃st/ (nasalization + liquid) |
-| 54 | **-ro-** | [rɔ] | ROAD | *droga* "road" → /drɔɡa/ → Blacktongue /drɔ̃ɡa/ (nasalization + liquid) |
-| 55 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → Blacktongue /rũina/ (nasalization + liquid) |
-| 56 | **-ry-** | [rɨ] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Blacktongue /ɡrãɲit͡sa/ (nasalization + liquid) |
-| 61 | **-u-** | [u] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Blacktongue /ɔ̃ɡʲɛn/ (nasalization) |
-| 62 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Blacktongue /mgwã/ (diphthong + nasalization) |
-| 63 | **-un-** | [ũn] | ORDER | *rząd* "order" → /ʒɔnt/ → Blacktongue /ʒɔ̃nt/ (nasalization) |
-| 64 | **-y-** | [ɨ] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Blacktongue /ɡwɛ̃mbɔk/ (nasalization) |
-| 65 | **-ym-** | [ɨ̃m] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Blacktongue /rɔ̃d͡ʑina/ (nasalization) |
-| 66 | **-yn-** | [ɨ̃n] | FLOW | *rzeka* "river" → /ʐɛka/ → Blacktongue /ʒɛ̃ka/ (nasalization) |
-
+| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-a-** |
+| 12 | **-ay-** | [aj] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ay-** |
+| 13 | **-am-** | [am] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-am-** |
+| 14 | **-an-** | [an] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** |
+| 15 | **-ar-** | [ar] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ar-** |
+| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-au-** |
+| 21 | **-e-** | [e] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** |
+| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ea-** |
+| 23 | **-en-** | [en] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
+| 24 | **-i-** | [i] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-i-** |
+| 25 | **-il-** | [il] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-il-** |
+| 26 | **-in-** | [in] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
+| 31 | **-ir-** | [ir] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
+| 32 | **-ya-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ya-** |
+| 33 | **-ye-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ye-** |
+| 34 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yi-** |
+| 35 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yo-** |
+| 36 | **-yon-** | [jon] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yon-** |
+| 41 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yu-** |
+| 42 | **-o-** | [o] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
+| 43 | **-oy-** | [oj] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oy-** |
+| 44 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
+| 45 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
+| 46 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ou-** |
+| 51 | **-ra-** | [ra] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ra-** |
+| 52 | **-re-** | [re] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-re-** |
+| 53 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
+| 54 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
+| 55 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
+| 56 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ry-** |
+| 61 | **-u-** | [u] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** |
+| 62 | **-ui-** | [ui] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ui-** |
+| 63 | **-un-** | [un] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
+| 64 | **-y-** | [j] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-y-** |
+| 65 | **-ym-** | [jm] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ym-** |
+| 66 | **-yn-** | [jn] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yn-** |
 ---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
@@ -199,7 +197,7 @@
 | Pattern | Rolls | Assembly | Result | Meaning & Etymology |
 |---------|-------|----------|--------|---------------------|
 | Begin (D6=1) + Ś- (D66=11) + Domain 1 (DIVINE) + Suffix -in | D6=1, D66=11, D6=1 | Ś + -ą- + -in → Śąin → **Śĩn** (nasal vowel fusion) | Divine presence (from *święty* "holy" → /ɕfjɛntɨ/ → Blacktongue /ɕɛ̃nt/ → /ɕĩn/ via English regularization + nasal preservation + beatification freeze) |
-| Begin+Middle (D6=5) + K- (D66=65) + -an (D66=34) + Domain 3 (NOBILITY) + Suffix -an | D6=5, D66=65, D66=34, D6=3 | K + -a- + -an → Kaan → **Kã̃n** (nasalization) | Divine house member (from *król* "king" → /krul/ → Blacktongue /krũl/ → /kã̃n/ via nasalization + beatification freeze) |
+| Begin+Middle (D6=5) + K- (D66=65) + -an (D66=34) + Domain 3 (NOBILITY) + Suffix -an | D6=5, D66=65, D66=34, D6=3 | K + -a- + -an → Kaan → **Kã̃n** (contact regularization) | Divine house member (from *król* "king" → /krul/ → Blacktongue /krũl/ → /kã̃n/ via nasalization + beatification freeze) |
 | Middle+Begin (D6=6) + -en- (D66=16) + Str- (D66=31) + Domain 4 (GUARDIAN) + Suffix -on | D6=6, D66=16, D66=31, D6=4 | -en- + Str → Enstr + -on → Enstron → **Ẽ̃strõn** (nasalization cascade) | Temple sentinel (from *święty strumień* "holy stream" → /ɕfjɛntɨ strumjɛɲ/ → Blacktongue /ɕfjɛ̃nt strũmjɛn/ → /ɛ̃strõn/ via nasalization + beatification freeze) |
 | Middle+Middle (D6=4) + -yn- (D66=32) + -il- (D66=36) + Domain 6 (NATURE) + Suffix -yn | D6=4, D66=32, D66=36, D6=6 | -yn- + -il- → ynil (no assimilation) + -yn → Ynilyn → **Ỹ̃nilỹn** → **Ỹ̃nil** (final glide loss) | Sacred grove of healing waters (from *rzeka uzdrowić* "river heal" → /ʐɛka uzdrɔvit͡ɕ/ → Blacktongue /ʒɛ̃ka uzdrɔ̃vit͡ɕ/ → /ỹ̃nil/ via nasalization + beatification freeze) |
 

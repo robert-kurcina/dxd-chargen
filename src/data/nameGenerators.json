@@ -37,7 +37,7 @@
       },
       {
         "roll": 12,
-        "value": "Bh"
+        "value": "V"
       },
       {
         "roll": 13,
@@ -53,7 +53,7 @@
       },
       {
         "roll": 16,
-        "value": "Dz"
+        "value": "Z"
       },
       {
         "roll": 21,
@@ -69,19 +69,19 @@
       },
       {
         "roll": 24,
-        "value": "J"
+        "value": "H"
       },
       {
         "roll": 25,
-        "value": "K"
+        "value": "Y"
       },
       {
         "roll": 26,
-        "value": "Kh"
+        "value": "K"
       },
       {
         "roll": 31,
-        "value": "Khv"
+        "value": "Kh"
       },
       {
         "roll": 32,
@@ -89,11 +89,11 @@
       },
       {
         "roll": 33,
-        "value": "Lj"
+        "value": "Ly"
       },
       {
         "roll": 34,
-        "value": "Ly"
+        "value": "R"
       },
       {
         "roll": 35,
@@ -101,11 +101,11 @@
       },
       {
         "roll": 36,
-        "value": "Mj"
+        "value": "My"
       },
       {
         "roll": 41,
-        "value": "My"
+        "value": "W"
       },
       {
         "roll": 42,
@@ -113,11 +113,11 @@
       },
       {
         "roll": 43,
-        "value": "Nj"
+        "value": "Ny"
       },
       {
         "roll": 44,
-        "value": "Ny"
+        "value": "J"
       },
       {
         "roll": 45,
@@ -129,7 +129,7 @@
       },
       {
         "roll": 51,
-        "value": "R"
+        "value": "Rv"
       },
       {
         "roll": 52,
@@ -137,7 +137,7 @@
       },
       {
         "roll": 53,
-        "value": "Ry"
+        "value": "Vj"
       },
       {
         "roll": 54,
@@ -149,7 +149,7 @@
       },
       {
         "roll": 56,
-        "value": "Sy"
+        "value": "Zj"
       },
       {
         "roll": 61,
@@ -165,21 +165,21 @@
       },
       {
         "roll": 64,
-        "value": "W"
+        "value": "Wv"
       },
       {
         "roll": 65,
-        "value": "Y"
+        "value": "Yv"
       },
       {
         "roll": 66,
-        "value": "Zy"
+        "value": "Zr"
       }
     ],
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "ə"
       },
       {
         "roll": 12,
@@ -187,15 +187,15 @@
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "əm"
       },
       {
         "roll": 14,
-        "value": "an"
+        "value": "ən"
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "ər"
       },
       {
         "roll": 16,
@@ -263,7 +263,7 @@
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "rei"
       },
       {
         "roll": 45,
@@ -279,7 +279,7 @@
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "riə"
       },
       {
         "roll": 53,
@@ -461,7 +461,7 @@
       },
       {
         "roll": 14,
-        "value": "Ć"
+        "value": "C"
       },
       {
         "roll": 15,
@@ -477,11 +477,11 @@
       },
       {
         "roll": 22,
-        "value": "Dź"
+        "value": "Dj"
       },
       {
         "roll": 23,
-        "value": "Dż"
+        "value": "J"
       },
       {
         "roll": 24,
@@ -513,7 +513,7 @@
       },
       {
         "roll": 35,
-        "value": "L'"
+        "value": "L"
       },
       {
         "roll": 36,
@@ -521,7 +521,7 @@
       },
       {
         "roll": 41,
-        "value": "Ń"
+        "value": "Ny"
       },
       {
         "roll": 42,
@@ -541,11 +541,11 @@
       },
       {
         "roll": 46,
-        "value": "Rz"
+        "value": "R"
       },
       {
         "roll": 51,
-        "value": "Ś"
+        "value": "S"
       },
       {
         "roll": 52,
@@ -565,7 +565,7 @@
       },
       {
         "roll": 56,
-        "value": "Sz"
+        "value": "Sh"
       },
       {
         "roll": 61,
@@ -577,41 +577,41 @@
       },
       {
         "roll": 63,
-        "value": "Wl"
+        "value": "Vl"
       },
       {
         "roll": 64,
-        "value": "Wr"
+        "value": "Vr"
       },
       {
         "roll": 65,
-        "value": "Ź"
+        "value": "Z"
       },
       {
         "roll": 66,
-        "value": "Ż"
+        "value": "Zh"
       }
     ],
     "middle": [
       {
         "roll": 11,
-        "value": "ą"
-      },
-      {
-        "roll": 12,
         "value": "a"
       },
       {
-        "roll": 13,
-        "value": "ai"
+        "roll": 12,
+        "value": "ay"
       },
       {
-        "roll": 14,
+        "roll": 13,
         "value": "am"
       },
       {
-        "roll": 15,
+        "roll": 14,
         "value": "an"
+      },
+      {
+        "roll": 15,
+        "value": "ar"
       },
       {
         "roll": 16,
@@ -619,7 +619,7 @@
       },
       {
         "roll": 21,
-        "value": "ę"
+        "value": "e"
       },
       {
         "roll": 22,
@@ -627,7 +627,7 @@
       },
       {
         "roll": 23,
-        "value": "ęn"
+        "value": "en"
       },
       {
         "roll": 24,
@@ -647,35 +647,35 @@
       },
       {
         "roll": 32,
-        "value": "ja"
+        "value": "ya"
       },
       {
         "roll": 33,
-        "value": "je"
+        "value": "ye"
       },
       {
         "roll": 34,
-        "value": "ji"
+        "value": "yi"
       },
       {
         "roll": 35,
-        "value": "jo"
+        "value": "yo"
       },
       {
         "roll": 36,
-        "value": "jǫ"
+        "value": "yon"
       },
       {
         "roll": 41,
-        "value": "ju"
+        "value": "yu"
       },
       {
         "roll": 42,
-        "value": "ǫ"
+        "value": "o"
       },
       {
         "roll": 43,
-        "value": "oi"
+        "value": "oy"
       },
       {
         "roll": 44,
@@ -1913,23 +1913,23 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "á"
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "ái"
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "ama"
       },
       {
         "roll": 14,
-        "value": "an"
+        "value": "ana"
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "ara"
       },
       {
         "roll": 16,
@@ -1937,55 +1937,55 @@
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "é"
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "eá"
       },
       {
         "roll": 23,
-        "value": "el"
+        "value": "elu"
       },
       {
         "roll": 24,
-        "value": "en"
+        "value": "ena"
       },
       {
         "roll": 25,
-        "value": "er"
+        "value": "eru"
       },
       {
         "roll": 26,
-        "value": "i"
+        "value": "í"
       },
       {
         "roll": 31,
-        "value": "im"
+        "value": "imi"
       },
       {
         "roll": 32,
-        "value": "in"
+        "value": "ina"
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "ó"
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "ói"
       },
       {
         "roll": 35,
-        "value": "om"
+        "value": "omo"
       },
       {
         "roll": 36,
-        "value": "on"
+        "value": "ono"
       },
       {
         "roll": 41,
-        "value": "or"
+        "value": "oro"
       },
       {
         "roll": 42,
@@ -1993,31 +1993,31 @@
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "rá"
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "ré"
       },
       {
         "roll": 45,
-        "value": "ri"
+        "value": "rí"
       },
       {
         "roll": 46,
-        "value": "ro"
+        "value": "ró"
       },
       {
         "roll": 51,
-        "value": "ru"
+        "value": "rú"
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "ryu"
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "ú"
       },
       {
         "roll": 54,
@@ -2025,35 +2025,35 @@
       },
       {
         "roll": 55,
-        "value": "um"
+        "value": "umu"
       },
       {
         "roll": 56,
-        "value": "un"
+        "value": "unu"
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "yá"
       },
       {
         "roll": 62,
-        "value": "ye"
+        "value": "yé"
       },
       {
         "roll": 63,
-        "value": "yə"
+        "value": "yə́"
       },
       {
         "roll": 64,
-        "value": "yi"
+        "value": "yí"
       },
       {
         "roll": 65,
-        "value": "yo"
+        "value": "yó"
       },
       {
         "roll": 66,
-        "value": "yu"
+        "value": "yú"
       }
     ],
     "referentSuffixes": [],
@@ -2264,7 +2264,7 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "ach"
       },
       {
         "roll": 12,
@@ -2288,7 +2288,7 @@
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "ech"
       },
       {
         "roll": 22,
@@ -2320,7 +2320,7 @@
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "och"
       },
       {
         "roll": 34,
@@ -2344,11 +2344,11 @@
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "rach"
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "reh"
       },
       {
         "roll": 45,
@@ -2360,7 +2360,7 @@
       },
       {
         "roll": 51,
-        "value": "ru"
+        "value": "ruh"
       },
       {
         "roll": 52,
@@ -2368,7 +2368,7 @@
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "uch"
       },
       {
         "roll": 54,
@@ -2526,7 +2526,7 @@
   },
   {
     "languageId": "language-ershthikal",
-    "language": "Ershthiikal",
+    "language": "Ershthikal",
     "source": "name-generators/Ershthikal.md",
     "kind": "standard",
     "patterns": [
@@ -2704,147 +2704,147 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "ã"
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "ái"
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "ãm"
       },
       {
         "roll": 14,
-        "value": "an"
+        "value": "ãn"
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "ár"
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "ãu"
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "ẽ"
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "éa"
       },
       {
         "roll": 23,
-        "value": "el"
+        "value": "ẽl"
       },
       {
         "roll": 24,
-        "value": "en"
+        "value": "ẽn"
       },
       {
         "roll": 25,
-        "value": "er"
+        "value": "ér"
       },
       {
         "roll": 26,
-        "value": "i"
+        "value": "ĩ"
       },
       {
         "roll": 31,
-        "value": "im"
+        "value": "ĩm"
       },
       {
         "roll": 32,
-        "value": "in"
+        "value": "ĩn"
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "õ"
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "ói"
       },
       {
         "roll": 35,
-        "value": "om"
+        "value": "õm"
       },
       {
         "roll": 36,
-        "value": "on"
+        "value": "õn"
       },
       {
         "roll": 41,
-        "value": "or"
+        "value": "ór"
       },
       {
         "roll": 42,
-        "value": "ou"
+        "value": "õu"
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "rã"
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "rẽ"
       },
       {
         "roll": 45,
-        "value": "ri"
+        "value": "rĩ"
       },
       {
         "roll": 46,
-        "value": "ro"
+        "value": "rõ"
       },
       {
         "roll": 51,
-        "value": "ru"
+        "value": "rũ"
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "rỹ"
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "ũ"
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "úi"
       },
       {
         "roll": 55,
-        "value": "um"
+        "value": "ũm"
       },
       {
         "roll": 56,
-        "value": "un"
+        "value": "ũn"
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "yã"
       },
       {
         "roll": 62,
-        "value": "ye"
+        "value": "yẽ"
       },
       {
         "roll": 63,
-        "value": "yə"
+        "value": "yə̃"
       },
       {
         "roll": 64,
-        "value": "yi"
+        "value": "yĩ"
       },
       {
         "roll": 65,
-        "value": "yo"
+        "value": "yõ"
       },
       {
         "roll": 66,
-        "value": "yu"
+        "value": "yũ"
       }
     ],
     "referentSuffixes": [],
@@ -2913,7 +2913,7 @@
       },
       {
         "roll": 12,
-        "value": "Bh"
+        "value": "V"
       },
       {
         "roll": 13,
@@ -2925,7 +2925,7 @@
       },
       {
         "roll": 15,
-        "value": "Dh"
+        "value": "Z"
       },
       {
         "roll": 16,
@@ -2941,11 +2941,11 @@
       },
       {
         "roll": 23,
-        "value": "Gh"
+        "value": "H"
       },
       {
         "roll": 24,
-        "value": "H"
+        "value": "Hy"
       },
       {
         "roll": 25,
@@ -2965,11 +2965,11 @@
       },
       {
         "roll": 33,
-        "value": "Lj"
+        "value": "Ly"
       },
       {
         "roll": 34,
-        "value": "Ly"
+        "value": "Y"
       },
       {
         "roll": 35,
@@ -2977,11 +2977,11 @@
       },
       {
         "roll": 36,
-        "value": "Mj"
+        "value": "My"
       },
       {
         "roll": 41,
-        "value": "My"
+        "value": "Ny"
       },
       {
         "roll": 42,
@@ -2993,7 +2993,7 @@
       },
       {
         "roll": 44,
-        "value": "Ny"
+        "value": "Yh"
       },
       {
         "roll": 45,
@@ -3001,7 +3001,7 @@
       },
       {
         "roll": 46,
-        "value": "Ph"
+        "value": "Fh"
       },
       {
         "roll": 51,
@@ -3009,11 +3009,11 @@
       },
       {
         "roll": 52,
-        "value": "Rj"
+        "value": "Ry"
       },
       {
         "roll": 53,
-        "value": "Ry"
+        "value": "Yr"
       },
       {
         "roll": 54,
@@ -3045,7 +3045,7 @@
       },
       {
         "roll": 65,
-        "value": "Y"
+        "value": "Yw"
       },
       {
         "roll": 66,
@@ -3055,147 +3055,147 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "ā"
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "āi"
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "ama"
       },
       {
         "roll": 14,
-        "value": "an"
+        "value": "ana"
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "āra"
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "āu"
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "ē"
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "ēa"
       },
       {
         "roll": 23,
-        "value": "el"
+        "value": "ela"
       },
       {
         "roll": 24,
-        "value": "en"
+        "value": "ena"
       },
       {
         "roll": 25,
-        "value": "er"
+        "value": "era"
       },
       {
         "roll": 26,
-        "value": "i"
+        "value": "ī"
       },
       {
         "roll": 31,
-        "value": "im"
+        "value": "ima"
       },
       {
         "roll": 32,
-        "value": "in"
+        "value": "ina"
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "ō"
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "ōi"
       },
       {
         "roll": 35,
-        "value": "om"
+        "value": "oma"
       },
       {
         "roll": 36,
-        "value": "on"
+        "value": "ona"
       },
       {
         "roll": 41,
-        "value": "or"
+        "value": "ora"
       },
       {
         "roll": 42,
-        "value": "ou"
+        "value": "ōu"
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "rā"
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "rē"
       },
       {
         "roll": 45,
-        "value": "ri"
+        "value": "rī"
       },
       {
         "roll": 46,
-        "value": "ro"
+        "value": "rō"
       },
       {
         "roll": 51,
-        "value": "ru"
+        "value": "rū"
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "rya"
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "ū"
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "ūi"
       },
       {
         "roll": 55,
-        "value": "um"
+        "value": "uma"
       },
       {
         "roll": 56,
-        "value": "un"
+        "value": "una"
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "yā"
       },
       {
         "roll": 62,
-        "value": "ye"
+        "value": "yē"
       },
       {
         "roll": 63,
-        "value": "yə"
+        "value": "yə̄"
       },
       {
         "roll": 64,
-        "value": "yi"
+        "value": "yī"
       },
       {
         "roll": 65,
-        "value": "yo"
+        "value": "yō"
       },
       {
         "roll": 66,
-        "value": "yu"
+        "value": "yū"
       }
     ],
     "referentSuffixes": [],
@@ -3260,7 +3260,7 @@
     "begin": [
       {
         "roll": 11,
-        "value": "Bl"
+        "value": "B"
       },
       {
         "roll": 12,
@@ -3268,43 +3268,43 @@
       },
       {
         "roll": 13,
-        "value": "Chr"
+        "value": "Hr"
       },
       {
         "roll": 14,
-        "value": "Chw"
+        "value": "Hv"
       },
       {
         "roll": 15,
-        "value": "Cz"
+        "value": "Ts"
       },
       {
         "roll": 16,
-        "value": "Dr"
+        "value": "D"
       },
       {
         "roll": 21,
-        "value": "Dz"
+        "value": "Z"
       },
       {
         "roll": 22,
-        "value": "Fl"
+        "value": "F"
       },
       {
         "roll": 23,
-        "value": "Fr"
+        "value": "Vr"
       },
       {
         "roll": 24,
-        "value": "Gh"
+        "value": "G"
       },
       {
         "roll": 25,
-        "value": "Gr"
+        "value": "R"
       },
       {
         "roll": 26,
-        "value": "Gw"
+        "value": "V"
       },
       {
         "roll": 31,
@@ -3312,11 +3312,11 @@
       },
       {
         "roll": 32,
-        "value": "Kr"
+        "value": "K"
       },
       {
         "roll": 33,
-        "value": "Kw"
+        "value": "Kv"
       },
       {
         "roll": 34,
@@ -3332,15 +3332,15 @@
       },
       {
         "roll": 41,
-        "value": "Pl"
+        "value": "P"
       },
       {
         "roll": 42,
-        "value": "Pr"
+        "value": "Fr"
       },
       {
         "roll": 43,
-        "value": "Rz"
+        "value": "Zh"
       },
       {
         "roll": 44,
@@ -3356,7 +3356,7 @@
       },
       {
         "roll": 51,
-        "value": "Spl"
+        "value": "Sp"
       },
       {
         "roll": 52,
@@ -3364,15 +3364,15 @@
       },
       {
         "roll": 53,
-        "value": "Str"
+        "value": "St"
       },
       {
         "roll": 54,
-        "value": "Św"
+        "value": "Sw"
       },
       {
         "roll": 55,
-        "value": "Sz"
+        "value": "Sh"
       },
       {
         "roll": 56,
@@ -3380,7 +3380,7 @@
       },
       {
         "roll": 61,
-        "value": "Tw"
+        "value": "Tv"
       },
       {
         "roll": 62,
@@ -3388,7 +3388,7 @@
       },
       {
         "roll": 63,
-        "value": "Wl"
+        "value": "Vl"
       },
       {
         "roll": 64,
@@ -3396,11 +3396,11 @@
       },
       {
         "roll": 65,
-        "value": "Z"
+        "value": "Zr"
       },
       {
         "roll": 66,
-        "value": "Ż"
+        "value": "Ž"
       }
     ],
     "middle": [
@@ -3410,11 +3410,11 @@
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "aj"
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "əm"
       },
       {
         "roll": 14,
@@ -3422,11 +3422,11 @@
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "er"
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "aw"
       },
       {
         "roll": 21,
@@ -3434,7 +3434,7 @@
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "eya"
       },
       {
         "roll": 23,
@@ -3446,19 +3446,19 @@
       },
       {
         "roll": 25,
-        "value": "er"
+        "value": "ēr"
       },
       {
         "roll": 26,
-        "value": "il"
+        "value": "i"
       },
       {
         "roll": 31,
-        "value": "in"
+        "value": "im"
       },
       {
         "roll": 32,
-        "value": "ir"
+        "value": "in"
       },
       {
         "roll": 33,
@@ -3466,7 +3466,7 @@
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "oj"
       },
       {
         "roll": 35,
@@ -3482,7 +3482,7 @@
       },
       {
         "roll": 42,
-        "value": "ou"
+        "value": "ow"
       },
       {
         "roll": 43,
@@ -3490,7 +3490,7 @@
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "rei"
       },
       {
         "roll": 45,
@@ -3506,7 +3506,7 @@
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "rj"
       },
       {
         "roll": 53,
@@ -3514,39 +3514,39 @@
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "uj"
       },
       {
         "roll": 55,
-        "value": "un"
+        "value": "um"
       },
       {
         "roll": 56,
-        "value": "ur"
+        "value": "un"
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "ja"
       },
       {
         "roll": 62,
-        "value": "ye"
+        "value": "je"
       },
       {
         "roll": 63,
-        "value": "yə"
+        "value": "jə"
       },
       {
         "roll": 64,
-        "value": "yi"
+        "value": "ji"
       },
       {
         "roll": 65,
-        "value": "yo"
+        "value": "jo"
       },
       {
         "roll": 66,
-        "value": "yu"
+        "value": "ju"
       }
     ],
     "referentSuffixes": [],
@@ -3615,11 +3615,11 @@
       },
       {
         "roll": 12,
-        "value": "Bl"
+        "value": "Br"
       },
       {
         "roll": 13,
-        "value": "Br"
+        "value": "Bź"
       },
       {
         "roll": 14,
@@ -3671,11 +3671,11 @@
       },
       {
         "roll": 34,
-        "value": "Kw"
+        "value": "Kwi"
       },
       {
         "roll": 35,
-        "value": "L'"
+        "value": "Lj"
       },
       {
         "roll": 36,
@@ -3695,7 +3695,7 @@
       },
       {
         "roll": 44,
-        "value": "Pl"
+        "value": "Pj"
       },
       {
         "roll": 45,
@@ -3711,15 +3711,15 @@
       },
       {
         "roll": 52,
-        "value": "Skr"
+        "value": "Sk"
       },
       {
         "roll": 53,
-        "value": "Spl"
+        "value": "Skr"
       },
       {
         "roll": 54,
-        "value": "Spr"
+        "value": "Spj"
       },
       {
         "roll": 55,
@@ -3735,7 +3735,7 @@
       },
       {
         "roll": 62,
-        "value": "Tr"
+        "value": "Trj"
       },
       {
         "roll": 63,
@@ -3765,19 +3765,19 @@
       },
       {
         "roll": 13,
-        "value": "ai"
+        "value": "ej"
       },
       {
         "roll": 14,
-        "value": "am"
+        "value": "em"
       },
       {
         "roll": 15,
-        "value": "an"
+        "value": "en"
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "ow"
       },
       {
         "roll": 21,
@@ -3785,11 +3785,11 @@
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "ie"
       },
       {
         "roll": 23,
-        "value": "ęn"
+        "value": "ień"
       },
       {
         "roll": 24,
@@ -3797,7 +3797,7 @@
       },
       {
         "roll": 25,
-        "value": "il"
+        "value": "ił"
       },
       {
         "roll": 26,
@@ -3825,7 +3825,7 @@
       },
       {
         "roll": 36,
-        "value": "jǫ"
+        "value": "ją"
       },
       {
         "roll": 41,
@@ -3833,11 +3833,11 @@
       },
       {
         "roll": 42,
-        "value": "ǫ"
+        "value": "o"
       },
       {
         "roll": 43,
-        "value": "oi"
+        "value": "ój"
       },
       {
         "roll": 44,
@@ -3849,15 +3849,15 @@
       },
       {
         "roll": 46,
-        "value": "ou"
+        "value": "ów"
       },
       {
         "roll": 51,
-        "value": "ra"
+        "value": "rja"
       },
       {
         "roll": 52,
-        "value": "re"
+        "value": "rze"
       },
       {
         "roll": 53,
@@ -3873,7 +3873,7 @@
       },
       {
         "roll": 56,
-        "value": "ry"
+        "value": "rzy"
       },
       {
         "roll": 61,
@@ -3881,7 +3881,7 @@
       },
       {
         "roll": 62,
-        "value": "ui"
+        "value": "uj"
       },
       {
         "roll": 63,
@@ -4108,11 +4108,11 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "ā"
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "aih"
       },
       {
         "roll": 13,
@@ -4124,23 +4124,23 @@
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "ār"
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "auh"
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "ē"
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "eā"
       },
       {
         "roll": 23,
-        "value": "el"
+        "value": "eḷ"
       },
       {
         "roll": 24,
@@ -4152,7 +4152,7 @@
       },
       {
         "roll": 26,
-        "value": "il"
+        "value": "īḷ"
       },
       {
         "roll": 31,
@@ -4164,11 +4164,11 @@
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "ō"
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "oih"
       },
       {
         "roll": 35,
@@ -4184,11 +4184,11 @@
       },
       {
         "roll": 42,
-        "value": "ou"
+        "value": "ouh"
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "rā"
       },
       {
         "roll": 44,
@@ -4208,15 +4208,15 @@
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "ṛi"
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "ū"
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "uih"
       },
       {
         "roll": 55,
@@ -4228,7 +4228,7 @@
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "yā"
       },
       {
         "roll": 62,
@@ -4459,7 +4459,7 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "ã"
       },
       {
         "roll": 12,
@@ -4471,7 +4471,7 @@
       },
       {
         "roll": 14,
-        "value": "an"
+        "value": "ãn"
       },
       {
         "roll": 15,
@@ -4495,7 +4495,7 @@
       },
       {
         "roll": 24,
-        "value": "en"
+        "value": "ẽn"
       },
       {
         "roll": 25,
@@ -4527,7 +4527,7 @@
       },
       {
         "roll": 36,
-        "value": "on"
+        "value": "õn"
       },
       {
         "roll": 41,
@@ -4539,7 +4539,7 @@
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "rã"
       },
       {
         "roll": 44,
@@ -4563,7 +4563,7 @@
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "ũ"
       },
       {
         "roll": 54,
@@ -4571,7 +4571,7 @@
       },
       {
         "roll": 55,
-        "value": "un"
+        "value": "ũn"
       },
       {
         "roll": 56,
@@ -4579,7 +4579,7 @@
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "yã"
       },
       {
         "roll": 62,
@@ -4814,11 +4814,11 @@
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "aj"
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "ąm"
       },
       {
         "roll": 14,
@@ -4830,7 +4830,7 @@
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "aw"
       },
       {
         "roll": 21,
@@ -4854,7 +4854,7 @@
       },
       {
         "roll": 26,
-        "value": "il"
+        "value": "ił"
       },
       {
         "roll": 31,
@@ -4870,7 +4870,7 @@
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "oj"
       },
       {
         "roll": 35,
@@ -4882,11 +4882,11 @@
       },
       {
         "roll": 41,
-        "value": "or"
+        "value": "ór"
       },
       {
         "roll": 42,
-        "value": "ou"
+        "value": "ow"
       },
       {
         "roll": 43,
@@ -4894,7 +4894,7 @@
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "rze"
       },
       {
         "roll": 45,
@@ -4918,7 +4918,7 @@
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "uj"
       },
       {
         "roll": 55,
@@ -4930,27 +4930,27 @@
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "ja"
       },
       {
         "roll": 62,
-        "value": "ye"
+        "value": "je"
       },
       {
         "roll": 63,
-        "value": "yə"
+        "value": "ję"
       },
       {
         "roll": 64,
-        "value": "yi"
+        "value": "ji"
       },
       {
         "roll": 65,
-        "value": "yo"
+        "value": "jo"
       },
       {
         "roll": 66,
-        "value": "yu"
+        "value": "ju"
       }
     ],
     "referentSuffixes": [],
@@ -5165,11 +5165,11 @@
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "ay"
       },
       {
         "roll": 13,
-        "value": "am"
+        "value": "əm"
       },
       {
         "roll": 14,
@@ -5177,7 +5177,7 @@
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "ər"
       },
       {
         "roll": 16,
@@ -5189,7 +5189,7 @@
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "eya"
       },
       {
         "roll": 23,
@@ -5197,7 +5197,7 @@
       },
       {
         "roll": 24,
-        "value": "en"
+        "value": "ẽn"
       },
       {
         "roll": 25,
@@ -5221,7 +5221,7 @@
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "oy"
       },
       {
         "roll": 35,
@@ -5229,7 +5229,7 @@
       },
       {
         "roll": 36,
-        "value": "on"
+        "value": "õn"
       },
       {
         "roll": 41,
@@ -5245,7 +5245,7 @@
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "rei"
       },
       {
         "roll": 45,
@@ -5261,7 +5261,7 @@
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "riy"
       },
       {
         "roll": 53,
@@ -5269,7 +5269,7 @@
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "uy"
       },
       {
         "roll": 55,
@@ -5289,7 +5289,7 @@
       },
       {
         "roll": 63,
-        "value": "yə"
+        "value": "yẽ"
       },
       {
         "roll": 64,
@@ -5928,11 +5928,11 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "aṭ"
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "aih"
       },
       {
         "roll": 13,
@@ -5944,19 +5944,19 @@
       },
       {
         "roll": 15,
-        "value": "ar"
+        "value": "ār"
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "auh"
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "ekh"
       },
       {
         "roll": 22,
-        "value": "ea"
+        "value": "eha"
       },
       {
         "roll": 23,
@@ -5972,7 +5972,7 @@
       },
       {
         "roll": 26,
-        "value": "il"
+        "value": "iḷ"
       },
       {
         "roll": 31,
@@ -5984,11 +5984,11 @@
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "okh"
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "oih"
       },
       {
         "roll": 35,
@@ -6004,15 +6004,15 @@
       },
       {
         "roll": 42,
-        "value": "ou"
+        "value": "ouh"
       },
       {
         "roll": 43,
-        "value": "ra"
+        "value": "raṭ"
       },
       {
         "roll": 44,
-        "value": "re"
+        "value": "reh"
       },
       {
         "roll": 45,
@@ -6028,15 +6028,15 @@
       },
       {
         "roll": 52,
-        "value": "ry"
+        "value": "ṛy"
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "ukh"
       },
       {
         "roll": 54,
-        "value": "ui"
+        "value": "uih"
       },
       {
         "roll": 55,
@@ -6048,11 +6048,11 @@
       },
       {
         "roll": 61,
-        "value": "ya"
+        "value": "yah"
       },
       {
         "roll": 62,
-        "value": "ye"
+        "value": "yeh"
       },
       {
         "roll": 63,
@@ -6060,15 +6060,15 @@
       },
       {
         "roll": 64,
-        "value": "yi"
+        "value": "yih"
       },
       {
         "roll": 65,
-        "value": "yo"
+        "value": "yoh"
       },
       {
         "roll": 66,
-        "value": "yu"
+        "value": "yuh"
       }
     ],
     "referentSuffixes": [],
@@ -6279,11 +6279,11 @@
     "middle": [
       {
         "roll": 11,
-        "value": "a"
+        "value": "â"
       },
       {
         "roll": 12,
-        "value": "ai"
+        "value": "ae"
       },
       {
         "roll": 13,
@@ -6299,11 +6299,11 @@
       },
       {
         "roll": 16,
-        "value": "au"
+        "value": "aw"
       },
       {
         "roll": 21,
-        "value": "e"
+        "value": "ê"
       },
       {
         "roll": 22,
@@ -6323,7 +6323,7 @@
       },
       {
         "roll": 26,
-        "value": "il"
+        "value": "îl"
       },
       {
         "roll": 31,
@@ -6335,11 +6335,11 @@
       },
       {
         "roll": 33,
-        "value": "o"
+        "value": "ô"
       },
       {
         "roll": 34,
-        "value": "oi"
+        "value": "oe"
       },
       {
         "roll": 35,
@@ -6383,7 +6383,7 @@
       },
       {
         "roll": 53,
-        "value": "u"
+        "value": "û"
       },
       {
         "roll": 54,
