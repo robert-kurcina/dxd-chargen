@@ -143,9 +143,9 @@ export function interdisciplinaryAccessForDraft(draft: CharacterDraft, data: Sta
   const profession = getTradeSpecialization(draft, data)?.name ?? null;
 
   for (const group of data.interdisciplinarySkills.groups) {
-    if (society && group.access.societies.includes(society)) access.add(group.id);
-    if (culture && group.access.cultures.includes(culture)) access.add(group.id);
-    if (trade && group.access.trades.includes(trade)) access.add(group.id);
+    if (society && group.access.societies.some((entry) => entry === society)) access.add(group.id);
+    if (culture && group.access.cultures.some((entry) => entry === culture)) access.add(group.id);
+    if (trade && group.access.trades.some((entry) => entry === trade)) access.add(group.id);
     if (trade && profession && group.access.professions.some((entry) => entry.trade === trade && entry.name === profession)) access.add(group.id);
   }
   for (const selection of draft.proficiencies.granted) {

@@ -63,5 +63,5 @@ export async function GET(
   const cacheControl = process.env.NODE_ENV === 'production'
     ? 'public, max-age=31536000, immutable'
     : 'no-store, no-cache, must-revalidate, proxy-revalidate';
-  return new NextResponse(bytes, { headers: { 'Content-Type': contentTypeFor(filename), 'Cache-Control': cacheControl } });
+  return new NextResponse(new Uint8Array(bytes), { headers: { 'Content-Type': contentTypeFor(filename), 'Cache-Control': cacheControl } });
 }

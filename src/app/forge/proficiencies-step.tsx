@@ -306,13 +306,13 @@ function LanguageCard({ language, data, setDraft }: { language: LanguageSelectio
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <span className="w-full text-xs font-medium text-muted-foreground">Language modifier (choose one)</span>
-        {[
+        {([
           ['Relevance', LANGUAGE_RELEVANCE_MODIFIERS],
           ['Register', LANGUAGE_REGISTER_MODIFIERS],
-        ].map(([category, modifiers]) => (
+        ] as const).map(([category, modifiers]) => (
           <div key={category} className="flex flex-wrap items-center gap-2">
             <span className="text-xs text-muted-foreground">{category}</span>
-            {(modifiers as readonly typeof LANGUAGE_MODIFIERS[number][]).map((modifier) => {
+            {modifiers.map((modifier) => {
               const active = language.modifiers?.includes(modifier) ?? false;
               return <Button
                 key={modifier}

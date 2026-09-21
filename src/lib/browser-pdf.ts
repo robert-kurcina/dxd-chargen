@@ -1,7 +1,7 @@
 export function createImagePdf(pageImages: string[], imageWidth = 1200, imageHeight = 1575): Blob {
   if (!pageImages.length) throw new Error('No PDF pages were rendered.');
   const encoder = new TextEncoder();
-  const objects = new Map<number, Uint8Array | { header: Uint8Array; body: Uint8Array }>();
+  const objects = new Map<number, Uint8Array<ArrayBuffer> | { header: Uint8Array<ArrayBuffer>; body: Uint8Array<ArrayBuffer> }>();
   const pageWidth = 576;
   const pageHeight = 756;
   const pageObjects = pageImages.map((_, index) => 3 + index * 3);
@@ -22,7 +22,7 @@ export function createImagePdf(pageImages: string[], imageWidth = 1200, imageHei
     objects.set(contentObject, { header: encoder.encode(`<< /Length ${commands.length} >>\nstream\n`), body: commands });
   });
   const maxObject = 2 + pageImages.length * 3;
-  const chunks: Uint8Array[] = [encoder.encode('%PDF-1.4\n')];
+  const chunks: Uint8Array<ArrayBuffer>[] = [encoder.encode('%PDF-1.4\n')];
   const offsets = [0];
   let length = chunks[0].length;
   for (let number = 1; number <= maxObject; number += 1) {
@@ -30,11 +30,11 @@ export function createImagePdf(pageImages: string[], imageWidth = 1200, imageHei
     const value = objects.get(number);
     if (!value) throw new Error(`Missing PDF object ${number}.`);
     const start = encoder.encode(`${number} 0 obj\n`);
-    const binary = typeof (value as { body?: Uint8Array }).body !== 'undefined';
+    const binary = typeof (value as { body?: Uint8Array<ArrayBuffer> }).body !== 'undefined';
     const end = encoder.encode(binary ? '\nendstream\nendobj\n' : '\nendobj\n');
     const parts = binary
-      ? [start, (value as { header: Uint8Array; body: Uint8Array }).header, (value as { header: Uint8Array; body: Uint8Array }).body, end]
-      : [start, value as Uint8Array, end];
+      ? [start, (value as { header: Uint8Array<ArrayBuffer>; body: Uint8Array<ArrayBuffer> }).header, (value as { header: Uint8Array<ArrayBuffer>; body: Uint8Array<ArrayBuffer> }).body, end]
+      : [start, value as Uint8Array<ArrayBuffer>, end];
     chunks.push(...parts);
     length += parts.reduce((sum, part) => sum + part.length, 0);
   }
