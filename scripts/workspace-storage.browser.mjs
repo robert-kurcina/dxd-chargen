@@ -1,0 +1,27 @@
+const { chromium } = await import(process.env.DXD_PLAYWRIGHT_MODULE || 'playwright');
+import assert from 'node:assert/strict';
+// Run against a disposable browser profile; no filesystem character writes.
+const browser=await chromium.launch({ channel: 'chrome', headless: true });
+const context=await browser.newContext({viewport:{width:480,height:900}});const p=await context.newPage();p.on('dialog',d=>d.accept());
+await p.goto('http://127.0.0.1:3000/',{waitUntil:'networkidle'});
+await p.getByRole('button',{name:'Continue',exact:true}).click();await p.getByRole('button',{name:'Generate',exact:true}).click();
+assert.ok(await p.getByRole('button',{name:'Undo',exact:true}).isEnabled());
+const old=await p.evaluate(()=>JSON.parse(localStorage.getItem('dxd-character-library-v1')));
+await p.goto('http://127.0.0.1:3000/library',{waitUntil:'networkidle'});
+await p.getByRole('button',{name:'Load character',exact:true}).first().click();await p.waitForURL('http://127.0.0.1:3000/');
+assert.ok(await p.getByRole('button',{name:'Undo',exact:true}).isDisabled());
+const lib=await p.evaluate(()=>JSON.parse(localStorage.getItem('dxd-character-library-v1')));
+assert.notEqual(lib.activeId,old.activeId);assert.ok(lib.entries.some(e=>e.id===old.activeId));
+console.log('PASS file load preserves old entry and isolates undo');
+await p.getByRole('button',{name:'Continue',exact:true}).click();
+await p.evaluate(()=>{window.originalSet=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k.startsWith('dxd-character-'))throw new DOMException('Quota exceeded','QuotaExceededError');return window.originalSet.call(this,k,v);};});
+await p.getByRole('button',{name:'Generate',exact:true}).click();
+await p.getByRole('alert').filter({hasText:'Browser storage could not save this draft'}).waitFor();
+assert.ok(await p.getByRole('button',{name:'Undo',exact:true}).isEnabled());await p.getByRole('button',{name:'Undo',exact:true}).click();
+await p.getByRole('status').filter({hasText:'Edit undone.'}).first().waitFor();
+console.log('PASS quota error surfaced; in-memory undo preserved');
+const c2=await browser.newContext();await c2.addInitScript(()=>{const get=Storage.prototype.getItem;const set=Storage.prototype.setItem;set.call(localStorage,'dxd-character-library-v1','preserve unreadable draft');Storage.prototype.getItem=function(k){if(k==='dxd-character-library-v1')throw new DOMException('Unavailable','SecurityError');return get.call(this,k);};window.rawGet=get;});
+const p2=await c2.newPage();await p2.goto('http://127.0.0.1:3000/',{waitUntil:'networkidle'});
+await p2.getByRole('alert').filter({hasText:'Automatic browser saving is paused'}).waitFor();
+assert.equal(await p2.evaluate(()=>window.rawGet.call(localStorage,'dxd-character-library-v1')),'preserve unreadable draft');
+console.log('PASS unreadable storage is not overwritten');await browser.close();

@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current WIP: none. T01 is DONE; next is T02 (data/interaction contract), then T03 (safe draft transactions). Application changes have not started. Recommend increasing reasoning above Light before the cross-cutting generation/history work; this is a complexity checkpoint, not a claim about model availability or an approval requirement. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time. No calendar estimates until source inventory and the first end-to-end slice establish effort.
+Current WIP: none. T01, T02 and T03 are DONE. The mobile navigation subset of T04 is accepted; campaign/activity entry remains next. Undo/redo is implemented and verified. Recommend increasing reasoning above Light before the cross-cutting generation/history work; this is a complexity checkpoint, not a claim about model availability or an approval requirement. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time. No calendar estimates until source inventory and the first end-to-end slice establish effort.
 
 ## Priority order
 
@@ -56,14 +56,23 @@ User requested trying the recommended mobile menu plus bottom navigation. Implem
 
 Validation: data/type/build checks passed; Chrome at 320/480/768/1440px verified Profile navigation, retained selected step, menu/Library, Sheet clearance and unobstructed Continue. Checks repeated successfully after final scroll/label refinement. Screenshots in `/private/tmp/dxd-mobile-baseline/trial-*-480.png`.
 
+## DONE — T02/T03 state and history foundation
+
+- T02: [State contract](MOBILE_STATE_CONTRACT.md) defines identity, normalized edit transactions, patch persistence, input-lock invariants, and future generation RNG ownership. Campaign/preset runtime schemas and actual locks remain in their integration tasks; they are not shipped features.
+- T03: `src/lib/draft-history.ts` and WorkspaceProvider integrate atomic normalized edits, Undo/Redo, optional persistent history strictly below 10,000 UTF-8 bytes per local character, contiguous pruning, stale-history rejection, and a 50-action memory cap. Switching files uses separate local entries. Loading a different version is a history boundary. Reset retains existing new-character semantics and starts a new history.
+- Quota/storage failures retain edits in memory and show warnings. Unreadable stored drafts are not overwritten by automatic saving. Async save/revert results cannot overwrite newer/current-character edits. Message feedback is visible on mobile.
+- Verification: six pure history tests pass (`node --test scripts/draft-history.test.mjs`). `npm run check` passes. Browser tests pass for grouped generation undo/redo, reload and cross-view history, byte budget, preference opt-out, file-load isolation, quota errors, unreadable storage, and delayed-save edit/identity preservation. Headless Chrome at 480px, fresh profiles; no physical mobile-device claim.
+- Reproducible browser checks: start the local service on 127.0.0.1:3000; run `node scripts/workspace-history.browser.mjs` , `node scripts/workspace-storage.browser.mjs`, and `node scripts/workspace-save-race.browser.mjs` with Playwright available. If installed outside this repository, set `DXD_PLAYWRIGHT_MODULE` to its importable module path. Tests use installed Chrome, disposable browser profiles, and read-only loads of existing Library records; the storage test requires at least one record. They do not save character files.
+- Known boundary: current step generation still consumes the existing Administrator random sequence. Redo restores recorded character output and does not roll again, but RNG rollback for failed generation and input locks belong to T05. No claim of complete preset generation.
+
 ## TODO — next delivery
 
 Execute in ID order except where dependencies explicitly allow otherwise. Acceptance is per item; release requires all R1 gates.
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| T02 / P0 | Data and interaction contract | T01 | Document UUID relationships, local Default/Working context, preset schema, locks on inputs versus derived results, version/migration behavior, random-sequence handling, and history transaction boundaries. Resolve Q1/Q2 or apply clearly documented provisional defaults |
-| T03 / P0 | Safe draft transactions and local persistence | T02 | Atomic edit/generation transaction API, dirty/save status, localStorage failure handling, undo/redo, optional persisted history below 10 KB per character. Support both section and field locks. Verify old draft migration, reload, undo then new edit invalidates redo, oversized history handling, and failure never destroys current draft |
+
+
 | T04 / P1 | Mobile workspace shell | T02–T03 | Campaign/activity entry plus Design/Profile/Sheet navigation backed by the same draft. Preserve focus/scroll context and data. At the primary 480px width and narrower responsive widths, creation controls fit without horizontal scroll; Sheet keeps print proportions with zoom/pan. Check keyboard and touch behavior |
 | T05 / P1 | Preset generation and locks | T01–T03 | Adapt current generation engine to sourced mechanical presets. One spin replaces unlocked inputs and is one undo operation. Redo restores identical results. Respect canonical prerequisites, campaign eligibility and every lock; conflicting locks explain failure with no partial mutation |
 | T06 / P1 | Integrated concept-to-character slice | T04–T05 | Choose supported Profession/ancestry/lineage, generate, inspect illustrated Profile, edit, undo/redo and print. Preserve existing non-preset creation. Proposed acceptance example: Alef Wizard; exact supported lineage/specialization confirmed by T01 |
@@ -133,4 +142,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Start T02 using the completed source inventory. Specify atomic generation, injectable random source, normalized input-lock checks, per-character history below 10 KB and version migration before T03 implementation. T01 baseline used a fresh browser profile and read-only loads; no existing character files were changed.
+Continue T04 campaign/activity entry using local Default/Working Campaign context, then T05 sourced presets, locks and transaction-owned generation. Preserve the accepted navigation and avoid adding more pinned header rows. No existing character files were changed by history verification.

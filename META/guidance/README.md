@@ -19,3 +19,5 @@ This directory contains development/canon synchronization material for maintaine
 Release notes and machine-readable validation reports live under `META/releases/`. Runtime catalogues remain under `src/data/`; filesystem records and provenance assets live under `data/`; executable and validation scripts remain under `scripts/`.
 
 - [Preset inventory and mobile baseline](MOBILE_PRESET_INVENTORY.md) — T01 source mappings, measured responsive behavior and integration risks.
+
+- [Character state contract](MOBILE_STATE_CONTRACT.md) — normalized transactions, identity boundaries, locks and bounded history.

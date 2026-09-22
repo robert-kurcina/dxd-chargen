@@ -4,7 +4,7 @@ Status: DONE (design contract). Implementation tracked under T03/T05 in MOBILE_C
 
 ## Identity and migration
 
-CharacterDraft already has characterId; preserve it. Give native unsaved drafts an ID before recording history. Library entry IDs identify local containers, not a second character identity. Loading a different character creates/selects its own local entry; never attach its history to the previous active character. Historical variants of the same character may reuse characterId but must not reuse history unless their exact content matches its saved head. Explicit imports/copies get new identities where existing APIs require them. File paths remain transport references, not identity.
+CharacterDraft already has characterId; preserve it. Native unsaved drafts already receive a UUID local-library entry ID before history. Use that stable local identity until filesystem identity is assigned; do not silently rewrite legacy filesystem IDs. History uses the stable local-library entry ID; file-backed entries map deterministically from characterId (or filename fallback for legacy records). Loading a different character creates/selects its own local entry; never attach its history to the previous active character. Historical variants of the same character may reuse characterId but must not reuse history unless their exact content matches its saved head. Explicit imports/copies get new identities where existing APIs require them. File paths remain transport references, not identity.
 
 Keep history separate from CharacterDraft and exported game data. Existing schema-11 drafts remain importable. Campaign/revision/preset IDs will live in versioned creation context; introducing UI-only history does not require pretending campaigns exist.
 

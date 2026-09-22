@@ -20,7 +20,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
   const activeTab = workspaceTab(pathname);
   const sheet = activeTab === '/sheet';
   const character = activeTab === '/' || activeTab === '/profile';
-  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning } = useWorkspace();
+  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, message } = useWorkspace();
   const [confirm, setConfirm] = useState<'save' | 'reset' | null>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const scrollPositions = useRef<Partial<Record<WorkspaceTab, number>>>({});
@@ -61,6 +61,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
         <Button className="h-11 shrink-0" disabled={!dirty || saving} onClick={() => setConfirm('save')}>Save</Button>
       </div>
     </header>
+    {message && <p role="status" className="my-2 text-sm">{message}</p>}
     {storageWarning && <p role="alert" className="my-2 rounded border border-destructive p-2 text-sm">{storageWarning}</p>}
     {character && <div className="flex items-center gap-2 pt-2" aria-label="Edit history">
       <Button variant="outline" size="sm" className="h-11" disabled={!canUndo} onClick={undo}><Undo2 />Undo</Button>

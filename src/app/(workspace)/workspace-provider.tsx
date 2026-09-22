@@ -62,6 +62,8 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const [rememberHistory, setRememberHistoryState] = useState(true);
   const [historyNotice, setHistoryNotice] = useState('');
   const [storageWarning, setStorageWarning] = useState('');
+  const storageReadable = useRef(true);
+  const savingRef = useRef(false);
   const restoreHistory = (next: CharacterLibraryState) => {
     const entry = activeLibraryEntry(next);
     try { setHistory(entry && window.localStorage.getItem('dxd-remember-history') !== 'false' ? unpackHistory(window.localStorage.getItem(historyKey(entry.id)), entry.id, snapshot(entry.draft)) : emptyHistory()); }
@@ -85,7 +87,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
 
   useEffect(() => {
     let savedLibrary: unknown = null; let legacyDraft: unknown = null;
-    try { const rawLibrary = window.localStorage.getItem(CHARACTER_LIBRARY_STORAGE_KEY); if (rawLibrary) savedLibrary = JSON.parse(rawLibrary); const rawLegacy = window.localStorage.getItem(LEGACY_DRAFT_STORAGE_KEY); if (rawLegacy) legacyDraft = JSON.parse(rawLegacy); } catch {}
+    try { const rawLibrary = window.localStorage.getItem(CHARACTER_LIBRARY_STORAGE_KEY); if (rawLibrary) savedLibrary = JSON.parse(rawLibrary); const rawLegacy = window.localStorage.getItem(LEGACY_DRAFT_STORAGE_KEY); if (rawLegacy) legacyDraft = JSON.parse(rawLegacy); } catch { storageReadable.current = false; setStorageWarning('Stored drafts could not be read. Automatic browser saving is paused to preserve them; save to a file and reload when storage is available.'); }
     const migrated = migrateCharacterLibrary(savedLibrary, legacyDraft);
     let nextLibrary = { ...migrated, entries: migrated.entries.map((entry) => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) };
     try {
@@ -93,20 +95,22 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       const pending = pendingRaw ? JSON.parse(pendingRaw) as { idName?: unknown; draft?: unknown } : null;
       if (pending && typeof pending.idName === 'string' && pending.draft) {
         const loaded = normalizeDraft(migrateCharacterDraft(pending.draft), data);
-        nextLibrary = updateActiveDraft(nextLibrary, () => loaded);
+        const id = loaded.characterId ? `file:${loaded.characterId}` : `file:${pending.idName}`;
+        const entry = createLibraryEntry(loaded, id);
+        nextLibrary = { ...nextLibrary, activeId: id, entries: [...nextLibrary.entries.filter(item => item.id !== id), entry] };
         setActiveFileId(pending.idName);
         setSavedSnapshot(comparableDraft(loaded));
         setMessage(`Loaded ${pending.idName}`);
         window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY);
       }
-    } catch { window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY); }
+    } catch { setMessage('The pending character could not be loaded. Existing local drafts were preserved.'); }
     setLibrary(nextLibrary);
     restoreHistory(nextLibrary);
     try { setRememberHistoryState(window.localStorage.getItem('dxd-remember-history') !== 'false'); } catch {}
     setHydrated(true);
   }, [data]);
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || !storageReadable.current) return;
     try {
       window.localStorage.setItem(CHARACTER_LIBRARY_STORAGE_KEY, JSON.stringify(library));
       const active = activeLibraryEntry(library);
@@ -115,7 +119,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     } catch { setStorageWarning('Browser storage could not save this draft. Changes remain only in memory; save to a file before closing.'); }
   }, [library, hydrated]);
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || !storageReadable.current) return;
     const entry = activeLibraryEntry(library); if (!entry) return;
     try {
       if (!rememberHistory) { window.localStorage.removeItem(historyKey(entry.id)); setHistoryNotice('Undo history lasts only for this session.'); return; }
@@ -172,7 +176,8 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     setActiveFileId(idName); setSavedSnapshot(comparableDraft(loaded)); setMessage(`Loaded ${idName}`); router.push('/');
   };
   const save = async () => {
-    if (saving) return false;
+    if (savingRef.current) return false;
+    savingRef.current = true;
     setSaving(true);
     try {
       const response = await fetch('/api/character-files', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idName: activeFileId, draft }) });
@@ -180,23 +185,35 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       const value = await response.json();
       const savedDraft = normalizeDraft(migrateCharacterDraft(value.draft ?? draft), data);
       const current = libraryRef.current;
-      if (activeLibraryEntry(current)?.id !== activeLibraryEntry(library)?.id || comparableDraft(activeLibraryEntry(current)!.draft) !== comparableDraft(draft)) {
+      if (activeLibraryEntry(current)?.id !== activeLibraryEntry(library)?.id) {
+        setLibraryRefresh(key => key + 1); setMessage('The previous character was saved. Your current character is unchanged.'); return true;
+      }
+      if (comparableDraft(activeLibraryEntry(current)!.draft) !== comparableDraft(draft)) {
+        setLibrary(updateActiveDraft(current, { ...activeLibraryEntry(current)!.draft, characterId: savedDraft.characterId }));
+        setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh(key => key + 1);
         setMessage('The earlier version was saved. Newer edits remain unsaved.'); return true;
       }
       setLibrary(updateActiveDraft(current, savedDraft));
       if (JSON.stringify(snapshot(savedDraft)) !== JSON.stringify(snapshot(draft))) setHistory(emptyHistory());
       setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh((key) => key + 1); setMessage(`Saved ${value.idName}`); return true;
     } catch { setMessage('Save failed. The local draft was preserved.'); return false; } finally {
+      savingRef.current = false;
       setSaving(false);
     }
   };
   const revert = async () => {
     if (!activeFileId || reverting) return;
+    const startedEntry = activeLibraryEntry(libraryRef.current);
+    const startedSnapshot = startedEntry ? comparableDraft(startedEntry.draft) : null;
     setReverting(true);
     try {
       const response = await fetch(`/api/character-files/${encodeURIComponent(activeFileId)}`, { cache: 'no-store' });
       if (!response.ok) { setMessage('Revert failed.'); return; }
       const value = await response.json();
+      const currentEntry = activeLibraryEntry(libraryRef.current);
+      if (currentEntry?.id !== startedEntry?.id || !currentEntry || comparableDraft(currentEntry.draft) !== startedSnapshot) {
+        setMessage('Revert cancelled because the active draft changed while loading.'); return;
+      }
       loadDraft(activeFileId, value.draft);
     } catch { setMessage('Revert failed. The local draft was preserved.'); } finally {
       setReverting(false);
