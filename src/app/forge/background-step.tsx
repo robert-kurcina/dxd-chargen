@@ -135,8 +135,7 @@ function setOriginalMarkerHighlight(group: SVGGElement, highlighted: boolean) {
       else circle.removeAttribute('style');
       return;
     }
-    const stroke = markerStroke(circle) || '#ffffff';
-    circle.style.stroke = stroke;
+    circle.style.stroke = group.dataset.dxdOverlandSelected === 'true' ? '#0066cc' : '#ffffff';
     // SVG styles use map units: keep emphasis proportional to each original ring.
     const originalWidth = Number.parseFloat(circle.dataset.dxdOriginalStrokeWidth ?? '0');
     circle.style.strokeWidth = String(originalWidth * 1.5);
@@ -205,7 +204,9 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
     return [];
   }, [customSettlement?.name, mapSelectedMarker, selectedSettlement]);
 
-  const settlementImageKey = selectedMarkerKeys[settlementImageIndex] ?? null;
+  const settlementImageKeys = selectedMarkerKeys.map((key) => key === 'free-city-gilgan' ? 'free-city-gilban' : key);
+  const settlementImageKey = settlementImageKeys[settlementImageIndex] ?? null;
+  const mapLocationName = mapSelectedMarker?.replaceAll('-', ' ') ?? selectedSettlement?.displayName ?? customSettlement?.name ?? 'Selected location';
 
   useEffect(() => {
     setSettlementImageIndex(0);
@@ -325,7 +326,8 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
       const marker = group.dataset.dxdOverlandMarker ?? '';
       const isSelected = selected.has(marker);
       group.dataset.dxdOverlandSelected = isSelected ? 'true' : 'false';
-      if (group.dataset.dxdOverlandHover !== 'true') setOriginalMarkerHighlight(group, isSelected);
+      group.setAttribute('aria-pressed', String(isSelected));
+      setOriginalMarkerHighlight(group, isSelected || group.dataset.dxdOverlandHover === 'true');
     });
   };
 
@@ -374,9 +376,6 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
       if (group.dataset.dxdOverlandBound === 'true') return;
       group.dataset.dxdOverlandBound = 'true';
       const activate = () => {
-        setSettlementImageIndex(0);
-        setSettlementImageUnavailable(false);
-        setSettlementImageLoaded(false);
         chooseMapMarker(marker);
       };
       const setHover = (hovered: boolean) => {
@@ -400,7 +399,7 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
   };
 
   const handleSettlementImageError = () => {
-    if (settlementImageIndex + 1 < selectedMarkerKeys.length) {
+    if (settlementImageIndex + 1 < settlementImageKeys.length) {
       setSettlementImageLoaded(false);
       setSettlementImageIndex((current) => current + 1);
       return;
@@ -468,13 +467,18 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
               style={{ aspectRatio: '275.251 / 183.56' }}
             />
           </div>
+          {settlementImageUnavailable && (
+            <p role="status" className="rounded-lg border bg-muted/20 p-4 text-sm">
+              Region map unavailable for {mapLocationName}. The overland marker remains selected.
+            </p>
+          )}
           {settlementImageKey && !settlementImageUnavailable && (
             <div className="relative min-h-[160px] overflow-hidden rounded-lg border bg-muted/20">
               {!settlementImageLoaded && <SuspenseSpinner label="Loading settlement map…" className="absolute inset-0 z-10 bg-card/90" />}
               <img
                 key={settlementImageKey}
                 src={`${CITYSTATE_ASSET_URL}/${settlementImageKey}.png`}
-                alt={`${(selectedSettlement?.displayName ?? customSettlement?.name ?? settlementImageKey.replaceAll('-', ' '))} region map`}
+                alt={`${mapLocationName} region map`}
                 onLoad={handleSettlementImageLoad}
                 onError={handleSettlementImageError}
                 className={cn('block h-auto w-full', !settlementImageLoaded && 'invisible')}
