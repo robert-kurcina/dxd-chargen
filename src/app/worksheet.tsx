@@ -752,7 +752,7 @@ export default function Worksheet({
                 Reset Character Forge?
               </CardTitle>
               <CardDescription>
-                This will zero all properties and start a new character from scratch. This action cannot be undone.
+                Start a new character from scratch. Your current browser draft remains available in the Library.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex gap-2 justify-end">

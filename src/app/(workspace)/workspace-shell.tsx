@@ -8,19 +8,20 @@ import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/confirm-dialog';
 import { cn } from '@/lib/utils';
 import { ForgeWorkspaceView, LibraryWorkspaceView, SheetWorkspaceView } from './workspace-views';
+import { CampaignsView, MapsView } from './campaign-views';
 import { useWorkspace } from './workspace-provider';
 import SuspenseSpinner from '@/components/suspense-spinner';
 
 const tabs = [{ href: '/', label: 'Design' }, { href: '/profile', label: 'Profile' }, { href: '/sheet', label: 'Sheet' }] as const;
-type WorkspaceTab = '/' | '/profile' | '/sheet' | '/library';
-const workspaceTab = (pathname: string): WorkspaceTab => pathname === '/sheet' || pathname === '/profile' || pathname === '/library' ? pathname : '/';
+type WorkspaceTab = '/' | '/profile' | '/sheet' | '/library' | '/campaigns' | '/maps';
+const workspaceTab = (pathname: string): WorkspaceTab => pathname === '/sheet' || pathname === '/profile' || pathname === '/library' || pathname === '/campaigns' || pathname === '/maps' ? pathname : '/';
 
 export default function WorkspaceShell({ children: _children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const activeTab = workspaceTab(pathname);
   const sheet = activeTab === '/sheet';
   const character = activeTab === '/' || activeTab === '/profile';
-  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, message } = useWorkspace();
+  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, message, selectedCampaign } = useWorkspace();
   const [confirm, setConfirm] = useState<'save' | 'reset' | null>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const scrollPositions = useRef<Partial<Record<WorkspaceTab, number>>>({});
@@ -43,6 +44,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
         <details ref={menu} className="shrink-0" onKeyDown={event => { if (event.key === 'Escape') { closeMenu(); menu.current?.querySelector('summary')?.focus(); } }}>
           <summary aria-label="Workspace menu" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-md border [&::-webkit-details-marker]:hidden"><Menu className="h-5 w-5" /></summary>
           <div className="absolute left-0 top-12 z-50 w-64 max-w-[calc(100vw-2rem)] rounded-lg border bg-background p-2 shadow-lg">
+            <Link href="/campaigns" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Campaigns</Link>
             <Link href="/library" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Character Library</Link>
             <Link href="/admin" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Administration</Link>
             <div className="my-2 border-t" />
@@ -54,11 +56,11 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
           </div>
         </details>
         <div className="min-w-0 flex-1 lg:hidden">
-          <div className="truncate text-sm font-medium">{activeTab === '/library' ? 'Character Library' : draft.utilities.name || 'New character'}</div>
-          <div className="truncate text-xs text-muted-foreground">{saving ? 'Saving…' : dirty ? 'Unsaved file changes' : activeFileId ? 'File saved' : 'Local draft'}</div>
+          <div className="truncate text-sm font-medium">{activeTab === '/campaigns' ? 'Campaigns' : activeTab === '/maps' ? 'Explore origins' : activeTab === '/library' ? 'Character Library' : draft.utilities.name || 'New character'}</div>
+          <div className="truncate text-xs text-muted-foreground">{!character && !sheet ? selectedCampaign.name : saving ? 'Saving…' : dirty ? 'Unsaved file changes' : activeFileId ? 'File saved' : 'Local draft'}</div>
         </div>
         <div className="hidden min-w-0 flex-1 lg:block">{navigation(false)}</div>
-        <Button className="h-11 shrink-0" disabled={!dirty || saving} onClick={() => setConfirm('save')}>Save</Button>
+        <Button className={cn("h-11 shrink-0", !character && !sheet && "hidden")} disabled={!dirty || saving} onClick={() => setConfirm('save')}>Save</Button>
       </div>
     </header>
     {message && <p role="status" className="my-2 text-sm">{message}</p>}
@@ -69,12 +71,14 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
       {historyNotice && <span role="status" className="text-xs text-muted-foreground">{historyNotice}</span>}
     </div>}
     <div className={cn('pt-2', sheet && 'min-h-0 flex-1')}>
+      {activeTab === '/campaigns' && <CampaignsView />}
+      {activeTab === '/maps' && <MapsView />}
       {(mountedTabs.has('/') || mountedTabs.has('/profile') || character) && <section hidden={!character} aria-hidden={!character}><Suspense fallback={<SuspenseSpinner panel label="Loading character…" />}><ForgeWorkspaceView view={activeTab === '/profile' ? 'profile' : 'design'} /></Suspense></section>}
       {(mountedTabs.has('/sheet') || sheet) && <section hidden={!sheet} aria-hidden={!sheet} className="h-full min-h-0"><Suspense fallback={<SuspenseSpinner panel label="Loading Sheet…" className="h-full" />}><SheetWorkspaceView /></Suspense></section>}
       {(mountedTabs.has('/library') || activeTab === '/library') && <section hidden={activeTab !== '/library'} aria-hidden={activeTab !== '/library'}><Suspense fallback={<SuspenseSpinner panel label="Loading Library…" />}><LibraryWorkspaceView /></Suspense></section>}
     </div>
     <div data-forge-modal-background className="fixed inset-x-0 bottom-0 z-40 border-t bg-background px-2 pt-1 pb-[max(0.5rem,env(safe-area-inset-bottom))] lg:hidden print:hidden">{navigation(true)}</div>
     <ConfirmDialog open={confirm === 'save'} title="Save character?" confirmLabel="Save" busy={saving} onCancel={() => setConfirm(null)} onConfirm={() => { void save().then(ok => { if (ok) setConfirm(null); }); }}><p>Write the current character to {activeFileId || 'a new character file'}.</p></ConfirmDialog>
-    <ConfirmDialog open={confirm === 'reset'} title="Reset character?" confirmLabel="Reset" onCancel={() => setConfirm(null)} onConfirm={() => { reset(); setConfirm(null); }}><p>Start a new empty draft. Unsaved changes to the current draft will be lost. This cannot yet be undone.</p></ConfirmDialog>
+    <ConfirmDialog open={confirm === 'reset'} title="Reset character?" confirmLabel="Reset" onCancel={() => setConfirm(null)} onConfirm={() => { reset(); setConfirm(null); }}><p>Start a new empty draft in the selected campaign. Your current draft remains available in the Library.</p></ConfirmDialog>
   </div></main>;
 }

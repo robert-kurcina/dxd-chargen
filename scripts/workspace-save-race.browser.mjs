@@ -23,6 +23,7 @@ try {
     await gate;
     await route.fulfill({ json: { idName: 'abc12345-race-fixture', draft: { ...body.draft, characterId: 'abc12345' } } });
   });
+  await page.addInitScript(() => localStorage.setItem('dxd-selected-campaign-v1', '7841aa01-33f4-4a90-8d13-000000000002'));
   await page.goto('http://127.0.0.1:3000/', { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await page.getByRole('button', { name: 'Generate', exact: true }).click();

@@ -6,6 +6,7 @@ const context=await browser.newContext({viewport:{width:480,height:900}});
 const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
 page.on('dialog',d=>d.accept());
 const snapshot=()=>page.evaluate(()=>{const x=JSON.parse(localStorage.getItem('dxd-character-library-v1'));const d=x.entries.find(e=>e.id===x.activeId).draft;return {...d,updatedAt:null,characterId:null};});
+await page.addInitScript(() => localStorage.setItem('dxd-selected-campaign-v1', '7841aa01-33f4-4a90-8d13-000000000002'));
 await page.goto('http://127.0.0.1:3000/',{waitUntil:'networkidle'});
 await page.getByRole('button',{name:'Continue',exact:true}).click();
 await page.getByText('Assign Demographics',{exact:true}).first().waitFor();

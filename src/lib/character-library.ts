@@ -5,6 +5,7 @@ export const CHARACTER_LIBRARY_STORAGE_KEY = 'dxd-character-library-v1';
 export const PENDING_FILE_LOAD_STORAGE_KEY = 'dxd-character-pending-file-load-v1';
 
 export type CharacterLibraryEntry = {
+  fileId?: string;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -46,6 +47,7 @@ export function migrateCharacterLibrary(value: unknown, fallbackDraft?: unknown)
     const candidate = value as Partial<CharacterLibraryState>;
     if (candidate.schemaVersion === 1 && Array.isArray(candidate.entries)) {
       const entries = candidate.entries.map((entry) => ({
+        fileId: typeof entry?.fileId === 'string' ? entry.fileId : undefined,
         id: typeof entry?.id === 'string' && entry.id ? entry.id : makeCharacterId(),
         createdAt: typeof entry?.createdAt === 'string' ? entry.createdAt : now(),
         updatedAt: typeof entry?.updatedAt === 'string' ? entry.updatedAt : now(),

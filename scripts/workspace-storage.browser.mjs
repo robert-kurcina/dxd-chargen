@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 // Run against a disposable browser profile; no filesystem character writes.
 const browser=await chromium.launch({ channel: 'chrome', headless: true });
 const context=await browser.newContext({viewport:{width:480,height:900}});const p=await context.newPage();p.on('dialog',d=>d.accept());
+await p.addInitScript(() => localStorage.setItem('dxd-selected-campaign-v1', '7841aa01-33f4-4a90-8d13-000000000002'));
 await p.goto('http://127.0.0.1:3000/',{waitUntil:'networkidle'});
 await p.getByRole('button',{name:'Continue',exact:true}).click();await p.getByRole('button',{name:'Generate',exact:true}).click();
 assert.ok(await p.getByRole('button',{name:'Undo',exact:true}).isEnabled());

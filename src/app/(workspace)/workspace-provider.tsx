@@ -13,6 +13,7 @@ import { syncProperties } from '@/lib/rules/properties';
 import { syncUtilities } from '@/lib/rules/utilities';
 import { ADMIN_SETTINGS_EVENT, readAdminSettings, sortLibraryTags } from '@/lib/admin-settings';
 
+import { LOCAL_CAMPAIGNS, CAMPAIGN_SELECTION_KEY, localCampaign } from '@/lib/local-campaigns';
 import { emptyHistory, recordEdit, travel, packHistory, unpackHistory, type History, type Json } from '@/lib/draft-history';
 
 const historyKey = (id: string) => `dxd-character-history-v1:${id}`;
@@ -24,6 +25,11 @@ const INITIAL_TIMESTAMP = '1970-01-01T00:00:00.000Z';
 function initialLibraryState(): CharacterLibraryState { return { schemaVersion: 1, activeId: 'initial', entries: [{ id: 'initial', createdAt: INITIAL_TIMESTAMP, updatedAt: INITIAL_TIMESTAMP, draft: createEmptyCharacterDraft() }] }; }
 
 type WorkspaceContextValue = {
+  selectedCampaign: typeof LOCAL_CAMPAIGNS[number];
+  selectCampaign: (id: string) => void;
+  createInCampaign: (origin?: CharacterDraft['background']) => void;
+  localEntries: CharacterLibraryState['entries'];
+  openLocalDraft: (id: string) => void;
   canUndo: boolean;
   canRedo: boolean;
   undo: () => void;
@@ -53,6 +59,14 @@ const WorkspaceContext = createContext<WorkspaceContextValue | null>(null);
 
 export function WorkspaceProvider({ data, children }: { data: StaticData; children: React.ReactNode }) {
   const router = useRouter();
+  const [selectedCampaignId, setSelectedCampaignId] = useState<string>(LOCAL_CAMPAIGNS[1].id);
+  const selectedCampaign = localCampaign(selectedCampaignId);
+  const selectCampaign = (id: string) => {
+    const campaign = localCampaign(id);
+    setSelectedCampaignId(campaign.id);
+    try { window.localStorage.setItem(CAMPAIGN_SELECTION_KEY, campaign.id); }
+    catch { setStorageWarning('Campaign selection could not be remembered in this browser.'); }
+  };
   const [library, setLibraryState] = useState<CharacterLibraryState>(initialLibraryState);
   const libraryRef = useRef(library);
   const setLibrary = (next: CharacterLibraryState) => { libraryRef.current = next; setLibraryState(next); };
@@ -96,7 +110,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       if (pending && typeof pending.idName === 'string' && pending.draft) {
         const loaded = normalizeDraft(migrateCharacterDraft(pending.draft), data);
         const id = loaded.characterId ? `file:${loaded.characterId}` : `file:${pending.idName}`;
-        const entry = createLibraryEntry(loaded, id);
+        const entry = { ...createLibraryEntry(loaded, id), fileId: pending.idName };
         nextLibrary = { ...nextLibrary, activeId: id, entries: [...nextLibrary.entries.filter(item => item.id !== id), entry] };
         setActiveFileId(pending.idName);
         setSavedSnapshot(comparableDraft(loaded));
@@ -105,6 +119,13 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       }
     } catch { setMessage('The pending character could not be loaded. Existing local drafts were preserved.'); }
     setLibrary(nextLibrary);
+    const restoredEntry = activeLibraryEntry(nextLibrary);
+    if (restoredEntry?.fileId) setActiveFileId(restoredEntry.fileId);
+    try {
+      const selected = window.localStorage.getItem(CAMPAIGN_SELECTION_KEY);
+      if (selected) setSelectedCampaignId(localCampaign(selected).id);
+      else if (!savedLibrary && !legacyDraft && !restoredEntry?.fileId && window.location.pathname === '/') router.replace('/campaigns');
+    } catch {}
     restoreHistory(nextLibrary);
     try { setRememberHistoryState(window.localStorage.getItem('dxd-remember-history') !== 'false'); } catch {}
     setHydrated(true);
@@ -170,7 +191,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     const loaded = normalizeDraft(migrateCharacterDraft(value), data);
     const current = libraryRef.current;
     const id = loaded.characterId ? `file:${loaded.characterId}` : `file:${idName}`;
-    const entry = createLibraryEntry(loaded, id);
+    const entry = { ...createLibraryEntry(loaded, id), fileId: idName };
     const next = { ...current, activeId: id, entries: [...current.entries.filter(item => item.id !== id), entry] };
     setLibrary(next); restoreHistory(next);
     setActiveFileId(idName); setSavedSnapshot(comparableDraft(loaded)); setMessage(`Loaded ${idName}`); router.push('/');
@@ -190,11 +211,13 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       }
       if (comparableDraft(activeLibraryEntry(current)!.draft) !== comparableDraft(draft)) {
         setLibrary(updateActiveDraft(current, { ...activeLibraryEntry(current)!.draft, characterId: savedDraft.characterId }));
+        setLibrary({ ...libraryRef.current, entries: libraryRef.current.entries.map(entry => entry.id === libraryRef.current.activeId ? { ...entry, fileId: value.idName } : entry) });
         setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh(key => key + 1);
         setMessage('The earlier version was saved. Newer edits remain unsaved.'); return true;
       }
       setLibrary(updateActiveDraft(current, savedDraft));
       if (JSON.stringify(snapshot(savedDraft)) !== JSON.stringify(snapshot(draft))) setHistory(emptyHistory());
+      setLibrary({ ...libraryRef.current, entries: libraryRef.current.entries.map(entry => entry.id === libraryRef.current.activeId ? { ...entry, fileId: value.idName } : entry) });
       setActiveFileId(value.idName); setSavedSnapshot(comparableDraft(savedDraft)); setLibraryRefresh((key) => key + 1); setMessage(`Saved ${value.idName}`); return true;
     } catch { setMessage('Save failed. The local draft was preserved.'); return false; } finally {
       savingRef.current = false;
@@ -219,9 +242,23 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       setReverting(false);
     }
   };
-  const reset = () => { const empty = normalizeDraft(createEmptyCharacterDraft(), data); const entry = createLibraryEntry({ ...empty, completedSteps: [] }); setLibrary({ ...libraryRef.current, activeId: entry.id, entries: [...libraryRef.current.entries, entry] }); setHistory(emptyHistory()); setActiveFileId(null); setSavedSnapshot(''); setMessage('Forge reset to a new character.'); };
+  const createInCampaign = (origin?: CharacterDraft['background']) => {
+    const empty = createEmptyCharacterDraft();
+    const entry = createLibraryEntry(normalizeDraft({ ...empty, campaignId: selectedCampaign.id, ...(origin ? { background: { ...empty.background, regionId: origin.regionId, settlementId: origin.settlementId } } : {}) }, data));
+    setLibrary({ ...libraryRef.current, activeId: entry.id, entries: [...libraryRef.current.entries, entry] });
+    setHistory(emptyHistory()); setActiveFileId(null); setSavedSnapshot('');
+    setMessage(`New character in ${selectedCampaign.name}. Your previous draft remains in the Library.`);
+    router.push('/');
+  };
+  const reset = () => createInCampaign();
+  const openLocalDraft = (id: string) => {
+    const entry = libraryRef.current.entries.find(item => item.id === id); if (!entry) return;
+    const next = { ...libraryRef.current, activeId: id }; setLibrary(next); restoreHistory(next);
+    setActiveFileId(entry.fileId ?? null); setSavedSnapshot('');
+    setMessage('Opened browser draft.'); router.push('/');
+  };
 
-  const value = useMemo<WorkspaceContextValue>(() => ({ canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning]);
+  const value = useMemo<WorkspaceContextValue>(() => ({ selectedCampaign, selectCampaign, createInCampaign, localEntries: library.entries, openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, selectedCampaign, library]);
   if (!hydrated) return <SuspenseSpinner panel label="Loading character workspace…" className="mx-auto mt-4 max-w-[1440px]" />;
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }

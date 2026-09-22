@@ -36,6 +36,7 @@ async function metadata(idName: string) {
   const disposition = capabilityDispositionCounts(draft, sarnaLenData);
   return {
     idName,
+    campaignId: draft.campaignId ?? null,
     characterId: draft.characterId ?? idName.split('-')[0],
     versionCount: await versionCount(folder),
     name: draft.utilities.name || '', properName: draft.utilities.properName || '', speciesId: draft.intrinsics.speciesId,
