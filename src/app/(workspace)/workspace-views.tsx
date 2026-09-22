@@ -10,11 +10,11 @@ import CharacterLibraryPanel from '@/app/character-library-panel';
 import { sortLibraryTags } from '@/lib/admin-settings';
 import { useWorkspace } from './workspace-provider';
 
-export function ForgeWorkspaceView() {
+export function ForgeWorkspaceView({ view = 'design' }: { view?: 'design' | 'profile' }) {
   const { data, draft, setDraft, activeFileId, dirty, message, availableTags, saving, reverting, save, revert, reset } = useWorkspace();
   const [confirmOpen, setConfirmOpen] = useState(false);
   return <>
-    <div data-forge-modal-background className="mx-auto mb-3 flex max-w-[1440px] flex-wrap items-center justify-between gap-2 rounded-lg border bg-card p-3">
+    <div data-forge-modal-background className="mx-auto mb-3 hidden max-w-[1440px] lg:flex flex-wrap items-center justify-between gap-2 rounded-lg border bg-card p-3">
       <div className="min-w-0 text-sm">
         <div className="truncate font-medium">{activeFileId ? <><span>Filename: </span><span className="font-mono">{activeFileId}</span></> : 'Unsaved character'}{dirty && <span className="ml-2 text-xs text-[#990000]">Unsaved changes</span>}</div>
         {message && <div className="text-xs text-muted-foreground" role="status" aria-live="polite">{message}</div>}
@@ -25,7 +25,7 @@ export function ForgeWorkspaceView() {
         <Button disabled={!dirty || saving || reverting} onClick={() => setConfirmOpen(true)}>{saving ? <SuspenseSpinner compact label="Saving…" className="text-current" /> : 'Save'}</Button>
       </div>
     </div>
-    <Worksheet data={data} draft={draft} setDraft={setDraft} onReset={reset} />
+    <Worksheet view={view} data={data} draft={draft} setDraft={setDraft} onReset={reset} />
     <ConfirmDialog open={confirmOpen} title="Save character?" confirmLabel="Approve" busy={saving} onCancel={() => setConfirmOpen(false)} onConfirm={() => { setConfirmOpen(false); void save(); }}><p>Approve to write the current Forge state to {activeFileId ? <span className="font-mono">{activeFileId}</span> : 'a new character file'}. Cancel leaves the current changes unsaved.</p></ConfirmDialog>
   </>;
 }

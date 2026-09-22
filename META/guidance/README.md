@@ -8,9 +8,14 @@ This directory contains development/canon synchronization material for maintaine
 
 ## Development instructions and architecture
 
+- [Mobile campaign execution plan](MOBILE_CAMPAIGN_PLAN.md) — prioritized TODO/WIP/DONE/REJECTED/DEFERRED board, dependencies, acceptance gates, and open questions.
+- [Mobile campaign specification](MOBILE_CAMPAIGN_SPEC.md) — agreed product behavior and supporting source inventory.
+
 - `blueprint.md` — compact application architecture and UX guidance.
 - `FINAL_PRODUCT_PLAN.md` — implementation roadmap, release criteria, state/rules architecture, validation expectations, and product constraints.
 
 ## Other project records
 
 Release notes and machine-readable validation reports live under `META/releases/`. Runtime catalogues remain under `src/data/`; filesystem records and provenance assets live under `data/`; executable and validation scripts remain under `scripts/`.
+
+- [Preset inventory and mobile baseline](MOBILE_PRESET_INVENTORY.md) — T01 source mappings, measured responsive behavior and integration risks.

@@ -1,5 +1,7 @@
 'use client';
 
+import { createPortal } from 'react-dom';
+
 import { useEffect, useRef } from 'react';
 import { Menu, UserRound, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -60,20 +62,20 @@ export function MobileNavigationOverlay({
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-30 lg:hidden">
+      <div className="shrink-0 lg:hidden">
         <Button
           ref={opener}
           size="icon"
           variant="default"
           onClick={() => onSwitchMode('navigation')}
-          className="rounded-full shadow-lg"
+          className="h-11 w-auto gap-2 px-3"
           aria-label="Open navigation menu"
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-4 w-4" /><span>Steps</span>
         </Button>
       </div>
 
-      {isOpen && (
+      {isOpen && createPortal(
         <div
           ref={chrome}
           className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-background lg:hidden"
@@ -120,7 +122,7 @@ export function MobileNavigationOverlay({
           </div>
 
           <div className="flex-1" aria-hidden="true" />
-        </div>
+        </div>, document.body
       )}
     </>
   );

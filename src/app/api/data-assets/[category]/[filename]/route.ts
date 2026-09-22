@@ -22,13 +22,13 @@ function contentTypeFor(filename: string) {
 
 async function localAsset(category: string, filename: string) {
   const directory = category === 'peoples' && PEOPLE_PAIR.test(filename)
-    ? path.join('data', 'peoples', '_pairs')
+    ? path.join('peoples', '_pairs')
     : category === 'peoples' && PEOPLE_HOLOTYPE.test(filename)
-      ? path.join('data', 'peoples', 'holotypes')
+      ? path.join('peoples', 'holotypes')
       : category === 'citystates'
-        ? path.join('data', 'maps', 'citystates')
-        : path.join('data', category);
-  return readFile(path.join(process.cwd(), directory, filename));
+        ? path.join('maps', 'citystates')
+        : category;
+  return readFile(path.join(process.cwd(), 'data', directory, filename));
 }
 
 async function remoteCitystateAsset(filename: string) {
