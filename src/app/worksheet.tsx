@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import type { StaticData } from "@/data";
+import { useRouter } from "next/navigation";
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
 import { MobileNavigationOverlay } from "@/components/mobile-navigation-overlay";
 import { Badge } from "@/components/ui/badge";
@@ -470,11 +471,13 @@ export default function Worksheet({
   draft,
   setDraft,
   onReset,
+  view = "design",
 }: {
   data: StaticData;
   draft: CharacterDraft;
   setDraft: Dispatch<SetStateAction<CharacterDraft>>;
   onReset?: () => void;
+  view?: "design" | "profile";
 }) {
   const allSteps = useMemo<CreationStep[]>(
     () =>
@@ -494,9 +497,11 @@ export default function Worksheet({
   const [showResetConfirmation, setShowResetConfirmation] = useState(false);
   const [displayArmorCoverage, setDisplayArmorCoverage] = useState(false);
   const mobileNav = useMobileNavigation();
+  const router = useRouter();
   const assignmentPanelRef = useRef<HTMLDivElement>(null);
 
   const selectStep = (stepValue: string) => {
+    if (view === "profile") router.push("/");
     setActiveStepValue(stepValue);
     mobileNav.close();
     requestAnimationFrame(() =>
@@ -718,43 +723,25 @@ export default function Worksheet({
 
   return (
     <div className="mx-auto w-full max-w-[1440px] space-y-4 pb-8">
-      <div data-forge-modal-background className="sticky top-14 z-40 flex flex-col gap-3 rounded-lg border bg-card/95 p-3 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between md:p-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold">
-              Sarna Len Character Forge
-            </h1>
-            <Badge variant="outline">v128 Armor Audit</Badge>
+      <div className={cn(view === "profile" && "hidden", "min-w-0 rounded-lg border bg-card px-3 py-2 lg:p-4")}><div className="flex items-center gap-3">
+        <div data-forge-modal-background className="min-w-0 flex-1">
+          <h1 className="sr-only lg:not-sr-only lg:text-xl lg:font-semibold">Sarna Len Character Forge</h1>
+          <div className="mb-1 flex items-center justify-between gap-2 text-xs text-muted-foreground">
+            <span>Creation progress</span>
+            <span>{completeCount}/{requiredSteps.length}</span>
           </div>
-          <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
-            Canonical DXD creation order with all in-scope phases functional.
-            The active structured draft is autosaved into the local Character
-            Library and projected into the finished CRS.
-          </p>
+          <Progress value={progress} className="h-1.5" aria-label="Character creation progress" />
         </div>
-        <div className="flex w-full min-w-0 items-center gap-3 md:w-auto md:min-w-[260px]">
-          <div className="flex-1">
-            <div className="mb-1 flex justify-between text-xs text-muted-foreground">
-              <span>Creation progress</span>
-              <span>
-                {completeCount}/{requiredSteps.length}
-              </span>
-            </div>
-            <Progress value={progress} className="h-2" aria-label="Character creation progress" />
-          </div>
-          <Button variant="outline" size="sm" onClick={resetDraft}>
-            <RotateCcw />
-            Reset
-          </Button>
-        </div>
-      </div>
-
-      <MobileNavigationOverlay
-        isOpen={mobileNav.isOpen}
-        activeMode={mobileNav.activeMode}
-        onClose={mobileNav.close}
-        onSwitchMode={mobileNav.switchMode}
-      />
+        <Button data-forge-modal-background className="hidden h-11 shrink-0 px-3 lg:inline-flex" variant="outline" size="sm" onClick={resetDraft}>
+          <RotateCcw /> Reset
+        </Button>
+        <MobileNavigationOverlay
+          isOpen={mobileNav.isOpen}
+          activeMode={mobileNav.activeMode}
+          onClose={mobileNav.close}
+          onSwitchMode={mobileNav.switchMode}
+        />
+      </div></div>
 
       {showResetConfirmation && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4">
@@ -765,7 +752,7 @@ export default function Worksheet({
                 Reset Character Forge?
               </CardTitle>
               <CardDescription>
-                This will zero all properties and start a new character from scratch. This action cannot be undone.
+                Start a new character from scratch. Your current browser draft remains available in the Library.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex gap-2 justify-end">
@@ -786,14 +773,14 @@ export default function Worksheet({
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)_300px]">
+      <div className={view === "profile" ? "mx-auto max-w-3xl" : "grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)_300px]"}>
         <Card
           id="mobile-forge-navigation-panel"
           className={cn(
-            mobileNav.isOpen && mobileNav.activeMode === "navigation"
+            view === "profile" ? "hidden" : mobileNav.isOpen && mobileNav.activeMode === "navigation"
               ? "fixed inset-x-0 bottom-0 top-14 z-[60] block overflow-y-auto rounded-none border-x-0"
               : "hidden",
-            "lg:sticky lg:inset-auto lg:top-44 lg:z-auto lg:block lg:h-fit lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-xl lg:border",
+            view !== "profile" && "lg:sticky lg:inset-auto lg:top-44 lg:z-auto lg:block lg:h-fit lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-xl lg:border",
           )}
         >
           <CardHeader className="pb-3">
@@ -880,7 +867,7 @@ export default function Worksheet({
           aria-labelledby="active-step-title"
           aria-describedby={activeAssessment.messages.length ? "active-step-assessment" : undefined}
           aria-invalid={activeAssessment.status === "incomplete" || undefined}
-          className="min-h-[560px] lg:sticky lg:top-44 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain"
+          className={view === "profile" ? "hidden" : "min-h-[560px] lg:sticky lg:top-44 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain"}
         >
           <CardHeader>
             <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -1095,7 +1082,7 @@ export default function Worksheet({
                 </>
               )}
             </PersistentAccordionSection>
-            <div className="sticky bottom-0 z-20 -mx-6 flex items-center justify-between border-t bg-card/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-6px_14px_rgba(0,0,0,0.06)] backdrop-blur lg:static lg:mx-0 lg:bg-transparent lg:px-0 lg:pb-0 lg:pt-5 lg:shadow-none">
+            <div className="-mx-6 flex flex-wrap items-center justify-between gap-2 border-t bg-card px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 lg:mx-0 lg:bg-transparent lg:px-0 lg:pb-0 lg:pt-5">
               <Button
                 className="h-11 lg:h-10"
                 variant="outline"
@@ -1119,10 +1106,10 @@ export default function Worksheet({
         <Card
           id="mobile-forge-character-panel"
           className={cn(
-            mobileNav.isOpen && mobileNav.activeMode === "character"
+            view === "profile" ? "block w-full" : mobileNav.isOpen && mobileNav.activeMode === "character"
               ? "fixed inset-x-0 bottom-0 top-14 z-[60] block w-full overflow-y-auto rounded-none border-x-0"
               : "hidden",
-            "lg:sticky lg:inset-auto lg:top-44 lg:z-auto lg:block lg:h-fit lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-xl lg:border",
+            view !== "profile" && "lg:sticky lg:inset-auto lg:top-44 lg:z-auto lg:block lg:h-fit lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-xl lg:border",
           )}
         >
           <CardHeader className="pb-3">
@@ -1133,8 +1120,8 @@ export default function Worksheet({
                 className="aspect-[294/248] w-28 rounded border object-cover"
               />
               <div>
-                <CardTitle className="text-base" role="heading" aria-level={2}>Character</CardTitle>
-                <CardDescription>Live compressed draft summary</CardDescription>
+                <CardTitle className="text-base" role="heading" aria-level={2}>Profile</CardTitle>
+                <CardDescription>Character summary</CardDescription>
               </div>
             </div>
           </CardHeader>

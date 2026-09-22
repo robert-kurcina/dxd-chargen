@@ -94,6 +94,8 @@ export type PmlVirtuosityChoice = {
 
 export type CharacterDraft = {
   schemaVersion: 11;
+  /** Optional for legacy drafts; missing means the Default/unassigned campaign. */
+  campaignId?: string | null;
   /** Stable filesystem/library identity. It is independent of the character name and survives version saves. */
   characterId: string | null;
   updatedAt: string | null;

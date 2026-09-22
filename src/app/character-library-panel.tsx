@@ -16,9 +16,11 @@ import { ADMIN_SETTINGS_EVENT, readAdminSettings, sortLibraryTags } from '@/lib/
 import { buildCharacterSheetPayload } from '@/app/expanded-character-sheet';
 import { projectCharacterSheet } from '@/lib/character-sheet-projection';
 import { createImagePdf, downloadBlob } from '@/lib/browser-pdf';
+import { campaignMatches } from '@/lib/local-campaigns';
 import { PENDING_FILE_LOAD_STORAGE_KEY } from '@/lib/character-library';
 
 export type FileCharacter = {
+  campaignId?: string | null;
   idName: string;
   name: string;
   properName: string;
@@ -77,11 +79,13 @@ export default function CharacterLibraryPanel({
   refreshKey = 0,
   onOpen,
   adminMode = false,
+  campaignFilter = 'all',
 }: {
   data: StaticData;
   refreshKey?: number;
   onOpen?: (idName: string, draft: CharacterDraft) => void;
   adminMode?: boolean;
+  campaignFilter?: string;
 }) {
   const [characters, setCharacters] = useState<FileCharacter[]>([]);
   const [error, setError] = useState('');
@@ -189,7 +193,7 @@ export default function CharacterLibraryPanel({
     return rows
       .filter(({ entry, ancestry: ancestryValue, profession: professionValue }) => {
         const tags = displayTags(entry);
-        return filters.tags.every((filterTag) => tags.some((tag) => tag.localeCompare(filterTag, undefined, { sensitivity: 'base' }) === 0))
+        return campaignMatches(entry.campaignId, campaignFilter) && filters.tags.every((filterTag) => tags.some((tag) => tag.localeCompare(filterTag, undefined, { sensitivity: 'base' }) === 0))
           && entry.idName.toLocaleLowerCase().includes(normalized.filename)
           && entry.name.toLocaleLowerCase().includes(normalized.name)
           && ancestryValue.toLocaleLowerCase().includes(normalized.ancestry)
@@ -211,7 +215,7 @@ export default function CharacterLibraryPanel({
             : compareText(...values[sort.column]);
         return sort.direction === 'asc' ? result : -result;
       });
-  }, [filters, rows, sort, availableTags, adminMode]);
+  }, [filters, rows, sort, availableTags, adminMode, campaignFilter]);
 
   const open = async (idName: string, versionId = 'current') => {
     const query = versionId === 'current' ? '' : `?version=${encodeURIComponent(versionId)}`;
