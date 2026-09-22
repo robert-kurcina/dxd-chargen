@@ -59,7 +59,6 @@ const CITYSTATE_ASSET_URL = '/api/data-assets/citystates';
 const INKSCAPE_LABEL_NAMESPACE = 'http://www.inkscape.org/namespaces/inkscape';
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OVERLAND_HIT_RADIUS_RATIO = 0.035;
-const OVERLAND_HIGHLIGHT_STROKE_RATIO = 0.006;
 
 const OVERLAND_CUSTOM_LOCATIONS: Record<string, { region: string; settlement: string }> = {
   'castel-ul-thanos': { region: 'Ulsh', settlement: 'Castel Ul Thanos' },
@@ -125,9 +124,11 @@ function overlandReferenceLength(svg: SVGSVGElement | null) {
 
 function setOriginalMarkerHighlight(group: SVGGElement, highlighted: boolean) {
   const circles = Array.from(group.querySelectorAll<SVGCircleElement>('circle:not([data-dxd-overland-hit])'));
-  const highlightWidth = overlandReferenceLength(group.ownerSVGElement) * OVERLAND_HIGHLIGHT_STROKE_RATIO;
   circles.forEach((circle) => {
-    if (circle.dataset.dxdOriginalStyle === undefined) circle.dataset.dxdOriginalStyle = circle.getAttribute('style') ?? '';
+    if (circle.dataset.dxdOriginalStyle === undefined) {
+      circle.dataset.dxdOriginalStyle = circle.getAttribute('style') ?? '';
+      circle.dataset.dxdOriginalStrokeWidth = circle.ownerDocument.defaultView?.getComputedStyle(circle).strokeWidth ?? '0';
+    }
     if (!highlighted) {
       const originalStyle = circle.dataset.dxdOriginalStyle ?? '';
       if (originalStyle) circle.setAttribute('style', originalStyle);
@@ -136,8 +137,9 @@ function setOriginalMarkerHighlight(group: SVGGElement, highlighted: boolean) {
     }
     const stroke = markerStroke(circle) || '#ffffff';
     circle.style.stroke = stroke;
-    circle.style.strokeWidth = `${highlightWidth}`;
-    circle.style.filter = `drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 2.4px ${stroke})`;
+    // SVG styles use map units: keep emphasis proportional to each original ring.
+    const originalWidth = Number.parseFloat(circle.dataset.dxdOriginalStrokeWidth ?? '0');
+    circle.style.strokeWidth = String(originalWidth * 1.5);
   });
 }
 
@@ -346,6 +348,8 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
       group.setAttribute('tabindex', '0');
       group.setAttribute('aria-label', marker.replaceAll('-', ' '));
       group.style.cursor = 'pointer';
+      // Focus is drawn by setHover below; native SVG outlines include the larger hit target.
+      group.style.outline = 'none';
 
       if (!group.querySelector('[data-dxd-overland-hit]')) {
         const anchor = circles.reduce((largest, circle) => {
