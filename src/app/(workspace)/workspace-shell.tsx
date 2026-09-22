@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import { Menu, Undo2, Redo2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/confirm-dialog';
 import { cn } from '@/lib/utils';
@@ -20,7 +20,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
   const activeTab = workspaceTab(pathname);
   const sheet = activeTab === '/sheet';
   const character = activeTab === '/' || activeTab === '/profile';
-  const { draft, dirty, saving, save, reset, activeFileId } = useWorkspace();
+  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning } = useWorkspace();
   const [confirm, setConfirm] = useState<'save' | 'reset' | null>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const scrollPositions = useRef<Partial<Record<WorkspaceTab, number>>>({});
@@ -46,6 +46,10 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
             <Link href="/library" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Character Library</Link>
             <Link href="/admin" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Administration</Link>
             <div className="my-2 border-t" />
+            <label className="flex min-h-11 items-center gap-2 px-3 text-sm"><input type="checkbox" checked={rememberHistory} onChange={event => setRememberHistory(event.target.checked)} />Remember undo history</label>
+            <p className="px-3 pb-2 text-xs text-muted-foreground">Less than 10 KB per character.</p>
+            {historyNotice && <p role="status" className="px-3 pb-2 text-xs">{historyNotice}</p>}
+            <div className="my-2 border-t" />
             <button type="button" className="min-h-11 w-full rounded px-3 text-left text-destructive hover:bg-muted" onClick={() => { closeMenu(); setConfirm('reset'); }}>Reset character…</button>
           </div>
         </details>
@@ -57,6 +61,12 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
         <Button className="h-11 shrink-0" disabled={!dirty || saving} onClick={() => setConfirm('save')}>Save</Button>
       </div>
     </header>
+    {storageWarning && <p role="alert" className="my-2 rounded border border-destructive p-2 text-sm">{storageWarning}</p>}
+    {character && <div className="flex items-center gap-2 pt-2" aria-label="Edit history">
+      <Button variant="outline" size="sm" className="h-11" disabled={!canUndo} onClick={undo}><Undo2 />Undo</Button>
+      <Button variant="outline" size="sm" className="h-11" disabled={!canRedo} onClick={redo}><Redo2 />Redo</Button>
+      {historyNotice && <span role="status" className="text-xs text-muted-foreground">{historyNotice}</span>}
+    </div>}
     <div className={cn('pt-2', sheet && 'min-h-0 flex-1')}>
       {(mountedTabs.has('/') || mountedTabs.has('/profile') || character) && <section hidden={!character} aria-hidden={!character}><Suspense fallback={<SuspenseSpinner panel label="Loading character…" />}><ForgeWorkspaceView view={activeTab === '/profile' ? 'profile' : 'design'} /></Suspense></section>}
       {(mountedTabs.has('/sheet') || sheet) && <section hidden={!sheet} aria-hidden={!sheet} className="h-full min-h-0"><Suspense fallback={<SuspenseSpinner panel label="Loading Sheet…" className="h-full" />}><SheetWorkspaceView /></Suspense></section>}
