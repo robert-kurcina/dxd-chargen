@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, type Dispatch, type SetStateAction } from 'react';
+import Link from 'next/link';
+import { localCampaign } from '@/lib/local-campaigns';
+import { originAllowed } from '@/lib/campaign-origins';
 import { Check, Search } from 'lucide-react';
 
 import type { StaticData } from '@/data';
@@ -20,7 +23,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
-import { nextGlobalRandom } from '@/lib/admin-settings';
+import { withCharacterRandom } from '@/lib/rules/preset-generation';
 import { parseTragedyTemplate, resolveTragedySeed } from '@/lib/character-logic';
 import { allowedEnvironNames, localeForRegion, selectedSettlementOption, settlementOptionsForRegion } from '@/lib/settlement-context';
 import {
@@ -38,6 +41,7 @@ import { cn } from '@/lib/utils';
 import SuspenseSpinner from '@/components/suspense-spinner';
 
 type BackgroundStepProps = {
+  allowDisallowedInspection?: boolean;
   stepValue: string;
   data: StaticData;
   draft: CharacterDraft;
@@ -167,7 +171,9 @@ function ChoiceCard({ selected, title, subtitle, meta, onClick, disabled = false
   );
 }
 
-function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepValue'>) {
+function RegionSettlementStep({ data, draft, setDraft, allowDisallowedInspection = false }: Omit<BackgroundStepProps, 'stepValue'>) {
+  const [originNotice, setOriginNotice] = useState('');
+  const canChooseOrigin = (id: string) => allowDisallowedInspection || originAllowed(localCampaign(draft.campaignId).originPolicy, id);
   const overlandObjectRef = useRef<HTMLObjectElement>(null);
   const [showOverland, setShowOverland] = useState(false);
   const [overlandMounted, setOverlandMounted] = useState(false);
@@ -241,12 +247,14 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
   };
 
   const chooseRegion = (regionId: string) => {
+    setOriginNotice('');
     setMapSelectedMarker(null);
     setDraft((current) => resetLocationDependentHeritage(current, regionId, null));
   };
 
   const chooseSettlement = (settlementId: string) => {
-    if (!region) return;
+    if (!region || !canChooseOrigin(settlementId)) return;
+    setOriginNotice('');
     setMapSelectedMarker(null);
     setDraft((current) => resetLocationDependentHeritage(current, region.catalogId, settlementId));
   };
@@ -305,6 +313,8 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
         return names.includes(markerName);
       });
       if (candidateSettlement) {
+        if (!canChooseOrigin(candidateSettlement.id)) { setOriginNotice('This settlement is disallowed as a new starting origin.'); return; }
+        setOriginNotice('');
         setMapSelectedMarker(marker);
         setDraft((current) => resetLocationDependentHeritage(current, candidateRegion.catalogId, candidateSettlement.id));
         return;
@@ -444,7 +454,7 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
             <SelectContent>
               {mapCustom && customSettlement?.name && <SelectItem value="settlement-other">{customSettlement.name}</SelectItem>}
               {settlementOptions.map((item) => (
-                <SelectItem key={item.id} value={item.id}>
+                <SelectItem key={item.id} value={item.id} disabled={!canChooseOrigin(item.id)}>
                   {item.displayName}{item.workingGloss ? ` — ${item.workingGloss}` : ''}{item.population != null ? ` (${item.population.toLocaleString()})` : ''}
                 </SelectItem>
               ))}
@@ -453,6 +463,9 @@ function RegionSettlementStep({ data, draft, setDraft }: Omit<BackgroundStepProp
         </div>
       </div>
 
+      {(originNotice || (!allowDisallowedInspection && draft.background.settlementId && !canChooseOrigin(draft.background.settlementId))) && <p role="status" className="rounded-lg border p-3 text-sm">
+        {originNotice || 'This character retains an origin that is no longer offered for new selections.'} <Link href="/maps" className="underline">Explore settlement details and maps</Link>
+      </p>}
       {overlandMounted && (
         <div className="space-y-3" hidden={!showOverland} aria-hidden={!showOverland}>
           <div className="relative overflow-hidden rounded-lg border bg-muted/20">
@@ -911,15 +924,10 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
   };
 
   const resolve = (item: StaticData['tragedySeeds'][number]) => {
-    const tragedySeedText = resolveTragedySeed(item.seed, data.randomPersonItemDeity, nextGlobalRandom);
-    setDraft((current) => ({
-      ...current,
-      background: {
-        ...current.background,
-        tragedySeedId: item.catalogId,
-        tragedySeedText,
-      },
-    }));
+    setDraft(current => withCharacterRandom(current, data, (candidate, random) => ({
+      ...candidate,
+      background: { ...candidate.background, tragedySeedId: item.catalogId, tragedySeedText: resolveTragedySeed(item.seed, data.randomPersonItemDeity, random) },
+    })));
   };
 
   return (
@@ -1142,7 +1150,7 @@ export default function BackgroundStep(props: BackgroundStepProps) {
   const common = { data: props.data, draft: props.draft, setDraft: props.setDraft };
 
   switch (props.stepValue) {
-    case 'background-region-settlement': return <RegionSettlementStep {...common} />;
+    case 'background-region-settlement': return <RegionSettlementStep {...common} allowDisallowedInspection={props.allowDisallowedInspection} />;
     case 'background-demographics': return <DemographicsStep {...common} />;
     case 'background-age': return <AgeStep {...common} />;
     case 'background-heritage': return <HeritageStep {...common} />;

@@ -2,6 +2,7 @@
 
 import {
   Fragment,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -18,6 +19,8 @@ import {
   RotateCcw,
 } from "lucide-react";
 
+import Link from "next/link";
+import { LINEAGE_EXAMPLE_FILES, GROUP_HOLOTYPE_FILES } from "@/lib/lineage-images";
 import type { StaticData } from "@/data";
 import { useRouter } from "next/navigation";
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
@@ -65,7 +68,7 @@ import {
   strifeParents,
 } from "@/lib/rules/intrinsics";
 import BackgroundStep from "./forge/background-step";
-import IntrinsicsStep from "./forge/intrinsics-step";
+import IntrinsicsStep, { PeopleExample } from "./forge/intrinsics-step";
 import ProficienciesStep from "./forge/proficiencies-step";
 import PropertiesStep from "./forge/properties-step";
 import UtilitiesStep from "./forge/utilities-step";
@@ -95,7 +98,8 @@ import {
   personalWealthGp,
   startingGearTotals,
 } from "@/lib/rules/utilities";
-import { canGenerateStep, generateStep } from "@/lib/rules/generate-step";
+import { generateLockedStep } from "@/lib/rules/preset-generation";
+import { canGenerateStep } from "@/lib/rules/generate-step";
 import { cn, formatNumberWithCommas } from "@/lib/utils";
 
 type CreationPhase = StaticData["steps"][number];
@@ -500,7 +504,19 @@ export default function Worksheet({
   const router = useRouter();
   const assignmentPanelRef = useRef<HTMLDivElement>(null);
 
+  const pendingStepFocus = useRef(false);
+  useEffect(() => {
+    if (view !== "design" || !pendingStepFocus.current) return;
+    const frame = requestAnimationFrame(() => {
+      pendingStepFocus.current = false;
+      assignmentPanelRef.current?.scrollIntoView({ block: "start", behavior: "auto" });
+      assignmentPanelRef.current?.querySelector<HTMLElement>("#active-step-title")?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [view, activeStepValue]);
+
   const selectStep = (stepValue: string) => {
+    pendingStepFocus.current = true;
     if (view === "profile") router.push("/");
     setActiveStepValue(stepValue);
     mobileNav.close();
@@ -611,6 +627,10 @@ export default function Worksheet({
     ({ assessment }) => assessment.status === "warning",
   ).length;
   const speciesChoice = getSpeciesChoice(panelDraft, data);
+  const profileLineage = getLineageName(panelDraft, data);
+  const lineageImage = profileLineage ? LINEAGE_EXAMPLE_FILES[profileLineage] : undefined;
+  const referenceImage = lineageImage ?? (speciesChoice ? GROUP_HOLOTYPE_FILES[speciesChoice.group.name] : undefined);
+  const referenceLabel = lineageImage ? `${profileLineage} lineage reference` : `${speciesChoice?.group.name ?? ''} group reference`;
   const dispositionCounts = capabilityDispositionCounts(panelDraft, data);
   const importedDetail = (detail: string) =>
     panelDraft.background.demographicSelections.find(
@@ -867,7 +887,7 @@ export default function Worksheet({
           aria-labelledby="active-step-title"
           aria-describedby={activeAssessment.messages.length ? "active-step-assessment" : undefined}
           aria-invalid={activeAssessment.status === "incomplete" || undefined}
-          className={view === "profile" ? "hidden" : "min-h-[560px] lg:sticky lg:top-44 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain"}
+          className={view === "profile" ? "hidden" : "scroll-mt-32 min-h-[560px] lg:sticky lg:top-44 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto lg:overscroll-contain"}
         >
           <CardHeader>
             <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -876,7 +896,7 @@ export default function Worksheet({
                 Step {activeIndex + 1} of {allSteps.length}
               </span>
             </div>
-            <CardTitle id="active-step-title" role="heading" aria-level={2}>{activeStep.title}</CardTitle>
+            <CardTitle id="active-step-title" tabIndex={-1} role="heading" aria-level={2}>{activeStep.title}</CardTitle>
             <CardDescription className="text-base">
               {activeStep.description}
             </CardDescription>
@@ -900,7 +920,7 @@ export default function Worksheet({
                 disabled={!canGenerateStep(activeStep.value, draft, data)}
                 onClick={() =>
                   setDraft((current) =>
-                    generateStep(activeStep.value, current, data),
+                    generateLockedStep(activeStep.value, current, data),
                   )
                 }
               >
@@ -1126,6 +1146,26 @@ export default function Worksheet({
             </div>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
+            {view === "profile" && <>
+              <section className="space-y-3 rounded-lg border p-3" aria-labelledby="profile-review-title">
+                <h3 id="profile-review-title" className="font-semibold">Review before play</h3>
+                <p className="text-muted-foreground">{unresolvedSteps.length ? `${unresolvedSteps.length} required steps still need attention. Choose a step to review its rules and edit the character.` : 'All configured steps are complete. You can still edit the character or open the printable sheet.'}</p>
+                <div className="flex flex-wrap gap-2">
+                  <Button type="button" variant="outline" className="min-h-11" onClick={() => selectStep("utilities-name")}>Edit name</Button>
+                  <Button type="button" variant="outline" className="min-h-11" onClick={() => selectStep("notes-portrait")}>Edit portrait</Button>
+                  <Button asChild variant="outline" className="min-h-11"><Link href="/sheet">Open printable sheet</Link></Button>
+                </div>
+                <div className="space-y-2">{unresolvedSteps.map(({ step, assessment }) => <button key={step.value} type="button" onClick={() => selectStep(step.value)} className="block min-h-11 w-full rounded-md border p-3 text-left hover:bg-muted">
+                  <span className="block font-medium">Review {step.title.replace(/^Assign /, '')}</span>
+                  <span className="mt-1 block text-xs text-muted-foreground">{assessment.messages.join(' ') || 'Review this step in Design.'}</span>
+                </button>)}</div>
+              </section>
+              {referenceImage && <details className="rounded-lg border p-3">
+                <summary className="min-h-8 cursor-pointer font-medium">{referenceLabel}</summary>
+                <p className="my-2 text-xs text-muted-foreground">Reference examples for this ancestry. Your character portrait remains separate.</p>
+                <PeopleExample key={referenceImage} src={`/api/data-assets/peoples/${referenceImage}`} label={referenceLabel} />
+              </details>}
+            </>}
             <PersistentAccordionSection
               id="character-identity"
               title="Identity"

@@ -58,7 +58,7 @@ export default function GlobalAdminPanel() {
 
   return <div className="space-y-4">
     {message && <div className="rounded-md border bg-card px-3 py-2 text-sm text-muted-foreground" role="status">{message}</div>}
-    <Card><CardHeader><CardTitle>Admin Only</CardTitle><CardDescription>Protected global values used by deterministic Forge generation.</CardDescription></CardHeader><CardContent className="space-y-4">
+    <Card><CardHeader><CardTitle>Admin Only</CardTitle><CardDescription>Seed defaults for new character random streams and legacy generation tools. Existing characters keep their own saved random state.</CardDescription></CardHeader><CardContent className="space-y-4">
       <div className="grid gap-3 md:grid-cols-[260px_minmax(0,1fr)] md:items-end"><label className="space-y-1"><span className="text-sm font-medium">Seed number</span><Input type="text" inputMode="numeric" disabled={!seedUnlocked} value={seedValue} onChange={(event) => setSeedValue(Number.parseInt(event.target.value || '0', 10) || 0)} /></label><div className="text-sm text-muted-foreground">Default seed: 0. Current sequence position: {persisted.randomSequence.toLocaleString()}.</div></div>
       <label className="flex items-center gap-2 text-sm"><Checkbox checked={seedUnlocked} onCheckedChange={(checked) => { const unlocked = checked === true; setSeedUnlocked(unlocked); if (!unlocked) setSeedValue(persisted.randomSeed); }} /><span>Change Seed Number</span></label>
       <div className="flex flex-wrap gap-2"><Button variant="outline" onClick={revery}>Revery</Button>{seedUnlocked && seedDirty && <Button onClick={() => setSeedConfirmOpen(true)}>Save</Button>}</div>
@@ -72,7 +72,7 @@ export default function GlobalAdminPanel() {
 
     <Card><CardHeader><CardTitle>Global Constraints</CardTitle><CardDescription>Reserved for supported campaign-wide creation limits and constraints.</CardDescription></CardHeader></Card>
 
-    <ConfirmDialog open={seedConfirmOpen} title="Save Seed Number?" onCancel={() => setSeedConfirmOpen(false)} onConfirm={saveSeed}><p>Update the global seed to <strong>{seedValue}</strong>? This resets the deterministic random sequence to its beginning.</p></ConfirmDialog>
+    <ConfirmDialog open={seedConfirmOpen} title="Save Seed Number?" onCancel={() => setSeedConfirmOpen(false)} onConfirm={saveSeed}><p>Update the global seed to <strong>{seedValue}</strong>? This resets the shared legacy sequence and changes the seed default for new character streams. Existing character streams are unchanged.</p></ConfirmDialog>
     <ConfirmDialog open={tagsConfirmOpen} title="Update Library tags?" onCancel={() => setTagsConfirmOpen(false)} onConfirm={saveTags}><p>Replace the exposed Library tag vocabulary with the current token set? Character tag assignments are not changed by this action.</p></ConfirmDialog>
   </div>;
 }

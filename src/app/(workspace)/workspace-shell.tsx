@@ -21,8 +21,9 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
   const activeTab = workspaceTab(pathname);
   const sheet = activeTab === '/sheet';
   const character = activeTab === '/' || activeTab === '/profile';
-  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, message, selectedCampaign } = useWorkspace();
+  const { draft, dirty, saving, save, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, message, selectedCampaign, downloadBackup, restoreBackup, setMessage } = useWorkspace();
   const [confirm, setConfirm] = useState<'save' | 'reset' | null>(null);
+  const backupInput = useRef<HTMLInputElement>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const scrollPositions = useRef<Partial<Record<WorkspaceTab, number>>>({});
   useLayoutEffect(() => {
@@ -43,10 +44,13 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
       <div className="relative mx-auto flex h-11 w-full max-w-[1080px] items-center gap-2">
         <details ref={menu} className="shrink-0" onKeyDown={event => { if (event.key === 'Escape') { closeMenu(); menu.current?.querySelector('summary')?.focus(); } }}>
           <summary aria-label="Workspace menu" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-md border [&::-webkit-details-marker]:hidden"><Menu className="h-5 w-5" /></summary>
-          <div className="absolute left-0 top-12 z-50 w-64 max-w-[calc(100vw-2rem)] rounded-lg border bg-background p-2 shadow-lg">
+          <div className="absolute left-0 top-12 z-50 max-h-[calc(100dvh-8rem)] overflow-y-auto w-64 max-w-[calc(100vw-2rem)] rounded-lg border bg-background p-2 shadow-lg">
             <Link href="/campaigns" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Campaigns</Link>
             <Link href="/library" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Character Library</Link>
             <Link href="/admin" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Administration</Link>
+            <button type="button" className="min-h-11 w-full rounded px-3 text-left hover:bg-muted" onClick={() => { closeMenu(); downloadBackup(); }}>Download character backup</button>
+            <button type="button" className="min-h-11 w-full rounded px-3 text-left hover:bg-muted" onClick={() => { closeMenu(); backupInput.current?.click(); }}>Import character backup…</button>
+            <p className="px-3 text-xs text-muted-foreground">Imports create a separate copy. Backups exclude undo history.</p>
             <div className="my-2 border-t" />
             <label className="flex min-h-11 items-center gap-2 px-3 text-sm"><input type="checkbox" checked={rememberHistory} onChange={event => setRememberHistory(event.target.checked)} />Remember undo history</label>
             <p className="px-3 pb-2 text-xs text-muted-foreground">Less than 10 KB per character.</p>
@@ -63,6 +67,11 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
         <Button className={cn("h-11 shrink-0", !character && !sheet && "hidden")} disabled={!dirty || saving} onClick={() => setConfirm('save')}>Save</Button>
       </div>
     </header>
+    <input ref={backupInput} type="file" accept=".json,application/json" aria-label="Import character backup" className="hidden" onChange={async event => {
+      const file = event.target.files?.[0]; event.target.value = ''; if (!file) return;
+      if (file.size > 20 * 1024 * 1024) { setMessage('Import failed. Backups must be smaller than 20 MB. Existing drafts are unchanged.'); return; }
+      try { restoreBackup(await file.text()); } catch { setMessage('Import failed. The file could not be read. Existing drafts are unchanged.'); }
+    }} />
     {message && <p role="status" className="my-2 text-sm">{message}</p>}
     {storageWarning && <p role="alert" className="my-2 rounded border border-destructive p-2 text-sm">{storageWarning}</p>}
     {character && <div className="flex items-center gap-2 pt-2" aria-label="Edit history">

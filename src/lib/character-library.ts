@@ -112,12 +112,21 @@ export function deleteCharacter(library: CharacterLibraryState, id: string): Cha
 }
 
 export function importCharacter(value: unknown): CharacterLibraryEntry {
-  const source = value && typeof value === 'object' && (value as Partial<CharacterExportEnvelope>).format === 'dxd-chargen-character'
-    ? (value as CharacterExportEnvelope).character?.draft
-    : value && typeof value === 'object' && 'draft' in value
-      ? (value as { draft?: unknown }).draft
-      : value;
-  return createLibraryEntry(migrateCharacterDraft(source));
+  if (!value || typeof value !== 'object') throw new Error('Choose a character backup JSON file.');
+  const envelope = value as Partial<CharacterExportEnvelope>;
+  if ('format' in value && (envelope.format !== 'dxd-chargen-character' || envelope.version !== 1)) throw new Error('This backup format or version is not supported.');
+  const source = envelope.format === 'dxd-chargen-character'
+    ? envelope.character?.draft
+    : 'draft' in value ? (value as { draft?: unknown }).draft : value;
+  if (!source || typeof source !== 'object') throw new Error('The backup has no character draft.');
+  const candidate = source as Partial<CharacterDraft>;
+  if (!Number.isInteger(candidate.schemaVersion) || Number(candidate.schemaVersion) < 1 || Number(candidate.schemaVersion) > 11) throw new Error('Unsupported character schema. Choose a Forge backup, not a printable-sheet download.');
+  for (const section of ['background', 'intrinsics', 'proficiencies', 'properties', 'utilities'] as const) {
+    if (!candidate[section] || typeof candidate[section] !== 'object' || Array.isArray(candidate[section])) throw new Error('The character backup is incomplete.');
+  }
+  const draft = migrateCharacterDraft(structuredClone(source));
+  // Imports are detached copies; a later Save must not discover/overwrite the source file.
+  return createLibraryEntry({ ...draft, characterId: null });
 }
 
 export function addImportedCharacter(library: CharacterLibraryState, value: unknown): CharacterLibraryState {

@@ -46,3 +46,18 @@ Write current drafts separately from history; failed writes must visibly state t
 ## Sequence
 
 T03 first implements and tests reusable reversible state/persistence primitives, then integrates identity boundaries and controls into WorkspaceProvider. T05 converts random generation to injected transaction RNG and adds locks/presets. Existing random step behavior must not be described as transactionally safe until that conversion passes tests.
+
+## T05 implementation evidence (2026-09-24)
+
+Creation metadata is optional in schema 11: version, preset UUID, registered lock paths,
+seed and sequence. It travels with the local draft and its undo history. Section locks
+expand into field paths; attribute locks retain rolls/player adjustments, and language
+locks retain authored non-default choices while allowing calculated levels to change.
+Default languages follow origin. Notes, portraits, relationships and possessions are
+retained by presets; spells and equipment still require review. Manual edits can change
+locked inputs deliberately. Native generation uses the selected method; imported
+attributes require an explicit method change before preset replacement.
+
+See `scripts/preset-generation.test.mjs` and `scripts/workspace-presets.browser.mjs`.
+Forge no longer advances the shared Administrator sequence. The Administrator seed is
+captured when a character stream is created; existing streams are stable thereafter.

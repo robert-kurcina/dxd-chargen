@@ -30,7 +30,7 @@ try {
  const combos=page.getByRole('combobox');await combos.nth(1).click();await page.getByRole('option').first().click();
  assert.deepEqual((await active()).draft,original.draft);
  await page.getByRole('button',{name:'Create a character from here'}).click();await page.waitForURL('http://127.0.0.1:3000/');
- assert.notEqual((await active()).id,original.id);assert.ok((await active()).draft.background.regionId);assert.ok((await active()).draft.background.settlementId);
+ assert.notEqual((await active()).id,original.id);assert.ok((await active()).draft.background.regionId);assert.ok((await active()).draft.background.settlementId);assert.deepEqual((await active()).draft.creation.locks,['background.regionId','background.settlementId']);
  console.log('PASS origin exploration does not edit current character; starts separate origin-based draft');
  for(const width of [320,480,768,1440]){
   await page.setViewportSize({width,height:900});await page.goto('http://127.0.0.1:3000/campaigns',{waitUntil:'networkidle'});

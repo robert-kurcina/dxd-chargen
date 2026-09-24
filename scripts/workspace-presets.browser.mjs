@@ -1,0 +1,62 @@
+const { chromium } = await import(process.env.DXD_PLAYWRIGHT_MODULE || 'playwright');
+import assert from 'node:assert/strict';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+try {
+  const page = await browser.newPage({ viewport: { width: 480, height: 1000 } });
+  page.on('dialog', dialog => dialog.accept());
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(() => localStorage.setItem('dxd-selected-campaign-v1', '7841aa01-33f4-4a90-8d13-000000000002'));
+  const draft = () => page.evaluate(() => {
+    const library = JSON.parse(localStorage.getItem('dxd-character-library-v1'));
+    return { ...library.entries.find(entry => entry.id === library.activeId).draft, updatedAt: null };
+  });
+  await page.goto('http://127.0.0.1:3000/', { waitUntil: 'networkidle' });
+  await page.locator('summary').filter({ hasText: 'Presets and generation locks' }).click();
+  await page.getByLabel('Preset tag', { exact: true }).selectOption('Necromancer');
+  assert.equal(await page.getByLabel('Mechanical preset').locator('option').count(), 1);
+  await page.getByLabel('Ancestral Group', { exact: true }).selectOption({ label: 'Alef' });
+  await page.getByLabel('Lineage', { exact: true }).selectOption({ label: 'Akrunai' });
+  const before = await draft();
+  const globalBefore = await page.evaluate(() => localStorage.getItem('dxd-chargen-admin-settings-v1'));
+  await page.getByRole('button', { name: 'Spin character', exact: true }).click();
+  await page.waitForFunction(() => document.body.textContent.includes('Character generated.'));
+  const after = await draft();
+  assert.equal(after.intrinsics.lineageId, 'lineage-akrunai');
+  assert.equal(after.intrinsics.specializationId, 'specialization-wizard-necromancer');
+  assert.equal(after.intrinsics.tradeRank, 1);
+  assert.ok(after.creation.sequence > 0);
+  assert.equal(await page.evaluate(() => localStorage.getItem('dxd-chargen-admin-settings-v1')), globalBefore);
+  await page.getByRole('button', { name: 'Undo', exact: true }).click(); assert.deepEqual(await draft(), before);
+  await page.getByRole('button', { name: 'Redo', exact: true }).click(); assert.deepEqual(await draft(), after);
+  console.log('PASS Alef/Akrunai Necromancer, atomic undo/redo, no global RNG writes');
+  await page.locator('summary').filter({ hasText: /^Origin / }).click();
+  await page.getByLabel('Lock Origin section', { exact: true }).check();
+  await page.locator('summary').filter({ hasText: /^Attributes / }).click();
+  await page.getByLabel('Lock INT roll and purchased adjustments', { exact: true }).check();
+  const locked = await draft();
+  await page.getByRole('button', { name: 'Spin character', exact: true }).click();
+  const spun = await draft(); assert.ok(spun.creation.sequence > locked.creation.sequence);
+  assert.equal(spun.background.regionId, locked.background.regionId);
+  assert.equal(spun.background.settlementId, locked.background.settlementId);
+  assert.equal(spun.intrinsics.attributes.find(a => a.name === 'INT').base, locked.intrinsics.attributes.find(a => a.name === 'INT').base);
+  await page.locator('summary').filter({ hasText: /^Profession / }).click();
+  await page.getByLabel('Lock Trade', { exact: true }).check();
+  const conflicting = await draft();
+  await page.getByLabel('Preset tag', { exact: true }).selectOption('Warrior');
+  await page.getByRole('button', { name: 'Spin character', exact: true }).click();
+  await page.getByText('The preset conflicts with locked Trade. Change the preset or unlock this input.', { exact: true }).first().waitFor();
+  assert.deepEqual(await draft(), conflicting);
+  await page.reload({ waitUntil: 'networkidle' }); assert.deepEqual(await draft(), conflicting);
+  console.log('PASS section/field locks, conflicts preserve draft and RNG, reload preserves context');
+  for (const width of [320, 480, 768, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    const summary = page.locator('summary').filter({ hasText: 'Presets and generation locks' });
+    if (!(await summary.locator('..').getAttribute('open'))) await summary.evaluate(element => element.parentElement.open = true);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width);
+    const button = page.getByRole('button', { name: 'Spin character', exact: true });
+    await button.scrollIntoViewIfNeeded(); const box = await button.boundingBox();
+    assert.ok(box.x >= 0 && box.x + box.width <= width && box.height >= 44);
+    if (width === 480) await page.screenshot({ path: '/private/tmp/dxd-presets-480.png', fullPage: true });
+  }
+  assert.deepEqual(errors, []); console.log('PASS responsive preset controls at 320/480/768/1440px');
+} finally { await browser.close(); }

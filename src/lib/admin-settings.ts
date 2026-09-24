@@ -53,8 +53,8 @@ export function writeAdminSettings(value: AdminSettings): AdminSettings {
 }
 
 // Mulberry32: compact deterministic PRNG suitable for repeatable game generation,
-// not cryptographic work. The sequence position is persisted so every Forge random
-// action consumes the same global stream until the administrator resets it.
+// not cryptographic work. Legacy/Administrator tools consume this shared stream.
+// Forge drafts capture the seed into their own transaction-owned stream.
 function mulberry32(seed: number) {
   let a = seed >>> 0;
   return () => {

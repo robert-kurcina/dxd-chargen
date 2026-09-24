@@ -3,9 +3,10 @@
 import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { Check, ChevronDown, ChevronUp, Minus, Plus } from 'lucide-react';
 
+import { LINEAGE_EXAMPLE_FILES, GROUP_HOLOTYPE_FILES } from '@/lib/lineage-images';
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
-import { nextGlobalRandom } from '@/lib/admin-settings';
+import { generateLockedStep, withCharacterRandom } from '@/lib/rules/preset-generation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -101,49 +102,6 @@ function formatSigned(value: number) {
   return `${value >= 0 ? '+' : ''}${value}`;
 }
 
-// Labels were recovered from the supplied pair plates and reconciled with the
-// canonical spellings in species.json. The numbered source images remain
-// untouched so updated plates can replace them without changing saved data.
-const LINEAGE_EXAMPLE_FILES: Record<string, string> = {
-  Farleen: 'ancestral.pairs-01.png',
-  Jarmaran: 'ancestral.pairs-02.png',
-  Stepmir: 'ancestral.pairs-03.png',
-  Vanyrai: 'ancestral.pairs-04.png',
-  Akrunai: 'ancestral.pairs-05.png',
-  Gemalite: 'ancestral.pairs-06.png',
-  Thanekon: 'ancestral.pairs-07.png',
-  Ferrite: 'ancestral.pairs-08.png',
-  Ankilati: 'ancestral.pairs-09.png',
-  Coroman: 'ancestral.pairs-10.png',
-  Indelan: 'ancestral.pairs-11.png',
-  Eniyaski: 'ancestral.pairs-12.png',
-  Drusian: 'ancestral.pairs-13.png',
-  Heidelan: 'ancestral.pairs-14.png',
-  Quaggik: 'ancestral.pairs-15.png',
-  Restani: 'ancestral.pairs-16.png',
-  Vasikha: 'ancestral.pairs-17.png',
-  Baminati: 'ancestral.pairs-18.png',
-  Pazkharan: 'ancestral.pairs-19.png',
-  Gilvanar: 'ancestral.pairs-20.png',
-  Dulndran: 'ancestral.pairs-21.png',
-  Eyravite: 'ancestral.pairs-22.png',
-  Quaggian: 'ancestral.pairs-23.png',
-  Restanoi: 'ancestral.pairs-24.png',
-  Exnoran: 'ancestral.pairs-25.png',
-  Huaczwyk: 'ancestral.pairs-26.png',
-  Auldfar: 'ancestral.pairs-27.png',
-  Sondgarat: 'ancestral.pairs-28.png',
-};
-
-const GROUP_HOLOTYPE_FILES: Record<string, string> = {
-  Human: 'humaniki-human.png',
-  Drauf: 'humaniki-drauf.png',
-  Alef: 'humaniki-alef.png',
-  Klenari: 'humaniki-klenari.png',
-  Babbita: 'humaniki-babbita.png',
-  Gnoan: 'humaniki-gnoan.png',
-};
-
 function ExampleToggle({ checked, onCheckedChange }: { checked: boolean; onCheckedChange: (checked: boolean) => void }) {
   return (
     <label className="flex items-start gap-3 rounded-lg border p-3">
@@ -153,7 +111,7 @@ function ExampleToggle({ checked, onCheckedChange }: { checked: boolean; onCheck
   );
 }
 
-function PeopleExample({ src, label }: { src: string; label: string }) {
+export function PeopleExample({ src, label }: { src: string; label: string }) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   return (
@@ -190,9 +148,11 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
   const chooseStrifePairing = (pairingId: string) => {
     const pairing = STRIFE_PAIRINGS.find((item) => item.id === pairingId);
     if (!pairing) return;
-    const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, 1 + Math.floor(nextGlobalRandom() * 6)]));
     const primary = groupByName(pairing.groups[0]);
-    setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, childOfStrife: true, strifePairingId: pairing.id, strifeFatherLineageId: null, strifeMotherLineageId: null, strifeAttributeRolls: rolls, strifeBonusParent: nextGlobalRandom() < 0.5 ? 'father' : 'mother', speciesFamilyId: makeCatalogId('species-family', 'Humaniki'), speciesId: primary?.catalogId ?? null, lineageId: null }, background: { ...current.background, ageYears: null } }, data));
+    setDraft((current) => withCharacterRandom(current, data, (candidate, random) => {
+      const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, 1 + Math.floor(random() * 6)]));
+      return syncIntrinsics({ ...candidate, intrinsics: { ...candidate.intrinsics, childOfStrife: true, strifePairingId: pairing.id, strifeFatherLineageId: null, strifeMotherLineageId: null, strifeAttributeRolls: rolls, strifeBonusParent: random() < 0.5 ? 'father' : 'mother', speciesFamilyId: makeCatalogId('species-family', 'Humaniki'), speciesId: primary?.catalogId ?? null, lineageId: null }, background: { ...candidate.background, ageYears: null } }, data);
+    }));
   };
   const setParentLineage = (role: 'father' | 'mother', lineage: string) => setDraft((current) => syncIntrinsics({ ...current, intrinsics: { ...current.intrinsics, [role === 'father' ? 'strifeFatherLineageId' : 'strifeMotherLineageId']: makeCatalogId('lineage', lineage) } }, data));
   const lineageNameForId = (lineageId: string | null) => lineageId
@@ -239,10 +199,7 @@ function SpeciesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'stepV
   </div>;
 }
 
-function rollHighTwo() {
-  const dice = [1, 2, 3].map(() => Math.floor(nextGlobalRandom() * 6) + 1).sort((a, b) => b - a);
-  return dice[0] + dice[1];
-}
+
 
 function baseValues(draft: CharacterDraft) {
   return Object.fromEntries(ROLLED_ATTRIBUTES.map((attribute) => [
@@ -385,10 +342,7 @@ function AttributesStep({ data, draft, setDraft }: Omit<IntrinsicsStepProps, 'st
     setDraft((current) => syncIntrinsics(setAttributeBaseValues(current, 'array', values, id), data));
   };
 
-  const rollAll = () => {
-    const values = Object.fromEntries(ROLLED_ATTRIBUTES.map((attribute) => [attribute, rollHighTwo()])) as Record<RolledAttribute, number>;
-    setDraft((current) => syncIntrinsics(setAttributeBaseValues(current, 'roll', values, null), data));
-  };
+  const rollAll = () => setDraft(current => generateLockedStep('intrinsics-attributes', current, data));
 
   const pointBuy = () => {
     const values = Object.fromEntries(ROLLED_ATTRIBUTES.map((attribute) => [attribute, 7])) as Record<RolledAttribute, number>;
