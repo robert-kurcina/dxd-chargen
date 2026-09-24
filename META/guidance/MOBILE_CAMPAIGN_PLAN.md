@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current WIP: T08 — implementing agent; storage round-trip and export verification. T01–T07 are DONE; user review remains deferred at the user's request. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. Next implementation is H01 architecture. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -96,13 +96,17 @@ Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` veri
 - Collapsible help in Granted and Additional Skills explains skill level, specialization rank, Expert versus Technical Expert, and Trained armor/shield scope without renaming catalog identities or changing mechanics. Canonical sources: `vault-sarnalen/book-rewrite/02_Master_Manuscript_Entries/03_Character_Creation.md`, Broad Skills (Science 4 > Chemistry 2 and Trained categories), and `05_Wealth_Equipment_and_Property.md`, standard/technical weapon proficiency requirements.
 - Evidence: `scripts/campaign-origins.test.mjs` tests injected Disallow policies, preserved existing origins/readable catalog data, actual preset rejection and combined filtering. All 23 origin/preset/history tests pass. `scripts/workspace-library-context.browser.mjs` verifies shared filters with mocked saved-file responses and disposable local drafts, mobile skill help and 320/480/768/1440px widths. Campaign navigation and complete creation-to-two-page-PDF browser regressions pass. `npm run check` passes data validation, TypeScript and production build. Browser tests do not modify saved character files. Policy UI configuration is not claimed by these tests.
 
-## WIP — T08 release verification
+## DONE — T08 technical release verification (personal review deferred)
 
 - Added `scripts/character-storage-roundtrip.test.mjs`: all 13 presets preserve persisted JSON, campaign identity, generation seed/sequence/locks, Unicode notes, tags and sheet projection through actual storage normalization and load migration. A temporary-file test verifies Library maintenance leaves current Forge drafts unchanged and legacy alias repair still runs.
 - Found and fixed a release regression: historical import normalization was applied to current Forge drafts during save and Library maintenance. It moved some generated Mariner gear to Notes and could apply name-based legacy overrides. Drafts with versioned `creation` metadata now bypass historical repairs after schema migration. Older drafts without that metadata retain the existing import path; this is not a general rewrite of legacy migration.
-- Validation: 23 existing origin/preset/history tests and 14 storage tests pass. `npm run check` passes all 79 JSON files, standalone TypeScript and production build. Creation/Profile/keyboard/undo/redo/PDF browser regression passes at the existing responsive widths.
-- Print source comparison against merged baseline `926b07ccb471b61d55b7235f8db18209dc4546da`: no differences in `public/character-creator`, `src/lib/browser-pdf.ts`, or `src/app/expanded-character-sheet.tsx`. Actual PDF output has two pages. This does not replace representative visual print comparison or physical printer/Safari testing.
-- Export boundary: the legacy standalone Sheet Download action exports display/projection JSON, not a complete Forge draft; it is hidden in the workspace embedded sheet. Storage round-trip coverage does not establish a user-facing backup/import workflow. Full editable backup/import remains an open T08 gate, alongside representative print comparison and remaining mobile checks. User review remains deferred; R1 is not complete.
+- Validation: 23 existing origin/preset/history tests and 15 storage/backup tests pass (38 total). `npm run check` passes all 79 JSON files, standalone TypeScript and production build. Creation/Profile/keyboard/undo/redo/PDF browser regression passes at the existing responsive widths.
+- Print source comparison against merged baseline `926b07ccb471b61d55b7235f8db18209dc4546da`: no differences in `public/character-creator`, `src/lib/browser-pdf.ts`, or `src/app/expanded-character-sheet.tsx`. Actual PDF output has two pages. `scripts/handout-baseline.browser.mjs` additionally compares both rendered sides using a generated Necromancer and long notes: pixel-identical to that baseline. Current front/back artifacts were visually inspected in `/private/tmp/dxd-handout-comparison`. Physical printer/Safari testing remains unperformed.
+- Workspace menu now downloads the version-1 Forge backup envelope and imports it as a separate browser copy, retaining campaign, generation settings, locks and authored data. Source file identity is detached, preserving existing files on subsequent Save; undo history is excluded. The import rejects unsupported formats, future schemas, incomplete drafts and unreadable JSON. File input is capped at 20 MB. The standalone Sheet JSON projection is not this backup format.
+- `scripts/workspace-backup.browser.mjs` passes actual download/import, reload, invalid-input preservation, detached Save and responsive menu checks. Final history, presets, delayed-save, campaigns, Library context, storage failure, creation-to-two-page-PDF and 20-marker regressions all pass. Storage failure tests now use mocked file responses instead of requiring an existing Library record.
+- Remaining limits: desktop Chrome emulation at 320/480/768/1440px, not physical iOS/Android or Safari; print comparison is representative rather than exhaustive; eight map markers have no regional artwork and show an explicit unavailable state. Current campaign fixtures allow all origins; configurable/server policy and ownership remain later work. Personal review is deferred, not represented as completed.
+- This item covers technical release verification. Personal review has moved to R01 below to reflect the user's explicit instruction to continue and merge without waiting for review.
+
 
 ## TODO — next delivery
 
@@ -110,7 +114,7 @@ Execute in ID order except where dependencies explicitly allow otherwise. Accept
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| T08 / P1 (WIP above) | First-release verification and user review | T03–T07 | `npm run check`; behavioral generation/history/storage tests; mobile/keyboard checks; representative printed-sheet comparison; import/export round-trip. Demo complete loop and document limitations. No account permanence promise or nonfunctional sign-up CTA before account availability |
+| H01 / P2 | Establish local web-service auth and persistence architecture | R1 technical gates | Select local-capable persistence/auth interfaces and record an architecture decision. Remote hosting/provider selection remains deferred; Firebase is not a prerequisite |
 
 ### R1 release gates
 
@@ -127,7 +131,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 | ID / priority | Deliverable | Promotion prerequisite / exit gate |
 | --- | --- | --- |
-| H01 / P2 | Establish local web-service auth and persistence architecture | R1 stable. Run the web service locally during development. Select local-capable persistence/auth interfaces and record an architecture decision. Remote hosting/provider selection is deferred until the user chooses deployment; do not make Firebase availability a prerequisite |
+| R01 | Personal review and physical-device feedback | User resumes review; no block on the explicitly authorized merge |
 | H02 / P2 | Accounts and server authorization | H01. Email/username, account verification/recovery/password flows, sessions, MFA, site versus campaign roles; negative access tests. Never rely on tags/UUID secrecy/localStorage for authority |
 | H03 / P2 | Shared persistence, audit and recovery foundations | H02. Account-scoped caches, optimistic version checks, conflict versions with timestamp/editor, guest import selection, unauthorized-data exclusion, append-only events, recoverable version/deletion records and tested backups. Every authoritative mutation emits an attributable event. Set 24-month log-expiry contract now |
 | H04 / P2 | Membership and invitations | H02–H03. One-hour/three-successful-joins defaults, immediate authorized guest preview, atomic usage consumption, expiration/revocation, no use consumption by link scanners |
@@ -167,7 +171,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 ## Remaining decisions at implementation boundaries
 
-No product answer is required to start T08 verification. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
+No product answer is required to begin H01 architecture reconnaissance. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
 
 ## Updating this plan
 
@@ -175,4 +179,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Execute T08 release verification: import/export round-trip, representative handout comparison and remaining mobile/keyboard regressions. Campaign policy respects the local-first boundary; hosted privacy and enforcement remain H02/C01. User review is deferred at the user's request; R1 is not yet marked complete.
+Publish and merge the validated local creation release as explicitly authorized. Then start H01: document the local web-service persistence/auth architecture before implementing accounts or shared campaign controls. Personal review remains deferred; no physical-device acceptance is claimed.

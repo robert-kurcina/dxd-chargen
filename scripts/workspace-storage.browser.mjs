@@ -1,6 +1,6 @@
 const { chromium } = await import(process.env.DXD_PLAYWRIGHT_MODULE || 'playwright');
 import assert from 'node:assert/strict';
-// Run against a disposable browser profile; no filesystem character writes.
+// Disposable browser and mocked file responses; no existing Library records required.
 const browser=await chromium.launch({ channel: 'chrome', headless: true });
 const context=await browser.newContext({viewport:{width:480,height:900}});const p=await context.newPage();p.on('dialog',d=>d.accept());
 await p.addInitScript(() => localStorage.setItem('dxd-selected-campaign-v1', '7841aa01-33f4-4a90-8d13-000000000002'));
@@ -8,6 +8,9 @@ await p.goto('http://127.0.0.1:3000/',{waitUntil:'networkidle'});
 await p.getByRole('button',{name:'Continue',exact:true}).click();await p.getByRole('button',{name:'Generate',exact:true}).click();
 assert.ok(await p.getByRole('button',{name:'Undo',exact:true}).isEnabled());
 const old=await p.evaluate(()=>JSON.parse(localStorage.getItem('dxd-character-library-v1')));
+const fixture = { ...old.entries.find(entry => entry.id === old.activeId).draft, characterId: 'abcd1234' };
+await p.route('**/api/character-files', route => route.fulfill({ json: { characters: [{ idName: 'abcd1234-storage-fixture', characterId: 'abcd1234', name: 'Storage fixture', properName: '', speciesId: null, lineageId: null, tradeId: null, professionId: null, thumbnailUrl: null, updatedAt: new Date().toISOString(), libraryTags: [] }] } }));
+await p.route('**/api/character-files/abcd1234-storage-fixture', route => route.fulfill({ json: { idName: 'abcd1234-storage-fixture', draft: fixture } }));
 await p.goto('http://127.0.0.1:3000/library',{waitUntil:'networkidle'});
 await p.getByRole('button',{name:'Load character',exact:true}).first().click();await p.waitForURL('http://127.0.0.1:3000/');
 assert.ok(await p.getByRole('button',{name:'Undo',exact:true}).isDisabled());

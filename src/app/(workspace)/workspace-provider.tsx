@@ -5,7 +5,7 @@ import SuspenseSpinner from '@/components/suspense-spinner';
 import { useRouter } from 'next/navigation';
 import type { StaticData } from '@/data';
 import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { createLibraryEntry, activeLibraryEntry, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
+import { createLibraryEntry, importCharacter, exportCharacter, activeLibraryEntry, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
 import { syncHeritageGrantedSelections } from '@/lib/rules/background';
 import { syncIntrinsics } from '@/lib/rules/intrinsics';
 import { syncProficiencies } from '@/lib/rules/proficiencies';
@@ -32,6 +32,8 @@ type WorkspaceContextValue = {
   createInCampaign: (origin?: CharacterDraft['background']) => void;
   localEntries: CharacterLibraryState['entries'];
   openLocalDraft: (id: string) => void;
+  downloadBackup: () => void;
+  restoreBackup: (text: string) => void;
   canUndo: boolean;
   canRedo: boolean;
   undo: () => void;
@@ -265,7 +267,26 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     setMessage('Opened browser draft.'); router.push('/');
   };
 
-  const value = useMemo<WorkspaceContextValue>(() => ({ selectedCampaign, selectCampaign, createInCampaign, localEntries: library.entries, openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, selectedCampaign, library]);
+  const downloadBackup = () => {
+    const entry = activeLibraryEntry(libraryRef.current); if (!entry) return;
+    const url = URL.createObjectURL(new Blob([JSON.stringify(exportCharacter(entry), null, 2)], { type: 'application/json' }));
+    const anchor = document.createElement('a');
+    anchor.href = url; anchor.download = `${(entry.draft.utilities.name || 'character').replace(/[^a-z0-9_-]/gi, '-').slice(0, 80)}-forge-backup.json`;
+    anchor.click(); window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setMessage('Character backup downloaded. It includes character data and generation settings, without undo history.');
+  };
+  const restoreBackup = (text: string) => {
+    try {
+      const imported = importCharacter(JSON.parse(text));
+      const entry = { ...imported, draft: normalizeDraft(imported.draft, data) };
+      setLibrary({ ...libraryRef.current, activeId: entry.id, entries: [...libraryRef.current.entries, entry] });
+      setHistory(emptyHistory()); setActiveFileId(null); setSavedSnapshot('');
+      setMessage('Imported a separate browser copy. Existing characters are unchanged. Save to create a new character file.');
+      router.push('/');
+    } catch (error) { setMessage(`Import failed. Existing drafts are unchanged. ${error instanceof Error ? error.message : 'Choose a valid Forge backup.'}`); }
+  };
+
+  const value = useMemo<WorkspaceContextValue>(() => ({ downloadBackup, restoreBackup, selectedCampaign, selectCampaign, createInCampaign, localEntries: library.entries, openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, selectedCampaign, library]);
   if (!hydrated) return <SuspenseSpinner panel label="Loading character workspace…" className="mx-auto mt-4 max-w-[1440px]" />;
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }

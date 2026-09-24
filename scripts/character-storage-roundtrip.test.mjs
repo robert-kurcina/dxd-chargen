@@ -49,3 +49,17 @@ test('Library maintenance preserves current drafts on disk and still repairs leg
     assert.equal(normalizeCharacterDraftForStorage(legacy).background.culturalHeritageId, 'heritage-culture-herding');
   } finally { await rm(root, { recursive: true, force: true }); }
 });
+
+test('backup envelope round-trip detaches file identity and rejects invalid formats', async () => {
+  const { exportCharacter, importCharacter, createLibraryEntry } = await import('../src/lib/character-library.ts');
+  const source = createLibraryEntry(createEmptyCharacterDraft());
+  source.fileId = 'abcd1234-source'; source.draft.characterId = 'abcd1234';
+  const envelope = exportCharacter(source);
+  const snapshot = structuredClone(envelope);
+  const imported = importCharacter(JSON.parse(JSON.stringify(envelope)));
+  assert.notEqual(imported.id, source.id);
+  assert.equal(imported.fileId, undefined);
+  assert.equal(imported.draft.characterId, null);
+  assert.deepEqual(envelope, snapshot);
+  for (const invalid of [null, {}, { Name: 'Sheet' }, { ...envelope, version: 2 }, { schemaVersion: 12 }, { schemaVersion: 11 }]) assert.throws(() => importCharacter(invalid));
+});
