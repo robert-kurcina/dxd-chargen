@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current WIP: none. T01–T05 are DONE. T05 adds catalog-backed Rank 1 presets, section/field locks and per-character transaction-owned randomness. T06 is next: verify and complete the concept-to-character experience across Profile, editing and printing. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time. No calendar estimates until source inventory and the first end-to-end slice establish effort.
+Current WIP: none. T01–T06 are DONE. The local concept-to-character flow is implemented and verified through a two-page PDF export. T07 maps/Library/terminology and T08 full-release checks remain. The user has explicitly deferred personal review; implementation does not wait for that review. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -82,13 +82,19 @@ Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` veri
 - Eligibility is an explicit generator predicate, tested with excluded candidates. Current Default/Working fixtures allow everything; configurable hosted campaign policies and server enforcement are still C01/H02 work, not supplied by this predicate.
 - Evidence: `scripts/preset-generation.test.mjs` plus history tests cover catalog/seed sampling, determinism, native methods, all section locks, partial array/point-buy locks, language projections, normalized conflicts, eligibility, no-op generation and thrown callbacks. `scripts/workspace-presets.browser.mjs` covers Alef/Akrunai Necromancer, exact undo/redo, no shared RNG writes, locks/conflicts/reload, and 320/480/768/1440px controls. Existing history/campaign/storage/save-race browser checks pass. `npm run check` validates data, standalone TypeScript and production build. Tests use disposable browser profiles and do not save character files. Physical mobile/Safari and complete print/export gates remain T08.
 
+## DONE — T06 concept-to-character flow
+
+- Generated drafts offer direct links to Profile and the printable Sheet. Profile places unresolved required steps and their existing rule messages near the top, with explicit name/portrait editing and printable-sheet controls. No new completion or approval rules are introduced.
+- Review actions open the correct Design step, scroll it into view below the header, and focus its heading for keyboard use. Existing Design/Profile shared state, manual/non-preset editing, undo/redo and the exact handout rendering remain intact.
+- Profile exposes labeled lineage/group reference examples from the existing catalog images. These are separate from the player's portrait; shared filename mappings keep the editor and Profile consistent. Missing images use the existing unavailable state.
+- Evidence: `scripts/workspace-creation-flow.browser.mjs` verifies Alef > Akrunai / Wizard > Necromancer generation, actual reference-image loading, keyboard review navigation, name editing, exact undo/redo, current draft propagation to the unchanged sheet, and an actual PDF download with two pages. Profile has no horizontal overflow at 320/480/768/1440px. The test uses a disposable browser and never saves character files. `npm run check` passes. Full print comparison, import/export round-trip, physical mobile browsers and user review remain T08.
+
 ## TODO — next delivery
 
 Execute in ID order except where dependencies explicitly allow otherwise. Acceptance is per item; release requires all R1 gates.
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| T06 / P1 | Integrated concept-to-character slice | T04–T05 | Choose supported Profession/ancestry/lineage, generate, inspect illustrated Profile, edit, undo/redo and print. Preserve existing non-preset creation. Proposed acceptance example: Alef Wizard; exact supported lineage/specialization confirmed by T01 |
 | T07 / P1 | Maps, Library, and terminology | T06 | Region > Settlement creates locked origin; disallowed selections unavailable while readable details remain. Add local campaign/tag filtering and own-unassigned context. Explain Broad Skill level versus specialization rank and technical/nontechnical weapon scope without changing rules. Server-private delivery is deferred to H03 |
 | T08 / P1 | First-release verification and user review | T03–T07 | `npm run check`; behavioral generation/history/storage tests; mobile/keyboard checks; representative printed-sheet comparison; import/export round-trip. Demo complete loop and document limitations. No account permanence promise or nonfunctional sign-up CTA before account availability |
 
@@ -147,7 +153,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 ## Remaining decisions at implementation boundaries
 
-No product answer is required to start T06. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
+No product answer is required to start T07. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
 
 ## Updating this plan
 
@@ -155,4 +161,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Start T06: finish the supported concept-to-character walkthrough, including illustrated Profile, editing and exact printable Sheet. Keep existing non-preset creation intact. T07 policy/terminology and T08 full release checks follow. R1 is not yet complete.
+Start T07: complete Maps/Library context and explain canonical skill specializations. Campaign policy must respect the local-first boundary; hosted privacy and enforcement remain H02/C01. Then execute T08 release verification. User review is deferred at the user's request; R1 is not yet marked complete.

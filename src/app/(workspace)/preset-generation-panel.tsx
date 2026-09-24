@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { makeCatalogId } from '@/data/catalog-policy';
@@ -47,6 +48,10 @@ export default function PresetGenerationPanel() {
         setMessage('Character generated. Undo restores the previous character; review the remaining Design steps before play.');
         return generated;
       })}>Spin character</Button>
+      {context.presetId && <div className="flex flex-wrap gap-2" aria-label="Next steps after generation">
+        <Button asChild variant="outline" className="min-h-11"><Link href="/profile">Inspect character and remaining choices</Link></Button>
+        <Button asChild variant="outline" className="min-h-11"><Link href="/sheet">Open printable sheet</Link></Button>
+      </div>}
       <p className="text-xs text-muted-foreground">Locks protect generation inputs, including the Generate buttons in Design. You can still edit locked values manually. Derived values recalculate. The attribute creation method stays as selected in Design.</p>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {Object.entries(LOCK_SECTIONS).map(([section, paths]) => {

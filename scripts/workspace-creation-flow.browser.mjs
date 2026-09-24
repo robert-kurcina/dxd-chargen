@@ -1,0 +1,68 @@
+const { chromium } = await import(process.env.DXD_PLAYWRIGHT_MODULE || 'playwright');
+import assert from 'node:assert/strict';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+try {
+  const page = await browser.newPage({ viewport: { width: 480, height: 1000 } });
+  page.on('dialog', dialog => dialog.accept());
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(() => localStorage.setItem('dxd-selected-campaign-v1', '7841aa01-33f4-4a90-8d13-000000000002'));
+  const snapshot = () => page.evaluate(() => {
+    const library = JSON.parse(localStorage.getItem('dxd-character-library-v1'));
+    return { ...library.entries.find(entry => entry.id === library.activeId).draft, updatedAt: null };
+  });
+  await page.goto('http://127.0.0.1:3000/', { waitUntil: 'networkidle' });
+  await page.locator('summary').filter({ hasText: 'Presets and generation locks' }).click();
+  await page.getByLabel('Preset tag', { exact: true }).selectOption('Necromancer');
+  await page.getByLabel('Ancestral Group', { exact: true }).selectOption({ label: 'Alef' });
+  await page.getByLabel('Lineage', { exact: true }).selectOption({ label: 'Akrunai' });
+  await page.getByRole('button', { name: 'Spin character', exact: true }).click();
+  await page.getByRole('link', { name: 'Inspect character and remaining choices' }).click();
+  await page.waitForURL('**/profile');
+  const generated = await snapshot();
+  const review = page.getByRole('region', { name: 'Review before play' });
+  assert.ok(await review.getByRole('button', { name: /^Review / }).count());
+  await page.locator('summary').filter({ hasText: 'Akrunai lineage reference' }).click();
+  const reference = page.getByRole('img', { name: 'Akrunai lineage reference examples' });
+  await reference.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => [...document.images].some(img => img.alt === 'Akrunai lineage reference examples' && img.complete && img.naturalWidth > 0));
+  await review.getByRole('button', { name: /^Review / }).first().focus();
+  await page.keyboard.press('Enter');
+  await page.waitForURL('http://127.0.0.1:3000/');
+  await page.waitForFunction(() => document.activeElement?.id === 'active-step-title');
+  const heading = await page.locator('#active-step-title').boundingBox();assert.ok(heading.y >= 56 && heading.y < 1000);
+  assert.deepEqual(await snapshot(), generated);
+  await page.getByRole('navigation', { name: 'Character views', exact: true }).getByRole('link', { name: 'Profile', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit name', exact: true }).click();
+  await page.waitForURL('http://127.0.0.1:3000/');
+  await page.getByLabel('Table / common name', { exact: true }).fill('Akrunai Flow Test');
+  const edited = await snapshot();assert.equal(edited.utilities.name, 'Akrunai Flow Test');
+  await page.getByRole('button', { name: 'Undo', exact: true }).click();assert.deepEqual(await snapshot(), generated);
+  await page.getByRole('button', { name: 'Redo', exact: true }).click();assert.deepEqual(await snapshot(), edited);
+  console.log('PASS generate > illustrated Profile > review/edit > exact undo/redo');
+  await page.getByRole('navigation', { name: 'Character views', exact: true }).getByRole('link', { name: 'Profile', exact: true }).click();
+  await page.getByRole('region', { name: 'Review before play' }).getByRole('link', { name: 'Open printable sheet' }).click();
+  await page.waitForURL('**/sheet');
+  const frame = page.frameLocator('iframe[title="Sarna Len character sheet"]');
+  await frame.locator('[data-field="Name"]').waitFor();
+  await page.waitForFunction(() => document.querySelector('iframe')?.contentDocument?.querySelector('[data-field="Name"]')?.value.includes('Akrunai Flow Test'));
+  assert.equal(await frame.locator('.sheet-art').count(), 2);
+  const downloadPromise = page.waitForEvent('download', { timeout: 60000 });
+  await frame.getByRole('button', { name: 'Export PDF', exact: true }).click();
+  const download = await downloadPromise;
+  assert.equal(await download.failure(), null);
+  const stream = await download.createReadStream(); const chunks = [];
+  for await (const chunk of stream) chunks.push(chunk);
+  const pdf = Buffer.concat(chunks);
+  assert.ok(pdf.subarray(0, 8).toString().startsWith('%PDF-'));
+  assert.match(pdf.toString('latin1'), /\/Count\s+2\b/);
+  assert.ok(pdf.length > 10000);
+  assert.deepEqual(await snapshot(), edited);
+  console.log('PASS unchanged two-sided handout receives current draft and exports a two-page PDF');
+  await page.getByRole('navigation', { name: 'Character views', exact: true }).getByRole('link', { name: 'Profile', exact: true }).click();
+  for (const width of [320, 480, 768, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width);
+  }
+  assert.deepEqual(errors, []);
+  console.log('PASS Profile responsive widths and no page errors');
+} finally { await browser.close(); }
