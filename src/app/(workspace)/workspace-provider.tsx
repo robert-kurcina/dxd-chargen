@@ -13,6 +13,7 @@ import { syncProperties } from '@/lib/rules/properties';
 import { syncUtilities } from '@/lib/rules/utilities';
 import { ADMIN_SETTINGS_EVENT, readAdminSettings, sortLibraryTags } from '@/lib/admin-settings';
 
+import { GenerationConflict, creationContext, seedForCharacter, LOCK_SECTIONS } from '@/lib/rules/preset-generation';
 import { LOCAL_CAMPAIGNS, CAMPAIGN_SELECTION_KEY, localCampaign } from '@/lib/local-campaigns';
 import { emptyHistory, recordEdit, travel, packHistory, unpackHistory, type History, type Json } from '@/lib/draft-history';
 
@@ -165,13 +166,15 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     const before = activeLibraryEntry(current)?.draft; if (!before) return;
     try {
       // Evaluate the updater once, outside React's replayable updater callbacks.
-      const candidate = typeof action === 'function' ? action(structuredClone(before)) : action;
+      const candidate = typeof action === 'function' ? action(structuredClone({ ...before, creation: before.creation ?? { ...creationContext(before), seed: seedForCharacter(current.activeId, readAdminSettings().randomSeed) } })) : action;
       const after = normalizeDraft(candidate, data);
+      // Seeding metadata alone must not turn a no-op editor action into an edit.
+      if (!before.creation && JSON.stringify(snapshot({ ...after, creation: undefined })) === JSON.stringify(snapshot(before))) return;
       const nextHistory = recordEdit(historyRef.current, snapshot(before), snapshot(after));
       if (nextHistory === historyRef.current) return;
       setHistory(nextHistory);
       setLibrary(updateActiveDraft(current, after));
-    } catch { setMessage('The edit could not be applied. Your previous draft is unchanged.'); }
+    } catch (error) { setMessage(error instanceof GenerationConflict ? error.message : 'The edit could not be applied. Your previous draft is unchanged.'); }
   };
   const navigateHistory = (direction: 'undo' | 'redo') => {
     const current = libraryRef.current;
@@ -244,7 +247,8 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   };
   const createInCampaign = (origin?: CharacterDraft['background']) => {
     const empty = createEmptyCharacterDraft();
-    const entry = createLibraryEntry(normalizeDraft({ ...empty, campaignId: selectedCampaign.id, ...(origin ? { background: { ...empty.background, regionId: origin.regionId, settlementId: origin.settlementId } } : {}) }, data));
+    const entry = createLibraryEntry(normalizeDraft({ ...empty, campaignId: selectedCampaign.id, ...(origin ? { background: { ...empty.background, regionId: origin.regionId, settlementId: origin.settlementId }, creation: { ...creationContext(empty), locks: [...LOCK_SECTIONS.Origin] } } : {}) }, data));
+    entry.draft.creation = { ...creationContext(entry.draft), seed: seedForCharacter(entry.id, readAdminSettings().randomSeed) };
     setLibrary({ ...libraryRef.current, activeId: entry.id, entries: [...libraryRef.current.entries, entry] });
     setHistory(emptyHistory()); setActiveFileId(null); setSavedSnapshot('');
     setMessage(`New character in ${selectedCampaign.name}. Your previous draft remains in the Library.`);

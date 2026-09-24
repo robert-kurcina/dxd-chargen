@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current WIP: none. T01, T02, T03 and T04 are DONE. Local campaign/activity entry, browser drafts and origin exploration are implemented; T05 presets and locks are next. Undo/redo is implemented and verified. Recommend increasing reasoning above Light before the cross-cutting generation/history work; this is a complexity checkpoint, not a claim about model availability or an approval requirement. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time. No calendar estimates until source inventory and the first end-to-end slice establish effort.
+Current WIP: none. T01–T05 are DONE. T05 adds catalog-backed Rank 1 presets, section/field locks and per-character transaction-owned randomness. T06 is next: verify and complete the concept-to-character experience across Profile, editing and printing. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time. No calendar estimates until source inventory and the first end-to-end slice establish effort.
 
 ## Priority order
 
@@ -63,15 +63,24 @@ Validation: data/type/build checks passed; Chrome at 320/480/768/1440px verified
 - Quota/storage failures retain edits in memory and show warnings. Unreadable stored drafts are not overwritten by automatic saving. Async save/revert results cannot overwrite newer/current-character edits. Message feedback is visible on mobile.
 - Verification: six pure history tests pass (`node --test scripts/draft-history.test.mjs`). `npm run check` passes. Browser tests pass for grouped generation undo/redo, reload and cross-view history, byte budget, preference opt-out, file-load isolation, quota errors, unreadable storage, and delayed-save edit/identity preservation. Headless Chrome at 480px, fresh profiles; no physical mobile-device claim.
 - Reproducible browser checks: start the local service on 127.0.0.1:3000; run `node scripts/workspace-history.browser.mjs` , `node scripts/workspace-storage.browser.mjs`, and `node scripts/workspace-save-race.browser.mjs` with Playwright available. If installed outside this repository, set `DXD_PLAYWRIGHT_MODULE` to its importable module path. Tests use installed Chrome, disposable browser profiles, and read-only loads of existing Library records; the storage test requires at least one record. They do not save character files.
-- Known boundary: current step generation still consumes the existing Administrator random sequence. Redo restores recorded character output and does not roll again, but RNG rollback for failed generation and input locks belong to T05. No claim of complete preset generation.
+- Historical T03 boundary, resolved by T05: Forge generation now uses per-character transaction-owned random state; failed generation consumes no persisted random state and redo restores recorded output.
 
 ## DONE — T04 local campaign and activity entry
 
 First-time empty sessions enter `/campaigns`; existing drafts retain their current route. Default (first, immutable/non-activatable) and Working (derived from Default) have stable UUIDs. Selection is a preference, not a move of an existing character. Activities create a separate draft, explore regions/settlements, or open Library. Local browser drafts remain reopenable with their history; Library filters both browser and filesystem records by campaign. Missing legacy campaign IDs count as Default/unassigned. New optional draft metadata persists campaign identity; no schema-11 data rewrite or automatic file migration.
 
-`/maps` reuses current region/settlement and overland controls on a scratch draft. Creating from that origin makes a separate character. Origin locks and campaign option restrictions remain T05/T07/C01 work. No fake preset button, cloud permissions, public accounts, or Administrator editor was introduced. Static local campaign fixtures are not a multiuser security boundary.
+`/maps` reuses current region/settlement and overland controls on a scratch draft. Creating from that origin makes a separate character. T05 now locks origins selected here. Campaign option restrictions remain T07/C01 work. No fake preset button, cloud permissions, public accounts, or Administrator editor was introduced. Static local campaign fixtures are not a multiuser security boundary.
 
 Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` verifies fresh-session entry, selection without reassignment, distinct character identity, campaign filtering, reopening history, map exploration without editing the active draft, and 320/480/768/1440px widths. Existing history/storage/delayed-save browser regressions also pass. Temporary screenshot: `/private/tmp/dxd-mobile-baseline/campaigns-480.png`.
+
+## DONE — T05 presets, locks and owned randomness
+
+- `src/lib/rules/preset-generation.ts`: 12 catalog Trade presets plus Wizard > Necromancer, stable UUIDs, versioned creation metadata, tag filtering, selectable ancestry/lineage constraints, bounded candidacy search, and native roll/array/75-point-buy methods. Rank 1 is explicit; no unverified high-rank Spellcaster entitlement.
+- Collapsible Design controls expose a mechanical preset, optional Ancestral Group/Lineage, Spin character, and section/field locks. Locks govern generated inputs; explicit manual edits remain possible. Derived attributes, language levels and physical projections recalculate. Origin exploration creates a separately identified draft with Region/Settlement locked.
+- One spin replaces generated selections in a fresh candidate and commits one normalized history action. Character identity, campaign, notes, portraits, relationships and possessions remain. Spells/gear are not randomly awarded; the UI asks the player to review remaining Design steps. Imported attribute mode and locked Child of Strife configurations return explicit unsupported-preset explanations rather than inventing rules.
+- Presets and existing Forge random controls use an injected per-character random stream. The initial seed combines the local character UUID and Administrator seed default. Later Administrator resets do not alter existing character streams. Failed operations preserve draft/history/sequence; Undo/Redo restores the recorded draft and owned sequence. No-op generation consumes no persisted randomness.
+- Eligibility is an explicit generator predicate, tested with excluded candidates. Current Default/Working fixtures allow everything; configurable hosted campaign policies and server enforcement are still C01/H02 work, not supplied by this predicate.
+- Evidence: `scripts/preset-generation.test.mjs` plus history tests cover catalog/seed sampling, determinism, native methods, all section locks, partial array/point-buy locks, language projections, normalized conflicts, eligibility, no-op generation and thrown callbacks. `scripts/workspace-presets.browser.mjs` covers Alef/Akrunai Necromancer, exact undo/redo, no shared RNG writes, locks/conflicts/reload, and 320/480/768/1440px controls. Existing history/campaign/storage/save-race browser checks pass. `npm run check` validates data, standalone TypeScript and production build. Tests use disposable browser profiles and do not save character files. Physical mobile/Safari and complete print/export gates remain T08.
 
 ## TODO — next delivery
 
@@ -79,9 +88,6 @@ Execute in ID order except where dependencies explicitly allow otherwise. Accept
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-
-
-| T05 / P1 | Preset generation and locks | T01–T03 | Adapt current generation engine to sourced mechanical presets. One spin replaces unlocked inputs and is one undo operation. Redo restores identical results. Respect canonical prerequisites, campaign eligibility and every lock; conflicting locks explain failure with no partial mutation |
 | T06 / P1 | Integrated concept-to-character slice | T04–T05 | Choose supported Profession/ancestry/lineage, generate, inspect illustrated Profile, edit, undo/redo and print. Preserve existing non-preset creation. Proposed acceptance example: Alef Wizard; exact supported lineage/specialization confirmed by T01 |
 | T07 / P1 | Maps, Library, and terminology | T06 | Region > Settlement creates locked origin; disallowed selections unavailable while readable details remain. Add local campaign/tag filtering and own-unassigned context. Explain Broad Skill level versus specialization rank and technical/nontechnical weapon scope without changing rules. Server-private delivery is deferred to H03 |
 | T08 / P1 | First-release verification and user review | T03–T07 | `npm run check`; behavioral generation/history/storage tests; mobile/keyboard checks; representative printed-sheet comparison; import/export round-trip. Demo complete loop and document limitations. No account permanence promise or nonfunctional sign-up CTA before account availability |
@@ -141,7 +147,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 ## Remaining decisions at implementation boundaries
 
-No user answer is required to finish T01. T02 should propose exact input-lock/normalization behavior, transaction randomness, and history overflow behavior grounded in source. Broader account, storage and read-only staff decisions remain deferred to their respective items.
+No product answer is required to start T06. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
 
 ## Updating this plan
 
@@ -149,4 +155,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Start T05 sourced mechanical presets, section/field locks and transaction-owned generation. Region/settlement selections from exploration should become locked generation inputs once the lock engine is available. Preserve the accepted navigation and avoid adding more pinned header rows. No existing character files were changed by history verification.
+Start T06: finish the supported concept-to-character walkthrough, including illustrated Profile, editing and exact printable Sheet. Keep existing non-preset creation intact. T07 policy/terminology and T08 full release checks follow. R1 is not yet complete.

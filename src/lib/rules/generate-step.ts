@@ -10,21 +10,6 @@ import { generateCharacterName, suggestedNameLanguageId, toggleMagicItem, toggle
 import { allowedEnvironNames, selectedSettlementOption, settlementCatalogId, weightedSettlementPick } from '@/lib/settlement-context';
 import { nextGlobalRandom } from '@/lib/admin-settings';
 
-function d6() { return 1 + Math.floor(nextGlobalRandom() * 6); }
-function d66() { return d6() * 10 + d6(); }
-function pick<T>(values: readonly T[]): T | null { return values.length ? values[Math.floor(nextGlobalRandom() * values.length)] ?? null : null; }
-function highTwo() { return [d6(), d6(), d6()].sort((a,b) => b-a).slice(0,2).reduce((a,b) => a+b,0); }
-
-function d66AgeGroup(data: StaticData) {
-  const roll = d66();
-  return data.ageGroups.find((entry) => {
-    const source = String(entry.d66 ?? '');
-    if (!/\d/.test(source)) return false;
-    const [lo, hi = lo] = source.split('-').map(Number);
-    return roll >= lo && roll <= hi;
-  })?.ageGroup ?? 'Youth';
-}
-
 export function canGenerateStep(stepValue: string, draft: CharacterDraft, data: StaticData) {
   if (stepValue === 'utilities-relationships' || stepValue === 'utilities-starting-gear' || stepValue === 'proficiencies-imported-traits-skills-talents' || stepValue.startsWith('customize-') || stepValue === 'notes-overview' || stepValue === 'notes-portrait') return false;
   if (stepValue === 'utilities-spells') return effectiveTraitLevel(draft, 'v-Magic') > 0;
@@ -32,10 +17,26 @@ export function canGenerateStep(stepValue: string, draft: CharacterDraft, data: 
   return Boolean(data);
 }
 
-export function generateStep(stepValue: string, draft: CharacterDraft, data: StaticData): CharacterDraft {
+export function generateStep(stepValue: string, draft: CharacterDraft, data: StaticData, random: () => number = nextGlobalRandom): CharacterDraft {
+  function d6() { return 1 + Math.floor(random() * 6); }
+  function d66() { return d6() * 10 + d6(); }
+  function pick<T>(values: readonly T[]): T | null { return values.length ? values[Math.floor(random() * values.length)] ?? null : null; }
+  function highTwo() { return [d6(), d6(), d6()].sort((a,b) => b-a).slice(0,2).reduce((a,b) => a+b,0); }
+
+  function d66AgeGroup(data: StaticData) {
+    const roll = d66();
+    return data.ageGroups.find((entry) => {
+      const source = String(entry.d66 ?? '');
+      if (!/\d/.test(source)) return false;
+      const [lo, hi = lo] = source.split('-').map(Number);
+      return roll >= lo && roll <= hi;
+    })?.ageGroup ?? 'Youth';
+  }
+
+
   if (stepValue === 'background-region-settlement') {
     const region = pick(data.empires); if (!region) return draft;
-    const settlement = weightedSettlementPick(region.name, data, nextGlobalRandom);
+    const settlement = weightedSettlementPick(region.name, data, random);
     const next = {
       ...draft,
       background: {
@@ -52,7 +53,7 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
     return syncIntrinsics(syncHeritageGrantedSelections(next, data), data);
   }
   if (stepValue === 'background-demographics') {
-    const sexRoll = Math.floor(nextGlobalRandom() * 100) + 1;
+    const sexRoll = Math.floor(random() * 100) + 1;
     const sex: CharacterDraft['background']['sex'] = sexRoll === 100 ? 'Intersex' : sexRoll <= 50 ? 'Female' : 'Male';
     const gender: CharacterDraft['background']['gender'] = pick(['Male','Female','Non-binary'] as const) ?? 'Male';
     const ageGroup = d66AgeGroup(data);
@@ -64,7 +65,7 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
       notable ? { id: makeCatalogId('notable-feature', notable.feature), name: notable.feature, source: 'rule', sourceDetail: `Notable feature D66 ${notable.d66}`, level: 1 } : null,
       blemish ? { id: makeCatalogId('physical-blemish', blemish), name: blemish, source: 'rule', sourceDetail: `Physical blemish D66 ${blemishRow?.d66}/${blemishBand}`, level: 1 } : null,
     ].filter(Boolean) as SourcedSelection[];
-    const withDemographics: CharacterDraft = { ...draft, intrinsics: { ...draft.intrinsics, strifeBonusParent: draft.intrinsics.childOfStrife ? (nextGlobalRandom() < 0.5 ? 'father' : 'mother') : draft.intrinsics.strifeBonusParent }, background: { ...draft.background, demographicSelections, sex, gender, geneticallyFemale: sex === 'Female', handedness: nextGlobalRandom() < 0.15 ? 'Left' : 'Right', ageGroup, ageYears: null, birthMonth: 1 + Math.floor(nextGlobalRandom() * 12) } };
+    const withDemographics: CharacterDraft = { ...draft, intrinsics: { ...draft.intrinsics, strifeBonusParent: draft.intrinsics.childOfStrife ? (random() < 0.5 ? 'father' : 'mother') : draft.intrinsics.strifeBonusParent }, background: { ...draft.background, demographicSelections, sex, gender, geneticallyFemale: sex === 'Female', handedness: random() < 0.15 ? 'Left' : 'Right', ageGroup, ageYears: null, birthMonth: 1 + Math.floor(random() * 12) } };
     const ageYears = startingAgeForDraft(withDemographics, data);
     return syncIntrinsics(
       syncHeritageGrantedSelections({ ...withDemographics, background: { ...withDemographics.background, ageYears } }, data),
@@ -100,7 +101,7 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   }
   if (stepValue === 'background-tragedy-seed') {
     const seed = pick(data.tragedySeeds); if (!seed) return draft;
-    return { ...draft, background: { ...draft.background, tragedySeedId: seed.catalogId, tragedySeedText: resolveTragedySeed(seed.seed, data.randomPersonItemDeity, nextGlobalRandom) } };
+    return { ...draft, background: { ...draft.background, tragedySeedId: seed.catalogId, tragedySeedText: resolveTragedySeed(seed.seed, data.randomPersonItemDeity, random) } };
   }
   if (stepValue === 'background-disabilities') {
     const count = requiredDisabilityCount(draft, data); const used = new Set<string>(); const selections: SourcedSelection[] = [];
@@ -115,7 +116,7 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   if (stepValue === 'intrinsics-species') {
     if (draft.intrinsics.childOfStrife) {
       const rolls = Object.fromEntries([...ROLLED_ATTRIBUTES, 'MOV', 'ZED'].map((attribute) => [attribute, d6()]));
-      return syncIntrinsics({ ...draft, intrinsics: { ...draft.intrinsics, strifeAttributeRolls: rolls, strifeBonusParent: nextGlobalRandom() < 0.5 ? 'father' : 'mother' }, background: { ...draft.background, ageYears: null } }, data);
+      return syncIntrinsics({ ...draft, intrinsics: { ...draft.intrinsics, strifeAttributeRolls: rolls, strifeBonusParent: random() < 0.5 ? 'father' : 'mother' }, background: { ...draft.background, ageYears: null } }, data);
     }
     const family = data.species.find((entry) => entry.selectable); const group = family ? pick(family.groups.filter((entry) => entry.selectable)) : null; if (!family || !group) return draft; const lineage = pick(group.lineages);
     return syncIntrinsics({ ...draft, intrinsics: { ...draft.intrinsics, speciesFamilyId: family.catalogId, speciesId: group.catalogId, lineageId: lineage ? makeCatalogId('lineage', lineage) : null }, background: { ...draft.background, ageYears: null } }, data);
@@ -161,6 +162,6 @@ export function generateStep(stepValue: string, draft: CharacterDraft, data: Sta
   if (stepValue === 'properties-height-weight' || stepValue === 'properties-calculations') return syncProperties(draft, data);
   if (stepValue === 'utilities-spells') { const selected = new Set(draft.utilities.spells.map((item) => item.id)); const spell = pick(data.spells.filter((item) => !selected.has(item.catalogId))); return spell ? toggleSpell(draft, spell.catalogId, data) : draft; }
   if (stepValue === 'utilities-magic-items') { const selected = new Set(draft.utilities.magicItems.map((item) => item.id)); const item = pick(data.magicItems.filter((entry) => !selected.has(entry.catalogId))); return item ? toggleMagicItem(draft, item.catalogId, data) : draft; }
-  if (stepValue === 'utilities-name') { const languageId = draft.utilities.nameLanguageId ?? suggestedNameLanguageId(draft, data); if (!languageId) return draft; const name = generateCharacterName(languageId, draft.utilities.nameStyle, data, nextGlobalRandom); return name ? { ...draft, utilities: { ...draft.utilities, nameLanguageId: languageId, properName: name, name: draft.utilities.name || name } } : draft; }
+  if (stepValue === 'utilities-name') { const languageId = draft.utilities.nameLanguageId ?? suggestedNameLanguageId(draft, data); if (!languageId) return draft; const name = generateCharacterName(languageId, draft.utilities.nameStyle, data, random); return name ? { ...draft, utilities: { ...draft.utilities, nameLanguageId: languageId, properName: name, name: draft.utilities.name || name } } : draft; }
   return draft;
 }

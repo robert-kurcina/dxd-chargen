@@ -9,6 +9,7 @@ import ExpandedCharacterSheet from '@/app/expanded-character-sheet';
 import CharacterLibraryPanel from '@/app/character-library-panel';
 import { sortLibraryTags } from '@/lib/admin-settings';
 import { LOCAL_CAMPAIGNS, localCampaign, campaignMatches } from '@/lib/local-campaigns';
+import PresetGenerationPanel from './preset-generation-panel';
 import { useWorkspace } from './workspace-provider';
 
 export function ForgeWorkspaceView({ view = 'design' }: { view?: 'design' | 'profile' }) {
@@ -26,6 +27,7 @@ export function ForgeWorkspaceView({ view = 'design' }: { view?: 'design' | 'pro
         <Button disabled={!dirty || saving || reverting} onClick={() => setConfirmOpen(true)}>{saving ? <SuspenseSpinner compact label="Saving…" className="text-current" /> : 'Save'}</Button>
       </div>
     </div>
+    {view === 'design' && <PresetGenerationPanel />}
     <Worksheet view={view} data={data} draft={draft} setDraft={setDraft} onReset={reset} />
     <ConfirmDialog open={confirmOpen} title="Save character?" confirmLabel="Approve" busy={saving} onCancel={() => setConfirmOpen(false)} onConfirm={() => { setConfirmOpen(false); void save(); }}><p>Approve to write the current Forge state to {activeFileId ? <span className="font-mono">{activeFileId}</span> : 'a new character file'}. Cancel leaves the current changes unsaved.</p></ConfirmDialog>
   </>;

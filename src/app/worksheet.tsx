@@ -95,7 +95,8 @@ import {
   personalWealthGp,
   startingGearTotals,
 } from "@/lib/rules/utilities";
-import { canGenerateStep, generateStep } from "@/lib/rules/generate-step";
+import { generateLockedStep } from "@/lib/rules/preset-generation";
+import { canGenerateStep } from "@/lib/rules/generate-step";
 import { cn, formatNumberWithCommas } from "@/lib/utils";
 
 type CreationPhase = StaticData["steps"][number];
@@ -900,7 +901,7 @@ export default function Worksheet({
                 disabled={!canGenerateStep(activeStep.value, draft, data)}
                 onClick={() =>
                   setDraft((current) =>
-                    generateStep(activeStep.value, current, data),
+                    generateLockedStep(activeStep.value, current, data),
                   )
                 }
               >

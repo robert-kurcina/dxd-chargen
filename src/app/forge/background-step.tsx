@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import type { CharacterDraft, SourcedSelection } from '@/lib/character-draft';
-import { nextGlobalRandom } from '@/lib/admin-settings';
+import { withCharacterRandom } from '@/lib/rules/preset-generation';
 import { parseTragedyTemplate, resolveTragedySeed } from '@/lib/character-logic';
 import { allowedEnvironNames, localeForRegion, selectedSettlementOption, settlementOptionsForRegion } from '@/lib/settlement-context';
 import {
@@ -911,15 +911,10 @@ function TragedyStep({ data, draft, setDraft }: Omit<BackgroundStepProps, 'stepV
   };
 
   const resolve = (item: StaticData['tragedySeeds'][number]) => {
-    const tragedySeedText = resolveTragedySeed(item.seed, data.randomPersonItemDeity, nextGlobalRandom);
-    setDraft((current) => ({
-      ...current,
-      background: {
-        ...current.background,
-        tragedySeedId: item.catalogId,
-        tragedySeedText,
-      },
-    }));
+    setDraft(current => withCharacterRandom(current, data, (candidate, random) => ({
+      ...candidate,
+      background: { ...candidate.background, tragedySeedId: item.catalogId, tragedySeedText: resolveTragedySeed(item.seed, data.randomPersonItemDeity, random) },
+    })));
   };
 
   return (
