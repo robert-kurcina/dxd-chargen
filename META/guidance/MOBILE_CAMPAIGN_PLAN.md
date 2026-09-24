@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current checkpoint: T01–T07 are DONE. Next is T08 release verification; user review remains deferred at the user's request. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current WIP: T08 — implementing agent; storage round-trip and export verification. T01–T07 are DONE; user review remains deferred at the user's request. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -96,13 +96,21 @@ Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` veri
 - Collapsible help in Granted and Additional Skills explains skill level, specialization rank, Expert versus Technical Expert, and Trained armor/shield scope without renaming catalog identities or changing mechanics. Canonical sources: `vault-sarnalen/book-rewrite/02_Master_Manuscript_Entries/03_Character_Creation.md`, Broad Skills (Science 4 > Chemistry 2 and Trained categories), and `05_Wealth_Equipment_and_Property.md`, standard/technical weapon proficiency requirements.
 - Evidence: `scripts/campaign-origins.test.mjs` tests injected Disallow policies, preserved existing origins/readable catalog data, actual preset rejection and combined filtering. All 23 origin/preset/history tests pass. `scripts/workspace-library-context.browser.mjs` verifies shared filters with mocked saved-file responses and disposable local drafts, mobile skill help and 320/480/768/1440px widths. Campaign navigation and complete creation-to-two-page-PDF browser regressions pass. `npm run check` passes data validation, TypeScript and production build. Browser tests do not modify saved character files. Policy UI configuration is not claimed by these tests.
 
+## WIP — T08 release verification
+
+- Added `scripts/character-storage-roundtrip.test.mjs`: all 13 presets preserve persisted JSON, campaign identity, generation seed/sequence/locks, Unicode notes, tags and sheet projection through actual storage normalization and load migration. A temporary-file test verifies Library maintenance leaves current Forge drafts unchanged and legacy alias repair still runs.
+- Found and fixed a release regression: historical import normalization was applied to current Forge drafts during save and Library maintenance. It moved some generated Mariner gear to Notes and could apply name-based legacy overrides. Drafts with versioned `creation` metadata now bypass historical repairs after schema migration. Older drafts without that metadata retain the existing import path; this is not a general rewrite of legacy migration.
+- Validation: 23 existing origin/preset/history tests and 14 storage tests pass. `npm run check` passes all 79 JSON files, standalone TypeScript and production build. Creation/Profile/keyboard/undo/redo/PDF browser regression passes at the existing responsive widths.
+- Print source comparison against merged baseline `926b07ccb471b61d55b7235f8db18209dc4546da`: no differences in `public/character-creator`, `src/lib/browser-pdf.ts`, or `src/app/expanded-character-sheet.tsx`. Actual PDF output has two pages. This does not replace representative visual print comparison or physical printer/Safari testing.
+- Export boundary: the legacy standalone Sheet Download action exports display/projection JSON, not a complete Forge draft; it is hidden in the workspace embedded sheet. Storage round-trip coverage does not establish a user-facing backup/import workflow. Full editable backup/import remains an open T08 gate, alongside representative print comparison and remaining mobile checks. User review remains deferred; R1 is not complete.
+
 ## TODO — next delivery
 
 Execute in ID order except where dependencies explicitly allow otherwise. Acceptance is per item; release requires all R1 gates.
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| T08 / P1 | First-release verification and user review | T03–T07 | `npm run check`; behavioral generation/history/storage tests; mobile/keyboard checks; representative printed-sheet comparison; import/export round-trip. Demo complete loop and document limitations. No account permanence promise or nonfunctional sign-up CTA before account availability |
+| T08 / P1 (WIP above) | First-release verification and user review | T03–T07 | `npm run check`; behavioral generation/history/storage tests; mobile/keyboard checks; representative printed-sheet comparison; import/export round-trip. Demo complete loop and document limitations. No account permanence promise or nonfunctional sign-up CTA before account availability |
 
 ### R1 release gates
 

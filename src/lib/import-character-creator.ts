@@ -839,6 +839,9 @@ function applyLegacyPossessionDecisions(draft: CharacterDraft): CharacterDraft {
 
 function normalizeImportedDraft(draft: CharacterDraft): CharacterDraft {
   draft = migrateCharacterDraft(draft);
+  // Versioned creation metadata identifies drafts managed by the current Forge.
+  // Historical name/gear repairs must not rewrite these authored characters.
+  if (draft.creation) return draft;
   const heritageIds: Record<string, string> = {
     'heritage-culture-herder': 'heritage-culture-herding',
     'heritage-environs-desert': 'heritage-environs-deserts',
