@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import BackgroundStep from '@/app/forge/background-step';
 import { createEmptyCharacterDraft } from '@/lib/character-draft';
 import { selectedSettlementOption } from '@/lib/settlement-context';
+import { originAllowed } from '@/lib/campaign-origins';
 import { LOCAL_CAMPAIGNS } from '@/lib/local-campaigns';
 import { useWorkspace } from './workspace-provider';
 
@@ -30,7 +31,8 @@ export function MapsView() {
   const [origin, setOrigin] = useState(createEmptyCharacterDraft);
   return <div className="mx-auto max-w-3xl space-y-4 pb-4">
     <header><h1 className="text-xl font-semibold">Explore origins</h1><p className="text-sm text-muted-foreground">{selectedCampaign.name} · Choose a region and settlement, or open the overland map.</p></header>
-    <BackgroundStep stepValue="background-region-settlement" data={data} draft={origin} setDraft={setOrigin} />
-    <Button className="min-h-11" disabled={!origin.background.regionId || !origin.background.settlementId || !selectedSettlementOption(origin, data)} onClick={() => createInCampaign(origin.background)}>Create a character from here</Button>
+    <BackgroundStep allowDisallowedInspection stepValue="background-region-settlement" data={data} draft={origin} setDraft={setOrigin} />
+    {origin.background.settlementId && !originAllowed(selectedCampaign.originPolicy, origin.background.settlementId) && <p role="status" className="rounded border p-3 text-sm">This settlement is disallowed as a new starting origin in {selectedCampaign.name}. You can still read its details and maps.</p>}
+    <Button className="min-h-11" disabled={!originAllowed(selectedCampaign.originPolicy, origin.background.settlementId) || !origin.background.regionId || !origin.background.settlementId || !selectedSettlementOption(origin, data)} onClick={() => createInCampaign(origin.background)}>Create a character from here</Button>
   </div>;
 }

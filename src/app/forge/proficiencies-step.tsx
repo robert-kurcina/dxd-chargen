@@ -67,6 +67,22 @@ type ProficienciesStepProps = {
   setDraft: Dispatch<SetStateAction<CharacterDraft>>;
 };
 
+function SpecializationGuide() {
+  return <details className="mb-4 rounded-lg border bg-muted/20 p-3">
+    <summary className="min-h-8 cursor-pointer font-medium">Skill level and specialization rank</summary>
+    <div className="mt-3 space-y-3 text-sm">
+      <p>A Broad Skill's level gives DM +X. A relevant specialization adds +1D per specialization rank. If no rank is written after a specialization, it is rank 1.</p>
+      <p><strong>Science 4 &gt; Chemistry 2</strong> gives DM +4 for Science, plus DM +2D when Chemistry applies. The 4 is the skill level; the 2 is the specialization rank.</p>
+      <dl className="space-y-2">
+        <div><dt className="font-medium">Expert</dt><dd>Standard (non-technical) weapon specializations. This includes both melee and ranged weapons.</dd></div>
+        <div><dt className="font-medium">Technical Expert / Expert (Technical)</dt><dd>Technical weapon specializations, also covering melee and ranged weapons. Technical is a weapon category, not a higher skill level.</dd></div>
+        <div><dt className="font-medium">Trained</dt><dd>Armor and shield specializations: Shield, Suit, Helmet and Gear.</dd></div>
+      </dl>
+      <p>Repeated Broad Skill grants normally select different specializations. Increase an existing specialization's rank only when its source allows it. Interdisciplinary electives follow separate rules.</p>
+    </div>
+  </details>;
+}
+
 function PmlStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, 'stepValue'>) {
   const pml = draft.proficiencies.pml ?? 1;
   const summary = pmlCreationSummary(pml);
@@ -402,8 +418,8 @@ export default function ProficienciesStep(props: ProficienciesStepProps) {
   const common = { data: props.data, draft: props.draft, setDraft: props.setDraft };
   switch (props.stepValue) {
     case 'proficiencies-pml': return <PmlStep {...common} />;
-    case 'proficiencies-granted-skills-traits-talents': return <GrantedTraitsStep {...common} />;
-    case 'proficiencies-additional-traits-skills': return <AdditionalSkillsStep {...common} />;
+    case 'proficiencies-granted-skills-traits-talents': return <><SpecializationGuide /><GrantedTraitsStep {...common} /></>;
+    case 'proficiencies-additional-traits-skills': return <><SpecializationGuide /><AdditionalSkillsStep {...common} /></>;
     case 'proficiencies-imported-traits-skills-talents': return <ImportedCapabilitiesStep data={props.data} draft={props.draft} />;
     case 'proficiencies-languages': return <LanguagesStep {...common} />;
     default: return null;

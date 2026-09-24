@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { localCampaign } from '@/lib/local-campaigns';
+import { originEligibility } from '@/lib/campaign-origins';
 import { makeCatalogId } from '@/data/catalog-policy';
 import { creationContext, generatePreset, inputLabel, LOCK_SECTIONS, mechanicalPresets } from '@/lib/rules/preset-generation';
 import { useWorkspace } from './workspace-provider';
@@ -44,7 +46,7 @@ export default function PresetGenerationPanel() {
         <label className="min-w-0 space-y-1 text-sm">Lineage<select aria-label="Lineage" className={selectClass} value={lineageId} disabled={!group} onChange={event => setLineageId(event.target.value)}><option value="">Random, respecting locks</option>{group?.lineages.map(name => <option key={name} value={makeCatalogId('lineage', name)}>{name}</option>)}</select></label>
       </div>
       <Button type="button" className="min-h-11" disabled={!presetId} onClick={() => setDraft(current => {
-        const generated = generatePreset(current, data, { presetId, speciesId, lineageId });
+        const generated = generatePreset(current, data, { presetId, speciesId, lineageId }, originEligibility(localCampaign(current.campaignId).originPolicy));
         setMessage('Character generated. Undo restores the previous character; review the remaining Design steps before play.');
         return generated;
       })}>Spin character</Button>

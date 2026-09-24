@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current WIP: none. T01–T06 are DONE. The local concept-to-character flow is implemented and verified through a two-page PDF export. T07 maps/Library/terminology and T08 full-release checks remain. The user has explicitly deferred personal review; implementation does not wait for that review. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current checkpoint: T01–T07 are DONE. Next is T08 release verification; user review remains deferred at the user's request. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -89,13 +89,19 @@ Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` veri
 - Profile exposes labeled lineage/group reference examples from the existing catalog images. These are separate from the player's portrait; shared filename mappings keep the editor and Profile consistent. Missing images use the existing unavailable state.
 - Evidence: `scripts/workspace-creation-flow.browser.mjs` verifies Alef > Akrunai / Wizard > Necromancer generation, actual reference-image loading, keyboard review navigation, name editing, exact undo/redo, current draft propagation to the unchanged sheet, and an actual PDF download with two pages. Profile has no horizontal overflow at 320/480/768/1440px. The test uses a disposable browser and never saves character files. `npm run check` passes. Full print comparison, import/export round-trip, physical mobile browsers and user review remain T08.
 
+## DONE — T07 Maps, Library and terminology
+
+- Library shares campaign and exact, case-insensitive tag filters across browser drafts and saved files. Unassigned-only filtering and explicit labels distinguish legacy/unassigned characters from known campaigns; unknown campaign IDs are labeled Other campaign. Browser storage is not an ownership claim.
+- Settlement Disallow tags are consumed by Design selectors, map-origin creation, preset eligibility and the normalized edit boundary. Existing origins remain usable under prospective restrictions; Explore origins retains readable maps/details. Current local fixtures deliberately have empty policies and allow everything. Configurable policy editing, published revisions, retroactive compliance and server authorization remain C01/H02/H03.
+- Collapsible help in Granted and Additional Skills explains skill level, specialization rank, Expert versus Technical Expert, and Trained armor/shield scope without renaming catalog identities or changing mechanics. Canonical sources: `vault-sarnalen/book-rewrite/02_Master_Manuscript_Entries/03_Character_Creation.md`, Broad Skills (Science 4 > Chemistry 2 and Trained categories), and `05_Wealth_Equipment_and_Property.md`, standard/technical weapon proficiency requirements.
+- Evidence: `scripts/campaign-origins.test.mjs` tests injected Disallow policies, preserved existing origins/readable catalog data, actual preset rejection and combined filtering. All 23 origin/preset/history tests pass. `scripts/workspace-library-context.browser.mjs` verifies shared filters with mocked saved-file responses and disposable local drafts, mobile skill help and 320/480/768/1440px widths. Campaign navigation and complete creation-to-two-page-PDF browser regressions pass. `npm run check` passes data validation, TypeScript and production build. Browser tests do not modify saved character files. Policy UI configuration is not claimed by these tests.
+
 ## TODO — next delivery
 
 Execute in ID order except where dependencies explicitly allow otherwise. Acceptance is per item; release requires all R1 gates.
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| T07 / P1 | Maps, Library, and terminology | T06 | Region > Settlement creates locked origin; disallowed selections unavailable while readable details remain. Add local campaign/tag filtering and own-unassigned context. Explain Broad Skill level versus specialization rank and technical/nontechnical weapon scope without changing rules. Server-private delivery is deferred to H03 |
 | T08 / P1 | First-release verification and user review | T03–T07 | `npm run check`; behavioral generation/history/storage tests; mobile/keyboard checks; representative printed-sheet comparison; import/export round-trip. Demo complete loop and document limitations. No account permanence promise or nonfunctional sign-up CTA before account availability |
 
 ### R1 release gates
@@ -153,7 +159,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 ## Remaining decisions at implementation boundaries
 
-No product answer is required to start T07. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
+No product answer is required to start T08 verification. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
 
 ## Updating this plan
 
@@ -161,4 +167,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Start T07: complete Maps/Library context and explain canonical skill specializations. Campaign policy must respect the local-first boundary; hosted privacy and enforcement remain H02/C01. Then execute T08 release verification. User review is deferred at the user's request; R1 is not yet marked complete.
+Execute T08 release verification: import/export round-trip, representative handout comparison and remaining mobile/keyboard regressions. Campaign policy respects the local-first boundary; hosted privacy and enforcement remain H02/C01. User review is deferred at the user's request; R1 is not yet marked complete.

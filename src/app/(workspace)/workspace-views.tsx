@@ -8,7 +8,8 @@ import Worksheet from '@/app/worksheet';
 import ExpandedCharacterSheet from '@/app/expanded-character-sheet';
 import CharacterLibraryPanel from '@/app/character-library-panel';
 import { sortLibraryTags } from '@/lib/admin-settings';
-import { LOCAL_CAMPAIGNS, localCampaign, campaignMatches } from '@/lib/local-campaigns';
+import { libraryTagMatches } from '@/lib/campaign-origins';
+import { LOCAL_CAMPAIGNS, campaignLabel, campaignMatches } from '@/lib/local-campaigns';
 import PresetGenerationPanel from './preset-generation-panel';
 import { useWorkspace } from './workspace-provider';
 
@@ -41,15 +42,22 @@ export function SheetWorkspaceView() {
 export function LibraryWorkspaceView() {
   const { data, libraryRefresh, loadDraft, localEntries, openLocalDraft } = useWorkspace();
   const [filter, setFilter] = useState<string>('all');
+  const [tag, setTag] = useState('');
+  const matches = localEntries.filter(entry => campaignMatches(entry.draft.campaignId, filter) && libraryTagMatches(entry.draft.utilities.libraryTags, tag));
   return <div className="space-y-4">
     <label className="flex flex-wrap items-center gap-2 text-sm font-medium">Campaign
       <select className="h-11 max-w-full rounded-md border bg-background px-3" value={filter} onChange={event => setFilter(event.target.value)}>
-        <option value="all">All campaigns</option>{LOCAL_CAMPAIGNS.map(campaign => <option key={campaign.id} value={campaign.id}>{campaign.name}</option>)}
+        <option value="all">All campaigns</option><option value="unassigned">Unassigned only</option>{LOCAL_CAMPAIGNS.map(campaign => <option key={campaign.id} value={campaign.id}>{campaign.name}</option>)}
       </select>
     </label>
+    <label className="flex flex-wrap items-center gap-2 text-sm font-medium">Library tag
+      <input aria-label="Library tag" value={tag} onChange={event => setTag(event.target.value)} placeholder="Any tag" className="h-11 max-w-full rounded-md border bg-background px-3" />
+    </label>
+    <p className="text-xs text-muted-foreground">Campaign and tag filters apply to browser drafts and saved files. Tags match exactly, ignoring case.</p>
     <section className="rounded-lg border bg-card p-3"><h2 className="font-semibold">Browser drafts</h2><p className="mb-3 text-xs text-muted-foreground">Saved in this browser. Legacy and unassigned characters appear under Default Campaign.</p>
-      <div className="grid gap-2 sm:grid-cols-2">{localEntries.filter(entry => campaignMatches(entry.draft.campaignId, filter)).map(entry => <Button key={entry.id} variant="outline" className="h-auto min-h-14 min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => openLocalDraft(entry.id)}><span>{entry.draft.utilities.name || 'Unnamed character'}</span><span className="text-xs text-muted-foreground">{localCampaign(entry.draft.campaignId).name}</span></Button>)}</div>
+      <div className="grid gap-2 sm:grid-cols-2">{matches.map(entry => <Button key={entry.id} variant="outline" className="h-auto min-h-14 min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => openLocalDraft(entry.id)}><span>{entry.draft.utilities.name || 'Unnamed character'}</span><span className="text-xs text-muted-foreground">{campaignLabel(entry.draft.campaignId)}</span><span className="text-xs text-muted-foreground">{entry.draft.utilities.libraryTags.join(', ') || 'No tags'}</span></Button>)}</div>
+      {!matches.length && <p className="py-3 text-sm text-muted-foreground">No browser drafts match these filters.</p>}
     </section>
-    <CharacterLibraryPanel data={data} refreshKey={libraryRefresh} onOpen={loadDraft} campaignFilter={filter} />
+    <CharacterLibraryPanel data={data} refreshKey={libraryRefresh} onOpen={loadDraft} campaignFilter={filter} tagFilter={tag} />
   </div>;
 }

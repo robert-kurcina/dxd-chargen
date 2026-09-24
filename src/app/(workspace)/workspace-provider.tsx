@@ -13,6 +13,7 @@ import { syncProperties } from '@/lib/rules/properties';
 import { syncUtilities } from '@/lib/rules/utilities';
 import { ADMIN_SETTINGS_EVENT, readAdminSettings, sortLibraryTags } from '@/lib/admin-settings';
 
+import { originAllowed, originChangeAllowed } from '@/lib/campaign-origins';
 import { GenerationConflict, creationContext, seedForCharacter, LOCK_SECTIONS } from '@/lib/rules/preset-generation';
 import { LOCAL_CAMPAIGNS, CAMPAIGN_SELECTION_KEY, localCampaign } from '@/lib/local-campaigns';
 import { emptyHistory, recordEdit, travel, packHistory, unpackHistory, type History, type Json } from '@/lib/draft-history';
@@ -168,6 +169,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       // Evaluate the updater once, outside React's replayable updater callbacks.
       const candidate = typeof action === 'function' ? action(structuredClone({ ...before, creation: before.creation ?? { ...creationContext(before), seed: seedForCharacter(current.activeId, readAdminSettings().randomSeed) } })) : action;
       const after = normalizeDraft(candidate, data);
+      if (!originChangeAllowed(localCampaign(after.campaignId).originPolicy, after.campaignId === before.campaignId ? before.background.settlementId : null, after.background.settlementId)) throw new GenerationConflict('This settlement is disallowed as a new starting origin. Its details remain available in Explore origins.');
       // Seeding metadata alone must not turn a no-op editor action into an edit.
       if (!before.creation && JSON.stringify(snapshot({ ...after, creation: undefined })) === JSON.stringify(snapshot(before))) return;
       const nextHistory = recordEdit(historyRef.current, snapshot(before), snapshot(after));
@@ -246,6 +248,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     }
   };
   const createInCampaign = (origin?: CharacterDraft['background']) => {
+    if (origin && !originAllowed(selectedCampaign.originPolicy, origin.settlementId)) { setMessage('This settlement is disallowed as a new starting origin. Its details remain available in Explore origins.'); return; }
     const empty = createEmptyCharacterDraft();
     const entry = createLibraryEntry(normalizeDraft({ ...empty, campaignId: selectedCampaign.id, ...(origin ? { background: { ...empty.background, regionId: origin.regionId, settlementId: origin.settlementId }, creation: { ...creationContext(empty), locks: [...LOCK_SECTIONS.Origin] } } : {}) }, data));
     entry.draft.creation = { ...creationContext(entry.draft), seed: seedForCharacter(entry.id, readAdminSettings().randomSeed) };
