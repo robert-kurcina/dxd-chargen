@@ -14,6 +14,8 @@ This directory contains development/canon synchronization material for maintaine
 - `blueprint.md` — compact application architecture and UX guidance.
 - `FINAL_PRODUCT_PLAN.md` — implementation roadmap, release criteria, state/rules architecture, validation expectations, and product constraints.
 
+- [Local account architecture](LOCAL_ACCOUNT_ARCHITECTURE.md) — H01 stack decision, server permissions, data migration and H02/H03 delivery gates.
+
 ## Other project records
 
 Release notes and machine-readable validation reports live under `META/releases/`. Runtime catalogues remain under `src/data/`; filesystem records and provenance assets live under `data/`; executable and validation scripts remain under `scripts/`.

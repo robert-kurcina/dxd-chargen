@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. Next implementation is H01 architecture. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 architecture is DONE; next implementation is H02a dependency and persistence harness. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -108,13 +108,17 @@ Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` veri
 - This item covers technical release verification. Personal review has moved to R01 below to reflect the user's explicit instruction to continue and merge without waiting for review.
 
 
+## DONE — H01 local account/persistence architecture
+
+[ADR H01](LOCAL_ACCOUNT_ARCHITECTURE.md) inventories the current browser Admin preferences and unprotected filesystem routes; selects SQLite/Drizzle/Better Auth for local development; defines server authorization, UUID/legacy migration, account lifecycle, offline cache isolation, audit/recovery and implementation gates. Official library/SQLite sources and the installed Next.js auth guide were checked. This is documentation only: no packages installed, accounts enabled or character data migrated.
+
 ## TODO — next delivery
 
 Execute in ID order except where dependencies explicitly allow otherwise. Acceptance is per item; release requires all R1 gates.
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| H01 / P2 | Establish local web-service auth and persistence architecture | R1 technical gates | Select local-capable persistence/auth interfaces and record an architecture decision. Remote hosting/provider selection remains deferred; Firebase is not a prerequisite |
+| H02 / P2 | Accounts and server authorization; begin H02a disposable persistence harness | H01 | Follow the staged acceptance gates in [local account architecture](LOCAL_ACCOUNT_ARCHITECTURE.md); account/security audit precedes privileged mutations |
 
 ### R1 release gates
 
@@ -132,7 +136,6 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 | ID / priority | Deliverable | Promotion prerequisite / exit gate |
 | --- | --- | --- |
 | R01 | Personal review and physical-device feedback | User resumes review; no block on the explicitly authorized merge |
-| H02 / P2 | Accounts and server authorization | H01. Email/username, account verification/recovery/password flows, sessions, MFA, site versus campaign roles; negative access tests. Never rely on tags/UUID secrecy/localStorage for authority |
 | H03 / P2 | Shared persistence, audit and recovery foundations | H02. Account-scoped caches, optimistic version checks, conflict versions with timestamp/editor, guest import selection, unauthorized-data exclusion, append-only events, recoverable version/deletion records and tested backups. Every authoritative mutation emits an attributable event. Set 24-month log-expiry contract now |
 | H04 / P2 | Membership and invitations | H02–H03. One-hour/three-successful-joins defaults, immediate authorized guest preview, atomic usage consumption, expiration/revocation, no use consumption by link scanners |
 | C01 / P3 | Campaign configuration and revisions | H03. Immutable Default, forks, Working, UUIDs/aliases/build numbering, private draft/publish, latest revision, policy differences for existing/new choices, compliance counts and historical provenance |
@@ -171,7 +174,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 ## Remaining decisions at implementation boundaries
 
-No product answer is required to begin H01 architecture reconnaissance. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
+No product answer is required to begin H02a compatibility and persistence tests. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
 
 ## Updating this plan
 
@@ -179,4 +182,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Publish and merge the validated local creation release as explicitly authorized. Then start H01: document the local web-service persistence/auth architecture before implementing accounts or shared campaign controls. Personal review remains deferred; no physical-device acceptance is claimed.
+Implement H02a on the architecture branch: pin and validate the local auth/database stack with disposable migrations and backup/restore tests. Preserve existing local file behavior until the authenticated route boundary and migration gates pass. Personal review remains deferred; no account/security implementation is claimed by H01.
