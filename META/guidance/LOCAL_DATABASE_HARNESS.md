@@ -54,7 +54,7 @@ H02a does not migrate legacy files, scope browser caches, enable accounts, boots
 
 ## H02b checkpoint: local mail and lifecycle
 
-`src/server/auth/local-harness.ts` is a server-only factory restricted to loopback origins. Mail is captured in a drainable in-memory test inbox; it has no HTTP inbox route and no external delivery. A fresh secret is required. This is deliberately not the durable runtime mail transport: restarts discard these test messages.
+`src/server/auth/local-harness.ts` is a server-only factory restricted to loopback origins. Mail is captured in an encrypted SQLite local inbox; it has no HTTP inbox route and no external delivery. A fresh secret is required and must remain available across reopening to decrypt queued messages. This remains a local harness, not the external runtime mail delivery service.
 
 `npm run test:accounts` exercises actual Better Auth HTTP Request/Response handling against disposable SQLite:
 
@@ -67,4 +67,13 @@ H02a does not migrate legacy files, scope browser caches, enable accounts, boots
 
 Tests and standalone TypeScript pass. Expected library warning/error messages for rejected credentials/origins appear in test output; no reset/verification tokens or passwords are printed. No live account, user file or application route is changed.
 
-H02b remains WIP. The inbox is not durable, the current-session/password-change and rate-limit policies still need service-level enforcement, and MFA enrollment/recovery, email changes, uniqueness edge cases, durable security audit and crash reconciliation remain to implement/test. Auth database after-hooks alone are not accepted as proof that domain audit and credential mutations are atomic. These gates must pass before exposing account routes; the compatibility harness is not a production auth service.
+H02b remains WIP. The current-session/password-change and rate-limit policies still need service-level enforcement. MFA replay/concurrency/freshness checks, email changes, uniqueness edge cases, durable security audit, mail-worker retries and crash reconciliation remain to implement/test. Auth database after-hooks alone are not accepted as proof that domain audit and credential mutations are atomic. These gates must pass before exposing account routes; the compatibility harness is not a production auth service.
+
+
+## H02b checkpoint: MFA and persistent local mail
+
+`npm run test:accounts` now also verifies rejected enrollment passwords/codes, inactive MFA before confirmation, successful TOTP enrollment, challenged login without a full session, recovery-code login and rejection of recovery-code reuse. The test computes its enrollment TOTP independently using HMAC-SHA1. No secrets or recovery codes are printed. This does not yet prove TOTP replay prevention, concurrent challenges, lockout limits or Danger Zone step-up freshness.
+
+The second reviewed migration creates `auth_mail`. `local-mail-store.ts` persists AES-256-GCM ciphertext using a random nonce, record ID as authenticated data and a purpose-separated key derived from the caller's high-entropy secret. Recipient and token-bearing URL are inside the encrypted payload. Reads do not remove messages; explicit acknowledgement does. The test-only `takeMail` helper drains within a SQLite transaction. Queued messages survive reopening with the same secret, fail decryption with a wrong secret without deletion, and become unreadable through the inbox after one hour. Explicit expiry cleanup removes those rows. No worker or recurring cleanup is enabled yet, and key rotation is not implemented.
+
+Three account/MFA/mail scenarios, the migration/backup harness and TypeScript pass. Existing source files remain untouched. Installed Better Auth `dist/db/with-hooks.mjs` uses `queueAfterTransactionHook` for after-hooks; durable audit cannot simply be appended in those callbacks and described as atomic with credential changes. Next checkpoint is a crash-tested security-event strategy and mail delivery reconciliation before any account route is exposed.
