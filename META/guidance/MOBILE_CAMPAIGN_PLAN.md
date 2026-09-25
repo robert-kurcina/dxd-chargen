@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 and H02a are DONE; H02 remains WIP. H02b lifecycle, MFA enrollment/recovery and persistent encrypted local mail checks pass; next checkpoint is durable security events, crash reconciliation and remaining MFA gates. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 and H02a are DONE; H02 remains WIP. H02b lifecycle, MFA enrollment/recovery and persistent encrypted local mail checks pass; durable operation intent/completion journaling now passes fault tests. Next checkpoint is crash reconciliation and remaining MFA/session policy gates. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 

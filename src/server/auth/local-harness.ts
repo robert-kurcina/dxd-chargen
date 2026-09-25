@@ -5,6 +5,7 @@ import { username, twoFactor } from 'better-auth/plugins';
 import type { openDatabase } from '../db/connection';
 import * as schema from '../db/auth-schema';
 
+import { createSecurityJournal } from './security-journal';
 import { createLocalMailStore, type LocalAccountMail } from './local-mail-store';
 
 // Test/development harness only. No HTTP route or external mail transport.
@@ -30,5 +31,12 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
     plugins: [username(), twoFactor()],
     advanced: { database: { generateId: 'uuid' } },
   });
-  return { auth, inbox, takeMail: () => connection.sqlite.transaction(() => { const rows = inbox.pending(); for (const row of rows) inbox.acknowledge(row.id); return rows.map(row => row.mail); })(), clearMail: inbox.clear };
+  const journal = createSecurityJournal(connection);
+  const handle = async (request: Request) => {
+    return journal.run(request, async () => {
+      const session = await auth.api.getSession({ headers: request.headers, query: { disableRefresh: true } });
+      return session?.user.id ?? null;
+    }, auth.handler);
+  };
+  return { auth, handle, journal, inbox, takeMail: () => connection.sqlite.transaction(() => { const rows = inbox.pending(); for (const row of rows) inbox.acknowledge(row.id); return rows.map(row => row.mail); })(), clearMail: inbox.clear };
 }

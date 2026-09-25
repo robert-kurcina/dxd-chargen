@@ -20,8 +20,8 @@ test('SQLite migrations, adapter, constraints, rollback and consistent backup re
   try {
     migrateDatabase(connection, migrationsFolder);
     const count = () => connection.sqlite.prepare('SELECT count(*) AS n FROM __drizzle_migrations').get().n;
-    assert.equal(count(), 2);
-    migrateDatabase(connection, migrationsFolder); assert.equal(count(), 2);
+    assert.equal(count(), 3);
+    migrateDatabase(connection, migrationsFolder); assert.equal(count(), 3);
     assert.equal(connection.sqlite.pragma('foreign_keys', { simple: true }), 1);
     assert.equal(connection.sqlite.pragma('journal_mode', { simple: true }), 'wal');
     assert.equal(connection.sqlite.pragma('busy_timeout', { simple: true }), 5000);
@@ -48,7 +48,7 @@ test('SQLite migrations, adapter, constraints, rollback and consistent backup re
     await writeFile(path.join(badFolder, 'meta/_journal.json'), JSON.stringify({ version: '7', dialect: 'sqlite', entries: [{ idx: 0, version: '6', when: Date.now() + 10000, tag: 'broken', breakpoints: true }] }));
     await writeFile(path.join(badFolder, 'broken.sql'), 'CREATE TABLE rollback_probe (id TEXT);\n--> statement-breakpoint\nINSERT INTO nonexistent_table VALUES (1);');
     assert.throws(() => migrateDatabase(connection, badFolder));
-    assert.equal(count(), 2);
+    assert.equal(count(), 3);
     assert.equal(connection.sqlite.prepare("SELECT name FROM sqlite_master WHERE name = 'rollback_probe'").get(), undefined);
     const backup = path.join(root, 'backup.sqlite');
     await connection.sqlite.backup(backup);
@@ -58,6 +58,6 @@ test('SQLite migrations, adapter, constraints, rollback and consistent backup re
     assert.deepEqual(restored.db.select().from(schema.user).all(), connection.db.select().from(schema.user).all());
     assert.deepEqual(restored.db.select().from(schema.account).all(), connection.db.select().from(schema.account).all());
     migrateDatabase(restored, migrationsFolder);
-    assert.equal(restored.sqlite.prepare('SELECT count(*) AS n FROM __drizzle_migrations').get().n, 2);
+    assert.equal(restored.sqlite.prepare('SELECT count(*) AS n FROM __drizzle_migrations').get().n, 3);
   } finally { restored?.close(); connection.close(); await rm(root, { recursive: true, force: true }); }
 });

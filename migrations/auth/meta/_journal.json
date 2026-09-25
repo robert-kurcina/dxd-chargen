@@ -15,6 +15,13 @@
       "when": 1790309286268,
       "tag": "0001_eager_black_widow",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790309479032,
+      "tag": "0002_smart_piledriver",
+      "breakpoints": true
     }
   ]
 }

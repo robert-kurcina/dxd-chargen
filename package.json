@@ -17,7 +17,7 @@
     "test:db": "node --conditions=react-server --test scripts/database-harness.test.mjs",
     "db:generate": "auth generate --config scripts/config/auth-schema.ts --adapter drizzle --dialect sqlite --output src/server/db/auth-schema.ts --yes && drizzle-kit generate",
     "test:db:bundle": "node scripts/database-bundle.mjs",
-    "test:accounts": "node --conditions=react-server --test scripts/account-lifecycle.test.mjs"
+    "test:accounts": "node --conditions=react-server --test scripts/account-lifecycle.test.mjs scripts/security-journal.test.mjs"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "1.7.6",

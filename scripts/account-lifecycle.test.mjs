@@ -15,10 +15,10 @@ test('local verification, login/logout, password reset and session revocation', 
     migrateDatabase(connection, path.resolve('migrations/auth'));
     const secret = randomUUID() + randomUUID();
     assert.throws(() => createLocalAccountHarness(connection, 'https://example.test', secret), /loopback/);
-    const { auth, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', secret);
+    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', secret);
     const origin = 'http://localhost:3000';
     async function request(route, body, cookie = '') {
-      return auth.handler(new Request(`${origin}/api/auth/${route}`, { method: body ? 'POST' : 'GET', headers: { origin, ...(body ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) }));
+      return handle(new Request(`${origin}/api/auth/${route}`, { method: body ? 'POST' : 'GET', headers: { origin, ...(body ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) }));
     }
     const credentials = { email: 'player@example.test', password: 'Temporary-password-123!', name: 'Player', username: 'player' };
     let response = await request('sign-up/email', credentials);
@@ -27,7 +27,7 @@ test('local verification, login/logout, password reset and session revocation', 
     assert.equal(verification.to, credentials.email);
     response = await request('sign-in/email', credentials); assert.equal(response.status, 403);
     takeMail();
-    response = await auth.handler(new Request(verification.url)); assert.ok(response.status < 400);
+    response = await handle(new Request(verification.url)); assert.ok(response.status < 400);
     const login = async password => {
       const r = await request('sign-in/email', { email: credentials.email, password });
       assert.equal(r.status, 200);
@@ -65,7 +65,7 @@ test('local verification, login/logout, password reset and session revocation', 
     connection.sqlite.prepare('UPDATE verification SET expires_at = 0').run();
     response = await request('reset-password', { token: expiredToken, newPassword: 'Expired-password-000!' }); assert.ok(response.status >= 400);
     await login('Manual-change-password-987!');
-    const hostile = await auth.handler(new Request(`${origin}/api/auth/sign-out`, { method: 'POST', headers: { origin: 'https://untrusted.example', 'content-type': 'application/json', cookie: current }, body: '{}' }));
+    const hostile = await handle(new Request(`${origin}/api/auth/sign-out`, { method: 'POST', headers: { origin: 'https://untrusted.example', 'content-type': 'application/json', cookie: current }, body: '{}' }));
     assert.equal(hostile.status, 403);
     response = await request('get-session', undefined, current); assert.ok((await response.json()).user);
   } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
@@ -87,12 +87,12 @@ test('MFA requires confirmed enrollment, gates login and consumes recovery codes
   const connection = openDatabase(path.join(root, 'accounts.sqlite'));
   try {
     migrateDatabase(connection, path.resolve('migrations/auth'));
-    const { auth, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID());
-    const request = (route, body, cookie = '') => auth.handler(new Request(`http://localhost:3000/api/auth/${route}`, { method: body ? 'POST' : 'GET', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', cookie }, ...(body ? { body: JSON.stringify(body) } : {}) }));
+    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID());
+    const request = (route, body, cookie = '') => handle(new Request(`http://localhost:3000/api/auth/${route}`, { method: body ? 'POST' : 'GET', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', cookie }, ...(body ? { body: JSON.stringify(body) } : {}) }));
     const cookies = r => r.headers.getSetCookie().map(c => c.split(';')[0]).join('; ');
     const credentials = { email: 'mfa@example.test', password: 'Temporary-mfa-password-123!', username: 'mfatest', name: 'MFA' };
     assert.equal((await request('sign-up/email', credentials)).status, 200);
-    await auth.handler(new Request(takeMail()[0].url));
+    await handle(new Request(takeMail()[0].url));
     let response = await request('sign-in/email', credentials), session = cookies(response);
     response = await request('two-factor/enable', { password: 'Wrong-password-123!' }, session); assert.ok(response.status >= 400);
     response = await request('two-factor/enable', { password: credentials.password }, session); assert.equal(response.status, 200);
