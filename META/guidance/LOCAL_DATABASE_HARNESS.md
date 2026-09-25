@@ -51,3 +51,20 @@ This signup is compatibility coverage, not H02b's account lifecycle acceptance. 
 Database harness and isolated production bundle pass. `npm run check` passes data validation, standalone TypeScript and production build. The existing 38 character/history/preset/storage tests pass. Browser backup/import and creation/Profile/undo/redo/two-page-PDF checks pass on the patched Next runtime.
 
 H02a does not migrate legacy files, scope browser caches, enable accounts, bootstrap an Administrator or enforce RBAC. Next is H02b: local mail transport, registration/verification, login/logout, password recovery, sessions/MFA and minimum account-security audit. H02c must still prove no anonymous fallback to the legacy file APIs in accounts mode. Backup/restore here covers the auth database only; complete assets/character recovery remains H03.
+
+## H02b checkpoint: local mail and lifecycle
+
+`src/server/auth/local-harness.ts` is a server-only factory restricted to loopback origins. Mail is captured in a drainable in-memory test inbox; it has no HTTP inbox route and no external delivery. A fresh secret is required. This is deliberately not the durable runtime mail transport: restarts discard these test messages.
+
+`npm run test:accounts` exercises actual Better Auth HTTP Request/Response handling against disposable SQLite:
+
+- Signup queues verification mail and grants no session; unverified login is denied.
+- Verification permits login; session cookies are HttpOnly; logout invalidates the cookie.
+- Password-reset responses match for known/unknown email addresses, while unknown addresses receive no message.
+- Reset tokens are single-use and expired tokens fail; successful reset invalidates all prior sessions and the old password.
+- Password change with other-session revocation rotates the current session cookie and invalidates other sessions.
+- An untrusted Origin cannot sign the user out; the existing session survives that rejection.
+
+Tests and standalone TypeScript pass. Expected library warning/error messages for rejected credentials/origins appear in test output; no reset/verification tokens or passwords are printed. No live account, user file or application route is changed.
+
+H02b remains WIP. The inbox is not durable, the current-session/password-change and rate-limit policies still need service-level enforcement, and MFA enrollment/recovery, email changes, uniqueness edge cases, durable security audit and crash reconciliation remain to implement/test. Auth database after-hooks alone are not accepted as proof that domain audit and credential mutations are atomic. These gates must pass before exposing account routes; the compatibility harness is not a production auth service.

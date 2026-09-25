@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 and H02a are DONE; H02 remains WIP. Next checkpoint is H02b account lifecycle and security-event plumbing, beginning with a local mail harness. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 and H02a are DONE; H02 remains WIP. H02b loopback mail/lifecycle harness passes; next checkpoint is MFA and durable security-event/delivery handling. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -186,4 +186,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Implement H02b local mail transport and account lifecycle with security-event plumbing before privileged account mutations. Keep account routes unexposed until verification, session, MFA and authorization gates are satisfied. Existing local file behavior remains intact until H02c/H03 cutover.
+Continue H02b from the verified loopback mail/lifecycle harness: implement MFA tests and durable security-event/delivery handling before privileged account mutations. Keep account routes unexposed until verification, session, MFA and authorization gates are satisfied. Existing local file behavior remains intact until H02c/H03 cutover.
