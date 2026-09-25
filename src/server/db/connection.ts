@@ -1,5 +1,7 @@
 import 'server-only';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
+import { securityOperation } from '../auth/operation-context';
 import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
@@ -10,6 +12,9 @@ export function openDatabase(filename: string) {
   if (!path.isAbsolute(filename)) throw new Error('An absolute database filename is required.');
   const sqlite = new Database(filename);
   try {
+    sqlite.function('dxd_event_id', () => randomUUID());
+    sqlite.function('dxd_operation_id', () => securityOperation.getStore()?.operationId ?? null);
+    sqlite.function('dxd_actor_id', () => securityOperation.getStore()?.actorId ?? null);
     sqlite.pragma('foreign_keys = ON');
     sqlite.pragma('journal_mode = WAL');
     sqlite.pragma('busy_timeout = 5000');

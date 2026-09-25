@@ -115,6 +115,14 @@ test('MFA requires confirmed enrollment, gates login and consumes recovery codes
     response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[0] }, challenge); assert.ok(response.status >= 400);
     response = await request('get-session', undefined, challenge); assert.equal(await response.json(), null);
     response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[1] }, challenge); assert.equal(response.status, 200);
+    session = cookies(response);
+    response = await request('two-factor/disable', { password: 'Wrong-password-123!' }, session); assert.ok(response.status >= 400);
+    assert.equal(connection.sqlite.prepare('SELECT two_factor_enabled FROM user').get().two_factor_enabled, 1);
+    await request('sign-out', {}, session);
+    const attempts = await Promise.all([request('sign-in/email', credentials), request('sign-in/email', credentials)]);
+    const outcomes = await Promise.all(attempts.map(r => request('two-factor/verify-backup-code', { code: enrollment.backupCodes[2] }, cookies(r))));
+    assert.equal(outcomes.filter(r => r.status === 200).length, 1, 'A recovery code can authorize only one concurrent login');
+
   } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
 });
 

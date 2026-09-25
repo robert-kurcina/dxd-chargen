@@ -35,3 +35,33 @@ test('journal persists intent, excludes secrets, blocks edits and preserves inte
     assert.ok(!JSON.stringify(db.sqlite.prepare('SELECT * FROM security_events').all()).includes('SECRET'));
   } finally { db.close(); await rm(root, { recursive: true, force: true }); }
 });
+
+test('credential changes and evidence commit together; interrupted response can be reconciled without replay', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'dxd-security-evidence-'));
+  const filename = path.join(root, 'db.sqlite'); let db = openDatabase(filename);
+  try {
+    migrateDatabase(db, path.resolve('migrations/auth'));
+    let journal = createSecurityJournal(db);
+    const request = () => new Request('http://localhost:3000/api/auth/sign-up/email', { method: 'POST' });
+    const insert = id => db.sqlite.prepare('INSERT INTO user (id, name, email) VALUES (?, ?, ?)').run(id, 'Private name', `${id}@example.test`);
+    db.sqlite.exec("CREATE TRIGGER fail_evidence BEFORE INSERT ON security_changes BEGIN SELECT RAISE(ABORT, 'evidence unavailable'); END");
+    await assert.rejects(journal.run(request(), null, async () => { insert('rejected'); return new Response(); }));
+    assert.equal(db.sqlite.prepare("SELECT id FROM user WHERE id='rejected'").get(), undefined);
+    db.sqlite.exec('DROP TRIGGER fail_evidence');
+    db.sqlite.exec("CREATE TRIGGER fail_completion BEFORE INSERT ON security_events WHEN NEW.phase='responded' BEGIN SELECT RAISE(ABORT, 'response journal unavailable'); END");
+    await assert.rejects(journal.run(request(), 'server-actor', async () => { insert('committed'); return new Response(); }));
+    db.close(); db = openDatabase(filename); journal = createSecurityJournal(db);
+    const [interrupted] = journal.unresolved();
+    assert.ok(db.sqlite.prepare("SELECT id FROM user WHERE id='committed'").get());
+    const evidence = journal.evidence(interrupted.operation_id);
+    assert.equal(evidence.length, 1); assert.equal(evidence[0].entity_id, 'committed'); assert.equal(evidence[0].actor_id, 'server-actor');
+    assert.ok(!JSON.stringify(evidence).includes('Private name')); assert.ok(!JSON.stringify(evidence).includes('@example.test'));
+    assert.throws(() => db.sqlite.prepare('DELETE FROM security_changes').run(), /expiry/);
+    assert.throws(() => db.sqlite.prepare("UPDATE security_changes SET entity='other'").run(), /append-only/);
+    db.sqlite.exec('DROP TRIGGER fail_completion');
+    // Async interleaving must not attribute one operation's writes to another.
+    await Promise.all(['a', 'b'].map(actor => journal.run(request(), actor, async () => { await new Promise(resolve => setTimeout(resolve, actor === 'a' ? 10 : 1)); insert(actor); return new Response(); })));
+    const rows = db.sqlite.prepare("SELECT actor_id, entity_id FROM security_changes WHERE entity_id IN ('a','b') ORDER BY entity_id").all();
+    assert.deepEqual(rows, [{ actor_id: 'a', entity_id: 'a' }, { actor_id: 'b', entity_id: 'b' }]);
+  } finally { db.close(); await rm(root, { recursive: true, force: true }); }
+});
