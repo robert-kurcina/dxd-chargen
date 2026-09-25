@@ -20,7 +20,7 @@ First release is local-first. Default and Working Campaign supply context; share
 | REJECTED | Approach deliberately excluded | Retain reason; reopen only after an explicit decision |
 | DEFERRED | Desired work outside the current delivery | Record dependency or condition that brings it into TODO |
 
-Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 architecture is DONE; next implementation is H02a dependency and persistence harness. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
+Current checkpoint: T01–T08 technical implementation and automated release verification are DONE. Personal review is DEFERRED at the user's request; the user has explicitly authorized PR creation, push and merge. R1 technical gates pass within the browser/device limitations below. H01 and H02a are DONE; H02 remains WIP. Next checkpoint is H02b account lifecycle and security-event plumbing, beginning with a local mail harness. Default owner for execution is the implementing agent; product decisions belong to the user. Keep at most one main implementation work item WIP at a time.
 
 ## Priority order
 
@@ -112,13 +112,17 @@ Evidence: `npm run check` passed. `scripts/workspace-campaigns.browser.mjs` veri
 
 [ADR H01](LOCAL_ACCOUNT_ARCHITECTURE.md) inventories the current browser Admin preferences and unprotected filesystem routes; selects SQLite/Drizzle/Better Auth for local development; defines server authorization, UUID/legacy migration, account lifecycle, offline cache isolation, audit/recovery and implementation gates. Official library/SQLite sources and the installed Next.js auth guide were checked. This is documentation only: no packages installed, accounts enabled or character data migrated.
 
-## TODO — next delivery
+## DONE — H02a dependency and persistence harness
+
+[Compatibility evidence and commands](LOCAL_DATABASE_HARNESS.md). Pinned local auth/SQLite dependencies, generated/reviewed auth and plugin migrations, server-only explicit connection factory, disposable migration/constraint/rollback/backup tests, and an isolated Next production-bundle execution test. No auth routes or live migrations are enabled. Existing Next/sharp advisories and the schema-tool esbuild advisory were cleared. Account lifecycle, security audit and route authorization remain H02b/H02c.
+
+## TODO / WIP — next delivery
 
 Execute in ID order except where dependencies explicitly allow otherwise. Acceptance is per item; release requires all R1 gates.
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| H02 / P2 | Accounts and server authorization; begin H02a disposable persistence harness | H01 | Follow the staged acceptance gates in [local account architecture](LOCAL_ACCOUNT_ARCHITECTURE.md); account/security audit precedes privileged mutations |
+| H02 / P2 | Accounts and server authorization (WIP); next H02b local mail/account lifecycle | H01 | Follow the staged acceptance gates in [local account architecture](LOCAL_ACCOUNT_ARCHITECTURE.md); account/security audit precedes privileged mutations |
 
 ### R1 release gates
 
@@ -174,7 +178,7 @@ Deferred means accepted but not current WIP. Promote individual rows to TODO whe
 
 ## Remaining decisions at implementation boundaries
 
-No product answer is required to begin H02a compatibility and persistence tests. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
+No product answer is required to begin the H02b local mail and account-lifecycle harness. Keep Rank 1 presets separate from unverified higher-rank specialization. Broader account, storage and read-only staff decisions remain deferred to their respective items.
 
 ## Updating this plan
 
@@ -182,4 +186,4 @@ On starting an item, move it to WIP and record scope/next checkpoint. On complet
 
 ## Next action
 
-Implement H02a on the architecture branch: pin and validate the local auth/database stack with disposable migrations and backup/restore tests. Preserve existing local file behavior until the authenticated route boundary and migration gates pass. Personal review remains deferred; no account/security implementation is claimed by H01.
+Implement H02b local mail transport and account lifecycle with security-event plumbing before privileged account mutations. Keep account routes unexposed until verification, session, MFA and authorization gates are satisfied. Existing local file behavior remains intact until H02c/H03 cutover.
