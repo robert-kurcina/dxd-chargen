@@ -54,7 +54,7 @@ test('local verification, login/logout, password reset and session revocation', 
     response = await request('sign-in/email', credentials); assert.equal(response.status, 401);
     let current = await login(changed);
     const other = await login(changed);
-    response = await request('change-password', { currentPassword: changed, newPassword: 'Manual-change-password-987!', revokeOtherSessions: true }, current);
+    response = await request('change-password', { currentPassword: changed, newPassword: 'Manual-change-password-987!', revokeOtherSessions: false }, current);
     assert.equal(response.status, 200);
     const rotated = response.headers.getSetCookie().map(value => value.split(';')[0]).join('; ');
     assert.ok(rotated.includes('session_token')); current = rotated;
@@ -68,6 +68,11 @@ test('local verification, login/logout, password reset and session revocation', 
     const hostile = await handle(new Request(`${origin}/api/auth/sign-out`, { method: 'POST', headers: { origin: 'https://untrusted.example', 'content-type': 'application/json', cookie: current }, body: '{}' }));
     assert.equal(hostile.status, 403);
     response = await request('get-session', undefined, current); assert.ok((await response.json()).user);
+    connection.sqlite.prepare('UPDATE session SET created_at = ?').run(Date.now() - 301000);
+    response = await request('change-password', { currentPassword: 'Manual-change-password-987!', newPassword: 'Stale-session-password-000!' }, current);
+    assert.equal(response.status, 403); assert.equal((await response.json()).code, 'REAUTHENTICATION_REQUIRED');
+    await login('Manual-change-password-987!');
+
   } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
 });
 
@@ -110,6 +115,9 @@ test('MFA requires confirmed enrollment, gates login and consumes recovery codes
     response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[0] }, challenge); assert.equal(response.status, 200);
     session = cookies(response);
     response = await request('get-session', undefined, session); assert.ok((await response.json()).user);
+    const replay = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[3] }, challenge);
+    assert.ok(replay.status >= 400, 'A completed login challenge cannot be reused even with another valid recovery code');
+
     await request('sign-out', {}, session);
     response = await request('sign-in/email', credentials); challenge = cookies(response);
     response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[0] }, challenge); assert.ok(response.status >= 400);

@@ -36,7 +36,19 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
     return journal.run(request, async () => {
       const session = await auth.api.getSession({ headers: request.headers, query: { disableRefresh: true } });
       return session?.user.id ?? null;
-    }, auth.handler);
+    }, async incoming => {
+      if (incoming.method !== 'POST' || new URL(incoming.url).pathname !== '/api/auth/change-password') return auth.handler(incoming);
+      const session = await auth.api.getSession({ headers: incoming.headers, query: { disableRefresh: true } });
+      if (!session) return Response.json({ code: 'UNAUTHORIZED' }, { status: 401 });
+      const age = Date.now() - new Date(session.session.createdAt).getTime();
+      if (!Number.isFinite(age) || age < 0 || age >= 5 * 60 * 1000) return Response.json({ code: 'REAUTHENTICATION_REQUIRED' }, { status: 403 });
+      let body: unknown;
+      try { body = await incoming.json(); } catch { return Response.json({ code: 'INVALID_JSON' }, { status: 400 }); }
+      if (!body || typeof body !== 'object' || Array.isArray(body)) return Response.json({ code: 'INVALID_JSON' }, { status: 400 });
+      const headers = new Headers(incoming.headers); headers.delete('content-length');
+      // Preserve Origin/Cookie headers so the library still enforces its request protections.
+      return auth.handler(new Request(incoming.url, { method: 'POST', headers, body: JSON.stringify({ ...body, revokeOtherSessions: true }) }));
+    });
   };
   return { auth, handle, journal, inbox, takeMail: () => connection.sqlite.transaction(() => { const rows = inbox.pending(); for (const row of rows) inbox.acknowledge(row.id); return rows.map(row => row.mail); })(), clearMail: inbox.clear };
 }
