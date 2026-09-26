@@ -150,3 +150,30 @@ delivery retries, and reconciliation with external delivery remain unfinished.
 Validation: all three security-journal tests and standalone TypeScript pass.
 The new test covers age filtering, error/exception classification, change counts,
 bounded results, invalid options, and absence of database mutations during review.
+
+
+## H02b checkpoint: recoverable local delivery leases
+
+Migration 0005 adds lease token/expiry, attempt count, and next-available time to
+existing encrypted mail rows. `claim()` atomically selects one eligible message,
+increments its attempt count, and returns a random ownership token plus decrypted
+mail. Decryption failure rolls back the claim. `complete()` and `retry()` require
+the current, unexpired token; an old worker cannot delete or reschedule a message
+reclaimed after lease expiry. Retry delay is configurable, with a 30-second default.
+Expired messages cannot be claimed. Leases default to one minute, capped at five.
+
+This is an internal queue primitive, not an enabled sender or scheduler. A worker
+must send outside the database transaction and use token-bound completion/retry;
+existing pending/acknowledge/clear helpers are only for the local harness. External
+delivery may occur before a crash or expired lease, so retry can duplicate mail.
+Use the stable mail UUID as a provider idempotency key where supported; no
+exactly-once delivery claim is made. No network delivery, provider choice, queue
+UI, retry ceiling, background cleanup, or permanent attempt history is implemented.
+Attempt count survives retries/restarts while the queue row exists. Successful
+completion removes its encrypted payload and queue metadata.
+
+Validation: eight account/security scenarios, TypeScript, and the SQLite
+migration/rollback/backup-restore test pass. The new queue test uses separate DB
+connections and a reopen, verifies exclusive claims, delayed retries, rejection
+of stale tokens, decryption rollback, and expired-message exclusion. Migration
+count is now six; no live database was migrated.
