@@ -35,6 +35,32 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
     evidence(operationId: string) {
       return db.prepare('SELECT entity, entity_id, change, actor_id, occurred_at FROM security_changes WHERE operation_id = ? ORDER BY occurred_at, rowid').all(operationId);
     },
+    reviewCandidates({ minimumAgeMs = 300_000, limit = 100 } = {}) {
+      if (!Number.isSafeInteger(minimumAgeMs) || minimumAgeMs < 1 ||
+          !Number.isSafeInteger(limit) || limit < 1 || limit > 1000) {
+        throw new RangeError('Review age must be positive; limit must be between 1 and 1000.');
+      }
+      // A consistent read snapshot, not a claim that an older request has stopped running.
+      return db.transaction(() => {
+        const observedAt = Date.now();
+        const candidates = db.prepare(`
+          SELECT s.operation_id, s.action, s.actor_id, s.occurred_at,
+                 e.phase AS completion_phase, e.response_status,
+                 CASE WHEN e.phase IS NULL THEN 'missing-completion'
+                      WHEN e.phase = 'threw' THEN 'exception'
+                      ELSE 'error-response' END AS reason,
+                 (SELECT COUNT(*) FROM security_changes c
+                  WHERE c.operation_id = s.operation_id) AS recorded_changes
+          FROM security_events s
+          LEFT JOIN security_events e ON e.operation_id = s.operation_id
+            AND e.phase IN ('responded', 'threw')
+          WHERE s.phase = 'started' AND s.occurred_at <= ?
+            AND (e.phase IS NULL OR e.phase = 'threw' OR e.response_status >= 400)
+          ORDER BY s.occurred_at, s.rowid LIMIT ?
+        `).all(observedAt - minimumAgeMs, limit + 1);
+        return { observedAt, minimumAgeMs, hasMore: candidates.length > limit, candidates: candidates.slice(0, limit) };
+      })();
+    },
     unresolved() {
       return db.prepare("SELECT operation_id, action, actor_id, occurred_at FROM security_events s WHERE phase = 'started' AND NOT EXISTS (SELECT 1 FROM security_events e WHERE e.operation_id = s.operation_id AND e.phase IN ('responded', 'threw')) ORDER BY occurred_at").all();
     },

@@ -127,3 +127,26 @@ The journaled local handler requires a nonblank username during signup. Username
 The account identity scenario verifies missing/blank username rejection, case normalization, a neutral duplicate-email signup response with no new user/session, case-insensitive username uniqueness, username login, replacement-address verification, stable UUID and inability to log in using the former address. The MFA scenario now additionally resets the password of an MFA-enabled account and confirms that login still stops at the second-factor challenge with no authenticated session.
 
 Six account/security scenarios and TypeScript pass. Real mail is not sent and no account route is exposed. Remaining work includes durable external delivery/retry semantics, reconciliation handling for interrupted multi-step operations, rate-limit/abuse coverage and account-management UI. These tests do not constitute H02c server authorization or a completed shared-account service.
+
+
+## H02b checkpoint: read-only recovery review
+
+`createSecurityJournal().reviewCandidates()` provides a bounded snapshot of older
+requests with missing completion, a recorded exception, or an HTTP error response.
+It includes the count of transaction-coupled auth changes, including changes made
+before an exception. Defaults are a five-minute minimum age and 100 results;
+limits must be positive integers no greater than 1,000. `hasMore` indicates a
+truncated result. Detailed existing `evidence(operationId)` inspection remains
+available internally.
+
+Age is only a review filter: a request may still be running. No recorded changes
+is not proof of rollback, and a nonzero count is not proof of whole-operation
+success. Successful responses are outside this exception report. The query does
+not change the journal, resolve an incident, retry credentials, or deliver mail.
+It exposes no account email, credential material, or arbitrary request data.
+There is no public route or review UI. Durable review decisions, worker ownership,
+delivery retries, and reconciliation with external delivery remain unfinished.
+
+Validation: all three security-journal tests and standalone TypeScript pass.
+The new test covers age filtering, error/exception classification, change counts,
+bounded results, invalid options, and absence of database mutations during review.

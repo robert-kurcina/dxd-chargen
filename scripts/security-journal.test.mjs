@@ -65,3 +65,34 @@ test('credential changes and evidence commit together; interrupted response can 
     assert.deepEqual(rows, [{ actor_id: 'a', entity_id: 'a' }, { actor_id: 'b', entity_id: 'b' }]);
   } finally { db.close(); await rm(root, { recursive: true, force: true }); }
 });
+
+
+test('recovery review is bounded, read-only and does not mistake evidence for complete success', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'dxd-security-review-'));
+  const db = openDatabase(path.join(root, 'db.sqlite'));
+  try {
+    migrateDatabase(db, path.resolve('migrations/auth'));
+    const journal = createSecurityJournal(db);
+    const old = Date.now() - 600_000;
+    const event = db.sqlite.prepare('INSERT INTO security_events (id, operation_id, phase, action, occurred_at, response_status) VALUES (?, ?, ?, ?, ?, ?)');
+    for (const [id, phase, status] of [['missing', null, null], ['threw', 'threw', null], ['error', 'responded', 500], ['ok', 'responded', 200]]) {
+      event.run(id + '-start', id, 'started', 'POST reset-password', old, null);
+      if (phase) event.run(id + '-finish', id, phase, 'POST reset-password', old + 1, status);
+    }
+    event.run('live-start', 'live', 'started', 'POST reset-password', Date.now(), null);
+    db.sqlite.prepare('INSERT INTO security_changes (id, operation_id, entity, entity_id, change, occurred_at) VALUES (?, ?, ?, ?, ?, ?)').run('evidence', 'threw', 'user', 'user-id', 'update', old);
+    const before = db.sqlite.prepare('SELECT total_changes() AS count').get().count;
+    const report = journal.reviewCandidates();
+    assert.deepEqual(report.candidates.map(row => [row.operation_id, row.reason, row.recorded_changes]), [
+      ['missing', 'missing-completion', 0], ['threw', 'exception', 1], ['error', 'error-response', 0],
+    ]);
+    assert.equal(report.hasMore, false);
+    assert.equal(journal.reviewCandidates({ limit: 2 }).hasMore, true);
+    assert.equal(journal.reviewCandidates({ limit: 2 }).candidates.length, 2);
+    assert.equal(db.sqlite.prepare('SELECT total_changes() AS count').get().count, before);
+    assert.equal(journal.unresolved().length, 2); // Review never resolves or retries requests.
+    for (const options of [{ limit: 0 }, { limit: 1001 }, { limit: 1.5 }, { minimumAgeMs: 0 }, { minimumAgeMs: NaN }]) {
+      assert.throws(() => journal.reviewCandidates(options), RangeError);
+    }
+  } finally { db.close(); await rm(root, { recursive: true, force: true }); }
+});
