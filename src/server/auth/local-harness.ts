@@ -7,6 +7,7 @@ import { username, twoFactor } from 'better-auth/plugins';
 import type { openDatabase } from '../db/connection';
 import * as schema from '../db/auth-schema';
 
+import { createRateLimitStore } from './rate-limit-store';
 import { createSecurityJournal } from './security-journal';
 import { createLocalMailStore, type LocalAccountMail } from './local-mail-store';
 
@@ -20,7 +21,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
   const auth = betterAuth({
     appName: 'Sarna Len local harness', baseURL: origin.origin, secret,
     trustedOrigins: [origin.origin],
-    rateLimit: { enabled: !options.disableRateLimitsForTests, storage: 'memory' },
+    rateLimit: { enabled: !options.disableRateLimitsForTests, customStorage: createRateLimitStore(connection, secret) },
     database: drizzleAdapter(connection.db, { provider: 'sqlite', schema }),
     emailAndPassword: {
       enabled: true, requireEmailVerification: true, revokeSessionsOnPasswordReset: true,

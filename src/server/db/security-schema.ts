@@ -26,3 +26,11 @@ export const consumedTotp = sqliteTable('consumed_totp', {
   fingerprint: text('fingerprint').notNull(),
   expiresAt: integer('expires_at').notNull(),
 }, table => [uniqueIndex('consumed_totp_user_code').on(table.userId, table.fingerprint)]);
+
+
+// Operational counters, separate from immutable security evidence.
+export const authThrottle = sqliteTable('auth_throttle', {
+  key: text('key').primaryKey(),
+  count: integer('count').notNull(),
+  expiresAt: integer('expires_at').notNull(),
+});

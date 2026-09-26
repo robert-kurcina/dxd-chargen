@@ -219,3 +219,27 @@ expiry-boundary/restart tests, trusted-IP spoofing tests and per-account abuse
 controls remain necessary before exposing routes. The raw internal auth API and
 wrapper prevalidation require review at H02c cutover; these tests exercise the
 journaled handler, not every possible internal invocation.
+
+
+## H02b checkpoint: persistent rate-limit counters
+
+The harness now uses `createRateLimitStore` through BetterAuth customStorage,
+replacing the preceding in-memory checkpoint. Migration 0006 adds operational
+`auth_throttle` counters, separate from immutable evidence. An immediate SQLite
+transaction reads and consumes each bucket, preventing competing connections
+from passing the same stale count. Each allowed request refreshes the window;
+rejected requests do not extend it. Buckets expire at the exact stored boundary.
+Keys are HMAC fingerprints rather than raw client/path identifiers. The same
+secret must be retained across restarts and shared by instances; changing it or
+the window policy produces fresh buckets and needs an explicit rollout policy.
+
+Eleven account/security tests, TypeScript, and migration/backup-restore checks
+pass. Tests cover two connections, reopen persistence, exact expiry and injected
+write failure (which throws rather than allowing the request). The connection
+test interleaves calls in one Node process; it is not a multi-process load test.
+Migration count is seven. No live database was migrated.
+
+Trusted client-IP handling, per-account abuse controls, expired-counter cleanup,
+multi-process contention tests and public-route bypass review remain open. Old
+expired buckets are overwritten when reused but are not yet globally pruned.
+The test-only rate-limit bypass remains explicit. Account routes remain unexposed.
