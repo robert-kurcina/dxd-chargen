@@ -35,7 +35,8 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
     session: { cookieCache: { enabled: false } },
     plugins: [username(), twoFactor({ totpOptions: { digits: 6, period: 30 } })],
     logger: { disabled: true },
-    advanced: { database: { generateId: 'uuid' } },
+    // Direct loopback harness: no reverse proxy is configured to sanitize headers.
+    advanced: { database: { generateId: 'uuid' }, ipAddress: { ipAddressHeaders: [] } },
   });
   const journal = createSecurityJournal(connection);
   const invokeAuth = async (request: Request) => {

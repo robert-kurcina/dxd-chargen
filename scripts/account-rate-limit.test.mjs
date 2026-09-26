@@ -14,8 +14,8 @@ test('local account rate limits bound concurrent requests and journal rejections
   try {
     migrateDatabase(db, path.resolve('migrations/auth'));
     const { handle, inbox } = createLocalAccountHarness(db, 'http://localhost:3000', randomUUID() + randomUUID());
-    const request = (route, body) => handle(new Request('http://localhost:3000/api/auth/' + route, {
-      method: 'POST', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json' }, body: JSON.stringify(body),
+    const request = (route, body, extraHeaders = {}) => handle(new Request('http://localhost:3000/api/auth/' + route, {
+      method: 'POST', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', ...extraHeaders }, body: JSON.stringify(body),
     }));
     const reset = await Promise.all(Array.from({ length: 6 }, (_, i) => request('request-password-reset', { email: `absent${i}@example.test` })));
     assert.equal(reset.filter(r => r.status === 200).length, 3);
@@ -25,10 +25,17 @@ test('local account rate limits bound concurrent requests and journal rejections
       assert.ok(retry > 0 && retry <= 60);
     }
     assert.equal(inbox.pending().length, 0);
+    // A client must not escape the exhausted loopback bucket by inventing proxy headers.
+    for (const value of ['203.0.113.8', '198.51.100.9', '198.51.100.1, 127.0.0.1', 'garbage']) {
+      const spoof = await request('request-password-reset', { email: 'absent@example.test' }, {
+        'x-forwarded-for': value, 'x-real-ip': value, 'forwarded': `for=${value}`,
+      });
+      assert.equal(spoof.status, 429);
+    }
     const login = await Promise.all(Array.from({ length: 6 }, () => request('sign-in/email', { email: 'absent@example.test', password: 'wrong-password' })));
     assert.equal(login.filter(r => r.status === 401).length, 3);
     assert.equal(login.filter(r => r.status === 429).length, 3);
-    assert.equal(db.sqlite.prepare('SELECT count(*) AS n FROM security_events WHERE response_status = 429').get().n, 6);
+    assert.equal(db.sqlite.prepare('SELECT count(*) AS n FROM security_events WHERE response_status = 429').get().n, 10);
     assert.equal(db.sqlite.prepare('SELECT count(*) AS n FROM session').get().n, 0);
   } finally { db.close(); await rm(root, { recursive: true, force: true }); }
 });
@@ -56,6 +63,14 @@ test('SQLite counters persist across connections/reopen and expire exactly at th
     assert.deepEqual(await store.consume('private-client-key', rule), { allowed: false, retryAfter: 1 });
     now += 1;
     assert.deepEqual(await store.consume('private-client-key', rule), { allowed: true, retryAfter: null });
+    // Cleanup must not reset the renewed active bucket, even at an expiry boundary.
+    const insert = db.sqlite.prepare('INSERT INTO auth_throttle (key, count, expires_at) VALUES (?, 1, ?)');
+    insert.run('old-a', now - 1); insert.run('old-b', now);
+    assert.equal(store.removeExpired(1), 1);
+    assert.equal(store.removeExpired(1), 1);
+    assert.equal(store.removeExpired(), 0);
+    assert.equal(db.sqlite.prepare('SELECT count(*) AS n FROM auth_throttle').get().n, 1);
+    assert.throws(() => store.removeExpired(0), RangeError);
     db.sqlite.exec("CREATE TRIGGER fail_throttle BEFORE INSERT ON auth_throttle BEGIN SELECT RAISE(ABORT, 'counter unavailable'); END");
     await assert.rejects(store.consume('another-client', rule), /counter unavailable/);
     await assert.rejects(store.consume('key', { window: 0, max: 3 }), RangeError);

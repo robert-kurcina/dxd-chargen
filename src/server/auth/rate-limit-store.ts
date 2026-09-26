@@ -6,6 +6,12 @@ export function createRateLimitStore(connection: ReturnType<typeof openDatabase>
   if (secret.length < 32) throw new Error('A rate-limit key secret is required.');
   const db = connection.sqlite;
   return {
+    removeExpired(limit = 1000) {
+      if (!Number.isSafeInteger(limit) || limit < 1 || limit > 10000) throw new RangeError('Cleanup limit must be between 1 and 10000.');
+      const now = clock();
+      if (!Number.isSafeInteger(now) || now < 0) throw new RangeError('Invalid rate-limit clock.');
+      return db.prepare('DELETE FROM auth_throttle WHERE key IN (SELECT key FROM auth_throttle WHERE expires_at <= ? LIMIT ?)').run(now, limit).changes;
+    },
     async consume(key: string, rule: { window: number; max: number }) {
       if (!Number.isSafeInteger(rule.window) || rule.window < 1 || rule.window > 86400 ||
           !Number.isSafeInteger(rule.max) || rule.max < 1) throw new RangeError('Invalid rate-limit rule.');

@@ -243,3 +243,25 @@ Trusted client-IP handling, per-account abuse controls, expired-counter cleanup,
 multi-process contention tests and public-route bypass review remain open. Old
 expired buckets are overwritten when reused but are not yet globally pruned.
 The test-only rate-limit bypass remains explicit. Account routes remain unexposed.
+
+
+## H02b checkpoint: loopback header trust and counter cleanup
+
+The direct loopback harness explicitly sets `ipAddressHeaders: []`. No proxy is
+configured to sanitize client-supplied headers, so forwarded headers cannot
+select a different rate-limit bucket. Local requests share the library's
+localhost/fallback per-path bucket. Tests exhaust that bucket and then try
+multiple invented X-Forwarded-For, X-Real-IP and Forwarded values, including a
+chain and malformed value; all remain rejected and journaled.
+
+`removeExpired(limit)` deletes only counters at or past expiry, at most 1,000 by
+default (maximum 10,000). Tests cover bounded batches, exact expiry, preservation
+of a renewed active counter and invalid limits. This is an explicit maintenance
+primitive, not a running scheduler; the deletion limit bounds mutations, not the
+scan cost. Eleven account/security scenarios and TypeScript pass.
+
+Deployment still needs a separately tested transport/proxy trust contract and
+appropriate client/account abuse controls. Do not enable forwarded headers solely
+because a host supplies them. Shared loopback throttling is intentionally not a
+public multi-user configuration. Scheduler wiring, contention/load tests and
+explicit reconciliation decisions remain unfinished; account routes stay closed.
