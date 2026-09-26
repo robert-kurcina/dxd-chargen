@@ -15,7 +15,7 @@ test('local verification, login/logout, password reset and session revocation', 
     migrateDatabase(connection, path.resolve('migrations/auth'));
     const secret = randomUUID() + randomUUID();
     assert.throws(() => createLocalAccountHarness(connection, 'https://example.test', secret), /loopback/);
-    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', secret);
+    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', secret, { disableRateLimitsForTests: true });
     const origin = 'http://localhost:3000';
     async function request(route, body, cookie = '') {
       return handle(new Request(`${origin}/api/auth/${route}`, { method: body ? 'POST' : 'GET', headers: { origin, ...(body ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) }));
@@ -92,7 +92,7 @@ test('MFA requires confirmed enrollment, gates login and consumes recovery codes
   const connection = openDatabase(path.join(root, 'accounts.sqlite'));
   try {
     migrateDatabase(connection, path.resolve('migrations/auth'));
-    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID());
+    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID(), { disableRateLimitsForTests: true });
     const request = (route, body, cookie = '') => handle(new Request(`http://localhost:3000/api/auth/${route}`, { method: body ? 'POST' : 'GET', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', cookie }, ...(body ? { body: JSON.stringify(body) } : {}) }));
     const cookies = r => r.headers.getSetCookie().map(c => c.split(';')[0]).join('; ');
     const credentials = { email: 'mfa@example.test', password: 'Temporary-mfa-password-123!', username: 'mfatest', name: 'MFA' };
@@ -187,7 +187,7 @@ test('account identity edge cases and verified email changes preserve ownership'
   const connection = openDatabase(path.join(root, 'accounts.sqlite'));
   try {
     migrateDatabase(connection, path.resolve('migrations/auth'));
-    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID());
+    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID(), { disableRateLimitsForTests: true });
     const request = (route, body, cookie = '') => handle(new Request(`http://localhost:3000/api/auth/${route}`, { method: 'POST', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', cookie }, body: JSON.stringify(body) }));
     const base = { email: 'First@Example.test', username: 'FirstPlayer', name: 'First', password: 'Identity-password-123!' };
     for (const username of [undefined, '', '   ']) {

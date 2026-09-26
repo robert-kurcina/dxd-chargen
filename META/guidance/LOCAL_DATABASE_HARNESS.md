@@ -197,3 +197,25 @@ network send, automatic worker loop, or public endpoint is enabled. The future
 transport adapter must implement bounded timeouts and provider deduplication where
 available; lease expiry cannot cancel an already accepted external send. Permanent
 attempt history, retry exhaustion policy and operator reconciliation remain open.
+
+
+## H02b checkpoint: development rate-limit coverage
+
+The loopback harness now explicitly enables BetterAuth's in-memory rate limiter
+rather than depending on its production-only default. Lifecycle tests explicitly
+opt out with `disableRateLimitsForTests`; the dedicated rate test uses the default.
+The pinned library's X-Retry-After is also exposed as standard Retry-After by the
+handler wrapper. Concurrent tests prove three of six password-reset requests are
+accepted and three rejected, independently of three allowed/three rejected login
+attempts. Unknown accounts enqueue no mail, rejected logins create no sessions,
+and all six 429 responses are journaled. Ten account/security scenarios and
+standalone TypeScript pass.
+
+This is not the public-service rate-limit gate: counters are process-local,
+shared by library instances and reset on process restart. Requests without a
+resolved trusted client IP share the library's per-path fallback bucket. No
+trusted reverse-proxy configuration has been selected. Durable atomic counters,
+expiry-boundary/restart tests, trusted-IP spoofing tests and per-account abuse
+controls remain necessary before exposing routes. The raw internal auth API and
+wrapper prevalidation require review at H02c cutover; these tests exercise the
+journaled handler, not every possible internal invocation.

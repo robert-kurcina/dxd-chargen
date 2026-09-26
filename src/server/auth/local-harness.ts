@@ -11,7 +11,7 @@ import { createSecurityJournal } from './security-journal';
 import { createLocalMailStore, type LocalAccountMail } from './local-mail-store';
 
 // Test/development harness only. No HTTP route or external mail transport.
-export function createLocalAccountHarness(connection: ReturnType<typeof openDatabase>, baseURL: string, secret: string) {
+export function createLocalAccountHarness(connection: ReturnType<typeof openDatabase>, baseURL: string, secret: string, options: { disableRateLimitsForTests?: boolean } = {}) {
   const origin = new URL(baseURL);
   if (!['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname) || !['http:', 'https:'].includes(origin.protocol) || origin.username || origin.password || origin.pathname !== '/' || origin.search || origin.hash) throw new Error('The local account harness requires a loopback origin.');
   if (secret.length < 32) throw new Error('Provide a fresh test secret of at least 32 characters.');
@@ -20,6 +20,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
   const auth = betterAuth({
     appName: 'Sarna Len local harness', baseURL: origin.origin, secret,
     trustedOrigins: [origin.origin],
+    rateLimit: { enabled: !options.disableRateLimitsForTests, storage: 'memory' },
     database: drizzleAdapter(connection.db, { provider: 'sqlite', schema }),
     emailAndPassword: {
       enabled: true, requireEmailVerification: true, revokeSessionsOnPasswordReset: true,
@@ -38,6 +39,10 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
   const journal = createSecurityJournal(connection);
   const invokeAuth = async (request: Request) => {
     const response = await auth.handler(request);
+    // The pinned library uses X-Retry-After; also expose the standard header.
+    if (response.status === 429 && response.headers.has('x-retry-after')) {
+      response.headers.set('retry-after', response.headers.get('x-retry-after')!);
+    }
     return securityOperation.getStore()?.totpReplayRejected
       ? Response.json({ code: 'TOTP_ALREADY_USED' }, { status: 401 }) : response;
   };
