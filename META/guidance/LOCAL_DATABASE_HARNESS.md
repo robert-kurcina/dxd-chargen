@@ -119,3 +119,11 @@ The configuration fixes six digits and a 30-second period. Fingerprints expire a
 This guard applies to session creation, not an already authenticated caller's MFA step-up result. Danger Zone still requires its own fresh, action-bound proof. Raw auth API access still bypasses handler fingerprint setup and must remain internal; H02c route cutover tests are required before exposure. The expected SQLite trigger error can appear in local library test output, but the caller receives the explicit 401 response and no session credentials from that response.
 
 The MFA scenario also seeds nine persisted prior failures, submits a failing TOTP at the default threshold of ten, verifies active lockout rejects a valid recovery code with 429, then advances the stored lock expiry and verifies recovery succeeds. This exercises the boundary without sleeping; it is not a distributed rate-limit load test. Account/security tests, migration/backup, TypeScript and isolated production bundling pass for this checkpoint.
+
+## H02b checkpoint: account identity and email verification
+
+The journaled local handler requires a nonblank username during signup. Username format and normalization remain with the library. Email changes are enabled with verification required and the same five-minute session-recency gate as password changes; the existing address remains authoritative until the replacement is verified. The original account UUID and ownership remain unchanged.
+
+The account identity scenario verifies missing/blank username rejection, case normalization, a neutral duplicate-email signup response with no new user/session, case-insensitive username uniqueness, username login, replacement-address verification, stable UUID and inability to log in using the former address. The MFA scenario now additionally resets the password of an MFA-enabled account and confirms that login still stops at the second-factor challenge with no authenticated session.
+
+Six account/security scenarios and TypeScript pass. Real mail is not sent and no account route is exposed. Remaining work includes durable external delivery/retry semantics, reconciliation handling for interrupted multi-step operations, rate-limit/abuse coverage and account-management UI. These tests do not constitute H02c server authorization or a completed shared-account service.

@@ -29,6 +29,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       sendOnSignUp: true, autoSignInAfterVerification: false,
       sendVerificationEmail: async ({ user, url }) => deliver({ kind: 'verify-email', to: user.email, url }),
     },
+    user: { changeEmail: { enabled: true, updateEmailWithoutVerification: false } },
     session: { cookieCache: { enabled: false } },
     plugins: [username(), twoFactor({ totpOptions: { digits: 6, period: 30 } })],
     logger: { disabled: true },
@@ -45,6 +46,13 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       const session = await auth.api.getSession({ headers: request.headers, query: { disableRefresh: true } });
       return session?.user.id ?? null;
     }, async incoming => {
+      const route = new URL(incoming.url).pathname;
+      if (incoming.method === 'POST' && route === '/api/auth/sign-up/email') {
+        let body: unknown;
+        try { body = await incoming.clone().json(); } catch { return Response.json({ code: 'INVALID_JSON' }, { status: 400 }); }
+        if (!body || typeof body !== 'object' || !('username' in body) || typeof body.username !== 'string' || !body.username.trim()) return Response.json({ code: 'USERNAME_REQUIRED' }, { status: 400 });
+      }
+
       if (incoming.method === 'POST' && new URL(incoming.url).pathname === '/api/auth/two-factor/verify-totp') {
         try {
           const body = await incoming.clone().json();
@@ -53,7 +61,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
           }
         } catch { /* The library returns the input error without creating a session. */ }
       }
-      if (incoming.method !== 'POST' || new URL(incoming.url).pathname !== '/api/auth/change-password') return invokeAuth(incoming);
+      if (incoming.method !== 'POST' || !['/api/auth/change-password', '/api/auth/change-email'].includes(route)) return invokeAuth(incoming);
       const session = await auth.api.getSession({ headers: incoming.headers, query: { disableRefresh: true } });
       if (!session) return Response.json({ code: 'UNAUTHORIZED' }, { status: 401 });
       const age = Date.now() - new Date(session.session.createdAt).getTime();
@@ -63,7 +71,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       if (!body || typeof body !== 'object' || Array.isArray(body)) return Response.json({ code: 'INVALID_JSON' }, { status: 400 });
       const headers = new Headers(incoming.headers); headers.delete('content-length');
       // Preserve Origin/Cookie headers so the library still enforces its request protections.
-      return invokeAuth(new Request(incoming.url, { method: 'POST', headers, body: JSON.stringify({ ...body, revokeOtherSessions: true }) }));
+      return invokeAuth(new Request(incoming.url, { method: 'POST', headers, body: JSON.stringify(route === '/api/auth/change-password' ? { ...body, revokeOtherSessions: true } : body) }));
     });
   };
   return { auth, handle, journal, inbox, takeMail: () => connection.sqlite.transaction(() => { const rows = inbox.pending(); for (const row of rows) inbox.acknowledge(row.id); return rows.map(row => row.mail); })(), clearMail: inbox.clear };

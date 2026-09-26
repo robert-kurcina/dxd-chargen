@@ -145,6 +145,14 @@ test('MFA requires confirmed enrollment, gates login and consumes recovery codes
     connection.sqlite.prepare('UPDATE two_factor SET locked_until = ?').run(Date.now() - 1);
     response = await request('sign-in/email', credentials); challenge = cookies(response);
     response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[4] }, challenge); assert.equal(response.status, 200);
+    await request('request-password-reset', { email: credentials.email, redirectTo: 'http://localhost:3000/reset' });
+    const resetMail = takeMail().find(mail => mail.kind === 'reset-password');
+    const resetToken = new URL(resetMail.url).pathname.split('/').pop();
+    response = await request('reset-password', { token: resetToken, newPassword: 'MFA-reset-password-456!' }); assert.equal(response.status, 200);
+    response = await request('sign-in/email', { email: credentials.email, password: 'MFA-reset-password-456!' });
+    assert.equal(response.status, 200); assert.equal((await response.json()).twoFactorRedirect, true);
+    response = await request('get-session', undefined, cookies(response)); assert.equal(await response.json(), null);
+
 
 
 
@@ -171,5 +179,40 @@ test('local mail survives reopening, stays encrypted and requires explicit ackno
     inbox.enqueue(mail); connection.sqlite.prepare('UPDATE auth_mail SET expires_at = 0').run();
     assert.deepEqual(inbox.pending(), []); inbox.removeExpired();
     assert.equal(connection.sqlite.prepare('SELECT count(*) AS n FROM auth_mail').get().n, 0);
+  } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
+});
+
+test('account identity edge cases and verified email changes preserve ownership', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'dxd-identity-'));
+  const connection = openDatabase(path.join(root, 'accounts.sqlite'));
+  try {
+    migrateDatabase(connection, path.resolve('migrations/auth'));
+    const { handle, takeMail } = createLocalAccountHarness(connection, 'http://localhost:3000', randomUUID() + randomUUID());
+    const request = (route, body, cookie = '') => handle(new Request(`http://localhost:3000/api/auth/${route}`, { method: 'POST', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', cookie }, body: JSON.stringify(body) }));
+    const base = { email: 'First@Example.test', username: 'FirstPlayer', name: 'First', password: 'Identity-password-123!' };
+    for (const username of [undefined, '', '   ']) {
+      const response = await request('sign-up/email', { ...base, username }); assert.equal(response.status, 400);
+    }
+    assert.equal(connection.sqlite.prepare('SELECT count(*) AS n FROM user').get().n, 0);
+    let response = await request('sign-up/email', base); assert.equal(response.status, 200);
+    const first = connection.sqlite.prepare('SELECT * FROM user').get();
+    assert.equal(first.email, 'first@example.test'); assert.equal(first.username, 'firstplayer');
+    await handle(new Request(takeMail()[0].url));
+    response = await request('sign-up/email', { ...base, email: 'FIRST@example.test', username: 'separate' });
+    assert.equal(response.status, 200); assert.equal((await response.json()).token, null);
+    assert.equal(connection.sqlite.prepare('SELECT count(*) AS n FROM user').get().n, 1);
+    response = await request('sign-up/email', { ...base, email: 'second@example.test', username: 'FIRSTPLAYER' });
+    assert.ok(response.status >= 400); assert.equal(connection.sqlite.prepare('SELECT count(*) AS n FROM user').get().n, 1);
+    takeMail();
+    response = await request('sign-in/username', { username: 'FIRSTPLAYER', password: base.password }); assert.equal(response.status, 200);
+    const cookie = response.headers.getSetCookie().map(c => c.split(';')[0]).join('; ');
+    response = await request('change-email', { newEmail: 'replacement@example.test', callbackURL: '/' }, cookie); assert.equal(response.status, 200);
+    assert.equal(connection.sqlite.prepare('SELECT email FROM user').get().email, first.email);
+    const mail = takeMail().find(m => m.to === 'replacement@example.test'); assert.ok(mail);
+    response = await handle(new Request(mail.url)); assert.ok(response.status < 400);
+    const changed = connection.sqlite.prepare('SELECT * FROM user').get();
+    assert.equal(changed.id, first.id); assert.equal(changed.email, 'replacement@example.test'); assert.equal(changed.email_verified, 1);
+    response = await request('sign-in/email', { email: first.email, password: base.password }); assert.equal(response.status, 401);
+    response = await request('sign-in/email', { email: changed.email, password: base.password }); assert.equal(response.status, 200);
   } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
 });
