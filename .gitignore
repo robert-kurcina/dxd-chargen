@@ -95,3 +95,6 @@ coverage/
 *.orig
 *.rej
 
+
+# Disposable database compatibility fixture
+.db-bundle-*/
