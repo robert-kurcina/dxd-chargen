@@ -177,3 +177,23 @@ migration/rollback/backup-restore test pass. The new queue test uses separate DB
 connections and a reopen, verifies exclusive claims, delayed retries, rejection
 of stale tokens, decryption rollback, and expired-message exclusion. Migration
 count is now six; no live database was migrated.
+
+
+## H02b checkpoint: explicit delivery runner
+
+`deliverNextMail(queue, send)` processes at most one eligible message through an
+injected sender. It passes the stable mail UUID as `idempotencyKey`, acknowledges
+only after sender acceptance, and schedules rejected sends with exponential delay
+starting at 30 seconds and capped at five minutes. Results contain only the mail
+ID and idle/accepted/retry-scheduled/lease-lost status. Accepted means transport
+acceptance, not recipient delivery. Provider exception details are discarded.
+Database failures propagate outside the sender catch; failed acknowledgement
+leaves the leased row available for recovery after expiry.
+
+Tests cover idle behavior, stable retry identity, sender failure, delayed retry,
+acceptance, ownership lost during send, and injected acknowledgement failure.
+Nine account/security scenarios and standalone TypeScript pass. No provider,
+network send, automatic worker loop, or public endpoint is enabled. The future
+transport adapter must implement bounded timeouts and provider deduplication where
+available; lease expiry cannot cancel an already accepted external send. Permanent
+attempt history, retry exhaustion policy and operator reconciliation remain open.

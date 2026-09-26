@@ -44,3 +44,43 @@ test('delivery leases survive restart, exclude competing workers and reject stal
     assert.throws(() => queue.retry(id, first.token, -1), RangeError);
   } finally { other?.close(); db.close(); await rm(root, { recursive: true, force: true }); }
 });
+
+
+test('delivery runner uses stable identity, retries privately, and preserves uncertain completion', async () => {
+  const { deliverNextMail } = await import('../src/server/auth/mail-delivery.ts');
+  const root = await mkdtemp(path.join(tmpdir(), 'dxd-mail-runner-'));
+  const db = openDatabase(path.join(root, 'db.sqlite'));
+  try {
+    migrateDatabase(db, path.resolve('migrations/auth'));
+    const queue = createLocalMailStore(db, 'disposable-test-secret-at-least-32-characters');
+    let sends = 0;
+    assert.deepEqual(await deliverNextMail(queue, async () => { sends++; }), { status: 'idle' });
+    assert.equal(sends, 0);
+    const mail = { kind: 'reset-password', to: 'private@example.test', url: 'http://localhost/SECRET' };
+    const id = queue.enqueue(mail);
+    const keys = [];
+    const failed = await deliverNextMail(queue, async message => {
+      assert.deepEqual(message.mail, mail); keys.push(message.idempotencyKey);
+      throw new Error('SECRET private@example.test');
+    });
+    assert.deepEqual(failed, { id, status: 'retry-scheduled' });
+    assert.equal(queue.pending().length, 1);
+    assert.equal((await deliverNextMail(queue, async () => { sends++; })).status, 'idle');
+    assert.equal(sends, 0);
+    db.sqlite.prepare('UPDATE auth_mail SET available_at = 0').run();
+    assert.deepEqual(await deliverNextMail(queue, async message => { keys.push(message.idempotencyKey); }), { id, status: 'accepted' });
+    assert.deepEqual(keys, [id, id]); assert.equal(queue.pending().length, 0);
+    const lost = queue.enqueue(mail);
+    assert.deepEqual(await deliverNextMail(queue, async () => {
+      db.sqlite.prepare('UPDATE auth_mail SET lease_until = 0').run();
+      assert.ok(queue.claim()); // Another worker takes ownership before completion.
+    }), { id: lost, status: 'lease-lost' });
+    assert.equal(queue.pending().length, 1);
+    queue.clear();
+    queue.enqueue(mail);
+    db.sqlite.exec("CREATE TRIGGER fail_ack BEFORE DELETE ON auth_mail BEGIN SELECT RAISE(ABORT, 'disk failure'); END");
+    await assert.rejects(deliverNextMail(queue, async () => {}), /disk failure/);
+    assert.equal(queue.pending().length, 1);
+    assert.equal(queue.claim(), null); // Failed acknowledgement retains its lease.
+  } finally { db.close(); await rm(root, { recursive: true, force: true }); }
+});
