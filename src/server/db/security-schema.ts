@@ -19,3 +19,10 @@ export const securityChanges = sqliteTable('security_changes', {
   change: text('change').notNull(),
   occurredAt: integer('occurred_at').notNull(),
 });
+
+export const consumedTotp = sqliteTable('consumed_totp', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').notNull(),
+  fingerprint: text('fingerprint').notNull(),
+  expiresAt: integer('expires_at').notNull(),
+}, table => [uniqueIndex('consumed_totp_user_code').on(table.userId, table.fingerprint)]);

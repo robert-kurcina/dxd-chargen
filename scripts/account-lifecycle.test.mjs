@@ -78,11 +78,11 @@ test('local verification, login/logout, password reset and session revocation', 
 
 test('MFA requires confirmed enrollment, gates login and consumes recovery codes', async () => {
   const { createHmac } = await import('node:crypto');
-  const totp = uri => {
+  const totp = (uri, stepOffset = 0) => {
     const url = new URL(uri), alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
     const bits = [...url.searchParams.get('secret').replace(/=+$/, '').toUpperCase()].map(c => alphabet.indexOf(c).toString(2).padStart(5, '0')).join('');
     const key = Buffer.from(bits.match(/.{8}/g).map(byte => parseInt(byte, 2)));
-    const counter = Buffer.alloc(8); counter.writeBigUInt64BE(BigInt(Math.floor(Date.now() / 1000 / Number(url.searchParams.get('period') || 30))));
+    const counter = Buffer.alloc(8); counter.writeBigUInt64BE(BigInt(Math.floor(Date.now() / 1000 / Number(url.searchParams.get('period') || 30)) + stepOffset));
     const mac = createHmac('sha1', key).update(counter).digest();
     const offset = mac[mac.length - 1] & 15;
     const digits = Number(url.searchParams.get('digits') || 6);
@@ -130,6 +130,23 @@ test('MFA requires confirmed enrollment, gates login and consumes recovery codes
     const attempts = await Promise.all([request('sign-in/email', credentials), request('sign-in/email', credentials)]);
     const outcomes = await Promise.all(attempts.map(r => request('two-factor/verify-backup-code', { code: enrollment.backupCodes[2] }, cookies(r))));
     assert.equal(outcomes.filter(r => r.status === 200).length, 1, 'A recovery code can authorize only one concurrent login');
+    const totpChallenges = await Promise.all([request('sign-in/email', credentials), request('sign-in/email', credentials)]);
+    const sameCode = totp(enrollment.totpURI, 1);
+    const repeated = await Promise.all(totpChallenges.map(r => request('two-factor/verify-totp', { code: sameCode }, cookies(r))));
+    assert.equal(repeated.filter(r => r.status === 200).length, 1, 'One TOTP code must not authorize two distinct login challenges');
+    assert.equal(repeated.find(r => r.status !== 200).status, 401);
+    response = await request('sign-in/email', credentials); challenge = cookies(response);
+    // Exercise the threshold with nine prior failures already persisted.
+    connection.sqlite.prepare('UPDATE two_factor SET failed_verification_count = 9').run();
+    response = await request('two-factor/verify-totp', { code: 'invalid' }, challenge); assert.ok(response.status >= 400);
+    const locked = connection.sqlite.prepare('SELECT failed_verification_count, locked_until FROM two_factor').get();
+    assert.ok(locked.failed_verification_count >= 10); assert.ok(locked.locked_until > Date.now());
+    response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[4] }, challenge); assert.equal(response.status, 429);
+    connection.sqlite.prepare('UPDATE two_factor SET locked_until = ?').run(Date.now() - 1);
+    response = await request('sign-in/email', credentials); challenge = cookies(response);
+    response = await request('two-factor/verify-backup-code', { code: enrollment.backupCodes[4] }, challenge); assert.equal(response.status, 200);
+
+
 
   } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
 });
