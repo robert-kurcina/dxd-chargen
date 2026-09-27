@@ -274,3 +274,22 @@ the existing bounded cleanup query. This avoids a full table scan to locate each
 expired batch as the table grows. Migration count is eight. The migration has
 not been applied to a live database; automated checks were not run for this
 checkpoint. Cleanup still requires an explicitly scheduled maintenance call.
+
+
+## H02b checkpoint: explicit local maintenance command
+
+`npm run maintenance:local` removes one bounded batch of expired throttle
+counters and expired encrypted auth mail from an already-migrated local SQLite
+database. It requires `DXD_DATA_DIR` to name an existing absolute directory with
+a real `dxd.sqlite`; it refuses missing databases, symlink database files, or
+missing account tables/indexes. Set `DXD_MAINTENANCE_BATCH_SIZE` to an integer
+from 1 to 10,000 (default 1,000) to bound each table's deletions. Both deletes
+run in one short immediate transaction, and output includes counts only. The
+command applies no migrations, starts no scheduler and sends no mail. An operator
+may invoke it manually or from an external local scheduler after backups and
+maintenance cadence are arranged.
+
+This is not wired into application startup; request handlers must not run global
+cleanup. The database and account harness remain development foundations with no
+production account routes. The command was not run against a real database for
+this checkpoint.
