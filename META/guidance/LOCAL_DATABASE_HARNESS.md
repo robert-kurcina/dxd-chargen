@@ -323,6 +323,7 @@ portraits. In development, an unset `DXD_STORAGE_MODE` keeps the existing
 `legacy-local` workflow. In production, it defaults to `accounts`, which returns
 503 before reading request bodies, parsing path parameters, or touching files. An
 explicit accounts mode and every unrecognized value also block these endpoints.
+Explicit `legacy-local` cannot re-enable them in production.
 Baseline data-assets routes are unchanged.
 
 This is a boundary checkpoint, not accounts-mode delivery: no authenticated
