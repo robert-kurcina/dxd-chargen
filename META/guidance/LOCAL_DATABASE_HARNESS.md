@@ -348,3 +348,20 @@ Only syntax and package metadata were checked for this checkpoint; the command
 was not run against a local database. Existing databases with looser directory
 permissions require an operator to choose and secure an appropriate data path
 first.
+
+
+## H02c checkpoint: local account runtime preflight
+
+`npm run accounts:check:local` performs read-only readiness checks before any
+account API runtime is wired. It requires explicit accounts mode, a non-production
+environment, an auth secret of at least 32 characters, and a loopback auth origin.
+It checks owner-only data directory/database permissions, symlink boundaries,
+required auth/audit/mail/throttle tables, the current nine migrations and throttle
+expiry index, SQLite integrity and foreign-key consistency. It never opens the DB
+for writing, applies migrations, or prints the auth secret. Errors name the missing
+configuration/check without exposing credentials.
+
+The preflight is an operator command only. It does not mean accounts mode is
+operational: authenticated handlers, rate-limit trust review, delivery access and
+role authorization remain prerequisites. It was not run against a database for
+this checkpoint.
