@@ -2,10 +2,13 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { NextResponse } from 'next/server';
 import { migrateCharacterDraft } from '@/lib/character-draft';
+import { blockLegacyCharacterApi } from '@/server/legacy-storage-mode';
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
 const validIdName = (value: string) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 export async function GET(_: Request, context: { params: Promise<{ idName: string }> }) {
+  const blocked = blockLegacyCharacterApi();
+  if (blocked) return blocked;
   const { idName } = await context.params;
   if (!validIdName(idName)) return NextResponse.json({ error: 'Invalid character id' }, { status: 400 });
   const folder = path.join(ROOT, idName);

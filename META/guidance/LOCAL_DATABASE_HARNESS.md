@@ -313,3 +313,20 @@ does not cover signup/reset operations where the actor is null. No HTTP handler
 or UI exposes this action, and no staff-role authorization is implemented. Do
 not wire it to a route without Site Administrator policy, fresh MFA and access
 logging. Migration count is nine. No tests were run for this checkpoint.
+
+
+## H02c checkpoint: fail-closed legacy character APIs
+
+Added a shared server-only storage-mode gate at the start of every filesystem
+character API handler: character list/save, tags, current/historical versions and
+portraits. In development, an unset `DXD_STORAGE_MODE` keeps the existing
+`legacy-local` workflow. In production, it defaults to `accounts`, which returns
+503 before reading request bodies, parsing path parameters, or touching files. An
+explicit accounts mode and every unrecognized value also block these endpoints.
+Baseline data-assets routes are unchanged.
+
+This is a boundary checkpoint, not accounts-mode delivery: no authenticated
+character API or auth handler exists, so selecting accounts mode intentionally
+leaves character storage unavailable. Other deployment policy, including startup
+refusal for a missing persistent DB/auth secret, is still required before
+accounts can be operated. No tests or build were run for this checkpoint.

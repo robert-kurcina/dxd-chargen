@@ -35,7 +35,7 @@ Proposed paths (future implementation): `src/server/db`, `src/server/auth`, `src
 
 Use an application data directory outside public assets, configured by `DXD_DATA_DIR`, with database, private blobs and backup manifests. Ignore generated files in Git. Serve private images through authorization-aware handlers with private/no-store caching. Filter data before serialization, including server-rendered props, lists, counts, searches, exports and version endpoints; never deliver private campaign material and hide it in React.
 
-Introduce an explicit legacy-local versus accounts mode during transition. Legacy-local file APIs remain confined to local development. Accounts mode fails closed if DB/auth configuration is missing and disables the unprotected legacy endpoints; there is no anonymous fallback to file access. Keep the public baseline catalog distinct from future campaign overrides. Startup/deployment tests must prove this boundary before accounts mode is offered to other users.
+Introduce an explicit `DXD_STORAGE_MODE=legacy-local` versus `accounts` mode during transition. Unset mode defaults to legacy-local only in development and to accounts in production. Existing filesystem character APIs return 503 in accounts mode or any unknown configured mode. Accounts mode remains unavailable until authenticated DB routes are implemented; it fails closed instead of falling back to files; there is no anonymous fallback to file access. Keep the public baseline catalog distinct from future campaign overrides. Startup/deployment tests must prove this boundary before accounts mode is offered to other users.
 
 ## Data model and identities
 

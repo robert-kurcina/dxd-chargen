@@ -6,6 +6,7 @@ import { migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draf
 import { normalizeCharacterDraftForStorage, normalizeCharacterLibrary } from '@/lib/import-character-creator';
 import sarnaLenData from '@/data';
 import { capabilityDispositionCounts } from '@/lib/rules/proficiencies';
+import { blockLegacyCharacterApi } from '@/server/legacy-storage-mode';
 
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
@@ -64,6 +65,8 @@ async function archiveCurrentVersion(folder: string) {
   } catch { return null; }
 }
 export async function GET() {
+  const blocked = blockLegacyCharacterApi();
+  if (blocked) return blocked;
   await mkdir(ROOT, { recursive: true });
   await normalizeCharacterLibrary(ROOT);
   const entries = await readdir(ROOT, { withFileTypes: true });
@@ -71,6 +74,8 @@ export async function GET() {
   return NextResponse.json({ characters });
 }
 export async function POST(request: Request) {
+  const blocked = blockLegacyCharacterApi();
+  if (blocked) return blocked;
   const body = await request.json() as { idName?: string | null; draft?: CharacterDraft };
   let draft = normalizeCharacterDraftForStorage(migrateCharacterDraft(body.draft));
   await mkdir(ROOT, { recursive: true });
