@@ -331,3 +331,20 @@ character API or auth handler exists, so selecting accounts mode intentionally
 leaves character storage unavailable. Other deployment policy, including startup
 refusal for a missing persistent DB/auth secret, is still required before
 accounts can be operated. No tests or build were run for this checkpoint.
+
+
+## H02c checkpoint: explicit local database provisioning
+
+`npm run db:migrate:local` creates/applies the reviewed account migrations in
+`$DXD_DATA_DIR/dxd.sqlite`. The path must be absolute, outside public assets,
+and resolve without symlinks. The directory must have owner-only permissions;
+the database is restricted to mode 0600. SQLite foreign keys, WAL and a bounded
+busy timeout are enabled. The command is explicit and separate from web requests;
+normal startup does not apply migrations. Its output includes only the local DB
+path and migration count. It does not configure the auth secret, expose routes,
+or enable outbound mail.
+
+Only syntax and package metadata were checked for this checkpoint; the command
+was not run against a local database. Existing databases with looser directory
+permissions require an operator to choose and secure an appropriate data path
+first.

@@ -122,7 +122,7 @@ Execute in ID order except where dependencies explicitly allow otherwise. Accept
 
 | ID / priority | Deliverable | Depends on | Acceptance / evidence |
 | --- | --- | --- | --- |
-| H02 / P2 | Accounts and server authorization (WIP); H02b lifecycle/review and H02c route cutover | H01 | Legacy filesystem character APIs now fail closed in production/accounts mode; implement authenticated DB routes, role policies, startup config checks, and negative access tests before enabling shared accounts |
+| H02 / P2 | Accounts and server authorization (WIP); H02b lifecycle/review and H02c route cutover | H01 | Legacy filesystem character APIs now fail closed in production/accounts mode; local DB provisioning is now explicit and private by default; next implement runtime readiness checks and authenticated DB routes, then role policies and negative access tests before enabling shared accounts |
 
 ### R1 release gates
 
