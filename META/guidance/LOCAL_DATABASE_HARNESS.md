@@ -237,7 +237,7 @@ Eleven account/security tests, TypeScript, and migration/backup-restore checks
 pass. Tests cover two connections, reopen persistence, exact expiry and injected
 write failure (which throws rather than allowing the request). The connection
 test interleaves calls in one Node process; it is not a multi-process load test.
-Migration count is eight. No live database was migrated.
+Migration count is nine. No live database was migrated.
 
 Trusted client-IP handling, per-account abuse controls, expired-counter cleanup,
 multi-process contention tests and public-route bypass review remain open. Old
@@ -293,3 +293,23 @@ This is not wired into application startup; request handlers must not run global
 cleanup. The database and account harness remain development foundations with no
 production account routes. The command was not run against a real database for
 this checkpoint.
+
+
+## H02b checkpoint: durable account-operation review decisions
+
+Migration 0008 adds append-only `security_review_decisions`. The journal can
+record `reviewed-no-automatic-retry` or `follow-up-required`, with a reason code
+derived from transaction-coupled change evidence. Recording requires an
+authenticated journal context, a dedicated `POST review-security-operation`
+action, an incomplete or failed operation at least five minutes old, and a match
+between reviewer and source actor. The review record captures the review request
+UUID and actor from server context. No free-form notes or credential data are
+stored. Candidate reports include the latest disposition, reason, reviewer and
+time.
+
+A decision is an assessment; it does not mark credentials successful or
+authorize replay. This self-review rule requires a non-null original actor and
+does not cover signup/reset operations where the actor is null. No HTTP handler
+or UI exposes this action, and no staff-role authorization is implemented. Do
+not wire it to a route without Site Administrator policy, fresh MFA and access
+logging. Migration count is nine. No tests were run for this checkpoint.

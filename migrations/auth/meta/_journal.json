@@ -57,6 +57,13 @@
       "when": 1790526900646,
       "tag": "0007_flaky_psynapse",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1790527373348,
+      "tag": "0008_parallel_obadiah_stane",
+      "breakpoints": true
     }
   ]
 }

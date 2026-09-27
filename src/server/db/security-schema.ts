@@ -34,3 +34,15 @@ export const authThrottle = sqliteTable('auth_throttle', {
   count: integer('count').notNull(),
   expiresAt: integer('expires_at').notNull(),
 }, table => [index('auth_throttle_expiry').on(table.expiresAt)]);
+
+
+// Human review metadata; never claims the underlying credential operation succeeded.
+export const securityReviewDecisions = sqliteTable('security_review_decisions', {
+  id: text('id').primaryKey(),
+  sourceOperationId: text('source_operation_id').notNull(),
+  reviewOperationId: text('review_operation_id').notNull(),
+  reviewerId: text('reviewer_id').notNull(),
+  disposition: text('disposition', { enum: ['reviewed-no-automatic-retry', 'follow-up-required'] }).notNull(),
+  reasonCode: text('reason_code', { enum: ['change-evidence-recorded', 'no-change-evidence-recorded', 'outcome-uncertain'] }).notNull(),
+  occurredAt: integer('occurred_at').notNull(),
+}, table => [uniqueIndex('security_review_request').on(table.reviewOperationId), index('security_review_source').on(table.sourceOperationId, table.occurredAt)]);

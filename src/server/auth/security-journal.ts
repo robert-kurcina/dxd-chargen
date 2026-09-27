@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { securityOperation } from './operation-context';
 import type { openDatabase } from '../db/connection';
 
-const actions = new Set(['sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code']);
+const actions = new Set(['sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation']);
 
 export function createSecurityJournal(connection: ReturnType<typeof openDatabase>) {
   const db = connection.sqlite;
@@ -19,7 +19,7 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
       let actorId = typeof actor === 'function' ? null : actor;
       const operationId = randomUUID();
       append(operationId, 'started', action, actorId, null); // Failure here prevents handler invocation.
-      return securityOperation.run({ operationId, actorId }, async () => {
+      return securityOperation.run({ operationId, action, actorId }, async () => {
         let response: Response;
         try {
           if (typeof actor === 'function') actorId = await actor();
@@ -50,7 +50,19 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
                       WHEN e.phase = 'threw' THEN 'exception'
                       ELSE 'error-response' END AS reason,
                  (SELECT COUNT(*) FROM security_changes c
-                  WHERE c.operation_id = s.operation_id) AS recorded_changes
+                  WHERE c.operation_id = s.operation_id) AS recorded_changes,
+                 (SELECT d.disposition FROM security_review_decisions d
+                  WHERE d.source_operation_id = s.operation_id
+                  ORDER BY d.occurred_at DESC, d.rowid DESC LIMIT 1) AS latest_review_disposition,
+                 (SELECT d.reason_code FROM security_review_decisions d
+                  WHERE d.source_operation_id = s.operation_id
+                  ORDER BY d.occurred_at DESC, d.rowid DESC LIMIT 1) AS latest_review_reason_code,
+                 (SELECT d.reviewer_id FROM security_review_decisions d
+                  WHERE d.source_operation_id = s.operation_id
+                  ORDER BY d.occurred_at DESC, d.rowid DESC LIMIT 1) AS latest_reviewer_id,
+                 (SELECT d.occurred_at FROM security_review_decisions d
+                  WHERE d.source_operation_id = s.operation_id
+                  ORDER BY d.occurred_at DESC, d.rowid DESC LIMIT 1) AS latest_review_at
           FROM security_events s
           LEFT JOIN security_events e ON e.operation_id = s.operation_id
             AND e.phase IN ('responded', 'threw')
@@ -59,6 +71,32 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
           ORDER BY s.occurred_at, s.rowid LIMIT ?
         `).all(observedAt - minimumAgeMs, limit + 1);
         return { observedAt, minimumAgeMs, hasMore: candidates.length > limit, candidates: candidates.slice(0, limit) };
+      })();
+    },
+    recordReviewDecision(sourceOperationId: string, disposition: 'reviewed-no-automatic-retry' | 'follow-up-required') {
+      const context = securityOperation.getStore();
+      // This narrow self-service journal primitive requires the authenticated actor
+      // resolved by run() and a dedicated review action. It does not grant staff scope.
+      if (!context?.actorId || context.action !== 'POST review-security-operation') throw new Error('An authenticated review operation is required.');
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(sourceOperationId)) throw new Error('Invalid operation identifier.');
+      if (!['reviewed-no-automatic-retry', 'follow-up-required'].includes(disposition)) throw new Error('Invalid review disposition.');
+      return db.transaction(() => {
+        const now = Date.now();
+        const source = db.prepare(`SELECT s.actor_id, s.occurred_at,
+          NOT EXISTS (SELECT 1 FROM security_events e WHERE e.operation_id=s.operation_id
+            AND e.phase IN ('responded','threw')) OR EXISTS (SELECT 1 FROM security_events e WHERE e.operation_id=s.operation_id
+            AND e.phase='responded' AND e.response_status >= 400) AS failed,
+          (SELECT COUNT(*) FROM security_changes c WHERE c.operation_id=s.operation_id) AS changes
+          FROM security_events s WHERE s.operation_id=? AND s.phase='started'`).get(sourceOperationId) as
+          { actor_id: string | null; occurred_at: number; failed: number; changes: number } | undefined;
+        if (!source || !source.actor_id || source.actor_id !== context.actorId || !source.failed || source.occurred_at > now - 300_000) {
+          throw new Error('Operation is not an eligible self-review candidate.');
+        }
+        const reasonCode = source.changes > 0 ? 'change-evidence-recorded' : 'no-change-evidence-recorded';
+        db.prepare(`INSERT INTO security_review_decisions
+          (id, source_operation_id, review_operation_id, reviewer_id, disposition, reason_code, occurred_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?)`).run(randomUUID(), sourceOperationId, context.operationId, context.actorId, disposition, reasonCode, now);
+        return { sourceOperationId, disposition, reasonCode, reviewerId: context.actorId, reviewedAt: now };
       })();
     },
     unresolved() {
