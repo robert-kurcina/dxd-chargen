@@ -237,7 +237,7 @@ Eleven account/security tests, TypeScript, and migration/backup-restore checks
 pass. Tests cover two connections, reopen persistence, exact expiry and injected
 write failure (which throws rather than allowing the request). The connection
 test interleaves calls in one Node process; it is not a multi-process load test.
-Migration count is seven. No live database was migrated.
+Migration count is eight. No live database was migrated.
 
 Trusted client-IP handling, per-account abuse controls, expired-counter cleanup,
 multi-process contention tests and public-route bypass review remain open. Old
@@ -265,3 +265,12 @@ appropriate client/account abuse controls. Do not enable forwarded headers solel
 because a host supplies them. Shared loopback throttling is intentionally not a
 public multi-user configuration. Scheduler wiring, contention/load tests and
 explicit reconciliation decisions remain unfinished; account routes stay closed.
+
+
+## H02b checkpoint: indexed throttle cleanup
+
+Migration 0007 adds `auth_throttle_expiry`, an index on counter expiry used by
+the existing bounded cleanup query. This avoids a full table scan to locate each
+expired batch as the table grows. Migration count is eight. The migration has
+not been applied to a live database; automated checks were not run for this
+checkpoint. Cleanup still requires an explicitly scheduled maintenance call.

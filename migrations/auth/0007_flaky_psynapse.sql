@@ -1,0 +1,1 @@
+CREATE INDEX `auth_throttle_expiry` ON `auth_throttle` (`expires_at`);

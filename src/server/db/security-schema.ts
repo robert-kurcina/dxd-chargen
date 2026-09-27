@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, uniqueIndex, index } from 'drizzle-orm/sqlite-core';
 export const securityEvents = sqliteTable('security_events', {
   id: text('id').primaryKey(),
   operationId: text('operation_id').notNull(),
@@ -33,4 +33,4 @@ export const authThrottle = sqliteTable('auth_throttle', {
   key: text('key').primaryKey(),
   count: integer('count').notNull(),
   expiresAt: integer('expires_at').notNull(),
-});
+}, table => [index('auth_throttle_expiry').on(table.expiresAt)]);
