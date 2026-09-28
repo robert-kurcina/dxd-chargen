@@ -6,6 +6,7 @@ export const PENDING_FILE_LOAD_STORAGE_KEY = 'dxd-character-pending-file-load-v1
 
 export type CharacterLibraryEntry = {
   fileId?: string;
+  serverRecord?: { id: string; version: number; isPrivate: boolean; mode: 'server' | 'copy' };
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -48,6 +49,7 @@ export function migrateCharacterLibrary(value: unknown, fallbackDraft?: unknown)
     if (candidate.schemaVersion === 1 && Array.isArray(candidate.entries)) {
       const entries = candidate.entries.map((entry) => ({
         fileId: typeof entry?.fileId === 'string' ? entry.fileId : undefined,
+        serverRecord: entry?.serverRecord && typeof entry.serverRecord.id === 'string' && /^[0-9a-f-]{36}$/i.test(entry.serverRecord.id) && Number.isSafeInteger(entry.serverRecord.version) && entry.serverRecord.version > 0 && typeof entry.serverRecord.isPrivate === 'boolean' && (entry.serverRecord.mode === 'server' || entry.serverRecord.mode === 'copy') ? { id: entry.serverRecord.id, version: entry.serverRecord.version, isPrivate: entry.serverRecord.isPrivate, mode: entry.serverRecord.mode } : undefined,
         id: typeof entry?.id === 'string' && entry.id ? entry.id : makeCharacterId(),
         createdAt: typeof entry?.createdAt === 'string' ? entry.createdAt : now(),
         updatedAt: typeof entry?.updatedAt === 'string' ? entry.updatedAt : now(),
@@ -60,6 +62,13 @@ export function migrateCharacterLibrary(value: unknown, fallbackDraft?: unknown)
     }
   }
   return createCharacterLibrary(migrateCharacterDraft(fallbackDraft));
+}
+
+export function browserPersistedLibrary(library: CharacterLibraryState): CharacterLibraryState {
+  const entries = library.entries.filter(entry => entry.serverRecord?.mode !== 'server');
+  if (!entries.length) return createCharacterLibrary();
+  const activeId = entries.some(entry => entry.id === library.activeId) ? library.activeId : entries[0].id;
+  return { ...library, activeId, entries };
 }
 
 export function activeLibraryEntry(library: CharacterLibraryState) {
@@ -135,5 +144,6 @@ export function addImportedCharacter(library: CharacterLibraryState, value: unkn
 }
 
 export function exportCharacter(entry: CharacterLibraryEntry): CharacterExportEnvelope {
-  return { format: 'dxd-chargen-character', version: 1, exportedAt: now(), character: entry };
+  const { serverRecord: _serverRecord, ...detachedEntry } = entry;
+  return { format: 'dxd-chargen-character', version: 1, exportedAt: now(), character: detachedEntry };
 }

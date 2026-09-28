@@ -51,10 +51,21 @@ test('Library maintenance preserves current drafts on disk and still repairs leg
 });
 
 test('backup envelope round-trip detaches file identity and rejects invalid formats', async () => {
-  const { exportCharacter, importCharacter, createLibraryEntry } = await import('../src/lib/character-library.ts');
+  const { exportCharacter, importCharacter, createLibraryEntry, migrateCharacterLibrary, browserPersistedLibrary } = await import('../src/lib/character-library.ts');
   const source = createLibraryEntry(createEmptyCharacterDraft());
   source.fileId = 'abcd1234-source'; source.draft.characterId = 'abcd1234';
+  source.serverRecord = { id: '7841aa01-33f4-4a90-8d13-000000000099', version: 4, isPrivate: true, mode: 'copy' };
+  const serverEntry = { ...createLibraryEntry(createEmptyCharacterDraft(), 'account:7841aa01-33f4-4a90-8d13-000000000099'), serverRecord: { ...source.serverRecord, mode: 'server' } };
+  const mixedLibrary = { schemaVersion: 1, activeId: serverEntry.id, entries: [source, serverEntry] };
+  const browserCopy = browserPersistedLibrary(mixedLibrary);
+  assert.deepEqual(browserCopy.entries.map(entry => entry.id), [source.id]);
+  assert.equal(browserCopy.activeId, source.id);
+  const serverOnly = browserPersistedLibrary({ ...mixedLibrary, entries: [serverEntry] });
+  assert.equal(serverOnly.entries.some(entry => entry.serverRecord?.mode === 'server'), false);
+  const migrated = migrateCharacterLibrary({ schemaVersion: 1, activeId: source.id, entries: [source] });
+  assert.deepEqual(migrated.entries[0].serverRecord, source.serverRecord, 'account version link survives local storage migration');
   const envelope = exportCharacter(source);
+  assert.equal('serverRecord' in envelope.character, false, 'backup is a detached copy, not a link to the account record');
   const snapshot = structuredClone(envelope);
   const imported = importCharacter(JSON.parse(JSON.stringify(envelope)));
   assert.notEqual(imported.id, source.id);

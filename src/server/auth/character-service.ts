@@ -49,15 +49,16 @@ export function createCharacterService(connection: Connection) {
         const campaign = db.prepare('SELECT is_default AS isDefault FROM campaigns WHERE id=?').get(campaignId) as { isDefault: number } | undefined;
         if (!campaign || !isAuthorized(principal, 'campaign.read', { campaignId, campaignIsDefault: campaign.isDefault === 1 })) return response({ error: 'Forbidden.' }, 403);
       }
-      const rows = db.prepare(`SELECT c.id, c.owner_id, c.campaign_id, c.is_private, c.is_locked, c.current_version, p.lifecycle, p.is_default AS campaign_is_default,
+      const rows = db.prepare(`SELECT c.id, c.owner_id, c.campaign_id, c.is_private, c.is_locked, c.current_version, p.lifecycle, p.name AS campaign_name, p.is_default AS campaign_is_default,
         v.draft_json, v.created_at AS version_created_at FROM characters c
         LEFT JOIN campaigns p ON p.id=c.campaign_id
         JOIN character_versions v ON v.character_id=c.id AND v.version=c.current_version
-        WHERE (? IS NULL OR c.campaign_id=?) ORDER BY c.updated_at DESC, c.id`).all(campaignId, campaignId) as Array<CharacterRow & { draft_json: string; version_created_at: number }>;
+        WHERE (? IS NULL OR c.campaign_id=?) ORDER BY c.updated_at DESC, c.id`).all(campaignId, campaignId) as Array<CharacterRow & { draft_json: string; version_created_at: number; campaign_name: string | null }>;
       const items = rows.filter(row => canRead(connection, actorId, row)).map(row => {
         let name = '';
-        try { const draft = JSON.parse(row.draft_json); name = typeof draft.background?.properName === 'string' && draft.background.properName ? draft.background.properName : typeof draft.background?.name === 'string' ? draft.background.name : ''; } catch { /* stored integrity is checked on detail reads */ }
-        return { id: row.id, campaignId: row.campaign_id, private: row.is_private === 1, version: row.current_version, updatedAt: row.version_created_at, name };
+        let libraryTags: string[] = [];
+        try { const draft = JSON.parse(row.draft_json); name = typeof draft.utilities?.name === 'string' && draft.utilities.name ? draft.utilities.name : typeof draft.background?.properName === 'string' ? draft.background.properName : ''; libraryTags = Array.isArray(draft.utilities?.libraryTags) ? draft.utilities.libraryTags.filter((tag: unknown): tag is string => typeof tag === 'string') : []; } catch { /* stored integrity is checked on detail reads */ }
+        return { id: row.id, campaignId: row.campaign_id, campaignName: row.campaign_name, private: row.is_private === 1, canEdit: Boolean(canEdit(connection, actorId, row)), version: row.current_version, updatedAt: row.version_created_at, name, libraryTags };
       });
       return response({ characters: items });
     },
@@ -110,7 +111,7 @@ export function createCharacterService(connection: Connection) {
       if (!Number.isSafeInteger(targetVersion) || targetVersion < 1) return response({ error: 'Invalid version.' }, 400);
       const saved = db.prepare('SELECT version, draft_json, created_at, edited_by FROM character_versions WHERE character_id=? AND version=?').get(id, targetVersion) as { version: number; draft_json: string; created_at: number; edited_by: string } | undefined;
       if (!saved) return response({ error: 'Not found.' }, 404);
-      try { return response({ id, version: saved.version, currentVersion: row.current_version, editedAt: saved.created_at, editedBy: saved.edited_by, draft: readDraft(saved.draft_json) }); }
+      try { return response({ id, version: saved.version, currentVersion: row.current_version, editedAt: saved.created_at, editedBy: saved.edited_by, private: row.is_private === 1, canEdit: Boolean(canEdit(connection, actorId, row)), draft: readDraft(saved.draft_json) }); }
       catch { return response({ error: 'Stored character draft is invalid.' }, 500); }
     },
     history(actorId: string | null, id: string) {
