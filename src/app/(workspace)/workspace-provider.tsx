@@ -256,7 +256,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
         method: record ? 'PUT' : 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(record
           ? { draft: accountDraft, expectedVersion: record.version, idempotencyKey, private: privateValue }
-          : { draft: accountDraft, private: privateValue, idempotencyKey }),
+          : { draft: accountDraft, campaignId: accountDraft.campaignId, private: privateValue, idempotencyKey }),
       });
       const result = await response.json().catch(() => ({})) as { id?: string; version?: number; currentVersion?: number; error?: string };
       if (!response.ok) {

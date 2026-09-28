@@ -94,6 +94,7 @@ coverage/
 *.bak
 *.orig
 *.rej
+/.cache/
 
 
 # Disposable database compatibility fixture
