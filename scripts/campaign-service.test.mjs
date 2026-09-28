@@ -61,7 +61,9 @@ test('campaign catalog aligns stable Default and Working IDs and authorizes audi
     const player = await createUser('campaignplayer');
     const visibleToPlayer = await request('campaigns', { cookie: player.cookie });
     assert.equal(visibleToPlayer.status, 200);
-    assert.deepEqual((await visibleToPlayer.json()).campaigns.map(campaign => campaign.id), [seeds[0].id]);
+    const playerCatalog = await visibleToPlayer.json();
+    assert.deepEqual(playerCatalog.campaigns.map(campaign => campaign.id), [seeds[0].id]);
+    assert.equal(playerCatalog.canCreateCampaign, false);
     const deniedFork = await request('campaigns', { method: 'POST', cookie: player.cookie, body: { name: 'Player Campaign', parentCampaignId: seeds[1].id, idempotencyKey: randomUUID() } });
     assert.equal(deniedFork.status, 403);
 
@@ -69,7 +71,9 @@ test('campaign catalog aligns stable Default and Working IDs and authorizes audi
     bootstrapVerifiedUsername(connection, 'campaignadmin');
     const adminLogin = await request('sign-in/email', { method: 'POST', body: { email: 'campaignadmin@example.test', password: 'Temporary-campaign-password-123!' } });
     let adminCookie = cookies(adminLogin);
-    assert.equal((await (await request('campaigns', { cookie: adminCookie })).json()).campaigns.length, 2);
+    const adminCatalog = await (await request('campaigns', { cookie: adminCookie })).json();
+    assert.equal(adminCatalog.campaigns.length, 2);
+    assert.equal(adminCatalog.canCreateCampaign, true);
     const key = randomUUID();
     const blockedBeforeMfa = await request('campaigns', { method: 'POST', cookie: adminCookie, body: { name: 'Blocked before MFA', parentCampaignId: seeds[1].id, idempotencyKey: randomUUID() } });
     assert.equal(blockedBeforeMfa.status, 403); assert.equal((await blockedBeforeMfa.json()).code, 'MFA_REQUIRED');
