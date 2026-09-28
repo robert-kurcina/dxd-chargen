@@ -19,6 +19,8 @@
     "test:db:bundle": "node scripts/database-bundle.mjs",
     "test:accounts": "node --conditions=react-server --test scripts/account-lifecycle.test.mjs scripts/security-journal.test.mjs scripts/mail-delivery.test.mjs scripts/account-rate-limit.test.mjs scripts/site-admin-review.test.mjs scripts/access-policy.test.mjs scripts/authorization-context.test.mjs scripts/character-service.test.mjs scripts/campaign-service.test.mjs scripts/campaign-invitation.test.mjs",
     "test:legacy-api-boundary": "node --test scripts/legacy-api-boundary.test.mjs",
+    "install:browser:chromium": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright install chromium --only-shell",
+    "test:browser:account-campaigns": "node scripts/workspace-account-campaigns.browser.mjs",
     "maintenance:local": "node scripts/local-maintenance.mjs",
     "db:migrate:local": "node scripts/migrate-local.mjs",
     "accounts:check:local": "node scripts/check-local-runtime.mjs",
@@ -59,6 +61,7 @@
     "@types/react-dom": "^19.2.1",
     "auth": "1.7.6",
     "drizzle-kit": "0.31.11",
+    "playwright": "^1.63.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

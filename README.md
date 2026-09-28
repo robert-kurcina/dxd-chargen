@@ -244,6 +244,8 @@ Or run all three:
 npm run check
 ```
 
+For the account campaign browser regression, start the local production server after `npm run check`, then run `npm run test:browser:account-campaigns` in another terminal. Install the bundled headless browser with `npm run install:browser:chromium`. Playwright and browser caches stay under this project’s ignored `.cache/` directory; the test mocks account API responses and does not write character files.
+
 ## Architecture
 
 - `src/data/` — static DXD catalogues and creation-flow metadata.
