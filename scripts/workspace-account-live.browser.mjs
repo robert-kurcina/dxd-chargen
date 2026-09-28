@@ -123,6 +123,11 @@ try {
   assert.ok(user?.id);
   assert.ok(user.email_verified);
   const saved = connection.sqlite.prepare('SELECT campaign_id, is_private, current_version FROM characters WHERE owner_id=?').all(user.id);
+  assert.equal(await page.evaluate(() => localStorage.getItem('dxd-character-storage-owner-v1')), user.id, 'verified account identity scopes the browser workspace');
+  const accountScopedKey = `dxd-character-library-v1:account:${encodeURIComponent(user.id)}`;
+  assert.ok(await page.evaluate(key => localStorage.getItem(key), accountScopedKey), 'account workspace has its own persisted library');
+  const guestCache = await page.evaluate(() => JSON.parse(localStorage.getItem('dxd-character-library-v1') || 'null'));
+  assert.equal(guestCache?.entries.some(entry => entry.serverRecord), false, 'account records never enter the guest cache');
   assert.equal(saved.length, 1);
   assert.equal(saved[0].campaign_id, defaultCampaignId);
   assert.equal(saved[0].is_private, 0);
@@ -173,9 +178,18 @@ try {
   await competingPage.waitForURL(`${baseUrl}/`);
   await competingPage.locator('summary[aria-label="Workspace menu"]').click();
   await assertEventuallyChecked(competingPage.getByLabel('Private in Account Library'));
+
+  await page.goto(`${baseUrl}/account`, { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: 'Sign out', exact: true }).click();
+  await page.getByRole('status').filter({ hasText: 'You have signed out.' }).waitFor();
+  assert.equal(await page.evaluate(() => localStorage.getItem('dxd-character-storage-owner-v1')), null, 'sign-out clears the remembered account cache scope');
+  await page.goto(`${baseUrl}/`, { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => localStorage.getItem('dxd-character-library-v1') !== null);
+  const signedOutGuestCache = await page.evaluate(() => JSON.parse(localStorage.getItem('dxd-character-library-v1') || 'null'));
+  assert.equal(signedOutGuestCache.entries.some(entry => entry.draft.utilities.name === 'Server winner' || entry.draft.utilities.name === 'Conflicted local edits'), false, 'account data stays out of the guest cache after sign-out');
   assert.deepEqual(competingErrors, []);
   assert.deepEqual(pageErrors, []);
-  console.log('PASS live signup/verification/save/reopen and stale Account Library edits preserved beside the latest server version');
+  console.log('PASS live signup/verification/account-scoped persistence, sign-out isolation, and stale Account Library conflict preservation');
   await competingPage.close();
   await context.close();
 } catch (error) {
