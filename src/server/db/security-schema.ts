@@ -1,3 +1,4 @@
+import { user } from './auth-schema';
 import { sqliteTable, text, integer, uniqueIndex, index } from 'drizzle-orm/sqlite-core';
 export const securityEvents = sqliteTable('security_events', {
   id: text('id').primaryKey(),
@@ -37,6 +38,12 @@ export const authThrottle = sqliteTable('auth_throttle', {
 
 
 // Human review metadata; never claims the underlying credential operation succeeded.
+export const siteAdministrators = sqliteTable('site_administrators', {
+  userId: text('user_id').primaryKey().references(() => user.id, { onDelete: 'restrict' }),
+  grantedAt: integer('granted_at').notNull(),
+  bootstrapOperationId: text('bootstrap_operation_id').notNull().unique(),
+});
+
 export const securityReviewDecisions = sqliteTable('security_review_decisions', {
   id: text('id').primaryKey(),
   sourceOperationId: text('source_operation_id').notNull(),

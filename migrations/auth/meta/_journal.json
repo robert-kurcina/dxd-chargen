@@ -64,6 +64,13 @@
       "when": 1790527373348,
       "tag": "0008_parallel_obadiah_stane",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1790564183625,
+      "tag": "0009_site_admin_bootstrap",
+      "breakpoints": true
     }
   ]
 }

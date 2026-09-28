@@ -25,14 +25,14 @@ if (await realpath(filename) !== filename) throw new Error('The local database m
 const databaseInfo = await stat(filename);
 if (!databaseInfo.isFile() || (databaseInfo.mode & 0o077) !== 0) throw new Error('The local database must be a regular owner-only file.');
 
-const expectedTables = ['user', 'account', 'session', 'verification', 'two_factor', 'auth_mail', 'security_events', 'security_changes', 'consumed_totp', 'auth_throttle', 'security_review_decisions'];
+const expectedTables = ['user', 'account', 'session', 'verification', 'two_factor', 'auth_mail', 'security_events', 'security_changes', 'consumed_totp', 'auth_throttle', 'security_review_decisions', 'site_administrators'];
 const db = new Database(filename, { readonly: true, fileMustExist: true });
 try {
   const tables = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map(row => row.name));
   const missingTables = expectedTables.filter(name => !tables.has(name));
   if (missingTables.length) throw new Error(`Database schema is incomplete; run npm run db:migrate:local. Missing: ${missingTables.join(', ')}.`);
   const migrations = db.prepare('SELECT count(*) AS count FROM __drizzle_migrations').get().count;
-  if (migrations !== 9) throw new Error(`Expected 9 reviewed local account migrations; found ${migrations}. Run npm run db:migrate:local.`);
+  if (migrations !== 10) throw new Error(`Expected 10 reviewed local account migrations; found ${migrations}. Run npm run db:migrate:local.`);
   const expiryIndex = db.prepare("SELECT 1 FROM sqlite_master WHERE type='index' AND name='auth_throttle_expiry'").get();
   if (!expiryIndex) throw new Error('Rate-limit expiry index is missing; run npm run db:migrate:local.');
   const integrity = db.pragma('integrity_check');

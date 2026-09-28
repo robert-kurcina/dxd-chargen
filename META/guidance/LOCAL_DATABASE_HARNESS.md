@@ -356,7 +356,7 @@ first.
 account API runtime is wired. It requires explicit accounts mode, a non-production
 environment, an auth secret of at least 32 characters, and a loopback auth origin.
 It checks owner-only data directory/database permissions, rejects database symlinks,
-and requires auth/audit/mail/throttle tables, the current nine migrations and throttle
+and requires auth/audit/mail/throttle tables, the current ten migrations, Site Administrator table and throttle
 expiry index, SQLite integrity and foreign-key consistency. It never opens the DB
 for writing, applies migrations, or prints the auth secret. Errors name the missing
 configuration/check without exposing credentials.
@@ -372,7 +372,7 @@ this checkpoint.
 `npm run accounts:dev` starts Next development bound to `127.0.0.1` with explicit
 accounts mode. The catch-all `/api/auth` handler is available only when both
 `NODE_ENV=development` and accounts mode are set; it returns a generic 503 otherwise.
-At request time it opens only an existing private DB with all nine migrations,
+At request time it opens only an existing private DB with all ten migrations,
 required tables and throttle index, validates the auth secret and loopback origin,
 and never runs migrations. Runtime state is reused through a process-global
 singleton for development HMR. Character file APIs are disabled in this mode.
@@ -381,6 +381,26 @@ Production auth remains closed.
 Signup and password reset links are queued encrypted. `npm run
 accounts:mail:local` prints them only from a private interactive terminal while
 accounts mode and a valid local DB/key are configured. Treat terminal output as
-credential material. No remote mail is sent. This development flow has no user
-interface, account bootstrap/roles, or shared character DB routes; it is not a
-production account service.
+credential material. No remote mail is sent. The Account page supports local signup, sign-in, verification, reset, MFA challenge and
+sign-out. A one-time CLI bootstraps the first verified Site Administrator; only that
+role can read bounded security-operation candidates and append review decisions. Shared
+character DB routes and role-management UI remain unbuilt; this is not a production
+account service.
+
+
+## H02b checkpoint: Site Administrator bootstrap and reconciliation
+
+Migration 0009 adds a local Site Administrator grant linked to a verified account.
+`npm run accounts:bootstrap-admin:local -- <username>` grants only the first Site
+Administrator and records the grant in the append-only security journal. The command
+requires accounts mode, a private existing database, the current ten migrations, and a
+local auth secret; it never creates or migrates a database.
+
+The development-only auth harness exposes a bounded reconciliation report and an
+append-only review decision endpoint only to a bootstrapped Site Administrator. Reviews
+can cover an eligible failure from another account but do not retry or change credentials.
+Writes require the configured same origin; report responses are no-store and contain no
+email addresses or request bodies. Character-file APIs remain closed in accounts mode,
+and production auth remains disabled. Tests cover unverified/duplicate bootstrap,
+unauthorized access, limits, cross-origin requests, actor attribution and immutability.
+Action-bound fresh MFA and the broader H02c role/policy cutover remain open.

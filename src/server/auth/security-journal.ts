@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { securityOperation } from './operation-context';
 import type { openDatabase } from '../db/connection';
 
-const actions = new Set(['sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation']);
+const actions = new Set(['admin/security-operations', 'admin/security-operation-review', 'sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation']);
 
 export function createSecurityJournal(connection: ReturnType<typeof openDatabase>) {
   const db = connection.sqlite;
@@ -15,7 +15,8 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
       const route = new URL(request.url).pathname.replace(/^\/api\/auth\//, '');
       // Never persist arbitrary paths, query strings, bodies, cookies or error messages.
       const method = ['GET', 'POST'].includes(request.method) ? request.method : 'OTHER';
-      const action = `${method} ${actions.has(route) ? route : 'unclassified'}`;
+      const journalRoute = /^admin\/security-operations\/[0-9a-f-]{36}\/review$/i.test(route) ? 'admin/security-operation-review' : route;
+      const action = method + ' ' + (actions.has(journalRoute) ? journalRoute : 'unclassified');
       let actorId = typeof actor === 'function' ? null : actor;
       const operationId = randomUUID();
       append(operationId, 'started', action, actorId, null); // Failure here prevents handler invocation.
@@ -31,6 +32,10 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
         append(operationId, 'responded', action, actorId, response.status);
         return response;
       });
+    },
+    isSiteAdministrator(userId: string | null) {
+      if (!userId) return false;
+      return Boolean(db.prepare('SELECT 1 FROM site_administrators WHERE user_id = ?').get(userId));
     },
     evidence(operationId: string) {
       return db.prepare('SELECT entity, entity_id, change, actor_id, occurred_at FROM security_changes WHERE operation_id = ? ORDER BY occurred_at, rowid').all(operationId);
@@ -96,6 +101,25 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
         db.prepare(`INSERT INTO security_review_decisions
           (id, source_operation_id, review_operation_id, reviewer_id, disposition, reason_code, occurred_at)
           VALUES (?, ?, ?, ?, ?, ?, ?)`).run(randomUUID(), sourceOperationId, context.operationId, context.actorId, disposition, reasonCode, now);
+        return { sourceOperationId, disposition, reasonCode, reviewerId: context.actorId, reviewedAt: now };
+      })();
+    },
+    recordStaffReviewDecision(sourceOperationId: string, disposition: 'reviewed-no-automatic-retry' | 'follow-up-required') {
+      const context = securityOperation.getStore();
+      if (!context?.actorId || context.action !== 'POST admin/security-operation-review' ||
+          !db.prepare('SELECT 1 FROM site_administrators WHERE user_id = ?').get(context.actorId)) {
+        throw new Error('An authenticated Site Administrator review is required.');
+      }
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(sourceOperationId)) throw new Error('Invalid operation identifier.');
+      if (!['reviewed-no-automatic-retry', 'follow-up-required'].includes(disposition)) throw new Error('Invalid review disposition.');
+      return db.transaction(() => {
+        const now = Date.now();
+        const source = db.prepare("SELECT s.occurred_at, NOT EXISTS (SELECT 1 FROM security_events e WHERE e.operation_id=s.operation_id AND e.phase IN ('responded','threw')) OR EXISTS (SELECT 1 FROM security_events e WHERE e.operation_id=s.operation_id AND e.phase='threw') OR EXISTS (SELECT 1 FROM security_events e WHERE e.operation_id=s.operation_id AND e.phase='responded' AND e.response_status >= 400) AS failed, (SELECT COUNT(*) FROM security_changes c WHERE c.operation_id=s.operation_id) AS changes FROM security_events s WHERE s.operation_id=? AND s.phase='started'").get(sourceOperationId) as
+          { occurred_at: number; failed: number; changes: number } | undefined;
+        if (!source || !source.failed || source.occurred_at > now - 300_000) throw new Error('Operation is not an eligible review candidate.');
+        const reasonCode = source.changes > 0 ? 'change-evidence-recorded' : 'no-change-evidence-recorded';
+        db.prepare('INSERT INTO security_review_decisions (id, source_operation_id, review_operation_id, reviewer_id, disposition, reason_code, occurred_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
+          .run(randomUUID(), sourceOperationId, context.operationId, context.actorId, disposition, reasonCode, now);
         return { sourceOperationId, disposition, reasonCode, reviewerId: context.actorId, reviewedAt: now };
       })();
     },

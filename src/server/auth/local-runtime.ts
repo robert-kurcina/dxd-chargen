@@ -4,8 +4,8 @@ import path from 'node:path';
 import { openDatabase } from '../db/connection';
 import { createLocalAccountHarness } from './local-harness';
 
-const migrationCount = 9;
-const requiredTables = ['user', 'account', 'session', 'verification', 'two_factor', 'auth_mail', 'security_events', 'security_changes', 'consumed_totp', 'auth_throttle', 'security_review_decisions'];
+const migrationCount = 10;
+const requiredTables = ['user', 'account', 'session', 'verification', 'two_factor', 'auth_mail', 'security_events', 'security_changes', 'consumed_totp', 'auth_throttle', 'security_review_decisions', 'site_administrators'];
 type LocalRuntime = ReturnType<typeof createLocalAccountHarness> & { close: () => void };
 type RuntimeGlobal = typeof globalThis & { __dxdLocalAccountRuntime?: LocalRuntime };
 

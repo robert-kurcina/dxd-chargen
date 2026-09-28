@@ -54,6 +54,32 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       return session?.user.id ?? null;
     }, async incoming => {
       const route = new URL(incoming.url).pathname;
+      const adminActor = securityOperation.getStore()?.actorId ?? null;
+      const reviewListPath = '/api/auth/admin/security-operations';
+      const reviewMatch = route.match(/^\/api\/auth\/admin\/security-operations\/([0-9a-f-]{36})\/review$/i);
+      if (incoming.method === 'GET' && route === reviewListPath) {
+        if (!journal.isSiteAdministrator(adminActor)) return Response.json({ error: 'Forbidden.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        const rawLimit = new URL(incoming.url).searchParams.get('limit') ?? '100';
+        if (!/^\d{1,3}$/.test(rawLimit) || Number(rawLimit) < 1 || Number(rawLimit) > 100) return Response.json({ error: 'Invalid limit.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } });
+        return Response.json(journal.reviewCandidates({ limit: Number(rawLimit) }), { headers: { 'Cache-Control': 'no-store' } });
+      }
+      if (incoming.method === 'POST' && reviewMatch) {
+        if (!journal.isSiteAdministrator(adminActor)) return Response.json({ error: 'Forbidden.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        if (!incoming.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'JSON required.' }, { status: 415, headers: { 'Cache-Control': 'no-store' } });
+        const raw = await incoming.text();
+        if (Buffer.byteLength(raw, 'utf8') > 1024) return Response.json({ error: 'Request too large.' }, { status: 413, headers: { 'Cache-Control': 'no-store' } });
+        let body;
+        try { body = JSON.parse(raw); } catch { return Response.json({ error: 'Invalid JSON.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } }); }
+        if (!body || typeof body !== 'object' || Array.isArray(body) || Object.keys(body).length !== 1 || !['reviewed-no-automatic-retry', 'follow-up-required'].includes(body.disposition)) return Response.json({ error: 'Invalid review disposition.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } });
+        try {
+          const decision = journal.recordStaffReviewDecision(reviewMatch[1], body.disposition);
+          return Response.json(decision, { headers: { 'Cache-Control': 'no-store' } });
+        } catch (error) {
+          const message = error instanceof Error ? error.message : 'Review could not be recorded.';
+          return Response.json({ error: message }, { status: 409, headers: { 'Cache-Control': 'no-store' } });
+        }
+      }
       if (incoming.method === 'POST' && route === '/api/auth/sign-up/email') {
         let body: unknown;
         try { body = await incoming.clone().json(); } catch { return Response.json({ code: 'INVALID_JSON' }, { status: 400 }); }
