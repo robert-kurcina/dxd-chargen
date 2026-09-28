@@ -6,6 +6,9 @@ export const PENDING_FILE_LOAD_STORAGE_KEY = 'dxd-character-pending-file-load-v1
 
 export type CharacterLibraryEntry = {
   fileId?: string;
+  /** Account campaign selected for a new account-backed character; active campaigns remain unassigned pending review. */
+  accountTargetCampaignId?: string;
+  accountTargetCampaignName?: string;
   serverRecord?: { id: string; version: number; isPrivate: boolean; mode: 'server' | 'copy' };
   id: string;
   createdAt: string;
@@ -49,6 +52,8 @@ export function migrateCharacterLibrary(value: unknown, fallbackDraft?: unknown)
     if (candidate.schemaVersion === 1 && Array.isArray(candidate.entries)) {
       const entries = candidate.entries.map((entry) => ({
         fileId: typeof entry?.fileId === 'string' ? entry.fileId : undefined,
+        accountTargetCampaignId: typeof entry?.accountTargetCampaignId === 'string' && /^[0-9a-f-]{36}$/i.test(entry.accountTargetCampaignId) ? entry.accountTargetCampaignId : undefined,
+        accountTargetCampaignName: typeof entry?.accountTargetCampaignName === 'string' ? entry.accountTargetCampaignName.slice(0, 100) : undefined,
         serverRecord: entry?.serverRecord && typeof entry.serverRecord.id === 'string' && /^[0-9a-f-]{36}$/i.test(entry.serverRecord.id) && Number.isSafeInteger(entry.serverRecord.version) && entry.serverRecord.version > 0 && typeof entry.serverRecord.isPrivate === 'boolean' && (entry.serverRecord.mode === 'server' || entry.serverRecord.mode === 'copy') ? { id: entry.serverRecord.id, version: entry.serverRecord.version, isPrivate: entry.serverRecord.isPrivate, mode: entry.serverRecord.mode } : undefined,
         id: typeof entry?.id === 'string' && entry.id ? entry.id : makeCharacterId(),
         createdAt: typeof entry?.createdAt === 'string' ? entry.createdAt : now(),
@@ -144,6 +149,6 @@ export function addImportedCharacter(library: CharacterLibraryState, value: unkn
 }
 
 export function exportCharacter(entry: CharacterLibraryEntry): CharacterExportEnvelope {
-  const { serverRecord: _serverRecord, ...detachedEntry } = entry;
+  const { serverRecord: _serverRecord, accountTargetCampaignId: _accountTargetCampaignId, accountTargetCampaignName: _accountTargetCampaignName, ...detachedEntry } = entry;
   return { format: 'dxd-chargen-character', version: 1, exportedAt: now(), character: detachedEntry };
 }

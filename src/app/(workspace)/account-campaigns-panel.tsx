@@ -8,7 +8,7 @@ type CampaignCatalog = { campaigns?: ServerCampaign[]; canCreateCampaign?: boole
 type CampaignInvitation = { id: string; role: 'player' | 'gm' | 'campaign-administrator'; expiresAt: number; maxUses: number; uses: number; createdAt: number; revokedAt: number | null };
 type AccountCampaignState = 'checking' | 'signed-out' | 'offline' | 'ready';
 
-export default function AccountCampaignsPanel() {
+export default function AccountCampaignsPanel({ onCreateCharacter }: { onCreateCharacter: (campaign: ServerCampaign) => void }) {
   const [state, setState] = useState<AccountCampaignState>('checking');
   const [campaigns, setCampaigns] = useState<ServerCampaign[]>([]);
   const [canCreateCampaign, setCanCreateCampaign] = useState(false);
@@ -141,6 +141,7 @@ export default function AccountCampaignsPanel() {
           {campaigns.map(item => <option key={item.id} value={item.id}>{item.name}{item.isDefault ? ' · baseline' : ''}{item.lifecycle === 'archived' ? ' · archived' : ''}</option>)}
         </select></label>
         {campaign && <p className="text-sm text-muted-foreground">{campaign.isDefault ? 'Immutable baseline · fork this campaign before inviting members.' : `${campaign.lifecycle === 'preparing' ? 'Preparing' : campaign.lifecycle === 'active' ? 'Active' : 'Archived'}${campaign.canConfigure ? ' · You can manage campaign invitations.' : ' · You are a member of this campaign.'}`}</p>}
+        {campaign && campaign.lifecycle !== 'archived' && <div className="space-y-2"><button type="button" className="min-h-11 rounded-md bg-primary px-4 font-medium text-primary-foreground" onClick={() => onCreateCharacter(campaign)}>{campaign.lifecycle === 'active' && !campaign.isDefault && !campaign.canConfigure ? 'Create unassigned character for this campaign' : 'Create a character in this campaign'}</button>{campaign.lifecycle === 'active' && !campaign.isDefault && !campaign.canConfigure && <p className="text-xs text-muted-foreground">Player characters stay unassigned until campaign review and admission are implemented.</p>}</div>}
         {campaign?.canConfigure && !campaign.isDefault && campaign.lifecycle !== 'archived' && <>
           <div className="space-y-3 rounded-lg bg-muted/50 p-3 sm:p-4">
             <h3 className="font-medium">Create an invitation</h3>

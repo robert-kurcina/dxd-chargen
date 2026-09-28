@@ -55,6 +55,16 @@ test('development character API enforces ownership, privacy, campaign scope and 
     connection.sqlite.prepare("INSERT INTO campaign_memberships (campaign_id,user_id,role,state,joined_at) VALUES (?,?,'gm','active',?)").run(campaign, gm.id, Date.now());
 
     const draft = createEmptyCharacterDraft(); draft.background.properName = 'Private Alice';
+    const preparingCreated = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft, campaignId: campaign, private: false, idempotencyKey: randomUUID() } });
+    assert.equal(preparingCreated.status, 201, 'a player may create a character in a preparing campaign they joined');
+    const unassignedCreated = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft, campaignId: null, private: false, idempotencyKey: randomUUID() } });
+    assert.equal(unassignedCreated.status, 201, 'players may save an unassigned character while active-campaign admission is pending');
+    connection.sqlite.prepare("UPDATE campaigns SET lifecycle='active' WHERE id=?").run(campaign);
+    const activePlayerCreated = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft, campaignId: campaign, private: false, idempotencyKey: randomUUID() } });
+    assert.equal(activePlayerCreated.status, 403, 'players cannot bypass review by creating directly inside an active campaign');
+    const activeStaffCreated = await auth('characters', { method: 'POST', cookie: gm.cookie, body: { draft, campaignId: campaign, private: false, idempotencyKey: randomUUID() } });
+    assert.equal(activeStaffCreated.status, 201, 'campaign staff may create directly inside their active campaign');
+    connection.sqlite.prepare("UPDATE campaigns SET lifecycle='preparing' WHERE id=?").run(campaign);
     const createKey = randomUUID();
     const created = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft, campaignId: campaign, private: true, idempotencyKey: createKey } });
     assert.equal(created.status, 201, await created.clone().text());
@@ -64,7 +74,9 @@ test('development character API enforces ownership, privacy, campaign scope and 
     assert.equal(replayCreate.status, 200); assert.equal((await replayCreate.json()).id, character.id);
     assert.equal((await auth(`characters/${character.id}`, { cookie: bob.cookie })).status, 404);
     assert.equal((await auth('characters?campaignId=' + campaign, { cookie: bob.cookie })).status, 200);
-    assert.equal((await (await auth('characters?campaignId=' + campaign, { cookie: bob.cookie })).json()).characters.length, 0);
+    const bobCampaignCharacters = (await (await auth('characters?campaignId=' + campaign, { cookie: bob.cookie })).json()).characters;
+    assert.equal(bobCampaignCharacters.length, 2, 'Bob sees shared characters in the campaign');
+    assert.equal(bobCampaignCharacters.some(item => item.id === character.id), false, 'Bob does not see Alice’s private campaign character');
     const gmDetail = await auth(`characters/${character.id}`, { cookie: gm.cookie });
     assert.equal(gmDetail.status, 200);
     assert.equal((await gmDetail.json()).private, true);

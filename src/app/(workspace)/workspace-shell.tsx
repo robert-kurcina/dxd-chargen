@@ -91,7 +91,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
       {(mountedTabs.has('/library') || activeTab === '/library') && <section hidden={activeTab !== '/library'} aria-hidden={activeTab !== '/library'}><Suspense fallback={<SuspenseSpinner panel label="Loading Library…" />}><LibraryWorkspaceView /></Suspense></section>}
     </div>
     <div data-forge-modal-background className="fixed inset-x-0 bottom-0 z-40 border-t bg-background px-2 pt-1 pb-[max(0.5rem,env(safe-area-inset-bottom))] lg:hidden print:hidden">{navigation(true)}</div>
-    <ConfirmDialog open={confirm === 'save'} title="Save character?" confirmLabel="Save" busy={saving} onCancel={() => setConfirm(null)} onConfirm={() => { void save().then(ok => { if (ok) setConfirm(null); }); }}><p>{isAccountCharacter && !activeFileId ? 'Save a new version to the Account Library.' : `Write the current character to ${activeFileId || 'a new character file'}.`}</p></ConfirmDialog>
+    <ConfirmDialog open={confirm === 'save'} title="Save character?" confirmLabel="Save" busy={saving} onCancel={() => setConfirm(null)} onConfirm={() => { void save().then(ok => { if (ok) setConfirm(null); }); }}><p>{isAccountCharacter && !activeFileId ? hasAccountRecord ? 'Save a new version to the Account Library.' : 'Save this character to your Account Library.' : `Write the current character to ${activeFileId || 'a new character file'}.`}</p></ConfirmDialog>
     <ConfirmDialog open={confirm === 'reset'} title="Reset character?" confirmLabel="Reset" onCancel={() => setConfirm(null)} onConfirm={() => { reset(); setConfirm(null); }}><p>Start a new empty draft in the selected campaign. Your current draft remains available in the Library.</p></ConfirmDialog>
   </div></main>;
 }
