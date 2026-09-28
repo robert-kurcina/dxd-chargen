@@ -21,6 +21,7 @@
     "test:legacy-api-boundary": "node --test scripts/legacy-api-boundary.test.mjs",
     "install:browser:chromium": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright install chromium --only-shell",
     "test:browser:account-campaigns": "node scripts/workspace-account-campaigns.browser.mjs",
+    "test:browser:account-live": "node --conditions=react-server scripts/workspace-account-live.browser.mjs",
     "maintenance:local": "node scripts/local-maintenance.mjs",
     "db:migrate:local": "node scripts/migrate-local.mjs",
     "accounts:check:local": "node scripts/check-local-runtime.mjs",

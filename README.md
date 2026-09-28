@@ -244,7 +244,7 @@ Or run all three:
 npm run check
 ```
 
-For the account campaign browser regression, start the local production server after `npm run check`, then run `npm run test:browser:account-campaigns` in another terminal. Install the bundled headless browser with `npm run install:browser:chromium`. Playwright and browser caches stay under this project’s ignored `.cache/` directory; the test mocks account API responses and does not write character files.
+For browser regressions, install the bundled headless browser with `npm run install:browser:chromium`. Playwright, browser profiles, and test databases stay under this project’s ignored `.cache/` directory. `npm run test:browser:account-campaigns` uses mocked auth responses to cover four campaign/role cases without writing character files. `npm run test:browser:account-live` starts a temporary local server, verifies a synthetic account through the encrypted local inbox, saves a Default-campaign character to a disposable SQLite database, confirms the row, reopens it in Library, then removes the database.
 
 ## Architecture
 
