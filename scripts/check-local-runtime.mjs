@@ -17,8 +17,7 @@ const baseURL = new URL(process.env.DXD_AUTH_BASE_URL ?? 'http://127.0.0.1:3000'
 if (!['localhost', '127.0.0.1', '[::1]'].includes(baseURL.hostname) || !['http:', 'https:'].includes(baseURL.protocol) || baseURL.username || baseURL.password || baseURL.pathname !== '/' || baseURL.search || baseURL.hash) {
   throw new Error('DXD_AUTH_BASE_URL must be a loopback origin with no path or credentials.');
 }
-const dataDir = path.resolve(configuredDir);
-if (await realpath(dataDir) !== dataDir) throw new Error('DXD_DATA_DIR must not resolve through a symlink.');
+const dataDir = await realpath(path.resolve(configuredDir));
 const directoryInfo = await stat(dataDir);
 if (!directoryInfo.isDirectory() || (directoryInfo.mode & 0o077) !== 0) throw new Error('DXD_DATA_DIR must have owner-only permissions.');
 const filename = path.join(dataDir, 'dxd.sqlite');

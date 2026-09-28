@@ -9,9 +9,9 @@ const configuredDir = process.env.DXD_DATA_DIR;
 if (!configuredDir || !path.isAbsolute(configuredDir)) {
   throw new Error('Set DXD_DATA_DIR to an absolute local data directory outside public assets.');
 }
-const dataDir = path.resolve(configuredDir);
-await mkdir(dataDir, { recursive: true, mode: 0o700 });
-if (await realpath(dataDir) !== dataDir) throw new Error('DXD_DATA_DIR must not resolve through a symlink.');
+const configuredPath = path.resolve(configuredDir);
+await mkdir(configuredPath, { recursive: true, mode: 0o700 });
+const dataDir = await realpath(configuredPath);
 const directoryInfo = await stat(dataDir);
 if (!directoryInfo.isDirectory() || (directoryInfo.mode & 0o077) !== 0) {
   throw new Error('DXD_DATA_DIR must be a directory accessible only to its owner (mode 0700).');

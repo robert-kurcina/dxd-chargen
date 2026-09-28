@@ -337,7 +337,7 @@ accounts can be operated. No tests or build were run for this checkpoint.
 
 `npm run db:migrate:local` creates/applies the reviewed account migrations in
 `$DXD_DATA_DIR/dxd.sqlite`. The path must be absolute, outside public assets,
-and resolve without symlinks. The directory must have owner-only permissions;
+and its resolved directory must have owner-only permissions;
 the database is restricted to mode 0600. SQLite foreign keys, WAL and a bounded
 busy timeout are enabled. The command is explicit and separate from web requests;
 normal startup does not apply migrations. Its output includes only the local DB
@@ -355,8 +355,8 @@ first.
 `npm run accounts:check:local` performs read-only readiness checks before any
 account API runtime is wired. It requires explicit accounts mode, a non-production
 environment, an auth secret of at least 32 characters, and a loopback auth origin.
-It checks owner-only data directory/database permissions, symlink boundaries,
-required auth/audit/mail/throttle tables, the current nine migrations and throttle
+It checks owner-only data directory/database permissions, rejects database symlinks,
+and requires auth/audit/mail/throttle tables, the current nine migrations and throttle
 expiry index, SQLite integrity and foreign-key consistency. It never opens the DB
 for writing, applies migrations, or prints the auth secret. Errors name the missing
 configuration/check without exposing credentials.
