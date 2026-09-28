@@ -1,5 +1,5 @@
 import 'server-only';
-import { createHmac } from 'node:crypto';
+import { createHmac, randomUUID } from 'node:crypto';
 import { securityOperation } from './operation-context';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from '@better-auth/drizzle-adapter';
@@ -69,14 +69,71 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
   const characters = createCharacterService(connection);
   const campaigns = createCampaignService(connection);
   const invitations = createCampaignInvitationService(connection, origin.origin);
+  const sessionHeaders = (request: Request, response?: Response) => {
+    const cookies = new Map<string, string>();
+    for (const pair of (request.headers.get('cookie') ?? '').split(';')) {
+      const separator = pair.indexOf('=');
+      if (separator > 0) cookies.set(pair.slice(0, separator).trim(), pair.slice(separator + 1).trim());
+    }
+    for (const setCookie of response?.headers.getSetCookie() ?? []) {
+      const pair = setCookie.split(';', 1)[0], separator = pair.indexOf('=');
+      if (separator < 1) continue;
+      const name = pair.slice(0, separator), value = pair.slice(separator + 1);
+      if (/Max-Age=0/i.test(setCookie)) cookies.delete(name); else cookies.set(name, value);
+    }
+    return new Headers({ cookie: [...cookies].map(([name, value]) => `${name}=${value}`).join('; ') });
+  };
   const invokeAuth = async (request: Request) => {
+    const route = new URL(request.url).pathname;
+    const stepUpRoute = request.method === 'POST' && ['/api/auth/two-factor/verify-totp', '/api/auth/two-factor/verify-backup-code'].includes(route);
+    const priorSession = stepUpRoute ? await auth.api.getSession({ headers: request.headers, query: { disableRefresh: true } }) : null;
     const response = await auth.handler(request);
+    if (response.ok && stepUpRoute) {
+      const completed = await auth.api.getSession({ headers: sessionHeaders(request, response), query: { disableRefresh: true } });
+      if (completed?.session && completed.user.twoFactorEnabled) {
+        const context = securityOperation.getStore();
+        if (context) context.actorId = completed.user.id;
+        try {
+          connection.sqlite.transaction(() => {
+            if (route.endsWith('/verify-totp') && priorSession?.session.id === completed.session.id) {
+              const fingerprint = context?.totpFingerprint;
+              if (!fingerprint) throw new Error('A TOTP verification fingerprint is required.');
+              const now = Date.now();
+              connection.sqlite.prepare('DELETE FROM consumed_totp WHERE user_id=? AND expires_at<=?').run(completed.user.id, now);
+              connection.sqlite.prepare('INSERT INTO consumed_totp (id,user_id,fingerprint,expires_at) VALUES (?,?,?,?)').run(randomUUID(), completed.user.id, fingerprint, now + 90_000);
+            }
+            connection.sqlite.prepare('UPDATE session SET created_at=? WHERE id=? AND user_id=?').run(Date.now(), completed.session.id, completed.user.id);
+          }).immediate();
+        } catch (error) {
+          if ((error as { code?: string }).code === 'SQLITE_CONSTRAINT_UNIQUE' || (error as { code?: string }).code === 'SQLITE_CONSTRAINT_PRIMARYKEY') {
+            if (context) context.totpReplayRejected = true;
+          } else throw error;
+        }
+      }
+    }
     // The pinned library uses X-Retry-After; also expose the standard header.
     if (response.status === 429 && response.headers.has('x-retry-after')) {
       response.headers.set('retry-after', response.headers.get('x-retry-after')!);
     }
     return securityOperation.getStore()?.totpReplayRejected
-      ? Response.json({ code: 'TOTP_ALREADY_USED' }, { status: 401 }) : response;
+      ? Response.json({ code: 'TOTP_ALREADY_USED' }, { status: 401, headers: { 'Cache-Control': 'no-store' } }) : response;
+  };
+  const requireFreshMfa = async (request: Request, actorId: string | null) => {
+    const headers = request.headers;
+    const session = actorId ? await auth.api.getSession({ headers, query: { disableRefresh: true } }) : null;
+    if (!session || session.user.id !== actorId) return Response.json({ error: 'Authentication required.' }, { status: 401, headers: { 'Cache-Control': 'no-store' } });
+    const factor = connection.sqlite.prepare(`SELECT u.two_factor_enabled AS enabled, count(tf.id) AS factors,
+        sum(CASE WHEN tf.verified=1 THEN 1 ELSE 0 END) AS verifiedFactors
+      FROM user u LEFT JOIN two_factor tf ON tf.user_id=u.id WHERE u.id=? GROUP BY u.id`).get(actorId) as
+      { enabled: number; factors: number; verifiedFactors: number | null } | undefined;
+    if (!factor || factor.enabled !== 1 || factor.factors !== 1 || factor.verifiedFactors !== 1) {
+      return Response.json({ error: 'Enable and verify an authenticator before managing campaign access.', code: 'MFA_REQUIRED' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+    }
+    const age = Date.now() - new Date(session.session.createdAt).getTime();
+    if (!Number.isFinite(age) || age < 0 || age >= 5 * 60 * 1000) {
+      return Response.json({ error: 'Verify your authenticator again before this action.', code: 'MFA_REAUTHENTICATION_REQUIRED' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+    }
+    return null;
   };
   const handle = async (request: Request) => {
     return journal.run(request, async () => {
@@ -97,6 +154,8 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       if (campaignInviteMatch && incoming.method === 'GET' && !campaignInviteMatch[2]) return invitations.list(securityOperation.getStore()?.actorId ?? null, campaignInviteMatch[1]);
       if (campaignInviteMatch && incoming.method === 'POST' && !campaignInviteMatch[2]) {
         if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        const mfaRequired = await requireFreshMfa(incoming, securityOperation.getStore()?.actorId ?? null);
+        if (mfaRequired) return mfaRequired;
         if (!incoming.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'JSON required.' }, { status: 415, headers: { 'Cache-Control': 'no-store' } });
         const parsed = await readBoundedJson(incoming, 4096);
         if (parsed.error) return parsed.error;
@@ -104,11 +163,15 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       }
       if (campaignInviteMatch && incoming.method === 'DELETE' && campaignInviteMatch[2]) {
         if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        const mfaRequired = await requireFreshMfa(incoming, securityOperation.getStore()?.actorId ?? null);
+        if (mfaRequired) return mfaRequired;
         return invitations.revoke(securityOperation.getStore()?.actorId ?? null, campaignInviteMatch[1], campaignInviteMatch[2]);
       }
       if (route === campaignRoot && incoming.method === 'GET') return campaigns.list(securityOperation.getStore()?.actorId ?? null);
       if (route === campaignRoot && incoming.method === 'POST') {
         if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        const mfaRequired = await requireFreshMfa(incoming, securityOperation.getStore()?.actorId ?? null);
+        if (mfaRequired) return mfaRequired;
         if (!incoming.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'JSON required.' }, { status: 415, headers: { 'Cache-Control': 'no-store' } });
         const parsed = await readBoundedJson(incoming, 4096);
         if (parsed.error) return parsed.error;
