@@ -2,6 +2,12 @@
 
 Web character generator for the Sarna Len roleplaying game and DXD rules system.
 
+## Repository responsibilities
+
+This repository owns the Web client and its backend service: UI, API routes, accounts and permissions, persistence, migrations, application catalogues, tests, and deployment. Application plans and execution status live in [META/guidance](META/guidance/README.md).
+
+[meta-dxd](../meta-dxd/README.md) owns shared DXD/Sarna Len guidance and cross-repository coordination. See its [repository boundaries](../meta-dxd/coordination/REPOSITORIES.md) for placement and handoff rules. These sibling links assume adjacent checkouts; the application does not require `meta-dxd` at runtime.
+
 ## Current state — v147
 
 The application opens on **Forge** and follows the canonical five-phase DXD character-creation sequence. **Assign Background**, **Assign Intrinsics**, **Assign Proficiencies**, **Assign Properties**, and the in-scope **Assign Utilities** steps are now interactive against the approved static data and deterministic rules. Relationships remain deliberately deferred and non-blocking rather than being implemented from an invented rules model.
