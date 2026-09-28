@@ -5,7 +5,7 @@ import SuspenseSpinner from '@/components/suspense-spinner';
 import { useRouter } from 'next/navigation';
 import type { StaticData } from '@/data';
 import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { createLibraryEntry, importCharacter, exportCharacter, activeLibraryEntry, browserPersistedLibrary, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
+import { createLibraryEntry, importCharacter, exportCharacter, activeLibraryEntry, browserPersistedLibrary, preserveAccountConflict, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
 import { syncHeritageGrantedSelections } from '@/lib/rules/background';
 import { syncIntrinsics } from '@/lib/rules/intrinsics';
 import { syncProficiencies } from '@/lib/rules/proficiencies';
@@ -260,7 +260,20 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       });
       const result = await response.json().catch(() => ({})) as { id?: string; version?: number; currentVersion?: number; error?: string };
       if (!response.ok) {
-        if (response.status === 409) setMessage(`Account character changed on the server (current version ${result.currentVersion ?? 'unknown'}). Your edits remain open in this tab; reopen the current account version before trying again.`);
+        if (response.status === 409) {
+          const currentLibrary = libraryRef.current;
+          const wasActive = currentLibrary.activeId === startedId;
+          const preservedLibrary = preserveAccountConflict(currentLibrary, startedId, privateValue);
+          if (preservedLibrary) {
+            setLibrary(preservedLibrary);
+            if (wasActive) {
+              setHistory(emptyHistory()); setActiveFileId(null);
+              setAccountPrivateChoice(privateValue); setSavedAccountPrivate(false); setSavedAccountSnapshot(''); setSavedSnapshot('');
+            }
+            setMessage(`Account character changed on the server (current version ${result.currentVersion ?? 'unknown'}). Your edits were preserved as a separate local draft. Reopen the current account version to review both copies.`);
+            return true;
+          } else setMessage(`Account character changed on the server (current version ${result.currentVersion ?? 'unknown'}). The earlier draft remains in your local Library.`);
+        }
         else if (response.status === 401) setMessage('Sign in with a verified account to save to the Account Library. Your current edits remain open in this tab.');
         else if (response.status === 403) setMessage(result.error ?? 'You do not have permission to change this account character. Your current edits remain open in this tab.');
         else setMessage(result.error ?? 'Account save failed. Your current edits remain open in this tab.');
@@ -273,9 +286,11 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       const currentEntry = currentLibrary.entries.find(entry => entry.id === startedId);
       if (!currentEntry) { setLibraryRefresh(key => key + 1); setMessage('The earlier character was saved to your account. The current character is unchanged.'); return true; }
       const currentUnchanged = comparableDraft(currentEntry.draft) === comparableDraft(startedDraft) && accountPrivateChoice === privateValue;
-      const nextLibrary = { ...currentLibrary, entries: currentLibrary.entries.map(entry => entry.id === startedId
-        ? { ...entry, serverRecord: { ...savedRecord, mode: record?.mode ?? 'copy' } }
-        : entry) };
+      const nextLibrary = { ...currentLibrary, entries: currentLibrary.entries.map(entry => {
+        if (entry.id !== startedId) return entry;
+        const { accountCopyPrivate: _accountCopyPrivate, ...savedEntry } = entry;
+        return { ...savedEntry, serverRecord: { ...savedRecord, mode: record?.mode ?? 'copy' } };
+      }) };
       setLibrary(nextLibrary);
       if (currentLibrary.activeId === startedId && currentUnchanged) {
         const savedEntry = nextLibrary.entries.find(entry => entry.id === startedId)!;
@@ -384,7 +399,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     const entry = libraryRef.current.entries.find(item => item.id === id); if (!entry) return;
     const next = { ...libraryRef.current, activeId: id }; setLibrary(next); restoreHistory(next);
     setActiveFileId(entry.fileId ?? null);
-    setAccountPrivateChoice(entry.serverRecord?.isPrivate ?? false); setSavedAccountPrivate(entry.serverRecord?.isPrivate ?? false);
+    setAccountPrivateChoice(entry.serverRecord?.isPrivate ?? entry.accountCopyPrivate ?? false); setSavedAccountPrivate(entry.serverRecord?.isPrivate ?? false);
     setSavedAccountSnapshot(entry.serverRecord ? comparableDraft(entry.draft) : '');
     setSavedSnapshot('');
     setMessage(entry.serverRecord ? `Opened cached account character v${entry.serverRecord.version}.` : 'Opened browser draft.'); router.push('/');

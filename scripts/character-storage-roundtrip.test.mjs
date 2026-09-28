@@ -50,6 +50,42 @@ test('Library maintenance preserves current drafts on disk and still repairs leg
   } finally { await rm(root, { recursive: true, force: true }); }
 });
 
+test('stale Account Library edits detach into a durable local copy without their server identity', async () => {
+  const { createLibraryEntry, preserveAccountConflict } = await import('../src/lib/character-library.ts');
+  const draft = createEmptyCharacterDraft();
+  draft.characterId = 'server-character-key';
+  draft.utilities.name = 'Unsaved conflict edits';
+  draft.utilities.notes = 'Keep every local edit when the server version has advanced.';
+  const server = createLibraryEntry(draft, 'account:7841aa01-33f4-4a90-8d13-000000000099');
+  server.serverRecord = { id: '7841aa01-33f4-4a90-8d13-000000000099', version: 2, isPrivate: true, mode: 'server' };
+  const untouched = createLibraryEntry(createEmptyCharacterDraft(), 'local:untouched');
+  const library = { schemaVersion: 1, activeId: server.id, entries: [server, untouched] };
+  const preserved = preserveAccountConflict(library, server.id, true);
+  assert.ok(preserved);
+  assert.notEqual(preserved.activeId, server.id);
+  assert.equal(preserved.entries.length, 2);
+  const detached = preserved.entries.find(entry => entry.id === preserved.activeId);
+  assert.ok(detached);
+  assert.notEqual(detached.id, server.id);
+  assert.equal(detached.serverRecord, undefined);
+  assert.equal(detached.accountCopyPrivate, true, 'the intended Account Library privacy choice remains available on the detached copy');
+  assert.equal(detached.fileId, undefined);
+  assert.equal(detached.draft.characterId, null);
+  assert.equal(detached.draft.utilities.name, 'Unsaved conflict edits');
+  assert.equal(detached.draft.utilities.notes, 'Keep every local edit when the server version has advanced.');
+  assert.equal(preserved.entries.find(entry => entry.id === untouched.id), untouched);
+  assert.equal(library.entries[0], server, 'the original library remains unchanged');
+  assert.equal(preserveAccountConflict(library, 'missing'), null);
+  const latestServer = createLibraryEntry(createEmptyCharacterDraft(), server.id);
+  latestServer.serverRecord = { id: server.serverRecord.id, version: 3, isPrivate: false, mode: 'server' };
+  const browserDurable = (await import('../src/lib/character-library.ts')).browserPersistedLibrary(preserved);
+  assert.equal(browserDurable.entries.some(entry => entry.id === detached.id), true, 'conflicted local edits survive reload');
+  assert.equal(browserDurable.entries.find(entry => entry.id === detached.id)?.accountCopyPrivate, true);
+  const bothCopies = { ...preserved, entries: [...preserved.entries, latestServer] };
+  assert.equal(bothCopies.entries.some(entry => entry.id === detached.id), true);
+  assert.equal(bothCopies.entries.some(entry => entry.serverRecord?.version === 3), true);
+});
+
 test('backup envelope round-trip detaches file identity and rejects invalid formats', async () => {
   const { exportCharacter, importCharacter, createLibraryEntry, migrateCharacterLibrary, browserPersistedLibrary } = await import('../src/lib/character-library.ts');
   const source = createLibraryEntry(createEmptyCharacterDraft());
@@ -72,6 +108,7 @@ test('backup envelope round-trip detaches file identity and rejects invalid form
   assert.equal('serverRecord' in envelope.character, false, 'backup is a detached copy, not a link to the account record');
   assert.equal('accountTargetCampaignId' in envelope.character, false, 'backup is not coupled to an account campaign');
   assert.equal('accountTargetCampaignName' in envelope.character, false, 'backup is not coupled to an account campaign');
+  assert.equal('accountCopyPrivate' in envelope.character, false, 'backup is not coupled to an Account Library privacy setting');
   const snapshot = structuredClone(envelope);
   const imported = importCharacter(JSON.parse(JSON.stringify(envelope)));
   assert.notEqual(imported.id, source.id);
