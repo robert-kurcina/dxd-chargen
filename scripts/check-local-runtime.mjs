@@ -25,19 +25,19 @@ if (await realpath(filename) !== filename) throw new Error('The local database m
 const databaseInfo = await stat(filename);
 if (!databaseInfo.isFile() || (databaseInfo.mode & 0o077) !== 0) throw new Error('The local database must be a regular owner-only file.');
 
-const expectedTables = ['user', 'account', 'session', 'verification', 'two_factor', 'auth_mail', 'security_events', 'security_changes', 'consumed_totp', 'auth_throttle', 'security_review_decisions', 'site_administrators', 'account_access', 'campaigns', 'campaign_memberships'];
+const expectedTables = ['user', 'account', 'session', 'verification', 'two_factor', 'auth_mail', 'security_events', 'security_changes', 'consumed_totp', 'auth_throttle', 'security_review_decisions', 'site_administrators', 'account_access', 'campaigns', 'campaign_memberships', 'characters', 'character_versions'];
 const db = new Database(filename, { readonly: true, fileMustExist: true });
 try {
   const tables = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map(row => row.name));
   const missingTables = expectedTables.filter(name => !tables.has(name));
   if (missingTables.length) throw new Error(`Database schema is incomplete; run npm run db:migrate:local. Missing: ${missingTables.join(', ')}.`);
   const migrations = db.prepare('SELECT count(*) AS count FROM __drizzle_migrations').get().count;
-  if (migrations !== 11) throw new Error(`Expected 11 reviewed local account migrations; found ${migrations}. Run npm run db:migrate:local.`);
-  const requiredIndexes = ['auth_throttle_expiry', 'campaign_single_default', 'campaign_membership_campaign_user'];
+  if (migrations !== 12) throw new Error(`Expected 12 reviewed local account migrations; found ${migrations}. Run npm run db:migrate:local.`);
+  const requiredIndexes = ['auth_throttle_expiry', 'campaign_single_default', 'campaign_membership_campaign_user', 'character_owner_create_idempotency', 'character_version_number', 'character_version_idempotency', 'character_version_history'];
   const indexes = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='index'").all().map(row => row.name));
   const missingIndexes = requiredIndexes.filter(name => !indexes.has(name));
   if (missingIndexes.length) throw new Error(`Database indexes are incomplete; run npm run db:migrate:local. Missing: ${missingIndexes.join(', ')}.`);
-  const requiredTriggers = ['account_access_audit_insert', 'account_access_audit_update', 'account_access_no_delete', 'campaign_audit_insert', 'campaign_audit_update', 'campaign_no_delete', 'campaign_default_immutable', 'campaign_membership_audit_insert', 'campaign_membership_audit_update', 'campaign_membership_no_delete'];
+  const requiredTriggers = ['account_access_audit_insert', 'account_access_audit_update', 'account_access_no_delete', 'campaign_audit_insert', 'campaign_audit_update', 'campaign_no_delete', 'campaign_default_immutable', 'campaign_membership_audit_insert', 'campaign_membership_audit_update', 'campaign_membership_no_delete', 'character_audit_insert', 'character_audit_update', 'character_version_pointer_monotonic', 'character_no_delete', 'character_version_audit_insert', 'character_version_no_update', 'character_version_no_delete'];
   const triggers = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='trigger'").all().map(row => row.name));
   const missingTriggers = requiredTriggers.filter(name => !triggers.has(name));
   if (missingTriggers.length) throw new Error(`Authorization audit rules are incomplete; run npm run db:migrate:local. Missing: ${missingTriggers.join(', ')}.`);

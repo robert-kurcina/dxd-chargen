@@ -86,3 +86,36 @@ export const campaignMemberships = sqliteTable('campaign_memberships', {
   check('campaign_membership_role_valid', sql`${table.role} IN ('player', 'gm', 'campaign-administrator')`),
   check('campaign_membership_state_valid', sql`${table.state} IN ('active', 'banned', 'removed')`),
 ]);
+
+export const characters = sqliteTable('characters', {
+  id: text('id').primaryKey(),
+  ownerId: text('owner_id').notNull().references(() => user.id, { onDelete: 'restrict' }),
+  campaignId: text('campaign_id').references(() => campaigns.id, { onDelete: 'restrict' }),
+  isPrivate: integer('is_private', { mode: 'boolean' }).notNull().default(false),
+  isLocked: integer('is_locked', { mode: 'boolean' }).notNull().default(false),
+  currentVersion: integer('current_version').notNull(),
+  createIdempotencyKey: text('create_idempotency_key').notNull(),
+  createdAt: integer('created_at').notNull(),
+  updatedAt: integer('updated_at').notNull(),
+}, table => [
+  uniqueIndex('character_owner_create_idempotency').on(table.ownerId, table.createIdempotencyKey),
+  check('character_current_version_positive', sql`${table.currentVersion} > 0`),
+]);
+
+export const characterVersions = sqliteTable('character_versions', {
+  id: text('id').primaryKey(),
+  characterId: text('character_id').notNull().references(() => characters.id, { onDelete: 'restrict' }),
+  version: integer('version').notNull(),
+  draftJson: text('draft_json').notNull(),
+  schemaVersion: integer('schema_version').notNull(),
+  editedBy: text('edited_by').notNull().references(() => user.id, { onDelete: 'restrict' }),
+  idempotencyKey: text('idempotency_key').notNull(),
+  createdAt: integer('created_at').notNull(),
+}, table => [
+  uniqueIndex('character_version_number').on(table.characterId, table.version),
+  uniqueIndex('character_version_idempotency').on(table.characterId, table.idempotencyKey),
+  index('character_version_history').on(table.characterId, table.createdAt),
+  check('character_version_number_positive', sql`${table.version} > 0`),
+  check('character_version_schema_valid', sql`${table.schemaVersion} BETWEEN 1 AND 11`),
+  check('character_version_json_valid', sql`json_valid(${table.draftJson})`),
+]);

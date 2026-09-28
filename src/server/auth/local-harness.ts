@@ -10,6 +10,31 @@ import * as schema from '../db/auth-schema';
 import { createRateLimitStore } from './rate-limit-store';
 import { createSecurityJournal } from './security-journal';
 import { createLocalMailStore, type LocalAccountMail } from './local-mail-store';
+import { createCharacterService } from './character-service';
+
+async function readBoundedJson(request: Request, maximumBytes: number): Promise<{ value?: unknown; error?: Response }> {
+  const declaredLength = Number(request.headers.get('content-length'));
+  if (Number.isFinite(declaredLength) && declaredLength > maximumBytes) return { error: Response.json({ error: 'Request too large.' }, { status: 413, headers: { 'Cache-Control': 'no-store' } }) };
+  if (!request.body) return { error: Response.json({ error: 'Invalid JSON.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } }) };
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let length = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      length += value.byteLength;
+      if (length > maximumBytes) { await reader.cancel(); return { error: Response.json({ error: 'Request too large.' }, { status: 413, headers: { 'Cache-Control': 'no-store' } }) }; }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(length);
+    let offset = 0;
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+    return { value: JSON.parse(new TextDecoder().decode(bytes)) };
+  } catch {
+    return { error: Response.json({ error: 'Invalid JSON.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } }) };
+  }
+}
 
 // Test/development harness only. No HTTP route or external mail transport.
 export function createLocalAccountHarness(connection: ReturnType<typeof openDatabase>, baseURL: string, secret: string, options: { disableRateLimitsForTests?: boolean } = {}) {
@@ -39,6 +64,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
     advanced: { database: { generateId: 'uuid' }, ipAddress: { ipAddressHeaders: [] } },
   });
   const journal = createSecurityJournal(connection);
+  const characters = createCharacterService(connection);
   const invokeAuth = async (request: Request) => {
     const response = await auth.handler(request);
     // The pinned library uses X-Retry-After; also expose the standard header.
@@ -56,6 +82,35 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       const route = new URL(incoming.url).pathname;
       const adminActor = securityOperation.getStore()?.actorId ?? null;
       const reviewListPath = '/api/auth/admin/security-operations';
+      const characterRoot = '/api/auth/characters';
+      const characterMatch = route.match(/^\/api\/auth\/characters\/([0-9a-f-]{36})(?:\/versions(?:\/(\d+))?)?$/i);
+      const characterEndpoint = route === characterRoot || route.startsWith(characterRoot + '/');
+      if (characterEndpoint) {
+        const actorId = securityOperation.getStore()?.actorId ?? null;
+        const noStore = { 'Cache-Control': 'no-store' };
+        const isWrite = incoming.method === 'POST' || incoming.method === 'PUT';
+        if (isWrite && incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: noStore });
+        if (isWrite && !incoming.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'JSON required.' }, { status: 415, headers: noStore });
+        if (incoming.method === 'GET' && route === characterRoot) {
+          const campaignId = new URL(incoming.url).searchParams.get('campaignId');
+          return characters.list(actorId, campaignId);
+        }
+        if (incoming.method === 'POST' && route === characterRoot) {
+          const parsed = await readBoundedJson(incoming, 6 * 1024 * 1024);
+          if (parsed.error) return parsed.error;
+          return characters.create(actorId, parsed.value);
+        }
+        if (characterMatch && incoming.method === 'GET') {
+          if (route.endsWith('/versions')) return characters.history(actorId, characterMatch[1]);
+          return characters.read(actorId, characterMatch[1], characterMatch[2] ? Number(characterMatch[2]) : undefined);
+        }
+        if (characterMatch && !route.endsWith('/versions') && !characterMatch[2] && incoming.method === 'PUT') {
+          const parsed = await readBoundedJson(incoming, 6 * 1024 * 1024);
+          if (parsed.error) return parsed.error;
+          return characters.update(actorId, characterMatch[1], parsed.value);
+        }
+        return Response.json({ error: 'Not found.' }, { status: 404, headers: noStore });
+      }
       const reviewMatch = route.match(/^\/api\/auth\/admin\/security-operations\/([0-9a-f-]{36})\/review$/i);
       if (incoming.method === 'GET' && route === reviewListPath) {
         if (!journal.isSiteAdministrator(adminActor)) return Response.json({ error: 'Forbidden.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });

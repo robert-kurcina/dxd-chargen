@@ -17,7 +17,7 @@
     "test:db": "node --conditions=react-server --test scripts/database-harness.test.mjs",
     "db:generate": "auth generate --config scripts/config/auth-schema.ts --adapter drizzle --dialect sqlite --output src/server/db/auth-schema.ts --yes && drizzle-kit generate",
     "test:db:bundle": "node scripts/database-bundle.mjs",
-    "test:accounts": "node --conditions=react-server --test scripts/account-lifecycle.test.mjs scripts/security-journal.test.mjs scripts/mail-delivery.test.mjs scripts/account-rate-limit.test.mjs scripts/site-admin-review.test.mjs scripts/access-policy.test.mjs scripts/authorization-context.test.mjs",
+    "test:accounts": "node --conditions=react-server --test scripts/account-lifecycle.test.mjs scripts/security-journal.test.mjs scripts/mail-delivery.test.mjs scripts/account-rate-limit.test.mjs scripts/site-admin-review.test.mjs scripts/access-policy.test.mjs scripts/authorization-context.test.mjs scripts/character-service.test.mjs",
     "test:legacy-api-boundary": "node --test scripts/legacy-api-boundary.test.mjs",
     "maintenance:local": "node scripts/local-maintenance.mjs",
     "db:migrate:local": "node scripts/migrate-local.mjs",

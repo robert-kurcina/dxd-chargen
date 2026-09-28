@@ -78,6 +78,13 @@
       "when": 1790570295111,
       "tag": "0010_heavy_molten_man",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1790573398335,
+      "tag": "0011_abandoned_captain_britain",
+      "breakpoints": true
     }
   ]
 }
