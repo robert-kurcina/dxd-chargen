@@ -179,6 +179,24 @@ try {
   await competingPage.locator('summary[aria-label="Workspace menu"]').click();
   await assertEventuallyChecked(competingPage.getByLabel('Private in Account Library'));
 
+  await page.goto(`${baseUrl}/library`, { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: 'Show version history', exact: true }).click();
+  await page.getByRole('button', { name: 'Restore version 1', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Restore version 1', exact: true }).click();
+  await page.waitForURL(`${baseUrl}/`);
+  await page.getByRole('status').filter({ hasText: 'Loaded saved Account Library version 1. Saving creates a new version based on the latest version 2.' }).waitFor();
+  await page.getByRole('button', { name: 'Save', exact: true }).first().click();
+  await page.getByRole('button', { name: 'Save', exact: true }).last().click();
+  await page.getByRole('status').filter({ hasText: 'Saved Account Library version 3.' }).waitFor();
+  connection = openDatabase(databaseFile);
+  const restoredCharacter = connection.sqlite.prepare('SELECT id, current_version FROM characters WHERE owner_id=?').get(user.id);
+  assert.equal(restoredCharacter.current_version, 3, 'restoring an old version appends a new current version');
+  const versionNames = connection.sqlite.prepare('SELECT version, draft_json FROM character_versions WHERE character_id=? ORDER BY version').all(restoredCharacter.id).map(row => ({ version: row.version, name: JSON.parse(row.draft_json).utilities.name }));
+  assert.deepEqual(versionNames.map(item => item.version), [1, 2, 3], 'prior versions remain immutable and present');
+  assert.equal(versionNames[1].name, 'Server winner');
+  assert.equal(versionNames[2].name, versionNames[0].name, 'the restored version becomes a new copy of the selected historical draft');
+  connection.close(); connection = undefined;
+
   await page.goto(`${baseUrl}/account`, { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await page.getByRole('status').filter({ hasText: 'You have signed out.' }).waitFor();
@@ -189,7 +207,7 @@ try {
   assert.equal(signedOutGuestCache.entries.some(entry => entry.draft.utilities.name === 'Server winner' || entry.draft.utilities.name === 'Conflicted local edits'), false, 'account data stays out of the guest cache after sign-out');
   assert.deepEqual(competingErrors, []);
   assert.deepEqual(pageErrors, []);
-  console.log('PASS live signup/verification/account-scoped persistence, sign-out isolation, and stale Account Library conflict preservation');
+  console.log('PASS account-scoped persistence, historical version restore as an append-only new version, sign-out isolation, and stale conflict preservation');
   await competingPage.close();
   await context.close();
 } catch (error) {

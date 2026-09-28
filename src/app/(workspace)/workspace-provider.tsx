@@ -62,7 +62,7 @@ type WorkspaceContextValue = {
   revert: () => Promise<void>;
   reset: () => void;
   loadDraft: (idName: string, value: CharacterDraft) => void;
-  loadAccountDraft: (id: string, value: CharacterDraft, version: number, isPrivate: boolean) => void;
+  loadAccountDraft: (id: string, value: CharacterDraft, version: number, isPrivate: boolean, restoreFromVersion?: number) => void;
   saveAccount: () => Promise<boolean>;
   isAccountCharacter: boolean;
   accountServerOnly: boolean;
@@ -375,15 +375,17 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     } finally { savingRef.current = false; setSaving(false); }
   };
 
-  const loadAccountDraft = (id: string, value: CharacterDraft, version: number, isPrivate: boolean) => {
+  const loadAccountDraft = (id: string, value: CharacterDraft, version: number, isPrivate: boolean, restoreFromVersion?: number) => {
     const loaded = normalizeDraft(migrateCharacterDraft(value), data);
     const entryId = `account:${id}`;
     const current = libraryRef.current;
     const entry = { ...createLibraryEntry(loaded, entryId), serverRecord: { id, version, isPrivate, mode: 'server' as const } };
     const next = { ...current, activeId: entryId, entries: [...current.entries.filter(item => item.id !== entryId), entry] };
     setLibrary(next); setHistory(emptyHistory()); setActiveFileId(null);
-    setAccountPrivateChoice(isPrivate); setSavedAccountPrivate(isPrivate); setSavedAccountSnapshot(comparableDraft(loaded));
-    setMessage(`Opened Account Library version ${version}.`); router.push('/');
+    setAccountPrivateChoice(isPrivate); setSavedAccountPrivate(isPrivate); setSavedAccountSnapshot(restoreFromVersion !== undefined && restoreFromVersion !== version ? `restore-pending:${restoreFromVersion}` : comparableDraft(loaded));
+    setMessage(restoreFromVersion !== undefined && restoreFromVersion !== version
+      ? `Loaded saved Account Library version ${restoreFromVersion}. Saving creates a new version based on the latest version ${version}.`
+      : `Opened Account Library version ${version}.`); router.push('/');
   };
 
   const save = async () => {
