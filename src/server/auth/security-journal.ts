@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { securityOperation } from './operation-context';
 import type { openDatabase } from '../db/connection';
 
-const actions = new Set(['admin/security-operations', 'admin/security-operation-review', 'sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation', 'characters', 'character-create', 'character-read', 'character-history', 'character-update']);
+const actions = new Set(['admin/security-operations', 'admin/security-operation-review', 'sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation', 'campaigns', 'campaign-fork', 'characters', 'character-create', 'character-read', 'character-history', 'character-update']);
 
 export function createSecurityJournal(connection: ReturnType<typeof openDatabase>) {
   const db = connection.sqlite;
@@ -15,9 +15,10 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
       const route = new URL(request.url).pathname.replace(/^\/api\/auth\//, '');
       // Never persist arbitrary paths, query strings, bodies, cookies or error messages.
       const method = ['GET', 'POST', 'PUT'].includes(request.method) ? request.method : 'OTHER';
+      const campaignRoute = route === 'campaigns' && request.method === 'POST' ? 'campaign-fork' : route;
       const characterMatch = route.match(/^characters(?:\/([0-9a-f-]{36})(?:\/versions(?:\/\d+)?)?)?$/i);
       const journalRoute = /^admin\/security-operations\/[0-9a-f-]{36}\/review$/i.test(route) ? 'admin/security-operation-review'
-        : characterMatch ? (request.method === 'POST' && route === 'characters' ? 'character-create' : request.method === 'PUT' && characterMatch[1] && !route.includes('/versions') ? 'character-update' : request.method === 'GET' && route.endsWith('/versions') ? 'character-history' : request.method === 'GET' && characterMatch[1] ? 'character-read' : request.method === 'GET' && route === 'characters' ? 'characters' : 'unclassified') : route;
+        : campaignRoute !== route ? campaignRoute : characterMatch ? (request.method === 'POST' && route === 'characters' ? 'character-create' : request.method === 'PUT' && characterMatch[1] && !route.includes('/versions') ? 'character-update' : request.method === 'GET' && route.endsWith('/versions') ? 'character-history' : request.method === 'GET' && characterMatch[1] ? 'character-read' : request.method === 'GET' && route === 'characters' ? 'characters' : 'unclassified') : route;
       const action = method + ' ' + (actions.has(journalRoute) ? journalRoute : 'unclassified');
       let actorId = typeof actor === 'function' ? null : actor;
       const operationId = randomUUID();

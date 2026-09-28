@@ -359,7 +359,7 @@ first.
 account API runtime is wired. It requires explicit accounts mode, a non-production
 environment, an auth secret of at least 32 characters, and a loopback auth origin.
 It checks owner-only data directory/database permissions, rejects database symlinks,
-and requires auth/audit/mail/throttle and campaign authorization tables, the current twelve migrations, Site Administrator table, required indexes and authorization audit triggers, SQLite integrity and foreign-key consistency. It never opens the DB
+and requires auth/audit/mail/throttle and campaign authorization tables, the current thirteen migrations, Site Administrator table, required indexes and authorization audit triggers, SQLite integrity and foreign-key consistency. It never opens the DB
 for writing, applies migrations, or prints the auth secret. Errors name the missing
 configuration/check without exposing credentials.
 
@@ -374,7 +374,7 @@ this checkpoint.
 `npm run accounts:dev` starts Next development bound to `127.0.0.1` with explicit
 accounts mode. The catch-all `/api/auth` handler is available only when both
 `NODE_ENV=development` and accounts mode are set; it returns a generic 503 otherwise.
-At request time it opens only an existing private DB with all twelve migrations,
+At request time it opens only an existing private DB with all thirteen migrations,
 required tables, authorization indexes and audit triggers, validates the auth secret and loopback origin,
 and never runs migrations. Runtime state is reused through a process-global
 singleton for development HMR. Character file APIs are disabled in this mode.
@@ -395,7 +395,7 @@ account service.
 Migration 0009 adds a local Site Administrator grant linked to a verified account.
 `npm run accounts:bootstrap-admin:local -- <username>` grants only the first Site
 Administrator and records the grant in the append-only security journal. The command
-requires accounts mode, a private existing database, the current twelve migrations, and a
+requires accounts mode, a private existing database, the current thirteen migrations, and a
 local auth secret; it never creates or migrates a database.
 
 The development-only auth harness exposes a bounded reconciliation report and an
@@ -431,4 +431,13 @@ Migration 0011 adds owner/campaign-scoped character records and immutable JSON d
 
 The development-only authenticated harness now exposes `GET/POST /api/auth/characters`, `GET /api/auth/characters/:id`, `GET /api/auth/characters/:id/versions`, `GET /api/auth/characters/:id/versions/:version`, and `PUT /api/auth/characters/:id`. Each request resolves a fresh principal from the Better Auth session and SQLite. Owner, campaign, privacy, lock state and edit eligibility come from database records; write bodies cannot replace those values. Creates and updates are same-origin JSON with a streaming 6 MiB limit. Players cannot create directly into an active campaign; that path requires a future reviewed staff assignment. Creates and version updates accept UUID idempotency keys; updates require an expected current version. Reads include `Cache-Control: no-store`. These endpoints are available only through the local development accounts mode. Production account routes remain closed, and legacy filesystem character routes remain closed in accounts mode.
 
-`npm run test:accounts` includes HTTP-level tests for verified sessions, private/shared visibility, campaign membership, GM access, create/update replay, stale-version rejection, active-campaign review enforcement, historical reads, request limits, audit actor attribution and SQL immutability. `npm run test:db` verifies all twelve migrations, rollback, backup and restore. This server storage slice does not yet connect the Workspace/Library UI to account-backed persistence and does not complete campaign administration or action-bound MFA.
+`npm run test:accounts` includes HTTP-level tests for verified sessions, private/shared visibility, campaign membership, GM access, create/update replay, stale-version rejection, active-campaign review enforcement, historical reads, request limits, audit actor attribution and SQL immutability. `npm run test:db` verifies all thirteen migrations, rollback, backup and restore. This server storage slice does not yet connect the Workspace/Library UI to account-backed persistence and does not complete campaign administration or action-bound MFA.
+
+
+## H03 checkpoint: stable campaign catalog records
+
+Migration 0012 adds immutable parent-campaign lineage and fork idempotency to campaign records. It seeds the exact stable UUIDs already used by local fixtures: Default Campaign (`7841aa01-33f4-4a90-8d13-000000000001`) and Working Campaign (`7841aa01-33f4-4a90-8d13-000000000002`), with Working derived from Default. Default remains immutable and cannot be deleted; runtime checks require the seed records and lineage trigger.
+
+`GET /api/auth/campaigns` returns Default plus campaigns the account can access, or all campaigns to Site Administrators. `POST /api/auth/campaigns` allows only a verified active Site Administrator to create a preparing fork from an existing campaign. The new campaign creator receives Campaign Administrator membership. Fork creation is idempotent and campaign plus membership audit events commit together. This creates identity/lineage records only: tag/configuration snapshots, revisions/build aliases, invitations, and membership-join UI remain future work.
+
+The pure access policy and character service now treat only the database-identified immutable Default campaign as generally readable/selectable without membership. Private characters remain owner-only there. Other campaign IDs still require active membership. This keeps client fixture UUIDs aligned with the server without making unlisted campaigns visible.

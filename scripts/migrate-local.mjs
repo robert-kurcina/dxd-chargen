@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import { chmod, mkdir, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
@@ -20,6 +21,10 @@ const filename = path.join(dataDir, 'dxd.sqlite');
 const migrationsFolder = fileURLToPath(new URL('../migrations/auth', import.meta.url));
 const db = new Database(filename);
 try {
+  // Migration-time campaign seeds run through the same database audit triggers.
+  db.function('dxd_event_id', () => randomUUID());
+  db.function('dxd_operation_id', () => null);
+  db.function('dxd_actor_id', () => null);
   db.pragma('foreign_keys = ON');
   db.pragma('journal_mode = WAL');
   db.pragma('busy_timeout = 5000');

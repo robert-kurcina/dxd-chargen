@@ -21,6 +21,7 @@ export type AuthorizationPrincipal = {
 /** Values must come from stored character/campaign records, never the request body. */
 export type AuthorizationResource = {
   campaignId?: string | null;
+  campaignIsDefault?: boolean;
   characterOwnerId?: string;
   private?: boolean;
   /** Computed by the service from campaign state and approval/version records. */
@@ -71,7 +72,7 @@ export function isAuthorized(
 
   switch (action) {
     case 'campaign.read':
-      return Boolean(campaignId && membership);
+      return Boolean(campaignId && (membership || resource.campaignIsDefault));
     case 'campaign.configure':
       return Boolean(campaignId && isCampaignStaff(role));
     case 'campaign.rename':
@@ -84,9 +85,9 @@ export function isAuthorized(
     case 'character.create':
       // A personal/unassigned character belongs to its authenticated creator. Campaign
       // creation requires an active campaign membership; campaign policies are checked later.
-      return !campaignId || Boolean(membership);
+      return !campaignId || Boolean(membership || resource.campaignIsDefault);
     case 'character.read': {
-      if (campaignId && !membership) return false;
+      if (campaignId && !membership && !resource.campaignIsDefault) return false;
       const isOwner = resource.characterOwnerId === principal.userId;
       if (isOwner) return true;
       if (resource.private) return Boolean(campaignId && isCampaignStaff(role));
@@ -94,7 +95,7 @@ export function isAuthorized(
       return true;
     }
     case 'character.edit': {
-      if (campaignId && !membership) return false;
+      if (campaignId && !membership && !resource.campaignIsDefault) return false;
       if (campaignId && isCampaignStaff(role)) return true;
       return resource.characterOwnerId === principal.userId && resource.ownerEditAllowed === true;
     }

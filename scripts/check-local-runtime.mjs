@@ -31,13 +31,17 @@ try {
   const tables = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map(row => row.name));
   const missingTables = expectedTables.filter(name => !tables.has(name));
   if (missingTables.length) throw new Error(`Database schema is incomplete; run npm run db:migrate:local. Missing: ${missingTables.join(', ')}.`);
+  const seeds = db.prepare(`SELECT
+    (SELECT count(*) FROM campaigns WHERE id='7841aa01-33f4-4a90-8d13-000000000001' AND name='Default Campaign' AND lifecycle='preparing' AND is_default=1 AND parent_campaign_id IS NULL) AS defaultCampaign,
+    (SELECT count(*) FROM campaigns WHERE id='7841aa01-33f4-4a90-8d13-000000000002' AND name='Working Campaign' AND lifecycle='preparing' AND is_default=0 AND parent_campaign_id='7841aa01-33f4-4a90-8d13-000000000001') AS workingCampaign`).get();
+  if (seeds.defaultCampaign !== 1 || seeds.workingCampaign !== 1) throw new Error('Default/Working campaign seeds are incomplete; run npm run db:migrate:local.');
   const migrations = db.prepare('SELECT count(*) AS count FROM __drizzle_migrations').get().count;
-  if (migrations !== 12) throw new Error(`Expected 12 reviewed local account migrations; found ${migrations}. Run npm run db:migrate:local.`);
-  const requiredIndexes = ['auth_throttle_expiry', 'campaign_single_default', 'campaign_membership_campaign_user', 'character_owner_create_idempotency', 'character_version_number', 'character_version_idempotency', 'character_version_history'];
+  if (migrations !== 13) throw new Error(`Expected 13 reviewed local account migrations; found ${migrations}. Run npm run db:migrate:local.`);
+  const requiredIndexes = ['auth_throttle_expiry', 'campaign_single_default', 'campaign_membership_campaign_user', 'campaign_create_idempotency', 'character_owner_create_idempotency', 'character_version_number', 'character_version_idempotency', 'character_version_history'];
   const indexes = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='index'").all().map(row => row.name));
   const missingIndexes = requiredIndexes.filter(name => !indexes.has(name));
   if (missingIndexes.length) throw new Error(`Database indexes are incomplete; run npm run db:migrate:local. Missing: ${missingIndexes.join(', ')}.`);
-  const requiredTriggers = ['account_access_audit_insert', 'account_access_audit_update', 'account_access_no_delete', 'campaign_audit_insert', 'campaign_audit_update', 'campaign_no_delete', 'campaign_default_immutable', 'campaign_membership_audit_insert', 'campaign_membership_audit_update', 'campaign_membership_no_delete', 'character_audit_insert', 'character_audit_update', 'character_version_pointer_monotonic', 'character_no_delete', 'character_version_audit_insert', 'character_version_no_update', 'character_version_no_delete'];
+  const requiredTriggers = ['account_access_audit_insert', 'account_access_audit_update', 'account_access_no_delete', 'campaign_audit_insert', 'campaign_audit_update', 'campaign_no_delete', 'campaign_default_immutable', 'campaign_membership_audit_insert', 'campaign_membership_audit_update', 'campaign_membership_no_delete', 'campaign_parent_immutable', 'character_audit_insert', 'character_audit_update', 'character_version_pointer_monotonic', 'character_no_delete', 'character_version_audit_insert', 'character_version_no_update', 'character_version_no_delete'];
   const triggers = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='trigger'").all().map(row => row.name));
   const missingTriggers = requiredTriggers.filter(name => !triggers.has(name));
   if (missingTriggers.length) throw new Error(`Authorization audit rules are incomplete; run npm run db:migrate:local. Missing: ${missingTriggers.join(', ')}.`);

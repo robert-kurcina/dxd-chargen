@@ -25,9 +25,7 @@ test('authorization principal is resolved fresh from account and membership tabl
     insertUser(connection, gmId, 'policygm');
     connection.sqlite.prepare("INSERT INTO campaigns (id, name, lifecycle, is_default, created_at, created_by) VALUES (?, 'Policy Campaign', 'preparing', 0, ?, ?)")
       .run(campaignId, Date.now(), gmId);
-    const defaultCampaignId = randomUUID();
-    connection.sqlite.prepare("INSERT INTO campaigns (id, name, lifecycle, is_default, created_at, created_by) VALUES (?, 'Default', 'preparing', 1, ?, ?)")
-      .run(defaultCampaignId, Date.now(), gmId);
+    const defaultCampaignId = '7841aa01-33f4-4a90-8d13-000000000001';
     assert.throws(() => connection.sqlite.prepare("INSERT INTO campaigns (id, name, lifecycle, is_default, created_at, created_by) VALUES (?, 'Second Default', 'preparing', 1, ?, ?)")
       .run(randomUUID(), Date.now(), gmId), /UNIQUE constraint failed/);
     assert.throws(() => connection.sqlite.prepare("UPDATE campaigns SET name = 'Modified Default' WHERE id = ?").run(defaultCampaignId), /Default campaign is immutable/);

@@ -62,15 +62,20 @@ export const accountAccess = sqliteTable('account_access', {
   changedBy: text('changed_by').references(() => user.id, { onDelete: 'restrict' }),
 }, table => [check('account_access_status_valid', sql`${table.status} IN ('active', 'disabled', 'banned')`)]);
 
+import type { AnySQLiteColumn } from 'drizzle-orm/sqlite-core';
+
 export const campaigns = sqliteTable('campaigns', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
   lifecycle: text('lifecycle', { enum: ['preparing', 'active', 'archived'] }).notNull(),
   isDefault: integer('is_default', { mode: 'boolean' }).notNull().default(false),
+  parentCampaignId: text('parent_campaign_id').references((): AnySQLiteColumn => campaigns.id, { onDelete: 'restrict' }),
+  createIdempotencyKey: text('create_idempotency_key'),
   createdAt: integer('created_at').notNull(),
   createdBy: text('created_by').references(() => user.id, { onDelete: 'restrict' }),
 }, table => [
   uniqueIndex('campaign_single_default').on(table.isDefault).where(sql`${table.isDefault} = 1`),
+  uniqueIndex('campaign_create_idempotency').on(table.createdBy, table.createIdempotencyKey).where(sql`${table.createIdempotencyKey} IS NOT NULL`),
   check('campaign_lifecycle_valid', sql`${table.lifecycle} IN ('preparing', 'active', 'archived')`),
 ]);
 

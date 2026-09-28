@@ -7,7 +7,7 @@ import { isAuthorized } from './access-policy';
 import { resolveAuthorizationPrincipal } from './authorization-context';
 
 type Connection = ReturnType<typeof openDatabase>;
-type CharacterRow = { id: string; owner_id: string; campaign_id: string | null; is_private: number; is_locked: number; current_version: number; lifecycle: string | null };
+type CharacterRow = { id: string; owner_id: string; campaign_id: string | null; is_private: number; is_locked: number; current_version: number; lifecycle: string | null; campaign_is_default?: number };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const response = (body: unknown, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
 
@@ -19,17 +19,17 @@ function canonicalDraft(value: unknown) {
 }
 function readDraft(raw: string) { return canonicalDraft(JSON.parse(raw)); }
 function record(connection: Connection, id: string): CharacterRow | undefined {
-  return connection.sqlite.prepare(`SELECT c.id, c.owner_id, c.campaign_id, c.is_private, c.is_locked, c.current_version, p.lifecycle
+  return connection.sqlite.prepare(`SELECT c.id, c.owner_id, c.campaign_id, c.is_private, c.is_locked, c.current_version, p.lifecycle, p.is_default AS campaign_is_default
     FROM characters c LEFT JOIN campaigns p ON p.id=c.campaign_id WHERE c.id=?`).get(id) as CharacterRow | undefined;
 }
 function canRead(connection: Connection, actorId: string, row: CharacterRow) {
   const principal = resolveAuthorizationPrincipal(connection, actorId);
-  return principal && isAuthorized(principal, 'character.read', { campaignId: row.campaign_id, characterOwnerId: row.owner_id, private: row.is_private === 1 }) ? principal : null;
+  return principal && isAuthorized(principal, 'character.read', { campaignId: row.campaign_id, campaignIsDefault: row.campaign_is_default === 1, characterOwnerId: row.owner_id, private: row.is_private === 1 }) ? principal : null;
 }
 function canEdit(connection: Connection, actorId: string, row: CharacterRow) {
   const principal = resolveAuthorizationPrincipal(connection, actorId);
   return principal && isAuthorized(principal, 'character.edit', {
-    campaignId: row.campaign_id, characterOwnerId: row.owner_id,
+    campaignId: row.campaign_id, campaignIsDefault: row.campaign_is_default === 1, characterOwnerId: row.owner_id,
     ownerEditAllowed: row.is_locked !== 1 && (!row.campaign_id || row.lifecycle === 'preparing'),
   }) ? principal : null;
 }
@@ -45,9 +45,13 @@ export function createCharacterService(connection: Connection) {
       if (!actorId) return response({ error: 'Authentication required.' }, 401);
       const principal = resolveAuthorizationPrincipal(connection, actorId);
       if (!principal) return response({ error: 'Authentication required.' }, 401);
-      if (campaignId && !isAuthorized(principal, 'campaign.read', { campaignId })) return response({ error: 'Forbidden.' }, 403);
-      const rows = db.prepare(`SELECT c.id, c.owner_id, c.campaign_id, c.is_private, c.is_locked, c.current_version,
+      if (campaignId) {
+        const campaign = db.prepare('SELECT is_default AS isDefault FROM campaigns WHERE id=?').get(campaignId) as { isDefault: number } | undefined;
+        if (!campaign || !isAuthorized(principal, 'campaign.read', { campaignId, campaignIsDefault: campaign.isDefault === 1 })) return response({ error: 'Forbidden.' }, 403);
+      }
+      const rows = db.prepare(`SELECT c.id, c.owner_id, c.campaign_id, c.is_private, c.is_locked, c.current_version, p.lifecycle, p.is_default AS campaign_is_default,
         v.draft_json, v.created_at AS version_created_at FROM characters c
+        LEFT JOIN campaigns p ON p.id=c.campaign_id
         JOIN character_versions v ON v.character_id=c.id AND v.version=c.current_version
         WHERE (? IS NULL OR c.campaign_id=?) ORDER BY c.updated_at DESC, c.id`).all(campaignId, campaignId) as Array<CharacterRow & { draft_json: string; version_created_at: number }>;
       const items = rows.filter(row => canRead(connection, actorId, row)).map(row => {
@@ -64,12 +68,12 @@ export function createCharacterService(connection: Connection) {
       if (campaignId !== null && (typeof campaignId !== 'string' || !uuid.test(campaignId))) return response({ error: 'Invalid campaign.' }, 400);
       const principal = resolveAuthorizationPrincipal(connection, actorId);
       if (!principal) return response({ error: 'Authentication required.' }, 401);
-      if (!isAuthorized(principal, 'character.create', { campaignId })) return response({ error: 'Forbidden.' }, 403);
-      if (campaignId) {
-        const campaign = db.prepare('SELECT lifecycle FROM campaigns WHERE id=?').get(campaignId) as { lifecycle: string } | undefined;
-        if (!campaign || campaign.lifecycle === 'archived') return response({ error: 'Campaign unavailable.' }, 404);
+      const campaign = campaignId ? db.prepare('SELECT lifecycle, is_default AS isDefault FROM campaigns WHERE id=?').get(campaignId) as { lifecycle: string; isDefault: number } | undefined : undefined;
+      if (campaignId && (!campaign || campaign.lifecycle === 'archived')) return response({ error: 'Campaign unavailable.' }, 404);
+      if (!isAuthorized(principal, 'character.create', { campaignId, campaignIsDefault: campaign?.isDefault === 1 })) return response({ error: 'Forbidden.' }, 403);
+      if (campaignId && campaign) {
         const membership = principal.memberships.find(item => item.campaignId === campaignId && item.state === 'active');
-        if (campaign.lifecycle === 'active' && !principal.siteAdministrator && membership?.role !== 'gm' && membership?.role !== 'campaign-administrator') {
+        if (campaign.lifecycle === 'active' && !campaign.isDefault && !principal.siteAdministrator && membership?.role !== 'gm' && membership?.role !== 'campaign-administrator') {
           return response({ error: 'Player characters must be reviewed before entering an active campaign.' }, 403);
         }
       }

@@ -76,3 +76,13 @@ test('Site Administrator has cross-campaign scope only while the account is acti
   assert.equal(isAuthorized(admin, 'character.read', { campaignId: campaignB, characterOwnerId: 'other-user', private: true }), true);
   assert.equal(isAuthorized(admin, 'character.edit', { campaignId: campaignB, characterOwnerId: 'other-user' }), true);
 });
+
+
+test('immutable Default campaign is usable without membership but does not grant private-character access', () => {
+  const player = principal({ memberships: [] });
+  assert.equal(isAuthorized(player, 'campaign.read', { campaignId: campaignA, campaignIsDefault: true }), true);
+  assert.equal(isAuthorized(player, 'character.create', { campaignId: campaignA, campaignIsDefault: true }), true);
+  assert.equal(isAuthorized(player, 'character.read', { campaignId: campaignA, campaignIsDefault: true, characterOwnerId: 'another-user', private: false }), true);
+  assert.equal(isAuthorized(player, 'character.read', { campaignId: campaignA, campaignIsDefault: true, characterOwnerId: 'another-user', private: true }), false);
+  assert.equal(isAuthorized(player, 'character.edit', { campaignId: campaignA, campaignIsDefault: true, characterOwnerId: player.userId, ownerEditAllowed: true }), true);
+});

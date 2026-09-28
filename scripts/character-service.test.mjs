@@ -39,6 +39,15 @@ test('development character API enforces ownership, privacy, campaign scope and 
     connection.sqlite.prepare("INSERT INTO campaigns (id,name,lifecycle,is_default,created_at,created_by) VALUES (?,'Test','preparing',0,?,?)").run(campaign, Date.now(), gm.id);
     const member = connection.sqlite.prepare("INSERT INTO campaign_memberships (campaign_id,user_id,role,state,joined_at) VALUES (?,?,'player','active',?)");
     member.run(campaign, alice.id, Date.now()); member.run(campaign, bob.id, Date.now());
+    const defaultId = '7841aa01-33f4-4a90-8d13-000000000001';
+    const defaultDraft = createEmptyCharacterDraft(); defaultDraft.background.properName = 'Default shared';
+    const defaultCreated = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft: defaultDraft, campaignId: defaultId, private: false, idempotencyKey: randomUUID() } });
+    assert.equal(defaultCreated.status, 201, await defaultCreated.clone().text());
+    const defaultCharacterId = (await defaultCreated.json()).id;
+    assert.equal((await auth(`characters/${defaultCharacterId}`, { cookie: bob.cookie })).status, 200);
+    const defaultPrivate = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft: defaultDraft, campaignId: defaultId, private: true, idempotencyKey: randomUUID() } });
+    assert.equal(defaultPrivate.status, 201);
+    assert.equal((await auth(`characters/${(await defaultPrivate.json()).id}`, { cookie: bob.cookie })).status, 404);
     connection.sqlite.prepare("INSERT INTO campaign_memberships (campaign_id,user_id,role,state,joined_at) VALUES (?,?,'gm','active',?)").run(campaign, gm.id, Date.now());
 
     const draft = createEmptyCharacterDraft(); draft.background.properName = 'Private Alice';

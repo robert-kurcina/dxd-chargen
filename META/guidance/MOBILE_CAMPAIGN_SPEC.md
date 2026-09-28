@@ -1,7 +1,7 @@
 # Mobile character creation and campaign specification
 
-Status: agreed product direction; implementation not yet started.
-Branch: feature/mobile-campaign-design.
+Status: agreed product direction; implementation is in progress.
+Current implementation branch: feature/account-policy-gates.
 This document consolidates the product conversation. It supplements FINAL_PRODUCT_PLAN.md; canonical game mechanics remain sourced from vault-sarnalen/book-rewrite. Proposed engineering choices below are distinguished from settled behavior.
 
 ## 1. First delivery and navigation
