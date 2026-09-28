@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 const { openDatabase, migrateDatabase } = await import('../src/server/db/connection.ts');
 const { createSecurityJournal } = await import('../src/server/auth/security-journal.ts');
 
@@ -94,5 +95,39 @@ test('recovery review is bounded, read-only and does not mistake evidence for co
     for (const options of [{ limit: 0 }, { limit: 1001 }, { limit: 1.5 }, { minimumAgeMs: 0 }, { minimumAgeMs: NaN }]) {
       assert.throws(() => journal.reviewCandidates(options), RangeError);
     }
+  } finally { db.close(); await rm(root, { recursive: true, force: true }); }
+});
+
+test('incident review decisions require the source actor and remain append-only', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'dxd-security-decision-'));
+  const db = openDatabase(path.join(root, 'db.sqlite'));
+  try {
+    migrateDatabase(db, path.resolve('migrations/auth'));
+    const journal = createSecurityJournal(db);
+    const source = randomUUID(), old = Date.now() - 600_000;
+    const event = db.sqlite.prepare('INSERT INTO security_events (id, operation_id, phase, action, actor_id, occurred_at, response_status) VALUES (?, ?, ?, ?, ?, ?, ?)');
+    event.run(randomUUID(), source, 'started', 'POST change-password', 'source-actor', old, null);
+    event.run(randomUUID(), source, 'responded', 'POST change-password', 'source-actor', old + 1, 500);
+
+    const wrongRequest = () => new Request('http://localhost:3000/api/auth/review-security-operation', { method: 'POST' });
+    await assert.rejects(journal.run(wrongRequest(), 'different-actor', async () => {
+      journal.recordReviewDecision(source, 'reviewed-no-automatic-retry');
+      return new Response();
+    }), /not an eligible self-review candidate/);
+
+    let decision;
+    const reviewResponse = await journal.run(wrongRequest(), 'source-actor', async () => {
+      decision = journal.recordReviewDecision(source, 'follow-up-required');
+      return new Response(null, { status: 200 });
+    });
+    assert.equal(reviewResponse.status, 200);
+    assert.equal(decision.reasonCode, 'no-change-evidence-recorded');
+    assert.equal(decision.reviewerId, 'source-actor');
+    const report = journal.reviewCandidates();
+    assert.equal(report.candidates.length, 1);
+    assert.equal(report.candidates[0].latest_review_disposition, 'follow-up-required');
+    assert.equal(report.candidates[0].latest_reviewer_id, 'source-actor');
+    assert.throws(() => db.sqlite.prepare("UPDATE security_review_decisions SET disposition='reviewed-no-automatic-retry'").run(), /append-only/);
+    assert.throws(() => db.sqlite.prepare('DELETE FROM security_review_decisions').run(), /retention policy/);
   } finally { db.close(); await rm(root, { recursive: true, force: true }); }
 });
