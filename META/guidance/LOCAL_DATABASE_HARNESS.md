@@ -407,3 +407,12 @@ email addresses or request bodies. Character-file APIs remain closed in accounts
 and production auth remains disabled. Tests cover unverified/duplicate bootstrap,
 unauthorized access, limits, cross-origin requests, actor attribution and immutability.
 Action-bound fresh MFA and the broader H02c role/policy cutover remain open.
+
+`src/server/auth/access-policy.ts` defines the first pure server-side decision layer
+for verified/active accounts, scoped campaign memberships, private characters, owner
+edit locks, GM/Admin capabilities and inviter-limited GM bans. Its inputs are required
+to come from fresh server-side reads; the helper does not authenticate requests, load
+records or authorize an HTTP route by itself. `npm run test:accounts` covers the policy
+matrix, including ambiguous duplicate memberships failing closed. Authenticated character
+routes remain unavailable until account status, campaign membership and character
+ownership are resolved authoritatively and checked in the data service.
