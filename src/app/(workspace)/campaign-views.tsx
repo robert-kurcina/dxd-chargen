@@ -9,6 +9,7 @@ import { selectedSettlementOption } from '@/lib/settlement-context';
 import { originAllowed } from '@/lib/campaign-origins';
 import { LOCAL_CAMPAIGNS } from '@/lib/local-campaigns';
 import { useWorkspace } from './workspace-provider';
+import AccountCampaignsPanel from './account-campaigns-panel';
 
 export function CampaignsView() {
   const { selectedCampaign, selectCampaign, createInCampaign } = useWorkspace();
@@ -23,6 +24,7 @@ export function CampaignsView() {
       <Button asChild variant="outline" className="min-h-14 w-full justify-start"><Link href="/library">Open the Character Library</Link></Button>
       <Link href="/" className="inline-flex min-h-11 items-center text-sm underline">Continue current character</Link>
     </section>
+    <AccountCampaignsPanel />
   </div>;
 }
 
