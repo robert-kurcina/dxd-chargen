@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { rememberCharacterStorageOwner } from '@/lib/character-library';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset' | 'mfa';
 type User = { email: string; name: string; username?: string; twoFactorEnabled?: boolean };
@@ -74,6 +75,7 @@ export default function AccountPanel() {
     if (result.twoFactorRedirect) { setMode('mfa'); setNotice('Enter the current code from your authenticator app.'); return; }
     const session = await fetch('/api/auth/get-session', { credentials: 'same-origin' }).then(response => response.json());
     if (!session?.user) throw new Error('Sign-in did not create an active session. Check your email and try again.');
+    rememberCharacterStorageOwner(typeof session.user.id === 'string' ? session.user.id : null);
     if (returnTo) { window.location.assign(returnTo); return; }
     setUser(session.user as User); setPassword(''); setNotice('You are signed in.');
   };
@@ -110,7 +112,7 @@ export default function AccountPanel() {
     {notice && <p role="status" className="text-sm">{notice}</p>}
     {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
     <button className="min-h-11 rounded-md border px-4" disabled={busy} onClick={() => void run(async () => {
-      await post('sign-out', {}); setUser(null); setNotice('You have signed out.');
+      await post('sign-out', {}); rememberCharacterStorageOwner(null); setUser(null); setNotice('You have signed out.');
     })}>Sign out</button>
   </section>;
 
@@ -138,6 +140,7 @@ export default function AccountPanel() {
           const session = await fetch('/api/auth/get-session', { credentials: 'same-origin' }).then(response => response.json());
           if (!session?.user) throw new Error('The verification code did not create an active session.');
           if (returnTo) { window.location.assign(returnTo); return; }
+          rememberCharacterStorageOwner(typeof session.user.id === 'string' ? session.user.id : null);
           setUser(session.user as User); setCode(''); setNotice('You are signed in.');
         } else {
           await signIn(email, password);

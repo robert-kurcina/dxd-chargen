@@ -41,7 +41,7 @@ export function SheetWorkspaceView() {
 }
 
 export function LibraryWorkspaceView() {
-  const { data, libraryRefresh, loadDraft, loadAccountDraft, saveAccount, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, saving, localEntries, openLocalDraft } = useWorkspace();
+  const { data, libraryRefresh, loadDraft, loadAccountDraft, saveAccount, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, saving, localEntries, guestEntries, accountStorageOwner, importGuestDraft, openLocalDraft } = useWorkspace();
   const [filter, setFilter] = useState<string>('all');
   const [tag, setTag] = useState('');
   const matches = localEntries.filter(entry => (entry.accountTargetCampaignId === filter || campaignMatches(entry.draft.campaignId, filter)) && libraryTagMatches(entry.draft.utilities.libraryTags, tag));
@@ -55,6 +55,11 @@ export function LibraryWorkspaceView() {
       <input aria-label="Library tag" value={tag} onChange={event => setTag(event.target.value)} placeholder="Any tag" className="h-11 max-w-full rounded-md border bg-background px-3" />
     </label>
     <p className="text-xs text-muted-foreground">Campaign and tag filters apply to browser drafts and saved files. Tags match exactly, ignoring case.</p>
+    {accountStorageOwner && guestEntries.length > 0 && <section className="space-y-2 rounded-lg border bg-card p-3" aria-labelledby="guest-drafts-heading">
+      <h2 id="guest-drafts-heading" className="font-semibold">Guest drafts on this device</h2>
+      <p className="text-xs text-muted-foreground">These drafts are separate from your account. Choose a draft to create a new account-scoped browser copy; the guest source stays unchanged.</p>
+      <ul className="grid gap-2 sm:grid-cols-2">{guestEntries.map(entry => <li key={entry.id}><Button variant="outline" className="h-auto min-h-14 w-full min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => importGuestDraft(entry.id)}><span>Copy {entry.draft.utilities.name || 'Unnamed character'} into this account</span><span className="text-xs text-muted-foreground">{campaignLabel(entry.draft.campaignId)}</span></Button></li>)}</ul>
+    </section>}
     <section className="rounded-lg border bg-card p-3"><h2 className="font-semibold">Browser drafts</h2><p className="mb-3 text-xs text-muted-foreground">Saved in this browser. Legacy and unassigned characters appear under Default Campaign.</p>
       <div className="grid gap-2 sm:grid-cols-2">{matches.map(entry => <Button key={entry.id} variant="outline" className="h-auto min-h-14 min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => openLocalDraft(entry.id)}><span>{entry.draft.utilities.name || 'Unnamed character'}</span><span className="text-xs text-muted-foreground">{entry.accountTargetCampaignName ? `For ${entry.accountTargetCampaignName} · ${campaignLabel(entry.draft.campaignId)}` : campaignLabel(entry.draft.campaignId)}</span><span className="text-xs text-muted-foreground">{entry.draft.utilities.libraryTags.join(', ') || 'No tags'}</span></Button>)}</div>
       {!matches.length && <p className="py-3 text-sm text-muted-foreground">No browser drafts match these filters.</p>}

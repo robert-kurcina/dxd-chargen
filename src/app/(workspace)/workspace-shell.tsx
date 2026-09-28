@@ -21,7 +21,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
   const activeTab = workspaceTab(pathname);
   const sheet = activeTab === '/sheet';
   const character = activeTab === '/' || activeTab === '/profile';
-  const { draft, dirty, saving, save, saveAccount, isAccountCharacter, accountServerOnly, hasAccountRecord, accountPrivate, setAccountPrivate, online, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, message, selectedCampaign, downloadBackup, restoreBackup, setMessage } = useWorkspace();
+  const { draft, dirty, saving, save, saveAccount, isAccountCharacter, accountServerOnly, hasAccountRecord, accountPrivate, setAccountPrivate, online, reset, activeFileId, canUndo, canRedo, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, storageScopeNotice, accountStorageOwner, message, selectedCampaign, downloadBackup, restoreBackup, setMessage } = useWorkspace();
   const [confirm, setConfirm] = useState<'save' | 'reset' | null>(null);
   const backupInput = useRef<HTMLInputElement>(null);
   const menu = useRef<HTMLDetailsElement>(null);
@@ -78,6 +78,8 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
     {accountServerOnly && !online && <p role="alert" className="my-2 rounded-md border border-amber-600 bg-amber-50 p-3 text-sm text-amber-950 dark:bg-amber-950 dark:text-amber-50">You are offline. This Account Library character is only in memory on this device; edits may be lost if you close or reload before reconnecting and saving.</p>}
     {message && <p role="status" className="my-2 text-sm">{message}</p>}
     {storageWarning && <p role="alert" className="my-2 rounded border border-destructive p-2 text-sm">{storageWarning}</p>}
+    {storageScopeNotice && <p role="alert" className="my-2 rounded border border-amber-600 p-2 text-sm">{storageScopeNotice}</p>}
+    {accountStorageOwner && !online && !accountServerOnly && <p role="alert" className="my-2 rounded-md border border-amber-600 bg-amber-50 p-3 text-sm text-amber-950 dark:bg-amber-950 dark:text-amber-50">You are offline. Account-scoped browser drafts stay on this device; the Account Library service cannot confirm saves until you reconnect.</p>}
     {character && <div className="flex items-center gap-2 pt-2" aria-label="Edit history">
       <Button variant="outline" size="sm" className="h-11" disabled={!canUndo} onClick={undo}><Undo2 />Undo</Button>
       <Button variant="outline" size="sm" className="h-11" disabled={!canRedo} onClick={redo}><Redo2 />Redo</Button>

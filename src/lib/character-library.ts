@@ -4,6 +4,41 @@ export const LEGACY_DRAFT_STORAGE_KEY = 'dxd-character-draft-v1';
 export const CHARACTER_LIBRARY_STORAGE_KEY = 'dxd-character-library-v1';
 export const PENDING_FILE_LOAD_STORAGE_KEY = 'dxd-character-pending-file-load-v1';
 
+export const CHARACTER_STORAGE_OWNER_KEY = 'dxd-character-storage-owner-v1';
+const CHARACTER_HISTORY_STORAGE_PREFIX = 'dxd-character-history-v1:';
+
+export function isCharacterStorageOwner(value: unknown): value is string {
+  return typeof value === 'string' && value.length > 0 && value.length <= 256 && !/[\u0000-\u0020\u007f]/.test(value);
+}
+
+export function characterLibraryStorageKey(ownerId: string | null): string {
+  return isCharacterStorageOwner(ownerId) ? `${CHARACTER_LIBRARY_STORAGE_KEY}:account:${encodeURIComponent(ownerId)}` : CHARACTER_LIBRARY_STORAGE_KEY;
+}
+
+export function legacyDraftStorageKey(ownerId: string | null): string {
+  return isCharacterStorageOwner(ownerId) ? `${LEGACY_DRAFT_STORAGE_KEY}:account:${encodeURIComponent(ownerId)}` : LEGACY_DRAFT_STORAGE_KEY;
+}
+
+export function characterHistoryStoragePrefix(ownerId: string | null): string {
+  return isCharacterStorageOwner(ownerId) ? `${CHARACTER_HISTORY_STORAGE_PREFIX}account:${encodeURIComponent(ownerId)}:` : CHARACTER_HISTORY_STORAGE_PREFIX;
+}
+
+export function readCharacterStorageOwner(): string | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const owner = window.localStorage.getItem(CHARACTER_STORAGE_OWNER_KEY);
+    return isCharacterStorageOwner(owner) ? owner : null;
+  } catch { return null; }
+}
+
+export function rememberCharacterStorageOwner(ownerId: string | null): void {
+  if (typeof window === 'undefined') return;
+  try {
+    if (isCharacterStorageOwner(ownerId)) window.localStorage.setItem(CHARACTER_STORAGE_OWNER_KEY, ownerId);
+    else window.localStorage.removeItem(CHARACTER_STORAGE_OWNER_KEY);
+  } catch { /* Cache scoping remains in memory when browser storage is unavailable. */ }
+}
+
 export type CharacterLibraryEntry = {
   fileId?: string;
   /** Account campaign selected for a new account-backed character; active campaigns remain unassigned pending review. */

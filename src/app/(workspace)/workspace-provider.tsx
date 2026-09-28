@@ -5,7 +5,7 @@ import SuspenseSpinner from '@/components/suspense-spinner';
 import { useRouter } from 'next/navigation';
 import type { StaticData } from '@/data';
 import { createEmptyCharacterDraft, migrateCharacterDraft, type CharacterDraft } from '@/lib/character-draft';
-import { createLibraryEntry, importCharacter, exportCharacter, activeLibraryEntry, browserPersistedLibrary, preserveAccountConflict, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState } from '@/lib/character-library';
+import { createLibraryEntry, importCharacter, exportCharacter, activeLibraryEntry, browserPersistedLibrary, preserveAccountConflict, CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, characterLibraryStorageKey, legacyDraftStorageKey, characterHistoryStoragePrefix, CHARACTER_STORAGE_OWNER_KEY, isCharacterStorageOwner, readCharacterStorageOwner, rememberCharacterStorageOwner, migrateCharacterLibrary, PENDING_FILE_LOAD_STORAGE_KEY, updateActiveDraft, type CharacterLibraryState, type CharacterLibraryEntry } from '@/lib/character-library';
 import { syncHeritageGrantedSelections } from '@/lib/rules/background';
 import { syncIntrinsics } from '@/lib/rules/intrinsics';
 import { syncProficiencies } from '@/lib/rules/proficiencies';
@@ -18,7 +18,7 @@ import { GenerationConflict, creationContext, seedForCharacter, LOCK_SECTIONS } 
 import { LOCAL_CAMPAIGNS, CAMPAIGN_SELECTION_KEY, localCampaign } from '@/lib/local-campaigns';
 import { emptyHistory, recordEdit, travel, packHistory, unpackHistory, type History, type Json } from '@/lib/draft-history';
 
-const historyKey = (id: string) => `dxd-character-history-v1:${id}`;
+const historyKey = (id: string, ownerId: string | null) => `${characterHistoryStoragePrefix(ownerId)}${id}`;
 const snapshot = (draft: CharacterDraft): Json => JSON.parse(JSON.stringify({ ...draft, updatedAt: null, characterId: null }));
 
 function normalizeDraft(draft: CharacterDraft, data: StaticData) { return syncUtilities(syncProperties(syncProficiencies(syncIntrinsics(syncHeritageGrantedSelections(draft, data), data), data), data), data); }
@@ -32,6 +32,10 @@ type WorkspaceContextValue = {
   createInCampaign: (origin?: CharacterDraft['background']) => void;
   createAccountCampaignDraft: (campaign: { id: string; name: string; lifecycle: 'preparing' | 'active' | 'archived'; isDefault?: boolean; canConfigure?: boolean }) => void;
   localEntries: CharacterLibraryState['entries'];
+  guestEntries: CharacterLibraryEntry[];
+  accountStorageOwner: string | null;
+  storageScopeNotice: string;
+  importGuestDraft: (id: string) => void;
   openLocalDraft: (id: string) => void;
   downloadBackup: () => void;
   restoreBackup: (text: string) => void;
@@ -91,17 +95,21 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const [historyNotice, setHistoryNotice] = useState('');
   const [storageWarning, setStorageWarning] = useState('');
   const storageReadable = useRef(true);
+  const storageOwnerRef = useRef<string | null>(null);
+  const [accountStorageOwner, setAccountStorageOwner] = useState<string | null>(null);
+  const [guestEntries, setGuestEntries] = useState<CharacterLibraryEntry[]>([]);
+  const [storageScopeNotice, setStorageScopeNotice] = useState('');
   const savingRef = useRef(false);
   const restoreHistory = (next: CharacterLibraryState) => {
     const entry = activeLibraryEntry(next);
-    try { setHistory(entry && window.localStorage.getItem('dxd-remember-history') !== 'false' ? unpackHistory(window.localStorage.getItem(historyKey(entry.id)), entry.id, snapshot(entry.draft)) : emptyHistory()); }
+    try { setHistory(entry && window.localStorage.getItem('dxd-remember-history') !== 'false' ? unpackHistory(window.localStorage.getItem(historyKey(entry.id, storageOwnerRef.current)), entry.id, snapshot(entry.draft)) : emptyHistory()); }
     catch { setHistory(emptyHistory()); setStorageWarning('Browser storage is unavailable. Changes remain only in memory.'); }
   };
   const setRememberHistory = (enabled: boolean) => {
     setRememberHistoryState(enabled);
     try {
       window.localStorage.setItem('dxd-remember-history', String(enabled));
-      if (!enabled) for (const key of Object.keys(window.localStorage)) if (key.startsWith('dxd-character-history-v1:')) window.localStorage.removeItem(key);
+      if (!enabled) { const prefix = characterHistoryStoragePrefix(storageOwnerRef.current); for (const key of Object.keys(window.localStorage)) if (key.startsWith(prefix)) window.localStorage.removeItem(key); }
     } catch { setStorageWarning('Could not save the history preference. Changes remain only in memory.'); }
   };
   const [hydrated, setHydrated] = useState(false);
@@ -119,47 +127,103 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const [reverting, setReverting] = useState(false);
 
   useEffect(() => {
-    let savedLibrary: unknown = null; let legacyDraft: unknown = null;
-    try { const rawLibrary = window.localStorage.getItem(CHARACTER_LIBRARY_STORAGE_KEY); if (rawLibrary) savedLibrary = JSON.parse(rawLibrary); const rawLegacy = window.localStorage.getItem(LEGACY_DRAFT_STORAGE_KEY); if (rawLegacy) legacyDraft = JSON.parse(rawLegacy); } catch { storageReadable.current = false; setStorageWarning('Stored drafts could not be read. Automatic browser saving is paused to preserve them; save to a file and reload when storage is available.'); }
-    const migrated = migrateCharacterLibrary(savedLibrary, legacyDraft);
-    const safeEntries = migrated.entries.filter(entry => entry.serverRecord?.mode !== 'server');
-    let nextLibrary = safeEntries.length
-      ? { ...migrated, activeId: safeEntries.some(entry => entry.id === migrated.activeId) ? migrated.activeId : safeEntries[0].id, entries: safeEntries.map(entry => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) }
-      : initialLibraryState();
-    try {
-      const pendingRaw = window.localStorage.getItem(PENDING_FILE_LOAD_STORAGE_KEY);
-      const pending = pendingRaw ? JSON.parse(pendingRaw) as { idName?: unknown; draft?: unknown } : null;
-      if (pending && typeof pending.idName === 'string' && pending.draft) {
-        const loaded = normalizeDraft(migrateCharacterDraft(pending.draft), data);
-        const id = loaded.characterId ? `file:${loaded.characterId}` : `file:${pending.idName}`;
-        const entry = { ...createLibraryEntry(loaded, id), fileId: pending.idName };
-        nextLibrary = { ...nextLibrary, activeId: id, entries: [...nextLibrary.entries.filter(item => item.id !== id), entry] };
-        setActiveFileId(pending.idName);
-        setSavedSnapshot(comparableDraft(loaded));
-        setMessage(`Loaded ${pending.idName}`);
-        window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY);
+    let cancelled = false;
+    const initializeWorkspace = async () => {
+      let ownerId: string | null = null;
+      let sessionVerified = false;
+      let rememberedOwner: string | null = null;
+      try {
+        rememberedOwner = readCharacterStorageOwner();
+        const response = await fetch('/api/auth/get-session', { cache: 'no-store', credentials: 'same-origin' });
+        if (response.ok) {
+          sessionVerified = true;
+          const session = await response.json() as { user?: { id?: unknown } | null } | null;
+          if (isCharacterStorageOwner(session?.user?.id)) ownerId = session.user.id;
+        } else if (!navigator.onLine) ownerId = rememberedOwner;
+      } catch {
+        if (!navigator.onLine) ownerId = rememberedOwner;
       }
-    } catch { setMessage('The pending character could not be loaded. Existing local drafts were preserved.'); }
-    setLibrary(nextLibrary);
-    const restoredEntry = activeLibraryEntry(nextLibrary);
-    if (restoredEntry?.fileId) setActiveFileId(restoredEntry.fileId);
-    if (restoredEntry?.serverRecord) { setAccountPrivateChoice(restoredEntry.serverRecord.isPrivate); setSavedAccountPrivate(restoredEntry.serverRecord.isPrivate); setSavedAccountSnapshot(comparableDraft(restoredEntry.draft)); }
-    try {
-      const selected = window.localStorage.getItem(CAMPAIGN_SELECTION_KEY);
-      if (selected) setSelectedCampaignId(localCampaign(selected).id);
-      else if (!savedLibrary && !legacyDraft && !restoredEntry?.fileId && window.location.pathname === '/') router.replace('/campaigns');
-    } catch {}
-    restoreHistory(nextLibrary);
-    try { setRememberHistoryState(window.localStorage.getItem('dxd-remember-history') !== 'false'); } catch {}
-    setHydrated(true);
+      if (cancelled) return;
+      if (sessionVerified) rememberCharacterStorageOwner(ownerId);
+      else if (rememberedOwner && !ownerId) setStorageScopeNotice('Account storage identity could not be verified. Showing guest drafts only; reconnect and reload to access this account’s browser copies.');
+      storageOwnerRef.current = ownerId;
+      setAccountStorageOwner(ownerId);
+
+      const currentLibraryKey = characterLibraryStorageKey(ownerId);
+      const currentDraftKey = legacyDraftStorageKey(ownerId);
+      let savedLibrary: unknown = null; let legacyDraft: unknown = null;
+      try {
+        const rawLibrary = window.localStorage.getItem(currentLibraryKey);
+        if (rawLibrary) savedLibrary = JSON.parse(rawLibrary);
+        const rawLegacy = window.localStorage.getItem(currentDraftKey);
+        if (rawLegacy) legacyDraft = JSON.parse(rawLegacy);
+      } catch {
+        storageReadable.current = false;
+        setStorageWarning('Stored drafts could not be read. Automatic browser saving is paused to preserve them; save to a file and reload when storage is available.');
+      }
+      const migrated = savedLibrary || legacyDraft ? migrateCharacterLibrary(savedLibrary, legacyDraft) : initialLibraryState();
+      const safeEntries = migrated.entries.filter(entry => entry.serverRecord?.mode !== 'server');
+      const nextLibrary = safeEntries.length
+        ? { ...migrated, activeId: safeEntries.some(entry => entry.id === migrated.activeId) ? migrated.activeId : safeEntries[0].id, entries: safeEntries.map(entry => ({ ...entry, draft: normalizeDraft(entry.draft, data) })) }
+        : initialLibraryState();
+
+      let nextGuestEntries: CharacterLibraryEntry[] = [];
+      if (ownerId) {
+        try {
+          const rawGuestLibrary = window.localStorage.getItem(CHARACTER_LIBRARY_STORAGE_KEY);
+          const rawGuestDraft = window.localStorage.getItem(LEGACY_DRAFT_STORAGE_KEY);
+          if (rawGuestLibrary || rawGuestDraft) {
+            const guestLibrary = migrateCharacterLibrary(rawGuestLibrary ? JSON.parse(rawGuestLibrary) : null, rawGuestDraft ? JSON.parse(rawGuestDraft) : null);
+            nextGuestEntries = guestLibrary.entries.filter(entry => !entry.serverRecord && !entry.accountTargetCampaignId && entry.accountCopyPrivate === undefined).map(entry => ({ ...entry, draft: normalizeDraft(entry.draft, data) }));
+          }
+        } catch { setStorageScopeNotice('Guest drafts on this device could not be read; account-scoped drafts remain available.'); }
+      }
+      setGuestEntries(nextGuestEntries);
+
+      try {
+        const pendingRaw = window.localStorage.getItem(PENDING_FILE_LOAD_STORAGE_KEY);
+        const pending = pendingRaw ? JSON.parse(pendingRaw) as { idName?: unknown; draft?: unknown } : null;
+        if (pending && typeof pending.idName === 'string' && pending.draft) {
+          const loaded = normalizeDraft(migrateCharacterDraft(pending.draft), data);
+          const id = loaded.characterId ? `file:${loaded.characterId}` : `file:${pending.idName}`;
+          const entry = { ...createLibraryEntry(loaded, id), fileId: pending.idName };
+          const merged = { ...nextLibrary, activeId: id, entries: [...nextLibrary.entries.filter(item => item.id !== id), entry] };
+          setLibrary(merged);
+          setActiveFileId(pending.idName);
+          setSavedSnapshot(comparableDraft(loaded));
+          setMessage(`Loaded ${pending.idName}`);
+          window.localStorage.removeItem(PENDING_FILE_LOAD_STORAGE_KEY);
+        } else setLibrary(nextLibrary);
+      } catch {
+        setLibrary(nextLibrary);
+        setMessage('The pending character could not be loaded. Existing local drafts were preserved.');
+      }
+      const restoredEntry = activeLibraryEntry(libraryRef.current);
+      if (restoredEntry?.fileId) setActiveFileId(restoredEntry.fileId);
+      if (restoredEntry?.serverRecord) { setAccountPrivateChoice(restoredEntry.serverRecord.isPrivate); setSavedAccountPrivate(restoredEntry.serverRecord.isPrivate); setSavedAccountSnapshot(comparableDraft(restoredEntry.draft)); }
+      try {
+        const selected = window.localStorage.getItem(CAMPAIGN_SELECTION_KEY);
+        if (selected) setSelectedCampaignId(localCampaign(selected).id);
+        else if (!savedLibrary && !legacyDraft && !restoredEntry?.fileId && window.location.pathname === '/') router.replace(ownerId && nextGuestEntries.length ? '/library' : '/campaigns');
+      } catch {}
+      restoreHistory(libraryRef.current);
+      try { setRememberHistoryState(window.localStorage.getItem('dxd-remember-history') !== 'false'); } catch {}
+      setHydrated(true);
+    };
+    void initializeWorkspace();
+    const reloadWhenOwnerChanges = (event: StorageEvent) => {
+      if (event.key === CHARACTER_STORAGE_OWNER_KEY && event.newValue !== storageOwnerRef.current) window.location.reload();
+    };
+    window.addEventListener('storage', reloadWhenOwnerChanges);
+    return () => { cancelled = true; window.removeEventListener('storage', reloadWhenOwnerChanges); };
   }, [data]);
   useEffect(() => {
     if (!hydrated || !storageReadable.current) return;
     try {
       const browserLibrary = browserPersistedLibrary(library);
-      window.localStorage.setItem(CHARACTER_LIBRARY_STORAGE_KEY, JSON.stringify(browserLibrary));
+      window.localStorage.setItem(characterLibraryStorageKey(storageOwnerRef.current), JSON.stringify(browserLibrary));
       const active = activeLibraryEntry(browserLibrary);
-      if (active) window.localStorage.setItem(LEGACY_DRAFT_STORAGE_KEY, JSON.stringify(active.draft));
+      if (active) window.localStorage.setItem(legacyDraftStorageKey(storageOwnerRef.current), JSON.stringify(active.draft));
       setStorageWarning('');
     } catch { setStorageWarning('Browser storage could not save this draft. Changes remain only in memory; save to a file before closing.'); }
   }, [library, hydrated]);
@@ -167,10 +231,10 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     if (!hydrated || !storageReadable.current) return;
     const entry = activeLibraryEntry(library); if (!entry) return;
     try {
-      if (entry.serverRecord?.mode === 'server') { window.localStorage.removeItem(historyKey(entry.id)); setHistoryNotice('Account character undo history stays only in this session.'); return; }
-      if (!rememberHistory) { window.localStorage.removeItem(historyKey(entry.id)); setHistoryNotice('Undo history lasts only for this session.'); return; }
+      if (entry.serverRecord?.mode === 'server') { window.localStorage.removeItem(historyKey(entry.id, storageOwnerRef.current)); setHistoryNotice('Account character undo history stays only in this session.'); return; }
+      if (!rememberHistory) { window.localStorage.removeItem(historyKey(entry.id, storageOwnerRef.current)); setHistoryNotice('Undo history lasts only for this session.'); return; }
       const packed = packHistory(entry.id, snapshot(entry.draft), history);
-      window.localStorage.setItem(historyKey(entry.id), packed.text);
+      window.localStorage.setItem(historyKey(entry.id, storageOwnerRef.current), packed.text);
       setHistoryNotice(packed.truncated ? 'Older or large edits are undoable only in this session; saved history is limited to less than 10 KB.' : '');
     } catch { setHistoryNotice('Undo history could not be saved and is available only in this session.'); }
   }, [library, history, hydrated, rememberHistory]);
@@ -395,6 +459,19 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     router.push('/');
   };
   const reset = () => createInCampaign();
+  const importGuestDraft = (id: string) => {
+    const source = guestEntries.find(entry => entry.id === id);
+    if (!source || !accountStorageOwner) return;
+    const importedSource = importCharacter(exportCharacter(source));
+    const imported = { ...importedSource, draft: normalizeDraft(importedSource.draft, data) };
+    const current = libraryRef.current;
+    const next = { ...current, activeId: imported.id, entries: [...current.entries, imported] };
+    setLibrary(next); setHistory(emptyHistory()); setActiveFileId(null);
+    setAccountPrivateChoice(false); setSavedAccountPrivate(false); setSavedAccountSnapshot(''); setSavedSnapshot('');
+    setMessage('Guest draft copied into this account’s browser workspace. The guest source remains unchanged; save the copy to the Account Library when ready.');
+    router.push('/');
+  };
+
   const openLocalDraft = (id: string) => {
     const entry = libraryRef.current.entries.find(item => item.id === id); if (!entry) return;
     const next = { ...libraryRef.current, activeId: id }; setLibrary(next); restoreHistory(next);
@@ -424,7 +501,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     } catch (error) { setMessage(`Import failed. Existing drafts are unchanged. ${error instanceof Error ? error.message : 'Choose a valid Forge backup.'}`); }
   };
 
-  const value = useMemo<WorkspaceContextValue>(() => ({ downloadBackup, restoreBackup, selectedCampaign, selectCampaign, createInCampaign, createAccountCampaignDraft, localEntries: library.entries.filter(entry => entry.serverRecord?.mode !== 'server'), openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, saveAccount, loadAccountDraft, isAccountCharacter, accountServerOnly, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, online, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, selectedCampaign, library, accountPrivateChoice, savedAccountPrivate, savedAccountSnapshot, online]);
+  const value = useMemo<WorkspaceContextValue>(() => ({ downloadBackup, restoreBackup, selectedCampaign, selectCampaign, createInCampaign, createAccountCampaignDraft, localEntries: library.entries.filter(entry => entry.serverRecord?.mode !== 'server'), guestEntries, accountStorageOwner, storageScopeNotice, importGuestDraft, openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, saveAccount, loadAccountDraft, isAccountCharacter, accountServerOnly, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, online, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, storageScopeNotice, selectedCampaign, library, guestEntries, accountStorageOwner, accountPrivateChoice, savedAccountPrivate, savedAccountSnapshot, online]);
   if (!hydrated) return <SuspenseSpinner panel label="Loading character workspace…" className="mx-auto mt-4 max-w-[1440px]" />;
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }

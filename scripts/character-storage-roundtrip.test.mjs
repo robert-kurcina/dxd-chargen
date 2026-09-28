@@ -50,6 +50,17 @@ test('Library maintenance preserves current drafts on disk and still repairs leg
   } finally { await rm(root, { recursive: true, force: true }); }
 });
 
+test('browser character storage keys separate accounts and preserve the legacy guest namespace', async () => {
+  const { CHARACTER_LIBRARY_STORAGE_KEY, LEGACY_DRAFT_STORAGE_KEY, characterLibraryStorageKey, legacyDraftStorageKey, characterHistoryStoragePrefix } = await import('../src/lib/character-library.ts');
+  assert.equal(characterLibraryStorageKey(null), CHARACTER_LIBRARY_STORAGE_KEY);
+  assert.equal(legacyDraftStorageKey(null), LEGACY_DRAFT_STORAGE_KEY);
+  assert.notEqual(characterLibraryStorageKey('account-a'), characterLibraryStorageKey('account-b'));
+  assert.equal(characterLibraryStorageKey('account:a'), `${CHARACTER_LIBRARY_STORAGE_KEY}:account:account%3Aa`);
+  assert.notEqual(legacyDraftStorageKey('account-a'), legacyDraftStorageKey('account-b'));
+  assert.notEqual(characterHistoryStoragePrefix('account-a'), characterHistoryStoragePrefix('account-b'));
+  assert.equal(characterLibraryStorageKey(''), CHARACTER_LIBRARY_STORAGE_KEY, 'invalid empty identities cannot select an account cache');
+});
+
 test('stale Account Library edits detach into a durable local copy without their server identity', async () => {
   const { createLibraryEntry, preserveAccountConflict } = await import('../src/lib/character-library.ts');
   const draft = createEmptyCharacterDraft();
