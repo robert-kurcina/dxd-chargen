@@ -244,7 +244,7 @@ Or run all three:
 npm run check
 ```
 
-For browser regressions, install the bundled headless browser with `npm run install:browser:chromium`. Playwright, browser profiles, and test databases stay under this project’s ignored `.cache/` directory. `npm run test:browser:account-campaigns` uses mocked auth responses to cover four campaign/role cases without writing character files. `npm run test:browser:account-live` starts a temporary local server, verifies a synthetic account through the encrypted local inbox, saves a Default-campaign character to a disposable SQLite database, confirms the row, reopens it in Library, then removes the database.
+For browser regressions, install the bundled headless browser with `npm run install:browser:chromium`. Playwright, browser profiles, and test databases stay under this project’s ignored `.cache/` directory. `npm run test:browser:account-campaigns` uses mocked auth responses to cover four campaign/role cases without writing character files. `npm run test:browser:account-live` starts a temporary local server, verifies a synthetic account through the encrypted local inbox, saves a Default-campaign character to a disposable SQLite database, confirms the row, reopens it in Library, then removes the database. `npm run test:browser:invitations-live` exercises actual MFA setup, an audited campaign fork, invitation creation and revocation, a second verified account joining through its link, membership persistence, and rejection of the revoked link.
 
 ## Architecture
 
