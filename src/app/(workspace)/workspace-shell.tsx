@@ -47,6 +47,7 @@ export default function WorkspaceShell({ children: _children }: { children: Reac
           <div className="absolute left-0 top-12 z-50 max-h-[calc(100dvh-8rem)] overflow-y-auto w-64 max-w-[calc(100vw-2rem)] rounded-lg border bg-background p-2 shadow-lg">
             <Link href="/campaigns" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Campaigns</Link>
             <Link href="/library" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Character Library</Link>
+            <Link href="/account" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Account</Link>
             <Link href="/admin" onClick={closeMenu} className="flex min-h-11 items-center rounded px-3 hover:bg-muted">Administration</Link>
             <button type="button" className="min-h-11 w-full rounded px-3 text-left hover:bg-muted" onClick={() => { closeMenu(); downloadBackup(); }}>Download character backup</button>
             <button type="button" className="min-h-11 w-full rounded px-3 text-left hover:bg-muted" onClick={() => { closeMenu(); backupInput.current?.click(); }}>Import character backup…</button>

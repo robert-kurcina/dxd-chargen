@@ -101,3 +101,345 @@ A mutation and its evidence now share the SQLite statement/transaction: injected
 Fault tests verify failed evidence prevents mutation, a committed mutation remains discoverable after completion-log failure, and two interleaved requests retain the correct actor IDs. MFA tests additionally reject disabling MFA with a wrong password and verify that two concurrent login attempts using one recovery code produce exactly one successful session. Five account/security scenarios, migration/backup tests, TypeScript and the isolated Next production-bundle check form this checkpoint's validation.
 
 Remaining H02b gates include TOTP replay/freshness/lockout, account/email/username edge cases, application-enforced password/session policies, and durable delivery/reconciliation workflows. Accounts remain unexposed; there is no automatic classification of a live operation as crashed.
+
+## H02b checkpoint: password/session policy
+
+On `feature/account-policy-gates`, the journaled local handler now enforces password-change policy before delegating to Better Auth: a server-resolved session must be less than five minutes old, invalid/future timestamps fail closed, and `revokeOtherSessions` is always true regardless of client input. Request Origin and cookie headers are retained so the library still performs its own checks. Password verification and hashing remain library-owned. Stale sessions receive `REAUTHENTICATION_REQUIRED`; users must sign in again before changing their password. This is a session-recency rule, not Danger Zone MFA proof.
+
+Regression tests send `revokeOtherSessions: false` and verify other sessions are nevertheless revoked. A stale session cannot change the password, and the unchanged password still works. A completed MFA login challenge cannot be used again even with a different valid recovery code. Five account/security scenarios and TypeScript pass.
+
+Remaining distinction: single-use challenge and recovery-code tests do not prove that the same TOTP counter cannot be used across two independently issued challenges. Installed `two-factor/totp/index.mjs` verifies the OTP and consumes the login challenge, but does not by itself establish persisted per-counter consumption. That separate gate and lockout/freshness tests remain pending; account endpoints are still unexposed. Do not describe H02b as complete or the session-recency rule as recent MFA verification.
+
+## H02b checkpoint: cross-challenge TOTP replay and lockout
+
+A new concurrent-login regression reproduced the same TOTP authorizing two distinct challenges in the unguarded library flow. The local journaled handler now derives a purpose-separated HMAC fingerprint for a six-digit TOTP request. The fifth migration's BEFORE INSERT session trigger consumes that fingerprint per user in the same SQLite statement as session creation. A duplicate aborts session creation and is mapped to HTTP 401 `TOTP_ALREADY_USED` by the handler. Better Auth still performs OTP validation; this guard does not implement its own OTP verifier. Enrollment-generated sessions also consume the code. The test generates the next accepted time-step code, independent of the library, and verifies exactly one successful concurrent login.
+
+The configuration fixes six digits and a 30-second period. Fingerprints expire after 90 seconds, covering the pinned verifier's current/adjacent-step acceptance window. Expired rows for a user are removed on their next TOTP session creation; general cleanup and key-rotation policy remain pending. All processes must share the same secret and registered database functions. Do not rotate that secret during the acceptance window without an explicit invalidation strategy. No plaintext OTP is persisted. A rejected attempt may already have consumed its login challenge, so users must restart login with a fresh code; nothing is automatically replayed.
+
+This guard applies to session creation, not an already authenticated caller's MFA step-up result. Danger Zone still requires its own fresh, action-bound proof. Raw auth API access still bypasses handler fingerprint setup and must remain internal; H02c route cutover tests are required before exposure. The expected SQLite trigger error can appear in local library test output, but the caller receives the explicit 401 response and no session credentials from that response.
+
+The MFA scenario also seeds nine persisted prior failures, submits a failing TOTP at the default threshold of ten, verifies active lockout rejects a valid recovery code with 429, then advances the stored lock expiry and verifies recovery succeeds. This exercises the boundary without sleeping; it is not a distributed rate-limit load test. Account/security tests, migration/backup, TypeScript and isolated production bundling pass for this checkpoint.
+
+## H02b checkpoint: account identity and email verification
+
+The journaled local handler requires a nonblank username during signup. Username format and normalization remain with the library. Email changes are enabled with verification required and the same five-minute session-recency gate as password changes; the existing address remains authoritative until the replacement is verified. The original account UUID and ownership remain unchanged.
+
+The account identity scenario verifies missing/blank username rejection, case normalization, a neutral duplicate-email signup response with no new user/session, case-insensitive username uniqueness, username login, replacement-address verification, stable UUID and inability to log in using the former address. The MFA scenario now additionally resets the password of an MFA-enabled account and confirms that login still stops at the second-factor challenge with no authenticated session.
+
+Six account/security scenarios and TypeScript pass. Real mail is not sent and no account route is exposed. Remaining work includes durable external delivery/retry semantics, reconciliation handling for interrupted multi-step operations, rate-limit/abuse coverage and account-management UI. These tests do not constitute H02c server authorization or a completed shared-account service.
+
+
+## H02b checkpoint: read-only recovery review
+
+`createSecurityJournal().reviewCandidates()` provides a bounded snapshot of older
+requests with missing completion, a recorded exception, or an HTTP error response.
+It includes the count of transaction-coupled auth changes, including changes made
+before an exception. Defaults are a five-minute minimum age and 100 results;
+limits must be positive integers no greater than 1,000. `hasMore` indicates a
+truncated result. Detailed existing `evidence(operationId)` inspection remains
+available internally.
+
+Age is only a review filter: a request may still be running. No recorded changes
+is not proof of rollback, and a nonzero count is not proof of whole-operation
+success. Successful responses are outside this exception report. The query does
+not change the journal, resolve an incident, retry credentials, or deliver mail.
+It exposes no account email, credential material, or arbitrary request data.
+There is no public route or review UI. Durable review decisions, worker ownership,
+delivery retries, and reconciliation with external delivery remain unfinished.
+
+Validation: all three security-journal tests and standalone TypeScript pass.
+The new test covers age filtering, error/exception classification, change counts,
+bounded results, invalid options, and absence of database mutations during review.
+
+
+## H02b checkpoint: recoverable local delivery leases
+
+Migration 0005 adds lease token/expiry, attempt count, and next-available time to
+existing encrypted mail rows. `claim()` atomically selects one eligible message,
+increments its attempt count, and returns a random ownership token plus decrypted
+mail. Decryption failure rolls back the claim. `complete()` and `retry()` require
+the current, unexpired token; an old worker cannot delete or reschedule a message
+reclaimed after lease expiry. Retry delay is configurable, with a 30-second default.
+Expired messages cannot be claimed. Leases default to one minute, capped at five.
+
+This is an internal queue primitive, not an enabled sender or scheduler. A worker
+must send outside the database transaction and use token-bound completion/retry;
+existing pending/acknowledge/clear helpers are only for the local harness. External
+delivery may occur before a crash or expired lease, so retry can duplicate mail.
+Use the stable mail UUID as a provider idempotency key where supported; no
+exactly-once delivery claim is made. No network delivery, provider choice, queue
+UI, retry ceiling, background cleanup, or permanent attempt history is implemented.
+Attempt count survives retries/restarts while the queue row exists. Successful
+completion removes its encrypted payload and queue metadata.
+
+Validation: eight account/security scenarios, TypeScript, and the SQLite
+migration/rollback/backup-restore test pass. The new queue test uses separate DB
+connections and a reopen, verifies exclusive claims, delayed retries, rejection
+of stale tokens, decryption rollback, and expired-message exclusion. Migration
+count is now six; no live database was migrated.
+
+
+## H02b checkpoint: explicit delivery runner
+
+`deliverNextMail(queue, send)` processes at most one eligible message through an
+injected sender. It passes the stable mail UUID as `idempotencyKey`, acknowledges
+only after sender acceptance, and schedules rejected sends with exponential delay
+starting at 30 seconds and capped at five minutes. Results contain only the mail
+ID and idle/accepted/retry-scheduled/lease-lost status. Accepted means transport
+acceptance, not recipient delivery. Provider exception details are discarded.
+Database failures propagate outside the sender catch; failed acknowledgement
+leaves the leased row available for recovery after expiry.
+
+Tests cover idle behavior, stable retry identity, sender failure, delayed retry,
+acceptance, ownership lost during send, and injected acknowledgement failure.
+Nine account/security scenarios and standalone TypeScript pass. No provider,
+network send, automatic worker loop, or public endpoint is enabled. The future
+transport adapter must implement bounded timeouts and provider deduplication where
+available; lease expiry cannot cancel an already accepted external send. Permanent
+attempt history, retry exhaustion policy and operator reconciliation remain open.
+
+
+## H02b checkpoint: development rate-limit coverage
+
+The loopback harness now explicitly enables BetterAuth's in-memory rate limiter
+rather than depending on its production-only default. Lifecycle tests explicitly
+opt out with `disableRateLimitsForTests`; the dedicated rate test uses the default.
+The pinned library's X-Retry-After is also exposed as standard Retry-After by the
+handler wrapper. Concurrent tests prove three of six password-reset requests are
+accepted and three rejected, independently of three allowed/three rejected login
+attempts. Unknown accounts enqueue no mail, rejected logins create no sessions,
+and all six 429 responses are journaled. Ten account/security scenarios and
+standalone TypeScript pass.
+
+This is not the public-service rate-limit gate: counters are process-local,
+shared by library instances and reset on process restart. Requests without a
+resolved trusted client IP share the library's per-path fallback bucket. No
+trusted reverse-proxy configuration has been selected. Durable atomic counters,
+expiry-boundary/restart tests, trusted-IP spoofing tests and per-account abuse
+controls remain necessary before exposing routes. The raw internal auth API and
+wrapper prevalidation require review at H02c cutover; these tests exercise the
+journaled handler, not every possible internal invocation.
+
+
+## H02b checkpoint: persistent rate-limit counters
+
+The harness now uses `createRateLimitStore` through BetterAuth customStorage,
+replacing the preceding in-memory checkpoint. Migration 0006 adds operational
+`auth_throttle` counters, separate from immutable evidence. An immediate SQLite
+transaction reads and consumes each bucket, preventing competing connections
+from passing the same stale count. Each allowed request refreshes the window;
+rejected requests do not extend it. Buckets expire at the exact stored boundary.
+Keys are HMAC fingerprints rather than raw client/path identifiers. The same
+secret must be retained across restarts and shared by instances; changing it or
+the window policy produces fresh buckets and needs an explicit rollout policy.
+
+Eleven account/security tests, TypeScript, and migration/backup-restore checks
+pass. Tests cover two connections, reopen persistence, exact expiry and injected
+write failure (which throws rather than allowing the request). The connection
+test interleaves calls in one Node process; it is not a multi-process load test.
+Migration count is nine. No live database was migrated.
+
+Trusted client-IP handling, per-account abuse controls, expired-counter cleanup,
+multi-process contention tests and public-route bypass review remain open. Old
+expired buckets are overwritten when reused but are not yet globally pruned.
+The test-only rate-limit bypass remains explicit. Account routes remain unexposed.
+
+
+## H02b checkpoint: loopback header trust and counter cleanup
+
+The direct loopback harness explicitly sets `ipAddressHeaders: []`. No proxy is
+configured to sanitize client-supplied headers, so forwarded headers cannot
+select a different rate-limit bucket. Local requests share the library's
+localhost/fallback per-path bucket. Tests exhaust that bucket and then try
+multiple invented X-Forwarded-For, X-Real-IP and Forwarded values, including a
+chain and malformed value; all remain rejected and journaled.
+
+`removeExpired(limit)` deletes only counters at or past expiry, at most 1,000 by
+default (maximum 10,000). Tests cover bounded batches, exact expiry, preservation
+of a renewed active counter and invalid limits. This is an explicit maintenance
+primitive, not a running scheduler; the deletion limit bounds mutations, not the
+scan cost. Eleven account/security scenarios and TypeScript pass.
+
+Deployment still needs a separately tested transport/proxy trust contract and
+appropriate client/account abuse controls. Do not enable forwarded headers solely
+because a host supplies them. Shared loopback throttling is intentionally not a
+public multi-user configuration. Scheduler wiring, contention/load tests and
+explicit reconciliation decisions remain unfinished; account routes stay closed.
+
+
+## H02b checkpoint: indexed throttle cleanup
+
+Migration 0007 adds `auth_throttle_expiry`, an index on counter expiry used by
+the existing bounded cleanup query. This avoids a full table scan to locate each
+expired batch as the table grows. Migration count is eight. The migration has
+not been applied to a live database; automated checks were not run for this
+checkpoint. Cleanup still requires an explicitly scheduled maintenance call.
+
+
+## H02b checkpoint: explicit local maintenance command
+
+`npm run maintenance:local` removes one bounded batch of expired throttle
+counters and expired encrypted auth mail from an already-migrated local SQLite
+database. It requires `DXD_DATA_DIR` to name an existing absolute directory with
+a real `dxd.sqlite`; it refuses missing databases, symlink database files, or
+missing account tables/indexes. Set `DXD_MAINTENANCE_BATCH_SIZE` to an integer
+from 1 to 10,000 (default 1,000) to bound each table's deletions. Both deletes
+run in one short immediate transaction, and output includes counts only. The
+command applies no migrations, starts no scheduler and sends no mail. An operator
+may invoke it manually or from an external local scheduler after backups and
+maintenance cadence are arranged.
+
+This is not wired into application startup; request handlers must not run global
+cleanup. The database and account harness remain development foundations with no
+production account routes. The command was not run against a real database for
+this checkpoint.
+
+
+## H02b checkpoint: durable account-operation review decisions
+
+Migration 0008 adds append-only `security_review_decisions`. The journal can
+record `reviewed-no-automatic-retry` or `follow-up-required`, with a reason code
+derived from transaction-coupled change evidence. Recording requires an
+authenticated journal context, a dedicated `POST review-security-operation`
+action, an incomplete or failed operation at least five minutes old, and a match
+between reviewer and source actor. The review record captures the review request
+UUID and actor from server context. No free-form notes or credential data are
+stored. Candidate reports include the latest disposition, reason, reviewer and
+time.
+
+A decision is an assessment; it does not mark credentials successful or
+authorize replay. This self-review rule requires a non-null original actor and
+does not cover signup/reset operations where the actor is null. No HTTP handler
+or UI exposes this action, and no staff-role authorization is implemented. Do
+not wire it to a route without Site Administrator policy, fresh MFA and access
+logging. Migration count is nine. No tests were run for this checkpoint.
+
+
+## H02c checkpoint: fail-closed legacy character APIs
+
+Added a shared server-only storage-mode gate at the start of every filesystem
+character API handler: character list/save, tags, current/historical versions and
+portraits. In development, an unset `DXD_STORAGE_MODE` keeps the existing
+`legacy-local` workflow. In production, it defaults to `accounts`, which returns
+503 before reading request bodies, parsing path parameters, or touching files. An
+explicit accounts mode and every unrecognized value also block these endpoints.
+Explicit `legacy-local` cannot re-enable them in production.
+Baseline data-assets routes are unchanged.
+
+This is a boundary checkpoint, not accounts-mode delivery: no authenticated
+character API or auth handler exists, so selecting accounts mode intentionally
+leaves character storage unavailable. `npm run test:legacy-api-boundary` starts
+the built production app with accounts, explicit legacy, unknown and unset storage
+modes and checks every filesystem route. Malformed POST/PATCH bodies still receive
+the same 503 before parsing; every response is no-store. Other deployment policy,
+including startup refusal for a missing persistent DB/auth secret, is still required
+before accounts can be operated. Run `npm run build` before this test.
+
+
+## H02c checkpoint: explicit local database provisioning
+
+`npm run db:migrate:local` creates/applies the reviewed account migrations in
+`$DXD_DATA_DIR/dxd.sqlite`. The path must be absolute, outside public assets,
+and its resolved directory must have owner-only permissions;
+the database is restricted to mode 0600. SQLite foreign keys, WAL and a bounded
+busy timeout are enabled. The command is explicit and separate from web requests;
+normal startup does not apply migrations. Its output includes only the local DB
+path and migration count. It does not configure the auth secret, expose routes,
+or enable outbound mail.
+
+Only syntax and package metadata were checked for this checkpoint; the command
+was not run against a local database. Existing databases with looser directory
+permissions require an operator to choose and secure an appropriate data path
+first.
+
+
+## H02c checkpoint: local account runtime preflight
+
+`npm run accounts:check:local` performs read-only readiness checks before any
+account API runtime is wired. It requires explicit accounts mode, a non-production
+environment, an auth secret of at least 32 characters, and a loopback auth origin.
+It checks owner-only data directory/database permissions, rejects database symlinks,
+and requires auth/audit/mail/throttle and campaign authorization tables, the current fourteen migrations, Site Administrator table, required indexes and authorization audit triggers, SQLite integrity and foreign-key consistency. It never opens the DB
+for writing, applies migrations, or prints the auth secret. Errors name the missing
+configuration/check without exposing credentials.
+
+The preflight is an operator command only. It does not mean accounts mode is
+operational: authenticated handlers, rate-limit trust review, delivery access and
+role authorization remain prerequisites. It was not run against a database for
+this checkpoint.
+
+
+## H02b checkpoint: loopback development account API
+
+`npm run accounts:dev` starts Next development bound to `127.0.0.1` with explicit
+accounts mode. The catch-all `/api/auth` handler is available only when both
+`NODE_ENV=development` and accounts mode are set; it returns a generic 503 otherwise.
+At request time it opens only an existing private DB with all fourteen migrations,
+required tables, authorization indexes and audit triggers, validates the auth secret and loopback origin,
+and never runs migrations. Runtime state is reused through a process-global
+singleton for development HMR. Character file APIs are disabled in this mode.
+Production auth remains closed.
+
+Signup and password reset links are queued encrypted. `npm run
+accounts:mail:local` prints them only from a private interactive terminal while
+accounts mode and a valid local DB/key are configured. Treat terminal output as
+credential material. No remote mail is sent. The Account page supports local signup, sign-in, verification, reset, MFA challenge and
+sign-out. A one-time CLI bootstraps the first verified Site Administrator; only that
+role can read bounded security-operation candidates and append review decisions. Shared
+character DB routes and role-management UI remain unbuilt; this is not a production
+account service.
+
+
+## H02b checkpoint: Site Administrator bootstrap and reconciliation
+
+Migration 0009 adds a local Site Administrator grant linked to a verified account.
+`npm run accounts:bootstrap-admin:local -- <username>` grants only the first Site
+Administrator and records the grant in the append-only security journal. The command
+requires accounts mode, a private existing database, the current fourteen migrations, and a
+local auth secret; it never creates or migrates a database.
+
+The development-only auth harness exposes a bounded reconciliation report and an
+append-only review decision endpoint only to a bootstrapped Site Administrator. Reviews
+can cover an eligible failure from another account but do not retry or change credentials.
+Writes require the configured same origin; report responses are no-store and contain no
+email addresses or request bodies. Character-file APIs remain closed in accounts mode,
+and production auth remains disabled. Tests cover unverified/duplicate bootstrap,
+unauthorized access, limits, cross-origin requests, actor attribution and immutability.
+Action-bound fresh MFA and the broader H02c role/policy cutover remain open.
+
+Migration 0010 adds account access status, campaign records and unique account/campaign
+memberships with database checks for lifecycle, role and membership state, a partial unique
+index for Default, and a trigger preventing changes to the Default campaign. Audit triggers append access,
+campaign and membership changes transactionally; the rows cannot be deleted to bypass
+bans, campaign recovery or membership history. Runtime readiness checks require these
+triggers and indexes. `resolveAuthorizationPrincipal()` reads the active account status,
+Site Administrator grant and all memberships from SQLite using only a user ID supplied
+by the validated Better Auth session. It never accepts role data from request JSON.
+
+`src/server/auth/access-policy.ts` defines the first pure server-side decision layer
+for verified/active accounts, scoped campaign memberships, private characters, owner
+edit locks, GM/Admin capabilities and inviter-limited GM bans. Its inputs are required
+to come from fresh server-side reads; the helper does not authenticate requests, load
+records or authorize an HTTP route by itself. `npm run test:accounts` covers the policy
+matrix, including ambiguous duplicate memberships failing closed. Migration 0011 and the
+versioned development service below now load those records and recheck policy on each route.
+
+
+## H02c checkpoint: versioned development character service
+
+Migration 0011 adds owner/campaign-scoped character records and immutable JSON draft versions. The database guards positive/current version values, allows the pointer to advance only to an already-inserted next version, writes character/version changes to the append-only security journal in the same SQLite transaction, and prevents character or version deletion and version rewrites. The Drizzle snapshot covers tables, indexes and checks; preserve the custom triggers during future schema rebuilds.
+
+The development-only authenticated harness now exposes `GET/POST /api/auth/characters`, `GET /api/auth/characters/:id`, `GET /api/auth/characters/:id/versions`, `GET /api/auth/characters/:id/versions/:version`, and `PUT /api/auth/characters/:id`. Each request resolves a fresh principal from the Better Auth session and SQLite. Owner, campaign, privacy, lock state and edit eligibility come from database records; write bodies cannot replace those values. Creates and updates are same-origin JSON with a streaming 6 MiB limit. Players cannot create directly into an active campaign; that path requires a future reviewed staff assignment. Creates and version updates accept UUID idempotency keys; updates require an expected current version. Reads include `Cache-Control: no-store`. These endpoints are available only through the local development accounts mode. Production account routes remain closed, and legacy filesystem character routes remain closed in accounts mode.
+
+`npm run test:accounts` includes HTTP-level tests for verified sessions, private/shared visibility, campaign membership, GM access, create/update replay, stale-version rejection, active-campaign review enforcement, historical reads, request limits, audit actor attribution and SQL immutability. `npm run test:db` verifies all fourteen migrations, rollback, backup and restore. This server storage slice does not yet connect the Workspace/Library UI to account-backed persistence and does not complete campaign administration or action-bound MFA.
+
+
+## H03 checkpoint: stable campaign catalog records
+
+Migration 0012 adds immutable parent-campaign lineage and fork idempotency to campaign records. It seeds the exact stable UUIDs already used by local fixtures: Default Campaign (`7841aa01-33f4-4a90-8d13-000000000001`) and Working Campaign (`7841aa01-33f4-4a90-8d13-000000000002`), with Working derived from Default. Default remains immutable and cannot be deleted; runtime checks require the seed records and lineage trigger.
+
+`GET /api/auth/campaigns` returns Default plus campaigns the account can access, or all campaigns to Site Administrators. `POST /api/auth/campaigns` allows only a verified active Site Administrator to create a preparing fork from an existing campaign. The new campaign creator receives Campaign Administrator membership. Fork creation is idempotent and campaign plus membership audit events commit together.
+
+Migration 0013 adds hashed bearer tokens with append-only invitation and join history. In the development accounts harness, campaign managers can list/create/revoke invites through `GET/POST /api/auth/campaigns/:campaignId/invitations` and `DELETE /api/auth/campaigns/:campaignId/invitations/:invitationId`. Defaults are 60 minutes and three successful joins; requests can set 1–43,200 minutes and 1–100 uses. Only Campaign Administrators and Site Administrators can invite Campaign Administrators. `GET /api/auth/invitations/:token` is a no-store preview that does not consume a use. Verified active accounts accept via same-origin `POST /api/auth/invitations/:token/accept`; the membership, join record, use count and audit evidence commit in one immediate transaction. A repeated acceptance by the same active member is idempotent and does not consume a use. Revocation and archived campaigns prevent new joins. Tokens are returned only at creation and are never stored in plaintext or included in audit route names. These are development-harness APIs. The `/invite/:token` page now provides a limited preview and acceptance flow, with a validated return path through account signup/sign-in. Staff campaign management UI, player campaign selection, hosted deployment and production auth routes remain future work.
+
+The pure access policy and character service now treat only the database-identified immutable Default campaign as generally readable/selectable without membership. Private characters remain owner-only there. Other campaign IDs still require active membership. This keeps client fixture UUIDs aligned with the server without making unlisted campaigns visible.

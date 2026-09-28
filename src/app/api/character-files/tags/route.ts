@@ -4,12 +4,15 @@ import { NextResponse } from 'next/server';
 import { migrateCharacterDraft } from '@/lib/character-draft';
 import { normalizeCharacterDraftForStorage } from '@/lib/import-character-creator';
 import { cleanLibraryTags } from '@/lib/admin-settings';
+import { blockLegacyCharacterApi } from '@/server/legacy-storage-mode';
 
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
 const safeId = (value: unknown) => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value) ? value : null;
 
 export async function PATCH(request: Request) {
+  const blocked = blockLegacyCharacterApi();
+  if (blocked) return blocked;
   const body = await request.json() as { updates?: Array<{ idName?: string; libraryTags?: unknown }> };
   if (!Array.isArray(body.updates) || !body.updates.length) return NextResponse.json({ error: 'No tag updates supplied.' }, { status: 400 });
   const updates = body.updates.map((update) => ({ idName: safeId(update.idName), libraryTags: cleanLibraryTags(update.libraryTags) }));

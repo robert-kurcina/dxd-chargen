@@ -14,6 +14,8 @@ export function openDatabase(filename: string) {
   try {
     sqlite.function('dxd_event_id', () => randomUUID());
     sqlite.function('dxd_operation_id', () => securityOperation.getStore()?.operationId ?? null);
+    sqlite.function('dxd_note_totp_replay', () => { const context = securityOperation.getStore(); if (context) context.totpReplayRejected = true; return 1; });
+    sqlite.function('dxd_totp_fingerprint', () => securityOperation.getStore()?.totpFingerprint ?? null);
     sqlite.function('dxd_actor_id', () => securityOperation.getStore()?.actorId ?? null);
     sqlite.pragma('foreign_keys = ON');
     sqlite.pragma('journal_mode = WAL');

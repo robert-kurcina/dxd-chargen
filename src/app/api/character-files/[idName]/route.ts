@@ -4,9 +4,12 @@ import { NextResponse } from 'next/server';
 import { migrateCharacterDraft } from '@/lib/character-draft';
 import { normalizeCharacterDraftForStorage } from '@/lib/import-character-creator';
 import { LEGACY_SHEET_FRONT_REPAIR_STEP, repairLegacySheetFrontConversion } from '@/lib/legacy-sheet-front-repair';
+import { blockLegacyCharacterApi } from '@/server/legacy-storage-mode';
 export const runtime = 'nodejs';
 const ROOT = path.join(process.cwd(), 'data', 'characters');
 export async function GET(request: Request, context: { params: Promise<{ idName: string }> }) {
+  const blocked = blockLegacyCharacterApi();
+  if (blocked) return blocked;
   const { idName } = await context.params;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(idName)) return NextResponse.json({ error: 'Invalid character id' }, { status: 400 });
   const version = new URL(request.url).searchParams.get('version');
