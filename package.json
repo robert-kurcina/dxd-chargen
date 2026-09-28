@@ -20,7 +20,9 @@
     "test:accounts": "node --conditions=react-server --test scripts/account-lifecycle.test.mjs scripts/security-journal.test.mjs scripts/mail-delivery.test.mjs scripts/account-rate-limit.test.mjs",
     "maintenance:local": "node scripts/local-maintenance.mjs",
     "db:migrate:local": "node scripts/migrate-local.mjs",
-    "accounts:check:local": "node scripts/check-local-runtime.mjs"
+    "accounts:check:local": "node scripts/check-local-runtime.mjs",
+    "accounts:dev": "node scripts/run-accounts-local.mjs",
+    "accounts:mail:local": "node --conditions=react-server --import ./scripts/test-typescript-loader.mjs scripts/local-auth-mail.mjs"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "1.7.6",

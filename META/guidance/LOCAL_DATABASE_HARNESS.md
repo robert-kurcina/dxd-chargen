@@ -365,3 +365,22 @@ The preflight is an operator command only. It does not mean accounts mode is
 operational: authenticated handlers, rate-limit trust review, delivery access and
 role authorization remain prerequisites. It was not run against a database for
 this checkpoint.
+
+
+## H02b checkpoint: loopback development account API
+
+`npm run accounts:dev` starts Next development bound to `127.0.0.1` with explicit
+accounts mode. The catch-all `/api/auth` handler is available only when both
+`NODE_ENV=development` and accounts mode are set; it returns a generic 503 otherwise.
+At request time it opens only an existing private DB with all nine migrations,
+required tables and throttle index, validates the auth secret and loopback origin,
+and never runs migrations. Runtime state is reused through a process-global
+singleton for development HMR. Character file APIs are disabled in this mode.
+Production auth remains closed.
+
+Signup and password reset links are queued encrypted. `npm run
+accounts:mail:local` prints them only from a private interactive terminal while
+accounts mode and a valid local DB/key are configured. Treat terminal output as
+credential material. No remote mail is sent. This development flow has no user
+interface, account bootstrap/roles, or shared character DB routes; it is not a
+production account service.
