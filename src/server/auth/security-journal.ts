@@ -1,6 +1,8 @@
 import 'server-only';
 import { randomUUID } from 'node:crypto';
 import { securityOperation } from './operation-context';
+import { resolveAuthorizationPrincipal } from './authorization-context';
+import { isAuthorized } from './access-policy';
 import type { openDatabase } from '../db/connection';
 
 const actions = new Set(['admin/security-operations', 'admin/security-operation-review', 'sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation', 'campaigns', 'campaign-fork', 'campaign-invitations', 'campaign-invitation-create', 'campaign-invitation-revoke', 'campaign-invitation-preview', 'campaign-invitation-accept', 'characters', 'character-create', 'character-read', 'character-history', 'character-update']);
@@ -43,7 +45,7 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
     },
     isSiteAdministrator(userId: string | null) {
       if (!userId) return false;
-      return Boolean(db.prepare('SELECT 1 FROM site_administrators WHERE user_id = ?').get(userId));
+      return isAuthorized(resolveAuthorizationPrincipal(connection, userId), 'site.manage');
     },
     evidence(operationId: string) {
       return db.prepare('SELECT entity, entity_id, change, actor_id, occurred_at FROM security_changes WHERE operation_id = ? ORDER BY occurred_at, rowid').all(operationId);
