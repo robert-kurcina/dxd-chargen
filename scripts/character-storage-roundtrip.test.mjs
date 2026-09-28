@@ -54,6 +54,8 @@ test('backup envelope round-trip detaches file identity and rejects invalid form
   const { exportCharacter, importCharacter, createLibraryEntry, migrateCharacterLibrary, browserPersistedLibrary } = await import('../src/lib/character-library.ts');
   const source = createLibraryEntry(createEmptyCharacterDraft());
   source.fileId = 'abcd1234-source'; source.draft.characterId = 'abcd1234';
+  source.accountTargetCampaignId = '7841aa01-33f4-4a90-8d13-000000000098';
+  source.accountTargetCampaignName = 'Test campaign';
   source.serverRecord = { id: '7841aa01-33f4-4a90-8d13-000000000099', version: 4, isPrivate: true, mode: 'copy' };
   const serverEntry = { ...createLibraryEntry(createEmptyCharacterDraft(), 'account:7841aa01-33f4-4a90-8d13-000000000099'), serverRecord: { ...source.serverRecord, mode: 'server' } };
   const mixedLibrary = { schemaVersion: 1, activeId: serverEntry.id, entries: [source, serverEntry] };
@@ -64,8 +66,12 @@ test('backup envelope round-trip detaches file identity and rejects invalid form
   assert.equal(serverOnly.entries.some(entry => entry.serverRecord?.mode === 'server'), false);
   const migrated = migrateCharacterLibrary({ schemaVersion: 1, activeId: source.id, entries: [source] });
   assert.deepEqual(migrated.entries[0].serverRecord, source.serverRecord, 'account version link survives local storage migration');
+  assert.equal(migrated.entries[0].accountTargetCampaignId, source.accountTargetCampaignId, 'selected account campaign survives local storage migration');
+  assert.equal(migrated.entries[0].accountTargetCampaignName, source.accountTargetCampaignName, 'selected campaign name survives local storage migration');
   const envelope = exportCharacter(source);
   assert.equal('serverRecord' in envelope.character, false, 'backup is a detached copy, not a link to the account record');
+  assert.equal('accountTargetCampaignId' in envelope.character, false, 'backup is not coupled to an account campaign');
+  assert.equal('accountTargetCampaignName' in envelope.character, false, 'backup is not coupled to an account campaign');
   const snapshot = structuredClone(envelope);
   const imported = importCharacter(JSON.parse(JSON.stringify(envelope)));
   assert.notEqual(imported.id, source.id);

@@ -12,7 +12,7 @@ import { useWorkspace } from './workspace-provider';
 import AccountCampaignsPanel from './account-campaigns-panel';
 
 export function CampaignsView() {
-  const { selectedCampaign, selectCampaign, createInCampaign } = useWorkspace();
+  const { selectedCampaign, selectCampaign, createInCampaign, createAccountCampaignDraft } = useWorkspace();
   return <div className="mx-auto max-w-3xl space-y-6 pb-4">
     <header><h1 className="text-xl font-semibold">Choose your campaign</h1><p className="mt-1 text-sm text-muted-foreground">Choose where to begin. Switching campaigns does not move existing characters.</p></header>
     <div className="grid gap-3 sm:grid-cols-2">{LOCAL_CAMPAIGNS.map(campaign => <button key={campaign.id} type="button" aria-pressed={selectedCampaign.id === campaign.id} onClick={() => selectCampaign(campaign.id)} className={`rounded-xl border p-4 text-left ${selectedCampaign.id === campaign.id ? 'border-primary bg-muted ring-1 ring-primary' : 'bg-card'}`}>
@@ -24,7 +24,7 @@ export function CampaignsView() {
       <Button asChild variant="outline" className="min-h-14 w-full justify-start"><Link href="/library">Open the Character Library</Link></Button>
       <Link href="/" className="inline-flex min-h-11 items-center text-sm underline">Continue current character</Link>
     </section>
-    <AccountCampaignsPanel />
+    <AccountCampaignsPanel onCreateCharacter={createAccountCampaignDraft} />
   </div>;
 }
 

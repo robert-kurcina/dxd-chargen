@@ -30,6 +30,7 @@ type WorkspaceContextValue = {
   selectedCampaign: typeof LOCAL_CAMPAIGNS[number];
   selectCampaign: (id: string) => void;
   createInCampaign: (origin?: CharacterDraft['background']) => void;
+  createAccountCampaignDraft: (campaign: { id: string; name: string; lifecycle: 'preparing' | 'active' | 'archived'; isDefault?: boolean; canConfigure?: boolean }) => void;
   localEntries: CharacterLibraryState['entries'];
   openLocalDraft: (id: string) => void;
   downloadBackup: () => void;
@@ -187,12 +188,12 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
   const draft = activeLibraryEntry(library)?.draft ?? createEmptyCharacterDraft();
   const serialized = comparableDraft(draft);
   const activeEntry = activeLibraryEntry(library);
-  const isAccountCharacter = Boolean(activeEntry?.serverRecord);
+  const isAccountCharacter = Boolean(activeEntry?.serverRecord || activeEntry?.accountTargetCampaignId);
   const accountServerOnly = activeEntry?.serverRecord?.mode === 'server';
   const hasAccountRecord = Boolean(activeEntry?.serverRecord);
   const accountPrivate = accountPrivateChoice;
   const accountDirty = Boolean(activeEntry?.serverRecord && (serialized !== savedAccountSnapshot || accountPrivateChoice !== savedAccountPrivate));
-  const dirty = activeFileId ? serialized !== savedSnapshot : activeEntry?.serverRecord ? accountDirty : serialized !== comparableDraft(normalizeDraft(createEmptyCharacterDraft(), data));
+  const dirty = activeFileId ? serialized !== savedSnapshot : activeEntry?.serverRecord ? accountDirty : activeEntry?.accountTargetCampaignId ? true : serialized !== comparableDraft(normalizeDraft(createEmptyCharacterDraft(), data));
   const setAccountPrivate = (value: boolean) => setAccountPrivateChoice(value);
   useEffect(() => { if (!dirty) return; const warn = (event: BeforeUnloadEvent) => event.preventDefault(); window.addEventListener('beforeunload', warn); return () => window.removeEventListener('beforeunload', warn); }, [dirty]);
 
@@ -245,7 +246,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     const record = sourceEntry.serverRecord;
     const privateValue = accountPrivateChoice;
     if (record && comparableDraft(startedDraft) === savedAccountSnapshot && privateValue === savedAccountPrivate) { setMessage('No unsaved Account Library changes.'); return true; }
-    const accountDraft = { ...startedDraft, campaignId: null };
+    const accountDraft = { ...startedDraft, campaignId: sourceEntry.accountTargetCampaignId ? startedDraft.campaignId ?? null : null };
     const signature = JSON.stringify({ id: record?.id ?? null, version: record?.version ?? null, draft: accountDraft, private: privateValue });
     if (accountRequestRef.current?.signature !== signature) accountRequestRef.current = { signature, key: crypto.randomUUID() };
     const idempotencyKey = accountRequestRef.current.key;
@@ -279,7 +280,13 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
       if (currentLibrary.activeId === startedId && currentUnchanged) {
         const savedEntry = nextLibrary.entries.find(entry => entry.id === startedId)!;
         setSavedAccountSnapshot(comparableDraft(savedEntry.draft)); setSavedAccountPrivate(privateValue); setAccountPrivateChoice(privateValue);
-        setMessage(record ? `Saved Account Library version ${result.version}.` : 'Saved a copy to the Account Library. This account character is unassigned until a campaign admits it.');
+        setMessage(record
+          ? `Saved Account Library version ${result.version}.`
+          : accountDraft.campaignId
+            ? 'Saved the character to the selected account campaign.'
+            : sourceEntry.accountTargetCampaignId
+              ? `Saved unassigned for ${sourceEntry.accountTargetCampaignName || 'the selected campaign'}; campaign review/admission is not available yet.`
+              : 'Saved an unassigned copy to the Account Library.');
       } else setMessage(currentLibrary.activeId === startedId ? 'The earlier version was saved to your account. Newer edits remain unsaved.' : 'The earlier character was saved to your account. The current character is unchanged.');
       setLibraryRefresh(key => key + 1);
       return true;
@@ -302,7 +309,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
 
   const save = async () => {
     const currentEntry = activeLibraryEntry(libraryRef.current);
-    if (!activeFileId && currentEntry?.serverRecord) return saveAccount();
+    if (!activeFileId && (currentEntry?.serverRecord || currentEntry?.accountTargetCampaignId)) return saveAccount();
     if (savingRef.current) return false;
     savingRef.current = true;
     setSaving(true);
@@ -358,6 +365,20 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     setMessage(`New character in ${selectedCampaign.name}. Your previous draft remains in the Library.`);
     router.push('/');
   };
+  const createAccountCampaignDraft = (campaign: { id: string; name: string; lifecycle: 'preparing' | 'active' | 'archived'; isDefault?: boolean; canConfigure?: boolean }) => {
+    if (campaign.lifecycle === 'archived') { setMessage('Archived campaigns cannot receive new characters.'); return; }
+    const empty = createEmptyCharacterDraft();
+    const campaignId = campaign.lifecycle === 'active' && !campaign.isDefault && !campaign.canConfigure ? null : campaign.id;
+    const draft = normalizeDraft({ ...empty, campaignId }, data);
+    const entry = { ...createLibraryEntry(draft), accountTargetCampaignId: campaign.id, accountTargetCampaignName: campaign.name };
+    entry.draft.creation = { ...creationContext(entry.draft), seed: seedForCharacter(entry.id, readAdminSettings().randomSeed) };
+    setLibrary({ ...libraryRef.current, activeId: entry.id, entries: [...libraryRef.current.entries, entry] });
+    setHistory(emptyHistory()); setActiveFileId(null); setAccountPrivateChoice(false); setSavedAccountPrivate(false); setSavedAccountSnapshot(''); setSavedSnapshot('');
+    setMessage(campaign.lifecycle === 'active' && !campaign.isDefault && !campaign.canConfigure
+      ? `New character for ${campaign.name}. It will be saved unassigned until campaign review/admission is available.`
+      : `New character in ${campaign.name}. Your previous draft remains in the Library.`);
+    router.push('/');
+  };
   const reset = () => createInCampaign();
   const openLocalDraft = (id: string) => {
     const entry = libraryRef.current.entries.find(item => item.id === id); if (!entry) return;
@@ -388,7 +409,7 @@ export function WorkspaceProvider({ data, children }: { data: StaticData; childr
     } catch (error) { setMessage(`Import failed. Existing drafts are unchanged. ${error instanceof Error ? error.message : 'Choose a valid Forge backup.'}`); }
   };
 
-  const value = useMemo<WorkspaceContextValue>(() => ({ downloadBackup, restoreBackup, selectedCampaign, selectCampaign, createInCampaign, localEntries: library.entries.filter(entry => entry.serverRecord?.mode !== 'server'), openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, saveAccount, loadAccountDraft, isAccountCharacter, accountServerOnly, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, online, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, selectedCampaign, library, accountPrivateChoice, savedAccountPrivate, savedAccountSnapshot, online]);
+  const value = useMemo<WorkspaceContextValue>(() => ({ downloadBackup, restoreBackup, selectedCampaign, selectCampaign, createInCampaign, createAccountCampaignDraft, localEntries: library.entries.filter(entry => entry.serverRecord?.mode !== 'server'), openLocalDraft, canUndo: history.past.length > 0, canRedo: history.future.length > 0, undo, redo, rememberHistory, setRememberHistory, historyNotice, storageWarning, data, draft, setDraft, activeFileId, dirty, message, setMessage, availableTags, libraryRefresh, saving, reverting, save, saveAccount, loadAccountDraft, isAccountCharacter, accountServerOnly, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, online, revert, reset, loadDraft }), [data, draft, activeFileId, dirty, message, availableTags, libraryRefresh, saving, reverting, history, rememberHistory, historyNotice, storageWarning, selectedCampaign, library, accountPrivateChoice, savedAccountPrivate, savedAccountSnapshot, online]);
   if (!hydrated) return <SuspenseSpinner panel label="Loading character workspace…" className="mx-auto mt-4 max-w-[1440px]" />;
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }

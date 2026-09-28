@@ -15,7 +15,7 @@ import PresetGenerationPanel from './preset-generation-panel';
 import { useWorkspace } from './workspace-provider';
 
 export function ForgeWorkspaceView({ view = 'design' }: { view?: 'design' | 'profile' }) {
-  const { data, draft, setDraft, activeFileId, dirty, message, availableTags, saving, reverting, save, revert, reset } = useWorkspace();
+  const { data, draft, setDraft, activeFileId, dirty, message, availableTags, saving, reverting, save, revert, reset, isAccountCharacter, hasAccountRecord } = useWorkspace();
   const [confirmOpen, setConfirmOpen] = useState(false);
   return <>
     <div data-forge-modal-background className="mx-auto mb-3 hidden max-w-[1440px] lg:flex flex-wrap items-center justify-between gap-2 rounded-lg border bg-card p-3">
@@ -31,7 +31,7 @@ export function ForgeWorkspaceView({ view = 'design' }: { view?: 'design' | 'pro
     </div>
     {view === 'design' && <PresetGenerationPanel />}
     <Worksheet view={view} data={data} draft={draft} setDraft={setDraft} onReset={reset} />
-    <ConfirmDialog open={confirmOpen} title="Save character?" confirmLabel="Approve" busy={saving} onCancel={() => setConfirmOpen(false)} onConfirm={() => { setConfirmOpen(false); void save(); }}><p>Approve to write the current Forge state to {activeFileId ? <span className="font-mono">{activeFileId}</span> : 'a new character file'}. Cancel leaves the current changes unsaved.</p></ConfirmDialog>
+      <ConfirmDialog open={confirmOpen} title="Save character?" confirmLabel="Save" busy={saving} onCancel={() => setConfirmOpen(false)} onConfirm={() => { setConfirmOpen(false); void save(); }}><p>{isAccountCharacter && !activeFileId ? hasAccountRecord ? 'Save a new version to the Account Library.' : 'Save this character to your Account Library.' : <>Approve to write the current Forge state to {activeFileId ? <span className="font-mono">{activeFileId}</span> : 'a new character file'}.</>} Cancel leaves the current changes unsaved.</p></ConfirmDialog>
   </>;
 }
 
@@ -44,7 +44,7 @@ export function LibraryWorkspaceView() {
   const { data, libraryRefresh, loadDraft, loadAccountDraft, saveAccount, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, saving, localEntries, openLocalDraft } = useWorkspace();
   const [filter, setFilter] = useState<string>('all');
   const [tag, setTag] = useState('');
-  const matches = localEntries.filter(entry => campaignMatches(entry.draft.campaignId, filter) && libraryTagMatches(entry.draft.utilities.libraryTags, tag));
+  const matches = localEntries.filter(entry => (entry.accountTargetCampaignId === filter || campaignMatches(entry.draft.campaignId, filter)) && libraryTagMatches(entry.draft.utilities.libraryTags, tag));
   return <div className="space-y-4">
     <label className="flex flex-wrap items-center gap-2 text-sm font-medium">Campaign
       <select className="h-11 max-w-full rounded-md border bg-background px-3" value={filter} onChange={event => setFilter(event.target.value)}>
@@ -56,7 +56,7 @@ export function LibraryWorkspaceView() {
     </label>
     <p className="text-xs text-muted-foreground">Campaign and tag filters apply to browser drafts and saved files. Tags match exactly, ignoring case.</p>
     <section className="rounded-lg border bg-card p-3"><h2 className="font-semibold">Browser drafts</h2><p className="mb-3 text-xs text-muted-foreground">Saved in this browser. Legacy and unassigned characters appear under Default Campaign.</p>
-      <div className="grid gap-2 sm:grid-cols-2">{matches.map(entry => <Button key={entry.id} variant="outline" className="h-auto min-h-14 min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => openLocalDraft(entry.id)}><span>{entry.draft.utilities.name || 'Unnamed character'}</span><span className="text-xs text-muted-foreground">{campaignLabel(entry.draft.campaignId)}</span><span className="text-xs text-muted-foreground">{entry.draft.utilities.libraryTags.join(', ') || 'No tags'}</span></Button>)}</div>
+      <div className="grid gap-2 sm:grid-cols-2">{matches.map(entry => <Button key={entry.id} variant="outline" className="h-auto min-h-14 min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => openLocalDraft(entry.id)}><span>{entry.draft.utilities.name || 'Unnamed character'}</span><span className="text-xs text-muted-foreground">{entry.accountTargetCampaignName ? `For ${entry.accountTargetCampaignName} · ${campaignLabel(entry.draft.campaignId)}` : campaignLabel(entry.draft.campaignId)}</span><span className="text-xs text-muted-foreground">{entry.draft.utilities.libraryTags.join(', ') || 'No tags'}</span></Button>)}</div>
       {!matches.length && <p className="py-3 text-sm text-muted-foreground">No browser drafts match these filters.</p>}
     </section>
     <AccountCharacterLibraryPanel data={data} refreshKey={libraryRefresh} campaignFilter={filter} tagFilter={tag} accountPrivate={accountPrivate} setAccountPrivate={setAccountPrivate} saving={saving} accountDirty={accountDirty} hasAccountRecord={hasAccountRecord} onSave={saveAccount} onOpen={loadAccountDraft} />
