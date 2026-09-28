@@ -218,13 +218,14 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
         if (!journal.isSiteAdministrator(adminActor)) return Response.json({ error: 'Forbidden.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
         if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
         if (!incoming.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'JSON required.' }, { status: 415, headers: { 'Cache-Control': 'no-store' } });
-        const raw = await incoming.text();
-        if (Buffer.byteLength(raw, 'utf8') > 1024) return Response.json({ error: 'Request too large.' }, { status: 413, headers: { 'Cache-Control': 'no-store' } });
-        let body;
-        try { body = JSON.parse(raw); } catch { return Response.json({ error: 'Invalid JSON.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } }); }
-        if (!body || typeof body !== 'object' || Array.isArray(body) || Object.keys(body).length !== 1 || !['reviewed-no-automatic-retry', 'follow-up-required'].includes(body.disposition)) return Response.json({ error: 'Invalid review disposition.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } });
+        const parsed = await readBoundedJson(incoming, 1024);
+        if (parsed.error) return parsed.error;
+        if (!parsed.value || typeof parsed.value !== 'object' || Array.isArray(parsed.value)) return Response.json({ error: 'Invalid review disposition.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } });
+        const body = parsed.value as Record<string, unknown>;
+        const disposition = body.disposition;
+        if (Object.keys(body).length !== 1 || typeof disposition !== 'string' || !['reviewed-no-automatic-retry', 'follow-up-required'].includes(disposition)) return Response.json({ error: 'Invalid review disposition.' }, { status: 400, headers: { 'Cache-Control': 'no-store' } });
         try {
-          const decision = journal.recordStaffReviewDecision(reviewMatch[1], body.disposition);
+          const decision = journal.recordStaffReviewDecision(reviewMatch[1], disposition as 'reviewed-no-automatic-retry' | 'follow-up-required');
           return Response.json(decision, { headers: { 'Cache-Control': 'no-store' } });
         } catch (error) {
           const message = error instanceof Error ? error.message : 'Review could not be recorded.';

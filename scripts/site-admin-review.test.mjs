@@ -89,6 +89,18 @@ test('only Site Administrators can inspect bounded candidates and append a revie
     const reviewPath = `admin/security-operations/${sourceOperationId}/review`;
     assert.equal((await api.request(reviewPath, { disposition: 'follow-up-required' }, player.cookie)).status, 403);
     assert.equal((await api.request(reviewPath, { disposition: 'follow-up-required' }, staff.cookie, 'https://untrusted.example')).status, 403);
+    let bodyCancelled = false;
+    const oversizedBody = new ReadableStream({
+      start(controller) { controller.enqueue(new Uint8Array(1025)); },
+      cancel() { bodyCancelled = true; },
+    });
+    const oversized = await api.handle(new Request(`${origin}/api/auth/${reviewPath}`, {
+      method: 'POST', headers: { origin, 'content-type': 'application/json', cookie: staff.cookie }, body: oversizedBody, duplex: 'half',
+    }));
+    assert.equal(oversized.status, 413);
+    assert.equal(oversized.headers.get('cache-control'), 'no-store');
+    assert.equal(bodyCancelled, true, 'the streaming request body is cancelled at the size limit');
+    assert.equal(connection.sqlite.prepare('SELECT count(*) AS n FROM security_review_decisions').get().n, 0);
     const result = await api.request(reviewPath, { disposition: 'follow-up-required' }, staff.cookie);
     assert.equal(result.status, 200);
     const decision = await result.json();
@@ -103,5 +115,12 @@ test('only Site Administrators can inspect bounded candidates and append a revie
     assert.throws(() => connection.sqlite.prepare('DELETE FROM security_review_decisions').run(), /retention policy/);
     const exceptionReview = await api.request(`admin/security-operations/${exceptionOperationId}/review`, { disposition: 'reviewed-no-automatic-retry' }, staff.cookie);
     assert.equal(exceptionReview.status, 200, await exceptionReview.clone().text());
+    connection.sqlite.prepare("INSERT INTO account_access (user_id, status, changed_at, changed_by) VALUES (?, 'disabled', ?, ?)")
+      .run(staff.id, Date.now(), staff.id);
+    assert.equal((await api.request('admin/security-operations', undefined, staff.cookie)).status, 403, 'disabled Site Administrators lose recovery-report access immediately');
+    assert.equal((await api.request(`admin/security-operations/${sourceOperationId}/review`, { disposition: 'reviewed-no-automatic-retry' }, staff.cookie)).status, 403, 'disabled Site Administrators cannot append review decisions');
+    connection.sqlite.prepare('UPDATE user SET email_verified=0 WHERE id=?').run(staff.id);
+    connection.sqlite.prepare("UPDATE account_access SET status='active', changed_at=? WHERE user_id=?").run(Date.now(), staff.id);
+    assert.equal((await api.request('admin/security-operations', undefined, staff.cookie)).status, 403, 'unverified Site Administrators lose recovery-report access immediately');
   } finally { connection.close(); await rm(root, { recursive: true, force: true }); }
 });

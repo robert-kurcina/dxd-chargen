@@ -49,20 +49,35 @@ const requests = [
   ['GET', '/api/character-files/test-character/versions'],
   ['GET', '/api/character-files/test-character/image/portrait.png'],
   ['PATCH', '/api/character-files/tags'],
+  ['GET', '/api/auth/get-session'],
+  ['POST', '/api/auth/sign-in/email'],
+  ['GET', '/api/auth/campaigns'],
+  ['POST', '/api/auth/campaigns'],
+  ['POST', '/api/auth/campaigns/7841aa01-33f4-4a90-8d13-000000000003/invitations'],
+  ['DELETE', '/api/auth/campaigns/7841aa01-33f4-4a90-8d13-000000000003/invitations/7841aa01-33f4-4a90-8d13-000000000004'],
+  ['GET', '/api/auth/invitations/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'],
+  ['POST', '/api/auth/invitations/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/accept'],
+  ['GET', '/api/auth/admin/security-operations'],
+  ['POST', '/api/auth/admin/security-operations/7841aa01-33f4-4a90-8d13-000000000005/review'],
+  ['GET', '/api/auth/characters'],
+  ['POST', '/api/auth/characters'],
+  ['PUT', '/api/auth/characters/7841aa01-33f4-4a90-8d13-000000000006'],
 ];
 
 for (const mode of ['accounts', 'legacy-local', 'unrecognized-mode', undefined]) {
-  test(`production keeps every legacy character route closed with DXD_STORAGE_MODE=${mode ?? '(unset)'}`, async () => {
+  test(`production keeps filesystem and account routes closed with DXD_STORAGE_MODE=${mode ?? '(unset)'}`, async () => {
     await withProductionServer(mode, async baseURL => {
       for (const [method, route] of requests) {
         const response = await fetch(`${baseURL}${route}`, {
           method,
-          headers: method === 'POST' || method === 'PATCH' ? { 'content-type': 'application/json' } : undefined,
-          body: method === 'POST' || method === 'PATCH' ? '{' : undefined,
+          headers: ['POST', 'PATCH', 'PUT', 'DELETE'].includes(method) ? { 'content-type': 'application/json' } : undefined,
+          body: ['POST', 'PATCH', 'PUT', 'DELETE'].includes(method) ? '{' : undefined,
         });
         assert.equal(response.status, 503, `${method} ${route}`);
         assert.equal(response.headers.get('cache-control'), 'no-store', `${method} ${route}`);
-        assert.deepEqual(await response.json(), { error: 'Filesystem character storage is disabled in this storage mode.' }, `${method} ${route}`);
+        assert.deepEqual(await response.json(), route.startsWith('/api/auth/')
+          ? { error: 'Account APIs are unavailable in this environment.' }
+          : { error: 'Filesystem character storage is disabled in this storage mode.' }, `${method} ${route}`);
       }
     });
   });
