@@ -1,15 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 type ServerCampaign = { id: string; name: string; lifecycle: 'preparing' | 'active' | 'archived'; isDefault: boolean; canConfigure: boolean };
+type CampaignCatalog = { campaigns?: ServerCampaign[]; canCreateCampaign?: boolean; error?: string };
 type CampaignInvitation = { id: string; role: 'player' | 'gm' | 'campaign-administrator'; expiresAt: number; maxUses: number; uses: number; createdAt: number; revokedAt: number | null };
 type AccountCampaignState = 'checking' | 'signed-out' | 'offline' | 'ready';
 
 export default function AccountCampaignsPanel() {
   const [state, setState] = useState<AccountCampaignState>('checking');
   const [campaigns, setCampaigns] = useState<ServerCampaign[]>([]);
+  const [canCreateCampaign, setCanCreateCampaign] = useState(false);
+  const [forkName, setForkName] = useState('');
+  const [forkParent, setForkParent] = useState('');
+  const forkIdempotencyKey = useRef<string | null>(null);
+  const forkRequestSignature = useRef<string | null>(null);
   const [invitations, setInvitations] = useState<Record<string, CampaignInvitation[]>>({});
   const [selected, setSelected] = useState('');
   const [role, setRole] = useState<'player' | 'gm'>('player');
@@ -21,7 +27,7 @@ export default function AccountCampaignsPanel() {
   const [error, setError] = useState('');
 
   const loadInvitations = async (items: ServerCampaign[]) => {
-    const configurable = items.filter(campaign => campaign.canConfigure && campaign.lifecycle !== 'archived');
+    const configurable = items.filter(campaign => campaign.canConfigure && !campaign.isDefault && campaign.lifecycle !== 'archived');
     const results = await Promise.all(configurable.map(async campaign => {
       const response = await fetch(`/api/auth/campaigns/${campaign.id}/invitations`, { cache: 'no-store', credentials: 'same-origin' });
       if (!response.ok) throw new Error(`Could not load invitations for ${campaign.name} (${response.status}).`);
@@ -41,10 +47,12 @@ export default function AccountCampaignsPanel() {
       if (!session?.user) { setState('signed-out'); return; }
       const response = await fetch('/api/auth/campaigns', { cache: 'no-store', credentials: 'same-origin' });
       if (response.status === 503) { setState('offline'); return; }
-      const result = await response.json().catch(() => ({})) as { campaigns?: ServerCampaign[]; error?: string };
+      const result = await response.json().catch(() => ({})) as CampaignCatalog;
       if (!response.ok) throw new Error(result.error ?? `Could not load campaigns (${response.status}).`);
       const items = result.campaigns ?? [];
       setCampaigns(items);
+      setCanCreateCampaign(result.canCreateCampaign === true);
+      setForkParent(current => items.some(item => item.id === current) ? current : items[0]?.id ?? '');
       setSelected(current => items.some(item => item.id === current) ? current : items.find(item => !item.isDefault)?.id ?? items[0]?.id ?? '');
       await loadInvitations(items);
       setState('ready');
@@ -79,6 +87,32 @@ export default function AccountCampaignsPanel() {
     finally { setBusy(false); }
   };
 
+  const createFork = async () => {
+    if (!forkName.trim() || !forkParent) return;
+    setBusy(true); setError(''); setMessage('');
+    const signature = JSON.stringify({ name: forkName, parentCampaignId: forkParent });
+    if (forkRequestSignature.current !== signature) { forkRequestSignature.current = signature; forkIdempotencyKey.current = crypto.randomUUID(); }
+    try {
+      const response = await fetch('/api/auth/campaigns', {
+        method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ name: forkName, parentCampaignId: forkParent, idempotencyKey: forkIdempotencyKey.current }),
+      });
+      const result = await response.json().catch(() => ({})) as { id?: string; name?: string; error?: string; code?: string };
+      if (!response.ok) {
+        if (response.status === 403 && (result.code === 'MFA_REQUIRED' || result.code === 'MFA_REAUTHENTICATION_REQUIRED')) throw new Error(`${result.error ?? 'Verify your authenticator before creating campaigns.'} Use Account security to continue.`);
+        throw new Error(result.error ?? `Could not create campaign (${response.status}).`);
+      }
+      if (!result.id) throw new Error('Campaign created without an ID. Refresh the page before continuing.');
+      forkIdempotencyKey.current = null;
+      forkRequestSignature.current = null;
+      setForkName('');
+      setMessage(`${result.name ?? 'Campaign'} created as a preparing campaign.`);
+      await refresh();
+      setSelected(result.id);
+    } catch (reason) { setError(reason instanceof Error ? reason.message : 'Could not create campaign.'); }
+    finally { setBusy(false); }
+  };
+
   const revokeInvite = async (invitation: CampaignInvitation) => {
     if (!campaign) return;
     setBusy(true); setError(''); setMessage('');
@@ -106,8 +140,8 @@ export default function AccountCampaignsPanel() {
         <label className="block text-sm font-medium">Campaign<select className={`${inputClass} mt-1 block w-full`} value={selected} onChange={event => { setSelected(event.target.value); setCreatedLink(''); setMessage(''); setError(''); }}>
           {campaigns.map(item => <option key={item.id} value={item.id}>{item.name}{item.isDefault ? ' · baseline' : ''}{item.lifecycle === 'archived' ? ' · archived' : ''}</option>)}
         </select></label>
-        {campaign && <p className="text-sm text-muted-foreground">{campaign.lifecycle === 'preparing' ? 'Preparing' : campaign.lifecycle === 'active' ? 'Active' : 'Archived'}{campaign.canConfigure ? ' · You can manage campaign invitations.' : ' · You are a member of this campaign.'}</p>}
-        {campaign?.canConfigure && campaign.lifecycle !== 'archived' && <>
+        {campaign && <p className="text-sm text-muted-foreground">{campaign.isDefault ? 'Immutable baseline · fork this campaign before inviting members.' : `${campaign.lifecycle === 'preparing' ? 'Preparing' : campaign.lifecycle === 'active' ? 'Active' : 'Archived'}${campaign.canConfigure ? ' · You can manage campaign invitations.' : ' · You are a member of this campaign.'}`}</p>}
+        {campaign?.canConfigure && !campaign.isDefault && campaign.lifecycle !== 'archived' && <>
           <div className="space-y-3 rounded-lg bg-muted/50 p-3 sm:p-4">
             <h3 className="font-medium">Create an invitation</h3>
             <div className="grid gap-3 sm:grid-cols-3">
@@ -127,6 +161,13 @@ export default function AccountCampaignsPanel() {
           })}</ul>}</div>
         </>}
       </>}
+      {canCreateCampaign && <section className="space-y-3 rounded-lg border border-dashed p-3 sm:p-4">
+        <h3 className="font-semibold">Create a campaign fork</h3>
+        <p className="text-sm text-muted-foreground">A new preparing campaign will record its source and grant you Campaign Administrator access. Campaign tags, regions, settlements, and other policy settings are not copied or editable in this step.</p>
+        <label className="block text-sm font-medium">Campaign name<input className={`${inputClass} mt-1 block w-full`} maxLength={100} value={forkName} onChange={event => setForkName(event.target.value)} /></label>
+        <label className="block text-sm font-medium">Copy from<select className={`${inputClass} mt-1 block w-full`} value={forkParent} onChange={event => setForkParent(event.target.value)}>{campaigns.map(item => <option key={item.id} value={item.id}>{item.name}{item.isDefault ? ' · baseline' : ''}</option>)}</select></label>
+        <button type="button" className="min-h-11 rounded-md bg-primary px-4 font-medium text-primary-foreground disabled:opacity-50" disabled={busy || !forkName.trim() || !forkParent} onClick={() => void createFork()}>{busy ? 'Working…' : 'Create preparing campaign'}</button>
+      </section>}
       <Link href="/account" className="inline-flex min-h-10 items-center text-sm underline">Account security</Link>
       <button type="button" onClick={() => void refresh()} className="ml-4 min-h-10 text-sm underline">Refresh</button>
     </>}

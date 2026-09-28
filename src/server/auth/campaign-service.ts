@@ -22,7 +22,7 @@ export function createCampaignService(connection: Connection) {
         parentCampaignId: row.parent_campaign_id, createdAt: row.created_at,
         canConfigure: isAuthorized(principal, 'campaign.configure', { campaignId: row.id }),
       }));
-      return response({ campaigns });
+      return response({ campaigns, canCreateCampaign: isAuthorized(principal, 'site.manage') });
     },
     createFork(actorId: string | null, body: unknown) {
       if (!actorId) return response({ error: 'Authentication required.' }, 401);
