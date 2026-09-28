@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset' | 'mfa';
-type User = { email: string; name: string; username?: string };
-type ApiResult = { user?: User | null; twoFactorRedirect?: boolean; message?: string; code?: string; token?: string | null };
+type User = { email: string; name: string; username?: string; twoFactorEnabled?: boolean };
+type ApiResult = { user?: User | null; twoFactorRedirect?: boolean; message?: string; code?: string; token?: string | null; totpURI?: string; backupCodes?: string[] };
 
 async function post(path: string, body: Record<string, string>) {
   const response = await fetch(`/api/auth/${path}`, {
@@ -33,11 +33,19 @@ export default function AccountPanel() {
   const [error, setError] = useState('');
   const [available, setAvailable] = useState<boolean | null>(null);
   const [returnTo, setReturnTo] = useState('');
+  const [enrollPassword, setEnrollPassword] = useState('');
+  const [enrollmentUri, setEnrollmentUri] = useState('');
+  const [backupCodes, setBackupCodes] = useState<string[]>([]);
+  const [mfaCode, setMfaCode] = useState('');
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const requestedReturnTo = query.get('returnTo') ?? '';
-    const safeReturnTo = /^\/invite\/[A-Za-z0-9_-]{43}$/.test(requestedReturnTo) ? requestedReturnTo : '';
+    let safeReturnTo = '';
+    try {
+      const target = new URL(requestedReturnTo, window.location.origin);
+      if (target.origin === window.location.origin && (/^\/invite\/[A-Za-z0-9_-]{43}$/.test(target.pathname) || target.pathname === '/campaigns' || target.pathname === '/admin/campaigns')) safeReturnTo = target.pathname + target.search;
+    } catch { /* Invalid return targets are ignored. */ }
     setReturnTo(safeReturnTo);
     if (query.get('mode') === 'signup' && safeReturnTo) setMode('signup');
     const token = query.get('token');
@@ -75,15 +83,35 @@ export default function AccountPanel() {
     <p className="mt-2 text-sm text-muted-foreground">Start the account development service with a migrated local database and configured secret to use this page.</p>
   </section>;
 
-  if (user) return <section className="mt-6 space-y-4 rounded-xl border p-5">
-    <h2 className="text-lg font-semibold">Signed in</h2>
-    <p>{user.name || user.username || user.email}</p>
-    <p className="text-sm text-muted-foreground">{user.email}</p>
-    <button className={buttonClass} disabled={busy} onClick={() => void run(async () => {
-      await post('sign-out', {}); setUser(null); setNotice('You have signed out.');
-    })}>Sign out</button>
+  if (user) return <section className="mt-6 space-y-5 rounded-xl border p-5">
+    <div><h2 className="text-lg font-semibold">Signed in</h2><p className="mt-2">{user.name || user.username || user.email}</p><p className="text-sm text-muted-foreground">{user.email}</p></div>
+    <section className="space-y-3 border-t pt-4" aria-labelledby="mfa-heading">
+      <h3 id="mfa-heading" className="font-semibold">Authenticator security</h3>
+      {user.twoFactorEnabled
+        ? <>
+          <p className="text-sm text-muted-foreground">An authenticator is enabled. Verify a fresh code before campaign staff actions. A fresh verification lasts five minutes, and each TOTP code can be used only once for step-up.</p>
+          <label className="block text-sm font-medium">Authenticator code<input className={inputClass} inputMode="numeric" autoComplete="one-time-code" value={mfaCode} onChange={event => setMfaCode(event.target.value)} /></label>
+          <button type="button" className={buttonClass} disabled={busy || mfaCode.length !== 6} onClick={() => void run(async () => { await post('two-factor/verify-totp', { code: mfaCode }); setMfaCode(''); setNotice(returnTo ? 'Verification accepted.' : 'Authenticator verified. Campaign staff actions are available for five minutes.'); if (returnTo) window.location.assign(returnTo); })}>Verify fresh code</button>
+        </>
+        : enrollmentUri
+          ? <>
+            <p className="text-sm">Add this authenticator URI to your authenticator app, then verify a current code. Store the recovery codes somewhere safe.</p>
+            <code className="block max-h-32 overflow-auto break-all rounded bg-muted p-3 text-xs">{enrollmentUri}</code>
+            {backupCodes.length > 0 && <div className="rounded border p-3"><h4 className="font-medium">Recovery codes — shown once</h4><ul className="mt-2 grid grid-cols-2 gap-1 font-mono text-sm">{backupCodes.map(code => <li key={code}>{code}</li>)}</ul></div>}
+            <label className="block text-sm font-medium">Authenticator code<input className={inputClass} inputMode="numeric" autoComplete="one-time-code" value={mfaCode} onChange={event => setMfaCode(event.target.value)} /></label>
+            <button type="button" className={buttonClass} disabled={busy || mfaCode.length !== 6} onClick={() => void run(async () => { await post('two-factor/verify-totp', { code: mfaCode }); setUser({ ...user, twoFactorEnabled: true }); setEnrollmentUri(''); setMfaCode(''); setNotice('Authenticator enabled. Save your recovery codes securely.'); })}>Confirm authenticator</button>
+          </>
+          : <>
+            <p className="text-sm text-muted-foreground">Campaign management requires an authenticator with a recent verification.</p>
+            <label className="block text-sm font-medium">Confirm your password to begin setup<input className={inputClass} type="password" autoComplete="current-password" value={enrollPassword} onChange={event => setEnrollPassword(event.target.value)} /></label>
+            <button type="button" className={buttonClass} disabled={busy || !enrollPassword} onClick={() => void run(async () => { const result = await post('two-factor/enable', { password: enrollPassword, issuer: 'DXD Character Forge' }); if (!result.totpURI || !result.backupCodes) throw new Error('Authenticator setup did not return enrollment details.'); setEnrollmentUri(result.totpURI); setBackupCodes(result.backupCodes); setEnrollPassword(''); setNotice('Complete authenticator setup to enable staff actions.'); })}>Set up authenticator</button>
+          </>}
+    </section>
     {notice && <p role="status" className="text-sm">{notice}</p>}
     {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+    <button className="min-h-11 rounded-md border px-4" disabled={busy} onClick={() => void run(async () => {
+      await post('sign-out', {}); setUser(null); setNotice('You have signed out.');
+    })}>Sign out</button>
   </section>;
 
   const field = (label: string, value: string, setValue: (value: string) => void, type = 'text', autoComplete?: string) => <label className="block text-sm font-medium">{label}<input className={inputClass} type={type} value={value} onChange={event => setValue(event.target.value)} autoComplete={autoComplete} required /></label>;

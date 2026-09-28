@@ -34,7 +34,8 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
           securityOperation.getStore()!.actorId = actorId;
           response = await handler(request);
         }
-        catch (error) { append(operationId, 'threw', action, actorId, null); throw error; }
+        catch (error) { actorId = securityOperation.getStore()?.actorId ?? actorId; append(operationId, 'threw', action, actorId, null); throw error; }
+        actorId = securityOperation.getStore()?.actorId ?? actorId;
         // Response status is not a claim that all credential mutations rolled back or committed.
         append(operationId, 'responded', action, actorId, response.status);
         return response;

@@ -4,13 +4,21 @@ import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHmac } from 'node:crypto';
 const { openDatabase, migrateDatabase } = await import('../src/server/db/connection.ts');
 const { createLocalAccountHarness } = await import('../src/server/auth/local-harness.ts');
 const { bootstrapVerifiedUsername } = await import('../src/server/auth/site-admin.ts');
 
 const origin = 'http://127.0.0.1:3000';
 const cookies = response => response.headers.getSetCookie().map(value => value.split(';')[0]).join('; ');
+function totp(uri) {
+  const url = new URL(uri), alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  const bits = [...url.searchParams.get('secret').replace(/=+$/, '').toUpperCase()].map(c => alphabet.indexOf(c).toString(2).padStart(5, '0')).join('');
+  const key = Buffer.from(bits.match(/.{8}/g).map(byte => parseInt(byte, 2)));
+  const counter = Buffer.alloc(8); counter.writeBigUInt64BE(BigInt(Math.floor(Date.now() / 1000 / Number(url.searchParams.get('period') || 30))));
+  const mac = createHmac('sha1', key).update(counter).digest(), offset = mac[mac.length - 1] & 15;
+  return String((mac.readUInt32BE(offset) & 0x7fffffff) % 10 ** Number(url.searchParams.get('digits') || 6)).padStart(6, '0');
+}
 
 test('campaign invitations preview without consuming uses and atomically join verified members', async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'dxd-campaign-invitation-'));
@@ -23,6 +31,14 @@ test('campaign invitations preview without consuming uses and atomically join ve
       headers: { ...(requestOrigin ? { origin: requestOrigin } : {}), ...(body !== undefined ? { 'content-type': 'application/json' } : {}), ...(cookie ? { cookie } : {}) },
       ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     }));
+    async function enableMfa(cookie, password) {
+      const setup = await request('two-factor/enable', { method: 'POST', cookie, body: { password, issuer: 'DXD Test' } });
+      assert.equal(setup.status, 200, await setup.clone().text());
+      const enrollment = await setup.json();
+      const verified = await request('two-factor/verify-totp', { method: 'POST', cookie, body: { code: totp(enrollment.totpURI) } });
+      assert.equal(verified.status, 200, await verified.clone().text());
+      return cookies(verified) || cookie;
+    }
     async function createUser(username, verified = true) {
       const email = `${username}@example.test`, password = 'Temporary-invitation-password-123!';
       const signup = await request('sign-up/email', { method: 'POST', body: { email, password, username, name: username } });
@@ -40,7 +56,8 @@ test('campaign invitations preview without consuming uses and atomically join ve
     const admin = await createUser('inviteadmin');
     bootstrapVerifiedUsername(connection, 'inviteadmin');
     const adminLogin = await request('sign-in/email', { method: 'POST', body: { email: admin.email, password: admin.password } });
-    const adminCookie = cookies(adminLogin);
+    let adminCookie = cookies(adminLogin);
+    adminCookie = await enableMfa(adminCookie, admin.password);
     const forkResponse = await request('campaigns', { method: 'POST', cookie: adminCookie, body: { name: 'Invitation Test Campaign', parentCampaignId: '7841aa01-33f4-4a90-8d13-000000000002', idempotencyKey: randomUUID() } });
     assert.equal(forkResponse.status, 201, await forkResponse.clone().text());
     const campaignId = (await forkResponse.json()).id;
@@ -62,6 +79,9 @@ test('campaign invitations preview without consuming uses and atomically join ve
     const replayGm = await request(`invitations/${token}/accept`, { method: 'POST', cookie: gm.cookie });
     assert.equal((await replayGm.json()).replayed, true);
     assert.equal(connection.sqlite.prepare('SELECT uses FROM campaign_invitations WHERE id=?').get(gmInvite.id).uses, 1);
+    const blockedInvite = await request(`campaigns/${campaignId}/invitations`, { method: 'POST', cookie: gm.cookie, body: { role: 'player' } });
+    assert.equal(blockedInvite.status, 403); assert.equal((await blockedInvite.json()).code, 'MFA_REQUIRED');
+    gm.cookie = await enableMfa(gm.cookie, 'Temporary-invitation-password-123!');
     const escalated = await request(`campaigns/${campaignId}/invitations`, { method: 'POST', cookie: gm.cookie, body: { role: 'campaign-administrator' } });
     assert.equal(escalated.status, 403);
     const gmPlayerInviteResponse = await request(`campaigns/${campaignId}/invitations`, { method: 'POST', cookie: gm.cookie, body: { role: 'player', maxUses: 2 } });
