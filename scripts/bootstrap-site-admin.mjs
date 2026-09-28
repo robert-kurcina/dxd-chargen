@@ -21,7 +21,7 @@ try {
   const tables = new Set(connection.sqlite.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map(row => row.name));
   if (!tables.has('site_administrators')) throw new Error('Site Administrator schema is missing. Run npm run db:migrate:local first.');
   const migrations = connection.sqlite.prepare('SELECT count(*) AS n FROM __drizzle_migrations').get().n;
-  if (migrations !== 10) throw new Error(`Expected 10 reviewed migrations; found ${migrations}. Run npm run db:migrate:local.`);
+  if (migrations !== 11) throw new Error(`Expected 11 reviewed migrations; found ${migrations}. Run npm run db:migrate:local.`);
   const result = bootstrapVerifiedUsername(connection, username);
   console.log(JSON.stringify({ bootstrapped: true, ...result }));
 } finally { connection.close(); }

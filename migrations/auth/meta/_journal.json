@@ -71,6 +71,13 @@
       "when": 1790564183625,
       "tag": "0009_site_admin_bootstrap",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1790570295111,
+      "tag": "0010_heavy_molten_man",
+      "breakpoints": true
     }
   ]
 }

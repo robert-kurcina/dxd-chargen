@@ -359,8 +359,7 @@ first.
 account API runtime is wired. It requires explicit accounts mode, a non-production
 environment, an auth secret of at least 32 characters, and a loopback auth origin.
 It checks owner-only data directory/database permissions, rejects database symlinks,
-and requires auth/audit/mail/throttle tables, the current ten migrations, Site Administrator table and throttle
-expiry index, SQLite integrity and foreign-key consistency. It never opens the DB
+and requires auth/audit/mail/throttle and campaign authorization tables, the current eleven migrations, Site Administrator table, required indexes and authorization audit triggers, SQLite integrity and foreign-key consistency. It never opens the DB
 for writing, applies migrations, or prints the auth secret. Errors name the missing
 configuration/check without exposing credentials.
 
@@ -375,8 +374,8 @@ this checkpoint.
 `npm run accounts:dev` starts Next development bound to `127.0.0.1` with explicit
 accounts mode. The catch-all `/api/auth` handler is available only when both
 `NODE_ENV=development` and accounts mode are set; it returns a generic 503 otherwise.
-At request time it opens only an existing private DB with all ten migrations,
-required tables and throttle index, validates the auth secret and loopback origin,
+At request time it opens only an existing private DB with all eleven migrations,
+required tables, authorization indexes and audit triggers, validates the auth secret and loopback origin,
 and never runs migrations. Runtime state is reused through a process-global
 singleton for development HMR. Character file APIs are disabled in this mode.
 Production auth remains closed.
@@ -396,7 +395,7 @@ account service.
 Migration 0009 adds a local Site Administrator grant linked to a verified account.
 `npm run accounts:bootstrap-admin:local -- <username>` grants only the first Site
 Administrator and records the grant in the append-only security journal. The command
-requires accounts mode, a private existing database, the current ten migrations, and a
+requires accounts mode, a private existing database, the current eleven migrations, and a
 local auth secret; it never creates or migrates a database.
 
 The development-only auth harness exposes a bounded reconciliation report and an
@@ -408,11 +407,20 @@ and production auth remains disabled. Tests cover unverified/duplicate bootstrap
 unauthorized access, limits, cross-origin requests, actor attribution and immutability.
 Action-bound fresh MFA and the broader H02c role/policy cutover remain open.
 
+Migration 0010 adds account access status, campaign records and unique account/campaign
+memberships with database checks for lifecycle, role and membership state, a partial unique
+index for Default, and a trigger preventing changes to the Default campaign. Audit triggers append access,
+campaign and membership changes transactionally; the rows cannot be deleted to bypass
+bans, campaign recovery or membership history. Runtime readiness checks require these
+triggers and indexes. `resolveAuthorizationPrincipal()` reads the active account status,
+Site Administrator grant and all memberships from SQLite using only a user ID supplied
+by the validated Better Auth session. It never accepts role data from request JSON.
+
 `src/server/auth/access-policy.ts` defines the first pure server-side decision layer
 for verified/active accounts, scoped campaign memberships, private characters, owner
 edit locks, GM/Admin capabilities and inviter-limited GM bans. Its inputs are required
 to come from fresh server-side reads; the helper does not authenticate requests, load
 records or authorize an HTTP route by itself. `npm run test:accounts` covers the policy
 matrix, including ambiguous duplicate memberships failing closed. Authenticated character
-routes remain unavailable until account status, campaign membership and character
-ownership are resolved authoritatively and checked in the data service.
+routes remain unavailable until character ownership and campaign/character records
+are loaded and policy is rechecked in the data service.

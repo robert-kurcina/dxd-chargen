@@ -1,5 +1,6 @@
 import { user } from './auth-schema';
-import { sqliteTable, text, integer, uniqueIndex, index } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, uniqueIndex, index, check } from 'drizzle-orm/sqlite-core';
+import { sql } from 'drizzle-orm';
 export const securityEvents = sqliteTable('security_events', {
   id: text('id').primaryKey(),
   operationId: text('operation_id').notNull(),
@@ -53,3 +54,35 @@ export const securityReviewDecisions = sqliteTable('security_review_decisions', 
   reasonCode: text('reason_code', { enum: ['change-evidence-recorded', 'no-change-evidence-recorded', 'outcome-uncertain'] }).notNull(),
   occurredAt: integer('occurred_at').notNull(),
 }, table => [uniqueIndex('security_review_request').on(table.reviewOperationId), index('security_review_source').on(table.sourceOperationId, table.occurredAt)]);
+
+export const accountAccess = sqliteTable('account_access', {
+  userId: text('user_id').primaryKey().references(() => user.id, { onDelete: 'restrict' }),
+  status: text('status', { enum: ['active', 'disabled', 'banned'] }).notNull().default('active'),
+  changedAt: integer('changed_at').notNull(),
+  changedBy: text('changed_by').references(() => user.id, { onDelete: 'restrict' }),
+}, table => [check('account_access_status_valid', sql`${table.status} IN ('active', 'disabled', 'banned')`)]);
+
+export const campaigns = sqliteTable('campaigns', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  lifecycle: text('lifecycle', { enum: ['preparing', 'active', 'archived'] }).notNull(),
+  isDefault: integer('is_default', { mode: 'boolean' }).notNull().default(false),
+  createdAt: integer('created_at').notNull(),
+  createdBy: text('created_by').references(() => user.id, { onDelete: 'restrict' }),
+}, table => [
+  uniqueIndex('campaign_single_default').on(table.isDefault).where(sql`${table.isDefault} = 1`),
+  check('campaign_lifecycle_valid', sql`${table.lifecycle} IN ('preparing', 'active', 'archived')`),
+]);
+
+export const campaignMemberships = sqliteTable('campaign_memberships', {
+  campaignId: text('campaign_id').notNull().references(() => campaigns.id, { onDelete: 'restrict' }),
+  userId: text('user_id').notNull().references(() => user.id, { onDelete: 'restrict' }),
+  role: text('role', { enum: ['player', 'gm', 'campaign-administrator'] }).notNull(),
+  state: text('state', { enum: ['active', 'banned', 'removed'] }).notNull(),
+  invitedByUserId: text('invited_by_user_id').references(() => user.id, { onDelete: 'restrict' }),
+  joinedAt: integer('joined_at').notNull(),
+}, table => [
+  uniqueIndex('campaign_membership_campaign_user').on(table.campaignId, table.userId),
+  check('campaign_membership_role_valid', sql`${table.role} IN ('player', 'gm', 'campaign-administrator')`),
+  check('campaign_membership_state_valid', sql`${table.state} IN ('active', 'banned', 'removed')`),
+]);
