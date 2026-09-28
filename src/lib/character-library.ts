@@ -9,6 +9,8 @@ export type CharacterLibraryEntry = {
   /** Account campaign selected for a new account-backed character; active campaigns remain unassigned pending review. */
   accountTargetCampaignId?: string;
   accountTargetCampaignName?: string;
+  /** Account visibility choice retained when a conflicted server draft becomes a local copy. */
+  accountCopyPrivate?: boolean;
   serverRecord?: { id: string; version: number; isPrivate: boolean; mode: 'server' | 'copy' };
   id: string;
   createdAt: string;
@@ -54,6 +56,7 @@ export function migrateCharacterLibrary(value: unknown, fallbackDraft?: unknown)
         fileId: typeof entry?.fileId === 'string' ? entry.fileId : undefined,
         accountTargetCampaignId: typeof entry?.accountTargetCampaignId === 'string' && /^[0-9a-f-]{36}$/i.test(entry.accountTargetCampaignId) ? entry.accountTargetCampaignId : undefined,
         accountTargetCampaignName: typeof entry?.accountTargetCampaignName === 'string' ? entry.accountTargetCampaignName.slice(0, 100) : undefined,
+        accountCopyPrivate: typeof entry?.accountCopyPrivate === 'boolean' ? entry.accountCopyPrivate : undefined,
         serverRecord: entry?.serverRecord && typeof entry.serverRecord.id === 'string' && /^[0-9a-f-]{36}$/i.test(entry.serverRecord.id) && Number.isSafeInteger(entry.serverRecord.version) && entry.serverRecord.version > 0 && typeof entry.serverRecord.isPrivate === 'boolean' && (entry.serverRecord.mode === 'server' || entry.serverRecord.mode === 'copy') ? { id: entry.serverRecord.id, version: entry.serverRecord.version, isPrivate: entry.serverRecord.isPrivate, mode: entry.serverRecord.mode } : undefined,
         id: typeof entry?.id === 'string' && entry.id ? entry.id : makeCharacterId(),
         createdAt: typeof entry?.createdAt === 'string' ? entry.createdAt : now(),
@@ -67,6 +70,23 @@ export function migrateCharacterLibrary(value: unknown, fallbackDraft?: unknown)
     }
   }
   return createCharacterLibrary(migrateCharacterDraft(fallbackDraft));
+}
+
+/** Preserve a stale account edit as an independent browser draft after an optimistic-write conflict. */
+export function detachAccountConflict(entry: CharacterLibraryEntry, accountCopyPrivate: boolean): CharacterLibraryEntry {
+  const draft = { ...entry.draft, characterId: null };
+  return { ...createLibraryEntry(draft), accountCopyPrivate };
+}
+
+export function preserveAccountConflict(library: CharacterLibraryState, entryId: string, accountCopyPrivate: boolean): CharacterLibraryState | null {
+  const conflicted = library.entries.find(entry => entry.id === entryId);
+  if (!conflicted) return null;
+  const detached = detachAccountConflict(conflicted, accountCopyPrivate);
+  return {
+    ...library,
+    activeId: library.activeId === entryId ? detached.id : library.activeId,
+    entries: library.entries.map(entry => entry.id === entryId ? detached : entry),
+  };
 }
 
 export function browserPersistedLibrary(library: CharacterLibraryState): CharacterLibraryState {
@@ -149,6 +169,6 @@ export function addImportedCharacter(library: CharacterLibraryState, value: unkn
 }
 
 export function exportCharacter(entry: CharacterLibraryEntry): CharacterExportEnvelope {
-  const { serverRecord: _serverRecord, accountTargetCampaignId: _accountTargetCampaignId, accountTargetCampaignName: _accountTargetCampaignName, ...detachedEntry } = entry;
+  const { serverRecord: _serverRecord, accountTargetCampaignId: _accountTargetCampaignId, accountTargetCampaignName: _accountTargetCampaignName, accountCopyPrivate: _accountCopyPrivate, ...detachedEntry } = entry;
   return { format: 'dxd-chargen-character', version: 1, exportedAt: now(), character: detachedEntry };
 }

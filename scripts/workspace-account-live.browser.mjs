@@ -16,6 +16,15 @@ await import('./test-typescript-loader.mjs');
 const { openDatabase } = await import('../src/server/db/connection.ts');
 const { createLocalMailStore } = await import('../src/server/auth/local-mail-store.ts');
 
+async function assertEventuallyChecked(locator) {
+  await locator.waitFor({ state: 'visible' });
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    if (await locator.isChecked()) return;
+    await delay(50);
+  }
+  assert.equal(await locator.isChecked(), true, 'the detached draft restores its Account Library privacy choice');
+}
+
 const dataDir = path.join(projectCache, `live-account-${process.pid}-${randomUUID().slice(0, 8)}`);
 const databaseFile = path.join(dataDir, 'dxd.sqlite');
 const secret = randomBytes(48).toString('base64url');
@@ -126,8 +135,48 @@ try {
   await page.getByRole('button', { name: 'Open to edit', exact: true }).click();
   await page.waitForURL(`${baseUrl}/`);
   await page.getByRole('status').filter({ hasText: 'Opened Account Library version 1.' }).waitFor();
+
+  const competingPage = await context.newPage();
+  const competingErrors = [];
+  competingPage.on('pageerror', error => competingErrors.push(error.message));
+  await competingPage.goto(`${baseUrl}/library`, { waitUntil: 'domcontentloaded' });
+  await competingPage.getByRole('button', { name: 'Open to edit', exact: true }).click();
+  await competingPage.waitForURL(`${baseUrl}/`);
+  await competingPage.getByRole('status').filter({ hasText: 'Opened Account Library version 1.' }).waitFor();
+
+  await page.getByRole('button', { name: 'Open navigation menu' }).click();
+  await page.getByRole('button', { name: /Assign Name/ }).click();
+  await page.getByLabel('Table / common name').fill('Server winner');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await page.getByRole('button', { name: 'Save', exact: true }).last().click();
+  await page.getByRole('status').filter({ hasText: 'Saved Account Library version 2.' }).waitFor();
+
+  await competingPage.locator('summary[aria-label="Workspace menu"]').click();
+  await competingPage.getByLabel('Private in Account Library').check();
+  await competingPage.locator('summary[aria-label="Workspace menu"]').click();
+  await competingPage.getByRole('button', { name: 'Open navigation menu' }).click();
+  await competingPage.getByRole('button', { name: /Assign Name/ }).click();
+  await competingPage.getByLabel('Table / common name').fill('Conflicted local edits');
+  await competingPage.getByRole('button', { name: 'Save', exact: true }).click();
+  await competingPage.getByRole('button', { name: 'Save', exact: true }).last().click();
+  await competingPage.getByRole('status').filter({ hasText: 'preserved as a separate local draft' }).waitFor();
+  await competingPage.locator('summary[aria-label="Workspace menu"]').click();
+  assert.equal(await competingPage.getByLabel('Private in Account Library').isChecked(), true);
+  await competingPage.locator('summary[aria-label="Workspace menu"]').click();
+  await competingPage.goto(`${baseUrl}/library`, { waitUntil: 'domcontentloaded' });
+  await competingPage.getByRole('button', { name: /Conflicted local edits/ }).waitFor();
+  await competingPage.getByRole('button', { name: 'Open to edit', exact: true }).click();
+  await competingPage.waitForURL(`${baseUrl}/`);
+  await competingPage.getByRole('status').filter({ hasText: 'Opened Account Library version 2.' }).waitFor();
+  await competingPage.goto(`${baseUrl}/library`, { waitUntil: 'domcontentloaded' });
+  await competingPage.getByRole('button', { name: /Conflicted local edits/ }).click();
+  await competingPage.waitForURL(`${baseUrl}/`);
+  await competingPage.locator('summary[aria-label="Workspace menu"]').click();
+  await assertEventuallyChecked(competingPage.getByLabel('Private in Account Library'));
+  assert.deepEqual(competingErrors, []);
   assert.deepEqual(pageErrors, []);
-  console.log('PASS live signup, encrypted local verification, real sign-in, Default campaign save, SQLite persistence, and Account Library reopen');
+  console.log('PASS live signup/verification/save/reopen and stale Account Library edits preserved beside the latest server version');
+  await competingPage.close();
   await context.close();
 } catch (error) {
   console.error('LIVE BROWSER SERVER OUTPUT', serverOutput.slice(-8000));
