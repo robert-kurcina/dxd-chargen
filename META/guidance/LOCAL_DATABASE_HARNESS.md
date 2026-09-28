@@ -328,9 +328,12 @@ Baseline data-assets routes are unchanged.
 
 This is a boundary checkpoint, not accounts-mode delivery: no authenticated
 character API or auth handler exists, so selecting accounts mode intentionally
-leaves character storage unavailable. Other deployment policy, including startup
-refusal for a missing persistent DB/auth secret, is still required before
-accounts can be operated. No tests or build were run for this checkpoint.
+leaves character storage unavailable. `npm run test:legacy-api-boundary` starts
+the built production app with accounts, explicit legacy, unknown and unset storage
+modes and checks every filesystem route. Malformed POST/PATCH bodies still receive
+the same 503 before parsing; every response is no-store. Other deployment policy,
+including startup refusal for a missing persistent DB/auth secret, is still required
+before accounts can be operated. Run `npm run build` before this test.
 
 
 ## H02c checkpoint: explicit local database provisioning
