@@ -2,6 +2,8 @@
 
 This directory contains development/canon synchronization material for maintainers and LLM-assisted implementation. It is not runtime game data and is not the player-facing rules source.
 
+These documents govern the `dxd-chargen` Web client and backend service. [Shared DXD/Sarna Len guidance](../../../meta-dxd/guidance/DXD_SARNA_LEN.md) and [cross-repository coordination](../../../meta-dxd/coordination/REPOSITORIES.md) live in `meta-dxd`. Keep detailed application execution status here and link shared decisions to their owning repository.
+
 ## Canon synchronization history
 
 `CANON_SYNC_v*.md` records how each generator release reconciled the application with Sarna Len / DXD canon. The files remain versioned individually so earlier implementation decisions and corrections can be audited.
