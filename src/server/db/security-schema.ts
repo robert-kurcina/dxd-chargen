@@ -124,3 +124,30 @@ export const characterVersions = sqliteTable('character_versions', {
   check('character_version_schema_valid', sql`${table.schemaVersion} BETWEEN 1 AND 11`),
   check('character_version_json_valid', sql`json_valid(${table.draftJson})`),
 ]);
+
+
+export const campaignInvitations = sqliteTable('campaign_invitations', {
+  id: text('id').primaryKey(),
+  campaignId: text('campaign_id').notNull().references(() => campaigns.id, { onDelete: 'restrict' }),
+  tokenHash: text('token_hash').notNull().unique(),
+  role: text('role', { enum: ['player', 'gm', 'campaign-administrator'] }).notNull(),
+  expiresAt: integer('expires_at').notNull(),
+  maxUses: integer('max_uses').notNull(),
+  uses: integer('uses').notNull().default(0),
+  createdBy: text('created_by').notNull().references(() => user.id, { onDelete: 'restrict' }),
+  createdAt: integer('created_at').notNull(),
+  revokedAt: integer('revoked_at'),
+}, table => [
+  index('campaign_invitation_active').on(table.campaignId, table.expiresAt, table.revokedAt),
+  check('campaign_invitation_role_valid', sql`${table.role} IN ('player', 'gm', 'campaign-administrator')`),
+  check('campaign_invitation_use_limit', sql`${table.maxUses} BETWEEN 1 AND 100 AND ${table.uses} BETWEEN 0 AND ${table.maxUses}`),
+]);
+
+export const campaignInvitationJoins = sqliteTable('campaign_invitation_joins', {
+  id: text('id').primaryKey(),
+  invitationId: text('invitation_id').notNull().references(() => campaignInvitations.id, { onDelete: 'restrict' }),
+  userId: text('user_id').notNull().references(() => user.id, { onDelete: 'restrict' }),
+  joinedAt: integer('joined_at').notNull(),
+}, table => [
+  uniqueIndex('campaign_invitation_join_user').on(table.invitationId, table.userId),
+]);

@@ -32,9 +32,14 @@ export default function AccountPanel() {
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
   const [available, setAvailable] = useState<boolean | null>(null);
+  const [returnTo, setReturnTo] = useState('');
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
+    const requestedReturnTo = query.get('returnTo') ?? '';
+    const safeReturnTo = /^\/invite\/[A-Za-z0-9_-]{43}$/.test(requestedReturnTo) ? requestedReturnTo : '';
+    setReturnTo(safeReturnTo);
+    if (query.get('mode') === 'signup' && safeReturnTo) setMode('signup');
     const token = query.get('token');
     if (token) { setResetToken(token); setMode('reset'); setNotice('Choose a new password for your account.'); }
     if (query.get('error') === 'INVALID_TOKEN') setError('That reset link is invalid or expired. Request another link.');
@@ -61,6 +66,7 @@ export default function AccountPanel() {
     if (result.twoFactorRedirect) { setMode('mfa'); setNotice('Enter the current code from your authenticator app.'); return; }
     const session = await fetch('/api/auth/get-session', { credentials: 'same-origin' }).then(response => response.json());
     if (!session?.user) throw new Error('Sign-in did not create an active session. Check your email and try again.');
+    if (returnTo) { window.location.assign(returnTo); return; }
     setUser(session.user as User); setPassword(''); setNotice('You are signed in.');
   };
 
@@ -91,7 +97,7 @@ export default function AccountPanel() {
       event.preventDefault();
       void run(async () => {
         if (mode === 'signup') {
-          await post('sign-up/email', { email, username, name, password });
+          await post('sign-up/email', { email, username, name, password, ...(returnTo ? { callbackURL: `${window.location.origin}${returnTo}` } : {}) });
           setPassword(''); setMode('login'); setNotice('Account created. Check the local account inbox for the verification link before signing in.');
         } else if (mode === 'forgot') {
           await post('request-password-reset', { email, redirectTo: `${window.location.origin}/account` });
@@ -103,6 +109,7 @@ export default function AccountPanel() {
           await post(useRecovery ? 'two-factor/verify-backup-code' : 'two-factor/verify-totp', { code });
           const session = await fetch('/api/auth/get-session', { credentials: 'same-origin' }).then(response => response.json());
           if (!session?.user) throw new Error('The verification code did not create an active session.');
+          if (returnTo) { window.location.assign(returnTo); return; }
           setUser(session.user as User); setCode(''); setNotice('You are signed in.');
         } else {
           await signIn(email, password);

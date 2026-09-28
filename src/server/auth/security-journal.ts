@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { securityOperation } from './operation-context';
 import type { openDatabase } from '../db/connection';
 
-const actions = new Set(['admin/security-operations', 'admin/security-operation-review', 'sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation', 'campaigns', 'campaign-fork', 'characters', 'character-create', 'character-read', 'character-history', 'character-update']);
+const actions = new Set(['admin/security-operations', 'admin/security-operation-review', 'sign-up/email', 'sign-in/email', 'sign-in/username', 'sign-out', 'verify-email', 'send-verification-email', 'request-password-reset', 'reset-password', 'change-password', 'change-email', 'two-factor/enable', 'two-factor/disable', 'two-factor/verify-totp', 'two-factor/verify-backup-code', 'review-security-operation', 'campaigns', 'campaign-fork', 'campaign-invitations', 'campaign-invitation-create', 'campaign-invitation-revoke', 'campaign-invitation-preview', 'campaign-invitation-accept', 'characters', 'character-create', 'character-read', 'character-history', 'character-update']);
 
 export function createSecurityJournal(connection: ReturnType<typeof openDatabase>) {
   const db = connection.sqlite;
@@ -14,8 +14,12 @@ export function createSecurityJournal(connection: ReturnType<typeof openDatabase
     async run(request: Request, actor: string | null | (() => Promise<string | null>), handler: (request: Request) => Promise<Response>) {
       const route = new URL(request.url).pathname.replace(/^\/api\/auth\//, '');
       // Never persist arbitrary paths, query strings, bodies, cookies or error messages.
-      const method = ['GET', 'POST', 'PUT'].includes(request.method) ? request.method : 'OTHER';
-      const campaignRoute = route === 'campaigns' && request.method === 'POST' ? 'campaign-fork' : route;
+      const method = ['GET', 'POST', 'PUT', 'DELETE'].includes(request.method) ? request.method : 'OTHER';
+      const campaignInviteRoute = route.match(/^campaigns\/[0-9a-f-]{36}\/invitations(?:\/[0-9a-f-]{36})?$/i);
+      const publicInviteRoute = route.match(/^invitations\/[A-Za-z0-9_-]{43}(?:\/accept)?$/);
+      const campaignRoute = route === 'campaigns' && request.method === 'POST' ? 'campaign-fork'
+        : campaignInviteRoute ? (route.endsWith('/invitations') && request.method === 'GET' ? 'campaign-invitations' : route.endsWith('/invitations') && request.method === 'POST' ? 'campaign-invitation-create' : route.includes('/invitations/') && request.method === 'DELETE' ? 'campaign-invitation-revoke' : 'unclassified')
+        : publicInviteRoute ? (route.endsWith('/accept') && request.method === 'POST' ? 'campaign-invitation-accept' : !route.endsWith('/accept') && request.method === 'GET' ? 'campaign-invitation-preview' : 'unclassified') : route;
       const characterMatch = route.match(/^characters(?:\/([0-9a-f-]{36})(?:\/versions(?:\/\d+)?)?)?$/i);
       const journalRoute = /^admin\/security-operations\/[0-9a-f-]{36}\/review$/i.test(route) ? 'admin/security-operation-review'
         : campaignRoute !== route ? campaignRoute : characterMatch ? (request.method === 'POST' && route === 'characters' ? 'character-create' : request.method === 'PUT' && characterMatch[1] && !route.includes('/versions') ? 'character-update' : request.method === 'GET' && route.endsWith('/versions') ? 'character-history' : request.method === 'GET' && characterMatch[1] ? 'character-read' : request.method === 'GET' && route === 'characters' ? 'characters' : 'unclassified') : route;

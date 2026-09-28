@@ -12,6 +12,7 @@ import { createSecurityJournal } from './security-journal';
 import { createLocalMailStore, type LocalAccountMail } from './local-mail-store';
 import { createCharacterService } from './character-service';
 import { createCampaignService } from './campaign-service';
+import { createCampaignInvitationService } from './campaign-invitation-service';
 
 async function readBoundedJson(request: Request, maximumBytes: number): Promise<{ value?: unknown; error?: Response }> {
   const declaredLength = Number(request.headers.get('content-length'));
@@ -67,6 +68,7 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
   const journal = createSecurityJournal(connection);
   const characters = createCharacterService(connection);
   const campaigns = createCampaignService(connection);
+  const invitations = createCampaignInvitationService(connection, origin.origin);
   const invokeAuth = async (request: Request) => {
     const response = await auth.handler(request);
     // The pinned library uses X-Retry-After; also expose the standard header.
@@ -85,6 +87,25 @@ export function createLocalAccountHarness(connection: ReturnType<typeof openData
       const adminActor = securityOperation.getStore()?.actorId ?? null;
       const reviewListPath = '/api/auth/admin/security-operations';
       const campaignRoot = '/api/auth/campaigns';
+      const inviteTokenMatch = route.match(/^\/api\/auth\/invitations\/([A-Za-z0-9_-]{43})(\/accept)?$/);
+      if (inviteTokenMatch && incoming.method === 'GET' && !inviteTokenMatch[2]) return invitations.preview(inviteTokenMatch[1]);
+      if (inviteTokenMatch && incoming.method === 'POST' && inviteTokenMatch[2]) {
+        if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        return invitations.accept(securityOperation.getStore()?.actorId ?? null, inviteTokenMatch[1]);
+      }
+      const campaignInviteMatch = route.match(/^\/api\/auth\/campaigns\/([0-9a-f-]{36})\/invitations(?:\/([0-9a-f-]{36}))?$/i);
+      if (campaignInviteMatch && incoming.method === 'GET' && !campaignInviteMatch[2]) return invitations.list(securityOperation.getStore()?.actorId ?? null, campaignInviteMatch[1]);
+      if (campaignInviteMatch && incoming.method === 'POST' && !campaignInviteMatch[2]) {
+        if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        if (!incoming.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'JSON required.' }, { status: 415, headers: { 'Cache-Control': 'no-store' } });
+        const parsed = await readBoundedJson(incoming, 4096);
+        if (parsed.error) return parsed.error;
+        return invitations.create(securityOperation.getStore()?.actorId ?? null, campaignInviteMatch[1], parsed.value);
+      }
+      if (campaignInviteMatch && incoming.method === 'DELETE' && campaignInviteMatch[2]) {
+        if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+        return invitations.revoke(securityOperation.getStore()?.actorId ?? null, campaignInviteMatch[1], campaignInviteMatch[2]);
+      }
       if (route === campaignRoot && incoming.method === 'GET') return campaigns.list(securityOperation.getStore()?.actorId ?? null);
       if (route === campaignRoot && incoming.method === 'POST') {
         if (incoming.headers.get('origin') !== origin.origin) return Response.json({ error: 'Untrusted origin.' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
