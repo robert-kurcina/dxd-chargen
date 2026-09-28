@@ -34,12 +34,12 @@ let serverOutput = '';
 let browser;
 let connection;
 
-function currentTotp(uri) {
+function currentTotp(uri, stepOffset = 0) {
   const url = new URL(uri), alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
   const bits = [...url.searchParams.get('secret').replace(/=+$/, '').toUpperCase()].map(char => alphabet.indexOf(char).toString(2).padStart(5, '0')).join('');
   const key = Buffer.from(bits.match(/.{8}/g).map(byte => Number.parseInt(byte, 2)));
   const counter = Buffer.alloc(8);
-  counter.writeBigUInt64BE(BigInt(Math.floor(Date.now() / 1000 / Number(url.searchParams.get('period') || 30))));
+  counter.writeBigUInt64BE(BigInt(Math.floor(Date.now() / 1000 / Number(url.searchParams.get('period') || 30)) + stepOffset));
   const digest = createHmac('sha1', key).update(counter).digest(), offset = digest[digest.length - 1] & 15;
   return String((digest.readUInt32BE(offset) & 0x7fffffff) % 10 ** Number(url.searchParams.get('digits') || 6)).padStart(6, '0');
 }
@@ -110,11 +110,26 @@ try {
   await gmPage.getByLabel('Confirm your password to begin setup').fill(admin.password);
   await gmPage.getByRole('button', { name: 'Set up authenticator', exact: true }).click();
   const totpUri = await gmPage.locator('code').filter({ hasText: 'otpauth://' }).innerText();
-  await gmPage.getByLabel('Authenticator code').fill(currentTotp(totpUri));
+  const enrollmentCode = currentTotp(totpUri);
+  await gmPage.getByLabel('Authenticator code').fill(enrollmentCode);
   await gmPage.getByRole('button', { name: 'Confirm authenticator', exact: true }).click();
   await gmPage.getByRole('status').filter({ hasText: 'Authenticator enabled' }).waitFor();
 
+  connection = openDatabase(databaseFile);
+  const adminIdForStepUp = connection.sqlite.prepare('SELECT id FROM user WHERE username=?').get(admin.username).id;
+  connection.sqlite.prepare('UPDATE session SET created_at=? WHERE user_id=?').run(Date.now() - 301_000, adminIdForStepUp);
+  connection.sqlite.prepare('UPDATE consumed_totp SET expires_at=0 WHERE user_id=?').run(adminIdForStepUp);
+  connection.close(); connection = undefined;
+
   await gmPage.goto(`${baseUrl}/campaigns`, { waitUntil: 'networkidle' });
+  await gmPage.getByLabel('Campaign name').fill(`Browser Invite ${suffix}`);
+  await gmPage.getByRole('button', { name: 'Create preparing campaign', exact: true }).click();
+  await gmPage.getByRole('alert').filter({ hasText: 'Verify your authenticator again before this action' }).waitFor();
+  await gmPage.getByRole('link', { name: 'Open account security', exact: true }).click();
+  await gmPage.waitForURL(`${baseUrl}/account?returnTo=%2Fcampaigns`);
+  await gmPage.getByLabel('Authenticator code').fill(currentTotp(totpUri, 1));
+  await gmPage.getByRole('button', { name: 'Verify fresh code', exact: true }).click();
+  await gmPage.waitForURL(`${baseUrl}/campaigns`);
   await gmPage.getByLabel('Campaign name').fill(`Browser Invite ${suffix}`);
   await gmPage.getByRole('button', { name: 'Create preparing campaign', exact: true }).click();
   await gmPage.getByRole('status').filter({ hasText: 'created as a preparing campaign' }).waitFor();
@@ -164,7 +179,7 @@ try {
   await revokedPage.goto(revokedLink, { waitUntil: 'domcontentloaded' });
   await revokedPage.getByRole('alert').filter({ hasText: 'expired, been revoked, or has no uses remaining' }).waitFor();
   await Promise.all([gmContext.close(), playerContext.close()]);
-  console.log('PASS live MFA-protected campaign fork, invitation create/revoke, verified player join, membership persistence, and revoked-link rejection');
+  console.log('PASS live stale-MFA reauthentication, protected campaign fork, invitation create/revoke, verified player join, membership persistence, and revoked-link rejection');
 } catch (error) {
   console.error('LIVE INVITATION SERVER OUTPUT', serverOutput.slice(-8000));
   throw error;

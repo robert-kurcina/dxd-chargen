@@ -22,6 +22,7 @@
     "install:browser:chromium": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright install chromium --only-shell",
     "test:browser:account-campaigns": "node scripts/workspace-account-campaigns.browser.mjs",
     "test:browser:account-live": "node --conditions=react-server scripts/workspace-account-live.browser.mjs",
+    "test:browser:account-recovery-live": "node --conditions=react-server scripts/workspace-account-recovery-live.browser.mjs",
     "test:browser:invitations-live": "node --conditions=react-server scripts/workspace-invitations-live.browser.mjs",
     "maintenance:local": "node scripts/local-maintenance.mjs",
     "db:migrate:local": "node scripts/migrate-local.mjs",
