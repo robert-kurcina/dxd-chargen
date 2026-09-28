@@ -44,7 +44,11 @@ test('development character API enforces ownership, privacy, campaign scope and 
     const defaultCreated = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft: defaultDraft, campaignId: defaultId, private: false, idempotencyKey: randomUUID() } });
     assert.equal(defaultCreated.status, 201, await defaultCreated.clone().text());
     const defaultCharacterId = (await defaultCreated.json()).id;
-    assert.equal((await auth(`characters/${defaultCharacterId}`, { cookie: bob.cookie })).status, 200);
+    const defaultDetail = await auth(`characters/${defaultCharacterId}`, { cookie: bob.cookie });
+    assert.equal(defaultDetail.status, 200);
+    assert.equal((await defaultDetail.json()).canEdit, false);
+    const aliceList = await (await auth('characters', { cookie: alice.cookie })).json();
+    assert.equal(aliceList.characters.find(item => item.id === defaultCharacterId).canEdit, true);
     const defaultPrivate = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft: defaultDraft, campaignId: defaultId, private: true, idempotencyKey: randomUUID() } });
     assert.equal(defaultPrivate.status, 201);
     assert.equal((await auth(`characters/${(await defaultPrivate.json()).id}`, { cookie: bob.cookie })).status, 404);
@@ -61,6 +65,9 @@ test('development character API enforces ownership, privacy, campaign scope and 
     assert.equal((await auth(`characters/${character.id}`, { cookie: bob.cookie })).status, 404);
     assert.equal((await auth('characters?campaignId=' + campaign, { cookie: bob.cookie })).status, 200);
     assert.equal((await (await auth('characters?campaignId=' + campaign, { cookie: bob.cookie })).json()).characters.length, 0);
+    const gmDetail = await auth(`characters/${character.id}`, { cookie: gm.cookie });
+    assert.equal(gmDetail.status, 200);
+    assert.equal((await gmDetail.json()).private, true);
     assert.equal((await auth(`characters/${character.id}`, { cookie: gm.cookie })).status, 200);
 
     const updateDraft = createEmptyCharacterDraft(); updateDraft.background.properName = 'Updated by GM';
@@ -94,7 +101,9 @@ test('development character API enforces ownership, privacy, campaign scope and 
     const shared = createEmptyCharacterDraft(); shared.background.properName = 'Shared';
     const sharedResult = await auth('characters', { method: 'POST', cookie: alice.cookie, body: { draft: shared, private: false, idempotencyKey: randomUUID() } });
     const sharedId = (await sharedResult.json()).id;
-    assert.equal((await auth(`characters/${sharedId}`, { cookie: bob.cookie })).status, 200);
+    const sharedDetail = await auth(`characters/${sharedId}`, { cookie: bob.cookie });
+    assert.equal(sharedDetail.status, 200);
+    assert.equal((await sharedDetail.json()).canEdit, false);
     const wrongOrigin = await auth('characters', { method: 'POST', cookie: alice.cookie, requestOrigin: 'https://untrusted.example', body: { draft: shared, private: false, idempotencyKey: randomUUID() } });
     assert.equal(wrongOrigin.status, 403);
     const oversized = await handle(new Request(`${origin}/api/auth/characters`, { method: 'POST', headers: { origin, 'content-type': 'application/json', cookie: alice.cookie }, body: ' '.repeat(6 * 1024 * 1024 + 1) }));

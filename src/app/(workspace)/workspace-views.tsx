@@ -7,6 +7,7 @@ import SuspenseSpinner from '@/components/suspense-spinner';
 import Worksheet from '@/app/worksheet';
 import ExpandedCharacterSheet from '@/app/expanded-character-sheet';
 import CharacterLibraryPanel from '@/app/character-library-panel';
+import AccountCharacterLibraryPanel from '@/app/account-character-library-panel';
 import { sortLibraryTags } from '@/lib/admin-settings';
 import { libraryTagMatches } from '@/lib/campaign-origins';
 import { LOCAL_CAMPAIGNS, campaignLabel, campaignMatches } from '@/lib/local-campaigns';
@@ -40,7 +41,7 @@ export function SheetWorkspaceView() {
 }
 
 export function LibraryWorkspaceView() {
-  const { data, libraryRefresh, loadDraft, localEntries, openLocalDraft } = useWorkspace();
+  const { data, libraryRefresh, loadDraft, loadAccountDraft, saveAccount, hasAccountRecord, accountDirty, accountPrivate, setAccountPrivate, saving, localEntries, openLocalDraft } = useWorkspace();
   const [filter, setFilter] = useState<string>('all');
   const [tag, setTag] = useState('');
   const matches = localEntries.filter(entry => campaignMatches(entry.draft.campaignId, filter) && libraryTagMatches(entry.draft.utilities.libraryTags, tag));
@@ -58,6 +59,7 @@ export function LibraryWorkspaceView() {
       <div className="grid gap-2 sm:grid-cols-2">{matches.map(entry => <Button key={entry.id} variant="outline" className="h-auto min-h-14 min-w-0 flex-col items-start whitespace-normal py-2 text-left" onClick={() => openLocalDraft(entry.id)}><span>{entry.draft.utilities.name || 'Unnamed character'}</span><span className="text-xs text-muted-foreground">{campaignLabel(entry.draft.campaignId)}</span><span className="text-xs text-muted-foreground">{entry.draft.utilities.libraryTags.join(', ') || 'No tags'}</span></Button>)}</div>
       {!matches.length && <p className="py-3 text-sm text-muted-foreground">No browser drafts match these filters.</p>}
     </section>
+    <AccountCharacterLibraryPanel data={data} refreshKey={libraryRefresh} campaignFilter={filter} tagFilter={tag} accountPrivate={accountPrivate} setAccountPrivate={setAccountPrivate} saving={saving} accountDirty={accountDirty} hasAccountRecord={hasAccountRecord} onSave={saveAccount} onOpen={loadAccountDraft} />
     <CharacterLibraryPanel data={data} refreshKey={libraryRefresh} onOpen={loadDraft} campaignFilter={filter} tagFilter={tag} />
   </div>;
 }
