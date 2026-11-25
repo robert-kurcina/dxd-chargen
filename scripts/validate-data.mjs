@@ -100,6 +100,17 @@ for (const [languageId, table] of Object.entries(completedNames)) {
   }
 }
 
+const supplementaryNames = read('supplementaryNameTables.json');
+for (const [languageId, table] of Object.entries(supplementaryNames)) {
+  const baseline = completedNames[languageId];
+  if (!baseline || ['language-borensk','language-orukugu','language-vargsh'].includes(languageId)) throw new Error('Invalid supplementary language: ' + languageId);
+  if (table.language !== baseline.language || JSON.stringify(table.columns.map(c=>c.label)) !== JSON.stringify(baseline.columns.map(c=>c.label))) throw new Error('Supplementary category mismatch: ' + languageId);
+  for (const column of table.columns) {
+    if (column.names.length !== 36 || new Set(column.names.map(n=>n.normalize('NFC').toLowerCase())).size !== 36 || column.readings?.length !== 36) throw new Error('Incomplete supplementary names: ' + languageId + ' / ' + column.label);
+    if (column.readings.some(r=>typeof r.cue !== 'string' || !r.cue.trim() || !Array.isArray(r.concepts) || r.concepts.length !== 2 || r.concepts.some(c=>typeof c !== 'string'))) throw new Error('Invalid supplementary reading: ' + languageId);
+  }
+}
+
 const generatorByLanguage = new Map();
 for (const generator of nameGenerators) {
   if (!generator.languageId || generatorByLanguage.has(generator.languageId)) throw new Error(`Duplicate/blank structured name generator: ${generator.languageId}`);

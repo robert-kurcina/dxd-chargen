@@ -1,4 +1,5 @@
 import completedNameTables from '@/data/completedNameTables.json';
+import supplementaryNameTables from '@/data/supplementaryNameTables.json';
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
 import type { CharacterDraft, InventorySelection, SourcedSelection } from '@/lib/character-draft';
@@ -961,11 +962,16 @@ type NameReading = { cue: string; concepts: string[]; gloss?: string };
 type CompletedNameColumn = { label: string; names: string[]; readings?: NameReading[] };
 const nameTables = completedNameTables as Record<string, { language: string; columns: CompletedNameColumn[] }>;
 
+const supplementaryTables = supplementaryNameTables as Record<string, { language: string; columns: CompletedNameColumn[] }>;
+export function hasSupplementaryNameCatalog(languageId: string): boolean {
+  return Boolean(supplementaryTables[languageId]);
+}
+
 export function characterNameReadings(languageId: string, name: string): Array<NameReading & { category: string }> {
   if (!name.trim()) return [];
   // Exact native spelling only; edited or custom names do not inherit a guess.
   const native = name.normalize('NFC');
-  return (nameTables[languageId]?.columns ?? []).flatMap(column =>
+  return [...(nameTables[languageId]?.columns ?? []), ...(supplementaryTables[languageId]?.columns ?? []).map(column => ({ ...column, label: column.label + ' (supplementary)' }))].flatMap(column =>
     column.names.flatMap((candidate, index) => {
       const reading = column.readings?.[index];
       return candidate.normalize('NFC') === native && reading ? [{ ...reading, category: column.label }] : [];
@@ -978,11 +984,12 @@ export function generateCharacterName(
   style: CharacterDraft['utilities']['nameStyle'],
   data: StaticData,
   random: () => number = Math.random,
+  catalog: 'established' | 'supplementary' = 'established',
 ) {
   // Retired Q1 Ershthikal is not the native Vargsh language.
   // Do not silently reinterpret an existing character's language.
   if (!data.nameGenerators.some(entry => entry.languageId === languageId)) return '';
-  const table = nameTables[languageId];
+  const table = (catalog === 'supplementary' ? supplementaryTables : nameTables)[languageId];
   if (!table) return '';
   const personal = table.columns.filter(column => /^(Male|Female|Person|Neutral Person|Name)$/.test(column.label) || /^(ak|ash) — /.test(column.label));
   const preferred = style === 'any' ? personal : personal.filter(column => column.label === (style === 'masculine' ? 'Male' : 'Female'));
