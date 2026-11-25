@@ -2568,7 +2568,7 @@
             ]
           },
           {
-            "cue": "kee-?ehpah?ohng",
+            "cue": "kee-?ehpah'ohng",
             "concepts": [
               "Bread",
               "Payment"
@@ -3095,7 +3095,7 @@
             ]
           },
           {
-            "cue": "keh-pah??ehpeem",
+            "cue": "keh-pah'?ehpeem",
             "concepts": [
               "Payment",
               "Bread"
@@ -3945,7 +3945,7 @@
             ]
           },
           {
-            "cue": "kah-pah??ehpeem",
+            "cue": "kah-pah'?ehpeem",
             "concepts": [
               "Payment",
               "Bread"
@@ -10414,21 +10414,21 @@
         ],
         "readings": [
           {
-            "cue": "chlehbdrohgahn",
+            "cue": "khlehbdrohgahn",
             "concepts": [
               "Bread",
               "Road"
             ]
           },
           {
-            "cue": "ch?ahldrohgohr",
+            "cue": "khvahldrohgohr",
             "concepts": [
               "Glory",
               "Road"
             ]
           },
           {
-            "cue": "?zoo?moh?ahn",
+            "cue": "choovmohtsahn",
             "concepts": [
               "Vigilance",
               "Strength"
@@ -10442,7 +10442,7 @@
             ]
           },
           {
-            "cue": "grahnmoh?ahn",
+            "cue": "grahnmohtsahn",
             "concepts": [
               "Boundary",
               "Strength"
@@ -10484,28 +10484,28 @@
             ]
           },
           {
-            "cue": "meeehrzpahmahn",
+            "cue": "meeehzhpahmahn",
             "concepts": [
               "Twilight",
               "Memory"
             ]
           },
           {
-            "cue": "meeehrz??eetohr",
+            "cue": "meeehzhshveetohr",
             "concepts": [
               "Twilight",
               "Dawn"
             ]
           },
           {
-            "cue": "moh?grahnohr",
+            "cue": "mohtsgrahnohr",
             "concepts": [
               "Strength",
               "Boundary"
             ]
           },
           {
-            "cue": "moh?kroolohr",
+            "cue": "mohtskroolohr",
             "concepts": [
               "Strength",
               "King"
@@ -10526,14 +10526,14 @@
             ]
           },
           {
-            "cue": "mohzh??eetohr",
+            "cue": "mohzhshveetohr",
             "concepts": [
               "Sea",
               "Dawn"
             ]
           },
           {
-            "cue": "mohst?eeehdzahn",
+            "cue": "mohstveeehdzahn",
             "concepts": [
               "Bridge",
               "Knowledge"
@@ -10547,21 +10547,21 @@
             ]
           },
           {
-            "cue": "neeehb??eeahtahn",
+            "cue": "neeehbshveeahtahn",
             "concepts": [
               "Sky",
               "Light"
             ]
           },
           {
-            "cue": "pahmch?ahlohr",
+            "cue": "pahmkhvahlohr",
             "concepts": [
               "Memory",
               "Glory"
             ]
           },
           {
-            "cue": "pahm?eeehdzahn",
+            "cue": "pahmveeehdzahn",
             "concepts": [
               "Memory",
               "Knowledge"
@@ -10624,14 +10624,14 @@
             ]
           },
           {
-            "cue": "roh?lhohryohr",
+            "cue": "rohshlhohrihohr",
             "concepts": [
               "Plant",
               "Horizon"
             ]
           },
           {
-            "cue": "roh?lneeehbahn",
+            "cue": "rohshlneeehbahn",
             "concepts": [
               "Plant",
               "Sky"
@@ -10645,21 +10645,21 @@
             ]
           },
           {
-            "cue": "zhehkweeahtrohr",
+            "cue": "zhehkveeahtrohr",
             "concepts": [
               "River",
               "Wind"
             ]
           },
           {
-            "cue": "??eetpahmahn",
+            "cue": "shveetpahmahn",
             "concepts": [
               "Dawn",
               "Memory"
             ]
           },
           {
-            "cue": "?eeehdzpahmohr",
+            "cue": "veeehdzpahmohr",
             "concepts": [
               "Knowledge",
               "Memory"
@@ -10709,28 +10709,28 @@
         ],
         "readings": [
           {
-            "cue": "ch?ahl?zoo?ee",
+            "cue": "khvahlchoovee",
             "concepts": [
               "Glory",
               "Vigilance"
             ]
           },
           {
-            "cue": "?zoo?chrohneh",
+            "cue": "choovkhrohneh",
             "concepts": [
               "Vigilance",
               "Protection"
             ]
           },
           {
-            "cue": "dohlhohryee",
+            "cue": "dohlhohrihee",
             "concepts": [
               "Valley",
               "Horizon"
             ]
           },
           {
-            "cue": "drohgchrohneh",
+            "cue": "drohgkhrohneh",
             "concepts": [
               "Road",
               "Protection"
@@ -10744,7 +10744,7 @@
             ]
           },
           {
-            "cue": "grahnmoh?eh",
+            "cue": "grahnmohtseh",
             "concepts": [
               "Boundary",
               "Strength"
@@ -10758,21 +10758,21 @@
             ]
           },
           {
-            "cue": "grahn?eeahtree",
+            "cue": "grahnveeahtree",
             "concepts": [
               "Boundary",
               "Wind"
             ]
           },
           {
-            "cue": "goordeh??zee",
+            "cue": "goordehshchee",
             "concepts": [
               "Mountain",
               "Rain"
             ]
           },
           {
-            "cue": "hohrymgleh",
+            "cue": "hohrihmgleh",
             "concepts": [
               "Horizon",
               "Fog"
@@ -10800,28 +10800,28 @@
             ]
           },
           {
-            "cue": "meeehrzhohryeh",
+            "cue": "meeehzhhohriheh",
             "concepts": [
               "Twilight",
               "Horizon"
             ]
           },
           {
-            "cue": "meeehrzkahmee",
+            "cue": "meeehzhkahmee",
             "concepts": [
               "Twilight",
               "Stone"
             ]
           },
           {
-            "cue": "mohstchlehbee",
+            "cue": "mohstkhlehbee",
             "concepts": [
               "Bridge",
               "Bread"
             ]
           },
           {
-            "cue": "mohstch?ahleh",
+            "cue": "mohstkhvahleh",
             "concepts": [
               "Bridge",
               "Glory"
@@ -10835,7 +10835,7 @@
             ]
           },
           {
-            "cue": "mohst?ohdeh",
+            "cue": "mohstvohdeh",
             "concepts": [
               "Bridge",
               "Water"
@@ -10856,7 +10856,7 @@
             ]
           },
           {
-            "cue": "plahtrzehkee",
+            "cue": "plahtzhehkee",
             "concepts": [
               "Payment",
               "River"
@@ -10884,14 +10884,14 @@
             ]
           },
           {
-            "cue": "pohl?eeahtree",
+            "cue": "pohlveeahtree",
             "concepts": [
               "Field",
               "Wind"
             ]
           },
           {
-            "cue": "rohdzmeeehrzee",
+            "cue": "rohdzmeeehzhee",
             "concepts": [
               "Family",
               "Twilight"
@@ -10905,7 +10905,7 @@
             ]
           },
           {
-            "cue": "rooeen?eeehdzee",
+            "cue": "rooeenveeehdzee",
             "concepts": [
               "Ruin",
               "Knowledge"
@@ -10919,14 +10919,14 @@
             ]
           },
           {
-            "cue": "zhehkroh?leh",
+            "cue": "zhehkrohshleh",
             "concepts": [
               "River",
               "Plant"
             ]
           },
           {
-            "cue": "zhehkwohdeh",
+            "cue": "zhehkvohdeh",
             "concepts": [
               "River",
               "Water"
@@ -10947,14 +10947,14 @@
             ]
           },
           {
-            "cue": "?ohdchlehbeh",
+            "cue": "vohdkhlehbeh",
             "concepts": [
               "Water",
               "Bread"
             ]
           },
           {
-            "cue": "?ohdkahmee",
+            "cue": "vohdkahmee",
             "concepts": [
               "Water",
               "Stone"
@@ -12201,7 +12201,7 @@
             ]
           },
           {
-            "cue": "?hlehbrzehkahr",
+            "cue": "khlehbzhehkahr",
             "concepts": [
               "Bread",
               "River"
@@ -12264,7 +12264,7 @@
             ]
           },
           {
-            "cue": "kroolkhfahlahr",
+            "cue": "kroolkhvahlahr",
             "concepts": [
               "King",
               "Glory"
@@ -12285,56 +12285,56 @@
             ]
           },
           {
-            "cue": "meeehrzgoorahr",
+            "cue": "meeehzhgoorahr",
             "concepts": [
               "Twilight",
               "Mountain"
             ]
           },
           {
-            "cue": "meeehrzpahmahr",
+            "cue": "meeehzhpahmahr",
             "concepts": [
               "Twilight",
               "Memory"
             ]
           },
           {
-            "cue": "meeehrzrohdzahr",
+            "cue": "meeehzhrohdzahr",
             "concepts": [
               "Twilight",
               "Family"
             ]
           },
           {
-            "cue": "moh?drohgahr",
+            "cue": "mohtsdrohgahr",
             "concepts": [
               "Strength",
               "Road"
             ]
           },
           {
-            "cue": "moh?grahnahr",
+            "cue": "mohtsgrahnahr",
             "concepts": [
               "Strength",
               "Boundary"
             ]
           },
           {
-            "cue": "moh?kroolahr",
+            "cue": "mohtskroolahr",
             "concepts": [
               "Strength",
               "King"
             ]
           },
           {
-            "cue": "moh?rohdzahr",
+            "cue": "mohtsrohdzahr",
             "concepts": [
               "Strength",
               "Family"
             ]
           },
           {
-            "cue": "moh?zhohdahr",
+            "cue": "mohtszhohdahr",
             "concepts": [
               "Strength",
               "Government/order"
@@ -12348,14 +12348,14 @@
             ]
           },
           {
-            "cue": "neeehbshfeetahr",
+            "cue": "neeehbshveetahr",
             "concepts": [
               "Sky",
               "Dawn"
             ]
           },
           {
-            "cue": "pahmhohryahr",
+            "cue": "pahmhohrihahr",
             "concepts": [
               "Memory",
               "Horizon"
@@ -12376,7 +12376,7 @@
             ]
           },
           {
-            "cue": "rohdzkhfahlahr",
+            "cue": "rohdzkhvahlahr",
             "concepts": [
               "Family",
               "Glory"
@@ -12397,14 +12397,14 @@
             ]
           },
           {
-            "cue": "roh?ldohlahr",
+            "cue": "rohshldohlahr",
             "concepts": [
               "Plant",
               "Valley"
             ]
           },
           {
-            "cue": "roh?lneeehbahr",
+            "cue": "rohshlneeehbahr",
             "concepts": [
               "Plant",
               "Sky"
@@ -12496,14 +12496,14 @@
             ]
           },
           {
-            "cue": "khfahlgrahnah",
+            "cue": "khvahlgrahnah",
             "concepts": [
               "Glory",
               "Boundary"
             ]
           },
           {
-            "cue": "choovkhfahlah",
+            "cue": "choovkhvahlah",
             "concepts": [
               "Vigilance",
               "Glory"
@@ -12517,21 +12517,21 @@
             ]
           },
           {
-            "cue": "hohr?khfahlah",
+            "cue": "hohrihkhvahlah",
             "concepts": [
               "Horizon",
               "Glory"
             ]
           },
           {
-            "cue": "hohryohgah",
+            "cue": "hohrihohgah",
             "concepts": [
               "Horizon",
               "Fire"
             ]
           },
           {
-            "cue": "hohr?zhehkah",
+            "cue": "hohrihzhehkah",
             "concepts": [
               "Horizon",
               "River"
@@ -12545,7 +12545,7 @@
             ]
           },
           {
-            "cue": "kahmshfeetah",
+            "cue": "kahmshveetah",
             "concepts": [
               "Stone",
               "Dawn"
@@ -12559,7 +12559,7 @@
             ]
           },
           {
-            "cue": "meeehrzneeehbah",
+            "cue": "meeehzhneeehbah",
             "concepts": [
               "Twilight",
               "Sky"
@@ -12573,14 +12573,14 @@
             ]
           },
           {
-            "cue": "mohstfeeehdzah",
+            "cue": "mohstveeehdzah",
             "concepts": [
               "Bridge",
               "Knowledge"
             ]
           },
           {
-            "cue": "mohstfohdah",
+            "cue": "mohstvohdah",
             "concepts": [
               "Bridge",
               "Water"
@@ -12601,7 +12601,7 @@
             ]
           },
           {
-            "cue": "ohgmeeehrzah",
+            "cue": "ohgmeeehzhah",
             "concepts": [
               "Fire",
               "Twilight"
@@ -12622,14 +12622,14 @@
             ]
           },
           {
-            "cue": "plahtrzehkah",
+            "cue": "plahtzhehkah",
             "concepts": [
               "Payment",
               "River"
             ]
           },
           {
-            "cue": "pohl?hlehbah",
+            "cue": "pohlkhlehbah",
             "concepts": [
               "Field",
               "Bread"
@@ -12650,7 +12650,7 @@
             ]
           },
           {
-            "cue": "rohdzhohryah",
+            "cue": "rohdzhohrihah",
             "concepts": [
               "Family",
               "Horizon"
@@ -12664,7 +12664,7 @@
             ]
           },
           {
-            "cue": "roh?lneeehbah",
+            "cue": "rohshlneeehbah",
             "concepts": [
               "Plant",
               "Sky"
@@ -12706,28 +12706,28 @@
             ]
           },
           {
-            "cue": "shfeetkhfahlah",
+            "cue": "shveetkhvahlah",
             "concepts": [
               "Dawn",
               "Glory"
             ]
           },
           {
-            "cue": "shfeetfohdah",
+            "cue": "shveetvohdah",
             "concepts": [
               "Dawn",
               "Water"
             ]
           },
           {
-            "cue": "veeahtrkhfahlah",
+            "cue": "veeahtrkhvahlah",
             "concepts": [
               "Wind",
               "Glory"
             ]
           },
           {
-            "cue": "veeahtrmoh?ah",
+            "cue": "veeahtrmohtsah",
             "concepts": [
               "Wind",
               "Strength"
