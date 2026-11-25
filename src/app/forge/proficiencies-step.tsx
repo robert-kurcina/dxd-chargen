@@ -374,7 +374,7 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
             <Label htmlFor="default-regional-language">Default regional language</Label>
             <Select value={defaultLanguage?.catalogId ?? ''} onValueChange={(value) => setDraft((current) => setCoreLanguage(current, 'default', value, data))}>
               <SelectTrigger id="default-regional-language"><SelectValue placeholder={suggestion ? `Suggested: ${suggestion.name}` : 'Choose regional language'} /></SelectTrigger>
-              <SelectContent>{data.languages.map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
+              <SelectContent>{data.languages.filter((language) => !language.retired || language.id === defaultLanguage?.catalogId).map((language) => <SelectItem key={language.id} value={language.id} disabled={language.retired}>{language.name}</SelectItem>)}</SelectContent>
             </Select>
             {suggestion && <div className="text-xs text-muted-foreground">Settlement suggestion: {suggestion.name}</div>}
             {settlement?.languageLayers.length ? <div className="text-xs text-muted-foreground">Toponym/language layers: {settlement.languageLayers.join(' • ')}</div> : null}
@@ -383,7 +383,7 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
             <Label htmlFor="heritage-language">Heritage language</Label>
             <Select value={heritageLanguage?.catalogId ?? ''} onValueChange={(value) => setDraft((current) => setCoreLanguage(current, 'heritage', value, data))}>
               <SelectTrigger id="heritage-language"><SelectValue placeholder={heritageSuggestions.length ? `Local layers: ${heritageSuggestions.join(', ')}` : 'Choose Heritage language'} /></SelectTrigger>
-              <SelectContent>{data.languages.map((language) => <SelectItem key={language.id} value={language.id}>{language.name}</SelectItem>)}</SelectContent>
+              <SelectContent>{data.languages.filter((language) => !language.retired || language.id === heritageLanguage?.catalogId).map((language) => <SelectItem key={language.id} value={language.id} disabled={language.retired}>{language.name}</SelectItem>)}</SelectContent>
             </Select>
             {heritageSuggestions.length > 0 && <div className="text-xs text-muted-foreground">Locally supported Heritage-language choices: {heritageSuggestions.join(', ')}. This remains a suggestion rather than a restriction.</div>}
           </div>
@@ -403,7 +403,7 @@ function LanguagesStep({ data, draft, setDraft }: Omit<ProficienciesStepProps, '
           <p className="mt-1 text-xs text-muted-foreground">A new accented Language costs 1 Language proficiency point. Its starting level declines with the number already known.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {data.languages.map((language) => (
+          {data.languages.filter((language) => !language.retired).map((language) => (
             <Button key={language.id} type="button" size="sm" variant="outline" disabled={spent >= available} onClick={() => setDraft((current) => addProficiencyLanguage(current, language.id, data))}>
               <Plus className="h-4 w-4" /> {language.name}{draft.proficiencies.languages.some((known) => known.catalogId === language.id) ? ' variant' : ''}
             </Button>

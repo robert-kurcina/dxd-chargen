@@ -137,8 +137,10 @@ const HERITAGE_ALIASES: Record<string, string> = {
 };
 const LANGUAGE_MODIFIER_ORDER: LanguageModifier[] = ['Old High', 'High', 'Low', 'War', 'Lingo', 'Barter'];
 const LANGUAGE_ALIASES: Record<string, { name: string; modifiers?: LanguageModifier[] }> = {
-  auldfar: { name: 'Ershthikal' },
-  ershthikal: { name: 'Ershthikal' },
+  auldfar: { name: 'Ershthikal (retired)' },
+  ershthikal: { name: 'Ershthikal (retired)' },
+  ershthiikal: { name: 'Vargsh' },
+  vargsh: { name: 'Vargsh' },
   bamini: { name: 'Heimneshi' },
   common: { name: 'Coro' },
   golbrin: { name: 'Ershthikal' },

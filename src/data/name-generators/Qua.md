@@ -1,19 +1,35 @@
 ### Qua Name Generator (Linguistically Grounded)
 *For speakers descended from the R1 Qua lineage near the Qua River basin. All names derive from A Polski roots drifted through the Paltikas line (H1 Paltikas → J1 Korsik → R1 Qua) with minimal external influence. Qua preserves Slavic consonant clusters lost in neighboring languages due to its relative isolation after 600 BCE.*
 
+
+#### Choosing a Referent
+
+Male: -or/-an; Female: -e/-i in public names. Other referents use the applicable core recipe.
+
+| Selection | Construction | Available markers or pattern |
+|---|---|---|
+| Male | Public-name suffix | -or, -an |
+| Female | Public-name suffix | -e, -i |
+| Unmarked name | Core recipe outside formal gender-marked contexts | No additional sex suffix |
+
+*Quick reference: the detailed tables and language-specific form rules below govern assembly; this table introduces no new markers.*
+
+For pronunciation, use the IPA in the word-part tables and the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key). Keep the native spelling. Apply the form rules after assembling the complete name.
+
 ---
 
 #### CORE MECHANICS
-- Roll **D66** to determine naming pattern
-- For each word part, roll **D66** for the part + **D6** for semantic domain
-- Apply either **one Referent Suffix** or **one Morphological Suffix**, not both
-- Apply constraints after assembly:
-  • Drop duplicate letters (`tt` → `t`, `aa` → `a`)
-  • Max 2 consecutive vowels (drop earlier vowels)
-  • Minimum 2 syllables OR 1 syllable with diphthong (`ya`, `yu`, `oi`, `au`)
+
+1. Choose public male (-or/-an), female (-e/-i), or an unmarked domain name.
+2. Choose a semantic domain, roll D6 for construction, then D66 for each Begin onset or Middle kernel.
+3. Attach the civil suffix instead of the domain ending in sex-marked public names. Otherwise use the domain ending.
+4. Keep inherited clusters and the documented boundary rules. Do not assume that an ordinary compound is licensed to omit its required ending.
+
 - **Flow Insertions** (applied ONLY when CCC/CCCC clusters occur):
   `ə` (schwa, "uh") > `i` > `u`  
   *Example: Strzh → Strəzh → "Strezh"*
+
+Use the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key) and the source concepts in the word-part tables. A source concept is not a verified translation of the completed name.
 
 ---
 
@@ -38,82 +54,82 @@
 *All entries derived from authentic Polish cognates drifted through Paltikas → Qua lineage with lineage-specific dated sound change. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
-| D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Qua) |
-|-----|-------|-------|-------------|----------------------------------|
-| 11 | **Ch-** | [t͡ʃ] | SACRED | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** |
-| 12 | **Dr-** | [dr] | MILITARY | *drzewo* "tree" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dr-** |
-| 13 | **Dz-** | [d͡z] | TRADE | *dzwon* "bell" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dz-** |
-| 14 | **Gr-** | [gr] | CIVIC | *gród* "fort" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gr-** |
-| 15 | **Gw-** | [gw] | TRADE | *gwiazda* "star" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gw-** |
-| 16 | **Kl-** | [kl] | MILITARY | *klucz* "key" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kl-** |
-| 21 | **Kr-** | [kr] | NOBILITY | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kr-** |
-| 22 | **Kw-** | [kw] | SACRED | *kwiat* "flower" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kw-** |
-| 23 | **Lj-** | [ʎ] | SACRED | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Lj-** |
-| 24 | **Mj-** | [mʲ] | NOBILITY | *myśl* "thought" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Mj-** |
-| 25 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Nj-** |
-| 26 | **Pl-** | [pl] | TRADE | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pl-** |
-| 31 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pr-** |
-| 32 | **Rz-** | [ʒ] | NATURAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Rz-** |
-| 33 | **Sh-** | [ʃ] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** |
-| 34 | **Shch-** | [ʃt͡ʃ] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Shch-** |
-| 35 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sk-** |
-| 36 | **Skw-** | [skw] | TRADE | *skwark* "crackle" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Skw-** |
-| 41 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sl-** |
-| 42 | **Slj-** | [slʲ] | NATURAL | *śliwa* "plum" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Slj-** |
-| 43 | **Sm-** | [sm] | CIVIC | *smok* "dragon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sm-** |
-| 44 | **Sn-** | [sn] | NATURAL | *śnieg* "snow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sn-** |
-| 45 | **Sp-** | [sp] | MILITARY | *spokój* "peace" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sp-** |
-| 46 | **St-** | [st] | MILITARY | *stal* "steel" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **St-** |
-| 51 | **Stj-** | [stʲ] | MILITARY | *ścieżka* "path" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Stj-** |
-| 52 | **Str-** | [str] | MILITARY | *stróż* "guard" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Str-** |
-| 53 | **Sw-** | [sf] | TRADE | *świata* "world" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sw-** |
-| 54 | **Sz-** | [ʂ] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sz-** |
-| 55 | **Tr-** | [tr] | MILITARY | *trącić* "to strike" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tr-** |
-| 56 | **Tw-** | [tf] | TRADE | *twórca* "creator" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tw-** |
-| 61 | **Vr-** | [vr] | CIVIC | *wrota* "gate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vr-** |
-| 62 | **Zd-** | [zd] | CIVIC | *zdrów* "healthy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zd-** |
-| 63 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zh-** |
-| 64 | **Zl-** | [zl] | TRADE | *złoto* "gold" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zl-** |
-| 65 | **Zm-** | [zm] | CIVIC | *zamek* "castle" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zm-** |
-| 66 | **Zn-** | [zn] | NATURAL | *znak* "sign" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zn-** |
+| D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Qua) | English Pronunciation |
+|-----|-------|-------|-------------|----------------------------------| --- |
+| 11 | **Ch-** | [t͡ʃ] | SACRED | *czysty* "pure" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Ch-** | tsh |
+| 12 | **Dr-** | [dr] | MILITARY | *drzewo* "tree" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dr-** | dr |
+| 13 | **Dz-** | [d͡z] | TRADE | *dzwon* "bell" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Dz-** | dz |
+| 14 | **Gr-** | [gr] | CIVIC | *gród* "fort" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gr-** | gr |
+| 15 | **Gw-** | [gw] | TRADE | *gwiazda* "star" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Gw-** | gw |
+| 16 | **Kl-** | [kl] | MILITARY | *klucz* "key" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kl-** | kl |
+| 21 | **Kr-** | [kr] | NOBILITY | *król* "king" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kr-** | kr |
+| 22 | **Kw-** | [kw] | SACRED | *kwiat* "flower" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Kw-** | kw |
+| 23 | **Lj-** | [ʎ] | SACRED | *lilia* "lily" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Lj-** | ly (approx.) |
+| 24 | **Mj-** | [mʲ] | NOBILITY | *myśl* "thought" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Mj-** | my |
+| 25 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Nj-** | ny |
+| 26 | **Pl-** | [pl] | TRADE | *płat* "payment" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pl-** | pl |
+| 31 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Pr-** | pr |
+| 32 | **Rz-** | [ʒ] | NATURAL | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Rz-** | zh |
+| 33 | **Sh-** | [ʃ] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sh-** | sh |
+| 34 | **Shch-** | [ʃt͡ʃ] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Shch-** | shtsh |
+| 35 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sk-** | sk |
+| 36 | **Skw-** | [skw] | TRADE | *skwark* "crackle" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Skw-** | skw |
+| 41 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sl-** | sl |
+| 42 | **Slj-** | [slʲ] | NATURAL | *śliwa* "plum" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Slj-** | sly |
+| 43 | **Sm-** | [sm] | CIVIC | *smok* "dragon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sm-** | sm |
+| 44 | **Sn-** | [sn] | NATURAL | *śnieg* "snow" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sn-** | sn |
+| 45 | **Sp-** | [sp] | MILITARY | *spokój* "peace" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sp-** | sp |
+| 46 | **St-** | [st] | MILITARY | *stal* "steel" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **St-** | st |
+| 51 | **Stj-** | [stʲ] | MILITARY | *ścieżka* "path" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Stj-** | sty |
+| 52 | **Str-** | [str] | MILITARY | *stróż* "guard" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Str-** | str |
+| 53 | **Sw-** | [sf] | TRADE | *świata* "world" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sw-** | sf |
+| 54 | **Sz-** | [ʂ] | SACRED | *szczęście* "happiness" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Sz-** | sh (retroflex) |
+| 55 | **Tr-** | [tr] | MILITARY | *trącić* "to strike" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tr-** | tr |
+| 56 | **Tw-** | [tf] | TRADE | *twórca* "creator" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Tw-** | tf |
+| 61 | **Vr-** | [vr] | CIVIC | *wrota* "gate" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Vr-** | vr |
+| 62 | **Zd-** | [zd] | CIVIC | *zdrów* "healthy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zd-** | zd |
+| 63 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zh-** | zh |
+| 64 | **Zl-** | [zl] | TRADE | *złoto* "gold" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zl-** | zl |
+| 65 | **Zm-** | [zm] | CIVIC | *zamek* "castle" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zm-** | zm |
+| 66 | **Zn-** | [zn] | NATURAL | *znak* "sign" → lineage-specific development per `Lineage Sound-Change Profiles.md` → onset fragment **Zn-** | zn |
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
-| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Qua) |
-|-----|--------------|--------|-------------|----------------------------------|
-| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-a-** |
-| 12 | **-aj-** | [aj] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aj-** |
-| 13 | **-ąm-** | [ɔ̃m] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ąm-** |
-| 14 | **-an-** | [an] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** |
-| 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ar-** |
-| 16 | **-aw-** | [av] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aw-** |
-| 21 | **-e-** | [e] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** |
-| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ea-** |
-| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** |
-| 24 | **-en-** | [en] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** |
-| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
-| 26 | **-ił-** | [iw] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ił-** |
-| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
-| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
-| 34 | **-oj-** | [oj] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oj-** |
-| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
-| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** |
-| 41 | **-ór-** | [ór] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ór-** |
-| 42 | **-ow-** | [ov] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ow-** |
-| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ra-** |
-| 44 | **-rze-** | [ʐɛ] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rze-** |
-| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
-| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
-| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
-| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ry-** |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** |
-| 54 | **-uj-** | [uj] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uj-** |
-| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ur-** |
-| 61 | **-ja-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ja-** |
-| 62 | **-je-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-je-** |
-| 63 | **-ję-** | [jɛ̃] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ję-** |
-| 64 | **-ji-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ji-** |
-| 65 | **-jo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-jo-** |
+| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Qua) | English Pronunciation |
+|-----|--------------|--------|-------------|----------------------------------| --- |
+| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-a-** | ah |
+| 12 | **-aj-** | [aj] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aj-** | ahy |
+| 13 | **-ąm-** | [ɔ̃m] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ąm-** | awm (nasal) |
+| 14 | **-an-** | [an] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-an-** | ahn |
+| 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ar-** | ahr |
+| 16 | **-aw-** | [av] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-aw-** | ahv |
+| 21 | **-e-** | [e] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** | eh |
+| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ea-** | ehah |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** | ehl |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-en-** | ehn |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** | ehr |
+| 26 | **-ił-** | [iw] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ił-** | eew |
+| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-in-** | een |
+| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** | eer |
+| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** | oh |
+| 34 | **-oj-** | [oj] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oj-** | ohy |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** | ohm |
+| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-on-** | ohn |
+| 41 | **-ór-** | [ór] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ór-** | ohr (high pitch) |
+| 42 | **-ow-** | [ov] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ow-** | ohv |
+| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ra-** | rah |
+| 44 | **-rze-** | [ʐɛ] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rze-** | zheh (retroflex) |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** | ree |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** | roh |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** | roo |
+| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ry-** | ry |
+| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-u-** | oo |
+| 54 | **-uj-** | [uj] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-uj-** | ooy |
+| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-un-** | oon |
+| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ur-** | oor |
+| 61 | **-ja-** | [ja] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ja-** | yah |
+| 62 | **-je-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-je-** | yeh |
+| 63 | **-ję-** | [jɛ̃] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ję-** | yeh (nasal) |
+| 64 | **-ji-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ji-** | yee |
+| 65 | **-jo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-jo-** | yoh |
 | 66 | **-ju-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ju-** |---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)

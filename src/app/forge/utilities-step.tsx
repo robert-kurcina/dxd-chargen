@@ -45,6 +45,7 @@ import {
   startingGearTotals,
   canonicalStartingGearPreview,
   suggestedNameLanguageId,
+  characterNameReadings,
   toggleMagicItem,
   toggleSpell,
   type InventoryCategory,
@@ -314,6 +315,7 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
   const languageId = draft.utilities.nameLanguageId ?? suggested ?? '';
   const language = data.languages.find((entry) => entry.id === languageId);
   const generator = data.nameGenerators.find((entry) => entry.languageId === languageId);
+  const readings = characterNameReadings(languageId, draft.utilities.properName || draft.utilities.name);
   return (
     <div className="space-y-6">
       <section className="space-y-3 rounded-lg border p-4">
@@ -334,6 +336,14 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
         <div className="space-y-2"><Label htmlFor="character-common-name">Table / common name</Label><Input id="character-common-name" value={draft.utilities.name} onChange={(event) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, name: event.target.value } }))} placeholder="Name used during play" /></div>
         <div className="space-y-2"><Label htmlFor="character-proper-name">Proper / formal name</Label><Input id="character-proper-name" value={draft.utilities.properName} onChange={(event) => setDraft((current) => ({ ...current, utilities: { ...current.utilities, properName: event.target.value } }))} placeholder="Formal or birth name" /></div>
       </section>
+      {readings.length > 0 && <section aria-label="Name reading and source concepts" className="space-y-2 rounded-lg border p-3 text-sm">
+        {readings.map(reading => <div key={reading.category} className="space-y-1">
+          <div className="font-medium">{readings.length > 1 ? reading.category + ' — ' : ''}Approximate pronunciation: {reading.cue}</div>
+          {reading.concepts.length > 0 && <div>Source concepts: {reading.concepts.join(' + ')}</div>}
+          {reading.gloss && <div>Verified gloss: {reading.gloss}</div>}
+        </div>)}
+        <p className="text-xs text-muted-foreground">Source concepts are constituent associations, not necessarily the meaning of the whole name. A question mark denotes an unresolved sound.</p>
+      </section>}
     </div>
   );
 }

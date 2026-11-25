@@ -1,6 +1,26 @@
 ### Borensk D66 Name Generator
 *For Old High Borensk names: liturgical, archaic, consonant-rich, and recognizably ancestral to Boren without using Boren’s later classifier-first grammar.*
 
+
+#### Choosing a Referent
+
+Person, house/clan, temple or relic: choose the matching Initial + Kernel + Ending recipe. Votive prefixes and doubled endings occur only in specified patterns.
+
+| Selection | Construction | Available markers or pattern |
+|---|---|---|
+| Common personal or ancestral name | D6 pattern 1 | Initial + Kernel + Ending |
+| Formal personal name | D6 pattern 2 | Initial + Kernel + Kernel + Ending |
+| Consecrated person or temple name | D6 pattern 3 | Votive Prefix + Initial + Kernel + Ending |
+| House, clan or dynasty | D6 pattern 4 | Initial + Kernel + Ending + Ending |
+| Liturgical or inscriptional name | D6 pattern 5 | Votive Prefix + Kernel + Initial + Ending |
+| Grand ritual, relic or foundational house | D6 pattern 6 | Votive Prefix + Initial + Kernel + Kernel + Ending |
+| Chronicle sex or descent marking | Optional detached particle after name | syn (son), doka (daughter), rod (descendant) |
+| High register | Optional detached particle before name | Ar, Svi, Rod, Grod, Khval |
+
+*Quick reference: the detailed tables and language-specific form rules below govern assembly; this table introduces no new markers.*
+
+For pronunciation, use the documented orthographic rules below. IPA is not supplied in these tables; the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key) is a general reference only. Keep the native spelling. Apply the form rules after assembling the complete name.
+
 ---
 
 #### CANON POSITION
@@ -13,14 +33,13 @@ Use Borensk for temple rolls, oath-names, early houses, divine records, archaic 
 ---
 
 #### CORE MECHANICS
-Roll in this order:
 
-1. Roll **D6** for the naming pattern.
-2. Roll **D66** for any required **Votive Prefix**, **Initial**, **Kernel**, and **Ending**.
-3. Roll **D6** for semantic domain, if needed.
-4. Apply the orthographic cleanup rules.
+1. Choose personal, ancestral, house, temple or other naming role and semantic domain.
+2. Roll or select D6 construction; roll D66 for every Votive Prefix, Initial, Kernel and Ending required by that row.
+3. Assemble in recipe order. Retain the required Ending, including a second Ending for pattern 4. Optional chronicle and high-register particles remain detached.
+4. Apply the documented orthographic style rules. Do not import Boren classifiers or invent IPA for the Borensk inventory.
 
-Borensk does **not** use the Boren classifier-first system. Names are built from sacred/status prefixes, consonant-rich roots, and liturgical endings.
+Use the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key) and the source concepts in the word-part tables. A source concept is not a verified translation of the completed name.
 
 ---
 

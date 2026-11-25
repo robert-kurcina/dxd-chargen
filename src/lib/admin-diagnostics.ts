@@ -192,7 +192,7 @@ export function buildForgeDiagnostics(data: StaticData): ForgeDiagnostic[] {
   const languageIds = new Set(data.languages.map((language) => language.id));
   const generatorLanguageIds = new Set(data.nameGenerators.map((generator) => generator.languageId));
   const languageProblems = [
-    ...data.languages.filter((language) => !generatorLanguageIds.has(language.id)).map((language) => `${language.name}: missing name generator`),
+    ...data.languages.filter((language) => !language.retired && !generatorLanguageIds.has(language.id)).map((language) => `${language.name}: missing name generator`),
     ...data.nameGenerators.filter((generator) => !languageIds.has(generator.languageId)).map((generator) => `${generator.language}: generator has unknown languageId ${generator.languageId}`),
     ...data.languageDefaults.filter((entry) => !languageIds.has(entry.languageId)).map((entry) => `${entry.settlement}: unknown default language ${entry.languageId}`),
   ];

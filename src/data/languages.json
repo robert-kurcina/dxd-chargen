@@ -67,14 +67,15 @@
   },
   {
     "id": "language-ershthikal",
-    "name": "Ershthikal",
+    "name": "Ershthikal (retired)",
     "utility": "Distributed",
     "beatified": true,
     "deity": "Ershthik",
     "peoples": "Golbrini",
     "locus": "Golbrini",
     "empire": null,
-    "nameGenerator": "name-generators/Ershthikal.md"
+    "nameGenerator": "name-generators/Ershthikal.md",
+    "retired": true
   },
   {
     "id": "language-fayeed",
@@ -126,8 +127,8 @@
     "utility": "Distributed",
     "beatified": false,
     "deity": null,
-    "peoples": "Orok",
-    "locus": "Orok Realms",
+    "peoples": "Orogai",
+    "locus": "Sondgara",
     "empire": null,
     "nameGenerator": "name-generators/Orukugu.md"
   },
@@ -185,5 +186,17 @@
     "locus": "Highlands",
     "empire": "Palten",
     "nameGenerator": "name-generators/Thaleshi.md"
+  },
+  {
+    "id": "language-vargsh",
+    "name": "Vargsh",
+    "utility": "Distributed",
+    "beatified": false,
+    "deity": null,
+    "peoples": "Vargsh / Jhastrujini",
+    "locus": "Former Vargsh imperial regions",
+    "empire": null,
+    "nameGenerator": "name-generators/Vargsh.md",
+    "retired": false
   }
 ]
