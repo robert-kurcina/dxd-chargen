@@ -957,6 +957,22 @@ export function suggestedNameLanguageId(draft: CharacterDraft, data: StaticData)
   return data.nameGenerators[0]?.languageId ?? null;
 }
 
+type NameReading = { cue: string; concepts: string[]; gloss?: string };
+type CompletedNameColumn = { label: string; names: string[]; readings?: NameReading[] };
+const nameTables = completedNameTables as Record<string, { language: string; columns: CompletedNameColumn[] }>;
+
+export function characterNameReadings(languageId: string, name: string): Array<NameReading & { category: string }> {
+  if (!name.trim()) return [];
+  // Exact native spelling only; edited or custom names do not inherit a guess.
+  const native = name.normalize('NFC');
+  return (nameTables[languageId]?.columns ?? []).flatMap(column =>
+    column.names.flatMap((candidate, index) => {
+      const reading = column.readings?.[index];
+      return candidate.normalize('NFC') === native && reading ? [{ ...reading, category: column.label }] : [];
+    })
+  );
+}
+
 export function generateCharacterName(
   languageId: string,
   style: CharacterDraft['utilities']['nameStyle'],
@@ -966,7 +982,7 @@ export function generateCharacterName(
   // Retired Q1 Ershthikal is not the native Vargsh language.
   // Do not silently reinterpret an existing character's language.
   if (!data.nameGenerators.some(entry => entry.languageId === languageId)) return '';
-  const table = (completedNameTables as Record<string, { language: string; columns: { label: string; names: string[] }[] }>)[languageId];
+  const table = nameTables[languageId];
   if (!table) return '';
   const personal = table.columns.filter(column => /^(Male|Female|Person|Neutral Person|Name)$/.test(column.label) || /^(ak|ash) — /.test(column.label));
   const preferred = style === 'any' ? personal : personal.filter(column => column.label === (style === 'masculine' ? 'Male' : 'Female'));
