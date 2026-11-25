@@ -87,6 +87,19 @@ for (const language of languages) {
   }
 }
 
+const completedNames = read('completedNameTables.json');
+for (const [languageId, table] of Object.entries(completedNames)) {
+  if (!languageIds.has(languageId)) throw new Error('Unknown completed-name language: ' + languageId);
+  for (const column of table.columns) {
+    if (column.names.length !== 36 || column.readings?.length !== column.names.length) {
+      throw new Error('Incomplete completed-name reading table: ' + languageId + ' / ' + column.label);
+    }
+    if (column.readings.some(r => typeof r.cue !== 'string' || !r.cue.trim() || !Array.isArray(r.concepts) || r.concepts.some(c => typeof c !== 'string'))) {
+      throw new Error('Invalid name reading: ' + languageId + ' / ' + column.label);
+    }
+  }
+}
+
 const generatorByLanguage = new Map();
 for (const generator of nameGenerators) {
   if (!generator.languageId || generatorByLanguage.has(generator.languageId)) throw new Error(`Duplicate/blank structured name generator: ${generator.languageId}`);
