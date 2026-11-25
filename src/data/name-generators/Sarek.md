@@ -1,19 +1,35 @@
 ### Sarek Name Generator (Linguistically Grounded)
 *For speakers of the Sarek highlands and northern river valleys. All names derive from A Polski roots through the conservative Borensk lineage (A Polski → B Borensk → B' Griewnska → B"' Sarek), followed by the 150 CE B"'' Sarek dialect shaped by dead H1 Heirai substrate. Sarek remains the conservative control, but the surviving stage is not contact-free.*
 
+
+#### Choosing a Referent
+
+Male: -ar; Female: -a in clan and legal names. Other referents use the applicable core recipe.
+
+| Selection | Construction | Available markers or pattern |
+|---|---|---|
+| Male | Clan/legal suffix | -ar |
+| Female | Clan/legal suffix | -a |
+| Unmarked name | Core recipe outside formal gender-marked contexts | No additional sex suffix |
+
+*Quick reference: the detailed tables and language-specific form rules below govern assembly; this table introduces no new markers.*
+
+For pronunciation, use the IPA in the word-part tables and the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key). Keep the native spelling. Apply the form rules after assembling the complete name.
+
 ---
 
 #### CORE MECHANICS
-- Roll **D66** to determine naming pattern
-- For each word part, roll **D66** for the part + **D6** for semantic domain
-- Apply either **one Referent Suffix** or **one Morphological Suffix**, not both
-- Apply constraints after assembly:
-  • Drop duplicate letters (`tt` → `t`, `aa` → `a`)
-  • Max 2 consecutive vowels (drop earlier vowels)
-  • Minimum 2 syllables OR 1 syllable with diphthong (`ya`, `yu`, `oi`, `au`)
+
+1. Choose clan/legal male (-ar), female (-a), or an unmarked domain name.
+2. Choose a semantic domain, roll D6 for construction, then D66 for each Begin onset or Middle kernel.
+3. Attach the civil suffix instead of the domain ending for sex-marked names; otherwise attach the domain ending.
+4. Preserve conservative clusters. Apply only the documented boundary and repair rules; retain the selected ending.
+
 - **Flow Insertions** (applied ONLY when CCC/CCCC clusters occur):
   `ə` (schwa, "uh") > `o` > `e`  
   *Example: Vstrk → Vstərk → "Vsterk"*
+
+Use the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key) and the source concepts in the word-part tables. A source concept is not a verified translation of the completed name.
 
 ---
 
@@ -38,84 +54,84 @@
 *All entries derived from authentic Polish cognates drifted through conservative Borensk lineage with conservative lineage-specific sound change. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
-| D66 | Onset    | IPA   | Domain   | Etymology (A Polski Root → Sarek)                                                                           |
-| --- | -------- | ----- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| 11 | **Bl-** | [bl] | SACRED | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → Sarek /bwɔɡ/ → /blɔɡ/ (labial shift) |
-| 12 | **Br-** | [br] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → Sarek /brɔɲ/ → /brɔ/ (palatal loss) |
-| 13 | **Chr-** | [xr] | SACRED | *chram* "temple" → /xram/ → Sarek /xram/ (velar fricative preserved) |
-| 14 | **Chw-** | [xf] | SACRED | *chwała* "glory" → /xfawa/ → Sarek /xfawa/ → /xfaw/ (final vowel loss) |
-| 15 | **Cz-** | [t͡ʃ] | SACRED | *czysty* "pure" → /t͡ʂɨstɨ/ → B Borensk /t͡ʃɨst/ → Sarek /t͡ʃist/ (vowel fronting) |
-| 16 | **Dr-** | [dr] | MILITARY | *drzewo* "tree" → /d͡ʐɛvɔ/ → B Borensk /drɛvɔ/ → Sarek /drɛv/ (retroflex → liquid shift) |
-| 21 | **Dz-** | [d͡z] | TRADE | *dzwon* "bell" → /d͡zvɔn/ → Sarek /d͡zvɔn/ (affricate preservation) |
-| 22 | **Dż-** | [d͡ʒ] | SACRED | *dżentelmen* "gentleman" → /d͡ʒɛntɛlmɛn/ → Sarek /d͡ʒɛnt/ (cluster simplification) |
-| 23 | **Fl-** | [fl] | TRADE | *płat* "payment" → /pwat/ → Sarek /plat/ → /flat/ (voicing loss) |
-| 24 | **Fr-** | [fr] | TRADE | *wrota* "gate" → /vrɔta/ → Sarek /vrɔt/ → /frɔt/ (voicing loss) |
-| 25 | **Gr-** | [gr] | CIVIC | *gród* "fort" → /grut/ → Sarek /grut/ (cluster preservation) |
-| 26 | **Gw-** | [ɡv] | TRADE | *gwiazda* "star" → /ɡvjaʒda/ → Sarek /ɡvja/ (final consonant loss) |
-| 31 | **Kl-** | [kl] | MILITARY | *klucz* "key" → /klut͡ʃ/ → Sarek /klut͡ʃ/ → /klu/ (affricate loss) |
-| 32 | **Kr-** | [kr] | NOBILITY | *król* "king" → /krul/ → Sarek /krul/ (cluster preservation) |
-| 33 | **Kw-** | [kf] | SACRED | *kwiat* "flower" → /kfjat/ → Sarek /kfjat/ → /kfja/ (final stop loss) |
-| 34 | **Lj-** | [ʎ] | SACRED | *lilia* "lily" → /lilja/ → Sarek /lilja/ → /liʎa/ (palatalization preserved) |
-| 35 | **Mj-** | [mʲ] | NOBILITY | *myśl* "thought" → /mɨʃl/ → Sarek /mʲɨʃl/ → /mʲɨ/ (final liquid loss) |
-| 36 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → /ɲɛd͡ʑɛla/ → Sarek /ɲɛd͡ʑɛ/ (final vowel loss) |
-| 41 | **Pl-** | [pl] | TRADE | *płat* "payment" → /pwat/ → Sarek /pwat/ → /plat/ (labial shift) |
-| 42 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → /pravɔ/ → Sarek /prav/ (final vowel loss) |
-| 43 | **Rz-** | [ʒ] | NATURAL | *rzeka* "river" → /ʐɛka/ → B Borensk /ʒɛka/ → Sarek /ʒɛk/ (final vowel loss) |
-| 44 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → /sklɛp/ → Sarek /sklɛp/ → /skɛp/ (liquid loss) |
-| 45 | **Skr-** | [skr] | MILITARY | *skryć* "to hide" → /skrɨt͡ɕ/ → Sarek /skrɨ/ (affricate simplification) |
-| 46 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → /swɔɲt͡sɛ/ → Sarek /slɔnt͡sɛ/ → /slɔn/ (nasal retention) |
-| 51 | **Spl-** | [spl] | CIVIC | *spław* "raft" → /splaf/ → Sarek /splaf/ (cluster preservation) |
-| 52 | **Spr-** | [spr] | MILITARY | *sprzątać* "to clean" → /sprzɔntat͡ɕ/ → Sarek /sprɔn/ (cluster preservation) |
-| 53 | **Str-** | [str] | MILITARY | *stróż* "guard" → /struʐ/ → B Borensk /struʐ/ → Sarek /strɔ/ (final fricative loss) |
-| 54 | **Św-** | [ɕf] | SACRED | *świat* "world" → /ɕfjat/ → Sarek /ɕfjat/ → /ɕfat/ (vowel centralization) |
-| 55 | **Sz-** | [ʃ] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → B Borensk /ʃt͡ʃɛ/ → Sarek /ʃt͡ʃɛ/ → /ʃɛ/ (cluster simplification) |
-| 56 | **Tr-** | [tr] | MILITARY | *trącić* "to strike" → /trɔnt͡ɕit͡ɕ/ → Sarek /trɔnt͡ɕ/ → /trɔn/ (affricate loss) |
-| 61 | **Tw-** | [tf] | TRADE | *twórca* "creator" → /tfurtsa/ → Sarek /tfurt͡s/ → /tfur/ (final stop loss) |
-| 62 | **W-** | [v] | CIVIC | *woda* "water" → /vɔda/ → Sarek /vɔda/ → /vɔd/ (final vowel loss) |
-| 63 | **Wl-** | [vl] | CIVIC | *włość* "estate" → /vwɔɕt͡ɕ/ → Sarek /vlɔɕt͡ɕ/ → /vlɔ/ (affricate loss) |
-| 64 | **Wr-** | [vr] | CIVIC | *wrota* "gate" → /vrɔta/ → Sarek /vrɔt/ (voiced cluster preserved) |
-| 65 | **Z-** | [z] | TRADE | *złoto* "gold" → /zwɔtɔ/ → Sarek /zwɔt/ → /zɔt/ (labial loss) |
-| 66 | **Ż-** | [ʒ] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → B Borensk /ʒɛlazɔ/ → Sarek /ʒɛlaz/ → /ʒɛl/ (final stop loss) |
+| D66 | Onset    | IPA   | Domain   | Etymology (A Polski Root → Sarek)                                                                           | English Pronunciation |
+| --- | -------- | ----- | -------- | ----------------------------------------------------------------------------------------------------------- | --- |
+| 11 | **Bl-** | [bl] | SACRED | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → Sarek /bwɔɡ/ → /blɔɡ/ (labial shift) | bl |
+| 12 | **Br-** | [br] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → Sarek /brɔɲ/ → /brɔ/ (palatal loss) | br |
+| 13 | **Chr-** | [xr] | SACRED | *chram* "temple" → /xram/ → Sarek /xram/ (velar fricative preserved) | khr |
+| 14 | **Chw-** | [xf] | SACRED | *chwała* "glory" → /xfawa/ → Sarek /xfawa/ → /xfaw/ (final vowel loss) | khf |
+| 15 | **Cz-** | [t͡ʃ] | SACRED | *czysty* "pure" → /t͡ʂɨstɨ/ → B Borensk /t͡ʃɨst/ → Sarek /t͡ʃist/ (vowel fronting) | tsh |
+| 16 | **Dr-** | [dr] | MILITARY | *drzewo* "tree" → /d͡ʐɛvɔ/ → B Borensk /drɛvɔ/ → Sarek /drɛv/ (retroflex → liquid shift) | dr |
+| 21 | **Dz-** | [d͡z] | TRADE | *dzwon* "bell" → /d͡zvɔn/ → Sarek /d͡zvɔn/ (affricate preservation) | dz |
+| 22 | **Dż-** | [d͡ʒ] | SACRED | *dżentelmen* "gentleman" → /d͡ʒɛntɛlmɛn/ → Sarek /d͡ʒɛnt/ (cluster simplification) | dzh |
+| 23 | **Fl-** | [fl] | TRADE | *płat* "payment" → /pwat/ → Sarek /plat/ → /flat/ (voicing loss) | fl |
+| 24 | **Fr-** | [fr] | TRADE | *wrota* "gate" → /vrɔta/ → Sarek /vrɔt/ → /frɔt/ (voicing loss) | fr |
+| 25 | **Gr-** | [gr] | CIVIC | *gród* "fort" → /grut/ → Sarek /grut/ (cluster preservation) | gr |
+| 26 | **Gw-** | [ɡv] | TRADE | *gwiazda* "star" → /ɡvjaʒda/ → Sarek /ɡvja/ (final consonant loss) | gv |
+| 31 | **Kl-** | [kl] | MILITARY | *klucz* "key" → /klut͡ʃ/ → Sarek /klut͡ʃ/ → /klu/ (affricate loss) | kl |
+| 32 | **Kr-** | [kr] | NOBILITY | *król* "king" → /krul/ → Sarek /krul/ (cluster preservation) | kr |
+| 33 | **Kw-** | [kf] | SACRED | *kwiat* "flower" → /kfjat/ → Sarek /kfjat/ → /kfja/ (final stop loss) | kf |
+| 34 | **Lj-** | [ʎ] | SACRED | *lilia* "lily" → /lilja/ → Sarek /lilja/ → /liʎa/ (palatalization preserved) | ly (approx.) |
+| 35 | **Mj-** | [mʲ] | NOBILITY | *myśl* "thought" → /mɨʃl/ → Sarek /mʲɨʃl/ → /mʲɨ/ (final liquid loss) | my |
+| 36 | **Nj-** | [ɲ] | CIVIC | *niedziela* "Sunday" → /ɲɛd͡ʑɛla/ → Sarek /ɲɛd͡ʑɛ/ (final vowel loss) | ny |
+| 41 | **Pl-** | [pl] | TRADE | *płat* "payment" → /pwat/ → Sarek /pwat/ → /plat/ (labial shift) | pl |
+| 42 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → /pravɔ/ → Sarek /prav/ (final vowel loss) | pr |
+| 43 | **Rz-** | [ʒ] | NATURAL | *rzeka* "river" → /ʐɛka/ → B Borensk /ʒɛka/ → Sarek /ʒɛk/ (final vowel loss) | zh |
+| 44 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → /sklɛp/ → Sarek /sklɛp/ → /skɛp/ (liquid loss) | sk |
+| 45 | **Skr-** | [skr] | MILITARY | *skryć* "to hide" → /skrɨt͡ɕ/ → Sarek /skrɨ/ (affricate simplification) | skr |
+| 46 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → /swɔɲt͡sɛ/ → Sarek /slɔnt͡sɛ/ → /slɔn/ (nasal retention) | sl |
+| 51 | **Spl-** | [spl] | CIVIC | *spław* "raft" → /splaf/ → Sarek /splaf/ (cluster preservation) | spl |
+| 52 | **Spr-** | [spr] | MILITARY | *sprzątać* "to clean" → /sprzɔntat͡ɕ/ → Sarek /sprɔn/ (cluster preservation) | spr |
+| 53 | **Str-** | [str] | MILITARY | *stróż* "guard" → /struʐ/ → B Borensk /struʐ/ → Sarek /strɔ/ (final fricative loss) | str |
+| 54 | **Św-** | [ɕf] | SACRED | *świat* "world" → /ɕfjat/ → Sarek /ɕfjat/ → /ɕfat/ (vowel centralization) | shf (approx.) |
+| 55 | **Sz-** | [ʃ] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → B Borensk /ʃt͡ʃɛ/ → Sarek /ʃt͡ʃɛ/ → /ʃɛ/ (cluster simplification) | sh |
+| 56 | **Tr-** | [tr] | MILITARY | *trącić* "to strike" → /trɔnt͡ɕit͡ɕ/ → Sarek /trɔnt͡ɕ/ → /trɔn/ (affricate loss) | tr |
+| 61 | **Tw-** | [tf] | TRADE | *twórca* "creator" → /tfurtsa/ → Sarek /tfurt͡s/ → /tfur/ (final stop loss) | tf |
+| 62 | **W-** | [v] | CIVIC | *woda* "water" → /vɔda/ → Sarek /vɔda/ → /vɔd/ (final vowel loss) | v |
+| 63 | **Wl-** | [vl] | CIVIC | *włość* "estate" → /vwɔɕt͡ɕ/ → Sarek /vlɔɕt͡ɕ/ → /vlɔ/ (affricate loss) | vl |
+| 64 | **Wr-** | [vr] | CIVIC | *wrota* "gate" → /vrɔta/ → Sarek /vrɔt/ (voiced cluster preserved) | vr |
+| 65 | **Z-** | [z] | TRADE | *złoto* "gold" → /zwɔtɔ/ → Sarek /zwɔt/ → /zɔt/ (labial loss) | z |
+| 66 | **Ż-** | [ʒ] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → B Borensk /ʒɛlazɔ/ → Sarek /ʒɛlaz/ → /ʒɛl/ (final stop loss) | zh |
 
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
-| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Sarek) |
-|-----|--------------|--------|-------------|-----------------------------------|
-| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Sarek /pɔlɛ/ → /pal/ (vowel backing) |
-| 12 | **-ai-** | [ai] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Sarek /dɛʃt͡ʃ/ → /ai̯/ (diphthong formation) |
-| 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Sarek /rɔɕlina/ → /ram/ (palatal loss + nasal retention) |
-| 14 | **-an-** | [an] | WATER | *woda* "water" → /vɔda/ → Sarek /vɔda/ → /van/ (vowel backing) |
-| 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Sarek /kamʲɛn/ → /karm/ (nasal → stop shift) |
-| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → /vʲjatr/ → Sarek /vjatr/ → /au̯/ (diphthong formation) |
-| 21 | **-e-** | [e] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Sarek /ɕfatwɔ/ → /sɛt/ (palatal → alveolar shift) |
-| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → /dɔlina/ → Sarek /dɔlina/ → /ea̯/ (diphthong formation) |
-| 23 | **-el-** | [el] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Sarek /ɲɛbɔ/ → /xɛl/ (palatal → velar shift + liquid) |
-| 24 | **-en-** | [en] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Sarek /ɕfjɛnt/ → /sɛnt/ (palatal loss + nasal retention) |
-| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Sarek /mɔt͡s/ → /mɛr/ (affricate → liquid shift) |
-| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Sarek /uzdrɔvit͡ɕ/ → /zil/ (fricativization + liquid shift) |
-| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Sarek /vʲɛd͡za/ → /vin/ (palatal retention + nasalization) |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Sarek /ʃɨpkɔ/ → /ʃir/ (vowel fronting + liquid shift) |
-| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Sarek /ɔɡɛn/ → /ɔɡ/ (nasal loss) |
-| 34 | **-oi-** | [oi] | SEA | *morze* "sea" → /mɔʐɛ/ → Sarek /mɔʒɛ/ → /oi̯/ (diphthong formation) |
-| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Sarek /xrɔɲ/ → /xɔm/ (palatal loss + nasal retention) |
-| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Sarek /spɔlɛt͡ʃnɔɕt͡ɕ/ → /spɔn/ (cluster simplification) |
-| 41 | **-or-** | [or] | ORDER | *rząd* "order" → /ʒɔnt/ → Sarek /ʒɔnt/ → /xɔr/ (fricative → velar shift + liquid) |
-| 42 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → /gura/ → Sarek /gura/ → /ou̯/ (diphthong formation) |
-| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Sarek /kamʲɛn/ → /kra/ (nasal → liquid shift + vowel shift) |
-| 44 | **-re-** | [re] | RIVER | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒrɛ/ (liquid insertion) |
-| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → Sarek /mɔst/ → /mri/ (liquid insertion) |
-| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → /drɔɡa/ → Sarek /drɔɡa/ → /drɔ/ (final vowel loss) |
-| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → Sarek /ruina/ → /ru/ (final vowel loss) |
-| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Sarek /ɡraɲit͡sa/ → /ɡrj/ (nasal loss + glide) |
-| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Sarek /ɡlɛmbɔkɔɕt͡ɕ/ → /ɡlumb/ (vowel backing + stop shift) |
-| 54 | **-ui-** | [ui] | MIST | *mgła* "fog" → /mgwa/ → Sarek /mgwa/ → /ui̯/ (diphthong formation) |
-| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Sarek /rɔd͡ʑina/ → /run/ (vowel backing + nasal retention) |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒur/ (vowel backing + liquid shift) |
-| 61 | **-ya-** | [ja] | DAWN | *świt* "dawn" → /ɕfit/ → Sarek /ɕfit/ → /ja/ (fricative loss + glide formation) |
-| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → /pravda/ → Sarek /pravda/ → /jɛ/ (consonant loss + glide) |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Sarek /pamʲjɛɲt͡ɕ/ → /jə/ (nasal loss + schwa) |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Sarek /t͡ʃuvat͡ɕ/ → /ji/ (affricate loss + glide) |
-| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Sarek /xɔrɨzɔnt/ → /jɔ/ (consonant loss + glide) |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Sarek /zmjɛʃx/ → /ju/ (consonant loss + glide) |
+| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Sarek) | English Pronunciation |
+|-----|--------------|--------|-------------|-----------------------------------| --- |
+| 11 | **-a-** | [a] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Sarek /pɔlɛ/ → /pal/ (vowel backing) | ah |
+| 12 | **-ai-** | [ai] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Sarek /dɛʃt͡ʃ/ → /ai̯/ (diphthong formation) | ahee |
+| 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Sarek /rɔɕlina/ → /ram/ (palatal loss + nasal retention) | ahm |
+| 14 | **-an-** | [an] | WATER | *woda* "water" → /vɔda/ → Sarek /vɔda/ → /van/ (vowel backing) | ahn |
+| 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Sarek /kamʲɛn/ → /karm/ (nasal → stop shift) | ahr |
+| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → /vʲjatr/ → Sarek /vjatr/ → /au̯/ (diphthong formation) | ahoo |
+| 21 | **-e-** | [e] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Sarek /ɕfatwɔ/ → /sɛt/ (palatal → alveolar shift) | eh |
+| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → /dɔlina/ → Sarek /dɔlina/ → /ea̯/ (diphthong formation) | ehah |
+| 23 | **-el-** | [el] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Sarek /ɲɛbɔ/ → /xɛl/ (palatal → velar shift + liquid) | ehl |
+| 24 | **-en-** | [en] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Sarek /ɕfjɛnt/ → /sɛnt/ (palatal loss + nasal retention) | ehn |
+| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Sarek /mɔt͡s/ → /mɛr/ (affricate → liquid shift) | ehr |
+| 26 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Sarek /uzdrɔvit͡ɕ/ → /zil/ (fricativization + liquid shift) | eel |
+| 31 | **-in-** | [in] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Sarek /vʲɛd͡za/ → /vin/ (palatal retention + nasalization) | een |
+| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Sarek /ʃɨpkɔ/ → /ʃir/ (vowel fronting + liquid shift) | eer |
+| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Sarek /ɔɡɛn/ → /ɔɡ/ (nasal loss) | oh |
+| 34 | **-oi-** | [oi] | SEA | *morze* "sea" → /mɔʐɛ/ → Sarek /mɔʒɛ/ → /oi̯/ (diphthong formation) | ohee |
+| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Sarek /xrɔɲ/ → /xɔm/ (palatal loss + nasal retention) | ohm |
+| 36 | **-on-** | [on] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Sarek /spɔlɛt͡ʃnɔɕt͡ɕ/ → /spɔn/ (cluster simplification) | ohn |
+| 41 | **-or-** | [or] | ORDER | *rząd* "order" → /ʒɔnt/ → Sarek /ʒɔnt/ → /xɔr/ (fricative → velar shift + liquid) | ohr |
+| 42 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → /gura/ → Sarek /gura/ → /ou̯/ (diphthong formation) | ohoo |
+| 43 | **-ra-** | [ra] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Sarek /kamʲɛn/ → /kra/ (nasal → liquid shift + vowel shift) | rah |
+| 44 | **-re-** | [re] | RIVER | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒrɛ/ (liquid insertion) | reh |
+| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → /mɔst/ → Sarek /mɔst/ → /mri/ (liquid insertion) | ree |
+| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → /drɔɡa/ → Sarek /drɔɡa/ → /drɔ/ (final vowel loss) | roh |
+| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → /ruina/ → Sarek /ruina/ → /ru/ (final vowel loss) | roo |
+| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Sarek /ɡraɲit͡sa/ → /ɡrj/ (nasal loss + glide) | ry |
+| 53 | **-u-** | [u] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Sarek /ɡlɛmbɔkɔɕt͡ɕ/ → /ɡlumb/ (vowel backing + stop shift) | oo |
+| 54 | **-ui-** | [ui] | MIST | *mgła* "fog" → /mgwa/ → Sarek /mgwa/ → /ui̯/ (diphthong formation) | ooee |
+| 55 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Sarek /rɔd͡ʑina/ → /run/ (vowel backing + nasal retention) | oon |
+| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → /ʐɛka/ → Sarek /ʒɛka/ → /ʒur/ (vowel backing + liquid shift) | oor |
+| 61 | **-ya-** | [ja] | DAWN | *świt* "dawn" → /ɕfit/ → Sarek /ɕfit/ → /ja/ (fricative loss + glide formation) | yah |
+| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → /pravda/ → Sarek /pravda/ → /jɛ/ (consonant loss + glide) | yeh |
+| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Sarek /pamʲjɛɲt͡ɕ/ → /jə/ (nasal loss + schwa) | yuh |
+| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Sarek /t͡ʃuvat͡ɕ/ → /ji/ (affricate loss + glide) | yee |
+| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Sarek /xɔrɨzɔnt/ → /jɔ/ (consonant loss + glide) | yoh |
+| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Sarek /zmjɛʃx/ → /ju/ (consonant loss + glide) | yoo |
 ---
 
 #### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
