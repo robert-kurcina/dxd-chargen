@@ -1,3 +1,4 @@
+import completedNameTables from '@/data/completedNameTables.json';
 import type { StaticData } from '@/data';
 import { makeCatalogId } from '@/data/catalog-policy';
 import type { CharacterDraft, InventorySelection, SourcedSelection } from '@/lib/character-draft';
@@ -948,22 +949,6 @@ function choice<T>(values: readonly T[], random: () => number): T | null {
   return values[Math.min(values.length - 1, Math.floor(random() * values.length))] ?? null;
 }
 
-function d6(random: () => number) { return 1 + Math.floor(random() * 6); }
-function d66(random: () => number) { return d6(random) * 10 + d6(random); }
-
-function tableValue(table: ReadonlyArray<{ roll: number; value: string }>, random: () => number) {
-  const roll = d66(random);
-  return table.find((entry) => entry.roll === roll)?.value ?? choice(table, random)?.value ?? '';
-}
-
-function cleanGeneratedName(value: string) {
-  let text = value.replace(/[-–—]/g, '').replace(/\s+/g, '');
-  // The conlang generator instructions universally require duplicate-letter cleanup.
-  text = text.replace(/(.)\1+/giu, '$1');
-  if (!text) return text;
-  return text.charAt(0).toLocaleUpperCase() + text.slice(1);
-}
-
 export function suggestedNameLanguageId(draft: CharacterDraft, data: StaticData) {
   const primary = draft.proficiencies.languages.find((entry) => entry.primary)?.catalogId;
   if (primary && data.nameGenerators.some((generator) => generator.languageId === primary)) return primary;
@@ -978,43 +963,16 @@ export function generateCharacterName(
   data: StaticData,
   random: () => number = Math.random,
 ) {
-  const generator = data.nameGenerators.find((entry) => entry.languageId === languageId);
-  if (!generator) return '';
-  const pattern = generator.patterns.find((entry) => entry.roll === d6(random))?.pattern ?? generator.patterns[0]?.pattern ?? '';
-
-  if (generator.kind === 'borensk' && generator.votivePrefix && generator.initial && generator.kernel && generator.ending) {
-    const parts = pattern.match(/Votive Prefix|Initial|Kernel|Ending/gi) ?? [];
-    const pieces = parts.map((part) => {
-      const key = part.toLowerCase();
-      if (key === 'votive prefix') return tableValue(generator.votivePrefix ?? [], random);
-      if (key === 'initial') return tableValue(generator.initial ?? [], random);
-      if (key === 'kernel') return tableValue(generator.kernel ?? [], random);
-      return tableValue(generator.ending ?? [], random);
-    });
-    return cleanGeneratedName(pieces.join(''));
-  }
-
-  let suffixes = generator.referentSuffixes ?? [];
-  if (style === 'masculine') suffixes = suffixes.filter((entry) => entry.referent.includes('MALE HUMAN'));
-  if (style === 'feminine') suffixes = suffixes.filter((entry) => entry.referent.includes('FEMALE HUMAN'));
-  if (style === 'any') {
-    const human = suffixes.filter((entry) => entry.referent.includes('HUMAN'));
-    if (human.length) suffixes = human;
-  }
-  const nextSuffix = () => choice(suffixes, random)?.value
-    ?? choice(generator.morphologicalSuffixes ?? [], random)?.value
-    ?? '';
-
-  const parts = pattern.match(/Begin|Middle|Suffix/gi) ?? [];
-  const pieces = parts.map((part) => {
-    const key = part.toLowerCase();
-    if (key === 'begin') return tableValue(generator.begin ?? [], random);
-    if (key === 'middle') return tableValue(generator.middle ?? [], random);
-    return nextSuffix();
-  });
-  // Some generator patterns explain suffix use in prose without spelling the token.
-  if (!parts.some((part) => part.toLowerCase() === 'suffix')) pieces.push(nextSuffix());
-  return cleanGeneratedName(pieces.join(''));
+  // Retired Q1 Ershthikal is not the native Vargsh language.
+  // Do not silently reinterpret an existing character's language.
+  if (!data.nameGenerators.some(entry => entry.languageId === languageId)) return '';
+  const table = (completedNameTables as Record<string, { language: string; columns: { label: string; names: string[] }[] }>)[languageId];
+  if (!table) return '';
+  const personal = table.columns.filter(column => /^(Male|Female|Person|Neutral Person|Name)$/.test(column.label) || /^(ak|ash) — /.test(column.label));
+  const preferred = personal.filter(column => column.label === (style === 'masculine' ? 'Male' : style === 'feminine' ? 'Female' : 'Person'));
+  const eligible = preferred.length ? preferred : personal.length ? personal : table.columns.filter(column => /^(High Station|Potential|Maternal Line)$/.test(column.label));
+  const column = choice(eligible, random);
+  return column ? choice(column.names, random) ?? '' : '';
 }
 
 export function syncUtilities(draft: CharacterDraft, data: StaticData): CharacterDraft {
