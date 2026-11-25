@@ -341,7 +341,7 @@ function dynamicOptionsForLabel(label: string, selection: SourcedSelection, draf
   if (key === 'region') return Array.from(new Set([...data.empires.map((entry) => entry.region), geographicRegionName(draft, data)].filter((value): value is string => Boolean(value)))).sort();
   if (key === 'settlement') return Array.from(new Set([...Object.values(data.settlements).flat(), ...data.settlementProfiles.map((entry) => entry.name)])).sort();
   if (key === 'deity') return data.deities.map((entry) => entry.deity).sort();
-  if (key === 'language') return data.languages.map((entry) => entry.name).sort();
+  if (key === 'language') return data.languages.filter((entry) => !entry.retired).map((entry) => entry.name).sort();
   if (key === 'environ') return data.heritagePackages.filter((entry) => entry.kind === 'environs').map((entry) => entry.name).sort();
   if (key === 'trade') return data.tradePackages.map((entry) => entry.trade).sort();
   if (key === 'species' || key === 'species type') return data.species.flatMap((family) => family.groups.map((group) => group.name)).sort();
@@ -420,7 +420,7 @@ export function specializationOptionsForTrait(selection: SourcedSelection, draft
     ...data.settlementProfiles.map((entry) => entry.name),
   ])).sort();
   if (placeholder === 'deity') return data.deities.map((entry) => entry.deity).sort();
-  if (placeholder === 'language') return data.languages.map((entry) => entry.name).sort();
+  if (placeholder === 'language') return data.languages.filter((entry) => !entry.retired).map((entry) => entry.name).sort();
   if (placeholder === 'environ') return data.heritagePackages.filter((entry) => entry.kind === 'environs').map((entry) => entry.name).sort();
   if (placeholder === 'trade') return data.tradePackages.map((entry) => entry.trade).sort();
   if (placeholder === 'species') return data.species.flatMap((family) => family.groups.map((group) => group.name)).sort();
