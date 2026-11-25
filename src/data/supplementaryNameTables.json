@@ -1229,28 +1229,28 @@
         ],
         "readings": [
           {
-            "cue": "vah-?ooveeehdzoon",
+            "cue": "vah-chooveeehdzoon",
             "concepts": [
               "Vigilance",
               "Knowledge"
             ]
           },
           {
-            "cue": "vah-?oovmohkyohn",
+            "cue": "vah-choovmohkyohn",
             "concepts": [
               "Vigilance",
               "Strength"
             ]
           },
           {
-            "cue": "vah-?oov?veeahtoon",
+            "cue": "vah-choovshveeahtoon",
             "concepts": [
               "Vigilance",
               "Light"
             ]
           },
           {
-            "cue": "vah-?oovzdrohvoon",
+            "cue": "vah-choovzdrohvoon",
             "concepts": [
               "Vigilance",
               "Healing"
@@ -1327,7 +1327,7 @@
             ]
           },
           {
-            "cue": "vah-myohrz?veetyn",
+            "cue": "vah-myohrzshveetyn",
             "concepts": [
               "Sea",
               "Dawn"
@@ -1383,70 +1383,70 @@
             ]
           },
           {
-            "cue": "vah-prahvd?veeahtehn",
+            "cue": "vah-prahvdshveeahtehn",
             "concepts": [
               "Truth",
               "Light"
             ]
           },
           {
-            "cue": "vah-prahvd?veetehn",
+            "cue": "vah-prahvdshveetehn",
             "concepts": [
               "Truth",
               "Dawn"
             ]
           },
           {
-            "cue": "vah-roh?lhohreeyn",
+            "cue": "vah-rohshlhohreeyn",
             "concepts": [
               "Plant",
               "Horizon"
             ]
           },
           {
-            "cue": "vah-roh?l?veetyn",
+            "cue": "vah-rohshlshveetyn",
             "concepts": [
               "Plant",
               "Dawn"
             ]
           },
           {
-            "cue": "vah-?veeahtmyehrzehn",
+            "cue": "vah-shveeahtmyehrzehn",
             "concepts": [
               "Light",
               "Twilight"
             ]
           },
           {
-            "cue": "vah-?veeahtprahvdeen",
+            "cue": "vah-shveeahtprahvdeen",
             "concepts": [
               "Light",
               "Truth"
             ]
           },
           {
-            "cue": "vah-?veeahtrohdzehn",
+            "cue": "vah-shveeahtrohdzehn",
             "concepts": [
               "Light",
               "Family"
             ]
           },
           {
-            "cue": "vah-?veethohreeehn",
+            "cue": "vah-shveethohreeehn",
             "concepts": [
               "Dawn",
               "Horizon"
             ]
           },
           {
-            "cue": "vah-?veetveeehdzehn",
+            "cue": "vah-shveetveeehdzehn",
             "concepts": [
               "Dawn",
               "Knowledge"
             ]
           },
           {
-            "cue": "vah-veeehdz?oovoon",
+            "cue": "vah-veeehdzchoovoon",
             "concepts": [
               "Knowledge",
               "Vigilance"
@@ -1524,42 +1524,42 @@
         ],
         "readings": [
           {
-            "cue": "thah-?oovhrohnohn",
+            "cue": "thah-choovhrohnohn",
             "concepts": [
               "Vigilance",
               "Protection"
             ]
           },
           {
-            "cue": "thah-?oovkahmohn",
+            "cue": "thah-choovkahmohn",
             "concepts": [
               "Vigilance",
               "Stone"
             ]
           },
           {
-            "cue": "thah-?oov?veeahtoon",
+            "cue": "thah-choovshveeahtoon",
             "concepts": [
               "Vigilance",
               "Light"
             ]
           },
           {
-            "cue": "thah-goor?veeahtyn",
+            "cue": "thah-goorshveeahtyn",
             "concepts": [
               "Mountain",
               "Light"
             ]
           },
           {
-            "cue": "thah-hyohree?veetehn",
+            "cue": "thah-hyohreeshveetehn",
             "concepts": [
               "Horizon",
               "Dawn"
             ]
           },
           {
-            "cue": "thah-hyrohn?oovohn",
+            "cue": "thah-hyrohnchoovohn",
             "concepts": [
               "Protection",
               "Vigilance"
@@ -1587,7 +1587,7 @@
             ]
           },
           {
-            "cue": "thah-kahm?oovohn",
+            "cue": "thah-kahmchoovohn",
             "concepts": [
               "Stone",
               "Vigilance"
@@ -1622,7 +1622,7 @@
             ]
           },
           {
-            "cue": "thah-myohky?oovohn",
+            "cue": "thah-myohkychoovohn",
             "concepts": [
               "Strength",
               "Vigilance"
@@ -1657,7 +1657,7 @@
             ]
           },
           {
-            "cue": "thah-nyyehb?veetyn",
+            "cue": "thah-nyyehbshveetyn",
             "concepts": [
               "Sky",
               "Dawn"
@@ -1706,28 +1706,28 @@
             ]
           },
           {
-            "cue": "thah-?veeahtgooryn",
+            "cue": "thah-shveeahtgooryn",
             "concepts": [
               "Light",
               "Mountain"
             ]
           },
           {
-            "cue": "thah-?veeahthvahleen",
+            "cue": "thah-shveeahthvahleen",
             "concepts": [
               "Light",
               "Glory"
             ]
           },
           {
-            "cue": "thah-?veeahtrohdzehn",
+            "cue": "thah-shveeahtrohdzehn",
             "concepts": [
               "Light",
               "Family"
             ]
           },
           {
-            "cue": "thah-?veetmohkyeen",
+            "cue": "thah-shveetmohkyeen",
             "concepts": [
               "Dawn",
               "Strength"
@@ -1769,7 +1769,7 @@
             ]
           },
           {
-            "cue": "thah-zdrohv?veeahtoon",
+            "cue": "thah-zdrohvshveeahtoon",
             "concepts": [
               "Healing",
               "Light"
@@ -1819,14 +1819,14 @@
         ],
         "readings": [
           {
-            "cue": "mah-?oovkahmohn",
+            "cue": "mah-choovkahmohn",
             "concepts": [
               "Vigilance",
               "Stone"
             ]
           },
           {
-            "cue": "mah-?oovmohkyohn",
+            "cue": "mah-choovmohkyohn",
             "concepts": [
               "Vigilance",
               "Strength"
@@ -1882,7 +1882,7 @@
             ]
           },
           {
-            "cue": "mah-kahm?oovohn",
+            "cue": "mah-kahmchoovohn",
             "concepts": [
               "Stone",
               "Vigilance"
@@ -1924,14 +1924,14 @@
             ]
           },
           {
-            "cue": "mah-myohky?veeahteen",
+            "cue": "mah-myohkyshveeahteen",
             "concepts": [
               "Strength",
               "Light"
             ]
           },
           {
-            "cue": "mah-myohrz?veeahtyn",
+            "cue": "mah-myohrzshveeahtyn",
             "concepts": [
               "Sea",
               "Light"
@@ -2008,28 +2008,28 @@
             ]
           },
           {
-            "cue": "mah-?veeahthohreeyn",
+            "cue": "mah-shveeahthohreeyn",
             "concepts": [
               "Light",
               "Horizon"
             ]
           },
           {
-            "cue": "mah-?veeahtohgeen",
+            "cue": "mah-shveeahtohgeen",
             "concepts": [
               "Light",
               "Fire"
             ]
           },
           {
-            "cue": "mah-?veeahtzdrohvoon",
+            "cue": "mah-shveeahtzdrohvoon",
             "concepts": [
               "Light",
               "Healing"
             ]
           },
           {
-            "cue": "mah-?veetzdrohvehn",
+            "cue": "mah-shveetzdrohvehn",
             "concepts": [
               "Dawn",
               "Healing"
@@ -2043,14 +2043,14 @@
             ]
           },
           {
-            "cue": "mah-veeehdz?veeahtoon",
+            "cue": "mah-veeehdzshveeahtoon",
             "concepts": [
               "Knowledge",
               "Light"
             ]
           },
           {
-            "cue": "mah-veeehdz?veeteen",
+            "cue": "mah-veeehdzshveeteen",
             "concepts": [
               "Knowledge",
               "Dawn"
@@ -2114,28 +2114,28 @@
         ],
         "readings": [
           {
-            "cue": "?oovkahmohn",
+            "cue": "choovkahmohn",
             "concepts": [
               "Vigilance",
               "Stone"
             ]
           },
           {
-            "cue": "?oovmohkyohn",
+            "cue": "choovmohkyohn",
             "concepts": [
               "Vigilance",
               "Strength"
             ]
           },
           {
-            "cue": "?oovpahmoon",
+            "cue": "choovpahmoon",
             "concepts": [
               "Vigilance",
               "Memory"
             ]
           },
           {
-            "cue": "?oovzdrohvoon",
+            "cue": "choovzdrohvoon",
             "concepts": [
               "Vigilance",
               "Healing"
@@ -2149,14 +2149,14 @@
             ]
           },
           {
-            "cue": "hyohree?veetehn",
+            "cue": "hyohreeshveetehn",
             "concepts": [
               "Horizon",
               "Dawn"
             ]
           },
           {
-            "cue": "hyrohn?oovohn",
+            "cue": "hyrohnchoovohn",
             "concepts": [
               "Protection",
               "Vigilance"
@@ -2205,14 +2205,14 @@
             ]
           },
           {
-            "cue": "myglahdeh??yn",
+            "cue": "myglahdehshchyn",
             "concepts": [
               "Fog",
               "Rain"
             ]
           },
           {
-            "cue": "myyehrzdeh??yn",
+            "cue": "myyehrzdehshchyn",
             "concepts": [
               "Twilight",
               "Rain"
@@ -2233,7 +2233,7 @@
             ]
           },
           {
-            "cue": "myyehrz?veeahtehn",
+            "cue": "myyehrzshveeahtehn",
             "concepts": [
               "Twilight",
               "Light"
@@ -2275,7 +2275,7 @@
             ]
           },
           {
-            "cue": "nyyehb?veeteen",
+            "cue": "nyyehbshveeteen",
             "concepts": [
               "Sky",
               "Dawn"
@@ -2296,14 +2296,14 @@
             ]
           },
           {
-            "cue": "ohg?veeteen",
+            "cue": "ohgshveeteen",
             "concepts": [
               "Fire",
               "Dawn"
             ]
           },
           {
-            "cue": "pahm?oovoon",
+            "cue": "pahmchoovoon",
             "concepts": [
               "Memory",
               "Vigilance"
@@ -2331,7 +2331,7 @@
             ]
           },
           {
-            "cue": "roh?lmyehrzyn",
+            "cue": "rohshlmyehrzyn",
             "concepts": [
               "Plant",
               "Twilight"
