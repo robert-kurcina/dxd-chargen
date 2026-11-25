@@ -362,7 +362,7 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
       </section>
       {readings.length > 0 && <section aria-label="Name reading and source concepts" className="space-y-2 rounded-lg border p-3 text-sm">
         {readings.map(reading => <div key={reading.category} className="space-y-1">
-          <div className="font-medium">{readings.length > 1 ? reading.category + ' — ' : ''}Approximate pronunciation: {reading.cue}</div>
+          <div className="font-medium">{readings.length > 1 ? reading.category + ' — ' : ''}{reading.cue.includes('?') ? 'Partial pronunciation: ' : 'Approximate pronunciation: '}{reading.cue}</div>
           {reading.concepts.length > 0 && <div>Source concepts: {reading.concepts.join(' + ')}</div>}
           {reading.gloss && <div>Verified gloss: {reading.gloss}</div>}
         </div>)}
