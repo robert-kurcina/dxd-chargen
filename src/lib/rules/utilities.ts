@@ -970,7 +970,7 @@ export function generateCharacterName(
   if (!table) return '';
   const personal = table.columns.filter(column => /^(Male|Female|Person|Neutral Person|Name)$/.test(column.label) || /^(ak|ash) — /.test(column.label));
   const preferred = personal.filter(column => column.label === (style === 'masculine' ? 'Male' : style === 'feminine' ? 'Female' : 'Person'));
-  const eligible = preferred.length ? preferred : personal.length ? personal : table.columns.filter(column => /^(High Station|Potential|Maternal Line)$/.test(column.label));
+  const eligible = preferred.length ? preferred : personal.length ? personal : [];
   const column = choice(eligible, random);
   return column ? choice(column.names, random) ?? '' : '';
 }
@@ -1004,8 +1004,8 @@ export function syncUtilities(draft: CharacterDraft, data: StaticData): Characte
       };
     });
   };
-  const nameLanguageId = draft.utilities.nameLanguageId
-    ?? suggestedNameLanguageId(draft, data);
+  const nameLanguageId = draft.utilities.nameLanguageId && data.nameGenerators.some(generator => generator.languageId === draft.utilities.nameLanguageId)
+    ? draft.utilities.nameLanguageId : suggestedNameLanguageId(draft, data);
   const nameStyle = draft.utilities.nameStyle === 'any' && draft.background.gender
     ? (draft.background.gender === 'Female' ? 'feminine' : draft.background.gender === 'Male' ? 'masculine' : 'any')
     : draft.utilities.nameStyle;
