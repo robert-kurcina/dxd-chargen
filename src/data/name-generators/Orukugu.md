@@ -1,234 +1,203 @@
-### P3 Orukugu Name Generator (Linguistically Grounded)
-*For speakers of the Orukugu river delta and fortified settlements. All names derive from B' Griewnska roots (A Polski lineage) with layered substrate influences: Orukugur (1000 BCE, Uluguik-derived explosive phonology) and R1 Qua (350 BCE, Paltikas-line palatalization). P3 Orukugu exhibits hybrid phonology with uvular consonants, centralized vowels, moderate cluster preservation, and final consonant restriction to stops/liquids—audibly distinct as a contact language shaped by warfare culture.*
+### Orukugu Name Generator
+*For Sondgaran Orogu communities and speakers of contemporary P3 Orukugu.*
 
----
+**Orukugu** is an Orogu-family language. It is not descended from Griewnska or A Polski. The Orok Realms and Sondgaran speakers separated historically but retain a common native core. The Orok Realms branch remained comparatively conservative; the Sondgaran branch became P1 Orukugu, then absorbed Qua prestige forms and conspicuous military vocabulary from Warsarek and War Thaleshi.
+
+Three established names now fix the useful native morphology. **Orogai** uses `oro-` + `-gai`, “the Orogu peoples collectively”. **Oroksu** uses `oro-` + `-ksu`, “the ancestral or first Orogu lineage”. **Orukugu** uses the Sondgaran reflex `oru-` + `-ku-` + `-gu`, approximately “the shared Orogu speech”. The Common abbreviation **Orok** comes from Oroksu and does not define the language family.
+
+The older lineage names **Gaghun, Klanghun, Orokui-rai,** and **Sarghun** are retained as historical names, but they are not used to prove native suffix meanings because some may be regional exonyms.
+
+##### SOUND INVENTORY
+The comparative native layer favors back vowels and velar consonants. Later Sondgaran military contact adds several sounds and clusters not required by the older family.
+
+| Class | Native Orogu core | Later P3 contact additions |
+|---|---|---|
+| Vowels | /a i o u/, diphthong /ai/ | /e/ in some Qua and military loans |
+| Stops | /b d ɡ k t/ | no general change |
+| Nasals | /m n ŋ/ | no general change |
+| Liquids | /l r/ | /v/ occurs in a few borrowed clusters |
+| Fricatives | /s ʃ h ɣ/ | /θ/ in War Thaleshi loans |
+| Clusters | /kr kl ɡr/ and occasional nasal + velar | `sk str vr br dr` are conspicuous late military forms |
+
+##### COMPARATIVE ROOTS
+The following native roots are the working comparative core for the Orok Realms and Sondgaran branches. They are not A Polski cognates.
+
+| Root | Meaning |
+| --- | --- |
+| oru | Orogu / own people |
+| gai | people collectively |
+| ksu | ancestral or first lineage |
+| ku | shared / common |
+| gu | speech / language |
+| gara | land / territory |
+| uhrun | far homeland / old country |
+| rok | fort / defended height |
+| rag | road / path |
+| ur | water / river |
+| kar | stone / hard place |
+| gar | hold / enclosure |
+| nak | close kin |
+| gal | strength / force |
+| sar | war / feud |
+| gash | guard / watch |
+| ghar | oath / sworn word |
+| han | breath / life |
+| dar | gift / exchange |
+| rai | branch / direction |
+| tor | open field |
+| mar | hand / craft |
+| nul | night / darkness |
+| ash | fire / heat |
+| bor | great beast |
+| rak | hunt / pursuit |
+| ruk | carry / burden |
+| tar | command / lead |
+| gir | chief / first place |
+| kor | ridge / upland |
+| ugh | blood / descent |
+| shar | memory / old account |
+| gru | iron / worked metal |
+| hal | shelter / roof |
+| rin | child / descendant |
+| dor | gate / passage |
+
+##### BRANCH NOTES
+
+- The **Orok Realms** branch tends to preserve `oro-`, full unstressed vowels, and older consonant clusters.
+- In the **Sondgaran** branch, unstressed `o` commonly raises toward `u` around liquids and velars. This produces the familiar `oro-` / `oru-` alternation without changing the family root.
+- Qua contact adds a small number of palatal or fronted prestige pronunciations but does not replace native kin, body, land, or household vocabulary.
+- Warsarek and War Thaleshi contribute clipped military formations. These remain most obvious in `+War` speech and in titles created during the late Sondgaran period.
 
 #### CORE MECHANICS
-- Roll **D66** to determine naming pattern
-- For each word part, roll **D66** for the part + **D6** for semantic domain
-- Apply either **one Referent Suffix** or **one Morphological Suffix**, not both
-- Apply constraints after assembly:
-  • Drop duplicate letters (`tt` → `t`, `aa` → `a`)
-  • Max 2 consecutive vowels (drop earlier vowels)
-  • Minimum 2 syllables OR 1 syllable with diphthong (`ya`, `yu`, `oi`, `au`)
-- **Flow Insertions** (applied ONLY when CCC/CCCC clusters occur):
-  `ə` (schwa, "uh") > `a` > `u`  
-  *Example: Qstrk → Qstərk → "Qsterk"*
 
----
+1. Choose the intended naming context and suffix from the table below.
+2. Roll D6 for the construction and D66 for each indicated constituent.
+3. Assemble the constituents in order and attach the selected name suffix. Keep established historical names unchanged.
+4. Apply the language-specific form rules. Use the IPA and source glosses as reading and interpretation aids, not as an automatic translation of the completed name.
 
 #### NAMING PATTERNS
-*Apply either a Referent Suffix or a Morphological Suffix to the pattern below, not both.*
 
-| D6 | Pattern          | Semantic Effect                     |
-|----|------------------|-------------------------------------|
-| 1  | Begin + Suffix   | Warrior name (simple root)          |
-| 2  | Begin + Suffix   | Rank/title                          |
-| 3  | Begin + Suffix   | Geographic origin                   |
-| 4  | Middle + Middle + Suffix  | Compound concept (e.g., river-fort) |
-| 5  | Begin + Middle + Suffix   | Person-of-place (e.g., fortress-keeper) |
-| 6  | Middle + Begin + Suffix   | Place-of-person (e.g., warrior's hill) |
+| D6 | Pattern | Use |
+|---|---|---|
+| 1 | Begin + Suffix | Personal name |
+| 2 | Begin + Middle + Suffix | Household or lineage name |
+| 3 | Begin + Middle + Suffix | Warband, office, or rank |
+| 4 | Middle + Middle + Suffix | Place or territorial name |
+| 5 | Begin + Middle + Middle + Suffix | Formal or ancestral name |
+| 6 | Middle + Begin + Suffix | Ceremonial or archaic construction |
 
----
+##### BEGIN — Roll D66
+Rows 61–66 are later Sondgaran military loans layered onto the native system.
 
-#### SOCIOPOLITICAL NAMING PRACTICE
-*Orukugu is a distributed language of the Orok Realms and adjacent southern territories, even though its peoples range widely in tribal and clan formations. Its names should privilege portable station and father-line or clan markers rather than dense local nobiliary systems.*
+| D66 | Begin | IPA | Domain | Source Root | Gloss |
+| --- | --- | --- | --- | --- | --- |
+| 11 | **O-** | [o] | PEOPLE | oru | Orogu / own people |
+| 12 | **Or-** | [or] | PEOPLE | oru | Orogu / own people |
+| 13 | **Ur-** | [ur] | PEOPLE | oru | Sondgaran reflex of Orogu root |
+| 14 | **G-** | [ɡ] | SPEECH | gu | speech / language |
+| 15 | **Gh-** | [ɣ] | OATH | ghar | oath / sworn word |
+| 16 | **K-** | [k] | COMMUNITY | ku | shared / common |
+| 21 | **Kr-** | [kr] | STONE | kar | stone / hard place |
+| 22 | **Kl-** | [kl] | LINEAGE | ksu | ancestral lineage; cluster analogical |
+| 23 | **R-** | [r] | ROAD | rag | road / path |
+| 24 | **Gr-** | [ɡr] | LAND | gara | land / territory |
+| 25 | **Gar-** | [ɡar] | HOLD | gar | hold / enclosure |
+| 26 | **Uhr-** | [uhr] | HOMELAND | uhrun | far homeland / old country |
+| 31 | **N-** | [n] | KIN | nak | close kin |
+| 32 | **Ng-** | [ŋɡ] | BLOODLINE | ugh | blood / descent |
+| 33 | **M-** | [m] | CRAFT | mar | hand / craft |
+| 34 | **B-** | [b] | BEAST | bor | great beast |
+| 35 | **D-** | [d] | EXCHANGE | dar | gift / exchange |
+| 36 | **T-** | [t] | LAND | tor | open field |
+| 41 | **Tar-** | [tar] | COMMAND | tar | command / lead |
+| 42 | **S-** | [s] | WAR | sar | war / feud |
+| 43 | **Sar-** | [sar] | WAR | sar | war / feud |
+| 44 | **Sh-** | [ʃ] | MEMORY | shar | memory / old account |
+| 45 | **H-** | [h] | LIFE | han | breath / life |
+| 46 | **Han-** | [han] | LIFE | han | breath / life |
+| 51 | **L-** | [l] | SHELTER | hal | shelter / roof |
+| 52 | **Rai-** | [rai] | BRANCH | rai | branch / direction |
+| 53 | **Rok-** | [rok] | FORT | rok | fort / defended height |
+| 54 | **Rak-** | [rak] | HUNT | rak | hunt / pursuit |
+| 55 | **Gir-** | [ɡir] | CHIEF | gir | chief / first place |
+| 56 | **Kor-** | [kor] | UPLAND | kor | ridge / upland |
+| 61 | **Sk-** | [sk] | WAR | Warsarek loan | guard / formation |
+| 62 | **Str-** | [str] | WAR | Warsarek loan | ordered advance |
+| 63 | **Vr-** | [vr] | WAR | Warsarek loan | gate / rally call |
+| 64 | **Th-** | [θ] | WAR | War Thaleshi loan | command / challenge |
+| 65 | **Br-** | [br] | WAR | War Thaleshi loan | shielded body / rank |
+| 66 | **Dr-** | [dr] | WAR | Warsarek + War Thaleshi loan | road column / march |
 
-#### WORD PARTS (Phonotactically Valid P3 Orukugu Forms)
-*All entries derived from authentic Polish cognates drifted through B' Griewnska lineage with lineage-specific dated sound change + Orukugur substrate (1000 BCE) + R1 Qua influence (350 BCE). Semantic domains guide meaning.*
+##### MIDDLE — Roll D66
+Rows 61–66 are later Sondgaran military loans.
 
-##### BEGIN (Onset) Column — Roll D66
-| D66 | Onset | IPA   | Domain      | Etymology (B' Griewnska → P3 Orukugu) |
-|-----|-------|-------|-------------|---------------------------------------|
-| 11 | **B-** | [b] | MILITARY | *brat* "brother" → B' Griewnska /brat/ → P1 /bɾat/ → P3 /bɾã/ |
-| 12 | **Br-** | [bɾ] | NOBILITY | *bronić* "to defend" → B' Griewnska /brɔɲ/ → P1 /bɾɔɲ/ → P3 /bɾõ/ |
-| 13 | **Ch-** | [t͡ʃ] | SACRED | *czysty* "pure" → B' Griewnska /t͡ʃɨst/ → P1 /t͡ʃist/ → P2 /t͡ʃist/ (R1 Qua palatalization preserved) → P3 /t͡ʃi/ |
-| 14 | **D-** | [d] | CIVIC | *dom* "house" → B' Griewnska /dɔm/ → P1 /dɔm/ → P3 /dõ/ |
-| 15 | **Dr-** | [dɾ] | MILITARY | *drzewo* "tree" → B' Griewnska /drɛvɔ/ → P1 /dɾɛv/ → P2 /dɾɛv/ → P3 /dɾɛ/ |
-| 16 | **G-** | [ɡ] | NOBILITY | *grod* "settlement" → B' Griewnska /ɡrut/ → P1 /ɡrut/ → P3 /ɡɾũ/ |
-| 21 | **Gh-** | [ɣ] | SACRED | *głos* "voice" → B' Griewnska /ɡwɔs/ → P1 /ɣwɔs/ (Orukugur voicing) → P2 /ɣwɔs/ → P3 /ɣəs/ |
-| 22 | **Gr-** | [ɡɾ] | NOBILITY | *gród* "fort" → B' Griewnska /ɡrut/ → P1 /ɡɾut/ → P3 /ɡɾu/ |
-| 23 | **J-** | [d͡ʒ] | SACRED | *jutro* "tomorrow" → B' Griewnska /jutrɔ/ → P1 /d͡ʒutɾɔ/ → P3 /d͡ʒu/ |
-| 24 | **K-** | [k] | NOBILITY | *kamień* "stone" → B' Griewnska /kamʲɛn/ → P1 /kamɛn/ (non-uvular variant) → P3 /kã/ |
-| 25 | **Kh-** | [x] | SACRED | *chleb* "bread" → B' Griewnska /xlɛp/ → P1 /xlɛp/ → P2 /xlɛp/ → P3 /xəp/ (vowel reduction) |
-| 26 | **Khv-** | [xv] | SACRED | *chwała* "glory" → B' Griewnska /xfawa/ → P1 /xfawa/ → P3 /xvã/ |
-| 31 | **Kr-** | [kɾ] | NOBILITY | *król* "king" → B' Griewnska /krul/ → P1 /kɾul/ (non-uvular variant) → P3 /kɾu/ |
-| 32 | **L-** | [l] | SACRED | *las* "forest" → B' Griewnska /las/ → P1 /lãs/ → P3 /lã/ |
-| 33 | **M-** | [m] | NOBILITY | *matka* "mother" → B' Griewnska /matka/ → P1 /mãtka/ (Orukugur nasalization) → P3 /mã/ |
-| 34 | **N-** | [n] | CIVIC | *naród* "people" → B' Griewnska /narut/ → P1 /nãrut/ → P3 /nã/ |
-| 35 | **P-** | [p] | MILITARY | *pan* "lord" → B' Griewnska /pan/ → P1 /pã/ → P3 /pã/ |
-| 36 | **Pr-** | [pɾ] | NOBILITY | *prawo* "law" → B' Griewnska /pravɔ/ → P1 /pɾav/ → P3 /pɾa/ |
-| 41 | **Q-** | [q] | MILITARY | *król* "king" → B' Griewnska /krul/ → P1 Orukugu /qul/ (Orukugur /k/→/q/) → P2 Orukugu /qul/ → P3 Orukugu /qu/ |
-| 42 | **Qh-** | [qʰ] | MILITARY | *kamień* "stone" → B' Griewnska /kamʲɛn/ → P1 /qãmɛn/ (Orukugur uvular + nasalization) → P2 /qãmɛn/ → P3 /qʰã/ |
-| 43 | **Qh-** | [qʰ] | MILITARY | *krew* "blood" → B' Griewnska /krɛf/ → P1 /qʰɛf/ (Orukugur aspiration) → P3 /qʰɛ/ |
-| 44 | **Ql-** | [ql] | MILITARY | *kłamstwo* "lie" → B' Griewnska /klãmstfɔ/ → P1 /qlãm/ → P3 /qlã/ |
-| 45 | **Ql-** | [ql] | MILITARY | *kłamstwo* "lie" → B' Griewnska /klãmstfɔ/ → P1 /qlãm/ → P3 /qlã/ |
-| 46 | **Qr-** | [qɾ] | MILITARY | *król* "king" + liquid → B' Griewnska /krul/ → P1 /qɾul/ (Orukugur liquid insertion) → P3 /qɾu/ |
-| 51 | **Qr-** | [qɾ] | MILITARY | *kruk* "raven" → B' Griewnska /kruk/ → P1 /qɾuk/ → P3 /qɾũ/ |
-| 52 | **Qw-** | [qʷ] | MILITARY | *kwiat* "flower" → B' Griewnska /kfjat/ → P1 /qʷat/ (Orukugur labialized uvular) → P3 /qʷã/ |
-| 53 | **Qy-** | [qj] | MILITARY | *król* + glide → B' Griewnska /krul/ → P1 /qjul/ → P3 /qjũ/ |
-| 54 | **R-** | [ɾ] | NATURAL | *rzeka* "river" → B' Griewnska /ʒɛka/ → P1 /ɾɛka/ (Orukugur liquid shift) → P2 /ɾɛka/ (R1 Qua retention) → P3 /ɾã/ |
-| 55 | **Sh-** | [ʃ] | SACRED | *szczęście* "happiness" → B' Griewnska /ʃt͡ʃɛ/ → P1 /ʃt͡ʃɛ/ → P2 /ʃt͡ʃɛ/ → P3 /ʃɛ/ |
-| 56 | **Sk-** | [sk] | CIVIC | *sklep* "shop" → B' Griewnska /sklɛp/ → P1 /sklɛp/ → P2 /sklɛp/ → P3 /skɛ/ (liquid loss) |
-| 61 | **Sl-** | [sl] | NATURAL | *słońce* "sun" → B' Griewnska /swɔɲt͡sɛ/ → P1 /slɔnt/ → P3 /slõ/ |
-| 62 | **Spr-** | [spɾ] | MILITARY | *sprzątać* "to clean" → B' Griewnska /sprzɔntat͡ɕ/ → P1 /spɾɔnt/ → P3 /spɾõ/ |
-| 63 | **Str-** | [stɾ] | MILITARY | *stróż* "guard" → B' Griewnska /struʐ/ → P1 /stɾuʃ/ (Orukugur fricative shift) → P2 /stɾuʃ/ → P3 /stɾə/ |
-| 64 | **T-** | [t] | CIVIC | *targ* "market" → B' Griewnska /tarɡ/ → P1 /taɾɡ/ → P3 /tã/ |
-| 65 | **Tr-** | [tɾ] | MILITARY | *trącić* "to strike" → B' Griewnska /trɔnt͡ɕ/ → P1 /tɾɔnt/ (Orukugur liquid shift) → P2 /tɾɔnt/ (R1 Qua retention) → P3 /tɾõ/ |
-| 66 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → B' Griewnska /ʒɛlazɔ/ → P1 /ʒɛlaz/ → P3 /ʒã/ (nasalization) |
+| D66 | Middle | IPA | Domain | Source Root | Gloss |
+| --- | --- | --- | --- | --- | --- |
+| 11 | **-oru-** | [oru] | PEOPLE | oru | Orogu / own people |
+| 12 | **-uru-** | [uru] | PEOPLE | oru | Sondgaran raised-vowel reflex |
+| 13 | **-gai-** | [ɡai] | PEOPLE | gai | people collectively |
+| 14 | **-ksu-** | [ksu] | LINEAGE | ksu | ancestral or first lineage |
+| 15 | **-ku-** | [ku] | COMMUNITY | ku | shared / common |
+| 16 | **-gu-** | [ɡu] | SPEECH | gu | speech / language |
+| 21 | **-gara-** | [ɡara] | LAND | gara | land / territory |
+| 22 | **-uhr-** | [uhr] | HOMELAND | uhrun | far homeland / old country |
+| 23 | **-rok-** | [rok] | FORT | rok | fort / defended height |
+| 24 | **-rag-** | [raɡ] | ROAD | rag | road / path |
+| 25 | **-ur-** | [ur] | WATER | ur | water / river |
+| 26 | **-kar-** | [kar] | STONE | kar | stone / hard place |
+| 31 | **-gar-** | [ɡar] | HOLD | gar | hold / enclosure |
+| 32 | **-nak-** | [nak] | KIN | nak | close kin |
+| 33 | **-gal-** | [ɡal] | STRENGTH | gal | strength / force |
+| 34 | **-sar-** | [sar] | WAR | sar | war / feud |
+| 35 | **-gash-** | [ɡaʃ] | GUARD | gash | guard / watch |
+| 36 | **-ghar-** | [ɣar] | OATH | ghar | oath / sworn word |
+| 41 | **-han-** | [han] | LIFE | han | breath / life |
+| 42 | **-dar-** | [dar] | EXCHANGE | dar | gift / exchange |
+| 43 | **-rai-** | [rai] | BRANCH | rai | branch / direction |
+| 44 | **-tor-** | [tor] | LAND | tor | open field |
+| 45 | **-mar-** | [mar] | CRAFT | mar | hand / craft |
+| 46 | **-nul-** | [nul] | NIGHT | nul | night / darkness |
+| 51 | **-ash-** | [aʃ] | FIRE | ash | fire / heat |
+| 52 | **-bor-** | [bor] | BEAST | bor | great beast |
+| 53 | **-rak-** | [rak] | HUNT | rak | hunt / pursuit |
+| 54 | **-ruk-** | [ruk] | BURDEN | ruk | carry / burden |
+| 55 | **-tar-** | [tar] | COMMAND | tar | command / lead |
+| 56 | **-gir-** | [ɡir] | CHIEF | gir | chief / first place |
+| 61 | **-esk-** | [esk] | WAR | Warsarek loan | guarded position |
+| 62 | **-astr-** | [astr] | WAR | Warsarek loan | advance / formation |
+| 63 | **-evr-** | [evr] | WAR | Warsarek loan | rally / passage |
+| 64 | **-eth-** | [eθ] | WAR | War Thaleshi loan | challenge / order |
+| 65 | **-arn-** | [arn] | WAR | War Thaleshi loan | rank / company |
+| 66 | **-ord-** | [ord] | WAR | Warsarek + War Thaleshi loan | march / road column |
 
-##### MIDDLE (Nucleus+Coda) Column — Roll D66
-| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (B' Griewnska → P3 Orukugu) |
-|-----|--------------|--------|-------------|---------------------------------------|
-| 11 | **-ã-** | [ã] | OPEN SPACE | *pole* "field" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ã-** |
-| 12 | **-ai-** | [ai] | RAIN | *deszcz* "rain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ai-** |
-| 13 | **-am-** | [am] | GROWTH | *roślina* "plant" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-am-** |
-| 14 | **-ãn-** | [ãn] | WATER | *woda* "water" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ãn-** |
-| 15 | **-ar-** | [ar] | EARTH/STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ar-** |
-| 16 | **-au-** | [au] | WIND | *wiatr* "wind" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-au-** |
-| 21 | **-e-** | [e] | LIGHT | *światło* "light" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-e-** |
-| 22 | **-ea-** | [ea] | VALLEY | *dolina* "valley" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ea-** |
-| 23 | **-el-** | [el] | SKY | *niebo* "sky" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-el-** |
-| 24 | **-ẽn-** | [ẽn] | SACRED | *święty* "holy" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ẽn-** |
-| 25 | **-er-** | [er] | STRENGTH | *moc* "strength" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-er-** |
-| 26 | **-i-** | [i] | KNOWLEDGE | *wiedza* "knowledge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-i-** |
-| 31 | **-il-** | [il] | HEALING | *uzdrowić* "to heal" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-il-** |
-| 32 | **-ir-** | [ir] | SPEED | *szybko* "fast" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ir-** |
-| 33 | **-o-** | [o] | FIRE | *ogień* "fire" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-o-** |
-| 34 | **-oi-** | [oi] | SEA | *morze* "sea" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-oi-** |
-| 35 | **-om-** | [om] | PROTECTION | *chronić* "to protect" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-om-** |
-| 36 | **-õn-** | [õn] | COMMUNITY | *społeczność* "community" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-õn-** |
-| 41 | **-or-** | [or] | ORDER | *rząd* "order" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-or-** |
-| 42 | **-ou-** | [ou] | MOUNTAIN | *góra* "mountain" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ou-** |
-| 43 | **-rã-** | [rã] | STONE | *kamień* "stone" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-rã-** |
-| 44 | **-re-** | [re] | RIVER | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-re-** |
-| 45 | **-ri-** | [ri] | BRIDGE | *most* "bridge" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ri-** |
-| 46 | **-ro-** | [ro] | ROAD | *droga* "road" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ro-** |
-| 51 | **-ru-** | [ru] | RUIN | *ruina* "ruin" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ru-** |
-| 52 | **-ry-** | [rj] | BOUNDARY | *granica* "border" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ry-** |
-| 53 | **-ũ-** | [ũ] | DEPTH | *głębokość* "depth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ũ-** |
-| 54 | **-ui-** | [ui] | MIST | *mgła* "fog" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ui-** |
-| 55 | **-ũn-** | [ũn] | BLOODLINE | *rodzina* "family" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ũn-** |
-| 56 | **-ur-** | [ur] | FLOW | *rzeka* "river" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ur-** |
-| 61 | **-yã-** | [jã] | DAWN | *świt* "dawn" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yã-** |
-| 62 | **-ye-** | [je] | TRUTH | *prawda* "truth" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-ye-** |
-| 63 | **-yə-** | [jə] | MEMORY | *pamięć* "memory" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yə-** |
-| 64 | **-yi-** | [ji] | VIGILANCE | *czuwać* "to watch" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yi-** |
-| 65 | **-yo-** | [jo] | HORIZON | *horyzont* "horizon" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yo-** |
-| 66 | **-yu-** | [ju] | TWILIGHT | *zmierzch* "twilight" → lineage-specific development per `Lineage Sound-Change Profiles.md` → nucleus+coda fragment **-yu-** |
----
+#### NAME SUFFIXES
 
-#### SEMANTIC DOMAIN GUIDE (Roll D6 after pattern selection)
-`1` = MILITARY (warriors, fortifications, weapons)  
-`2` = NOBILITY (bloodlines, houses, titles)  
-`3` = SACRED (temples, rituals, divine concepts)  
-`4` = CIVIC (townsfolk, settlements, governance)  
-`5` = TRADE (merchants, goods, markets)  
-`6` = NATURAL (landscapes, weather, flora/fauna)  
+| D6 | Suffix | Meaning |
+|---|---|---|
+| 1 | **-ak** | individual / named person |
+| 2 | **-un** | household / close band |
+| 3 | **-ksu** | ancestral lineage |
+| 4 | **-gar** | hold / office / defended group |
+| 5 | **-ara** | place / territory |
+| 6 | **-gai** | people / collective |
 
-*Note: Military domain dominates due to Orukugur substrate's warfare culture*
+The roots `-ku-` and `-gu` are normally reserved for collective speech and language formations rather than ordinary personal-name suffixes.
 
----
+##### FORM RULES
 
-#### MORPHOLOGICAL SUFFIXES (Domain-Based Declensions)
-*Suffixes reflect Orukugu's hybrid morphology with uvular consonants marking military status. No arbitrary gender.*
+1. Native Orogu names favor open `a o u` vowels, velars, liquids, and final `k`, `g`, `r`, `n`, or a vowel.
+2. Preserve `gh` as a voiced deep fricative where written. Do not replace it automatically with Humaniki `g`.
+3. In P3 Sondgaran forms, unstressed `oro` may surface as `oru`; do not apply this mechanically to fixed Orok Realms names.
+4. Qua palatalization is lexical and prestigious, not a family-wide sound law. Apply it only to an established borrowed form.
+5. Rows 61–66 are contact vocabulary. They may be common in military names and titles but should not dominate ordinary households or ancestral names.
+6. If two identical vowels meet, contract them to one long vowel in speech and one written vowel unless the form is already established.
+7. Keep the historical names **Orogai, Oroksu, Orukugu, Uhrungara, Gaghun, Klanghun, Orokui-rai,** and **Sarghun** as fixed spellings.
 
-| Domain     | Suffix | Meaning                     | Example (Q- + suffix) | Full Name |
-|------------|--------|-----------------------------|-----------------------|-----------|
-| MILITARY   | **-ok**| Warrior rank                | Q + ok                | **Qok** (warrior) |
-| NOBILITY   | **-ar**| Bloodline marker            | Kr + ar               | **Krar** (noble house) |
-| SACRED     | **-en**| Ritual affiliation          | Kh + en               | **Khen** (temple attendant) |
-| CIVIC      | **-an**| Community membership        | D + an                | **Dan** (townsfolk) |
-| TRADE      | **-im**| Mercantile association      | S + im                | **Sim** (merchant guild) |
-| NATURAL    | **-ur**| Geographic feature          | R + ur                | **Rur** (river-person) |
+##### EXAMPLES
 
-*Critical constraint: Final consonants restricted to stops (`p t k q`) or liquids (`l ɾ`). All other finals undergo systematic replacement:*
-- Nasals (`m n`) → `/m/` preserved only after vowels; `/n/` → `/ɾ/`
-- Fricatives (`s ʃ x`) → `/k/` (stop substitution)
-- Affricates (`t͡ʃ d͡ʒ`) → `/t/` (stop substitution)
-
----
-
-#### SOCIOPOLITICAL MARKERS
-*Orukugu is distributed in utility and organized through broad patriarchal clan networks. Its speaker cultures are strongly patrifocal, patrilineal, and patriarchal, so formal names favor portable station and father-line or clan particles rather than fixed local nobiliary gendering.*
-
-| Marker Type | Position | Marker | Use |
-|-------------|----------|--------|-----|
-| HIGH STATION | PREFIX | **ka--** | Marks portable warrior or leadership standing across regions |
-| PATERNAL LINE / CLAN | PREFIX | **ra--** | Marks father-clan, patrilineal affiliation, or recognized tribal house in formal distributed use |
-
----
-
-#### CRITICAL RULES
-1. **Uvular Dominance Enforcement**: Word-initial /k/ from B' Griewnska shifts to /q/ under Orukugur substrate influence UNLESS:
-   - Preceded by liquid (`kr` → `kɾ`, not `qɾ`)
-   - In sacred vocabulary (retains /k/ or /x/ for religious continuity)
-   - *Orthographic convention: Uvulars written as "q" (not "k")*
-
-2. **Centralized Vowel System**: Orukugur substrate centralizes vowels:
-   - `/a/` → `/ã/` (nasalized central)
-   - `/e/` → `/ɛ/` (mid-front)
-   - `/i/` → `/i/` (preserved)
-   - `/o/` → `/ɔ/` (mid-back)
-   - `/u/` → `/u/` (preserved)
-   - *Creates distinctive "murmured" quality absent in pure Slavic languages*
-
-3. **R1 Qua Palatalization Layer (350 BCE)**: R1 Qua influence adds secondary palatalization:
-   - Velars before front vowels: `/k/` → `/t͡ʃ/`, `/ɡ/` → `/d͡ʒ/`
-   - Alveolars before front vowels: `/t/` → `/t͡s/`, `/d/` → `/d͡z/`
-   - *Applies ONLY to vocabulary borrowed after 350 BCE or in contact zones*
-
-4. **Final Consonant Restriction**: Word-final consonants MUST be one of: `/p t k q l ɾ/`. All other finals undergo systematic replacement:
-   - Nasals → liquids (`m` → `l`, `n` → `ɾ`)
-   - Fricatives → stops (`s` → `t`, `ʃ` → `t`, `x` → `k`)
-   - Affricates → stops (`t͡ʃ` → `t`, `d͡ʒ` → `d` → `t` via devoicing)
-
-5. **Nasalization Harmony**: Vowels preceding nasal consonants become nasalized (`ã ɛ̃ ĩ ɔ̃ ũ`). Nasalization spreads leftward across syllable boundaries in compounds.
-
-6. **Warrior Name Convention**: Military names often drop final vowels for abruptness:
-   - `Qokar` → **Qok** (not *Qoka*)
-   - `Qrok` → **Qrok** (already consonant-final)
-
-7. **Duplicate Letter Dropping**:  
-   `tt` → `t`, `aa` → `a`, `rr` → `ɾ` (flap)  
-   *Exception: Uvular geminates (`qq`) preserved for emphasis → `q`*
-
-8. **Minimum Syllables**: Must have 2 syllables OR 1 syllable with diphthong (`ya`, `yu`, `oi`, `au`). If violated after all rules, insert schwa `ə` before final consonant.
-
----
-
-#### PLAYER-FACING EXAMPLES (Valid P3 Orukugu Forms)
-
-| Pattern | Rolls | Assembly | Result | Meaning & Etymology |
-|---------|-------|----------|--------|---------------------|
-| Begin (D6=1) + Q- (D66=11) + Domain 1 (MILITARY) + Suffix -ok | D6=1, D66=11, D6=1 | Q + -a- + -ok → Qaok → **Qãk** (nasalization + final stop restriction) | Warrior (from *król* "king" → B' Griewnska /krul/ → P1 /qul/ → P3 /qãk/ via Orukugur uvularization + nasalization + final stop restriction) |
-| Begin+Middle (D6=5) + Qr- (D66=15) + -ar (D66=12) + Domain 2 (NOBILITY) + Suffix -ar | D6=5, D66=15, D66=12, D6=2 | Qr + -ar + -ar → Qrarar → Qrar (drop duplicate vowel) → **Qɾã** (nasalization) | Noble house member (from *król* "king" → B' Griewnska /krul/ → P1 /qɾul/ → P3 /qɾã/ via Orukugur liquid insertion + nasalization) |
-| Middle+Begin (D6=6) + -en- (D66=16) + Kh- (D66=13) + Domain 3 (SACRED) + Suffix -en | D6=6, D66=16, D66=13, D6=3 | -en- + Kh → Enh + -en → Enh-en → **Ẽxɛ̃** → **Ẽx** (final vowel deletion) | Temple attendant (from *święty chleb* "holy bread" → B' Griewnska /ɕfjɛnt xlɛp/ → P1 /ʃfjɛ̃nt xlɛp/ → P3 /ʃɛ̃ xəp/ → /ɛ̃x/ via Orukugur nasalization + vowel reduction + final stop restriction) |
-| Middle+Middle (D6=4) + -ur- (D66=32) + -il- (D66=36) + Domain 6 (NATURAL) + Suffix -ur | D6=4, D66=32, D66=36, D6=6 | -ur- + -il- → uril (liquid assimilation) + -ur → Urilur → Urillur → **Ṵɾil** → **Ṵɾ** (final vowel deletion + nasalization) | Healer of flowing waters (from *rzeka uzdrowić* "river heal" → B' Griewnska /ʒɛka uzdrɔvit͡ɕ/ → P1 /ɾɛka uzdɾɔvit͡ɕ/ → P3 /ɾũ zil/ → /ṵɾ/ via Orukugur liquid shift + nasalization + R1 Qua palatalization) |
-
----
-
-#### WHY THESE WORK LINGUISTICALLY
-- **Qãk**: Reflects B' Griewnska *król* (king) → P3 Orukugu drift `/krul/` → `/qãk/` via Orukugur uvularization (`/k/` → `/q/`) + nasalization (`/u/` → `/ũ/` → `/ã/`) + final stop restriction (`/l/` → `/k/`). Qua would produce **Krol** (/krɔl/); Coro **Kror** (/xrɔr/); Sarek **Krol** (/krɔl/); Boren **Kāk** (/kɛːk/).
-- **Qɾã**: From *król* (king) → `/krul/` → P3 `/qɾã/` via Orukugur liquid insertion (`/kr/` → `/qɾ/`) + nasalization (`/u/` → `/ã/`). Unique Orukugu pattern—uvular + liquid cluster absent in all other languages.
-- **Ẽx**: From *święty chleb* (holy bread) → `/ɕfjɛnt xlɛp/` → P3 `/ɛ̃x/` via Orukugur nasalization cascade (`/ɛ/` → `/ɛ̃/`) + vowel reduction (`/lɛp/` → `/əp/` → `/x/` via fricativization) + final stop restriction. Audibly distinct due to nasalized fricative `/x/`—no other language combines nasalization with velar fricative in sacred terms.
-- **Ṵɾ**: From *rzeka* (river) + *uzdrowić* (heal) → `/ʒɛka uzdrɔvit͡ɕ/` → P3 `/ṵɾ/` via Orukugur liquid shift (`/ʐ/` → `/ɾ/`) + nasalization (`/ɛ/` → `/ɛ̃/` → `/ũ/`) + R1 Qua palatalization (`/d͡z/` → `/z/`). Only Orukugu exhibits this uvular-liquid-nasal combination.
-
----
-
-#### GM NOTES: LINGUISTIC AUTHENTICITY
-1. **No English respelling**: All forms derive from Polish cognates drifted through B' Griewnska lineage with Orukugur/R1 Qua influences (e.g., *Qãk* not "Quack")
-2. **Dual heritage visible**: Uvulars (`q`) + centralized vowels (`ã ɛ ɔ`) mark Orukugur substrate; palatalization (`t͡ʃ d͡ʒ`) marks R1 Qua influence—audible stratigraphy of contact history
-3. **Warfare culture embedded**: Military domain dominance + abrupt final stops reflect Uluguik's warfare modality legacy without violating phonological constraints
-4. **Final consonant restriction**: Word-finally only stops/liquids permitted—immediate auditory marker of Orukugur substrate absent in pure Borensk-line languages
-5. **Nasalization without denasalization**: Vowels nasalized but not denasalized (unlike Boren)—creates distinctive "murmured" quality
-6. **Phonotactic enforcement**: Tables exclude illegal Orukugu finals (no nasals/fricatives word-finally); permitted finals strictly `/p t k q l ɾ/`
-7. **Distinct from neighbors**: Orukugu `/qãk/` (uvular + nasal) vs. Qua `/krɔl/` (palatal cluster) vs. Coro `/xrɔr/` (velar fricative) vs. Sarek `/krɔl/` (conservative cluster) vs. Boren `/kɛːk/` (glottalized)
-
-This generator produces names that are:  
-✓ Pronounceable for players (uvulars marked as "q"; nasal vowels with tilde: ã ẽ ĩ õ ũ)  
-✓ Diachronically valid (B' Griewnska → P3 Orukugu via Orukugur substrate + R1 Qua influence)  
-✓ Semantically meaningful (military/civic terms reflecting warfare culture)  
-✓ Audibly distinct as a contact language due to uvulars + centralized vowels + final stop restriction  
-
-*Full D66 tables with all 66 entries per column available in GM appendix with complete drift etymologies showing Orukugur substrate + R1 Qua influence layers.*
+| Pattern | Assembly | Result | Use |
+|---|---|---|---|
+| native collective | Oru + -gai | **Orugai** | Sondgaran reflex of a people-collective formation; the established pan-Orogu form remains **Orogai** |
+| ancestral lineage | Or + -oru- + -ksu | **Ororuksu** → **Oroksu** | ancestral-line form; use the established spelling |
+| language formation | oru + ku + gu | **Orukugu** | shared Orogu speech |
+| military name | Str + -sar- + -gar | **Strsargar** → **Strasargar** | late P3 warband or military office |
