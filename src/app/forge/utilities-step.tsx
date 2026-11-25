@@ -46,6 +46,8 @@ import {
   canonicalStartingGearPreview,
   suggestedNameLanguageId,
   characterNameReadings,
+  generateCharacterName,
+  hasSupplementaryNameCatalog,
   toggleMagicItem,
   toggleSpell,
   type InventoryCategory,
@@ -316,6 +318,17 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
   const language = data.languages.find((entry) => entry.id === languageId);
   const generator = data.nameGenerators.find((entry) => entry.languageId === languageId);
   const readings = characterNameReadings(languageId, draft.utilities.properName || draft.utilities.name);
+  const [catalog, setCatalog] = useState<'established' | 'supplementary'>('established');
+  const supplementaryAvailable = hasSupplementaryNameCatalog(languageId);
+  const activeCatalog = supplementaryAvailable ? catalog : 'established';
+  const generateSelectedName = () => {
+    setDraft(current => {
+      const selectedLanguage = current.utilities.nameLanguageId ?? suggestedNameLanguageId(current, data);
+      if (!selectedLanguage) return current;
+      const name = generateCharacterName(selectedLanguage, current.utilities.nameStyle, data, Math.random, activeCatalog);
+      return name ? { ...current, utilities: { ...current.utilities, nameLanguageId: selectedLanguage, properName: name, name: current.utilities.name || name } } : current;
+    });
+  };
   return (
     <div className="space-y-6">
       <section className="space-y-3 rounded-lg border p-4">
@@ -330,6 +343,17 @@ function NameStep({ data, draft, setDraft }: Omit<UtilitiesStepProps, 'stepValue
             <SelectContent><SelectItem value="any">Any personal ending</SelectItem><SelectItem value="masculine">Masculine ending</SelectItem><SelectItem value="feminine">Feminine ending</SelectItem></SelectContent>
           </Select>
         </div>
+        {supplementaryAvailable && <div className="flex flex-wrap items-end gap-3">
+          <div className="min-w-48 space-y-1">
+            <Label htmlFor="name-catalog">Name catalog</Label>
+            <Select value={activeCatalog} onValueChange={value => setCatalog(value === 'supplementary' ? 'supplementary' : 'established')}>
+              <SelectTrigger id="name-catalog"><SelectValue /></SelectTrigger>
+              <SelectContent><SelectItem value="established">Established</SelectItem><SelectItem value="supplementary">Supplementary compounds (provisional)</SelectItem></SelectContent>
+            </Select>
+          </div>
+          <Button type="button" variant="outline" onClick={generateSelectedName}>Generate name</Button>
+        </div>}
+        {supplementaryAvailable && activeCatalog === 'supplementary' && <p className="text-xs text-muted-foreground">Provisional compound names. This selection applies to this Generate name button; the standard step-generation control continues to use the established catalog.</p>}
         <div className="flex flex-wrap gap-2 text-xs"><Badge variant="outline">{language?.name ?? 'No language'}</Badge>{language?.locus && <Badge variant="outline">{language.locus}</Badge>}{languageId === suggested && <Badge variant="secondary">Suggested from known language</Badge>}{generator && <Badge variant="outline">{generator.source}</Badge>}</div>
       </section>
       <section className="grid gap-4 lg:grid-cols-2">
