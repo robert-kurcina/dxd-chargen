@@ -104,7 +104,7 @@ for (const generator of nameGenerators) {
   }
 }
 for (const language of languages) {
-  if (!generatorByLanguage.has(language.id)) throw new Error(`Missing structured name generator for ${language.name}`);
+  if (!language.retired && !generatorByLanguage.has(language.id)) throw new Error(`Missing structured name generator for ${language.name}`);
 }
 
 const knownSettlementNames = new Set([
