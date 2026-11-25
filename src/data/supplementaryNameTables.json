@@ -2442,7 +2442,7 @@
             ]
           },
           {
-            "cue": "keh-pah?zehkohng",
+            "cue": "keh-pah'zehkohng",
             "concepts": [
               "Payment",
               "River"
@@ -2716,7 +2716,7 @@
             ]
           },
           {
-            "cue": "keh-dohkpah?ee",
+            "cue": "keh-dohkpah'ee",
             "concepts": [
               "Road",
               "Payment"
@@ -2758,7 +2758,7 @@
             ]
           },
           {
-            "cue": "keh-mohtpah?ee",
+            "cue": "keh-mohtpah'ee",
             "concepts": [
               "Bridge",
               "Payment"
@@ -2835,7 +2835,7 @@
             ]
           },
           {
-            "cue": "kee-dohkpah?ee",
+            "cue": "kee-dohkpah'ee",
             "concepts": [
               "Road",
               "Payment"
@@ -3172,7 +3172,7 @@
             ]
           },
           {
-            "cue": "kee-mohtpah?eem",
+            "cue": "kee-mohtpah'eem",
             "concepts": [
               "Bridge",
               "Payment"
@@ -3193,7 +3193,7 @@
             ]
           },
           {
-            "cue": "kee-pah?pohneem",
+            "cue": "kee-pah'pohneem",
             "concepts": [
               "Payment",
               "Field"
@@ -3376,14 +3376,14 @@
             ]
           },
           {
-            "cue": "kaw-pah?pohneem",
+            "cue": "kaw-pah'pohneem",
             "concepts": [
               "Payment",
               "Field"
             ]
           },
           {
-            "cue": "kaw-pah?zehkeem",
+            "cue": "kaw-pah'zehkeem",
             "concepts": [
               "Payment",
               "River"
@@ -3474,7 +3474,7 @@
             ]
           },
           {
-            "cue": "koo-mohtpah?eem",
+            "cue": "koo-mohtpah'eem",
             "concepts": [
               "Bridge",
               "Payment"
@@ -3488,7 +3488,7 @@
             ]
           },
           {
-            "cue": "koo-pohnpah?eem",
+            "cue": "koo-pohnpah'eem",
             "concepts": [
               "Field",
               "Payment"
@@ -4310,7 +4310,7 @@
             ]
           },
           {
-            "cue": "sahkeh-vohtpah?eem",
+            "cue": "sahkeh-vohtpah'eem",
             "concepts": [
               "Water",
               "Payment"
@@ -4331,7 +4331,7 @@
             ]
           },
           {
-            "cue": "sahkee-dohkpah?eem",
+            "cue": "sahkee-dohkpah'eem",
             "concepts": [
               "Road",
               "Payment"
@@ -4408,7 +4408,7 @@
             ]
           },
           {
-            "cue": "sahkee-pah?zehkeem",
+            "cue": "sahkee-pah'zehkeem",
             "concepts": [
               "Payment",
               "River"
@@ -4422,7 +4422,7 @@
             ]
           },
           {
-            "cue": "sahkee-zehkpah?eem",
+            "cue": "sahkee-zehkpah'eem",
             "concepts": [
               "River",
               "Payment"
