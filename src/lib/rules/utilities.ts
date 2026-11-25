@@ -969,8 +969,9 @@ export function generateCharacterName(
   const table = (completedNameTables as Record<string, { language: string; columns: { label: string; names: string[] }[] }>)[languageId];
   if (!table) return '';
   const personal = table.columns.filter(column => /^(Male|Female|Person|Neutral Person|Name)$/.test(column.label) || /^(ak|ash) — /.test(column.label));
-  const preferred = personal.filter(column => column.label === (style === 'masculine' ? 'Male' : style === 'feminine' ? 'Female' : 'Person'));
-  const eligible = preferred.length ? preferred : personal.length ? personal : [];
+  const preferred = style === 'any' ? personal : personal.filter(column => column.label === (style === 'masculine' ? 'Male' : 'Female'));
+  const neutral = personal.filter(column => !['Male', 'Female'].includes(column.label));
+  const eligible = preferred.length ? preferred : neutral;
   const column = choice(eligible, random);
   return column ? choice(column.names, random) ?? '' : '';
 }
