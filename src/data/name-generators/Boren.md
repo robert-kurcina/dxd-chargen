@@ -1,24 +1,39 @@
 ### Boren Name Generator (Linguistically Grounded)
 *For speakers of the Boren city-state and surrounding river valleys. All names derive from A Polski roots drifted through the Borensk lineage (A Polski → B Borensk) with Vietnamese-influenced Tingbyet overlay at 3075 BCE (`Boren <- Tingbyet`) and K1 Ithuuikal substrate at 325 BCE revival (`B1 Boren <= K1 Ithuuikal`). Boren exhibits distinctive vowel enrichment, final consonant restriction to stops/nasals/glottal, and monosyllabic core vocabulary—audibly distinct from all neighboring languages.*
 
+
+#### Choosing a Referent
+
+Person: ke-/ki-; Living: ko-/ku-; Object: ka-/kə-; Shape: lu-/li-. Classifier required. Optional Male -ông/-on, Female -i; sa- denotes station.
+
+| Selection | Construction | Available markers |
+|---|---|---|
+| Person | Required classifier prefix | ke-, ki- |
+| Male human | Person classifier + optional sex suffix | ke-/ki- + -ông/-on |
+| Female human | Person classifier + optional sex suffix | ke-/ki- + -i |
+| Living nonhuman | Required classifier prefix | ko-, ku- |
+| Object / crafted | Required classifier prefix | ka-, kə- |
+| Shape / long thing | Required classifier prefix | lu-, li- |
+| High station | Optional social prefix (not a referent) | sa- + personal name |
+
+*Quick reference: the detailed tables and language-specific form rules below govern assembly; this table introduces no new markers.*
+
+For pronunciation, use the IPA in the word-part tables and the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key). Keep the native spelling. Apply the form rules after assembling the complete name.
+
 ---
 
 #### CORE MECHANICS
-- Roll **D66** to determine naming pattern
-- For each word part, roll **D66** for the part; use semantic domain mainly for interpretation rather than extra live derivation
-- After domain selection, assign a **Tingbyet-style classifier**:
-  • Human names normally take a **person classifier**
-  • Animals/spirits take a **living classifier**
-  • Tools, relics, and trade goods take an **object classifier**
-  • Long rigid things, rivers, roads, and banners may take a dedicated **shape classifier**
-- After the classifier, apply either **one Referent Suffix** or **one Morphological Suffix**, not both
-- Apply constraints after assembly:
-  • Drop duplicate letters (`tt` → `t`, `aa` → `a`)
-  • Max 2 consecutive vowels (drop earlier vowels)
-  • Minimum 2 syllables OR 1 syllable with diphthong (`ya`, `yu`, `oi`, `au`)
+
+1. Choose the referent classifier before building the name: person, living, object, or shape.
+2. Choose a semantic domain, roll D6 for construction, then D66 for each Begin onset or Middle kernel. The classifier appears once, before the core.
+3. Use one applicable domain or referent suffix; personal sex suffixes remain optional. Add sa- only for station.
+4. Preserve compact cores, including legitimate monosyllables; keep the classifier distinct. Apply documented final restrictions and boundary cleanup.
+
 - **Flow Insertions** (applied ONLY when CCC/CCCC clusters occur):
   `ʔ` (glottal stop) > `ə` (schwa) > `a`  
   *Example: Krst → Krʔst → "Kr'ast"*
+
+Use the [English pronunciation key](PLAYER_NAME_GUIDE.md#english-pronunciation-key) and the source concepts in the word-part tables. A source concept is not a verified translation of the completed name.
 
 ---
 
@@ -43,84 +58,84 @@
 *All entries derived from authentic Polish cognates drifted through Borensk lineage with lineage-specific dated sound change + Vietnamese/Tingbyet influence + K1 Ithuuikal substrate. Semantic domains guide meaning.*
 
 ##### BEGIN (Onset) Column — Roll D66
-| D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Boren) |
-|-----|-------|-------|-------------|-----------------------------------|
-| 11 | **B-** | [b] | MILITARY | *brat* "brother" → /brat/ → Boren /baː/ (vowel lengthening) |
-| 12 | **Bh-** | [bʱ] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → Boren /bʱɔːn/ (breathy voice + nasalization) |
-| 13 | **Bl-** | [bl] | SACRED | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → Boren /blaː/ (liquid preservation + vowel lengthening) |
-| 14 | **Br-** | [br] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → Boren /braː/ (liquid preservation + vowel lengthening) |
-| 15 | **Ch-** | [t͡ʃ] | SACRED | *czysty* "pure" → /t͡ʂɨstɨ/ → B Borensk /t͡ʃɨst/ → Boren /t͡ʃiː/ (vowel fronting + lengthening) |
-| 16 | **D-** | [d] | CIVIC | *dom* "house" → /dɔm/ → Boren /daː/ (vowel lengthening) |
-| 21 | **Dh-** | [dʱ] | MILITARY | *dwa* "two" → /dva/ → Boren /dʱaː/ (breathy voice + vowel lengthening) |
-| 22 | **G-** | [ɡ] | NOBILITY | *grod* "settlement" → /ɡrɔt/ → Boren /ɡɔː/ (vowel lengthening) |
-| 23 | **Gh-** | [ɣ] | SACRED | *głos* "voice" → /ɡwɔs/ → B Borensk /ɡwɔs/ → Boren /ɣɔːs/ (voicing + vowel lengthening) |
-| 24 | **Gh-** | [ɡʱ] | NOBILITY | *grod* "settlement" → /ɡrɔt/ → Boren /ɡʱɔːt/ (breathy voice + vowel lengthening) |
-| 25 | **Ghr-** | [ɣr] | SACRED | *gród* "fort" → /grut/ → Boren /ɣut/ (voicing + liquid simplification) |
-| 26 | **Ghv-** | [ɣw] | SACRED | *chwyt* "grip" → /xfɨt/ → Boren /ɣwaːt/ (Welsh voicing + vowel lengthening) |
-| 31 | **Jh-** | [d͡ʒ] | SACRED | *jutro* "tomorrow" → /jutrɔ/ → Boren /d͡ʒuː/ (affricate preservation + vowel lengthening) |
-| 32 | **K-** | [k] | NOBILITY | *król* "king" → /krul/ → Boren /kuː/ (vowel backing + lengthening) |
-| 33 | **Kh-** | [x] | SACRED | *chleb* "bread" → /xlɛp/ → B Borensk /xlɛp/ → Boren /xɛp/ (Tingbyet vowel enrichment) |
-| 34 | **Kh-** | [kʰ] | NOBILITY | *król* "king" → /krul/ → Boren /kʰuːl/ → /kʰuː/ (aspiration + final liquid loss) |
-| 35 | **Khr-** | [xr] | SACRED | *chram* "temple" → /xram/ → Boren /xam/ (liquid loss + final stop restriction) |
-| 36 | **Khv-** | [xw] | SACRED | *chwała* "glory" → /xfawa/ → Boren /xwaː/ (labiovelar preservation + vowel lengthening) |
-| 41 | **L-** | [l] | SACRED | *las* "forest" → /las/ → Boren /laː/ (vowel lengthening) |
-| 42 | **Lh-** | [ɬ] | SACRED | *sławny* "famous" → /swav nɨ/ → B Borensk /slav/ → Boren /ɬaː/ (Welsh lateral fricative + vowel lengthening) |
-| 43 | **M-** | [m] | NOBILITY | *matka* "mother" → /matka/ → Boren /maː/ (vowel lengthening) |
-| 44 | **Mh-** | [m̥] | SACRED | *mąż* "husband" → /mɔ̃ʂ/ → B Borensk /mɔ̃ʃ/ → Boren /m̥ɔ̃ː/ (Welsh voiceless nasal + vowel lengthening) |
-| 45 | **N-** | [n] | CIVIC | *naród* "people" → /narut/ → Boren /naː/ (vowel lengthening) |
-| 46 | **Nh-** | [n̥] | CIVIC | *noc* "night" → /nɔt͡s/ → Boren /n̥ɔː/ (Welsh voiceless nasal + vowel lengthening) |
-| 51 | **P-** | [p] | MILITARY | *pan* "lord" → /pan/ → Boren /paː/ (vowel lengthening) |
-| 52 | **Ph-** | [pʰ] | MILITARY | *pancerz* "armor" → /pant͡sɛʂ/ → Boren /pʰɛːn/ (aspiration + cluster simplification) |
-| 53 | **Pl-** | [pl] | TRADE | *płat* "payment" → /pwat/ → Boren /plaː/ (liquid preservation + vowel lengthening) |
-| 54 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → /pravɔ/ → Boren /praː/ (liquid preservation + vowel lengthening) |
-| 55 | **R-** | [r] | NATURAL | *rzeka* "river" → /ʐɛka/ → B Borensk /ʒɛka/ → Boren /zaː/ (retroflex → fricative → vowel lengthening) |
-| 56 | **Rh-** | [r̥] | SACRED | *rzeka* "river" → /ʐɛka/ → B Borensk /ʒɛka/ → Boren /r̥ɛː/ (Welsh voiceless liquid + vowel lengthening) |
-| 61 | **S-** | [s] | TRADE | *srebro* "silver" → /srɛbrɔ/ → Boren /sɛː/ (cluster simplification + vowel lengthening) |
-| 62 | **Sh-** | [ʃ] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → B Borensk /ʃtʃɛ/ → Boren /ʃɛː/ (cluster simplification + vowel lengthening) |
-| 63 | **T-** | [t] | CIVIC | *targ* "market" → /tarɡ/ → Boren /taː/ (vowel lengthening) |
-| 64 | **Th-** | [tʰ] | MILITARY | *trzy* "three" → /tʂɨ/ → B Borensk /tʃɨ/ → Boren /tʰiː/ (aspiration + vowel lengthening) |
-| 65 | **Z-** | [z] | TRADE | *złoto* "gold" → /zwɔtɔ/ → Boren /zaː/ (vowel backing + lengthening) |
-| 66 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → B Borensk /ʒɛlazɔ/ → Boren /ʒaː/ (vowel backing + lengthening) |
+| D66 | Onset | IPA   | Domain      | Etymology (A Polski Root → Boren) | English Pronunciation |
+|-----|-------|-------|-------------|-----------------------------------| --- |
+| 11 | **B-** | [b] | MILITARY | *brat* "brother" → /brat/ → Boren /baː/ (vowel lengthening) | b |
+| 12 | **Bh-** | [bʱ] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → Boren /bʱɔːn/ (breathy voice + nasalization) | b (breathy) |
+| 13 | **Bl-** | [bl] | SACRED | *błogosławieństwo* "blessing" → /bwɔɡɔswavjɛɲstfɔ/ → Boren /blaː/ (liquid preservation + vowel lengthening) | bl |
+| 14 | **Br-** | [br] | MILITARY | *bronić* "to defend" → /brɔɲit͡ɕ/ → Boren /braː/ (liquid preservation + vowel lengthening) | br |
+| 15 | **Ch-** | [t͡ʃ] | SACRED | *czysty* "pure" → /t͡ʂɨstɨ/ → B Borensk /t͡ʃɨst/ → Boren /t͡ʃiː/ (vowel fronting + lengthening) | tsh |
+| 16 | **D-** | [d] | CIVIC | *dom* "house" → /dɔm/ → Boren /daː/ (vowel lengthening) | d |
+| 21 | **Dh-** | [dʱ] | MILITARY | *dwa* "two" → /dva/ → Boren /dʱaː/ (breathy voice + vowel lengthening) | d (breathy) |
+| 22 | **G-** | [ɡ] | NOBILITY | *grod* "settlement" → /ɡrɔt/ → Boren /ɡɔː/ (vowel lengthening) | g |
+| 23 | **Gh-** | [ɣ] | SACRED | *głos* "voice" → /ɡwɔs/ → B Borensk /ɡwɔs/ → Boren /ɣɔːs/ (voicing + vowel lengthening) | gh (approx.) |
+| 24 | **Gh-** | [ɡʱ] | NOBILITY | *grod* "settlement" → /ɡrɔt/ → Boren /ɡʱɔːt/ (breathy voice + vowel lengthening) | g (breathy) |
+| 25 | **Ghr-** | [ɣr] | SACRED | *gród* "fort" → /grut/ → Boren /ɣut/ (voicing + liquid simplification) | ghr (approx.) |
+| 26 | **Ghv-** | [ɣw] | SACRED | *chwyt* "grip" → /xfɨt/ → Boren /ɣwaːt/ (Welsh voicing + vowel lengthening) | ghw (approx.) |
+| 31 | **Jh-** | [d͡ʒ] | SACRED | *jutro* "tomorrow" → /jutrɔ/ → Boren /d͡ʒuː/ (affricate preservation + vowel lengthening) | dzh |
+| 32 | **K-** | [k] | NOBILITY | *król* "king" → /krul/ → Boren /kuː/ (vowel backing + lengthening) | k |
+| 33 | **Kh-** | [x] | SACRED | *chleb* "bread" → /xlɛp/ → B Borensk /xlɛp/ → Boren /xɛp/ (Tingbyet vowel enrichment) | kh |
+| 34 | **Kh-** | [kʰ] | NOBILITY | *król* "king" → /krul/ → Boren /kʰuːl/ → /kʰuː/ (aspiration + final liquid loss) | k (aspirated) |
+| 35 | **Khr-** | [xr] | SACRED | *chram* "temple" → /xram/ → Boren /xam/ (liquid loss + final stop restriction) | khr |
+| 36 | **Khv-** | [xw] | SACRED | *chwała* "glory" → /xfawa/ → Boren /xwaː/ (labiovelar preservation + vowel lengthening) | khw |
+| 41 | **L-** | [l] | SACRED | *las* "forest" → /las/ → Boren /laː/ (vowel lengthening) | l |
+| 42 | **Lh-** | [ɬ] | SACRED | *sławny* "famous" → /swav nɨ/ → B Borensk /slav/ → Boren /ɬaː/ (Welsh lateral fricative + vowel lengthening) | hl (approx.) |
+| 43 | **M-** | [m] | NOBILITY | *matka* "mother" → /matka/ → Boren /maː/ (vowel lengthening) | m |
+| 44 | **Mh-** | [m̥] | SACRED | *mąż* "husband" → /mɔ̃ʂ/ → B Borensk /mɔ̃ʃ/ → Boren /m̥ɔ̃ː/ (Welsh voiceless nasal + vowel lengthening) | m (voiceless) |
+| 45 | **N-** | [n] | CIVIC | *naród* "people" → /narut/ → Boren /naː/ (vowel lengthening) | n |
+| 46 | **Nh-** | [n̥] | CIVIC | *noc* "night" → /nɔt͡s/ → Boren /n̥ɔː/ (Welsh voiceless nasal + vowel lengthening) | n (voiceless) |
+| 51 | **P-** | [p] | MILITARY | *pan* "lord" → /pan/ → Boren /paː/ (vowel lengthening) | p |
+| 52 | **Ph-** | [pʰ] | MILITARY | *pancerz* "armor" → /pant͡sɛʂ/ → Boren /pʰɛːn/ (aspiration + cluster simplification) | p (aspirated) |
+| 53 | **Pl-** | [pl] | TRADE | *płat* "payment" → /pwat/ → Boren /plaː/ (liquid preservation + vowel lengthening) | pl |
+| 54 | **Pr-** | [pr] | NOBILITY | *prawo* "law" → /pravɔ/ → Boren /praː/ (liquid preservation + vowel lengthening) | pr |
+| 55 | **R-** | [r] | NATURAL | *rzeka* "river" → /ʐɛka/ → B Borensk /ʒɛka/ → Boren /zaː/ (retroflex → fricative → vowel lengthening) | r |
+| 56 | **Rh-** | [r̥] | SACRED | *rzeka* "river" → /ʐɛka/ → B Borensk /ʒɛka/ → Boren /r̥ɛː/ (Welsh voiceless liquid + vowel lengthening) | r (voiceless) |
+| 61 | **S-** | [s] | TRADE | *srebro* "silver" → /srɛbrɔ/ → Boren /sɛː/ (cluster simplification + vowel lengthening) | s |
+| 62 | **Sh-** | [ʃ] | SACRED | *szczęście* "happiness" → /ʂt͡ʂɛɲɕt͡ɕɛ/ → B Borensk /ʃtʃɛ/ → Boren /ʃɛː/ (cluster simplification + vowel lengthening) | sh |
+| 63 | **T-** | [t] | CIVIC | *targ* "market" → /tarɡ/ → Boren /taː/ (vowel lengthening) | t |
+| 64 | **Th-** | [tʰ] | MILITARY | *trzy* "three" → /tʂɨ/ → B Borensk /tʃɨ/ → Boren /tʰiː/ (aspiration + vowel lengthening) | t (aspirated) |
+| 65 | **Z-** | [z] | TRADE | *złoto* "gold" → /zwɔtɔ/ → Boren /zaː/ (vowel backing + lengthening) | z |
+| 66 | **Zh-** | [ʒ] | SACRED | *żelazo* "iron" → /ʐɛlazɔ/ → B Borensk /ʒɛlazɔ/ → Boren /ʒaː/ (vowel backing + lengthening) | zh |
 
 ##### MIDDLE (Nucleus+Coda) Column — Roll D66
-| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Boren) |
-|-----|--------------|--------|-------------|-----------------------------------|
-| 11 | **-a-** | [aː] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Boren /paː/ (vowel backing + lengthening) |
-| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Boren /ai̯/ (diphthong formation) |
-| 13 | **-ak-** | [ak] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Boren /kaːk/ (nasal → stop shift + vowel lengthening) |
-| 14 | **-am-** | [am] | WATER | *woda* "water" → /vɔda/ → Boren /vaːm/ (vowel lengthening + nasal retention) |
-| 15 | **-an-** | [an] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Boren /raːn/ (vowel backing + lengthening + nasal retention) |
-| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → Boren /au̯/ (diphthong formation) |
-| 21 | **-e-** | [ɛː] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Boren /ʃɛː/ (palatal → fricative shift + vowel lengthening) |
-| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Boren /ea̯/ (diphthong formation) |
-| 23 | **-ek-** | [ɛk] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Boren /ʃɛːk/ (vowel lengthening + final stop restriction) |
-| 24 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Boren /xɛːl/ (palatal → velar shift + vowel lengthening) |
-| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Boren /mɛːr/ (vowel fronting + lengthening + liquid shift) |
-| 26 | **-il-** | [iːl] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Boren /ziːl/ (fricativization + vowel lengthening) |
-| 31 | **-in-** | [iːn] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Boren /viːn/ (vowel lengthening + nasal retention) |
-| 32 | **-ir-** | [iːr] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Boren /ʃiːr/ (vowel fronting + lengthening + liquid shift) |
-| 33 | **-o-** | [ɔː] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Boren /ɔː/ (vowel lengthening) |
-| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Boren /oi̯/ (diphthong formation) |
-| 35 | **-ok-** | [ɔk] | ORDER | *rząd* "order" → /ʒɔnt/ → Boren /xɔːk/ (fricative → velar shift + vowel lengthening + final stop) |
-| 36 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Boren /xɔːm/ (vowel lengthening + nasal retention) |
-| 41 | **-on-** | [ɔn] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Boren /sɔːn/ (vowel lengthening + nasal retention) |
-| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → Boren /ou̯/ (diphthong formation) |
-| 43 | **-ra-** | [raː] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Boren /raː/ (nasal → liquid shift + vowel lengthening) |
-| 44 | **-rek-** | [rɛk] | RIVER | *rzeka* "river" → /ʐɛka/ → Boren /zɛːk/ → /rɛk/ (retroflex → fricative → liquid shift + final stop) |
-| 45 | **-ri-** | [riː] | BRIDGE | *most* "bridge" → /mɔst/ → Boren /riː/ (stop → liquid shift + vowel lengthening) |
-| 46 | **-ro-** | [rɔː] | ROAD | *droga* "road" → /drɔɡa/ → Boren /rɔː/ (stop loss + vowel lengthening) |
-| 51 | **-ruk-** | [ruk] | RUIN | *ruina* "ruin" → /ruina/ → Boren /ruːk/ (vowel lengthening + final stop) |
-| 52 | **-ryk-** | [rɪk] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Boren /rɪk/ (nasal loss + stop simplification) |
-| 53 | **-u-** | [uː] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Boren /ɡuː/ (vowel backing + lengthening) |
-| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Boren /ui̯/ (diphthong formation) |
-| 55 | **-uk-** | [uk] | FLOW | *rzeka* "river" → /ʐɛka/ → Boren /zuːk/ (retroflex → fricative shift + vowel lengthening + final stop) |
-| 56 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Boren /ruːn/ (vowel backing + lengthening + nasal retention) |
-| 61 | **-ya-** | [jaː] | DAWN | *świt* "dawn" → /ɕfit/ → Boren /jaː/ (fricative loss + glide formation + vowel lengthening) |
-| 62 | **-ye-** | [jɛː] | TRUTH | *prawda* "truth" → /pravda/ → Boren /jɛː/ (consonant loss + glide + vowel lengthening) |
-| 63 | **-yə-** | [jəː] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Boren /jəː/ (nasal loss + schwa + vowel lengthening) |
-| 64 | **-yi-** | [jiː] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Boren /jiː/ (affricate loss + glide + vowel lengthening) |
-| 65 | **-yo-** | [jɔː] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Boren /jɔː/ (consonant loss + glide + vowel lengthening) |
-| 66 | **-yu-** | [juː] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Boren /juː/ (consonant loss + glide + vowel lengthening) |
+| D66 | Nucleus+Coda | IPA    | Domain      | Etymology (A Polski Root → Boren) | English Pronunciation |
+|-----|--------------|--------|-------------|-----------------------------------| --- |
+| 11 | **-a-** | [aː] | OPEN SPACE | *pole* "field" → /pɔlɛ/ → Boren /paː/ (vowel backing + lengthening) | ah (long vowel) |
+| 12 | **-ai-** | [ai̯] | RAIN | *deszcz* "rain" → /dɛʂt͡ʂ/ → Boren /ai̯/ (diphthong formation) | ahee |
+| 13 | **-ak-** | [ak] | EARTH/STONE | *kamień* "stone" → /kamʲɛɲ/ → Boren /kaːk/ (nasal → stop shift + vowel lengthening) | ahk |
+| 14 | **-am-** | [am] | WATER | *woda* "water" → /vɔda/ → Boren /vaːm/ (vowel lengthening + nasal retention) | ahm |
+| 15 | **-an-** | [an] | GROWTH | *roślina* "plant" → /rɔɕlina/ → Boren /raːn/ (vowel backing + lengthening + nasal retention) | ahn |
+| 16 | **-au-** | [au̯] | WIND | *wiatr* "wind" → /vʲjatr/ → Boren /au̯/ (diphthong formation) | ahoo |
+| 21 | **-e-** | [ɛː] | LIGHT | *światło* "light" → /ɕfjatwɔ/ → Boren /ʃɛː/ (palatal → fricative shift + vowel lengthening) | eh (long vowel) |
+| 22 | **-ea-** | [ea̯] | VALLEY | *dolina* "valley" → /dɔlina/ → Boren /ea̯/ (diphthong formation) | ehah |
+| 23 | **-ek-** | [ɛk] | SACRED | *święty* "holy" → /ɕfjɛntɨ/ → Boren /ʃɛːk/ (vowel lengthening + final stop restriction) | ehk |
+| 24 | **-el-** | [ɛl] | SKY | *niebo* "sky" → /ɲɛbɔ/ → Boren /xɛːl/ (palatal → velar shift + vowel lengthening) | ehl |
+| 25 | **-er-** | [ɛr] | STRENGTH | *moc* "strength" → /mɔt͡s/ → Boren /mɛːr/ (vowel fronting + lengthening + liquid shift) | ehr |
+| 26 | **-il-** | [iːl] | HEALING | *uzdrowić* "to heal" → /uzdrɔvit͡ɕ/ → Boren /ziːl/ (fricativization + vowel lengthening) | eel (long vowel) |
+| 31 | **-in-** | [iːn] | KNOWLEDGE | *wiedza* "knowledge" → /vʲɛd͡za/ → Boren /viːn/ (vowel lengthening + nasal retention) | een (long vowel) |
+| 32 | **-ir-** | [iːr] | SPEED | *szybko* "fast" → /ʂɨpkɔ/ → Boren /ʃiːr/ (vowel fronting + lengthening + liquid shift) | eer (long vowel) |
+| 33 | **-o-** | [ɔː] | FIRE | *ogień* "fire" → /ɔɡʲɛɲ/ → Boren /ɔː/ (vowel lengthening) | aw (long vowel) |
+| 34 | **-oi-** | [oi̯] | SEA | *morze* "sea" → /mɔʐɛ/ → Boren /oi̯/ (diphthong formation) | ohee |
+| 35 | **-ok-** | [ɔk] | ORDER | *rząd* "order" → /ʒɔnt/ → Boren /xɔːk/ (fricative → velar shift + vowel lengthening + final stop) | awk |
+| 36 | **-om-** | [ɔm] | PROTECTION | *chronić* "to protect" → /xrɔɲit͡ɕ/ → Boren /xɔːm/ (vowel lengthening + nasal retention) | awm |
+| 41 | **-on-** | [ɔn] | COMMUNITY | *społeczność* "community" → /spɔwɛt͡ʂɛɲstfɔ/ → Boren /sɔːn/ (vowel lengthening + nasal retention) | awn |
+| 42 | **-ou-** | [ou̯] | MOUNTAIN | *góra* "mountain" → /gura/ → Boren /ou̯/ (diphthong formation) | ohoo |
+| 43 | **-ra-** | [raː] | STONE | *kamień* "stone" → /kamʲɛɲ/ → Boren /raː/ (nasal → liquid shift + vowel lengthening) | rah (long vowel) |
+| 44 | **-rek-** | [rɛk] | RIVER | *rzeka* "river" → /ʐɛka/ → Boren /zɛːk/ → /rɛk/ (retroflex → fricative → liquid shift + final stop) | rehk |
+| 45 | **-ri-** | [riː] | BRIDGE | *most* "bridge" → /mɔst/ → Boren /riː/ (stop → liquid shift + vowel lengthening) | ree (long vowel) |
+| 46 | **-ro-** | [rɔː] | ROAD | *droga* "road" → /drɔɡa/ → Boren /rɔː/ (stop loss + vowel lengthening) | raw (long vowel) |
+| 51 | **-ruk-** | [ruk] | RUIN | *ruina* "ruin" → /ruina/ → Boren /ruːk/ (vowel lengthening + final stop) | rook |
+| 52 | **-ryk-** | [rɪk] | BOUNDARY | *granica* "border" → /ɡraɲit͡sa/ → Boren /rɪk/ (nasal loss + stop simplification) | rihk |
+| 53 | **-u-** | [uː] | DEPTH | *głębokość* "depth" → /ɡwɛmbɔkɔɕt͡ɕ/ → Boren /ɡuː/ (vowel backing + lengthening) | oo (long vowel) |
+| 54 | **-ui-** | [ui̯] | MIST | *mgła* "fog" → /mgwa/ → Boren /ui̯/ (diphthong formation) | ooee |
+| 55 | **-uk-** | [uk] | FLOW | *rzeka* "river" → /ʐɛka/ → Boren /zuːk/ (retroflex → fricative shift + vowel lengthening + final stop) | ook |
+| 56 | **-un-** | [un] | BLOODLINE | *rodzina* "family" → /rɔd͡ʑina/ → Boren /ruːn/ (vowel backing + lengthening + nasal retention) | oon |
+| 61 | **-ya-** | [jaː] | DAWN | *świt* "dawn" → /ɕfit/ → Boren /jaː/ (fricative loss + glide formation + vowel lengthening) | yah (long vowel) |
+| 62 | **-ye-** | [jɛː] | TRUTH | *prawda* "truth" → /pravda/ → Boren /jɛː/ (consonant loss + glide + vowel lengthening) | yeh (long vowel) |
+| 63 | **-yə-** | [jəː] | MEMORY | *pamięć* "memory" → /pamʲjɛɲt͡ɕ/ → Boren /jəː/ (nasal loss + schwa + vowel lengthening) | yuh (long vowel) |
+| 64 | **-yi-** | [jiː] | VIGILANCE | *czuwać* "to watch" → /t͡ʂuvat͡ɕ/ → Boren /jiː/ (affricate loss + glide + vowel lengthening) | yee (long vowel) |
+| 65 | **-yo-** | [jɔː] | HORIZON | *horyzont* "horizon" → /xɔrɨzɔnt/ → Boren /jɔː/ (consonant loss + glide + vowel lengthening) | yaw (long vowel) |
+| 66 | **-yu-** | [juː] | TWILIGHT | *zmierzch* "twilight" → /zmjɛʂx/ → Boren /juː/ (consonant loss + glide + vowel lengthening) | yoo (long vowel) |
 
 ---
 
